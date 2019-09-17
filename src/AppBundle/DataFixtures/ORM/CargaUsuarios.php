@@ -8,9 +8,9 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 // Descomentar:
-//class CargaUsuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface{
+class CargaUsuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface{
 // y comentar:
-class CargaUsuarios {
+//class CargaUsuarios {
 
 
   private $fosUserManagerService;
@@ -18,8 +18,14 @@ class CargaUsuarios {
 
   private $_usuarios = array(
     0 => array(
-      'username' => 'emi.sangoi',
+      'username' => 'esangoi',
       'email' => 'emiliano.sangoi@gmail.com',
+      'password' => '1234',
+      'roles' => array('ROLE_ADMIN')
+    ),
+    1 => array(
+      'username' => 'bbasconcel',
+      'email' => 'brisabasconcel@gmail.com',
       'password' => '1234',
       'roles' => array('ROLE_ADMIN')
     )

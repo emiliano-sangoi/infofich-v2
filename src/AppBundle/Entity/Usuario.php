@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 
 // Cambiar /* por /** para habilitar:
-/* <- aqui
+
+/**
  * 
  * Usuario
  *
