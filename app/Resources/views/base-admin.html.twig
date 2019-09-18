@@ -1,0 +1,147 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+      {{ parent() }}
+
+      <link href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+
+      {# https://tempusdominus.github.io/bootstrap-4/Usage/ #}
+      <link href="{{ asset('node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+  <div id="wrapper">
+
+
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <div>
+            {% block fos_user_content %}
+
+
+            {% endblock fos_user_content %}
+        </div>
+
+        {% block breadcrumbs %}
+          <div class="">
+            {{ wo_render_breadcrumbs() }}
+          </div>
+        {% endblock %}
+
+        <div class="">
+          <h2 class="mt-4 h3 font-weight-bold">
+            {% block main_title %}
+
+            {% endblock %}
+          </h2>
+        </div>
+
+        <div class="mt-4" id="main">
+          {% block main %}
+
+          {% endblock %}
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <!-- <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer> -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+  {{ parent() }}
+
+  <script src="{{ asset('bundles/app/js/sb-admin-js/sb-admin.min.js') }}" ></script>
+
+  <!-- https://tempusdominus.github.io/bootstrap-4/Usage/ --!>
+  <script src="{{ asset('node_modules/moment/min/moment-with-locales.min.js') }}" ></script>
+  <script src="{{ asset('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}" ></script>
+
+  <script>
+    $(function () {
+        $('.tempusdominus-datetimepicker').datetimepicker({
+            locale: 'es'
+        });
+
+        $('.confirmar-borrado').on('click', function(event){
+            var x = confirm("¿Esta seguro que desea borrar este registro?");
+            if (x)
+                return true;
+            else
+                return false;
+        });
+
+
+
+    });
+  </script>
+
+
+
+  <!-- Page level plugin JavaScript-->
+  <!-- <script src="vendor/chart.js/Chart.min.js"></script> --!>
+  <!-- <script src="vendor/datatables/jquery.dataTables.js"></script> --!>
+  <!-- <script src="vendor/datatables/dataTables.bootstrap4.js"></script>  --!>
+
+
+{% endblock %}
