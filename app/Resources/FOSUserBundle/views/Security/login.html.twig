@@ -1,4 +1,15 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{#% extends "FOSUserBundle::layout.html.twig" %#}
+{% extends '::base.html.twig' %}
+{% block title 'Login' %}
+    {% block metadesc %}Login{% endblock %}
+    {% block pageid 'paginaLogin' %}
+
+    
+    {% block content %}
+Bienvenido a InfoFICH
+
+Sistema de información institucional
+
 
 {% block fos_user_content %}
   {% if error %}
@@ -13,14 +24,16 @@
 
       <div class="form-group">
 
-        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+        {#<label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label> #}
+        <label for="username">Usuario</label>
         <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required="required"/>
 
       </div>
 
       <div class="form-group">
 
-        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+        {#<label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>#}
+        <label for="password">Contraseña</label>
         <input type="password" class="form-control" id="password" name="_password" required="required"/>
 
       </div>
@@ -29,14 +42,18 @@
 
         <input type="checkbox" id="remember_me" name="_remember_me" value="on" class="form-check-input"/>
         <label for="remember_me" class="form-check-label">
-          {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+          Recordarme
         </label>
+        {# {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }} #}
 
       </div>
 
-      <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+      <input type="submit" id="_submit" name="_submit" class="btn btn-primary" 
+      value="Acceder"/> {# value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}#}
     </form>
 
   </container>
 
 {% endblock fos_user_content %}
+
+{% endblock content %}
