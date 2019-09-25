@@ -1,0 +1,23 @@
+/* Estilos para el footer */
+
+
+
+#footer{
+
+  border: none;
+  background-color: inherit;
+
+  .btn-reset{
+    position: relative;
+    img{
+      position: absolute;
+      left: 8px;
+      vertical-align: middle;
+    }
+
+    span{
+      font-size: 150%;
+    }
+
+  }
+}

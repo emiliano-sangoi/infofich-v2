@@ -1,0 +1,117 @@
+// Variables
+
+
+// ======================================================================
+// Colores
+$primary: #015f93;
+
+$azul-1: #015f93;
+
+/*
+  Usos: paso inicial trapecio del header y rombo del footer (azul claro)
+*/
+$azul-2: #0a72b9;
+
+/*
+  Usos: recuadro ¿que hacer?
+*/
+$azul-3: #128bd2;
+
+/* Fondo teclado */
+$azul-4: #0873b9;
+
+/* Teclas */
+$azul-5: #1ca1ec;
+
+/* Sombra de teclas */
+$azul-6: #084f91;
+
+
+/**
+*/
+$shadow: #024b8f;
+
+$alerta: #dc0701;
+
+/*  boton borrar */
+$bordo: #6c0000;
+
+/* gris DNI */
+$gris-1: #e8e8e8;
+/* gris Fiscal */
+$gris-2: #c8c8c8;
+
+$white: white !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$dark: #262626;
+$dark-2: #212121;
+
+$grey-1: #ebebeb;
+
+/**
+Para todos los colores de esta lista se
+crearan automaticamentes fondos y colores de texto
+ */
+$colors: (
+        'white': $white,
+        'gray-100': $gray-100,
+        'gray-200': $gray-200,
+        'gray-300': $gray-300,
+        'gray-400': $gray-400,
+        'gray-500': $gray-500,
+        'gray-600': $gray-600,
+        'gray-700': $gray-700,
+        'gray-800': $gray-800,
+        'gray-900': $gray-900,
+        'black': $black,
+        'dark': $dark,
+        'dark-2': $dark-2,
+        'primary': $primary,
+        'azul-1': $azul-1,
+        'azul-2': $azul-2,
+        'azul-3': $azul-3,
+        'azul-4': $azul-4,
+        'azul-5': $azul-5,
+        'azul-6': $azul-6,
+        'bordo': $bordo,
+        'gris-1': $gris-1,
+        'gris-2': $gris-2,
+        'alerta': $alerta
+);
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color !important;
+  }
+
+  .text-color-#{$name} {
+    color: $color !important;
+  }
+}
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$sizes-start: 1;
+$sizes-end: 100;
+@for $i from $sizes-start through $sizes-end{
+  $sizes: map-merge(
+                  (
+                          $i+"" : $i + 0%
+                  ), $sizes);
+}
+
+$sizes: map-merge(
+  (
+          auto: auto
+  ), $sizes);

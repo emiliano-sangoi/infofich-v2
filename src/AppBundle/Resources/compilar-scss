@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# sudo apt-get install sass
+
+sass scss/styles.scss public/css/styles.css

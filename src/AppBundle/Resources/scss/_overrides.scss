@@ -1,0 +1,35 @@
+/**
+* _overrides.scss
+*
+* En este archivo se "pisan" estilos asignados por default por browsers y los frameworks utilizados.
+*
+* Autores:
+*   - Basconcel, Brisa
+*   - Galarza, Romina
+*   - Sangoi, Emiliano
+*/
+
+
+
+*{
+  border-radius: 0px !important;
+}
+
+.ui-btn{
+  text-shadow: none !important;
+  margin-left: .1rem !important;
+  margin-right: .1rem !important;
+  padding: .5rem 1rem;
+}
+
+a{
+    outline: 0;
+}
+
+.ui-overlay-a{
+  background-color: $white;
+}
+
+.ui-page-theme-a a{
+  color: $white !important;
+}

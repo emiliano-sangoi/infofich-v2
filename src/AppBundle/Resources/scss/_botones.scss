@@ -1,0 +1,157 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Dec 4, 2018, 4:49:58 PM
+    Author     : brisa
+*/
+
+/* Estilo para los botones del paso a paso */
+.btn-step {
+  background-color: $azul-2 !important;
+  /*box-shadow:10px 10px 0 rgba(0,0,0,.5);*/
+  color: $white !important;
+  display:inline-block;
+  text-decoration:none;
+  padding:.1rem 1rem;
+  font-size: 130% !important;
+  text-shadow: none;
+  width: 8%;
+
+
+
+}
+
+#parallelogram-container {
+      // margin: 0 50px;
+    }
+
+    .parallelogram{
+        position:relative;
+        background: #008dd0;
+        width:8%;
+        border:none;
+        display:inline-block;
+        // height:90px;
+
+        padding:0px;
+        margin:0 1px;
+    }
+
+    .parallelogram-m{
+
+        transform-origin: bottom left;
+        -ms-transform: skew(-28deg,0deg);
+        -webkit-transform: skew(-28deg,0deg);
+        transform: skew(-28deg,0deg);
+          margin-left:1px;
+    }
+    .step-start:after {
+        content: " ";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background:#008dd0;
+        transform-origin:bottom left;
+        -ms-transform: skew(-28deg,0deg);
+        -webkit-transform: skew(-28deg,0deg);
+        transform: skew(-28deg,0deg);
+    }
+    .step-end:before {
+        content: " ";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        left: -51px;
+        z-index: -1;
+        background: #ffa008;
+        transform-origin: bottom left;
+        -ms-transform: skew(-28deg,0deg);
+        -webkit-transform: skew(-28deg,0deg);
+        transform: skew(-28deg,0deg);
+    }
+
+    .parallelogram:first-child {
+        border-bottom-left-radius:5px;
+        border-top-left-radius: 5px;
+    }
+
+    .parallelogram-btn {
+      width: 60px;
+      position:relative;
+        background:#ffa008;
+        color:#FFF;
+        border: none;
+        display:inline-block;
+        height:90px;
+
+        border-bottom-right-radius:5px;
+        border-top-right-radius:5px;
+        padding:0px;
+        margin-left:51px;
+        font-weight:700;
+        cursor:pointer;
+    }
+
+.step-start:before {
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width: 0;
+    height: 0;
+    background-color: yellow;
+    border-top: 10px solid red;
+    border-right: 10px solid transparent;
+}
+
+.btn-step:hover {
+
+  /*box-shadow: 0 0 0 ;*/
+}
+
+.parallelogram{
+  transform: skew(-26deg);
+}
+
+.skew-fix{
+  display:inline-block;
+  transform: skew(26deg);
+}
+
+.trapezoid {
+  width: 30px;
+  text-align: center;
+  height: 0;
+  position: relative;
+  border-right: 50px solid transparent;
+  border-top: 40px solid #2963BD;
+  border-left: 0px solid transparent;
+  box-sizing: content-box;
+}
+.trapezoid span {
+  position: absolute;
+  top: -30px;
+  left: 25%;
+  color: #fff;
+}
+
+.trapezoid-7 {
+	border-bottom: 50px solid #555;
+	border-left: 25px solid transparent;
+	border-right: 0px solid transparent;
+	height: 0;
+	width: 125px;
+}
+
+.btn-print {
+    background-color: #1ca1ec !important;
+    height: 135px !important;
+}
