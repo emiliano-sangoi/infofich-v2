@@ -3,29 +3,7 @@
 
 // ======================================================================
 // Colores
-$primary: #015f93;
-
-$azul-1: #015f93;
-
-/*
-  Usos: paso inicial trapecio del header y rombo del footer (azul claro)
-*/
-$azul-2: #0a72b9;
-
-/*
-  Usos: recuadro ¿que hacer?
-*/
-$azul-3: #128bd2;
-
-/* Fondo teclado */
-$azul-4: #0873b9;
-
-/* Teclas */
-$azul-5: #1ca1ec;
-
-/* Sombra de teclas */
-$azul-6: #084f91;
-
+$primary: #006CB7;
 
 /**
 */
@@ -77,12 +55,6 @@ $colors: (
         'dark': $dark,
         'dark-2': $dark-2,
         'primary': $primary,
-        'azul-1': $azul-1,
-        'azul-2': $azul-2,
-        'azul-3': $azul-3,
-        'azul-4': $azul-4,
-        'azul-5': $azul-5,
-        'azul-6': $azul-6,
         'bordo': $bordo,
         'gris-1': $gris-1,
         'gris-2': $gris-2,

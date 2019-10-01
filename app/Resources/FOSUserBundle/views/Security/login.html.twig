@@ -8,14 +8,14 @@
 
 {% block content %}
     <div class="limiter">
-        <div class="container-login100" style="background-image: url('{{ asset(" bundles/app/images/fichgris.png") }}');">
+        <div class="container-login100">
             <div class="row">
-                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="col-2">
+                    <img class="img-fluid" src="{{ asset('bundles/app/images/Logo-FICH.png') }}"/>
+                </div>
+                <div class="col-6 offset-3">
                     <div class="card card-signin my-5">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Bienvenido a InfoFICH</h5>
-
-                            <h1 class="h3 mb-3 font-weight-normal">Sistema de información institucional</h1>
 
 
                             {% block fos_user_content %}
@@ -25,7 +25,26 @@
 
                                 <div class="container">
 
+
                                     <form action="{{ path("fos_user_security_check") }}" ="fos_user_security_check" )=")" }}""="}}" "" method="post" class="form-signin">
+
+                                        <div class="form-group">
+
+                                            <h3 class="font-weight-bold">
+                                                <span class="text-color-gray-700">
+                                                    Bienvenido a
+                                                </span>
+
+                                                <span class="text-color-primary">
+                                                    InfoFICH
+                                                </span>
+
+                                            </h3>
+
+                                            <h5 class="font-weight-normal text-color-gray-700">
+                                            Sistema de información institucional
+                                            </h5>
+                                        </div>
 
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
@@ -58,7 +77,8 @@
                                         </div>
 
                                         <input
-                                        type="submit" id="_submit" name="_submit" class="btn btn-primary" value="Acceder"/>
+                                        type="submit" id="_submit" name="_submit" 
+                                        class="btn btn-primary bg-primary float-right" value="Acceder"/>
                                     {# value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}#}
                                     </form>
 
