@@ -26,7 +26,9 @@ $ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX app/cache app/logs
 ```sh
 $ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX app/cache app/logs
 ```
-3. Instalar dependencias del proyecto:
+3. Copiar archivo del archivo paramter.yml.dist a parameter.yml en app/config y colocar datos de nuestra maquina local
+
+4. Instalar dependencias del proyecto:
 ```sh
 $ composer install
 ```
@@ -42,7 +44,7 @@ $ cd web/
 ```sh
 $ npm install
 ```
-4.  Configuración de la base de datos:
+5.  Configuración de la base de datos:
 ```sh
 $ php app/console doctrine:database:create
 ```
