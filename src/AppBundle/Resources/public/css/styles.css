@@ -13,12 +13,13 @@
 /**
 */
 /*  boton borrar */
-/* gris DNI */
-/* gris Fiscal */
+/* gris letras */
+/* gris boton cancelar */
 /**
 Para todos los colores de esta lista se
 crearan automaticamentes fondos y colores de texto
  */
+@import url(_sb-admin-2.css);
 .bg-white {
   background-color: white !important; }
 
@@ -110,16 +111,16 @@ crearan automaticamentes fondos y colores de texto
   color: #6c0000 !important; }
 
 .bg-gris-1 {
-  background-color: #e8e8e8 !important; }
+  background-color: #58595b !important; }
 
 .text-color-gris-1 {
-  color: #e8e8e8 !important; }
+  color: #58595b !important; }
 
 .bg-gris-2 {
-  background-color: #c8c8c8 !important; }
+  background-color: #bbbdbf !important; }
 
 .text-color-gris-2 {
-  color: #c8c8c8 !important; }
+  color: #bbbdbf !important; }
 
 .bg-alerta {
   background-color: #dc0701 !important; }
