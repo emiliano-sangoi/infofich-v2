@@ -1,0 +1,100 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">
+                <h3>Informaci&oacute;n básica de la asignatura</h3>
+            </div>
+            <div class="card-body">
+
+                <form name="formCrearPlanificacion" id="formCrearPlanificacion" 
+                      action="carga-formulario.php" method="post">
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="anio">Año</label>
+                            <input id="anio" name="anio" type ="text" value="2010" />
+                        </div>        
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="codigo_siu">C&oacute;digo SIU: </label>
+                            <input id="codigo_siu" name="codigo_siu" type ="text" value="2525" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="plan_estudio">Plan de estudio: </label>
+                            <input id="plan_estudio" name = "plan_estudio" type ="text" value="2" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-13 col-sm-12 col-xs-12">
+                            <label for="carrera_planificacion" >Asignatura</label>
+                            <select id="carrera_planificacion" name="carrera_planificacion" title="Seleccione la carrera..." 
+                                    class="selectpicker form-control"
+                                    data-live-search="true" data-live-search-style="begins"
+                                    onchange="completar_combo_cursos(this)" required>
+                                <option value="Seleccione">Seleccione</option>
+                                {#% for carrera in listadoCarreras %}
+                                    <option value="{{carrera.id_carrera}}">{{carrera.nombre}}</option>
+                                {% else %}
+                                    <option value="">No se encontraron Carreras</option>
+                                {% endfor %#}
+                            </select> 
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="departamento">Departamento</label>
+                            <input id="departamento" name="departamento" type ="text" value="" />
+                        </div>        
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="caracter">Caracter: </label>
+                            <input id="caracter" name = "caracter" type ="text" value="2" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label for="carga_horaria">Carga Horaria: </label>
+                            <input id="carga_horaria" name="carga_horaria" type ="text" value="2525" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-13 col-sm-12 col-xs-12">
+                            <label for="contenidos_minimos" >Contenidos Minimos</label>
+                            <textarea id="contenidos_minimos" name="contenidos_minimos" 
+                                      class=" form-control"
+                                      required>
+
+                            </textarea> 
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-s text-right">
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                            Siguiente
+                        </button>
+                        <a href="{{ path('index') }}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+
+                    {#
+                <div class="form-group">
+                    <label for="curso_planificacion" >Curso</label>
+                    <select id="curso_planificacion" name="curso_planificacion" title="Seleccione el curso..." 
+                            class="selectpicker form-control"
+                            data-live-search="true" data-live-search-style="begins" required>
+                        {#<option value="1">Matem&aacute;tica</option>
+                        <option value="2">Literatura</option>
+                        <option value="3">Filosofia</option> #}
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

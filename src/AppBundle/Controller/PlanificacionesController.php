@@ -6,6 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Planificaciones controller.
+ *
+ * @Route("planificaciones")
+ */
+
 class PlanificacionesController extends Controller
 {
     
@@ -15,18 +21,18 @@ class PlanificacionesController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('index.html.twig');
+        return $this->render('AppBundle:Planificaciones:index.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
     
     
     /**
-     * @Route("/planificaciones/carga", name="carga")
+     * @Route("/carga1", name="carga1")
      */
-    public function cargaAction(Request $request)
+    public function carga1Action(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('carga1.html.twig');
+        return $this->render('AppBundle:Planificaciones:carga1.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
 }
