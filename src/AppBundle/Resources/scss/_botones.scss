@@ -155,3 +155,9 @@ and open the template in the editor.
     background-color: #1ca1ec !important;
     height: 135px !important;
 }
+
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
