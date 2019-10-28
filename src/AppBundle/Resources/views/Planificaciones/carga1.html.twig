@@ -55,12 +55,12 @@
                             <input class="form-control" id="departamento" name="departamento" type="text" value="" required/>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="caracter">Caracter
+                            <label for="caracter">Carácter
                             </label>
                             <input class="form-control" id="caracter" name="caracter" type="text" value="2" disabled/>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="carga_horaria">Carga Horaria
+                            <label for="carga_horaria">Carga Horaria total
                             </label>
                             <input class="form-control" id="carga_horaria" name="carga_horaria" type="text" value="2525" disabled/>
                         </div>
@@ -69,7 +69,7 @@
 
                     <div class="form-row mt-4">
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <label for="contenidos_minimos">Contenidos Minimos</label>
+                            <label for="contenidos_minimos">Contenidos Mínimos</label>
                             <textarea id="contenidos_minimos" name="contenidos_minimos" class=" form-control" disabled></textarea>
                         </div>
                     </div>
@@ -84,45 +84,10 @@
                             Cancelar
                         </a>
                     </div>
-
-                    {#
-                                    <div class="form-group">
-                                        <label for="curso_planificacion" >Curso</label>
-                                        <select id="curso_planificacion" name="curso_planificacion" title="Seleccione el curso..." 
-                                                class="selectpicker form-control"
-                                                data-live-search="true" data-live-search-style="begins" required>
-                                            {#<option value="1">Matem&aacute;tica</option>
-                                            <option value="2">Literatura</option>
-                                            <option value="3">Filosofia</option> #}
-
                 </form>
 
             </div>
         </div>
     </div>
 
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-<script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>
 {% endblock %}

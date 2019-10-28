@@ -18,6 +18,7 @@
 @import'_overrides.scss';
 @import'_footer.scss';
 @import'_login.scss';
+@import'_sb-admin-2.css';
 
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -99,11 +100,6 @@ body{
 
 $content-info-left-panel-h: 23vh;
 $content-info-right-panel-h: 20.25vh;
-// $content-header-height: 9rem;
-// $step-info-border-t: 1.8rem;
-// $step-info-border-r: $step-info-border-t * 1.8;
-// $step-info-border-b: $step-info-h - $content-header-height;
-// $step-info-border-l: $step-info-border-b * 1.75;
 
 
 #content{

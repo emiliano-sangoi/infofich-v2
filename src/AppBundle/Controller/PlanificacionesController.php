@@ -21,7 +21,7 @@ class PlanificacionesController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('AppBundle:Planificaciones:index.html.twig');
+        return $this->render('AppBundle:Planificaciones:inicio.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
     
@@ -33,6 +33,16 @@ class PlanificacionesController extends Controller
     {
         // replace this example code with whatever you need
         return $this->render('AppBundle:Planificaciones:carga1.html.twig');
+        //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
+    }
+
+        /**
+     * @Route("/carga2", name="carga2")
+     */
+    public function carga2Action(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('AppBundle:Planificaciones:carga2.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
 }

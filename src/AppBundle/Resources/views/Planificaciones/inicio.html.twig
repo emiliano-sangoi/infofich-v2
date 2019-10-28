@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+  <div class="container">
+        <div class="card card-register mx-auto mt-5">
+           
+            <div class="card-body">
+
+                <form name="formCrearPlanificacion" id="formCrearPlanificacion" 
+                action="carga-formulario.php" method="post"
+                class="needs-validation" novalidate>
+
+                    
+
+                    <div class="form-row mt-4">
+                        <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                           <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Álgebra Lineal 2011
+                                            </button>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                         Carrera-plan
+
+                                         Docente responsable Juan Perez 
+                                         Estado actual (en revisión)   
+                                         Ultima modificación
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+   
+                   
+                    <div class="mt-s text-right">
+
+                        <button type="submit" class="btn btn btn-success">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                            Guardar
+                        </button>
+                        <a href="{{ path('index') }}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
