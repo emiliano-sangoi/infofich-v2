@@ -1,44 +1,90 @@
 {% extends '::base.html.twig' %}
 
+{% block barra %}
+    {% include 'AppBundle:Planificaciones:botonera.html.twig' %}
+{% endblock %}
+
+
 {% block content %}
-  <div class="container">
+    <div class="container">
         <div class="card card-register mx-auto mt-5">
-           
+
             <div class="card-body">
 
                 <form name="formCrearPlanificacion" id="formCrearPlanificacion" 
-                action="carga-formulario.php" method="post"
-                class="needs-validation" novalidate>
+                      action="carga-formulario.php" method="post"
+                      class="needs-validation" novalidate>
 
-                    
+
 
                     <div class="form-row mt-4">
                         <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                           <div id="accordion">
+                            <div id="accordion">
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Álgebra Lineal 2011
+                                                &Aacute;lgebra  lineal 2011 
                                             </button>
                                         </h5>
                                     </div>
 
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                         Carrera-plan
+                                        <div class="card-body">
+                                            <p><b>Carerra - plan</b></p>
+                                            <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
+                                                Estado actual (en revisi&oacute;n, Publicada)<br>
+                                                &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
+                                            </p>
+                                            <div class="mt-s text-right">
 
-                                         Docente responsable Juan Perez 
-                                         Estado actual (en revisión)   
-                                         Ultima modificación
+                                                <button type="submit" class="btn btn btn-outline-primary">
+                                                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                                    Editar
+                                                </button>
+                                                <a href="{{ path('index') }}" class="btn btn-outline-primary">
+                                                    Duplicar
+                                                </a>
+                                                    <a href="{{ path('index') }}" class="btn btn-outline-primary">
+                                                    Imprimir
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Collapsible Group Item #2
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                Collapsible Group Item #3
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-   
-                   
+
+
                     <div class="mt-s text-right">
 
                         <button type="submit" class="btn btn btn-success">
