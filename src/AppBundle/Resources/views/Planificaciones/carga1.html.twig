@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% block barra %}
+    {% include 'AppBundle:Planificaciones:botonera.html.twig' %}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="card card-register mx-auto mt-5">
