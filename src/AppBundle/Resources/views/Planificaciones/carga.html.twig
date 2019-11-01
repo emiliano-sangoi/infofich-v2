@@ -6,33 +6,69 @@
         <div class="row">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                    <a class="nav-link active" id="v-pills-informacion-tab" data-toggle="pill" href="#v-pills-informacion" role="tab" aria-controls="v-pills-informacion" aria-selected="true">
                         Información básica
                     </a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    <a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-docente" role="tab" aria-controls="v-pills-docente" aria-selected="false">
                         Equipo docente
                     </a>
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                    <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
                         Objetivos de la asignatura
                     </a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                    <a class="nav-link" id="v-pills-temario-tab" data-toggle="pill" href="#v-pills-temario" role="tab" aria-controls="v-pills-temario" aria-selected="false">
                         Temario
+                    </a>
+                    <a class="nav-link" id="v-pills-requisitos-tab" data-toggle="pill" href="#v-pills-requisitos" role="tab" aria-controls="v-pills-requisitos" aria-selected="false">
+                        Requisitos
+                    </a>
+                    <a class="nav-link" id="v-pills-modalidad-tab" data-toggle="pill" href="#v-pills-modalidad" role="tab" aria-controls="v-pills-modalidad" aria-selected="false">
+                        Modalidad
+                    </a>
+                    <a class="nav-link" id="v-pills-cronograma-tab" data-toggle="pill" href="#v-pills-cronograma" role="tab" aria-controls="v-pills-cronograma" aria-selected="false">
+                        Cronograma
+                    </a>
+                    <a class="nav-link" id="v-pills-distribucion-tab" data-toggle="pill" href="#v-pills-distribucion" role="tab" aria-controls="v-pills-distribucion" aria-selected="false">
+                        Distribucion
+                    </a>
+                    <a class="nav-link" id="v-pills-viajes-tab" data-toggle="pill" href="#v-pills-viajes" role="tab" aria-controls="v-pills-viajes" aria-selected="false">
+                        Viajes
+                    </a>
+                    <a class="nav-link" id="v-pills-bibliografia-tab" data-toggle="pill" href="#v-pills-bibliografia" role="tab" aria-controls="v-pills-bibliografia" aria-selected="false">
+                        Bibliografia
                     </a>
                 </div>
             </div>
             <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="tab-pane fade show active" id="v-pills-informacion" role="tabpanel" aria-labelledby="v-pills-informacion-tab">
                         {% include 'AppBundle:Planificaciones:informacion-basica.html.twig' %}
                     </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="tab-pane fade" id="v-pills-docente" role="tabpanel" aria-labelledby="v-pills-docente-tab">
                         {% include 'AppBundle:Planificaciones:equipo-docente.html.twig' %}
                     </div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div class="tab-pane fade" id="v-pills-objetivos" role="tabpanel" aria-labelledby="v-pills-objetivos-tab">
                         {% include 'AppBundle:Planificaciones:objetivos.html.twig' %}
                     </div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <div class="tab-pane fade" id="v-pills-temario" role="tabpanel" aria-labelledby="v-pills-temario-tab">
                         {% include 'AppBundle:Planificaciones:temario.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-requisitos" role="tabpanel" aria-labelledby="v-pills-requisitos-tab">
+                        {% include 'AppBundle:Planificaciones:requisitos.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-modalidad" role="tabpanel" aria-labelledby="v-pills-modalidad-tab">
+                        {% include 'AppBundle:Planificaciones:modalidad.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-cronograma" role="tabpanel" aria-labelledby="v-pills-cronograma-tab">
+                        {% include 'AppBundle:Planificaciones:cronograma.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-distribucion" role="tabpanel" aria-labelledby="v-pills-distribucion-tab">
+                        {% include 'AppBundle:Planificaciones:distribucion.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-viajes" role="tabpanel" aria-labelledby="v-pills-viajes-tab">
+                        {% include 'AppBundle:Planificaciones:viajes.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-bibliografia" role="tabpanel" aria-labelledby="v-pills-bibliografia-tab">
+                        {% include 'AppBundle:Planificaciones:bibliografia.html.twig' %}
                     </div>
                 </div>
             </div>
