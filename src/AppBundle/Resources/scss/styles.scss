@@ -223,3 +223,7 @@ $content-info-right-panel-h: 20.25vh;
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+
+.card-body{
+    background-color: rgba(0,0,0,.03);
+}
