@@ -12,6 +12,9 @@
                     <a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-docente" role="tab" aria-controls="v-pills-docente" aria-selected="false">
                         Equipo docente
                     </a>
+                    <a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-aprobacion" role="tab" aria-controls="v-pills-docente" aria-selected="false">
+                        Aprobación de la materia
+                    </a>
                     <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
                         Objetivos de la asignatura
                     </a>
@@ -45,6 +48,9 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-docente" role="tabpanel" aria-labelledby="v-pills-docente-tab">
                         {% include 'AppBundle:Planificaciones:equipo-docente.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-aprobacion" role="tabpanel" aria-labelledby="v-pills-docente-tab">
+                        {% include 'AppBundle:Planificaciones:aprobacion-asignatura.html.twig' %}
                     </div>
                     <div class="tab-pane fade" id="v-pills-objetivos" role="tabpanel" aria-labelledby="v-pills-objetivos-tab">
                         {% include 'AppBundle:Planificaciones:objetivos.html.twig' %}

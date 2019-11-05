@@ -804,4 +804,7 @@ body {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1); }
 
+.card-body {
+  background-color: rgba(0, 0, 0, 0.03); }
+
 /*# sourceMappingURL=styles.css.map */

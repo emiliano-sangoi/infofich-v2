@@ -15,3 +15,4 @@ nbproject
 web/node_modules
 src/AppBundle/Resources/.sass-cache
 app/Resources/views/..gitignore.swp
+src/AppBundle/Resources/css
