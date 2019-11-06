@@ -1,174 +1,170 @@
-{% extends '::base.html.twig' %}
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">
+            <h4>Equipo Docente</h4>
+        </div>
+        <div class="card-body">
 
-{% block content %}
-    <div class="container">
-        <div class="card card-register mx-auto mt-5">
-            <div class="card-header">
-                <h4>Equipo Docente</h4>
-            </div>
-            <div class="card-body">
+            <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
-                <form name="formCrearPlanificacion" id="formCrearPlanificacion" 
-                      action="carga-formulario.php" method="post"
-                      class="needs-validation" novalidate>
-
-                    <div class="form-row">
-                        <div class="form-group  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label for="responsable">Responsable</label>
-
-                        </div>
-                        <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label class="control-label" for="nombre">Nombre y Apellido </label>
-                            <select class="form-control" id="nombre" name="nombre" required>
-                                <option>Seleccione</option>
-                                <option>Juan Perez</option>
-                            </select>
-                            <div class="valid-feedback">
-                                V&aacute;lido
-                            </div>
-                        </div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label  for="dni" class="control-label">DNI</label>                            
-                            <input class="form-control" id="dni" name="dni" type="text" value=""/>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="responsable">Responsable</label>
 
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="telefono" class="control-label" >Teléfono</label>
-                            <input class="form-control" id="telefono" name="telefono" type="text" value=""/>
-                        </div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="email" class="control-label" >Correo electrónico</label>
-                            <input class="form-control" id="email" name="email" type="email" value=""/>
-                        </div>
-
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a href="{{ path('index') }}" class="btn btn-secondary">
-                                Añadir campo
-                            </a>
+                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label" for="nombre">Nombre y Apellido
+                        </label>
+                        <select class="form-control" id="nombre" name="nombre" required>
+                            <option>Seleccione</option>
+                            <option>Juan Perez</option>
+                        </select>
+                        <div class="valid-feedback">
+                            V&aacute;lido
                         </div>
                     </div>
-
-                    <!-- Colaborador -->
-
-                    <div class="form-row">
-                        <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label for="responsable">Colaborador</label>
-
-                        </div>
-                        <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label class="control-label" for="nombre_colaborador">Nombre y Apellido </label>
-                            <select class="form-control" id="nombre_colaborador" name="nombre_colaborador" required>
-                                <option>Seleccione</option>
-                                <option>Juan Perez</option>
-                            </select>
-                            <div class="valid-feedback">
-                                V&aacute;lido
-                            </div>
-                        </div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label  for="dni_colaborador" class="control-label">DNI</label>                            
-                            <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value=""/>
-                        </div>
-
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni" class="control-label">DNI</label>
+                        <input class="form-control" id="dni" name="dni" type="text" value=""/>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="telefono_colaborador" class="control-label" >Teléfono</label>
-                            <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
-                        </div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="email_colaborador" class="control-label" >Correo electrónico</label>
-                            <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
-                        </div>
+                </div>
 
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="telefono" class="control-label">Teléfono</label>
+                        <input class="form-control" id="telefono" name="telefono" type="text" value=""/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="email" class="control-label">Correo electrónico</label>
+                        <input class="form-control" id="email" name="email" type="email" value=""/>
                     </div>
 
-                    <!-- Adscripto -->
-
-                    <div class="form-row">
-                        <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label for="responsable">Adscripto</label>
-
-                        </div>
-                        <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label class="control-label" for="nombre_adscripto">Nombre y Apellido </label>
-                            <select class="form-control" id="nombre_adscripto" name="nombre_adscripto" required>
-                                <option>Seleccione</option>
-                                <option>Juan Perez</option>
-                            </select>
-                            <div class="valid-feedback">
-                                V&aacute;lido
-                            </div>
-                        </div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label  for="dni_adscripto" class="control-label">DNI</label>                            
-                            <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value=""/>
-                        </div>
-
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label for="resolucion" class="control-label" >Resolución de Consejo Directivo</label>
-                            <input class="form-control" id="resolucion" name="resolucion" type="text" value=""/>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a href="{{ path('index') }}" class="btn btn-secondary">
-                                Añadir campo
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="telefono_colaborador" class="control-label" >Teléfono</label>
-                            <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
-                        </div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label for="email_colaborador" class="control-label" >Correo electrónico</label>
-                            <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row">
-                        <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a href="{{ path('index') }}" class="btn btn-secondary">
-                                Añadir campo
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mt-s text-right">
-
-                        <button type="submit" class="btn btn btn-success">
-                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                            Guardar
-                        </button>
+                </div>
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a href="{{ path('index') }}" class="btn btn-secondary">
-                            Cancelar
+                            Añadir campo
                         </a>
-                    </div>         
+                    </div>
+                </div>
 
-                </form>
+                <!-- Colaborador -->
 
-            </div>
+                <div class="form-row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="responsable">Colaborador</label>
+
+                    </div>
+                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label" for="nombre_colaborador">Nombre y Apellido
+                        </label>
+                        <select class="form-control" id="nombre_colaborador" name="nombre_colaborador" required>
+                            <option>Seleccione</option>
+                            <option>Juan Perez</option>
+                        </select>
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni_colaborador" class="control-label">DNI</label>
+                        <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value=""/>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="telefono_colaborador" class="control-label">Teléfono</label>
+                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="email_colaborador" class="control-label">Correo electrónico</label>
+                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
+                    </div>
+
+                </div>
+
+                <!-- Adscripto -->
+
+                <div class="form-row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="responsable">Adscripto</label>
+
+                    </div>
+                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label" for="nombre_adscripto">Nombre y Apellido
+                        </label>
+                        <select class="form-control" id="nombre_adscripto" name="nombre_adscripto" required>
+                            <option>Seleccione</option>
+                            <option>Juan Perez</option>
+                        </select>
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni_adscripto" class="control-label">DNI</label>
+                        <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value=""/>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label for="resolucion" class="control-label">Resolución de Consejo Directivo</label>
+                        <input class="form-control" id="resolucion" name="resolucion" type="text" value=""/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="{{ path('index') }}" class="btn btn-secondary">
+                            Añadir campo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="telefono_colaborador" class="control-label">Teléfono</label>
+                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="email_colaborador" class="control-label">Correo electrónico</label>
+                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="{{ path('index') }}" class="btn btn-secondary">
+                            Añadir campo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-s text-right">
+
+                    <button type="submit" class="btn btn btn-success">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                    <a href="{{ path('index') }}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+
         </div>
     </div>
-
-{% endblock %}
+</div>
