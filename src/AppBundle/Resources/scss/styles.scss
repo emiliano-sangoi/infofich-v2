@@ -12,13 +12,13 @@
 */
 
 
-@import'_variables.scss';
-@import'_botones.scss';
-@import'_main-header.scss';
-@import'_overrides.scss';
-@import'_footer.scss';
-@import'_login.scss';
-//@import'_sb-admin-2.css';
+@import '_variables.scss';
+@import '_botones.scss';
+@import '_main-header.scss';
+@import '_overrides.scss';
+@import '_footer.scss';
+@import '_login.scss';
+//@import 'sb_admin2/sb-admin-2.scss';
 
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -28,27 +28,29 @@
 $font-lato: 'Lato';
 @font-face {
   font-family: $font-lato;
-  src: url('../fonts/Lato/Lato_Regular.ttf');
+  src: url('../fonts/Lato/Lato-Regular.ttf');
 }
 
 @font-face {
   font-family: $font-lato;
-  src: url('../fonts/Lato/Lato_Bold.ttf');
+  src: url('../fonts/Lato/Lato-Bold.ttf');
   font-weight: bold;
 }
 
 @font-face {
   font-family: $font-lato;
-  src: url('../fonts/Lato/Aller_RegularItalic.ttf');
+  src: url('../fonts/Lato/Lato-BlackItalic.ttf');
   font-style: italic;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: $font-lato;
-  src: url('../fonts/Lato/Aller_BolddItalic.ttf');
+  src: url('../fonts/Lato/Lato-RegularItalic.ttf');
   font-style: italic;
-  font-weight: bold;
 }
+
+
 
 
 .font-weight-light { font-weight: 300 !important; }
