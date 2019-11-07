@@ -5,107 +5,124 @@
             <div class="mb-4">
                 <h5>Distribución de carga horaria</h5>
             </div>
-            <form name="formDistribucion" id="formDistribucion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="total"> Total
+                    </label>
+                    <input class="form-control" id="total" name="total" type="number" value="" disabled/>                        
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="autonomo"> Estudio Autónomo </label>
+                    <input class="form-control" id="autonomo" name="autonomo" type="number" value="" disabled />
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="control-label" for="total"> Total
-                        </label>
-                        <input class="form-control" id="total" name="total" type="text" value="" disabled/>                        
+
+            <div class="form-row">
+                <div class="form-group required col-xs-12">
+                    <div>
+                        <label class="control-label" for="form_prac"> Formación práctica </label>
                     </div>
-                    <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="control-label" for="autonomo"> Estudio Autónomo </label>
-                        <input class="form-control" id="autonomo" name="autonomo" type="text" value="" disabled />
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input class="form-control" id="form_prac" name="form_prac" type="number" value="" required/>
+                    </div>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div>                    
+            </div>
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="form_exp">Formación experimental
+                    </label>
+                    <input class="form-control" id="form_exp" name="form_exp" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div>    
+                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label" for="resol_problem">Resolución de problemas abiertos de ing
+                    </label>
+                    <input class="form-control" id="resol_problem" name="resol_problem" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div> 
+            </div>
+
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="ejer_rut">Ejercicios rutinarios 
+                    </label>
+                    <input class="form-control" id="ejer_rut" name="ejer_rut" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div>    
+                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label" for="act_proy">Act. de proyecto y diseño
+                    </label>
+                    <input class="form-control" id="act_proy" name="act_proy" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div> 
+                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label" for="prac_final">Práctica final supervisada
+                    </label>
+                    <input class="form-control" id="prac_final" name="prac_final" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div> 
+            </div>
+
+
+
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="otras">Otras
+                    </label>
+                    <textarea id="otras" name="otras" class=" form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="carga_horaria">Carga horaria en aula
+                    </label>
+                    <input class="form-control" id="carga_horaria" name="carga_horaria" type="text" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
                     </div>
                 </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <h5>Actividad curricular </h5>                        
-                    </div>
-
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}">
-                            <i class="fa fa-plus-circle"></i> Añadir otra
-                        </a>
-                    </div>
+                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="hora_auto">Horas de estudio autónomo</label>
+                    <input class="form-control" id="hora_auto" data-toggle="tooltip" data-placement="top" title="Horas de estudio autónomo estimadas por el docente" name="hora_auto" type="text" value=""/>
                 </div>
-
-
-                <div class="form-row">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="control-label" for="tipo">Tipo
-                        </label>
-                        <input class="form-control" id="tipo" name="tipo" type="text" value="" required/>
-                        <div class="valid-feedback">
-                            Válido
-                        </div>
-                    </div>
-                    <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="control-label" for="fecha_cronograma">Fecha
-                        </label>
-                        <input class="form-control" id="fecha_cronograma" name="fecha_cronograma" type="date" value="2525"/>
-                    </div>
+            </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control"></textarea>
                 </div>
+            </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label" for="otras">Otras
-                        </label>
-                        <textarea id="otras" name="otras" class=" form-control"></textarea>
-                    </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label for="descripcion">Descripción
+                    </label>
+                    <textarea id="descripcion" name="descripcion" class=" form-control"></textarea>
                 </div>
-                <div class="form-row">
-                    <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label for="carga_horaria">Carga horaria en aula
-                        </label>
-                        <input class="form-control" id="carga_horaria" name="carga_horaria" type="text" value="" required/>
-                        <div class="valid-feedback">
-                            Válido
-                        </div>
-                    </div>
-                    <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label for="hora_auto">Horas de estudio autónomo</label>
-                        <input class="form-control" id="hora_auto" data-toggle="tooltip" data-placement="top" title="Horas de estudio autónomo estimadas por el docente" name="hora_auto" type="text" value=""/>
-                    </div>
-                </div>
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label" for="contenidos">Contenidos
-                        </label>
-                        <textarea id="contenidos" name="contenidos" class=" form-control"></textarea>
-                    </div>
-                </div>
+            </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                        <label for="descripcion">Descripción
-                        </label>
-                        <textarea id="descripcion" name="descripcion" class=" form-control"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}">
-                            <i class="fa fa-plus-circle"></i> Añadir otra actividad
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="mt-s text-right">
-
-                    <button type="submit" class="btn btn btn-success">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Guardar
-                    </button>
-                    <a href="{{ path('index') }}" class="btn btn-secondary">
-                        Cancelar
+            <div class="form-row mt-4">
+                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <a href="{{ path('index') }}">
+                        <i class="fa fa-plus-circle"></i> Añadir otra actividad
                     </a>
                 </div>
-            </form>
-
+            </div>
         </div>
     </div>
 </div>
