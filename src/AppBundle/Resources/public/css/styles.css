@@ -19,7 +19,6 @@
 Para todos los colores de esta lista se
 crearan automaticamentes fondos y colores de texto
  */
-@import url(_sb-admin-2.css);
 .bg-white {
   background-color: white !important; }
 
@@ -310,6 +309,14 @@ a {
 .ui-page-theme-a a {
   color: white !important; }
 
+.nav-pills .nav-link {
+  border-radius: 0.35rem; }
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #0063ae; }
+
 /* Estilos para el footer */
 #footer {
   border: none;
@@ -401,20 +408,20 @@ a {
 /* Tipografias */
 @font-face {
   font-family: "Lato";
-  src: url("../fonts/Lato/Lato_Regular.ttf"); }
+  src: url("../fonts/Lato/Lato-Regular.ttf"); }
 @font-face {
   font-family: "Lato";
-  src: url("../fonts/Lato/Lato_Bold.ttf");
+  src: url("../fonts/Lato/Lato-Bold.ttf");
   font-weight: bold; }
 @font-face {
   font-family: "Lato";
-  src: url("../fonts/Lato/Aller_RegularItalic.ttf");
-  font-style: italic; }
-@font-face {
-  font-family: "Lato";
-  src: url("../fonts/Lato/Aller_BolddItalic.ttf");
+  src: url("../fonts/Lato/Lato-BlackItalic.ttf");
   font-style: italic;
   font-weight: bold; }
+@font-face {
+  font-family: "Lato";
+  src: url("../fonts/Lato/Lato-RegularItalic.ttf");
+  font-style: italic; }
 .font-weight-light {
   font-weight: 300 !important; }
 
