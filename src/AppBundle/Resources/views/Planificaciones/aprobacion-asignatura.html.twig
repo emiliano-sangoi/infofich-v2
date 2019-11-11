@@ -3,15 +3,15 @@
 
         <div class="card-body">
             <div class="mb-4">
-                <h4>Requisitos para la regulación de la asignatura</h4>
+                <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
+                    Requisitos para la regulación de la asignatura</h4>
             </div>
 
 
             <form name="formAprobacionAsig" id="formAprobacionAsig" action="" method="post" class="needs-validation" novalidate>
 
                 <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-
+                    
                     <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label class="control-label" for="asistencia">Asistencia
                         </label>
@@ -25,19 +25,15 @@
                             V&aacute;lido
                         </div>
                     </div>
-
                 </div>
 
-
                 <!-- Parciales -->
-
                 <div class="form-row">
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label for="responsable">Parciales</label>
-
                     </div>
                     <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label class="control-label" for="primer_parcial">Primer Parcial</label>
+                        <label class="control-label" for="primer_parcial">Primer Parcial </label>
                         <input type="date" class="form-control" id="primer_parcial" name="primer_parcial" required/>
 
                         <div class="valid-feedback">
@@ -45,7 +41,7 @@
                         </div>
                     </div>
                     <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label class="control-label" for="segundo_parcial">Segundo Parcial</label>
+                        <label class="control-label" for="segundo_parcial">Segundo Parcial </label>
                         <input type="date" class="form-control" id="segundo_parcial" name="segundo_parcial" required/>
 
                         <div class="valid-feedback">
@@ -57,8 +53,8 @@
                 <div class="form-row">
                     <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}" class="btn btn-secondary">
-                            Añadir campo
+                        <a href="{{ path('index') }}">
+                            <i class="fa fa-plus-circle"></i> Añadir campo
                         </a>
                     </div>
                 </div>
@@ -80,6 +76,151 @@
 
                 </div>
 
+                <div class="mb-4">
+                    <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
+                        Requisitos para la promoción de la asignatura</h4>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-md-offset-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <label class="control-label"  for="promocion_parcial">Prevé promoción parcial </label>
+                    </div> 
+                    <div class="form-group col-md-offset-4 required  col-lg-4 col-md-4  col-sm-12 col-xs-12">
+                        <label class="radio-inline">
+                            Sí <input type="radio" name="promo_parcial_radio" checked>
+                        </label>
+                        <label class="radio-inline">
+                            No <input type="radio" name="promo_parcial_radio">
+                        </label>
+                    </div>
+
+                    <div class="form-group col-md-offset-4 required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label class="radio-inline">
+                            Teoría <input type="radio" name="tp_parcial_radio" checked>
+                        </label>
+                        <label class="radio-inline">
+                            Práctica <input type="radio" name="tp_parcial_radio">
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label class="control-label"  for="promocion_parcial">Prevé coloquio final integrador </label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label class="radio-inline">
+                            Sí <input type="radio" name="coloquio_final_radio" checked>
+                        </label>
+                        <label class="radio-inline">
+                            No <input type="radio" name="coloquio_parcial_radio">
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label >Formato</label>
+                    </div>
+
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label >Fecha</label>                        
+                    </div>
+
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label >Recuperatorio</label>                        
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="exam_final_ck" value="option1">
+                            <label class="form-check-label" for="exam_final_ck">Exámen Final</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="exam_final_fecha" name="exam_final_fecha" required/>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="exam_final_recup" name="exam_final_recup" required/>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="coloquio_ck" value="option1">
+                            <label class="form-check-label" for="coloquio_ck">Coloquio</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="coloquio_fecha" name="coloquio_fecha" required/>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="coloquio_recup" name="coloquio_recup" required/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="tp_final_ck" value="option1">
+                            <label class="form-check-label" for="tp_final_ck">Trabajo final integrador</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="tp_final_fecha" name="tp_final_fecha" required/>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="tp_final_recup" name="tp_final_recup" required/>
+                    </div>
+                </div>                
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="presentacion_ck" value="option1">
+                            <label class="form-check-label" for="presentacion_ck">Presentación oral</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="presentacion_fecha" name="presentacion_fecha" required/>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="date" class="form-control" id="presentacion_recup" name="presentacion_recup" required/>
+                    </div>
+                </div>        
+
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label for="otros_asignatura">Otros</label>
+                        <textarea id="otros_asignatura" name="otros_asignatura" class=" form-control"></textarea>
+                    </div>
+                </div>
+
+                 <div class="mb-4">
+                    <h4> Estudiantes libres</h4>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="responsable">Examen Final</label>
+
+                    </div>
+
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                        <label  for="modalidad" class="control-label">Modalidad</label>                            
+                        <input class="form-control" id="modalidad" name="modalidad" type="text" value=""/>
+                    </div>
+
+                </div>
+                
                 <div class="mt-s text-right">
 
                     <button type="submit" class="btn btn btn-success">

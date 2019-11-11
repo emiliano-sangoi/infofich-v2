@@ -3,14 +3,13 @@
 
         <div class="card-body">
             <div class="mb-4">
-            <h4>Equipo Docente</h4>
+                <h4>Equipo Docente</h4>
             </div>
-            <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+            <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="" method="post" class="needs-validation" novalidate>
 
                 <div class="form-row">
                     <div class="form-group  col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label for="responsable">Responsable</label>
-
                     </div>
                     <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label class="control-label" for="nombre">Nombre y Apellido
@@ -23,30 +22,30 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="dni" class="control-label">DNI</label>
+                    <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni" class="control-label">DNI </label>
                         <input class="form-control" id="dni" name="dni" type="text" value=""/>
                     </div>
 
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="telefono" class="control-label">Teléfono</label>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="telefono" class="control-label">Teléfono </label>
                         <input class="form-control" id="telefono" name="telefono" type="text" value=""/>
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="email" class="control-label">Correo electrónico</label>
+                    <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="email" class="control-label">Correo electrónico </label>
                         <input class="form-control" id="email" name="email" type="email" value=""/>
                     </div>
 
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}" class="btn btn-secondary">
-                            Añadir campo
+                        <a href="{{ path('index') }}" >
+                              <i class="fa fa-plus-circle"></i>Añadir campo
                         </a>
                     </div>
                 </div>
@@ -58,7 +57,7 @@
                         <label for="responsable">Colaborador</label>
 
                     </div>
-                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label class="control-label" for="nombre_colaborador">Nombre y Apellido
                         </label>
                         <select class="form-control" id="nombre_colaborador" name="nombre_colaborador" required>
@@ -69,15 +68,15 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="dni_colaborador" class="control-label">DNI</label>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni_colaborador" class="control-label">DNI </label>
                         <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value=""/>
                     </div>
 
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="telefono_colaborador" class="control-label">Teléfono</label>
                         <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
@@ -96,7 +95,7 @@
                         <label for="responsable">Adscripto</label>
 
                     </div>
-                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label class="control-label" for="nombre_adscripto">Nombre y Apellido
                         </label>
                         <select class="form-control" id="nombre_adscripto" name="nombre_adscripto" required>
@@ -107,36 +106,36 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="dni_adscripto" class="control-label">DNI</label>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="dni_adscripto" class="control-label">DNI </label>
                         <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value=""/>
                     </div>
 
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label for="resolucion" class="control-label">Resolución de Consejo Directivo</label>
                         <input class="form-control" id="resolucion" name="resolucion" type="text" value=""/>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}" class="btn btn-secondary">
-                            Añadir campo
+                        <a href="{{ path('index') }}">
+                            <i class="fa fa-plus-circle"></i>Añadir campo
                         </a>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="telefono_colaborador" class="control-label">Teléfono</label>
+                        <label for="telefono_colaborador" class="control-label">Teléfono </label>
                         <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="email_colaborador" class="control-label">Correo electrónico</label>
+                        <label for="email_colaborador" class="control-label">Correo electrónico </label>
                         <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
                     </div>
 
@@ -144,10 +143,10 @@
 
 
                 <div class="form-row">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}" class="btn btn-secondary">
-                            Añadir campo
+                        <a href="{{ path('index') }}">
+                            <i class="fa fa-plus-circle"></i> Añadir campo
                         </a>
                     </div>
                 </div>
