@@ -33,3 +33,14 @@ a{
 .ui-page-theme-a a{
   color: $white !important;
 }
+
+.nav-pills .nav-link {
+  color: #6b6b6b;
+  border-radius: 0.35rem;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #0063ae;
+}
