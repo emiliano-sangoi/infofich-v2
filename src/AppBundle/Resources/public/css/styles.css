@@ -103,6 +103,12 @@ crearan automaticamentes fondos y colores de texto
 .text-color-primary {
   color: #006CB7 !important; }
 
+.bg-azul {
+  background-color: #0063ae !important; }
+
+.text-color-azul {
+  color: #0063ae !important; }
+
 .bg-bordo {
   background-color: #6c0000 !important; }
 
@@ -317,6 +323,12 @@ a {
 .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #0063ae; }
+
+light-font .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff; }
+
+.light-font .breadcrumb-item.active {
+  color: #fff; }
 
 /* Estilos para el footer */
 #footer {
