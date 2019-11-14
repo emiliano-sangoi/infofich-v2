@@ -6,24 +6,23 @@
                 <h5>Distribución de carga horaria</h5>
             </div>
             <div class="form-row">
-                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <label class="control-label" for="total"> Total
                     </label>
                     <input class="form-control" id="total" name="total" type="number" value="" disabled/>                        
                 </div>
-                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <label class="control-label" for="autonomo"> Estudio Autónomo </label>
                     <input class="form-control" id="autonomo" name="autonomo" type="number" value="" disabled />
                 </div>
             </div>
-
 
             <div class="form-row">
                 <div class="form-group required col-xs-12">
                     <div>
                         <label class="control-label" for="form_prac"> Formación práctica </label>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6">
                         <input class="form-control" id="form_prac" name="form_prac" type="number" value="" required/>
                     </div>
                     <div class="valid-feedback">
@@ -32,18 +31,23 @@
                 </div>                    
             </div>
             <div class="form-row">
-                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label class="control-label" for="form_exp">Formación experimental
-                    </label>
-                    <input class="form-control" id="form_exp" name="form_exp" type="number" value="" required/>
+                <div class="form-group required col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div>
+                        <label class="control-label" for="form_exp">Formación experimental
+                        </label>
+                        <input class="form-control" id="form_exp" name="form_exp" type="number" value="" required/>
+                    </div>
                     <div class="valid-feedback">
                         Válido
                     </div>
                 </div>    
-                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label" for="resol_problem">Resolución de problemas abiertos de ing
-                    </label>
-                    <input class="form-control" id="resol_problem" name="resol_problem" type="number" value="" required/>
+                <div class="form-group required  col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                    <div>
+                        <label class="control-label" for="resol_problem">Resolución de problemas abiertos de ing
+                        </label>
+                        <input class="form-control" id="resol_problem" name="resol_problem" type="number" value="" required/>
+                    </div>
+                    
                     <div class="valid-feedback">
                         Válido
                     </div>
@@ -122,6 +126,16 @@
                         <i class="fa fa-plus-circle"></i> Añadir otra actividad
                     </a>
                 </div>
+            </div>
+            <div class="mt-s text-right">
+
+                <button type="submit" class="btn btn btn-success">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
+                <a href="{{ path('index') }}" class="btn btn-secondary">
+                    Cancelar
+                </a>
             </div>
         </div>
     </div>
