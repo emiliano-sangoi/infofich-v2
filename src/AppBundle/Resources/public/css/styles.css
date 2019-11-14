@@ -324,11 +324,11 @@ a {
   color: #fff;
   background-color: #0063ae; }
 
-light-font .breadcrumb-item + .breadcrumb-item::before {
-  color: #fff; }
+.light-font .breadcrumb-item + .breadcrumb-item::before {
+  color: white !important; }
 
 .light-font .breadcrumb-item.active {
-  color: #fff; }
+  color: white !important; }
 
 /* Estilos para el footer */
 #footer {
