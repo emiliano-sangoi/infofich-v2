@@ -2,205 +2,222 @@
 
 
 {% block content %}
-	<div class="container">
+    <div class="container">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbarNavDropdown" class="navbar-collapse collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-                </li>
-                
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarNavDropdown" class="navbar-collapse collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                    </li>
 
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Dropdown
+
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Navbar-->
+        <nav
+            class="navbar navbar-light light-blue lighten-4">
+
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="#">info FICH</a>
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+
+            <!-- Nav Item - User Information -->
+            <ul class="navbar-nav ml-auto mr-1">
+                <li class="nav-item dropdown no-arrow ">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-400 small">Usuario InfoFICH</span>
+                        <img class="img-thumbnail" style="width:5%" src="{{ asset('bundles/app/images/perfil.png') }}">
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Datos Personales
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Cerrar Sesión
+                        </a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Register</a>
-                </li>
             </ul>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler toggler-example flex-grow-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="dark-blue-text">
+                    <i class="fas fa-bars fa-1x"></i>
+                </span>
+            </button>
+
+
+            <!-- Collapsible content -->
+            <div
+                class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Inicio
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Listados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Módulos</a>
+                    </li>
+                </ul>
+                <!-- Links -->
+
+
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+
+        <div class="light-font">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-azul mb-1">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Álgebra lineal 2019 (AI 2006)</li>
+                </ol>
+            </nav>
         </div>
-    </nav>
-		
 
-		<!--Navbar-->
-		<nav
-			class="navbar navbar-light light-blue lighten-4">
+        <div class="row no-gutters pt-0">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-informacion-tab" data-toggle="pill" href="#v-pills-informacion" role="tab" aria-controls="v-pills-informacion" aria-selected="true">
+                        Información básica
+                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-docente" role="tab" aria-controls="v-pills-docente" aria-selected="false">
+                        Equipo docente
+                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-aprobacion" role="tab" aria-controls="v-pills-docente" aria-selected="false">
+                        Aprobación de la materia
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
+                        Objetivos de la asignatura
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-temario-tab" data-toggle="pill" href="#v-pills-temario" role="tab" aria-controls="v-pills-temario" aria-selected="false">
+                        Temario
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-bibliografia-tab" data-toggle="pill" href="#v-pills-bibliografia" role="tab" aria-controls="v-pills-bibliografia" aria-selected="false">
+                        Bibliografia
+                        <i class="far fa-circle float-right"></i>
+                    </a>
 
+                    <a class="nav-link" id="v-pills-cronograma-tab" data-toggle="pill" href="#v-pills-cronograma" role="tab" aria-controls="v-pills-cronograma" aria-selected="false">
+                        Cronograma de enseñanza
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-distribucion-tab" data-toggle="pill" href="#v-pills-distribucion" role="tab" aria-controls="v-pills-distribucion" aria-selected="false">
+                        Distribucion de carga horaria
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-viajes-tab" data-toggle="pill" href="#v-pills-viajes" role="tab" aria-controls="v-pills-viajes" aria-selected="false">
+                        Viajes académicos
+                        <i class="far fa-circle float-right"></i>
+                    </a>
 
-			<!-- Navbar brand -->
-			<a class="navbar-brand" href="#">info FICH</a>
-			<div class="topbar-divider d-none d-sm-block"></div>
-
-
-			<!-- Nav Item - User Information -->
-			<ul class="navbar-nav ml-auto mr-1">
-				<li class="nav-item dropdown no-arrow ">
-					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span class="mr-2 d-none d-lg-inline text-gray-400 small">Usuario InfoFICH</span>
-						<img class="img-thumbnail" style="width:5%" src="{{ asset('bundles/app/images/perfil.png') }}">
-					</a>
-					<!-- Dropdown - User Information -->
-					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="#">
-							<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-							Datos Personales
-						</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-							Cerrar Sesión
-						</a>
-					</div>
-				</li>
-			</ul>
-
-			<!-- Collapse button -->
-			<button class="navbar-toggler toggler-example flex-grow-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="dark-blue-text">
-					<i class="fas fa-bars fa-1x"></i>
-				</span>
-			</button>
-
-
-			<!-- Collapsible content -->
-			<div
-				class="collapse navbar-collapse" id="navbarSupportedContent1">
-
-				<!-- Links -->
-				<ul class="navbar-nav mr-auto">
+                </div>
+            </div>
+            <div class="col-9">
+                <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                    <div class="tab-content" id="v-pills-tabContent">
 
 
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Inicio
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Listados</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Módulos</a>
-					</li>
-				</ul>
-				<!-- Links -->
+                        <div class="tab-pane fade show active" id="v-pills-informacion" role="tabpanel" aria-labelledby="v-pills-informacion-tab">
+                            {% include 'AppBundle:Planificaciones:informacion-basica.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-docente" role="tabpanel" aria-labelledby="v-pills-docente-tab">
+                            {% include 'AppBundle:Planificaciones:equipo-docente.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-aprobacion" role="tabpanel" aria-labelledby="v-pills-docente-tab">
+                            {% include 'AppBundle:Planificaciones:aprobacion-asignatura.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-objetivos" role="tabpanel" aria-labelledby="v-pills-objetivos-tab">
+                            {% include 'AppBundle:Planificaciones:objetivos.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-temario" role="tabpanel" aria-labelledby="v-pills-temario-tab">
+                            {% include 'AppBundle:Planificaciones:temario.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-bibliografia" role="tabpanel" aria-labelledby="v-pills-bibliografia-tab">
+                            {% include 'AppBundle:Planificaciones:bibliografia.html.twig' %}
+                        </div>
 
 
-			</div>
-			<!-- Collapsible content -->
-
-		</nav>
-		<!--/.Navbar-->
-
-		<div class="light-font">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb bg-azul">
-					<li class="breadcrumb-item">
-						<a class="text-color-white" href="#">PLANIFICACIONES</a>
-					</li>
-					<li class="breadcrumb-item active" aria-current="page">Álgebra lineal 2019 (AI 2006)</li>
-				</ol>
-			</nav>
-		</div>
-
-		<div class="row no-gutters pt-0">
-			<div class="col-3">
-				<div class="nav flex-column nav-pills mt-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a class="nav-link active" id="v-pills-informacion-tab" data-toggle="pill" href="#v-pills-informacion" role="tab" aria-controls="v-pills-informacion" aria-selected="true">
-						Información básica
-						<i class="far fa-check-circle float-right" style="color:green"></i>
-					</a>
-					<a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-docente" role="tab" aria-controls="v-pills-docente" aria-selected="false">
-						Equipo docente
-						<i class="far fa-check-circle float-right" style="color:green"></i>
-					</a>
-					<a class="nav-link" id="v-pills-docente-tab" data-toggle="pill" href="#v-pills-aprobacion" role="tab" aria-controls="v-pills-docente" aria-selected="false">
-						Aprobación de la materia
-						<i class="far fa-circle float-right"></i>
-					</a>
-					<a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
-						Objetivos de la asignatura
-						<i class="far fa-circle float-right"></i>
-					</a>
-					<a class="nav-link" id="v-pills-temario-tab" data-toggle="pill" href="#v-pills-temario" role="tab" aria-controls="v-pills-temario" aria-selected="false">
-						Temario
-						<i class="far fa-circle float-right"></i>
-					</a>
-					<a class="nav-link" id="v-pills-bibliografia-tab" data-toggle="pill" href="#v-pills-bibliografia" role="tab" aria-controls="v-pills-bibliografia" aria-selected="false">
-						Bibliografia
-						<i class="far fa-circle float-right"></i>
-					</a>
-
-					<a class="nav-link" id="v-pills-cronograma-tab" data-toggle="pill" href="#v-pills-cronograma" role="tab" aria-controls="v-pills-cronograma" aria-selected="false">
-						Cronograma de enseñanza
-						<i class="far fa-circle float-right"></i>
-					</a>
-					<a class="nav-link" id="v-pills-distribucion-tab" data-toggle="pill" href="#v-pills-distribucion" role="tab" aria-controls="v-pills-distribucion" aria-selected="false">
-						Distribucion de carga horaria
-						<i class="far fa-circle float-right"></i>
-					</a>
-					<a class="nav-link" id="v-pills-viajes-tab" data-toggle="pill" href="#v-pills-viajes" role="tab" aria-controls="v-pills-viajes" aria-selected="false">
-						Viajes académicos
-						<i class="far fa-circle float-right"></i>
-					</a>
-
-				</div>
-			</div>
-			<div class="col-9">
-                            <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
-				<div class="tab-content" id="v-pills-tabContent">
-                                    
-
-					<div class="tab-pane fade show active" id="v-pills-informacion" role="tabpanel" aria-labelledby="v-pills-informacion-tab">
-						{% include 'AppBundle:Planificaciones:informacion-basica.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-docente" role="tabpanel" aria-labelledby="v-pills-docente-tab">
-						{% include 'AppBundle:Planificaciones:equipo-docente.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-aprobacion" role="tabpanel" aria-labelledby="v-pills-docente-tab">
-						{% include 'AppBundle:Planificaciones:aprobacion-asignatura.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-objetivos" role="tabpanel" aria-labelledby="v-pills-objetivos-tab">
-						{% include 'AppBundle:Planificaciones:objetivos.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-temario" role="tabpanel" aria-labelledby="v-pills-temario-tab">
-						{% include 'AppBundle:Planificaciones:temario.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-bibliografia" role="tabpanel" aria-labelledby="v-pills-bibliografia-tab">
-						{% include 'AppBundle:Planificaciones:bibliografia.html.twig' %}
-					</div>
+                        <div class="tab-pane fade" id="v-pills-cronograma" role="tabpanel" aria-labelledby="v-pills-cronograma-tab">
+                            {% include 'AppBundle:Planificaciones:cronograma.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-distribucion" role="tabpanel" aria-labelledby="v-pills-distribucion-tab">
+                            {% include 'AppBundle:Planificaciones:distribucion.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-viajes" role="tabpanel" aria-labelledby="v-pills-viajes-tab">
+                            {% include 'AppBundle:Planificaciones:viajes.html.twig' %}
+                        </div>
 
 
-					<div class="tab-pane fade" id="v-pills-cronograma" role="tabpanel" aria-labelledby="v-pills-cronograma-tab">
-						{% include 'AppBundle:Planificaciones:cronograma.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-distribucion" role="tabpanel" aria-labelledby="v-pills-distribucion-tab">
-						{% include 'AppBundle:Planificaciones:distribucion.html.twig' %}
-					</div>
-					<div class="tab-pane fade" id="v-pills-viajes" role="tabpanel" aria-labelledby="v-pills-viajes-tab">
-						{% include 'AppBundle:Planificaciones:viajes.html.twig' %}
-					</div>
 
-				</div>
-                            </form>
-			</div>
-		</div>
+                    </div>
+                    <div class="col-12 mt-s text-right mb-4">
+
+                        <button type="submit" class="btn btn btn-success">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                            Guardar
+                        </button>
+                        <a href="{{ path('index') }}" class="btn btn-primary">
+                            Finalizar y Enviar
+                        </a>
+                        <a href="{{ path('index') }}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
 
 
-	</div>
+    </div>
 {% endblock %}

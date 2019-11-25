@@ -1,94 +1,96 @@
-<div class="card card-register mx-auto mt-5 ml-10">
+<div class="container">
+    <div class="card card-register mx-auto">
 
-    <div class="card-body">
-        <div class="mb-4">
-            <h4>Viajes Académicos</h4>
-        </div>
-
-
-        <div class="form-row">
-            <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                <label for="responsable">Actividad</label>
-            </div>
-            <div class="form-group required col-md-6 col-sm-6 col-xs-12">
-                <label class="control-label" for="objetivo">Objetivo
-                </label>
-                <textarea id="objetivo" name="objetivo" class=" form-control"></textarea>
+        <div class="card-body">
+            <div class="mb-4">
+                <h4>Viajes Académicos</h4>
             </div>
 
-        </div>
-        <div class="form-row">
-            <div class="form-group required col-md-6 offset-md-2">
-                <label class="control-label" for="recorrido">Recorrido (indicando horarios) </label>
-                <textarea id="recorrido" name="recorrido" class="form-control"></textarea></div>
-        </div>
-        <div class="form-row">
-            <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                <label for="pasajeros">Pasajeros</label>
-            </div>
-            <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                <label class="control-label" for="pasajeros_estudiantes">Estudiantes </label>
-                <input type="number" class="form-control" id="pasajeros_estudiantes" name="pasajeros_estudiantes" required/>
 
-                <div class="valid-feedback">
-                    V&aacute;lido
+            <div class="form-row">
+                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label for="responsable">Actividad</label>
+                </div>
+                <div class="form-group required col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label" for="objetivo">Objetivo
+                    </label>
+                    <textarea id="objetivo" name="objetivo" class=" form-control"></textarea>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-6 offset-md-2">
+                    <label class="control-label" for="recorrido">Recorrido (indicando horarios) </label>
+                    <textarea id="recorrido" name="recorrido" class="form-control"></textarea></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label for="pasajeros">Pasajeros</label>
+                </div>
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label class="control-label" for="pasajeros_estudiantes">Estudiantes </label>
+                    <input type="number" class="form-control" id="pasajeros_estudiantes" name="pasajeros_estudiantes" required/>
+
+                    <div class="valid-feedback">
+                        V&aacute;lido
+                    </div>
+                </div>
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label class="control-label" for="pasajeros_docentes">Docentes </label>
+                    <input type="number" class="form-control" id="pasajeros_docentes" name="pasajeros_docentes" required/>
+
+                    <div class="valid-feedback">
+                        V&aacute;lido
+                    </div>
+                </div>
+                <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label for="pasajeros_total">Total </label>
+                    <input type="number" class="form-control" id="pasajeros_total" name="pasajeros_total" required/>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    <label class="control-label" for="movilidad">Tipo de movilidad </label>
+                    <select class="form-control" id="movilidad" name="movilidad" required>
+                        <option>Auto</option>
+                        <option>Colectivo</option>
+                    </select>
                 </div>
             </div>
-            <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                <label class="control-label" for="pasajeros_docentes">Docentes </label>
-                <input type="number" class="form-control" id="pasajeros_docentes" name="pasajeros_docentes" required/>
-
-                <div class="valid-feedback">
-                    V&aacute;lido
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    <label class="control-label" for="fecha_tentativa">Fecha tentativa</label>
+                    <input type="date" class="form-control" id="fecha_tentativa" name="fecha_tentativa" required/>
+                </div>
+                <div class="form-group required col-md-2">
+                    <label class="control-label" for="cant_dias">Cantidad de días</label>
+                    <input type="number" class="form-control" id="cant_dias" name="cant_dias" required/>
                 </div>
             </div>
-            <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                <label for="pasajeros_total">Total </label>
-                <input type="number" class="form-control" id="pasajeros_total" name="pasajeros_total" required/>
-            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
+                    <select class="form-control" id="asig_vinc" name="asig_vinc" required>
+                        <option>Álgebra</option>
+                        <option>Matemática Básica</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="listado">Listado</label>
 
-        </div>
-        <div class="form-row">
-            <div class="form-group required col-md-4 offset-md-2">
-                <label class="control-label" for="movilidad">Tipo de movilidad </label>
-                <select class="form-control" id="movilidad" name="movilidad" required>
-                    <option>Auto</option>
-                    <option>Colectivo</option>
-                </select>
+                </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group required col-md-4 offset-md-2">
-                <label class="control-label" for="fecha_tentativa">Fecha tentativa</label>
-                <input type="date" class="form-control" id="fecha_tentativa" name="fecha_tentativa" required/>
-            </div>
-            <div class="form-group required col-md-2">
-                <label class="control-label" for="cant_dias">Cantidad de días</label>
-                <input type="number" class="form-control" id="cant_dias" name="cant_dias" required/>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group required col-md-4 offset-md-2">
-                <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
-                <select class="form-control" id="asig_vinc" name="asig_vinc" required>
-                    <option>Álgebra</option>
-                    <option>Matemática Básica</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="listado">Listado</label>
+            <div class="form-row">
 
+                <div class="form-group required col-md-4 offset-md-2">
+                    <a href="{{ path('index') }}" >
+                          <i class="fa fa-plus-circle"></i>Añadir otro
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="form-row">
 
-            <div class="form-group required col-md-4 offset-md-2">
-                <a href="{{ path('index') }}" >
-                      <i class="fa fa-plus-circle"></i>Añadir otro
-                </a>
-            </div>
-        </div>
     </div>
-
 </div>
 
