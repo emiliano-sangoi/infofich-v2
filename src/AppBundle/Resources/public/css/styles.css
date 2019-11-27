@@ -133,6 +133,12 @@ crearan automaticamentes fondos y colores de texto
 .text-color-alerta {
   color: #dc0701 !important; }
 
+.bg-verde {
+  background-color: #009e75 !important; }
+
+.text-color-verde {
+  color: #009e75 !important; }
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -265,6 +271,16 @@ and open the template in the editor.
 .btn-print {
   background-color: #1ca1ec !important;
   height: 135px !important; }
+
+.btn-verde {
+  color: #fff;
+  background-color: #009e75;
+  border-color: #009e75; }
+
+.btn-azul {
+  color: #fff;
+  background-color: #0063ae;
+  border-color: #0063ae; }
 
 .form-group.required .control-label:after {
   content: "*";

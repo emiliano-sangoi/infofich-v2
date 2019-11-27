@@ -156,6 +156,19 @@ and open the template in the editor.
     height: 135px !important;
 }
 
+.btn-verde {
+  color: #fff;
+  background-color: #009e75;
+  border-color: #009e75;
+}
+
+.btn-azul {
+  color: #fff;
+  background-color: #0063ae;
+  border-color: #0063ae;
+}
+
+
 .form-group.required .control-label:after {
   content:"*";
   color:red;
