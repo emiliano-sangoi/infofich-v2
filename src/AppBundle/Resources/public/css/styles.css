@@ -843,4 +843,13 @@ body {
 .card-body {
   background-color: rgba(0, 0, 0, 0.03); }
 
+.line-height-100 {
+  line-height: 100%; }
+
+#menuLateral .nav-link {
+  line-height: 100%;
+  padding: .9em 1.5em; }
+  #menuLateral .nav-link.active i {
+    color: white !important; }
+
 /*# sourceMappingURL=styles.css.map */
