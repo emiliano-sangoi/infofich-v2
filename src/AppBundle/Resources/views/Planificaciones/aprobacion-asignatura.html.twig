@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container pr-0 mt-4">
     <div class="card card-register mx-auto">
 
-        <div class="card-body">
+        <div class="card-body px-5">
             <div class="mb-4">
                 <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
                     Requisitos para la regulación de la asignatura</h4>
@@ -16,9 +16,9 @@
                     </label>
 
                     <select class="form-control" id="asistencia" name="asistencia" required>
-                        <option>Seleccione</option>
-                        <option>70%</option>
-                        <option>80%</option>
+                        <option value="" selected="true" disabled="disabled">Seleccione</option>
+                        <option value="70">70%</option>
+                        <option value="80">80%</option>
                     </select>
                     <div class="valid-feedback">
                         V&aacute;lido
@@ -70,7 +70,7 @@
                 <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
                     <label  for="modalidad" class="control-label">Modalidad</label>                            
-                    <input class="form-control" id="modalidad" name="modalidad" type="text" value=""/>
+                    <input class="form-control" id="modalidad" name="modalidad" type="text" value="" required/>
                 </div>
 
             </div>
@@ -136,69 +136,69 @@
 
             <div class="form-row">
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="exam_final_ck" value="option1">
-                        <label class="form-check-label" for="exam_final_ck">Exámen Final</label>
+                    <div class="form-check-inline">
+                        <input class="" type="checkbox" id="exam_final_ck" value="option1">
+                        <label class="" for="exam_final_ck">Exámen Final</label>
                     </div>
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="exam_final_fecha" name="exam_final_fecha" required/>
+                    <input type="date" class="form-control" id="exam_final_fecha" name="exam_final_fecha" />
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="exam_final_recup" name="exam_final_recup" required/>
+                    <input type="date" class="form-control" id="exam_final_recup" name="exam_final_recup" />
                 </div>
             </div>
 
 
             <div class="form-row">
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="coloquio_ck" value="option1">
-                        <label class="form-check-label" for="coloquio_ck">Coloquio</label>
+                    <div class="">
+                        <input class="" type="checkbox" id="coloquio_ck" value="option1">
+                        <label class="" for="coloquio_ck">Coloquio</label>
                     </div>
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="coloquio_fecha" name="coloquio_fecha" required/>
+                    <input type="date" class="form-control" id="coloquio_fecha" name="coloquio_fecha" />
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="coloquio_recup" name="coloquio_recup" required/>
+                    <input type="date" class="form-control" id="coloquio_recup" name="coloquio_recup" />
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="tp_final_ck" value="option1">
-                        <label class="form-check-label" for="tp_final_ck">Trabajo final integrador</label>
+                    <div class="">
+                        <input class="" type="checkbox" id="tp_final_ck" value="option1">
+                        <label class="" for="tp_final_ck">Trabajo final integrador</label>
                     </div>
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="tp_final_fecha" name="tp_final_fecha" required/>
+                    <input type="date" class="form-control" id="tp_final_fecha" name="tp_final_fecha" />
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="tp_final_recup" name="tp_final_recup" required/>
+                    <input type="date" class="form-control" id="tp_final_recup" name="tp_final_recup" />
                 </div>
             </div>                
 
             <div class="form-row">
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="presentacion_ck" value="option1">
-                        <label class="form-check-label" for="presentacion_ck">Presentación oral</label>
+                    <div class="">
+                        <input class="" type="checkbox" id="presentacion_ck" value="option1">
+                        <label class="" for="presentacion_ck">Presentación oral</label>
                     </div>
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="presentacion_fecha" name="presentacion_fecha" required/>
+                    <input type="date" class="form-control" id="presentacion_fecha" name="presentacion_fecha" />
                 </div>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="date" class="form-control" id="presentacion_recup" name="presentacion_recup" required/>
+                    <input type="date" class="form-control" id="presentacion_recup" name="presentacion_recup" />
                 </div>
             </div>        
 
             <div class="form-row mt-4">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label for="otros_asignatura">Otros</label>
-                    <textarea id="otros_asignatura" name="otros_asignatura" class=" form-control"></textarea>
+                    <textarea id="otros_asignatura" name="otros_asignatura" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -215,7 +215,7 @@
                 <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
                     <label  for="modalidad" class="control-label">Modalidad</label>                            
-                    <input class="form-control" id="modalidad" name="modalidad" type="text" value=""/>
+                    <input class="form-control" id="modalidad" name="modalidad" type="text" value="" required/>
                 </div>
 
             </div>

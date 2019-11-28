@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container pr-0 mt-4">
     <div class="card card-register mx-auto">
 
-        <div class="card-body">
+        <div class="card-body px-5">
             <div class="mb-4">
                 <h4>Equipo Docente</h4>
             </div>
@@ -14,16 +14,13 @@
                         <label class="control-label" for="nombre">Nombre y Apellido
                         </label>
                         <select class="form-control" id="nombre" name="nombre" required>
-                            <option>Seleccione</option>
-                            <option>Juan Perez</option>
-                        </select>
-                        <div class="valid-feedback">
-                            V&aacute;lido
-                        </div>
+                            <option value="">Seleccione</option>
+                            <option value="JuanP">Juan Perez</option>
+                        </select>                        
                     </div>
                     <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="dni" class="control-label">DNI </label>
-                        <input class="form-control" id="dni" name="dni" type="text" value=""/>
+                        <input class="form-control" id="dni" name="dni" type="text" value="" required/>
                     </div>
 
                 </div>
@@ -32,11 +29,11 @@
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="telefono" class="control-label">Teléfono </label>
-                        <input class="form-control" id="telefono" name="telefono" type="text" value=""/>
+                        <input class="form-control" id="telefono" name="telefono" type="text" value="" required/>
                     </div>
                     <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="email" class="control-label">Correo electrónico </label>
-                        <input class="form-control" id="email" name="email" type="email" value=""/>
+                        <input class="form-control" id="email" name="email" type="email" value="" required/>
                     </div>
 
                 </div>
@@ -60,8 +57,8 @@
                         <label class="control-label" for="nombre_colaborador">Nombre y Apellido
                         </label>
                         <select class="form-control" id="nombre_colaborador" name="nombre_colaborador" required>
-                            <option>Seleccione</option>
-                            <option>Juan Perez</option>
+                            <option value="">Seleccione</option>
+                            <option value="JuanP">Juan Perez</option>
                         </select>
                         <div class="valid-feedback">
                             V&aacute;lido
@@ -69,7 +66,7 @@
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="dni_colaborador" class="control-label">DNI </label>
-                        <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value=""/>
+                        <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value="" required/>
                     </div>
 
                 </div>
@@ -78,11 +75,11 @@
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="telefono_colaborador" class="control-label">Teléfono</label>
-                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
+                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value="" required/>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="email_colaborador" class="control-label">Correo electrónico</label>
-                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
+                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value="" required/>
                     </div>
 
                 </div>
@@ -98,8 +95,8 @@
                         <label class="control-label" for="nombre_adscripto">Nombre y Apellido
                         </label>
                         <select class="form-control" id="nombre_adscripto" name="nombre_adscripto" required>
-                            <option>Seleccione</option>
-                            <option>Juan Perez</option>
+                            <option value="">Seleccione</option>
+                            <option value="">Juan Perez</option>
                         </select>
                         <div class="valid-feedback">
                             V&aacute;lido
@@ -107,7 +104,7 @@
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="dni_adscripto" class="control-label">DNI </label>
-                        <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value=""/>
+                        <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value="" required/>
                     </div>
 
                 </div>
@@ -115,7 +112,7 @@
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label for="resolucion" class="control-label">Resolución de Consejo Directivo</label>
-                        <input class="form-control" id="resolucion" name="resolucion" type="text" value=""/>
+                        <input class="form-control" id="resolucion" name="resolucion" type="text" value="" required/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -131,11 +128,11 @@
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <label for="telefono_colaborador" class="control-label">Teléfono </label>
-                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value=""/>
+                        <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value="" required/>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="email_colaborador" class="control-label">Correo electrónico </label>
-                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value=""/>
+                        <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value="" required/>
                     </div>
 
                 </div>

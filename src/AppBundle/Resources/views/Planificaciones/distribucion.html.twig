@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container pr-0 mt-4">
     <div class="card card-register mx-auto">
 
-        <div class="card-body">
+        <div class="card-body px-5">
             <div class="mb-4">
                 <h5>Distribución de carga horaria</h5>
             </div>
@@ -81,52 +81,34 @@
                 </div> 
             </div>
 
-
-
-            <div class="form-row mt-4">
-                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label" for="otras">Otras
-                    </label>
-                    <textarea id="otras" name="otras" class=" form-control"></textarea>
-                </div>
-            </div>
             <div class="form-row">
-                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label for="carga_horaria">Carga horaria en aula
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label class="control-label" for="ejer_rut">Teoría 
                     </label>
-                    <input class="form-control" id="carga_horaria" name="carga_horaria" type="text" value="" required/>
+                    <input class="form-control" id="ejer_rut" name="ejer_rut" type="number" value="" required/>
                     <div class="valid-feedback">
                         Válido
                     </div>
-                </div>
-                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label for="hora_auto">Horas de estudio autónomo</label>
-                    <input class="form-control" id="hora_auto" data-toggle="tooltip" data-placement="top" title="Horas de estudio autónomo estimadas por el docente" name="hora_auto" type="text" value=""/>
-                </div>
-            </div>
-            <div class="form-row mt-4">
-                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label" for="contenidos">Contenidos
+                </div>    
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label class="control-label" for="act_proy">Evaluación
                     </label>
-                    <textarea id="contenidos" name="contenidos" class=" form-control"></textarea>
-                </div>
+                    <input class="form-control" id="act_proy" name="act_proy" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div> 
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label class="control-label" for="prac_final">Consultas
+                    </label>
+                    <input class="form-control" id="prac_final" name="prac_final" type="number" value="" required/>
+                    <div class="valid-feedback">
+                        Válido
+                    </div>
+                </div> 
             </div>
 
-            <div class="form-row mt-4">
-                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                    <label for="descripcion">Descripción
-                    </label>
-                    <textarea id="descripcion" name="descripcion" class=" form-control"></textarea>
-                </div>
-            </div>
-
-            <div class="form-row mt-4">
-                <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <a href="{{ path('index') }}">
-                        <i class="fa fa-plus-circle"></i> Añadir otra actividad
-                    </a>
-                </div>
-            </div>            
+          
         </div>
     </div>
 </div>

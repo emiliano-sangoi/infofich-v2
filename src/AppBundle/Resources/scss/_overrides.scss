@@ -12,14 +12,14 @@
 
 
 *{
-  border-radius: 0px !important;
+    border-radius: 0px !important;
 }
 
 .ui-btn{
-  text-shadow: none !important;
-  margin-left: .1rem !important;
-  margin-right: .1rem !important;
-  padding: .5rem 1rem;
+    text-shadow: none !important;
+    margin-left: .1rem !important;
+    margin-right: .1rem !important;
+    padding: .5rem 1rem;
 }
 
 a{
@@ -27,27 +27,35 @@ a{
 }
 
 .ui-overlay-a{
-  background-color: $white;
+    background-color: $white;
 }
 
 .ui-page-theme-a a{
-  color: $white !important;
+    color: $white !important;
 }
 
 .nav-pills .nav-link {
-  color: #6b6b6b;
-  border-radius: 0.35rem;
+    color: #6b6b6b;
+    border-radius: 0.35rem;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #0063ae;
+    color: #fff;
+    background-color: #0063ae;
 }
 
 .light-font .breadcrumb-item + .breadcrumb-item::before {
-  color: $white !important; }
-  .light-font .breadcrumb-item.active {
-  color: $white !important; }
+    color: $white !important; }
+.light-font .breadcrumb-item.active {
+    color: $white !important; }
 
-  
+#accordion .card .card-header{
+    background-color: $azul !important; 
+    color: $white;
+}
+
+#accordion .card .card-header .btn{
+    color: $white;
+}
+

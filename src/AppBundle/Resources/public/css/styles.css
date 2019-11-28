@@ -346,6 +346,13 @@ a {
 .light-font .breadcrumb-item.active {
   color: white !important; }
 
+#accordion .card .card-header {
+  background-color: #0063ae !important;
+  color: white; }
+
+#accordion .card .card-header .btn {
+  color: white; }
+
 /* Estilos para el footer */
 #footer {
   border: none;
