@@ -1,0 +1,21 @@
+{% macro notificacion(titulo, msg, tipo = 'success', fa_icon = 'fa-exclamation-circle' ) %}        
+    <div class="alert notificacion-{{ tipo }} alert-dismissible fade show" role="alert">
+
+        <div class="row">
+            <div class="col-lg-1 py-2">
+                <i class="fas fa-2x {{ fa_icon }}"></i>
+            </div>
+            <div class="col-lg-11">
+                <h6 class="font-weight-bold text-color-black titulo"> {{ titulo }}</h6>
+                <p class="mb-0 text-color-gris-3 msg">{{ msg }}</p>
+            </div>
+            <div class="text-right">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+{% endmacro %}

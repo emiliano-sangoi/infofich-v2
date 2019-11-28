@@ -5,63 +5,7 @@
     <div class="container">
 
     
-        <!--Navbar-->
-        <nav
-            class="navbar navbar-light light-blue lighten-4 pr-0 pb-0">
-
-
-            <!-- Navbar brand -->
-            <a class="navbar-brand" href="#">info FICH</a>
-            {# <div class="topbar-divider d-none d-sm-block"></div> #}
-
-
-            <!-- Nav Item - User Information -->
-            <ul class="list-unstyled text-right mb-0 ">
-                <li class="nav-item dropdown no-arrow d-inline-block align-middle">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-400">Usuario InfoFICH</span>
-                        {# <img class="img-thumbnail" style="width:5%" src="{{ asset('bundles/app/images/perfil.png') }}"> #}
-                         <i class="fas fa-user fa-sm fa-fw"></i>
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Datos Personales
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Cerrar Sesión
-                        </a>
-                    </div>
-                </li>
-
-
-            <!-- Nav Item - Hamburguesa -->
-                <li class="nav-item dropdown no-arrow d-inline-block align-middle">
-                    <a class="nav-link bg-azul text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                        
-                        <i class="fas fa-bars fa-2x"></i>
-                    </a>
-                    <!-- Dropdown - Hamburguesa -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Inicio
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-400"></i>
-                            Módulos
-                        </a>
-                    </div>
-                </li>
-            </ul>
-
-            
-
-        </nav>
-        <!--/.Navbar-->
+    {#% include 'AppBundle:Planificaciones:navbar.html.twig' %#}    
 
         <div class="light-font mb-0">
             <nav aria-label="breadcrumb ">

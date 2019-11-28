@@ -15,6 +15,7 @@
 /*  boton borrar */
 /* gris letras */
 /* gris boton cancelar */
+/* gris usuario navbar */
 /**
 Para todos los colores de esta lista se
 crearan automaticamentes fondos y colores de texto
@@ -126,6 +127,12 @@ crearan automaticamentes fondos y colores de texto
 
 .text-color-gris-2 {
   color: #bbbdbf !important; }
+
+.bg-gris-3 {
+  background-color: #575756 !important; }
+
+.text-color-gris-3 {
+  color: #575756 !important; }
 
 .bg-alerta {
   background-color: #dc0701 !important; }
@@ -506,6 +513,12 @@ body {
 .text-center {
   text-align: center !important; }
 
+.position-relative {
+  position: relative; }
+
+.position-absolute {
+  position: absolute; }
+
 .w-auto {
   width: auto !important; }
 
@@ -858,5 +871,42 @@ body {
   padding: .9em 1.5em; }
   #menuLateral .nav-link.active i {
     color: white !important; }
+
+.notificacion-warning {
+  border: 1px solid #ffc122;
+  border-left: 8px solid #ffc122; }
+  .notificacion-warning i.fas {
+    color: #ffc122; }
+  .notificacion-warning .titulo {
+    color: #ffc122; }
+  .notificacion-warning .msg {
+    color: #575756; }
+
+.notificacion-error {
+  border: 1px solid #dd3445;
+  border-left: 8px solid #dd3445; }
+  .notificacion-error i.fas {
+    color: #dd3445; }
+  .notificacion-error .titulo {
+    color: #dd3445; }
+  .notificacion-error .msg {
+    color: #575756; }
+
+.notificacion-success {
+  border: 1px solid #009e75;
+  border-left: 8px solid #009e75; }
+  .notificacion-success i.fas {
+    color: #009e75; }
+  .notificacion-success .titulo {
+    color: #009e75; }
+  .notificacion-success .msg {
+    color: #575756; }
+
+.acordeon-header {
+  position: relative; }
+  .acordeon-header i.fa {
+    position: absolute;
+    right: 0;
+    top: 14%; }
 
 /*# sourceMappingURL=styles.css.map */

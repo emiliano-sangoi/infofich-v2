@@ -18,6 +18,7 @@
 @import '_overrides.scss';
 @import '_footer.scss';
 @import '_login.scss';
+@import '_mixins.scss';
 //@import 'sb_admin2/sb-admin-2.scss';
 
 
@@ -88,6 +89,10 @@ body{
 .text-left { text-align: left !important; }
 .text-right { text-align: right !important; }
 .text-center { text-align: center !important; }
+
+.position-relative{ position: relative; }
+.position-absolute{ position: absolute; }
+
 
 
 
@@ -248,6 +253,30 @@ $content-info-right-panel-h: 20.25vh;
     }
 
 
+  }
+
+}
+
+.notificacion-warning{
+  @include notificacion($notific-warning,$notific-warning);
+}
+
+.notificacion-error{
+  @include notificacion($notific-alerta, $notific-alerta);
+}
+
+.notificacion-success{
+  @include notificacion($notific-success, $notific-success);
+}
+
+
+.acordeon-header{
+  position: relative;
+
+  i.fa{
+    position: absolute;
+    right: 0;
+    top: 14%;
   }
 
 }

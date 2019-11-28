@@ -1,1 +1,19 @@
 
+
+@mixin notificacion($border-color, $icon-color, $tit-color: black, $msg-color: #575756 ) {
+    border: 1px solid $border-color;
+    border-left: 8px solid $border-color;
+
+    i.fas{
+        color: $icon-color;
+    }
+
+    .titulo{
+        color: $icon-color;
+    }
+
+    .msg{
+        color: $msg-color;
+    }
+    
+}

@@ -20,6 +20,8 @@ $bordo: #6c0000;
 $gris-1: #58595b;
 /* gris boton cancelar */
 $gris-2: #bbbdbf;
+/* gris usuario navbar */
+$gris-3: #575756;
 
 $white: white !default;
 $gray-100: #f8f9fa !default;
@@ -37,6 +39,11 @@ $dark: #262626;
 $dark-2: #212121;
 
 $grey-1: #ebebeb;
+
+// Notificaciones:
+$notific-alerta: #dd3445;
+$notific-warning: #ffc122;
+$notific-success: #009e75;
 
 /**
 Para todos los colores de esta lista se
@@ -61,7 +68,8 @@ $colors: (
         'bordo': $bordo,
         'gris-1': $gris-1,
         'gris-2': $gris-2,
-        'alerta': $alerta,
+        'gris-3': $gris-3,
+        'alerta': $alerta,       
         'verde': $verde
 
 );

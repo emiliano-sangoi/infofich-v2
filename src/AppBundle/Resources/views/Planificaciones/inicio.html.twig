@@ -2,106 +2,122 @@
 
 {% block content %}
     <div class="container">
-        <div class="card card-register mx-auto mt-5">
+    <div class="light-font mb-0">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-azul mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+                
+                </ol>
+            </nav>
+        </div>
+        <div class="mt-5">
 
-            <div class="card-body">
-                <div class="form-row mt-4">
-                    <div class="alert alert-warning alert-dismissible fade show  col-md-8" role="alert">
-                        <strong>Aviso</strong> Tiene revisiones pendientes
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+            <div class="">
+                <div class="row">
+                    <div class="offset-2 col-lg-8">
+                        <div class="mt-4">
 
+                            {% from '::macros.html.twig' import notificacion %}
 
-                    <div class="alert alert-danger alert-dismissible fade show  col-md-8" role="danger">
-                        <strong>Importante!</strong>  Error en datos de contacto
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>                
-                </div>
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-8">
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header card-header-azul" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            &Aacute;lgebra  lineal 2011 
-                                        </button>
-                                    </h5>
-                                </div>
+                            {{ notificacion('Aviso', 'Tiene revisiones pendientes', 'warning') }}
 
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p><b>Carerra - plan</b></p>
-                                        <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
-                                            Estado actual (en revisi&oacute;n, Publicada)<br>
-                                            &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
-                                        </p>
-                                        <div class="mt-s text-right">
+                            <div class="mt-3"></div>
 
-                                            <button type="submit" class="btn btn btn-outline-primary">
-                                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                                                Editar
-                                            </button>
-                                            <a href="{{ path('index') }}" class="btn btn-outline-primary">
-                                                Duplicar
-                                            </a>
-                                            <a href="{{ path('index') }}" class="btn btn-outline-primary">
-                                                Imprimir
-                                            </a>
+                            {{ notificacion('Importante!', 'Error en datos de contacto', 'error') }}
+
+                            <div class="mt-3"></div>
+
+                            {{ notificacion('Importante!', 'Parece que anduvo todo', 'success') }}
+            
+                        </div>
+                        <div class="form-row mt-4">
+                            <div class="form-group required col-md-12">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header card-header-azul" id="headingOne">
+                                            <h5 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    &Aacute;lgebra  lineal 2011
+                                                    <i class="fa fa-2x fa-caret-down"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p><b>Carerra - plan</b></p>
+                                                <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
+                                                    Estado actual (en revisi&oacute;n, Publicada)<br>
+                                                    &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
+                                                </p>
+                                                <div class="mt-s text-right">
+
+                                                    <button type="submit" class="btn btn btn-outline-primary">
+                                                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                                        Editar
+                                                    </button>
+                                                    <a href="{{ path('index') }}" class="btn btn-outline-primary">
+                                                        Duplicar
+                                                    </a>
+                                                    <a href="{{ path('index') }}" class="btn btn-outline-primary">
+                                                        Imprimir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Algebra Lineal 2012
+                                                    <i class="fa fa-2x fa-caret-down"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h5 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Algebra Lineal 2013
+                                                    <i class="fa fa-2x fa-caret-down"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Algebra Lineal 2012
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Algebra Lineal 2013
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+
+
+                        <div class="mt-s text-right">
+
+                            {# <button type="submit" class="btn btn btn-success">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                Crear Nueva
+                            </button>#}
+                            <a href="{{ path('carga-planificacion') }}" class="btn btn-success">
+                                Crear Nueva
+                            </a>
+
+                        </div>
+
+
                     </div>
                 </div>
-
-
-                <div class="mt-s text-right">
-
-                    {# <button type="submit" class="btn btn btn-success">
-                         <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                         Crear Nueva
-                     </button>#}
-                    <a href="{{ path('carga-planificacion') }}" class="btn btn-success">
-                        Crear Nueva
-                    </a>
-
-                </div>
-
-
             </div>
         </div>
     </div>
