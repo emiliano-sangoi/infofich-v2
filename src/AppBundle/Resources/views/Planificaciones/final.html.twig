@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+    <div class="light-font mb-0">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-azul mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+                
+                </ol>
+            </nav>
+        </div>
+        <div class="mt-5">
+
+            <div class="">
+                <div class="row">
+                    <div class="offset-2 col-lg-8">
+                        <i class="far fa-check-circle float-left"></i>
+                        <div class="mt-4">
+
+                            <b>Su carga de planificaciones ha finalizado exitosamente</b>
+                        </div>
+                        Muchas Gracias
+
+
+                        <div class="mt-s text-right">
+
+                            {# <button type="submit" class="btn btn btn-success">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                Crear Nueva
+                            </button>#}
+                            <a href="{{ path('carga-planificacion') }}" class="btn btn-success">
+                               Salir
+                            </a>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

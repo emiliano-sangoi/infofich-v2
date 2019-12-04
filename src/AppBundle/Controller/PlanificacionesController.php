@@ -55,4 +55,14 @@ class PlanificacionesController extends Controller
         return $this->render('AppBundle:Planificaciones:carga2.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
+    
+     /**
+     * @Route("/finalizar", name="finalizar")
+     */
+    public function finalizarAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('AppBundle:Planificaciones:final.html.twig');
+        //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
+    }
 }
