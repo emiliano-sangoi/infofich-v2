@@ -5,7 +5,7 @@
             <div class="mb-4">
                 <h4>Equipo Docente</h4>
             </div>
-
+            <div class="bloque_responsable">
                 <div class="form-row">
                     <div class="form-group  col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label for="responsable">Responsable</label>
@@ -37,17 +37,18 @@
                     </div>
 
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}" >
-                              <i class="fa fa-plus-circle"></i>Añadir campo
-                        </a>
-                    </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="#" id="btnAñadirResp" >
+                          <i class="fa fa-plus-circle"></i>Añadir campo
+                    </a>
                 </div>
+            </div>
 
-                <!-- Colaborador -->
-
+            <!-- Colaborador -->
+            <div class="bloque_colaborador mt-4">
                 <div class="form-row">
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label for="responsable">Colaborador</label>
@@ -83,9 +84,20 @@
                     </div>
 
                 </div>
+            </div><!--bloque colaborador -->
 
-                <!-- Adscripto -->
+            <div class="form-row">
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="#" id="btnAñadirColab">
+                        <i class="fa fa-plus-circle"></i>Añadir campo
+                    </a>
+                </div>
+            </div>
 
+
+            <!-- Adscripto -->
+            <div class="bloque_adscripto mt-4">
                 <div class="form-row">
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label for="responsable">Adscripto</label>
@@ -115,14 +127,6 @@
                         <input class="form-control" id="resolucion" name="resolucion" type="text" value="" required/>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}">
-                            <i class="fa fa-plus-circle"></i>Añadir campo
-                        </a>
-                    </div>
-                </div>
 
                 <div class="form-row">
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
@@ -137,15 +141,15 @@
 
                 </div>
 
-
-                <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}">
-                            <i class="fa fa-plus-circle"></i> Añadir campo
-                        </a>
-                    </div>
+            </div><!-- bloque_adscripto-->
+            <div class="form-row">
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
+                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="#" id="btnAñadirAdscripto">
+                        <i class="fa fa-plus-circle"></i> Añadir campo
+                    </a>
                 </div>
+            </div>
         </div>
     </div>
 </div>

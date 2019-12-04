@@ -4,8 +4,8 @@
 {% block content %}
     <div class="container">
 
-    
-    {#% include 'AppBundle:Planificaciones:navbar.html.twig' %#}    
+
+        {#% include 'AppBundle:Planificaciones:navbar.html.twig' %#}    
 
         <div class="light-font mb-0">
             <nav aria-label="breadcrumb ">
@@ -61,7 +61,7 @@
 
                 </div>
             </div>
-            
+
             <div class="col-9">
                 <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
                     <div class="tab-content" id="v-pills-tabContent">
@@ -121,4 +121,22 @@
 
 
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            
+            $("#btnAñadirResp").click(function () {
+                $(".bloque_responsable").clone().insertAfter(".bloque_responsable:last");
+            });
+             $("#btnAñadirAdscripto").click(function () {
+                $(".bloque_adscripto").clone().insertAfter(".bloque_adscripto:last");
+            });
+             $("#btnAñadirColab").click(function () {
+                $(".bloque_colaborador").clone().insertAfter(".bloque_colaborador:last");
+            });
+        });
+    </script>
 {% endblock %}
