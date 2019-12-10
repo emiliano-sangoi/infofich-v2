@@ -344,9 +344,16 @@ a {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #0063ae; }
+  color: #6b6b6b;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-left: 5px solid #0063ae; }
 
+#menuLateral .nav-link {
+  line-height: 100%;
+  padding: .9em 1.5em; }
+
+/*#menuLateral .nav-link.active i {
+    color: white !important; }1*/
 .light-font .breadcrumb-item + .breadcrumb-item::before {
   color: white !important; }
 
