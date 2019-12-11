@@ -60,10 +60,14 @@
                     </a>
 
                 </div>
+                <button class="btn btn-outline-primary w-100 text-left p-3 pl-4" style="color:#007bff" >
+                        Revisar borrador                        
+                </button>
+
             </div>
 
             <div class="col-9" style="background-color: rgba(0, 0, 0, 0.03)">
-                <form name="formCrearPlanificacion" id="formCrearPlanificacion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                
                     <div class="tab-content" id="v-pills-tabContent">
 
 
@@ -101,8 +105,6 @@
 
                     </div>
                    
-
-                </form>
             </div>
 
         </div>
@@ -124,6 +126,9 @@
             });
              $("#btnAñadirColab").click(function () {
                 $(".bloque_colaborador").clone().insertAfter(".bloque_colaborador:last");
+            });
+             $("#btnAñadirTema").click(function () {
+                $(".bloque_clone").clone().insertAfter(".bloque_tema:last");
             });
         });
     </script>

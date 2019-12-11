@@ -5,92 +5,106 @@
             <div class="mb-4">
                 <h4>Viajes Académicos</h4>
             </div>
+            <form name="formViajes" id="formViajes" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
+                <div class="form-row">
+                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <label for="responsable">Actividad</label>
+                    </div>
+                    <div class="form-group required col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label" for="objetivo">Objetivo
+                        </label>
+                        <textarea id="objetivo" name="objetivo" class=" form-control" required></textarea>
+                    </div>
 
-            <div class="form-row">
-                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <label for="responsable">Actividad</label>
                 </div>
-                <div class="form-group required col-md-6 col-sm-6 col-xs-12">
-                    <label class="control-label" for="objetivo">Objetivo
-                    </label>
-                    <textarea id="objetivo" name="objetivo" class=" form-control" required></textarea>
+                <div class="form-row">
+                    <div class="form-group required col-md-6 offset-md-2">
+                        <label class="control-label" for="recorrido">Recorrido (indicando horarios) </label>
+                        <textarea id="recorrido" name="recorrido" class="form-control" required=""></textarea></div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <label for="pasajeros">Pasajeros</label>
+                    </div>
+                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label class="control-label" for="pasajeros_estudiantes">Estudiantes </label>
+                        <input type="number" class="form-control" id="pasajeros_estudiantes" name="pasajeros_estudiantes" required/>
 
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-6 offset-md-2">
-                    <label class="control-label" for="recorrido">Recorrido (indicando horarios) </label>
-                    <textarea id="recorrido" name="recorrido" class="form-control" required=""></textarea></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <label for="pasajeros">Pasajeros</label>
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label class="control-label" for="pasajeros_docentes">Docentes </label>
+                        <input type="number" class="form-control" id="pasajeros_docentes" name="pasajeros_docentes" required/>
+
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="pasajeros_total">Total </label>
+                        <input type="number" class="form-control" id="pasajeros_total" name="pasajeros_total" required/>
+                    </div>
+
                 </div>
-                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label class="control-label" for="pasajeros_estudiantes">Estudiantes </label>
-                    <input type="number" class="form-control" id="pasajeros_estudiantes" name="pasajeros_estudiantes" required/>
-
-                    <div class="valid-feedback">
-                        V&aacute;lido
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <label class="control-label" for="movilidad">Tipo de movilidad </label>
+                        <select class="form-control" id="movilidad" name="movilidad" required>
+                            <option value="">Seleccione</option>
+                            <option value="auto">Auto</option>
+                            <option value="colectivo">Colectivo</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label class="control-label" for="pasajeros_docentes">Docentes </label>
-                    <input type="number" class="form-control" id="pasajeros_docentes" name="pasajeros_docentes" required/>
-
-                    <div class="valid-feedback">
-                        V&aacute;lido
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <label class="control-label" for="fecha_tentativa">Fecha tentativa</label>
+                        <input type="date" class="form-control" id="fecha_tentativa" name="fecha_tentativa" required/>
+                    </div>
+                    <div class="form-group required col-md-3">
+                        <label class="control-label" for="cant_dias">Cantidad de días</label>
+                        <input type="number" class="form-control" id="cant_dias" name="cant_dias" required/>
                     </div>
                 </div>
-                <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label for="pasajeros_total">Total </label>
-                    <input type="number" class="form-control" id="pasajeros_total" name="pasajeros_total" required/>
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
+                        <select class="form-control" id="asig_vinc" name="asig_vinc" required>
+                            <option value="">Seleccione</option>
+                            <option value="Algebra">Álgebra</option>
+                            <option value="Matematca">Matemática Básica</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="listado">Listado</label>
+
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <a href="{{ path('index') }}" >
+                              <i class="fa fa-plus-circle"></i>Añadir otro
+                        </a>
+                    </div>
                 </div>
 
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    <label class="control-label" for="movilidad">Tipo de movilidad </label>
-                    <select class="form-control" id="movilidad" name="movilidad" required>
-                        <option value="">Seleccione</option>
-                        <option value="auto">Auto</option>
-                        <option value="colectivo">Colectivo</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    <label class="control-label" for="fecha_tentativa">Fecha tentativa</label>
-                    <input type="date" class="form-control" id="fecha_tentativa" name="fecha_tentativa" required/>
-                </div>
-                <div class="form-group required col-md-3">
-                    <label class="control-label" for="cant_dias">Cantidad de días</label>
-                    <input type="number" class="form-control" id="cant_dias" name="cant_dias" required/>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
-                    <select class="form-control" id="asig_vinc" name="asig_vinc" required>
-                        <option value="">Seleccione</option>
-                        <option value="Algebra">Álgebra</option>
-                        <option value="Matematca">Matemática Básica</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="listado">Listado</label>
+                <div class="col-12 mt-s text-right mb-4">
 
-                </div>
-            </div>
-            <div class="form-row">
+                    <button type="submit" class="btn btn btn-verde">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Guardar
+                    </button>
 
-                <div class="form-group required col-md-4 offset-md-2">
-                    <a href="{{ path('index') }}" >
-                          <i class="fa fa-plus-circle"></i>Añadir otro
+                    <a href="#" class="btn btn-secondary">
+                        Cancelar
                     </a>
                 </div>
-            </div>
+
+            </form>
         </div>
 
     </div>

@@ -4,87 +4,102 @@
         <div class="card-body px-5">
             <div class="mb-4">
                 <h4>Bibliografía</h4>
+            </div>            
+            <form name="formBibliografia" id="formBibliografia" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="radio-inline">
+                        Básica <input type="radio" name="optbibliografia" checked>
+                    </label>
+                    <label class="radio-inline">
+                        Complementaria <input type="radio" name="optbibliografia">
+                    </label>
+                </div>
+
             </div>
 
-                <div class="form-row">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="radio-inline">
-                            Básica <input type="radio" name="optbibliografia" checked>
-                        </label>
-                        <label class="radio-inline">
-                            Complementaria <input type="radio" name="optbibliografia">
-                        </label>
-                    </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <label for="titulo" class="control-label">Título</label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
+                </div>
+            </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <label for="autores" class="control-label">Autores</label>
+                    <input class="form-control" id="autores" name="autores" type="text" value="" required/>
+                </div>
+            </div>
 
+            <div class="form-row mt-4">
+                <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <label for="editorial" class="control-label">Editorial</label>
+                    <input class="form-control" id="editorial" name="editorial" type="text" value="" required/>
+                </div>
+            </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label for="anio_edicion" class="control-label">Año de edición</label>
+                    <input class="form-control" id="anio_edicion" name="anio_edicion" type="number" value="" required/>
+                </div>
+                <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label for="nro_edicion" class="control-label">N° de edición</label>
+                    <input class="form-control" id="nro_edicion" name="nro_edicion" type="number" value="" required/>
+                </div>
+                <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label for="issn_isbn" class="control-label">ISSN o ISBN</label>
+                    <input class="form-control" id="issn_isbn" name="issn_isbn" type="number" value="" required/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="radio-inline">
+                        Disponible en biblioteca <input type="radio" name="optbiblioteca">
+                    </label>
                 </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <label for="titulo" class="control-label">Título</label>
-                        <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
-                    </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <label class="radio-inline">
+                        Disponible online <input type="radio" name="optonline" checked>
+                    </label>
                 </div>
-                <div class="form-row mt-4">
-                    <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <label for="autores" class="control-label">Autores</label>
-                        <input class="form-control" id="autores" name="autores" type="text" value="" required/>
-                    </div>
+                <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <label for="fecha_online" class="control-label">Fecha consulta online</label>
+                    <input class="form-control" id="fecha_online" name="fecha_online" type="date" value=""/>
                 </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group required col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <label for="editorial" class="control-label">Editorial</label>
-                        <input class="form-control" id="editorial" name="editorial" type="text" value="" required/>
-                    </div>
-                </div>
-                <div class="form-row mt-4">
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label for="anio_edicion" class="control-label">Año de edición</label>
-                        <input class="form-control" id="anio_edicion" name="anio_edicion" type="number" value="" required/>
-                    </div>
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label for="nro_edicion" class="control-label">N° de edición</label>
-                        <input class="form-control" id="nro_edicion" name="nro_edicion" type="number" value="" required/>
-                    </div>
-                    <div class="form-group required col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label for="issn_isbn" class="control-label">ISSN o ISBN</label>
-                        <input class="form-control" id="issn_isbn" name="issn_isbn" type="number" value="" required/>
-                    </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="enlace" class="control-label">Enlace</label>
+                    <input class="form-control" id="enlace" name="enlace" type="number" value=""/>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="radio-inline">
-                            Disponible en biblioteca <input type="radio" name="optbiblioteca">
-                        </label>
-                    </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="{{ path('index') }}">
+                        <i class="fa fa-plus-circle"></i>
+                        Agregar Bibliografía
+                    </a>
                 </div>
-                <div class="form-row">
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label class="radio-inline">
-                            Disponible online <input type="radio" name="optonline" checked>
-                        </label>
-                    </div>
-                    <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label for="fecha_online" class="control-label">Fecha consulta online</label>
-                        <input class="form-control" id="fecha_online" name="fecha_online" type="date" value=""/>
-                    </div>
-                     <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label for="enlace" class="control-label">Enlace</label>
-                        <input class="form-control" id="enlace" name="enlace" type="number" value=""/>
-                    </div>
+            </div>     
 
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="{{ path('index') }}">
-                             <i class="fa fa-plus-circle"></i>
-                            Agregar Bibliografía
-                        </a>
-                    </div>
-                </div>               
+            <div class="col-12 mt-s text-right mb-4">
+
+                <button type="submit" class="btn btn btn-verde">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
+
+                <a href="#" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
         </div>
     </div>
 </div>
