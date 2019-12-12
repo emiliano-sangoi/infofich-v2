@@ -38,13 +38,14 @@ a{
     color: #6b6b6b;
     border-radius: 0.35rem;
     border: 1px solid $gris-2;
+    border-top:none;
     padding: 2px;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #6b6b6b;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #eeeeee;
     border-right: none;
 
     border-left: 5px solid $azul;
@@ -83,12 +84,30 @@ a{
     border: none !important;       
 }
 
+.card-body{
+    background-color: #eeeeee;
+}
+
 #accordion .card .card-header{
     background-color: $azul !important; 
     color: $white;
+    padding: .25rem .25rem;
 }
 
 #accordion .card .card-header .btn{
     color: $white;
 }
 
+.container-inicio{
+    background-color: #eeeeee;
+}
+
+.btn-link:focus, .btn-link:hover {
+    text-decoration: none;
+    
+}
+
+.border-azul{
+    border: $primary solid 1px;
+    color: $primary;
+}

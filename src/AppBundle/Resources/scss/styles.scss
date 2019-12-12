@@ -231,10 +231,6 @@ $content-info-right-panel-h: 20.25vh;
   transform: scaleX(-1);
 }
 
-.card-body{
-    background-color: rgba(0,0,0,.03);
-}
-
 
 .line-height-100{
   line-height: 100%;
@@ -258,8 +254,17 @@ $content-info-right-panel-h: 20.25vh;
 
   i.fa{
     position: absolute;
-    right: 0;
-    top: 14%;
+    right: .50rem;
+    top: .750rem;
   }
 
+}
+
+
+#temario .form-row:nth-of-type(odd) {
+  background-color:#eeeeee;
+}
+      
+#temario .form-row:nth-of-type(even) {
+  background-color: white;
 }
