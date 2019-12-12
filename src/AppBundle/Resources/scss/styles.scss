@@ -240,23 +240,6 @@ $content-info-right-panel-h: 20.25vh;
   line-height: 100%;
 }
 
-#menuLateral{  
-
-  .nav-link{
-    line-height: 100%;
-    padding: .9em 1.5em;
-    
-    &.active{
-      i{
-        color: $white !important;
-      }
-    }
-
-
-  }
-
-}
-
 .notificacion-warning{
   @include notificacion($notific-warning,$notific-warning);
 }

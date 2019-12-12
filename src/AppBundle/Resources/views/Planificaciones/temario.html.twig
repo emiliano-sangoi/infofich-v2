@@ -5,8 +5,11 @@
             <div class="mb-4">
                 <h4>Temario</h4>
             </div>
+            
+            <form name="formTemario" id="formTemario" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
-            <div class="form-row">
+            <!-- BLOQUE PARA CLONAR -->
+            <div class="form-row" class="bloque_clonar" style="display: none !important;">
                 <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <label class="control-label" for="unidad">Unidad
                     </label>
@@ -17,87 +20,220 @@
                     </label>
                     <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
                 </div>
-            </div>
 
-            <div class="form-row mt-4">
-                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label" for="contenidos">Contenidos
                     </label>
-                    <textarea id="contenidos" name="contenidos" class=" form-control" required></textarea>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4"></textarea>
                 </div>
             </div>
+            <!-- FIN BLOQUE CLONAR -->
+
+
+            <div class="form-row" class="bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD I" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="ESPACIOS VECTORIALES" required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Definición y propiedades. Los espacios Rn, Pn, C[a,b], Mmn,Cn. Subespacios.
+Subespacio generado por un conjunto de vectores. Dependencia e
+independencia lineal. Base y dimensión de un espacio vectorial.
+Espacio fila y espacio columna de una matriz. Rango y nulidad.
+Cambio de base en un espacio vectorial. Vectores de coordenadas y matriz de transición.
+                    </textarea>
+                </div>
+            </div>
+
+
+            <!-- UNIDAD 2 -->
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD II" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="ESPACIOS CON PRODUCTO INTERNO" required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Longitud de un vector. Conjuntos ortogonales y ortonormales. Independencia
+lineal de los conjuntos ortogonales de vectores no nulos. Proceso de
+ortonormalización de Gram-Schidt. Bases ortogonales. Proyecciones ortogonales sobre subespacios.
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- UNIDAD 3 -->     
+
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD III" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="TRANSFORMACIONES LINEALES." required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Definición y ejemplos. Propiedades. Imagen y núcleo de una transformación lineal.
+Rango y nulidad. Representación matricial. Geometría de las transformaciones lineales en el plano. Transformaciones inyectivas y sobreyectivas.
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- UNIDAD 4 -->
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD IV" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="ESPACIOS VECTORIALES" required/>
+                </div>
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Definición y propiedades. Los espacios Rn, Pn, C[a,b], Mmn,Cn. Subespacios.
+Subespacio generado por un conjunto de vectores. Dependencia e
+independencia lineal. Base y dimensión de un espacio vectorial.
+Espacio fila y espacio columna de una matriz. Rango y nulidad.
+Cambio de base en un espacio vectorial. Vectores de coordenadas y matriz de transición.
+                    </textarea>
+                </div>
+            </div>
+
+
+            <!-- UNIDAD 5 -->
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD V" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="ESPACIOS CON PRODUCTO INTERNO" required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Longitud de un vector. Conjuntos ortogonales y ortonormales. Independencia
+lineal de los conjuntos ortogonales de vectores no nulos. Proceso de
+ortonormalización de Gram-Schidt. Bases ortogonales. Proyecciones ortogonales sobre subespacios.
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- UNIDAD 6 -->     
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD VI" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="TRANSFORMACIONES LINEALES." required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Definición y ejemplos. Propiedades. Imagen y núcleo de una transformación lineal.
+Rango y nulidad. Representación matricial. Geometría de las transformaciones lineales en el plano. Transformaciones inyectivas y sobreyectivas.
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- UNIDAD 7 -->     
+            <div class="form-row mt-4 bloque_tema">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="UNIDAD VII" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="TRANSFORMACIONES LINEALES." required/>
+                </div>
+
+
+
+                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4">
+Definición y ejemplos. Propiedades. Imagen y núcleo de una transformación lineal.
+Rango y nulidad. Representación matricial. Geometría de las transformaciones lineales en el plano. Transformaciones inyectivas y sobreyectivas.
+                    </textarea>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a href="{{ path('index') }}">
+                    <a href="#" id="btnAñadirTema" >
                         <i class="fa fa-plus-circle"></i>
                         Añadir unidad
                     </a>
                 </div>
             </div>
+            <div class="col-12 mt-s text-right mb-4">
 
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Unidad</th>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Contenidos</th>
-                        <th scope="col">Operaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>UNIDAD I</td>
-                        <td>ESPACIOS VECTORIALES</td>
-                        <td>Definición y propiedades. Los espacios Rn, Pn, C[a,b], Mmn,Cn. Subespacios.
-                            Subespacio generado por un conjunto de vectores. Dependencia e
-                            independencia lineal. Base y dimensión de un espacio vectorial.
-                            Espacio fila y espacio columna de una matriz. Rango y nulidad.
-                            Cambio de base en un espacio vectorial. Vectores de coordenadas y matriz de
-                            transición.</td>
-                        <td><a href="{{ path('index') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>                         
-                            <a href="{{ path('index') }}">
-                                <i class="fa fa-remove"></i>
-                            </a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>UNIDAD II</td>
-                        <td>ESPACIOS CON PRODUCTO INTERNO</td>
-                        <td>Longitud de un vector. Conjuntos ortogonales y ortonormales. Independencia
-                            lineal de los conjuntos ortogonales de vectores no nulos. Proceso de
-                            ortonormalización de Gram-Schidt. Bases ortogonales. Proyecciones
-                            ortogonales sobre subespacios.</td>
-                        <td><a href="{{ path('index') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>                         
-                            <a href="{{ path('index') }}">
-                                <i class="fa fa-remove"></i>
-                            </a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>UNIDAD III</td>
-                        <td>TRANSFORMACIONES LINEALES.</td>
-                        <td>Definición y ejemplos. Propiedades. Imagen y núcleo de una transformación
-                            lineal.
-                            Rango y nulidad. Representación matricial. Geometría de las transformaciones
-                            lineales en el plano. Transformaciones inyectivas y sobreyectivas.</td>
-                        <td><a href="{{ path('index') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>                         
-                            <a href="{{ path('index') }}">
-                                <i class="fa fa-remove"></i>
-                            </a> 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <button type="submit" class="btn btn btn-verde">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
+
+                <a href="#" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+            
+        </form>
+
         </div>
     </div>
 </div>

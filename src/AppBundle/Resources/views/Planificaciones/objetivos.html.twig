@@ -6,20 +6,33 @@
                 <h4>Objetivos de la asignatura</h4>
             </div>
 
+            <form name="formObjetivos" id="formObjetivos" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label" for="objetivos_general">General</label>
-                        <textarea id="objetivos_general" name="objetivos_general" class=" form-control" required></textarea>
-                    </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="objetivos_general">General</label>
+                    <textarea id="objetivos_general" name="objetivos_general" class=" form-control" required></textarea>
                 </div>
+            </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label" for="objetivos_especificos">Específicos</label>
-                        <textarea id="objetivos_especificos" name="objetivos_especificos" class=" form-control" required></textarea>
-                    </div>
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="objetivos_especificos">Específicos</label>
+                    <textarea id="objetivos_especificos" name="objetivos_especificos" class=" form-control" required></textarea>
                 </div>
+            </div>
+            <div class="col-12 mt-s text-right mb-4">
+
+                <button type="submit" class="btn btn btn-verde">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
+
+                <a href="#" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
         </div>
     </div>
 </div>

@@ -1,23 +1,17 @@
 <div class="container pr-0 mt-4">
     <div class="card card-register mx-auto">
-        
+
         <div class="card-body px-5">
             <div class="mb-4">
-            <h4>Informaci&oacute;n b&aacute;sica de la asignatura</h4>
+                <h4>Informaci&oacute;n b&aacute;sica de la asignatura</h4>
             </div>
-            
 
+            <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
                 <div class="form-row">
                     <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="control-label" for="anio">Año
                         </label>
-                        <input class="form-control" id="anio" name="anio" type="text" value="2010" required/>
-                        <div class="valid-feedback">
-                            Válido
-                        </div>
-                        <div class="invalid-feedback">
-                            Ingrese un año correcto
-                        </div>
+                        <input class="form-control" id="anio" name="anio" type="text" value="2010" required/>                    
                     </div>
                     <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="codigo_siu">C&oacute;digo SIU
@@ -72,8 +66,21 @@
                         <label for="contenidos_minimos">Contenidos Mínimos</label>
                         <textarea id="contenidos_minimos" name="contenidos_minimos" class=" form-control" disabled></textarea>
                     </div>
-                </div>               
+                </div>           
 
+                <div class="col-12 mt-s text-right mb-4">
+
+                    <button type="submit" class="btn btn btn-verde">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Guardar
+                    </button>
+
+                    <a href="{{ path('index') }}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
         </div>
+
     </div>
 </div>
