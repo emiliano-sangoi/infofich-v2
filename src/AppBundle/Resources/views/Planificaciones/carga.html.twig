@@ -58,11 +58,13 @@
                         Viajes académicos
                         <i class="far fa-circle float-right"></i>
                     </a>
+                    <a class="btn border-azul w-100 text-left p-3 pl-4" 
+                        id="v-pills-revisar-tab" data-toggle="pill" href="#v-pills-revisar" role="tab" aria-controls="v-pills-revisar" aria-selected="false">
+                        Revisar borrador                        
+                    </a>
 
                 </div>
-                <button class="btn border-azul w-100 text-left p-3 pl-4" >
-                        Revisar borrador                        
-                </button>
+               
 
             </div>
 
@@ -101,6 +103,9 @@
                             {% include 'AppBundle:Planificaciones:viajes.html.twig' %}
                         </div>
 
+                        <div class="tab-pane fade" id="v-pills-revisar" role="tabpanel" aria-labelledby="v-pills-revisar-tab">
+                            {% include 'AppBundle:Planificaciones:final.html.twig' %}
+                        </div>
 
 
                     </div>

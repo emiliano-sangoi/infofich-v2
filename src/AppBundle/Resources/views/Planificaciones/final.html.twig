@@ -1,47 +1,39 @@
-{% extends '::base.html.twig' %}
+<div class="container">
+    <div class="mt-5">
 
-{% block content %}
-    <div class="container">
-    <div class="light-font mb-0">
-            <nav aria-label="breadcrumb ">
-                <ol class="breadcrumb bg-azul mb-0">
-                    <li class="breadcrumb-item">
-                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
-                    </li>
-                
-                </ol>
-            </nav>
-        </div>
-        <div class="mt-5">
+        <div class="">
+            <div class="row">
+                <div class="offset-2 col-lg-8">
+                    <i class="far fa-check-circle float-left"></i>
+                    <div class="mt-4">
 
-            <div class="">
-                <div class="row">
-                    <div class="offset-2 col-lg-8">
-                        <i class="far fa-check-circle float-left"></i>
-                        <div class="mt-4">
-
-                            <b>Su carga de planificaciones ha finalizado exitosamente</b>
-                        </div>
-                        Muchas Gracias
+                        <b>Su carga de planificaciones ha finalizado con éxito<br>
 
 
-                        <div class="mt-s text-right">
+                            Recuerde que debe enviar la planificación para cumplir
+                            su presentación a Secretaría Académica.<br>
 
-                            {# <button type="submit" class="btn btn btn-success">
-                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                                Crear Nueva
-                            </button>#}
-                            <a href="{{ path('carga-planificacion') }}" class="btn btn-success">
-                               Salir
-                            </a>
+                            Ver planificación completa (pdf)<br>
+                        </b>
+                    </div>
+                    Muchas Gracias
 
-                        </div>
 
+                    <div class="mt-s text-right">
+
+                        <button type="button" class="btn btn btn-success">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                            Enviar
+                        </button>
+                        <a href="{{ path('carga-planificacion') }}" class="btn btn-secondary">
+                            Volver
+                        </a>
 
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
-
-{% endblock %}
+</div>
