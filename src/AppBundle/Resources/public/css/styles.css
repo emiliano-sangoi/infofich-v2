@@ -932,14 +932,20 @@ body {
     right: .50rem;
     top: .750rem; }
 
-.form-row {
-  margin-left: 0;
-  margin-right: 0; }
-
-#temario .form-row:nth-of-type(odd) {
+#temario .form-row:nth-of-type(odd),
+#equipo-doc-res .form-row:nth-of-type(odd),
+#equipo-doc-col .form-row:nth-of-type(odd),
+#equipo-doc-ads .form-row:nth-of-type(odd) {
   background-color: #eeeeee; }
 
-#temario .form-row:nth-of-type(even) {
+#temario .form-row:nth-of-type(even),
+#equipo-doc-res .form-row:nth-of-type(even),
+#equipo-doc-col .form-row:nth-of-type(even),
+#equipo-doc-ads .form-row:nth-of-type(even) {
   background-color: white; }
+
+.container_temario, .container_equipo-docente {
+  padding-left: 50px;
+  padding-top: 20px; }
 
 /*# sourceMappingURL=styles.css.map */

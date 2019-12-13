@@ -119,16 +119,18 @@
         $(document).ready(function () {
             
             $("#btnAñadirResp").click(function () {
-                $(".bloque_responsable").clone().insertAfter(".bloque_responsable:last");
+                $(".bloque_responsable:last").clone().insertAfter(".bloque_responsable:last");
             });
              $("#btnAñadirAdscripto").click(function () {
-                $(".bloque_adscripto").clone().insertAfter(".bloque_adscripto:last");
+                $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");
             });
              $("#btnAñadirColab").click(function () {
-                $(".bloque_colaborador").clone().insertAfter(".bloque_colaborador:last");
+                $(".bloque_colaborador:last").clone().insertAfter(".bloque_colaborador:last");
             });
              $("#btnAñadirTema").click(function () {
-                $(".bloque_clone").clone().insertAfter(".bloque_tema:last");
+                 //alert('sdfsddf');
+                $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
+                //alert('2');
             });
         });
     </script>

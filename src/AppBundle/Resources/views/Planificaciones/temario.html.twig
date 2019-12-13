@@ -1,78 +1,80 @@
 <div class="container px-0 py-4" id="temario">
     <div class="mx-auto">
 
-        <div class="">
-            <div class="container mb-4">
+        <div class="container_temario">
+            <div class="container mb-4 ml-10">
                 <h4>Temario</h4>
             </div>
-            
+
             <form name="formTemario" id="formTemario" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
-            <!-- BLOQUE PARA CLONAR -->
-            <div class="form-row px-5" class="bloque_clonar">
-                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label class="control-label" for="unidad">Unidad
-                    </label>
-                    <input class="form-control" id="unidad" name="unidad" type="text" value="" required/>
+                <!-- BLOQUE PARA CLONAR -->
+                <div class="bloque_clone" style="display: none">
+                    <div class="form-row px-5" class="bloque_tema">
+                        <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <label class="control-label" for="unidad">Unidad
+                            </label>
+                            <input class="form-control" id="unidad" name="unidad" type="text" value="" required/>
+                        </div>
+                        <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <label class="control-label" for="titulo">Título
+                            </label>
+                            <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
+                        </div>
+
+                        <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label" for="contenidos">Contenidos
+                            </label>
+                            <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label class="control-label" for="titulo">Título
-                    </label>
-                    <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
+                <!-- FIN BLOQUE CLONAR -->
+
+
+                {% include 'temario-item.html.twig' %}
+
+                <!-- UNIDAD 2 -->
+                {% include 'temario-item.html.twig' %}
+
+                <!-- UNIDAD 3 -->     
+                {% include 'temario-item.html.twig' %}
+
+                <!-- UNIDAD 4 -->
+                {% include 'temario-item.html.twig' %}            
+
+
+                <!-- UNIDAD 5 -->
+                {% include 'temario-item.html.twig' %}           
+
+                <!-- UNIDAD 6 -->     
+                {% include 'temario-item.html.twig' %}           
+
+                <!-- UNIDAD 7 -->     
+                {% include 'temario-item.html.twig' %}           
+
+
+                <div class="form-row">
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="#" id="btnAñadirTema" >
+                            <i class="fa fa-plus-circle"></i>
+                            Añadir unidad
+                        </a>
+                    </div>
                 </div>
+                <div class="col-12 mt-s text-right mb-4">
 
-                <div class="mt-4 form-group required col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label" for="contenidos">Contenidos
-                    </label>
-                    <textarea id="contenidos" name="contenidos" class=" form-control" required rows="4"></textarea>
-                </div>
-            </div>
-            <!-- FIN BLOQUE CLONAR -->
+                    <button type="submit" class="btn btn btn-verde">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Guardar
+                    </button>
 
-
-            {% include 'temario-item.html.twig' %}
-
-            <!-- UNIDAD 2 -->
-            {% include 'temario-item.html.twig' %}
-
-            <!-- UNIDAD 3 -->     
-            {% include 'temario-item.html.twig' %}
-
-            <!-- UNIDAD 4 -->
-            {% include 'temario-item.html.twig' %}            
-
-
-            <!-- UNIDAD 5 -->
-            {% include 'temario-item.html.twig' %}           
-
-            <!-- UNIDAD 6 -->     
-            {% include 'temario-item.html.twig' %}           
-            
-            <!-- UNIDAD 7 -->     
-            {% include 'temario-item.html.twig' %}           
-            
-
-            <div class="form-row">
-                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a href="#" id="btnAñadirTema" >
-                        <i class="fa fa-plus-circle"></i>
-                        Añadir unidad
+                    <a href="#" class="btn btn-secondary">
+                        Cancelar
                     </a>
                 </div>
-            </div>
-            <div class="col-12 mt-s text-right mb-4">
 
-                <button type="submit" class="btn btn btn-verde">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                    Guardar
-                </button>
-
-                <a href="#" class="btn btn-secondary">
-                    Cancelar
-                </a>
-            </div>
-            
-        </form>
+            </form>
 
         </div>
     </div>

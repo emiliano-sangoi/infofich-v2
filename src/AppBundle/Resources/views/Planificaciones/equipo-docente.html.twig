@@ -1,15 +1,15 @@
 <div class="container pr-0 mt-4">
-    <div class="card card-register mx-auto">
+    <div class="mx-auto">
 
-        <div class="card-body px-5">
+        <div class="container_equipo-docente">
             <div class="mb-4">
                 <h4>Equipo Docente</h4>
             </div>
 
             <form name="formEquipoDoc" id="formEquipoDoc" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                <div id="equipo-doc-res">
 
-                <div class="bloque_responsable">
-                    <div class="form-row">
+                    <div class="form-row bloque_responsable mt-4 pt-10 pb-10">
                         <div class="form-group  col-lg-2 col-md-2 col-sm-6 col-xs-12">
                             <label for="responsable">Responsable</label>
                         </div>
@@ -26,9 +26,8 @@
                             <input class="form-control" id="dni" name="dni" type="text" value="" required/>
                         </div>
 
-                    </div>
 
-                    <div class="form-row">
+
                         <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                         <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <label for="telefono" class="control-label">Teléfono </label>
@@ -37,11 +36,9 @@
                         <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <label for="email" class="control-label">Correo electrónico </label>
                             <input class="form-control" id="email" name="email" type="email" value="" required/>
-                        </div>
-
+                        </div>                                          
                     </div>
-                </div>
-                <div class="form-row">
+
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a href="#" id="btnAñadirResp" >
@@ -51,8 +48,9 @@
                 </div>
 
                 <!-- Colaborador -->
-                <div class="bloque_colaborador mt-4">
-                    <div class="form-row">
+                <div id="equipo-doc-col" class= "mt-4">
+
+                    <div class="form-row bloque_colaborador mt-4 pt-10 pb-10">
                         <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                             <label for="responsable">Colaborador</label>
 
@@ -73,9 +71,7 @@
                             <input class="form-control" id="dni_colaborador" name="dni_colaborador" type="text" value="" required/>
                         </div>
 
-                    </div>
 
-                    <div class="form-row">
                         <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                         <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <label for="telefono_colaborador" class="control-label">Teléfono</label>
@@ -86,10 +82,9 @@
                             <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value="" required/>
                         </div>
 
-                    </div>
-                </div><!--bloque colaborador -->
 
-                <div class="form-row">
+                    </div><!--bloque colaborador -->
+
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a href="#" id="btnAñadirColab">
@@ -100,8 +95,9 @@
 
 
                 <!-- Adscripto -->
-                <div class="bloque_adscripto mt-4">
-                    <div class="form-row">
+                <div id="equipo-doc-ads" class="mt-4">
+
+                    <div class="form-row bloque_adscripto mt-4 pt-10 pb-10">
                         <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                             <label for="responsable">Adscripto</label>
 
@@ -122,18 +118,15 @@
                             <input class="form-control" id="dni_adscripto" name="dni_adscripto" type="text" value="" required/>
                         </div>
 
-                    </div>
-                    <div class="form-row">
+
                         <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label for="resolucion" class="control-label">Resolución de Consejo Directivo</label>
                             <input class="form-control" id="resolucion" name="resolucion" type="text" value="" required/>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-                        <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                        <div class="form-group col-lg-3 offset-lg-2 col-md-3 col-sm-6 col-xs-12">
                             <label for="telefono_colaborador" class="control-label">Teléfono </label>
                             <input class="form-control" id="telefono_colaborador" name="telefono_colaborador" type="text" value="" required/>
                         </div>
@@ -142,10 +135,10 @@
                             <input class="form-control" id="email_colaborador" name="email_colaborador" type="email" value="" required/>
                         </div>
 
-                    </div>
 
-                </div><!-- bloque_adscripto-->
-                <div class="form-row">
+
+                    </div><!-- bloque_adscripto-->
+
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a href="#" id="btnAñadirAdscripto">
