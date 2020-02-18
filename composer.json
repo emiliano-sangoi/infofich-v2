@@ -20,7 +20,8 @@
         "vich/uploader-bundle": "0.14.0",
         "fzaninotto/faker": "1.8",
         "webonaute/doctrine-fixtures-generator-bundle": "1.2",
-        "friendsofsymfony/user-bundle": "1.3.7"
+        "friendsofsymfony/user-bundle": "1.3.7",
+        "fich/api-rectorado": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -58,5 +59,11 @@
         "branch-alias": {
             "dev-master": "2.8-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-rectorado"
+	}	   
+    ]
 }
