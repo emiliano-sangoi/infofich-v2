@@ -1,0 +1,10 @@
+
+homepage:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+    
+#admin_home:
+#    path: /home
+#    defaults: { _controller: AppBundle:Default:indexAdmin }
+
+

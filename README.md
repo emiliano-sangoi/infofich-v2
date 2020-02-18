@@ -26,18 +26,11 @@ $ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX app/cache app/logs
 ```sh
 $ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX app/cache app/logs
 ```
-3. Copiar archivo del archivo paramter.yml.dist a parameter.yml en app/config y colocar datos de nuestra maquina local
+3. Copiar archivo del archivo paramters.yml.dist a parameters.yml en app/config y colocar datos de nuestra maquina local
 
 4. Instalar dependencias del proyecto:
 ```sh
 $ composer install
-```
-```sh
-$ php app/console assets:install
-```
-```sh
-$ php app/console assets:install --symlink
-```
 ```sh
 $ cd web/
 ```

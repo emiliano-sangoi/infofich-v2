@@ -18,12 +18,18 @@ class CargaUsuarios extends AbstractFixture implements FixtureInterface, Contain
 
   private $_usuarios = array(
     0 => array(
+      'username' => 'rgalarza',
+      'email' => 'romina.galarza@gmail.com',
+      'password' => '1234',
+      'roles' => array('ROLE_ADMIN')
+    ),
+    1 => array(
       'username' => 'esangoi',
       'email' => 'emiliano.sangoi@gmail.com',
       'password' => '1234',
       'roles' => array('ROLE_ADMIN')
     ),
-    1 => array(
+    2 => array(
       'username' => 'bbasconcel',
       'email' => 'brisabasconcel@gmail.com',
       'password' => '1234',
