@@ -78,9 +78,9 @@ class CargaUsuarios extends AbstractFixture implements FixtureInterface, Contain
       'roles' => array('ROLE_USER')
     ),
     10 => array(
-      'username' => '14921804',
+      'username' => '11415920',
       'email' => 'clozeco@fich.unl.edu.ar',
-      'password' => '14921804',
+      'password' => '11415920',
       'roles' => array('ROLE_USER')
     )
     
