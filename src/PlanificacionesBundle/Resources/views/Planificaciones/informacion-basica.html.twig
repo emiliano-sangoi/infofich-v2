@@ -7,6 +7,22 @@
             </div>
 
             <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                <div class="form-row mt-4">
+                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        <label class="control-label" for="carrera_planificacion">Asignatura</label>
+                        <select id="carrera_planificacion" name="carrera_planificacion" title="Seleccione la carrera..." class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" onchange="completar_combo_cursos(this)" required>
+                            <option value="">Seleccione</option>
+                            {#% for carrera in listadoCarreras %}
+                                                                                                <option value="{{carrera.id_carrera}}">{{carrera.nombre}}</option>
+                                                                                            {% else %}
+                                                                                                <option value="">No se encontraron Carreras</option>
+                                                                                            {% endfor %#}
+                            <option value="Opcion">Otra opcion</option>
+                        </select>
+                    </div>
+                </div>
+
+
                 <div class="form-row">
                     <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="control-label" for="anio">Año
@@ -25,20 +41,7 @@
                     </div>
                 </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                        <label class="control-label" for="carrera_planificacion">Asignatura</label>
-                        <select id="carrera_planificacion" name="carrera_planificacion" title="Seleccione la carrera..." class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" onchange="completar_combo_cursos(this)" required>
-                            <option value="">Seleccione</option>
-                            {#% for carrera in listadoCarreras %}
-                                                                                                <option value="{{carrera.id_carrera}}">{{carrera.nombre}}</option>
-                                                                                            {% else %}
-                                                                                                <option value="">No se encontraron Carreras</option>
-                                                                                            {% endfor %#}
-                            <option value="Opcion">Otra opcion</option>
-                        </select>
-                    </div>
-                </div>
+
 
                 <div class="form-row mt-4">
                     <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">

@@ -34,7 +34,56 @@ class CargaUsuarios extends AbstractFixture implements FixtureInterface, Contain
       'email' => 'brisabasconcel@gmail.com',
       'password' => '1234',
       'roles' => array('ROLE_ADMIN')
+    ),
+    3 => array(
+      'username' => '32185238',
+      'email' => 'florenciaforesti@gmail.com',
+      'password' => '32185238',
+      'roles' => array('ROLE_USER')
+    ),
+    4 => array(
+      'username' => '24902580',
+      'email' => 'abacolla@gmail.com',
+      'password' => '24902580',
+      'roles' => array('ROLE_USER')
+    ),
+    5 => array(
+      'username' => '13190428',
+      'email' => 'cgiorgetti@fich.unl.edu.ar',
+      'password' => '13190428',
+      'roles' => array('ROLE_USER')
+    ),
+    6 => array(
+      'username' => '14760883',
+      'email' => 'parismarta@gmail.com',
+      'password' => '14760883',
+      'roles' => array('ROLE_USER')
+    ),
+    7 => array(
+      'username' => '31700769',
+      'email' => 'ggesualdo@fich.unl.edu.ar',
+      'password' => '31700769',
+      'roles' => array('ROLE_USER')
+    ),
+    8 => array(
+      'username' => '28148023',
+      'email' => 'mromanatti@fich.unl.edu.ar',
+      'password' => '28148023',
+      'roles' => array('ROLE_USER')
+    ),
+    9 => array(
+      'username' => '14921804',
+      'email' => 'nancypiovano@gmail.com',
+      'password' => '14921804',
+      'roles' => array('ROLE_USER')
+    ),
+    10 => array(
+      'username' => '11415920',
+      'email' => 'clozeco@fich.unl.edu.ar',
+      'password' => '11415920',
+      'roles' => array('ROLE_USER')
     )
+    
   );
 
   private $container;
