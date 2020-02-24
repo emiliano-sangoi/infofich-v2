@@ -113,6 +113,7 @@
 
                 $(document).ready(function () {
 
+                    //Pantalla informacion Basica
                     $('#asignatura').on('change', function () {
                         $('#codigo_siu').val('IF005');
                         $('#plan_estudio').val('2015');
@@ -120,7 +121,26 @@
                         $('#carga_horaria').val('20');
                         
                         //alert('You selected - ' + $(this).val())
-                    })
+                    });
+                    
+                    //Pantalla equipo-docente
+                    $('#nombre_docente_res').on('change', function (){
+                        $('#dni_docente_res').val('31222555');
+                        $('#tel_docente_res').val('342512345678');
+                        $('#email_docente_res').val('docente@gmail.com');
+                    });
+                    
+                    $('#nombre_docente_col').on('change', function (){
+                        $('#dni_docente_col').val('12345679');
+                        $('#tel_docente_col').val('3421114445');
+                        $('#email_docente_col').val('colaborador@gmail.com');
+                    });
+                    
+                    $('#nombre_docente_ads').on('change', function (){
+                        $('#dni_docente_ads').val('12345679');
+                        $('#tel_docente_ads').val('3421114445');
+                        $('#email_docente_ads').val('adscripto@gmail.com');
+                    });
 
                     function completar_datos_asignatura(elemento) {
                         alert('sfdsfdfs');
