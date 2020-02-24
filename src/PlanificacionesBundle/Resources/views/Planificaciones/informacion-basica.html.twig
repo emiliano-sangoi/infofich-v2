@@ -9,9 +9,16 @@
             <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
                 <div class="form-row mt-4">
                     <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                        <label class="control-label" for="carrera_planificacion">Asignatura</label>
-                        <select id="carrera_planificacion" name="carrera_planificacion" title="Seleccione la carrera..." class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" onchange="completar_combo_cursos(this)" required>
+                        <label class="control-label" for="asignatura">Asignatura</label>
+                        <select id="asignatura" 
+                                name="asignatura" 
+                                title="Seleccione la asignatura..." 
+                                class="selectpicker form-control" 
+                                data-live-search="true" 
+                                data-live-search-style="begins" 
+                                onclick="completar_datos_asignatura(this);" required>
                             <option value="">Seleccione</option>
+                            <option value="1">Álgebra Lineal</option>
                             {#% for carrera in listadoCarreras %}
                                                                                                 <option value="{{carrera.id_carrera}}">{{carrera.nombre}}</option>
                                                                                             {% else %}
@@ -27,17 +34,20 @@
                     <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="control-label" for="anio">Año
                         </label>
-                        <input class="form-control" id="anio" name="anio" type="text" value="2010" required/>                    
+                        <input class="form-control" id="anio" name="anio" 
+                               type="text" value="" required/>                    
                     </div>
                     <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="codigo_siu">C&oacute;digo SIU
                         </label>
-                        <input class="form-control" id="codigo_siu" name="codigo_siu" type="text" value="2525" disabled/>
+                        <input class="form-control" id="codigo_siu" 
+                               name="codigo_siu" type="text" value="" disabled/>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="plan_estudio">Plan de estudio
                         </label>
-                        <input class="form-control" id="plan_estudio" name="plan_estudio" type="text" value="2" disabled/>
+                        <input class="form-control" id="plan_estudio" 
+                               name="plan_estudio" type="text" value="" disabled/>
                     </div>
                 </div>
 
@@ -46,7 +56,8 @@
                 <div class="form-row mt-4">
                     <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="control-label" for="departamento">Departamento</label>
-                        <input class="form-control" id="departamento" name="departamento" type="text" value="" required/>
+                        <input class="form-control" id="departamento" 
+                               name="departamento" type="text" value="" required/>
                         <div class="invalid-feedback">
                             Ingrese un Departamento
                         </div>
@@ -54,12 +65,14 @@
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="caracter">Carácter
                         </label>
-                        <input class="form-control" id="caracter" name="caracter" type="text" value="2" disabled/>
+                        <input class="form-control" id="caracter" 
+                               name="caracter" type="text" value="" disabled/>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label for="carga_horaria">Carga Horaria total
                         </label>
-                        <input class="form-control" id="carga_horaria" name="carga_horaria" type="text" value="2525" disabled/>
+                        <input class="form-control" id="carga_horaria" 
+                               name="carga_horaria" type="text" value="" disabled/>
                     </div>
 
                 </div>
@@ -67,7 +80,9 @@
                 <div class="form-row mt-4">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label for="contenidos_minimos">Contenidos Mínimos</label>
-                        <textarea id="contenidos_minimos" name="contenidos_minimos" class=" form-control" disabled></textarea>
+                        <textarea id="contenidos_minimos" name="contenidos_minimos" rows="10"
+                                  class=" form-control">Si esta creando una nueva planificación debe completar este campo
+                        </textarea>
                     </div>
                 </div>           
 
