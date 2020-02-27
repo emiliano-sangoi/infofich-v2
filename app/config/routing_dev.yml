@@ -14,6 +14,6 @@ _main:
     resource: routing.yml
     
     
-homepage:
+prueba:
     path: /prueba
     defaults: { _controller: AppBundle:Default:prueba }

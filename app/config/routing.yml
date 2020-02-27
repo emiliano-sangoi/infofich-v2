@@ -3,7 +3,7 @@ planificaciones:
     prefix:   /planificaciones
 
 app:
-    resource: "@AppBundle/Resources/config/routing.yml"
+    resource: "@AppBundle/Resources/config/routing.yml"    
 
 #easy_admin_bundle:
 #    resource: "@EasyAdminBundle/Controller/AdminController.php"
