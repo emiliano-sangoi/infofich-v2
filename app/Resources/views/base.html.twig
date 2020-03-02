@@ -111,15 +111,18 @@
             <script src="{{ asset('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}" ></script>
 
             <script src="{{ asset('bundles/app/js/validacion.js') }}"></script>
+            
+            <script src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
+            <script src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
 
             <script>
 
                 $(document).ready(function () {
-                    
+
                     // https://github.com/select2/select2-bootstrap-theme
-                    $.fn.select2.defaults.set( "theme", "bootstrap" );
+                    $.fn.select2.defaults.set("theme", "bootstrap");
                     $('.js-select2').select2();
-                    
+
 
                     //Pantalla informacion Basica
                     $('#asignatura').on('change', function () {
@@ -127,24 +130,24 @@
                         $('#plan_estudio').val('2015');
                         $('#caracter').val('Cuatrimestral');
                         $('#carga_horaria').val('20');
-                        
+
                         //alert('You selected - ' + $(this).val())
                     });
-                    
+
                     //Pantalla equipo-docente
-                    $('#nombre_docente_res').on('change', function (){
+                    $('#nombre_docente_res').on('change', function () {
                         $('#dni_docente_res').val('31222555');
                         $('#tel_docente_res').val('342512345678');
                         $('#email_docente_res').val('docente@gmail.com');
                     });
-                    
-                    $('#nombre_docente_col').on('change', function (){
+
+                    $('#nombre_docente_col').on('change', function () {
                         $('#dni_docente_col').val('12345679');
                         $('#tel_docente_col').val('3421114445');
                         $('#email_docente_col').val('colaborador@gmail.com');
                     });
-                    
-                    $('#nombre_docente_ads').on('change', function (){
+
+                    $('#nombre_docente_ads').on('change', function () {
                         $('#dni_docente_ads').val('12345679');
                         $('#tel_docente_ads').val('3421114445');
                         $('#email_docente_ads').val('adscripto@gmail.com');
@@ -225,8 +228,39 @@
                             }
                         }
                     });
-                    
-                   
+
+
+
+                    $('.log-out').click(function (event) {
+                        event.preventDefault();
+                        var element = $(event.target);
+                        var href = element.attr('href');
+                        
+                        bootbox.confirm({
+                            message: "¿Esta seguro que desea salir de del sistema?",
+                            title: 'Cerrar sesión',
+                            buttons: {
+                                confirm: {
+                                    label: 'Si',
+                                    className: 'btn-primary'
+                                },
+                                cancel: {
+                                    label: 'No',
+                                    className: 'btn-danger'
+                                }
+                            },
+                            callback: function (result) {
+                                console.log(href);
+                                window.location.pathname = href;
+                                //console.log('This was logged in the callback: ' + result);
+                            }
+                        });
+
+                    });
+
+
+
+
 
 
                 });

@@ -26,7 +26,7 @@
                             Datos Personales
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item log-out" href="{{ path('fos_user_security_logout') }}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Cerrar Sesión
                         </a>
@@ -46,9 +46,9 @@
                             Inicio
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-400"></i>
-                            Módulos
+                        <a class="dropdown-item" href="{{ path('planificaciones_homepage') }}">
+                            <i class="fas fa-list fa-sm fa-fw text-gray-400"></i>
+                            Planificaciones
                         </a>
                     </div>
                 </li>
