@@ -1,74 +1,107 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+	<div class="container-fluid">
 
-<!-- Page Wrapper -->
-  <div id="wrapper">    
-    {% include ':fronted:sidebar.html.twig' %}  
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 
-
-<!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-    <!-- Main Content -->
-      <div id="content">
-    <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+				<h1 class="h2">Bienvenidx
+					<div class="text-color-azul">
+						Usuarix
+					</div>
+				</h1>
+				<hr/>
 
 
+				<div class="sidebar-sticky">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
+						<span>Listados</span>
+						<a class="d-flex align-items-center text-muted" href="#">
+							<span data-feather="plus-circle"></span>
+						</a>
+					</h6>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file"></span>
+								Personas
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="shopping-cart"></span>
+								Equipamiento
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="users"></span>
+								Publicaciones
+							</a>
+						</li>
+            </ul>
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
+						<span>Indicadores</span>
+						<a class="d-flex align-items-center text-muted" href="#">
+							<span data-feather="plus-circle"></span>
+						</a>
+					</h6>
+          <ul class="nav flex-column mb-2">
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="layers"></span>
+								Alumnos
+							</a>
+						</li>
+					</ul>
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
+						<span>Módulos</span>
+						<a class="d-flex align-items-center text-muted" href="#">
+							<span data-feather="plus-circle"></span>
+						</a>
+					</h6>
+					<ul class="nav flex-column mb-2">
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file-text"></span>
+								Planificaciones
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file-text"></span>
+								Ficha Docente
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file-text"></span>
+								Cooperadora
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file-text"></span>
+								Graduados
+							</a>
+						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="#">
+								<span data-feather="file-text"></span>
+								Boletines
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+				<img class="img-fluid pt-5" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>
+			</main>
 
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario InfoFICH</span>
-                <img class="img-profile rounded-circle" 
-                src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Datos Personales
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Cerrar Sesión 
-                </a>
-              </div>
-            </li>
 
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-        
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-        cosas para mostrar dentro....
-
-        </div>
-        <!-- /.container-fluid -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-</div>
-<!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+		</div>
+	</div>
 {% endblock %}
