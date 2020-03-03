@@ -15,15 +15,25 @@ class DefaultController extends Controller {
 
     public function pruebaAction(Request $request) {
 
+        $filtro = array(
+            WSHelper::CARRERA_IRH,
+            WSHelper::CARRERA_IAMB,
+            WSHelper::CARRERA_IAGR,
+            WSHelper::CARRERA_II,
+            WSHelper::CARRERA_LCARTOG,
+        );
+
         $query = new \FICH\APIInfofich\Query\Carreras\QueryCarreras();
 
-        $data = $query
+        $query
                 ->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
                 ->setCacheEnabled(false)
                 ->getResultado();
-
-        dump($data, $query->getError());
+        
+        $carreras = $query->filtrar($filtro);
+        
+        dump($carreras, $query->getError());
         exit;
 
 
