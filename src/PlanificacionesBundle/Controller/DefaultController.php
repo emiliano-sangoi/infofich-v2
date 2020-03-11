@@ -40,5 +40,12 @@ class DefaultController extends Controller
 //        return $this->render('PlanificacionesBundle:Planificaciones:carga2.html.twig');
 //        //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
 //    }
+
+    public function indexAcademicaAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('PlanificacionesBundle:Planificaciones:sa_inicio.html.twig');
+        //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
+    }
     
 }

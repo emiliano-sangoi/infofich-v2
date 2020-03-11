@@ -1,0 +1,183 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="container-inicio">
+        <div class="light-font mb-0">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-gris-3 mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+
+                </ol>
+            </nav>
+        </div>
+        <div class="py-5">
+
+            <div class="">
+                <div class="row">
+                    <div class="offset-3 col-lg-5">
+                        <div >
+                         <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        <label class="control-label" for="carrera">Carrera</label>
+                        <select id="carrera" 
+                                name="carrera" 
+                                title="Seleccione una carrera..." 
+                                class="form-control js-select2" 
+                                required>
+                            <option value="">Seleccione</option>
+                            <option value="1">Ingenier&iacute;a en Recursos H&iacute;dricos</option>
+                            <option value="2">Ingenier&iacute;a en Inform&acute;tica</option>
+                            <option value="3">Ingenier&iacute;a Ambiental</option>
+                            <option value="Opcion">Otra opcion</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        <label class="control-label" for="asignatura">Asignatura</label>
+                        <select id="asignatura" 
+                                name="asignatura" 
+                                title="Seleccione la asignatura..." 
+                                class="selectpicker form-control js-select2" 
+                                data-live-search="true" 
+                                data-live-search-style="begins" 
+                                onclick="completar_datos_asignatura(this);" required>
+                            <option value="">Seleccione</option>
+                            <option value="1">Álgebra Lineal</option>
+                            <option value="Opcion">Otra opcion</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label class="control-label" for="anio">Año
+                        </label>
+                        <input class="form-control" id="anio" name="anio" 
+                               type="text" value="" required/>                    
+                    </div>
+                        </div>
+                        <div class="form-row mt-4">
+                            <div class="form-group required col-md-12">
+                                <div id="accordion">
+                                    <div class="card mb-1">
+                                        <div class="card-header card-header-azul" id="headingOne">
+                                            <h6 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    &Aacute;lgebra  Lineal 2011
+                                                    <i class="fa fa-1x fa-caret-down"></i>
+                                                </button>
+                                            </h6>
+                                        </div>
+
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body bg-light">
+                                                <p><b>Carerra - plan</b></p>
+                                                <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
+                                                    Estado actual (en revisi&oacute;n, Publicada)<br>
+                                                    &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
+                                                </p>
+                                                <div class="mt-s text-right">
+
+                                                    <button type="submit" class="btn btn-link">
+                                                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                                        Editar
+                                                    </button>
+                                                    <a href="#" class="btn btn-link">
+                                                        Duplicar
+                                                    </a>
+                                                    <a href="#" class="btn btn-link">
+                                                        Imprimir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-1">
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    &Aacute;lgebra Lineal 2012
+                                                    <i class="fa fa-1x fa-caret-down"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body bg-light">
+                                                <p><b>Carerra - plan</b></p>
+                                                <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
+                                                    Estado actual (en revisi&oacute;n, Publicada)<br>
+                                                    &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
+                                                </p>
+                                                <div class="mt-s text-right">
+
+                                                    <button type="submit" class="btn btn-link">
+                                                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                                        Editar
+                                                    </button>
+                                                    <a href="#" class="btn btn-link">
+                                                        Duplicar
+                                                    </a>
+                                                    <a href="#" class="btn btn-link">
+                                                        Imprimir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-1">
+                                        <div class="card-header" id="headingThree">
+                                            <h6 class="mb-0 acordeon-header">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    &Aacute;lgebra Lineal 2013
+                                                    <i class="fa fa-1x fa-caret-down"></i>
+                                                </button>
+                                            </h6>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body bg-light">
+                                                <p><b>Carerra - plan</b></p>
+                                                <p>Docente responsable Juan P&eacute;rez |jperez@fich.unl.edu.ar<br>
+                                                    Estado actual (en revisi&oacute;n, Publicada)<br>
+                                                    &Uacute;ltima modificaci&oacute;n (fecha, hora, usuario)
+                                                </p>
+                                                <div class="mt-s text-right">
+
+                                                    <button type="submit" class="btn btn-link">
+                                                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                                        Editar
+                                                    </button>
+                                                    <a href="#" class="btn btn-link">
+                                                        Duplicar
+                                                    </a>
+                                                    <a href="#" class="btn btn-link">
+                                                        Imprimir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-s text-right">
+
+                            {# <button type="submit" class="btn btn btn-success">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                Crear Nueva
+                            </button>#}
+                            <a href="{{ path('planificaciones_carga') }}" class="btn btn-success">
+                                Crear Nueva
+                            </a>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -5,3 +5,7 @@ planificaciones_homepage:
 planificaciones_carga:
     path:     /carga-planificacion
     defaults: { _controller: PlanificacionesBundle:Default:cargaPlanificacion }
+
+academica_planificaciones_homepage:
+    path:     /academica
+    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica }    
