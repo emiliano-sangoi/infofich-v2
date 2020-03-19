@@ -17,3 +17,4 @@ src/AppBundle/Resources/.sass-cache
 app/Resources/views/..gitignore.swp
 src/AppBundle/Resources/css
 src/AppBundle/Resources/public/css/*.map
+app/docs/infofich2_modelo.mwb.bak
