@@ -5,12 +5,14 @@ namespace PlanificacionesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TipoMovilidad
+ * Vehiculo
+ * 
+ * Transportes que pueden ser utilizados en los viajes academicos.
  *
- * @ORM\Table(name="planif_tipos_movilidad")
- * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TipoMovilidadRepository")
+ * @ORM\Table(name="planif_vehiculos")
+ * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\VehiculosRepository")
  */
-class TipoMovilidad
+class Vehiculo
 {
     const AUTO = 'Automovil';
     const COLECTIVO = 'Colectivo';
@@ -99,4 +101,3 @@ class TipoMovilidad
         return $this->descripcion;
     }
 }
-

@@ -53,6 +53,11 @@ class HistoricoEstados
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
+    
+    
+    public function __construct() {
+        $this->fechaDesde = new \DateTime();
+    }
 
 
     /**

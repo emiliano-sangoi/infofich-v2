@@ -67,7 +67,7 @@ class ActividadCurricular
      *
      * @var Planificacion
      * 
-     * @ORM\ManyToOne(targetEntity="Planificacion")
+     * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="actividadesCurriculares")
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;

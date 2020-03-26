@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ViajeAcademico
@@ -69,7 +70,52 @@ class ViajeAcademico
      * @ORM\Column(name="cant_dias", type="smallint")
      */
     private $cantDias;
+    
+    /**
+     *
+     * @var Planificacion
+     * 
+     * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="viajesAcademicos")
+     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
+     */
+    private $planificacion;
+    
+    /**
+     *
+     * @var Asignatura
+     * 
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Asignatura")
+     * @ORM\JoinTable(name="planif_asignaturas_viajes_academicos",
+     *      joinColumns={@ORM\JoinColumn(name="planif_viajes_academicos_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="planif_asignaturas_id", referencedColumnName="id")}
+     * )
+     */
+    private $asignaturas;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\ManyToMany(targetEntity="Vehiculo")
+     * @ORM\JoinTable(
+     *      name="planif_viajes_academicos_vehiculos",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="planif_viajes_academicos_id", referencedColumnName="id")
+     *      },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="planif_transportes_id", referencedColumnName="id")
+     *      }
+     * 
+     * )
+     */
+    private $vehiculos;
+    
 
+    public function __construct() {
+        $this->asignaturas = new ArrayCollection;
+        $this->vehiculos = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -248,5 +294,97 @@ class ViajeAcademico
     {
         return $this->cantDias;
     }
-}
 
+    /**
+     * Add asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     *
+     * @return ViajeAcademico
+     */
+    public function addAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
+    {
+        $this->asignaturas[] = $asignatura;
+
+        return $this;
+    }
+
+    /**
+     * Remove asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     */
+    public function removeAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
+    {
+        $this->asignaturas->removeElement($asignatura);
+    }
+
+    /**
+     * Get asignaturas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAsignaturas()
+    {
+        return $this->asignaturas;
+    }
+
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return ViajeAcademico
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+
+
+    /**
+     * Add vehiculo
+     *
+     * @param \PlanificacionesBundle\Entity\Vehiculo $vehiculo
+     *
+     * @return ViajeAcademico
+     */
+    public function addVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo)
+    {
+        $this->vehiculos[] = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehiculo
+     *
+     * @param \PlanificacionesBundle\Entity\Vehiculo $vehiculo
+     */
+    public function removeVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo)
+    {
+        $this->vehiculos->removeElement($vehiculo);
+    }
+
+    /**
+     * Get vehiculos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVehiculos()
+    {
+        return $this->vehiculos;
+    }
+}

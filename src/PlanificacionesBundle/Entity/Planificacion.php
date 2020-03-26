@@ -90,10 +90,52 @@ class Planificacion
      */
     private $historicosEstado;
     
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion") 
+     */
+    private $actividadesCurriculares;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BibliografiaPlanificacion", mappedBy="planificacion") 
+     */
+    private $bibliografiasPlanificacion;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Planificacion", mappedBy="planificacion")
+     */
+    private $viajesAcademicos;
+    
+    /**
+     *
+     * @var CargaHoraria
+     * 
+     * @ORM\OneToOne(targetEntity="CargaHoraria", mappedBy="planificacion")
+     */
+    private $cargaHoraria;
+    
+    /**
+     *
+     * @var RequisitosAprobacion
+     * 
+     * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion")
+     */
+    private $requisitosAprobacion;
+    
     
     public function __construct() {
         $this->docentesPlanificacion = new ArrayCollection;
         $this->historicosEstados = new ArrayCollection;
+        $this->actividadesCurriculares = new ArrayCollection;
+        $this->bibliografiasPlanificacion = new ArrayCollection;
+        $this->viajesAcademicos = new ArrayCollection;
     }
 
 
@@ -342,5 +384,155 @@ class Planificacion
     public function getHistoricosEstado()
     {
         return $this->historicosEstado;
+    }
+
+    /**
+     * Add actividadesCurriculare
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare
+     *
+     * @return Planificacion
+     */
+    public function addActividadesCurriculare(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare)
+    {
+        $this->actividadesCurriculares[] = $actividadesCurriculare;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividadesCurriculare
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare
+     */
+    public function removeActividadesCurriculare(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare)
+    {
+        $this->actividadesCurriculares->removeElement($actividadesCurriculare);
+    }
+
+    /**
+     * Get actividadesCurriculares
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActividadesCurriculares()
+    {
+        return $this->actividadesCurriculares;
+    }
+
+    /**
+     * Add bibliografiasPlanificacion
+     *
+     * @param \PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion
+     *
+     * @return Planificacion
+     */
+    public function addBibliografiasPlanificacion(\PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion)
+    {
+        $this->bibliografiasPlanificacion[] = $bibliografiasPlanificacion;
+
+        return $this;
+    }
+
+    /**
+     * Remove bibliografiasPlanificacion
+     *
+     * @param \PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion
+     */
+    public function removeBibliografiasPlanificacion(\PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion)
+    {
+        $this->bibliografiasPlanificacion->removeElement($bibliografiasPlanificacion);
+    }
+
+    /**
+     * Get bibliografiasPlanificacion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBibliografiasPlanificacion()
+    {
+        return $this->bibliografiasPlanificacion;
+    }
+
+    /**
+     * Add viajesAcademico
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $viajesAcademico
+     *
+     * @return Planificacion
+     */
+    public function addViajesAcademico(\PlanificacionesBundle\Entity\Planificacion $viajesAcademico)
+    {
+        $this->viajesAcademicos[] = $viajesAcademico;
+
+        return $this;
+    }
+
+    /**
+     * Remove viajesAcademico
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $viajesAcademico
+     */
+    public function removeViajesAcademico(\PlanificacionesBundle\Entity\Planificacion $viajesAcademico)
+    {
+        $this->viajesAcademicos->removeElement($viajesAcademico);
+    }
+
+    /**
+     * Get viajesAcademicos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getViajesAcademicos()
+    {
+        return $this->viajesAcademicos;
+    }
+
+    /**
+     * Set cargaHoraria
+     *
+     * @param \PlanificacionesBundle\Entity\CargaHoraria $cargaHoraria
+     *
+     * @return Planificacion
+     */
+    public function setCargaHoraria(\PlanificacionesBundle\Entity\CargaHoraria $cargaHoraria = null)
+    {
+        $this->cargaHoraria = $cargaHoraria;
+
+        return $this;
+    }
+
+    /**
+     * Get cargaHoraria
+     *
+     * @return \PlanificacionesBundle\Entity\CargaHoraria
+     */
+    public function getCargaHoraria()
+    {
+        return $this->cargaHoraria;
+    }
+
+    /**
+     * Set requisitosAprobacion
+     *
+     * @param \PlanificacionesBundle\Entity\RequisitosAprobacion $requisitosAprobacion
+     *
+     * @return Planificacion
+     */
+    public function setRequisitosAprobacion(\PlanificacionesBundle\Entity\RequisitosAprobacion $requisitosAprobacion = null)
+    {
+        $this->requisitosAprobacion = $requisitosAprobacion;
+
+        return $this;
+    }
+
+    /**
+     * Get requisitosAprobacion
+     *
+     * @return \PlanificacionesBundle\Entity\RequisitosAprobacion
+     */
+    public function getRequisitosAprobacion()
+    {
+        return $this->requisitosAprobacion;
     }
 }

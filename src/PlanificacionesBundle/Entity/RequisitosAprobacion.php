@@ -111,6 +111,14 @@ class RequisitosAprobacion
      * @ORM\Column(name="examen_final_modalidad_libres", type="text", nullable=true)
      */
     private $examenFinalModalidadLibres;
+    
+    /**
+     *
+     * @var Planificacion
+     * 
+     * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="requisitosAprobacion")
+     */
+    private $planificacion;
 
 
     /**
@@ -434,5 +442,28 @@ class RequisitosAprobacion
     {
         return $this->examenFinalModalidadLibres;
     }
-}
 
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return RequisitosAprobacion
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+}

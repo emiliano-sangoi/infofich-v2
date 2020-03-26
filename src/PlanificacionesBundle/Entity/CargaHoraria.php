@@ -69,6 +69,14 @@ class CargaHoraria
      * @ORM\Column(name="cant_hs_evaluacion", type="decimal", precision=6, scale=1)
      */
     private $cantHsEvaluacion;
+    
+    /**
+     *
+     * @var Planificacion
+     * 
+     * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="cargaHoraria")
+     */
+    private $planificacion;
 
 
     /**
@@ -248,5 +256,28 @@ class CargaHoraria
     {
         return $this->cantHsEvaluacion;
     }
-}
 
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return CargaHoraria
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+}
