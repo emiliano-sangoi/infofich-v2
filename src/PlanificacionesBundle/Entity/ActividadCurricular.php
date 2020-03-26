@@ -62,6 +62,33 @@ class ActividadCurricular
      * @ORM\Column(name="descripcion", type="text", nullable=true)
      */
     private $descripcion;
+    
+    /**
+     *
+     * @var Planificacion
+     * 
+     * @ORM\ManyToOne(targetEntity="Planificacion")
+     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
+     */
+    private $planificacion;
+    
+    /**
+     *
+     * @var TipoActividadCurricular
+     * 
+     * @ORM\ManyToOne(targetEntity="TipoActividadCurricular")
+     * @ORM\JoinColumn(name="planif_tipos_actividad_curricular_id", referencedColumnName="id") 
+     */
+    private $tipoActividadCurricular;
+    
+    /**
+     *
+     * @var Temario
+     * 
+     * @ORM\ManyToOne(targetEntity="Temario")
+     * @ORM\JoinColumn(name="planif_temarios_id", referencedColumnName="id") 
+     */
+    private $temario;
 
 
     /**
@@ -217,5 +244,76 @@ class ActividadCurricular
     {
         return $this->descripcion;
     }
-}
 
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return ActividadCurricular
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+
+    /**
+     * Set tipoActividadCurricular
+     *
+     * @param \PlanificacionesBundle\Entity\TipoActividadCurricular $tipoActividadCurricular
+     *
+     * @return ActividadCurricular
+     */
+    public function setTipoActividadCurricular(\PlanificacionesBundle\Entity\TipoActividadCurricular $tipoActividadCurricular = null)
+    {
+        $this->tipoActividadCurricular = $tipoActividadCurricular;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoActividadCurricular
+     *
+     * @return \PlanificacionesBundle\Entity\TipoActividadCurricular
+     */
+    public function getTipoActividadCurricular()
+    {
+        return $this->tipoActividadCurricular;
+    }
+
+    /**
+     * Set temario
+     *
+     * @param \PlanificacionesBundle\Entity\Temario $temario
+     *
+     * @return ActividadCurricular
+     */
+    public function setTemario(\PlanificacionesBundle\Entity\Temario $temario = null)
+    {
+        $this->temario = $temario;
+
+        return $this;
+    }
+
+    /**
+     * Get temario
+     *
+     * @return \PlanificacionesBundle\Entity\Temario
+     */
+    public function getTemario()
+    {
+        return $this->temario;
+    }
+}

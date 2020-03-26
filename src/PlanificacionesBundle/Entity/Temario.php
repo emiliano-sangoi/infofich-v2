@@ -41,6 +41,15 @@ class Temario
      * @ORM\Column(name="contenido", type="text", nullable=true)
      */
     private $contenido;
+    
+    /**
+     *
+     * @var Planificacion
+     * 
+     * @ORM\ManyToOne(targetEntity="Planificacion")
+     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
+     */
+    private $planificacion;
 
 
     /**
@@ -124,5 +133,28 @@ class Temario
     {
         return $this->contenido;
     }
-}
 
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return Temario
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+}

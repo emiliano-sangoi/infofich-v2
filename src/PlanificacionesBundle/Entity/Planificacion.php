@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Planificacion
@@ -55,6 +56,45 @@ class Planificacion
      * @ORM\Column(name="objetivos_especificos", type="text", nullable=true)
      */
     private $objetivosEspecificos;
+    
+    /**
+     *
+     * @var Departamento
+     * 
+     * @ORM\ManyToOne(targetEntity="Departamento")
+     * @ORM\JoinColumn(name="planif_departamentos_id",referencedColumnName="id")
+     */
+    private $departamento;
+    
+    /**
+     *
+     * @var Asignatura
+     * 
+     * @ORM\ManyToOne(targetEntity="Asignatura")
+     * @ORM\JoinColumn(name="planif_asignaturas_id",referencedColumnName="id")
+     */
+    private $asignatura;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="DocentePlanificacion", mappedBy="planificacion")
+     */
+    private $docentesPlanificacion;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="HistoricoEstados", mappedBy="planificacion")
+     */
+    private $historicosEstado;
+    
+    
+    public function __construct() {
+        $this->docentesPlanificacion = new ArrayCollection;
+        $this->historicosEstados = new ArrayCollection;
+    }
 
 
     /**
@@ -186,5 +226,121 @@ class Planificacion
     {
         return $this->objetivosEspecificos;
     }
-}
 
+    /**
+     * Set departamento
+     *
+     * @param \PlanificacionesBundle\Entity\Departamento $departamento
+     *
+     * @return Planificacion
+     */
+    public function setDepartamento(\PlanificacionesBundle\Entity\Departamento $departamento = null)
+    {
+        $this->departamento = $departamento;
+
+        return $this;
+    }
+
+    /**
+     * Get departamento
+     *
+     * @return \PlanificacionesBundle\Entity\Departamento
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
+
+    /**
+     * Set asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     *
+     * @return Planificacion
+     */
+    public function setAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura = null)
+    {
+        $this->asignatura = $asignatura;
+
+        return $this;
+    }
+
+    /**
+     * Get asignatura
+     *
+     * @return \PlanificacionesBundle\Entity\Asignatura
+     */
+    public function getAsignatura()
+    {
+        return $this->asignatura;
+    }
+
+    /**
+     * Add docentesPlanificacion
+     *
+     * @param \PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion
+     *
+     * @return Planificacion
+     */
+    public function addDocentesPlanificacion(\PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion)
+    {
+        $this->docentesPlanificacion[] = $docentesPlanificacion;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesPlanificacion
+     *
+     * @param \PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion
+     */
+    public function removeDocentesPlanificacion(\PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion)
+    {
+        $this->docentesPlanificacion->removeElement($docentesPlanificacion);
+    }
+
+    /**
+     * Get docentesPlanificacion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesPlanificacion()
+    {
+        return $this->docentesPlanificacion;
+    }
+
+
+    /**
+     * Add historicosEstado
+     *
+     * @param \PlanificacionesBundle\Entity\HistoricoEstados $historicosEstado
+     *
+     * @return Planificacion
+     */
+    public function addHistoricosEstado(\PlanificacionesBundle\Entity\HistoricoEstados $historicosEstado)
+    {
+        $this->historicosEstado[] = $historicosEstado;
+
+        return $this;
+    }
+
+    /**
+     * Remove historicosEstado
+     *
+     * @param \PlanificacionesBundle\Entity\HistoricoEstados $historicosEstado
+     */
+    public function removeHistoricosEstado(\PlanificacionesBundle\Entity\HistoricoEstados $historicosEstado)
+    {
+        $this->historicosEstado->removeElement($historicosEstado);
+    }
+
+    /**
+     * Get historicosEstado
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHistoricosEstado()
+    {
+        return $this->historicosEstado;
+    }
+}
