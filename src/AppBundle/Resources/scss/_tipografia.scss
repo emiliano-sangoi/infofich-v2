@@ -1,0 +1,45 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 29, 2020, 5:27:29 PM
+    Author     : emi88
+*/
+
+// Lato
+$font-lato: 'Lato';
+@font-face {
+    font-family: $font-lato;
+    src: url('../fonts/Lato/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: $font-lato;
+    src: url('../fonts/Lato/Lato-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: $font-lato;
+    src: url('../fonts/Lato/Lato-BlackItalic.ttf');
+    font-style: italic;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: $font-lato;
+    src: url('../fonts/Lato/Lato-RegularItalic.ttf');
+    font-style: italic;
+}
+
+
+
+
+.font-weight-light { font-weight: 300 !important; }
+.font-weight-lighter { font-weight: lighter !important; }
+.font-weight-normal { font-weight: 400 !important; }
+.font-weight-bold { font-weight: 600 !important; }
+.font-weight-bolder { font-weight: bolder !important; }
+.font-italic { font-style: italic !important; }

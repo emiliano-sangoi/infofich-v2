@@ -1,0 +1,127 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div id="planificaciones">
+
+
+        {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
+
+        <div class="light-font mb-0">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-azul mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Álgebra lineal 2019 (AI 2006)</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="row no-gutters pt-0" id="menuLateral">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link" id="tab-info-basica" href="#" data-toggle="pill" role="tab" aria-controls="tab-info-basica" aria-selected="false">
+                        Información básica
+                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                    </a>
+                    <a class="nav-link" id="tab-equipo-docente" data-toggle="pill" href="#" role="tab" aria-controls="tab-equipo-docente" aria-selected="false">
+                        Equipo docente
+                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                    </a>
+                    <a class="nav-link" id="tab-aprobacion" data-toggle="pill" href="#" role="tab" aria-controls="tab-aprobacion" aria-selected="false">
+                        Aprobación de la asignatura
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
+                        Objetivos de la asignatura
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-temario-tab" data-toggle="pill" href="#v-pills-temario" role="tab" aria-controls="v-pills-temario" aria-selected="false">
+                        Temario
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-bibliografia-tab" data-toggle="pill" href="#v-pills-bibliografia" role="tab" aria-controls="v-pills-bibliografia" aria-selected="false">
+                        Bibliografia
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+
+                    <a class="nav-link" id="v-pills-cronograma-tab" data-toggle="pill" href="#v-pills-cronograma" role="tab" aria-controls="v-pills-cronograma" aria-selected="false">
+                        Cronograma de actividades
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-distribucion-tab" data-toggle="pill" href="#v-pills-distribucion" role="tab" aria-controls="v-pills-distribucion" aria-selected="false">
+                        Distribucion de carga horaria
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="nav-link" id="v-pills-viajes-tab" data-toggle="pill" href="#v-pills-viajes" role="tab" aria-controls="v-pills-viajes" aria-selected="false">
+                        Viajes académicos
+                        <i class="far fa-circle float-right"></i>
+                    </a>
+                    <a class="btn border-azul w-100 text-left p-3 pl-4" 
+                       id="v-pills-revisar-tab" data-toggle="pill" href="#v-pills-revisar" role="tab" aria-controls="v-pills-revisar" aria-selected="false">
+                        Revisar borrador                        
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-9">
+
+                <div class="tab-content" id="tab-content">
+
+                    {% block tab_content %}
+
+
+                    {% endblock %}                     
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{#<script>
+        var SECCIONES = {
+            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}"
+        };
+        </script>#}
+    <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
+
+    <script>
+        SECCIONES = {
+            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
+            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
+            req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
+        };
+
+        $(document).ready(function () {
+            
+            $('#tab-info-basica').tab('show');
+
+        {#$("#btnAñadirAdscripto").click(function () {
+            $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");
+        });
+        $("#btnAñadirColab").click(function () {
+            $(".bloque_colaborador:last").clone().insertAfter(".bloque_colaborador:last");
+        });
+        $("#btnAñadirTema").click(function () {
+            //alert('sdfsddf');
+            $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
+            //alert('2');
+        });#}
+                });
+    </script>
+{% endblock %}

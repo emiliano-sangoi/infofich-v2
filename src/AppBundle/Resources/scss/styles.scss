@@ -19,47 +19,14 @@
 @import '_footer.scss';
 @import '_login.scss';
 @import '_mixins.scss';
+@import '_tipografia.scss';
+@import '_planificaciones.scss';
 //@import 'sb_admin2/sb-admin-2.scss';
 
 
 /*--------------------------------------------------------------------------------------------------------*/
 /* Tipografias */
 
-// Lato
-$font-lato: 'Lato';
-@font-face {
-  font-family: $font-lato;
-  src: url('../fonts/Lato/Lato-Regular.ttf');
-}
-
-@font-face {
-  font-family: $font-lato;
-  src: url('../fonts/Lato/Lato-Bold.ttf');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: $font-lato;
-  src: url('../fonts/Lato/Lato-BlackItalic.ttf');
-  font-style: italic;
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: $font-lato;
-  src: url('../fonts/Lato/Lato-RegularItalic.ttf');
-  font-style: italic;
-}
-
-
-
-
-.font-weight-light { font-weight: 300 !important; }
-.font-weight-lighter { font-weight: lighter !important; }
-.font-weight-normal { font-weight: 400 !important; }
-.font-weight-bold { font-weight: 600 !important; }
-.font-weight-bolder { font-weight: bolder !important; }
-.font-italic { font-style: italic !important; }
 
 
 
@@ -92,17 +59,6 @@ body{
 
 .position-relative{ position: relative; }
 .position-absolute{ position: absolute; }
-
-
-
-
-
-// Creacion de clases .w-n en donde n es un valor en porcentaje definido en $sizes en el archivo _variables.scss
-@each $size_n, $size_v in $sizes {
-    .w-#{$size_n} {
-        width: $size_v !important;
-    }
-}
 
 
 $content-info-left-panel-h: 23vh;
@@ -149,86 +105,11 @@ $content-info-right-panel-h: 20.25vh;
 
 }
 
-.header-box{
-    //La altura del help-box es aprox. 80% la altura del header que lo contiene.
-    height: $content-info-right-panel-h * .8;
-    color: $white;
-    font-size: 110%;
-
-    div{
-      line-height: 1.2;
-    }
-}
-
-.qr-block{
-  button{
-    position: relative;
-
-    img{
-      position: absolute;
-      right: 8px;
-    }
-  }
-
-  .qr{
-    height: 30vh;
-  }
-
-
-}
-
-#paso2{
-  .content-info{
-    .left-panel{
-      p{
-        font-size: 135%;
-      }
-    }
-  }
-}
 
 
 
 .content-header{
     // height: $content-header-height;
-}
-
-//http://jsfiddle.net/2bZAW/
-//Chanfle superior izquierdo
-//.content-info:after {
-  //content: '';
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //border-top: $step-info-border-t solid $white;
-  //border-right: $step-info-border-r solid $primary;
-  //
-  //width: 0;
-//}
-
-//.content-info:before {
-  //content: '';
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
-  //border-bottom: $step-info-border-b solid $white;
-  //border-left: $step-info-border-l solid $primary;
-  //width: 0;
-//}
-
-// $help-box-height: $content-header-height * .5;
-// $m-help-box: ($content-header-height - $help-box-height) / 2;
-.help-box{
-
-
-    //height: $help-box-height;
-    //margin-top: $m-help-box;
-    //margin-bottom: $m-help-box;
-}
-
-.trasl {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
 }
 
 

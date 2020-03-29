@@ -1,11 +1,18 @@
-planificaciones_homepage:
-    path:     /
-    defaults: { _controller: PlanificacionesBundle:Default:index }
-
-planificaciones_carga:
-    path:     /carga-planificacion
-    defaults: { _controller: PlanificacionesBundle:Default:cargaPlanificacion }
+planificaciones_ajax:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
 
 academica_planificaciones_homepage:
     path:     /academica
     defaults: { _controller: PlanificacionesBundle:Default:indexAcademica }    
+
+planificaciones_homepage:
+    path:     /
+    defaults: { _controller: PlanificacionesBundle:Planificacion:index }
+
+planificaciones_new:
+    path:     /nueva
+    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
+
+planificaciones_edit:
+    path:     /editar
+    defaults: { _controller: PlanificacionesBundle:Planificacion:edit }

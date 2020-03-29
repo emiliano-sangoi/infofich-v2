@@ -1,0 +1,36 @@
+planificacion_ajax_get_info_basica_form:
+    path:     /informacion-basica
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getInfoBasicaForm }
+    methods: [GET, POST]
+    
+planificacion_ajax_get_form_equipo_docente:
+    path:     /equipo-docente
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getFormEquipoDocente }    
+
+planificacion_ajax_get_requisitos_aprob_form:
+    path:     /aprobacion
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getRequisitosAprobForm }
+
+planificacion_ajax_get_objetivos_form:
+    path:     /objetivos
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getObjetivosForm }
+
+planificacion_ajax_get_temario_form:
+    path:     /temario
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getTemarioForm }
+
+planificacion_ajax_get_bibliografia_form:
+    path:     /bibliografia
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getBibliografiaForm }
+
+planificacion_ajax_get_cronograma_form:
+    path:     /cronograma
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getCronogramaForm }
+
+planificacion_ajax_get_carga_horaria_form:
+    path:     /carga-horaria
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getCargaHorariaForm }
+
+planificacion_ajax_get_viajes_academicos_form:
+    path:     /viajes-academicos
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getViajesAcademicosForm }

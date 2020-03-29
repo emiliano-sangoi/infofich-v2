@@ -4,6 +4,7 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Planificacion
@@ -26,6 +27,7 @@ class Planificacion
      * @var int
      *
      * @ORM\Column(name="anio_acad", type="smallint")
+     * @Assert\GreaterThanOrEqual(value=2020, message="Este campo debe ser mayor o igual que {{ compared_value }}")
      */
     private $anioAcad;
 
@@ -136,6 +138,8 @@ class Planificacion
         $this->actividadesCurriculares = new ArrayCollection;
         $this->bibliografiasPlanificacion = new ArrayCollection;
         $this->viajesAcademicos = new ArrayCollection;
+        
+        $this->fechaCreacion = new \DateTime;
     }
 
 
