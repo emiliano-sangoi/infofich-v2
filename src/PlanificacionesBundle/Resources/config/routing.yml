@@ -3,7 +3,11 @@ planificaciones_ajax:
 
 academica_planificaciones_homepage:
     path:     /academica
-    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica }    
+    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica } 
+    
+academica_planificaciones_revisar:
+    path:     /academica/revisar
+    defaults: { _controller: PlanificacionesBundle:Default:revisarPlanificacion }     
 
 planificaciones_homepage:
     path:     /
