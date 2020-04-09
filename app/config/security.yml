@@ -1,41 +1,127 @@
-# app/config/security.yml
+## app/config/security.yml
+
 security:
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
-        #Symfony\Component\Security\Core\User\User: plaintext
-
-
+        AppBundle\Entity\Usuario: bcrypt
+    
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
-#        in_memory:
-#            memory:
-#                users:
-#                   admin: { password: admin, roles: 'ROLE_ADMIN' }    
-
+        entity_provider:
+            entity:
+                class: AppBundle\Entity\Usuario
+                property: nombreUsuario
+                
+        
+        
     firewalls:
-        main:
+        principal:
             pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-                default_target_path: /
-                always_use_default_target_path: true
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
+            anonymous: true
+            http_basic:
+                provider: entity_provider
+                realm: "Area protegida"                
 
-            logout:       true
-            anonymous:    true
-            logout:
-                target: /login
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
         
-    access_control:       
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, role: ROLE_ADMIN }
-        
+    
+    
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: [ROLE_ADMIN] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#security:
+#    encoders:
+#        AppBundle\Entity\Usuario: plaintext
+#        
+#        #FOS\UserBundle\Model\UserInterface: bcrypt
+#        Symfony\Component\Security\Core\User\User: plaintext
+#
+#
+#    providers:
+#        my_memory_provider:
+#            memory:
+#                users:
+#                    emi: { password: '1234', roles: 'ROLE_ADMIN' }
+##        fos_userbundle:
+##            id: fos_user.user_provider.username
+##        default_provider:
+##            entity: { class: AppBundle\Entity\Usuario, property: 'username' }
+##        in_memory:
+##            memory:
+##                users:
+##                   admin: { password: admin, roles: 'ROLE_ADMIN' }    
+#
+#    firewalls:
+#                # disables authentication for assets and the profiler, adapt it according to your needs
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        main:
+#            pattern: ^/
+#            http_basic:
+#                provider: my_memory_provider
+#                realm: 'Secured Area'
+##            form_login:
+##                provider: default_provider
+##                csrf_token_generator: security.csrf.token_manager
+##                default_target_path: /
+##                always_use_default_target_path: true
+##                # if you are using Symfony < 2.8, use the following config instead:
+##                # csrf_provider: form.csrf_provider
+##
+##            logout:       true
+##            anonymous:    true
+##            logout:
+##                target: /login
+#
+#    role_hierarchy:
+#        ROLE_ADMIN:       ROLE_USER
+#        ROLE_SUPER_ADMIN: ROLE_ADMIN
+#        
+#    access_control:       
+#        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+##        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+##        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/, role: ROLE_ADMIN }
+#        

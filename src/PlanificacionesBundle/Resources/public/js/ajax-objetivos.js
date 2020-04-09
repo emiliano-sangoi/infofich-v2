@@ -1,39 +1,26 @@
 
-function getFormEquipoDocente(url, data) {
+function getObjetivosForm(url, data) {
 
-    
-    
-    var tab_content = $('#tab-content');
-    
-    if(PLANIFICACION.id === null){
-        var msg = "<p class='p-5 lead'>Para definir esta información debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
-        tab_content.hide().html(msg).fadeIn();
-        return;
-    }else{
-        tab_content.hide();
-    }
-    
-    var dialog = crearDialogEspera('Cargando equipo docente ...');
+    var dialog = crearDialogEspera('Cargando requisitos de aprobaci&oacute;n de la asignatura ...');
 
     var success = function (response) {
 
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
+
         var btn = $('#btn-guardar-info-basica');
 
         if (btn.length > 0) {
-
             btn.click(function (e) {
                 e.preventDefault();
 
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormEquipoDocente(url, form_data);
+                postRequisitosForm(url, form_data);
 
             });
-
         }
 
         dialog.modal('hide');
@@ -50,7 +37,7 @@ function getFormEquipoDocente(url, data) {
 }
 
 
-function postFormEquipoDocente(url, form_data) {
+function postRequisitosForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

@@ -32,7 +32,7 @@
                         Aprobación de la asignatura
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
+                    <a class="nav-link" id="tab-objetivos" data-toggle="pill" href="#" role="tab" aria-controls="tab-objetivos" aria-selected="false">
                         Objetivos de la asignatura
                         <i class="far fa-circle float-right"></i>
                     </a>
@@ -90,26 +90,34 @@
 {% block javascripts %}
     {{ parent() }}
 
-{#<script>
-        var SECCIONES = {
-            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}"
+
+
+    <script>
+        // Objeto global que guardara toda la informacion de la planificacion
+        PLANIFICACION = {
+            id: null
         };
-        </script>#}
+    </script>
+    
+    
+    
     <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
+    
     <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
 
     <script>
-        SECCIONES = {
-            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
-            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
-            req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
-        };
+    SECCIONES = {
+        info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
+        equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
+        req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
+        objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
+    };
 
-        $(document).ready(function () {
-            
-            $('#tab-info-basica').tab('show');
+    $(document).ready(function () {
+
+        $('#tab-info-basica').tab('show');
 
         {#$("#btnAñadirAdscripto").click(function () {
             $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");
@@ -122,6 +130,6 @@
             $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
             //alert('2');
         });#}
-                });
+            });
     </script>
 {% endblock %}
