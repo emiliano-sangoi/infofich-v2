@@ -48,7 +48,7 @@ class PlanificacionAjaxController extends Controller {
     }
 
     public function getTemarioFormAction() {
-        return $this->render('PlanificacionesBundle:Planificacion:get_temario_form.html.twig', array(
+        return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
                         // ...
         ));
     }
@@ -66,13 +66,13 @@ class PlanificacionAjaxController extends Controller {
     }
 
     public function getCargaHorariaFormAction() {
-        return $this->render('PlanificacionesBundle:Planificacion:get_carga_horaria_form.html.twig', array(
+        return $this->render('PlanificacionesBundle:Planificacion:tab-distribucion.html.twig', array(
                         // ...
         ));
     }
 
     public function getViajesAcademicosFormAction() {
-        return $this->render('PlanificacionesBundle:Planificacion:get_viajes_academicos_form.html.twig', array(
+        return $this->render('PlanificacionesBundle:Planificacion:tab-viajes_academicos.html.twig', array(
                         // ...
         ));
     }
