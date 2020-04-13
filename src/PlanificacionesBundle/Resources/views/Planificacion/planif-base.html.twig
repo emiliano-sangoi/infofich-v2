@@ -32,7 +32,7 @@
                         Aprobación de la asignatura
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-objetivos-tab" data-toggle="pill" href="#v-pills-objetivos" role="tab" aria-controls="v-pills-objetivos" aria-selected="false">
+                    <a class="nav-link" id="tab-objetivos" data-toggle="pill" href="#" role="tab" aria-controls="tab-objetivos" aria-selected="false">
                         Objetivos de la asignatura
                         <i class="far fa-circle float-right"></i>
                     </a>
@@ -98,6 +98,7 @@
     <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-objetivos.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
 
     <script>
@@ -105,6 +106,8 @@
             info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
             equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
             req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
+            objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
+            
         };
 
         $(document).ready(function () {

@@ -42,7 +42,7 @@ class PlanificacionAjaxController extends Controller {
     }
 
     public function getObjetivosFormAction() {
-        return $this->render('PlanificacionesBundle:Planificacion:get_objetivos_form.html.twig', array(
+        return $this->render('PlanificacionesBundle:Planificacion:tab-objetivos.html.twig', array(
                         // ...
         ));
     }

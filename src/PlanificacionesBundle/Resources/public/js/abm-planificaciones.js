@@ -11,10 +11,6 @@ $(document).ready(function () {
         getInfoBasicaForm(SECCIONES.info_basica, null);
     });
 
-
-
-
-
     $('#tab-equipo-docente').on('shown.bs.tab', function (e) {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
@@ -30,6 +26,14 @@ $(document).ready(function () {
         //console.log(e.target, e.relatedTarget);
         console.log("Tab requisitos de aprobacion ");
         getRequisitosAprobForm(SECCIONES.req_aprobacion, null);
+    });
+    
+    $('#tab-objetivos').on('shown.bs.tab', function (e) {
+        //e.target // newly activated tab        
+        //e.relatedTarget // previous active tab
+        //console.log(e.target, e.relatedTarget);
+        console.log("Tab objetivos");
+        getObjetivosForm(SECCIONES.objetivos, null);
     });
 
 
