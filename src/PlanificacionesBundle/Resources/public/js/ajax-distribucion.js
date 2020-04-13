@@ -1,14 +1,14 @@
 
-function getFormEquipoDocente(url, data) {
+function getFormDistribucion(url, data) {
 
-    var dialog = crearDialogEspera('Cargando equipo docente ...');
+    var dialog = crearDialogEspera('Cargando distribucion de carga horaria...');
 
     var success = function (response) {
 
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
-        var btn = $('#btn-guardar-equipo-docente');
+        var btn = $('#btn-guardar-distribucion');
 
         if (btn.length > 0) {
 
@@ -18,7 +18,7 @@ function getFormEquipoDocente(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormEquipoDocente(url, form_data);
+                postFormDistribucion(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormEquipoDocente(url, data) {
 }
 
 
-function postFormEquipoDocente(url, form_data) {
+function postFormDistribucion(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

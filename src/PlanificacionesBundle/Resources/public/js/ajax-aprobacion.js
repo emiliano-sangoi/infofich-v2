@@ -9,7 +9,7 @@ function getRequisitosAprobForm(url, data) {
         $('#tab-content').hide().html(response).fadeIn();
 
 
-        var btn = $('#btn-guardar-info-basica');
+        var btn = $('#btn-guardar-requisitos');
 
         if (btn.length > 0) {
             btn.click(function (e) {

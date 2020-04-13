@@ -1,14 +1,14 @@
 
-function getFormEquipoDocente(url, data) {
+function getFormBibliografia(url, data) {
 
-    var dialog = crearDialogEspera('Cargando equipo docente ...');
+    var dialog = crearDialogEspera('Cargando bibliografia ...');
 
     var success = function (response) {
 
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
-        var btn = $('#btn-guardar-equipo-docente');
+        var btn = $('#btn-guardar-bibliografia');
 
         if (btn.length > 0) {
 
@@ -18,7 +18,7 @@ function getFormEquipoDocente(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormEquipoDocente(url, form_data);
+                postFormBibliografia(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormEquipoDocente(url, data) {
 }
 
 
-function postFormEquipoDocente(url, form_data) {
+function postFormBibliografia(url, form_data) {
 
     var success = function (response) {
         //console.log(response);
