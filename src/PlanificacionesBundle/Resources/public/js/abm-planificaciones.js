@@ -11,7 +11,7 @@ $(document).ready(function () {
         getInfoBasicaForm(SECCIONES.info_basica, null);
     });
 
-    // 3 - Equipo Docente
+    // 1 - Equipo Docente
     $('#tab-equipo-docente').on('shown.bs.tab', function (e) {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
