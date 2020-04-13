@@ -11,6 +11,7 @@ $(document).ready(function () {
         getInfoBasicaForm(SECCIONES.info_basica, null);
     });
 
+    // 3 - Equipo Docente
     $('#tab-equipo-docente').on('shown.bs.tab', function (e) {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
@@ -19,7 +20,7 @@ $(document).ready(function () {
         getFormEquipoDocente(SECCIONES.equipo_docente, null);
     });
     
-    
+    // 2 - Requisitos de aprobacion
     $('#tab-aprobacion').on('shown.bs.tab', function (e) {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
@@ -28,6 +29,7 @@ $(document).ready(function () {
         getRequisitosAprobForm(SECCIONES.req_aprobacion, null);
     });
     
+    // 3 - Ojetivos
     $('#tab-objetivos').on('shown.bs.tab', function (e) {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
@@ -35,10 +37,36 @@ $(document).ready(function () {
         console.log("Tab objetivos");
         getObjetivosForm(SECCIONES.objetivos, null);
     });
+    
+    // 4 - Temario
+    $('#tab-temario').on('shown.bs.tab', function (e) {
+        console.log("Tab temario");
+        getObjetivosForm(SECCIONES.temario, null);
+    });
+    
+    // 5 - Bibliografia.
+    $('#tab-bibliografia').on('shown.bs.tab', function (e) {
+        console.log("Tab bibliografia");
+        getObjetivosForm(SECCIONES.bibliografia, null);
+    });
+
+    // 6 - Cronograma
+    $('#tab-cronograma').on('shown.bs.tab', function (e) {
+        console.log("Tab cronograma");
+        getObjetivosForm(SECCIONES.cronograma, null);
+    });
 
 
-
-
-
-
+    // 7 - Distribucion
+    $('#tab-distribucion').on('shown.bs.tab', function (e) {
+        console.log("Tab distribucion");
+        getObjetivosForm(SECCIONES.distribucion, null);
+    });
+    
+    // 8 - Viajes Academicos
+    $('#tab-viajes-academicos').on('shown.bs.tab', function (e) {
+        console.log("Tab viajes academicos");
+        getObjetivosForm(SECCIONES.viajes_academicos, null);
+    });
+    
 });
