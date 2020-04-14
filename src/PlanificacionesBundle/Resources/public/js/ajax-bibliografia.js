@@ -1,14 +1,14 @@
 
-function getObjetivosForm(url, data) {
+function getFormBibliografia(url, data) {
 
-    var dialog = crearDialogEspera('Cargando <em>Objetivos</em> ...');
+    var dialog = crearDialogEspera('Cargando bibliografia ...');
 
     var success = function (response) {
 
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
-        var btn = $('#btn-guardar-objetivos');
+        var btn = $('#btn-guardar-bibliografia');
 
         if (btn.length > 0) {
 
@@ -18,7 +18,7 @@ function getObjetivosForm(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postObjetivosForm(url, form_data);
+                postFormBibliografia(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getObjetivosForm(url, data) {
 }
 
 
-function postObjetivosForm(url, form_data) {
+function postFormBibliografia(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

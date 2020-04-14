@@ -20,7 +20,7 @@ function getFormEquipoDocente(url, data) {
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
-        var btn = $('#btn-guardar-info-basica');
+        var btn = $('#btn-guardar-equipo-docente');
 
         if (btn.length > 0) {
 

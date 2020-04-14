@@ -36,24 +36,24 @@
                         Objetivos de la asignatura
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-temario-tab" data-toggle="pill" href="#v-pills-temario" role="tab" aria-controls="v-pills-temario" aria-selected="false">
+                    <a class="nav-link" id="tab-temario" data-toggle="pill" href="#" role="tab" aria-controls="tab-temario" aria-selected="false">
                         Temario
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-bibliografia-tab" data-toggle="pill" href="#v-pills-bibliografia" role="tab" aria-controls="v-pills-bibliografia" aria-selected="false">
+                    <a class="nav-link" id="tab-bibliografia" data-toggle="pill" href="#" role="tab" aria-controls="tab-bibliografia" aria-selected="false">
                         Bibliografia
                         <i class="far fa-circle float-right"></i>
                     </a>
 
-                    <a class="nav-link" id="v-pills-cronograma-tab" data-toggle="pill" href="#v-pills-cronograma" role="tab" aria-controls="v-pills-cronograma" aria-selected="false">
+                    <a class="nav-link" id="tab-cronograma" data-toggle="pill" href="#" role="tab" aria-controls="tab-cronograma" aria-selected="false">
                         Cronograma de actividades
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-distribucion-tab" data-toggle="pill" href="#v-pills-distribucion" role="tab" aria-controls="v-pills-distribucion" aria-selected="false">
+                    <a class="nav-link" id="tab-distribucion" data-toggle="pill" href="#" role="tab" aria-controls="tab-distribucion" aria-selected="false">
                         Distribucion de carga horaria
                         <i class="far fa-circle float-right"></i>
                     </a>
-                    <a class="nav-link" id="v-pills-viajes-tab" data-toggle="pill" href="#v-pills-viajes" role="tab" aria-controls="v-pills-viajes" aria-selected="false">
+                    <a class="nav-link" id="tab-viajes-academicos" data-toggle="pill" href="#" role="tab" aria-controls="tab-viajes-academicos" aria-selected="false">
                         Viajes académicos
                         <i class="far fa-circle float-right"></i>
                     </a>
@@ -104,18 +104,27 @@
     <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-objetivos.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-temario.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-bibliografia.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-cronograma.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-distribucion.js') }}"></script>
+    <script src="{{ asset('bundles/planificaciones/js/ajax-viajes-academicos.js') }}"></script>
     
     <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
 
     <script>
-    SECCIONES = {
-        info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
-        equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
-        req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
-        objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
-    };
-
-    $(document).ready(function () {
+        SECCIONES = {
+            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
+            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
+            req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
+            objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",           
+            temario: "{{ path('planificacion_ajax_get_temario_form') }}",
+            bibliografia: "{{ path('planificacion_ajax_get_bibliografia_form') }}",
+            cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
+            distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
+            viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",            
+        };
 
         $('#tab-info-basica').tab('show');
 
