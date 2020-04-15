@@ -1,5 +1,5 @@
 
-function getFormDistribucion(url, data) {
+function getDistribucionForm(url, data) {
 
     var dialog = crearDialogEspera('Cargando distribucion de carga horaria...');
 
@@ -18,7 +18,7 @@ function getFormDistribucion(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormDistribucion(url, form_data);
+                postDistribucionForm(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormDistribucion(url, data) {
 }
 
 
-function postFormDistribucion(url, form_data) {
+function postDistribucionForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

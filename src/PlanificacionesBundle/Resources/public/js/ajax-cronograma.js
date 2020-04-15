@@ -1,5 +1,5 @@
 
-function getFormCronograma(url, data) {
+function getCronogramaForm(url, data) {
 
     var dialog = crearDialogEspera('Cargando cronograma ...');
 
@@ -18,7 +18,7 @@ function getFormCronograma(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormCronograma(url, form_data);
+                postCronogramaForm(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormCronograma(url, data) {
 }
 
 
-function postFormCronograma(url, form_data) {
+function postCronogramaForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

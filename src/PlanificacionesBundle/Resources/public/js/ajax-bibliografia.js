@@ -1,5 +1,5 @@
 
-function getFormBibliografia(url, data) {
+function getBibliografiaForm(url, data) {
 
     var dialog = crearDialogEspera('Cargando bibliografia ...');
 
@@ -18,7 +18,7 @@ function getFormBibliografia(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormBibliografia(url, form_data);
+                postBibliografiaForm(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormBibliografia(url, data) {
 }
 
 
-function postFormBibliografia(url, form_data) {
+function postBibliografiaForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

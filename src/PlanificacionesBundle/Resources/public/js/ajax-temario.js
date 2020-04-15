@@ -1,5 +1,5 @@
 
-function getFormTemario(url, data) {
+function getTemarioForm(url, data) {
 
     var dialog = crearDialogEspera('Cargando el temario  ...');
 
@@ -18,7 +18,7 @@ function getFormTemario(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormTemario(url, form_data);
+                postTemarioForm(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormTemario(url, data) {
 }
 
 
-function postFormTemario(url, form_data) {
+function postTemarioForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);

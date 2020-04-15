@@ -1,5 +1,5 @@
 
-function getFormViajesAcademicos(url, data) {
+function getViajesAcademicosForm(url, data) {
 
     var dialog = crearDialogEspera('Cargando viajes academicos ...');
 
@@ -18,7 +18,7 @@ function getFormViajesAcademicos(url, data) {
                 //console.log("Clicccccck!!! ");
                 var form_data = $('form').serialize();
                 //console.log(form_data);
-                postFormViajesAcademicos(url, form_data);
+                postViajesAcademicosForm(url, form_data);
 
             });
 
@@ -38,7 +38,7 @@ function getFormViajesAcademicos(url, data) {
 }
 
 
-function postFormViajesAcademicos(url, form_data) {
+function postViajesAcademicosForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);
