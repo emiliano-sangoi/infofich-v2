@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block barra %}
+{% endblock %}
+
+{% block content %}
+    <div class="" id="login">
+        <div class="">
+            <div class="row">
+                <div class="col-6 pl-lg-5 pl-sm-3">
+                    <div class="logo">
+                        <img class="img-fluid" src="{{ asset('bundles/app/images/Logo-FICH_2.png') }}"/>
+                    </div>
+                </div>
+                <div class="col-6 pr-lg-5 pr-sm-3">
+                    <div class="card px-lg-5">
+                        <div class="card-body px-lg-5">
+
+                            <div class="container">
+
+                                <h1 class="font-weight-bold mb-3">
+                                    <span class="text-color-gray-700">
+                                        Bienvenido a
+                                    </span>
+
+                                    <span class="text-color-primary">
+                                        InfoFICH
+                                    </span>
+
+                                </h1>
+
+                                <h4 class="font-weight-normal text-color-gray-700">
+                                    Sistema de información institucional
+                                </h4>
+
+                                <div class="mt-lg-5 mt-sm-3 py-lg-4 py-sm-2">
+
+                                    {{ form_start(form_login) }}
+
+                                    <div class="form-group">
+                                        {{ form_label(form_login.username) }}
+                                        {{ form_widget(form_login.username) }}
+                                    </div>
+
+                                    <div class="form-group mt-4">
+                                        {{ form_label(form_login.password) }}
+                                        {{ form_widget(form_login.password) }}
+                                    </div>                                  
+
+                                    <div class="form-group text-right mt-4">
+                                        {{ form_widget(form_login.submit) }}                             
+                                    </div>
+                                    
+                                     {% if form_login.vars.errors|length > 0 %}
+                                        <div class="form-group mt-5 errores">
+                                            {% for error in form_login.vars.errors %}
+                                                <div class="alert alert-danger">
+                                                    {{ error.message }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {{ form_end(form_login) }}
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

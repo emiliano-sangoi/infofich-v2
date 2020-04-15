@@ -1,3 +1,10 @@
+$(document).ready(function () {
+    
+    $('#login .errores').hide().fadeIn();
+    
+});
+
+
 
 
 /**

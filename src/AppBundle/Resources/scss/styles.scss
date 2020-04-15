@@ -35,17 +35,22 @@
 
 
 html{
-  // Sobre este valor se toma una unidad de rem:
-  font-size: 15px;
+    // Sobre este valor se toma una unidad de rem:
+    font-size: 17px;
 }
 
 body{
-  font-family: $font-lato;
+    font-family: $font-lato;
 }
 
 //Clase para visualizar border en divs.
 .debug *{
     border: 1px dashed red;
+}
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -67,41 +72,41 @@ $content-info-right-panel-h: 20.25vh;
 
 #content{
 
-  .content-info{
+    .content-info{
 
-      .left-panel{
-        height: $content-info-left-panel-h;
-        position: relative;
-        background-image: url('../img/fragmento-info.png');
-        background-repeat: no-repeat;
+        .left-panel{
+            height: $content-info-left-panel-h;
+            position: relative;
+            background-image: url('../img/fragmento-info.png');
+            background-repeat: no-repeat;
 
-        h1{
-          font-size: 2.8rem;
+            h1{
+                font-size: 2.8rem;
+            }
+
+            h4{
+                font-size: 1.3rem;
+            }
+
+            & > div{
+                // margin-left: auto;
+                // margin-right: auto;
+                position: absolute;
+                left: 16%;
+                top: 16%;
+            }
+
         }
 
-        h4{
-          font-size: 1.3rem;
+        .right-panel{
+
+            .right-panel-header{
+                height: $content-info-right-panel-h !important;
+            }
+
         }
 
-        & > div{
-          // margin-left: auto;
-          // margin-right: auto;
-          position: absolute;
-          left: 16%;
-          top: 16%;
-        }
-
-      }
-
-      .right-panel{
-
-        .right-panel-header{
-          height: $content-info-right-panel-h !important;
-        }
-
-      }
-
-  }
+    }
 
 }
 
@@ -114,30 +119,30 @@ $content-info-right-panel-h: 20.25vh;
 
 
 .line-height-100{
-  line-height: 100%;
+    line-height: 100%;
 }
 
 .notificacion-warning{
-  @include notificacion($notific-warning,$notific-warning);
+    @include notificacion($notific-warning,$notific-warning);
 }
 
 .notificacion-error{
-  @include notificacion($notific-alerta, $notific-alerta);
+    @include notificacion($notific-alerta, $notific-alerta);
 }
 
 .notificacion-success{
-  @include notificacion($notific-success, $notific-success);
+    @include notificacion($notific-success, $notific-success);
 }
 
 
 .acordeon-header{
-  position: relative;
+    position: relative;
 
-  i.fa{
-    position: absolute;
-    right: .50rem;
-    top: .750rem;
-  }
+    i.fa{
+        position: absolute;
+        right: .50rem;
+        top: .750rem;
+    }
 
 }
 
@@ -147,14 +152,14 @@ $content-info-right-panel-h: 20.25vh;
 #equipo-doc-col .form-row:nth-of-type(odd),
 #equipo-doc-ads .form-row:nth-of-type(odd)
 {
-  background-color:#eeeeee;
+    background-color:#eeeeee;
 }
-      
+
 #temario .form-row:nth-of-type(even),
 #equipo-doc-res .form-row:nth-of-type(even),
 #equipo-doc-col .form-row:nth-of-type(even),
 #equipo-doc-ads .form-row:nth-of-type(even) {
-  background-color: white;
+    background-color: white;
 }
 
 .container_temario, .container_equipo-docente{

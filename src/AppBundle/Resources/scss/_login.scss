@@ -10,73 +10,160 @@
   background: linear-gradient(to right, #0062E6, #33AEFF);
 }*/
 
-.limiter {
+#login{
+    
+    position:relative;
+
+    &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+/*        right: 0;
+        bottom: 0;*/
+        width: 100%;
+        /* height: 100%;*/
+        background-image: url('../images/fichgris.png');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+
+        $blur: 3px;
+        filter:blur($blur);
+        -webkit-filter: blur($blur);
+        -moz-filter: blur($blur);
+        -o-filter: blur($blur);
+        -ms-filter: blur($blur);
+        
+    
+
+    }
+   
+    
+    $w: 75%;
+
+    .logo{
+        width: $w;
+        position: absolute;
+        right: 0;
+        margin-top: 10vh;
+
+        img.img-fluid{
+            width: 60%;
+
+        }
+    }
+
+    .row{
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+
+
+
+    .card{
+        position:relative;
+        /*height: 76vh;*/
+        margin-top: 7vh;
+        /*margin-bottom: 10vh;*/
+        width: $w;
+        padding-top: 6vh;
+        padding-bottom: 6vh;
+        background-color: $white;
+
+        .card-body{
+
+        }
+    }
+
+    form {
+
+        input[type="text"] {
+            /*font-size: 1.2rem;*/
+            /*height: calc(1rem + 1em);*/
+            /*padding-top: 1em;*/
+            /*padding-bottom: 1em;*/
+        }
+        input[type="password"] {
+            /*height: calc(1rem + 1em);*/
+            /*font-size: 1.2rem;*/
+            /*padding-top: 1em;*/
+            /*padding-bottom: 1em;*/
+        }
+
+        label{
+            font-weight: bold;
+        }
+    }
+
+}
+
+/*.limiter {
     width: 100%;
     margin: 0 auto;
-  }
+}*/
 
-  .container-login100 {
-    width: 100%;  
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background-image: url('../images/fichgris.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;;
-  }
-  
+.container-login100 {
+    /*    width: 100%;  
+        min-height: 100vh;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;*/
 
+}
+
+/*
 .card-signin {
     border: 0;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-signin .card-title {
+}
+
+.card-signin .card-title {
     margin-bottom: 2rem;
     font-weight: 300;
     font-size: 1.5rem;
-  }
-  
-  .card-signin .card-body {
+}
+
+.card-signin .card-body {
     padding: 2rem;
-  }
+}
 
 
 .form-signin {
-  width: 100%;
-  max-width: 1730px;
-  padding: 15px;
-  margin: auto;
+    width: 100%;
+    max-width: 1730px;
+    padding: 15px;
+    margin: auto;
 }
 .form-signin .checkbox {
-  font-weight: 400;
+    font-weight: 400;
 }
 .form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
 }
 .form-signin .form-control:focus {
-  z-index: 2;
+    z-index: 2;
 }
 .form-signin input[type="username"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}*/

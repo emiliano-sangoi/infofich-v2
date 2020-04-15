@@ -8,3 +8,11 @@ homepage:
 #    defaults: { _controller: AppBundle:Default:indexAdmin }
 
 
+
+app_login:
+    path:     /login
+    defaults: { _controller: AppBundle:Security:login }
+
+app_logout:
+    path:     /logout
+    defaults: { _controller: AppBundle:Security:logout }

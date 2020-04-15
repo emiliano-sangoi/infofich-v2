@@ -7,3 +7,6 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    infofich_viejo_service:
+        class: AppBundle\Service\InfofichViejoService
+        arguments: ["@doctrine.orm.entity_manager", "%db_infofich_viejo%"]

@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * 
@@ -15,6 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
  */
 class Usuario{
+    
+    const PLAIN_PWD_MIN_LENGTH = 8;    
+    const PLAIN_PWD_MAX_LENGTH = 24;
+    const USERNAME_MIN_LENGTH = 6;
+    const USERNAME_MAX_LENGTH = 24;
 
     /**
      * @var int
@@ -45,6 +51,13 @@ class Usuario{
     /**
      * 
      * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank(message="El nombre de usuario no puede quedar vacio.")
+     * @Assert\Length(
+     *      min = Usuario::USERNAME_MIN_LENGTH,
+     *      max = Usuario::USERNAME_MAX_LENGTH,
+     *      minMessage = "El nombre de usuario debe tener al menos {{ limit }} caracteres.",
+     *      maxMessage = "La contraseña puede tener a lo sumo {{ limit }} caracteres."
+     * )
      * 
      * @var string
      */
@@ -61,6 +74,13 @@ class Usuario{
      * Hash de la contraseña
      * 
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank(message="El campo contraseña es obligatorio.")
+     * @Assert\Length(
+     *      min = Usuario::PLAIN_PWD_MIN_LENGTH,
+     *      max = Usuario::PLAIN_PWD_MAX_LENGTH,
+     *      minMessage = "La contraseña debe tener al menos {{ limit }} caracteres.",
+     *      maxMessage = "La contraseña puede tener a lo sumo {{ limit }} caracteres."
+     * )
      *
      * @var string
      */
@@ -291,5 +311,9 @@ class Usuario{
     public function removeRole(\AppBundle\Entity\Rol $role)
     {
         $this->roles->removeElement($role);
+    }
+    
+    public function __toString() {
+        return $this->username;
     }
 }

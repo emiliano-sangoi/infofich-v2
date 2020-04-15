@@ -13,12 +13,40 @@ security:
         
         
     firewalls:
-        principal:
+        # IMPORTANTE
+        #SI SE LE CAMBIA EL NOMBRE ACTUALIZAR AppBundle\Controller\SecurityController
+        firewall_admin:
             pattern: ^/
             anonymous: true
-            http_basic:
-                provider: entity_provider
-                realm: "Area protegida"                
+            logout:
+                path: app_logout
+                target: app_login
+            form_login:
+                login_path:           app_login
+                remember_me:          false
+                check_path:           /login_check                
+#                success_handler:      ~
+#                failure_handler:      ~
+#                
+#                use_forward:          false
+#                require_previous_session: true
+#                username_parameter:   _username
+#                password_parameter:   _password
+#                csrf_parameter:       _csrf_token
+#                csrf_token_id:        authenticate
+#                post_only:            true
+#                always_use_default_target_path: false
+#                default_target_path:  /
+#                
+#                target_path_parameter: _target_path
+#                use_referer:          false
+#                failure_path:         null
+#                failure_forward:      false
+#                failure_path_parameter: _failure_path
+#                csrf_token_generator: ~
+#            http_basic:
+#                provider: entity_provider
+#                realm: "Area protegida"                
 
 
     role_hierarchy:

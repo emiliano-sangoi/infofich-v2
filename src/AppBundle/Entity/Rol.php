@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Rol
  *
  * @ORM\Table(name="app_roles")
- * @ORM\Entity(repositoryClass="RolRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
 class Rol {
 
@@ -37,7 +37,7 @@ class Rol {
      */
     private $descripcion;
 
-    /**
+    /*
      * @var ArrayCollection
      * 
      * Un rol tiene asociado muchos permisos
@@ -48,7 +48,7 @@ class Rol {
      *      inverseJoinColumns={@ORM\JoinColumn(name="permiso_id", referencedColumnName="id")}
      *      )
      */
-    private $permisos;
+    //private $permisos;
     
     /**
      * @var Rol
@@ -127,4 +127,62 @@ class Rol {
         return $this->descripcion;
     }
 
+
+    /**
+     * Set padre
+     *
+     * @param \AppBundle\Entity\Rol $padre
+     *
+     * @return Rol
+     */
+    public function setPadre(\AppBundle\Entity\Rol $padre = null)
+    {
+        $this->padre = $padre;
+
+        return $this;
+    }
+
+    /**
+     * Get padre
+     *
+     * @return \AppBundle\Entity\Rol
+     */
+    public function getPadre()
+    {
+        return $this->padre;
+    }
+
+    /**
+     * Add hijo
+     *
+     * @param \AppBundle\Entity\Rol $hijo
+     *
+     * @return Rol
+     */
+    public function addHijo(\AppBundle\Entity\Rol $hijo)
+    {
+        $this->hijos[] = $hijo;
+
+        return $this;
+    }
+
+    /**
+     * Remove hijo
+     *
+     * @param \AppBundle\Entity\Rol $hijo
+     */
+    public function removeHijo(\AppBundle\Entity\Rol $hijo)
+    {
+        $this->hijos->removeElement($hijo);
+    }
+
+    /**
+     * Get hijos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHijos()
+    {
+        return $this->hijos;
+    }
 }

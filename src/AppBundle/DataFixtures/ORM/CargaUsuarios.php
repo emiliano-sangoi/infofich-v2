@@ -7,8 +7,20 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+################################################3
+#
+# NO USAR ESTE FIXTURES
+# 
+# SE DEBE UTILIZAR EL COMANDO: 
+#   php app/console infofich:importar-usuarios
+#
+#################################################3
+################################################3
+
+
 // Descomentar:
-class CargaUsuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface {
+//class CargaUsuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface {
+class CargaUsuarios {
 
 // y comentar:
 //class CargaUsuarios {

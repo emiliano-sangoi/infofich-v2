@@ -394,9 +394,6 @@ a {
 .container .card {
   border: none !important; }
 
-.card-body {
-  background-color: #eeeeee; }
-
 #accordion .card .card-header {
   background-color: #0063ae !important;
   color: white;
@@ -439,69 +436,123 @@ a {
   background: #007bff;
   background: linear-gradient(to right, #0062E6, #33AEFF);
 }*/
-.limiter {
-  width: 100%;
-  margin: 0 auto; }
+#login {
+  position: relative; }
+  #login::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*        right: 0;
+            bottom: 0;*/
+    width: 100%;
+    /* height: 100%;*/
+    background-image: url("../images/fichgris.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px); }
+  #login .logo {
+    width: 75%;
+    position: absolute;
+    right: 0;
+    margin-top: 10vh; }
+    #login .logo img.img-fluid {
+      width: 60%; }
+  #login .row {
+    margin-right: 0;
+    margin-left: 0; }
+  #login .card {
+    position: relative;
+    /*height: 76vh;*/
+    margin-top: 7vh;
+    /*margin-bottom: 10vh;*/
+    width: 75%;
+    padding-top: 6vh;
+    padding-bottom: 6vh;
+    background-color: white; }
+  #login form input[type="text"] {
+    /*font-size: 1.2rem;*/
+    /*height: calc(1rem + 1em);*/
+    /*padding-top: 1em;*/
+    /*padding-bottom: 1em;*/ }
+  #login form input[type="password"] {
+    /*height: calc(1rem + 1em);*/
+    /*font-size: 1.2rem;*/
+    /*padding-top: 1em;*/
+    /*padding-bottom: 1em;*/ }
+  #login form label {
+    font-weight: bold; }
 
+/*.limiter {
+    width: 100%;
+    margin: 0 auto;
+}*/
 .container-login100 {
-  width: 100%;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  background-image: url("../images/fichgris.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat; }
+  /*    width: 100%;  
+      min-height: 100vh;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;*/ }
 
+/*
 .card-signin {
-  border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); }
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
 
 .card-signin .card-title {
-  margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 1.5rem; }
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+}
 
 .card-signin .card-body {
-  padding: 2rem; }
+    padding: 2rem;
+}
+
 
 .form-signin {
-  width: 100%;
-  max-width: 1730px;
-  padding: 15px;
-  margin: auto; }
-
+    width: 100%;
+    max-width: 1730px;
+    padding: 15px;
+    margin: auto;
+}
 .form-signin .checkbox {
-  font-weight: 400; }
-
+    font-weight: 400;
+}
 .form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px; }
-
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
 .form-signin .form-control:focus {
-  z-index: 2; }
-
+    z-index: 2;
+}
 .form-signin input[type="username"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0; }
-
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0; }
-
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}*/
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -559,13 +610,17 @@ and open the template in the editor.
 /* Fin Tipografias */
 /*--------------------------------------------------------------------------------------------------------*/
 html {
-  font-size: 15px; }
+  font-size: 17px; }
 
 body {
   font-family: "Lato"; }
 
 .debug * {
   border: 1px dashed red; }
+
+* {
+  margin: 0;
+  padding: 0; }
 
 /*Posicionamiento*/
 .float-left {
