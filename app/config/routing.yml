@@ -4,37 +4,3 @@ planificaciones:
 
 app:
     resource: "@AppBundle/Resources/config/routing.yml"    
-
-#easy_admin_bundle:
-#    resource: "@EasyAdminBundle/Controller/AdminController.php"
-#    type:     annotation
-#    prefix:   /admin
- 
-
-
-##########################################################################
-# FOS User 2.0.0
-# fos_user:
-    # resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-# FOS User 1.3.X
-# Descomentar lo siguiente si se habilita el bundle:
-#
-#fos_user_security:
-#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-#
-#fos_user_profile:
-#    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-#    prefix: /profile
-#
-#fos_user_register:
-#    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-#    prefix: /register
-#
-#fos_user_resetting:
-#    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-#    prefix: /reset
-#
-#fos_user_change_password:
-#    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-#    prefix: /profile

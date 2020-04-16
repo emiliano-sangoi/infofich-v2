@@ -17,3 +17,11 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Desde esta conexion se exportaran los usuarios:
+    db_infofich_viejo:
+        host:
+        puerto: null
+        nombre:
+        usuario: 
+        password:
