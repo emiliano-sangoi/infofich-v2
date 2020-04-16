@@ -41,32 +41,32 @@ $(document).ready(function () {
     // 4 - Temario
     $('#tab-temario').on('shown.bs.tab', function (e) {
         console.log("Tab temario");
-        getObjetivosForm(SECCIONES.temario, null);
+        getTemarioForm(SECCIONES.temario, null);
     });
     
     // 5 - Bibliografia.
     $('#tab-bibliografia').on('shown.bs.tab', function (e) {
         console.log("Tab bibliografia");
-        getObjetivosForm(SECCIONES.bibliografia, null);
+        getBibliografiaForm(SECCIONES.bibliografia, null);
     });
 
     // 6 - Cronograma
     $('#tab-cronograma').on('shown.bs.tab', function (e) {
         console.log("Tab cronograma");
-        getObjetivosForm(SECCIONES.cronograma, null);
+        getCronogramaForm(SECCIONES.cronograma, null);
     });
 
 
     // 7 - Distribucion
     $('#tab-distribucion').on('shown.bs.tab', function (e) {
         console.log("Tab distribucion");
-        getObjetivosForm(SECCIONES.distribucion, null);
+        getDistribucionForm(SECCIONES.distribucion, null);
     });
     
     // 8 - Viajes Academicos
     $('#tab-viajes-academicos').on('shown.bs.tab', function (e) {
         console.log("Tab viajes academicos");
-        getObjetivosForm(SECCIONES.viajes_academicos, null);
+        getViajesAcademicosForm(SECCIONES.viajes_academicos, null);
     });
     
 });
