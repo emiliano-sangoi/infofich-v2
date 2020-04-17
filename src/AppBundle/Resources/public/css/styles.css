@@ -460,11 +460,11 @@ a {
     font-size: 1rem; }
   #login .logo {
     width: 75%;
-    /*position: absolute;*/
-    /*right: 0;*/
+    position: absolute;
+    right: 0;
     margin-top: 10vh; }
     #login .logo img.img-fluid {
-      width: 60%; }
+      width: 50%; }
   #login .row {
     margin-right: 0;
     margin-left: 0; }
@@ -483,7 +483,8 @@ a {
 @media (max-width: 575.98px) {
   #login .logo {
     width: 95%;
-    text-align: center; }
+    text-align: center;
+    position: static; }
   #login .card {
     width: 95%;
     margin-right: auto;

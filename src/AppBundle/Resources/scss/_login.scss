@@ -47,12 +47,12 @@
 
     .logo{
         width: $w;
-        /*position: absolute;*/
-        /*right: 0;*/
+        position: absolute;
+        right: 0;
         margin-top: 10vh;
 
         img.img-fluid{
-            width: 60%;
+            width: 50%;
         }
     }
 
@@ -94,6 +94,7 @@
         .logo{
             width: $w;
             text-align: center;
+            position: static;
 
         }
 
