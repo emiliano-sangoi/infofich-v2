@@ -5,16 +5,21 @@
 
 {% block content %}
     <div class="" id="login">
+        
+{#        Imagen de fondo:#}
+        <img class="bg" src="{{ asset('bundles/app/images/fichgris.png') }}" />
+        
+        
         <div class="">
             <div class="row">
-                <div class="col-6 pl-lg-5 pl-sm-3">
+                <div class="col-sm-12 col-md-6 pl-lg-5 pl-sm-3">
                     <div class="logo">
                         <img class="img-fluid" src="{{ asset('bundles/app/images/Logo-FICH_2.png') }}"/>
                     </div>
                 </div>
-                <div class="col-6 pr-lg-5 pr-sm-3">
+                <div class="col-sm-12 col-md-6 pr-lg-5 pr-sm-3">
                     <div class="card px-lg-5">
-                        <div class="card-body px-lg-5">
+                        <div class="card-body px-lg-4">
 
                             <div class="container">
 
@@ -33,7 +38,7 @@
                                     Sistema de información institucional
                                 </h4>
 
-                                <div class="mt-lg-5 mt-sm-3 py-lg-4 py-sm-2">
+                                <div class="mt-4 py-lg-4 py-sm-2">
 
                                     {{ form_start(form_login) }}
 
