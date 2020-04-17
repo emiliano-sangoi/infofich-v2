@@ -142,12 +142,12 @@ class InfofichViejoService {
             $doc = $row['numero_documento'];
             
             //no incluir repetidos:
-            if(in_array($doc, $insertados)){
+            if(!is_numeric($doc) || in_array($doc, $insertados)){
                 $rechazados[] = $row;
                 $r++;
                 continue;
             }
-
+            
             $persona = new Persona();
             $persona->setApellidos($row['apellidos']);
             $persona->setNombres($row['nombres']);
