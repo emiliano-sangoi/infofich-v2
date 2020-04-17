@@ -535,6 +535,11 @@ and open the template in the editor.
 #planificaciones, #tab-content {
   background-color: #eeeeee; }
 
+#tab-content form label {
+  font-weight: bold; }
+#tab-content form .form-row {
+  margin-bottom: 1.5rem; }
+
 #planificaciones {
   min-height: 120vh; }
 

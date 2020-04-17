@@ -1,4 +1,6 @@
 services:
-#    planificaciones.example:
-#        class: PlanificacionesBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    planificaciones.form.type.planificacion:
+        class: PlanificacionesBundle\Form\PlanificacionType
+        arguments: ['@api_infofich_service']
+        tags:
+            - { name: form.type }

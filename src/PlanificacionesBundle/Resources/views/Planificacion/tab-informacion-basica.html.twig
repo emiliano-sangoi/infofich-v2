@@ -6,14 +6,73 @@
                 <div class="mb-4">
                     <h4>Informaci&oacute;n b&aacute;sica de la asignatura</h4>
                 </div>
-                
+
                 {{ form_start(form) }}
+
+                <div class="form-row">
+                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        {{ form_label(form.carrera) }}
+                        {{ form_widget(form.carrera) }}
+                        {{ form_errors(form.carrera) }}      
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        <label class="control-label" for="asignatura">Asignatura</label>
+                        <select id="asignatura" 
+                                name="asignatura" 
+                                title="Seleccione la asignatura..." 
+                                class="selectpicker form-control js-select2" 
+                                data-live-search="true" 
+                                data-live-search-style="begins" 
+                                onclick="completar_datos_asignatura(this);" required>
+                            <option value="">Seleccione</option>
+                            <option value="1">Álgebra Lineal</option>
+                            <option value="Opcion">Otra opcion</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form_label(form.anioAcad) }}
+                        {{ form_widget(form.anioAcad) }}
+                        {{ form_errors(form.anioAcad) }}               
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form_label(form.departamento) }}
+                        {{ form_widget(form.departamento) }}
+                        {{ form_errors(form.departamento) }}               
+                    </div>
+                    {#<div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="codigo_siu">C&oacute;digo SIU
+                        </label>
+                        <input class="form-control" id="codigo_siu" 
+                               name="codigo_siu" type="text" value="" disabled/>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="plan_estudio">Plan de estudio
+                        </label>
+                        <input class="form-control" id="plan_estudio" 
+                               name="plan_estudio" type="text" value="" disabled/>
+                    </div>#}
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        {{ form_label(form.contenidosMinimos) }}
+                        {{ form_widget(form.contenidosMinimos) }}
+                        {{ form_errors(form.contenidosMinimos) }}      
+                    </div>
+                </div>
                 {{ form_widget(form) }}
-                
-                
-                
+
+
+
                 {{ form_end(form) }}
-                
+
                 <button id="btn-guardar-info-basica" class="btn btn-primary">Guardar</button>
 
                 {#<form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>

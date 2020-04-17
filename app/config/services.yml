@@ -10,3 +10,7 @@ services:
     infofich_viejo_service:
         class: AppBundle\Service\InfofichViejoService
         arguments: ["@doctrine.orm.entity_manager", "%db_infofich_viejo%"]
+
+    api_infofich_service:
+        class: AppBundle\Service\APIInfofichService
+        arguments: ["@doctrine.orm.entity_manager"]

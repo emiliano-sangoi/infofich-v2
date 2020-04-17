@@ -14,13 +14,13 @@ class PlanificacionController extends Controller {
 
     public function newAction() {
         return $this->render('PlanificacionesBundle:Planificacion:new.html.twig', array(
-                        // ...
+                       'page_title' => 'Nueva planificación',
         ));
     }
 
     public function editAction() {
         return $this->render('PlanificacionesBundle:Planificacion:edit.html.twig', array(
-                        // ...
+                        'page_title' => 'Modificar planificación',
         ));
     }
 

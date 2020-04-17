@@ -35,6 +35,10 @@ class Departamento
      */
     private $codigoGuarani;
 
+    
+    public function __toString() {
+        return $this->nombre;
+    }
 
     /**
      * Get id

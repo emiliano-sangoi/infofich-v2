@@ -3,6 +3,20 @@
 
 #planificaciones, #tab-content{
     background-color: $gris-4;
+
+
+}
+
+#tab-content{
+    form {
+        label{
+            font-weight: bold;
+        }
+
+        .form-row{
+            margin-bottom: 1.5rem;
+        }
+    }
 }
 
 #planificaciones{
