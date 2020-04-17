@@ -77,7 +77,7 @@ class InfofichViejoService {
 
             // dump($dsn);exit;
 
-            $this->pdoLink = new PDO($dsn, $this->dbParams->usuario, $this->dbParams->password);
+            $this->pdoLink = new PDO($dsn, $this->dbParams->usuario, $this->dbParams->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
         } catch (PDOException $e) {
             $this->pdoLink = false;
             $this->ultimoError = "Ocurrio un error al conectarse a la base de datos con los parametros.";
