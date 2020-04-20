@@ -39,10 +39,32 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
         $builder->add('fechaSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Segundo Parcial',
+            'label' => 'Primer Parcial',
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
+        
+        $builder->add('fechaRecupPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Primer Parcial',
+            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            'attr' => array('class' => 'form-control')
+        ));
+
+        $builder->add('fechaRecupSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Primer Parcial',
+            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            'attr' => array('class' => 'form-control')
+        ));
+        
+        
+        $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Primer Parcial',
+            'choices' => array('Sí', 'No'),
+            'expanded' => true,
+            'attr' => array('class' => 'form-control')
+        ));
+        
+        
 
 
         /* $builder->add('contenidosMinimos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(

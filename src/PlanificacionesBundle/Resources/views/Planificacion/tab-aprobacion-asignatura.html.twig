@@ -59,6 +59,51 @@
 
                 </div>
 
+                <!-- Recuperatorios -->
+                <div class="form-row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="responsable">Recupetarios</label>
+                    </div>
+                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        {{ form_label(form.fechaRecupPrimerParcial) }}
+                        {{ form_widget(form.fechaRecupPrimerParcial) }}
+                        {{ form_errors(form.fechaRecupPrimerParcial) }}      
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        {{ form_label(form.fechaRecupSegundoParcial) }}
+                        {{ form_widget(form.fechaRecupSegundoParcial) }}
+                        {{ form_errors(form.fechaRecupSegundoParcial) }}  
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-4 mt-4">
+                    <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
+                        Requisitos para la promoción de la asignatura</h4>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group mb-0 required offset-2 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <label class="control-label"  for="promocion_parcial">Prevé promoción parcial </label>
+                    </div> 
+                </div>
+                <div class="form-row">
+                    <div class="form-group mb-0 offset-2 required  col-lg-4 col-md-4  col-sm-12 col-xs-12">
+                        <label class="radio-inline">
+                            Sí <input type="radio" name="promo_parcial_radio" checked>
+                        </label>
+                        <label class="radio-inline">
+                            No <input type="radio" name="promo_parcial_radio">
+                        </label>
+                    </div>
+                </div>
+
                 <div class="col-12 mt-s text-right mb-4">
 
                     <button type="submit" class="btn btn btn-verde">
