@@ -4,7 +4,7 @@ namespace PlanificacionesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+ini_set('display_errors', 1);
 class PlanificacionController extends Controller {
 
     public function indexAction(Request $request) {

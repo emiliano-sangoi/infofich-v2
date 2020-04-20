@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Controller;
 
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,32 +13,38 @@ use Symfony\Component\HttpFoundation\Request;
 class PlanificacionAjaxController extends Controller {
 
     public function getInfoBasicaFormAction(Request $request) {
-        
+
         $planificacion = new Planificacion();
         $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion);
         $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()){
+
+        if ($form->isSubmitted() && $form->isValid()) {
             
-        }        
-        
+        }
+
         //sleep(25);
-        
+
         return $this->render('PlanificacionesBundle:Planificacion:tab-informacion-basica.html.twig', array(
-            'form' => $form->createView(),
+                    'form' => $form->createView(),
         ));
-        
     }
 
     public function getFormEquipoDocenteAction() {
         return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
-                        
         ));
     }
 
-    public function getRequisitosAprobFormAction() {
+    public function getRequisitosAprobFormAction(Request $request) {
+        $requisitosAprob = new RequisitosAprobacion();
+        $form = $this->createForm("PlanificacionesBundle\Form\RequisitosAprobacionType", $requisitosAprob);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
         return $this->render('PlanificacionesBundle:Planificacion:tab-aprobacion-asignatura.html.twig', array(
-                        // ...
+                    'form' => $form->createView(),
+        // ...
         ));
     }
 

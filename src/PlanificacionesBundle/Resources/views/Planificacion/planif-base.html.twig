@@ -93,6 +93,7 @@
 
 
     <script>
+        
         // Objeto global que guardara toda la informacion de la planificacion
         PLANIFICACION = {
             id: null
@@ -126,7 +127,9 @@
             viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",            
         };
 
-        $('#tab-info-basica').tab('show');
+        $(document).ready(function () {
+            $('#tab-info-basica').tab('show');
+        });
 
         {#$("#btnAñadirAdscripto").click(function () {
             $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");

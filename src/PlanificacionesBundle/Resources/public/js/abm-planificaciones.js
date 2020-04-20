@@ -6,6 +6,7 @@ $(document).ready(function () {
         //e.target // newly activated tab        
         //e.relatedTarget // previous active tab
         //console.log(e.target, e.relatedTarget);
+        
         console.log("Tab info basica ");
 
         getInfoBasicaForm(SECCIONES.info_basica, null);
