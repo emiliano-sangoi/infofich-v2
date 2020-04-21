@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
+use FICH\APIRectorado\Config\WSHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,12 +25,25 @@ class PlanificacionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
+        //$carreraDefault = $this->apiInfofichService->getCarrera($options['carrera_default']);
+        
         $builder->add('carrera', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Carrera',
             'mapped' => false,
             'choices' => $this->getCarreras(),
-            'attr' => array('class' => 'form-control')
+            'attr' => array('class' => 'form-control select-carrera', 'onchange' => 'actualizarAsignaturas(this);'),
+            'data' => $options['carrera_default']
         ));
+        
+        
+        
+        $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Asignatura',
+            'mapped' => false,
+            'choices' => $this->getAsignaturas($options['carrera_default']),
+            'label_attr' => array('class' => 'control-label') ,
+            'attr' => array('class' => 'form-control select-asignatura selectpicker js-select2')
+        ));                                
         
         
         $builder->add('anioAcad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
@@ -57,7 +71,6 @@ class PlanificacionType extends AbstractType {
 
 
         $builder
-                ->add('asignatura')
                 ->add('cargaHoraria')
                 ->add('requisitosAprobacion');
     }
@@ -67,7 +80,8 @@ class PlanificacionType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
+            'carrera_default' => WSHelper::CARRERA_II
         ));
     }
 
@@ -80,19 +94,33 @@ class PlanificacionType extends AbstractType {
     
     public function getCarreras(){
         
-        $carreras_fich = $this->apiInfofichService->getCarrerasFICH();
+        //obtiene las carreras de grado de la fich:
+        $carreras_fich = $this->apiInfofichService->getCarreras();
+        
+        //dump($carreras_fich);exit;
         
         if(!$carreras_fich){
             return array();
         }
         
-        $carreras = array();
+        $aux = array();
         foreach ( $carreras_fich as $carrera){
-            $carreras[ $carrera['codigoCarrera'] ] = $carrera['nombreCarrera'] . ' - Plan ' . $carrera['planCarrera'];            
+            $aux[ $carrera->getCodigoCarrera() ] = $carrera;
         }
         
-        return $carreras;
+        return $aux;        
+    }
+    
+    
+    public function getAsignaturas($carrera){
         
+        $asignaturas = $this->apiInfofichService->getAsignaturasPorCarrera($carrera);
+        
+        if(!is_array($asignaturas)){
+            return array();
+        }
+                
+        return $asignaturas;
     }
 
 }

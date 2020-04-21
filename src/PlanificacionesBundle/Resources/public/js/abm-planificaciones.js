@@ -70,4 +70,18 @@ $(document).ready(function () {
         getViajesAcademicosForm(SECCIONES.viajes_academicos, null);
     });
     
+    
+   
+    
 });
+
+/**
+ * Actualiza el listado de asignaturas al cambiar la carrera elegida.
+ * 
+ * @param {type} select
+ * @returns {undefined}
+ */
+function actualizarAsignaturas(select){
+    var carrera = $(select).val();
+    console.log('selecciono ' + carrera);    
+}

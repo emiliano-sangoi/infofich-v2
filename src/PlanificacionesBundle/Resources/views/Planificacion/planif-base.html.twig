@@ -93,15 +93,15 @@
 
 
     <script>
-        
+
         // Objeto global que guardara toda la informacion de la planificacion
         PLANIFICACION = {
             id: null
         };
     </script>
-    
-    
-    
+
+
+
     <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
@@ -111,7 +111,7 @@
     <script src="{{ asset('bundles/planificaciones/js/ajax-cronograma.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-distribucion.js') }}"></script>
     <script src="{{ asset('bundles/planificaciones/js/ajax-viajes-academicos.js') }}"></script>
-    
+
     <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
 
     <script>
@@ -119,16 +119,23 @@
             info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
             equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
             req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
-            objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",           
+            objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
             temario: "{{ path('planificacion_ajax_get_temario_form') }}",
             bibliografia: "{{ path('planificacion_ajax_get_bibliografia_form') }}",
             cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
             distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
-            viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",            
+            viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",
         };
 
         $(document).ready(function () {
             $('#tab-info-basica').tab('show');
+
+
+            {#$('.select-carrera').on('change', function (e) {
+                var carrera = this.value;
+                console.log(carrera);
+            });#}
+
         });
 
         {#$("#btnAñadirAdscripto").click(function () {
@@ -142,6 +149,6 @@
             $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
             //alert('2');
         });#}
-{#            });#}
+        {#            });#}
     </script>
 {% endblock %}

@@ -30,39 +30,90 @@ class APIInfofichService {
         $this->em = $entityManager;
     }
 
-    public function getCarreras($solo_carreras) {
+    /**
+     * Devuelve las carreras de especificadas en el arreglo.
+     * 
+     * @param array|null $solo_carreras Codigos de las carreras (WSHelper::CARRERA_*)
+     * @return array
+     */
+    public function getCarreras($solo_carreras = null) {
 
+        $this->ultimoError = '';
         $query = new QueryCarreras();
 
-        $carreras = $query
-                ->setUnidadAcademica(WSHelper::UA_FICH)
+        $query->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
-                ->setCacheEnabled(true)
-                ->getResultado();
+                ->setCacheEnabled(true);
 
-        if (count($solo_carreras) > 0) {
-            $carreras = $query->filtrar($solo_carreras);
+        if (!$solo_carreras) {
+
+            $solo_carreras = array(
+                WSHelper::CARRERA_IRH,
+                WSHelper::CARRERA_II,
+                WSHelper::CARRERA_IAMB,
+                WSHelper::CARRERA_IAGR
+            );
         }
 
-        return $carreras;
+        $resultado = $query->setCarreras($solo_carreras)
+                ->setSoloVigentes(true)
+                ->getResultado();
+
+        if ($resultado) {
+            return $resultado;
+        }
+
+        $this->ultimoError = $query->getError();
+        return false;
+    }
+    
+    public function getCarrera($carrera) {
+        $carreras_fich = $this->getCarreras(array($carrera));
+        
+        if (count($carreras_fich) > 0) {
+            $c = array_shift($carreras_fich);            
+            return $c;            
+        }
+        
+        $this->ultimoError = 'No se encontro la carrera ' . $carrera;
+        return false;
+        
     }
 
     /**
-     * Devuelve las carreras de FICH
+     * Devuelve las asignaturas para cierta carrera.
      * 
-     * @return type
+     * @param string $carrera Codigo de la carrera a buscar
+     * @return array|false
      */
-    public function getCarrerasFICH() {
+    public function getAsignaturasPorCarrera($carrera) {
 
-        $solo_carreras = array(
-            WSHelper::CARRERA_IRH, 
-            WSHelper::CARRERA_II, 
-            WSHelper::CARRERA_IAMB, 
-            WSHelper::CARRERA_IAGR
-        );
+        $carreras_fich = $this->getCarreras(array($carrera));
+        
+        if (count($carreras_fich) > 0) {
 
-        //dump($this->getCarreras($solo_carreras));exit;
-        return $this->getCarreras($solo_carreras);
+            $c = array_shift($carreras_fich);
+            $query = new \FICH\APIInfofich\Query\Carreras\QueryMateriasCarrera();
+
+            $query->setUnidadAcademica(WSHelper::UA_FICH)
+                    ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
+                    ->setCarrera($c->getCodigoCarrera())
+                    ->setPlan($c->getPlanCarrera())
+                    ->setVersion($c->getVersionPlan())
+                    ->setCacheEnabled(true);
+
+            $asignaturas = $query->getResultado();
+
+            if (!$asignaturas) {
+                $this->ultimoError = $query->getError();
+                return false;
+            }
+
+            return $asignaturas;
+        }
+
+        $this->ultimoError = 'No se encontro la carrera ' . $carrera;
+        return false;
     }
 
 }

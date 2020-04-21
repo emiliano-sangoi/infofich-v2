@@ -19,6 +19,14 @@
 
                 <div class="form-row">
                     <div class="form-group required col-md-13 col-sm-12 col-xs-12">
+                        {{ form_label(form.asignatura) }}
+                        {{ form_widget(form.asignatura) }}
+                        {{ form_errors(form.asignatura) }}      
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
                         <label class="control-label" for="asignatura">Asignatura</label>
                         <select id="asignatura" 
                                 name="asignatura" 
@@ -75,7 +83,7 @@
 
                 <button id="btn-guardar-info-basica" class="btn btn-primary">Guardar</button>
 
-                {#<form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
 
                     <div class="form-row mt-4">
                         <div class="form-group required col-md-13 col-sm-12 col-xs-12">
@@ -177,7 +185,7 @@
                             Cancelar
                         </a>
                     </div>
-                </form>#}
+                </form>
             </div>
 
         </div>
