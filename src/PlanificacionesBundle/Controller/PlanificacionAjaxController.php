@@ -28,7 +28,7 @@ class PlanificacionAjaxController extends Controller {
                     'form' => $form->createView(),
         ));
     }
-
+    
     public function getFormEquipoDocenteAction() {
         return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
         ));

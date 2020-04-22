@@ -125,6 +125,8 @@
             cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
             distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
             viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",
+            get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",            
+            get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",            
         };
 
         $(document).ready(function () {

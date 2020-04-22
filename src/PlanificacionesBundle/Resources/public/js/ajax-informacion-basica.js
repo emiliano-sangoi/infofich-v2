@@ -22,6 +22,11 @@ function getInfoBasicaForm(url, data) {
 
             });
 
+            //disparar el evento en el select para que se recargue el listado de asignaturas
+            var select_carrera = $('#planificacionesbundle_planificacion_carrera');
+            select_carrera.select2();
+            select_carrera.trigger('change');
+
         }
 
         dialog.modal('hide');

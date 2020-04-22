@@ -25,9 +25,22 @@ class APIInfofichService {
      */
     private $em;
 
+    /**
+     *
+     * @var array
+     */
+    private $carreras_permitidas;
+
     public function __construct(EntityManager $entityManager) {
 
         $this->em = $entityManager;
+
+        $this->carreras_permitidas = array(
+            WSHelper::CARRERA_IRH,
+            WSHelper::CARRERA_II,
+            WSHelper::CARRERA_IAMB,
+            WSHelper::CARRERA_IAGR
+        );
     }
 
     /**
@@ -46,13 +59,7 @@ class APIInfofichService {
                 ->setCacheEnabled(true);
 
         if (!$solo_carreras) {
-
-            $solo_carreras = array(
-                WSHelper::CARRERA_IRH,
-                WSHelper::CARRERA_II,
-                WSHelper::CARRERA_IAMB,
-                WSHelper::CARRERA_IAGR
-            );
+            $solo_carreras = $this->carreras_permitidas;
         }
 
         $resultado = $query->setCarreras($solo_carreras)
@@ -66,18 +73,17 @@ class APIInfofichService {
         $this->ultimoError = $query->getError();
         return false;
     }
-    
+
     public function getCarrera($carrera) {
         $carreras_fich = $this->getCarreras(array($carrera));
-        
+
         if (count($carreras_fich) > 0) {
-            $c = array_shift($carreras_fich);            
-            return $c;            
+            $c = array_shift($carreras_fich);
+            return $c;
         }
-        
+
         $this->ultimoError = 'No se encontro la carrera ' . $carrera;
         return false;
-        
     }
 
     /**
@@ -86,10 +92,10 @@ class APIInfofichService {
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
      */
-    public function getAsignaturasPorCarrera($carrera) {
+    public function getAsignaturasPorCarrera($carrera, $raw = false) {        
 
         $carreras_fich = $this->getCarreras(array($carrera));
-        
+
         if (count($carreras_fich) > 0) {
 
             $c = array_shift($carreras_fich);
@@ -100,6 +106,7 @@ class APIInfofichService {
                     ->setCarrera($c->getCodigoCarrera())
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
+                    ->setRaw($raw)
                     ->setCacheEnabled(true);
 
             $asignaturas = $query->getResultado();
@@ -115,5 +122,49 @@ class APIInfofichService {
         $this->ultimoError = 'No se encontro la carrera ' . $carrera;
         return false;
     }
+    
+    
+    /**
+     * Devuelve las asignaturas para cierta carrera.
+     * 
+     * @param string $carrera Codigo de la carrera a buscar
+     * @return array|false
+     */
+    public function getAsignatura($carrera, $codigo) {        
+
+        $carreras_fich = $this->getCarreras(array($carrera));
+
+        if (count($carreras_fich) > 0) {
+
+            $c = array_shift($carreras_fich);
+            $query = new \FICH\APIInfofich\Query\Carreras\QueryMateriasCarrera();
+
+            $query->setUnidadAcademica(WSHelper::UA_FICH)
+                    ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
+                    ->setCarrera($c->getCodigoCarrera())
+                    ->setPlan($c->getPlanCarrera())
+                    ->setVersion($c->getVersionPlan())
+                    ->soloMaterias(array($codigo))            
+                    ->setCacheEnabled(true);
+
+            $asignatura = $query->getResultado();
+
+            if (!$asignatura) {
+                $this->ultimoError = $query->getError();
+                return false;
+            }
+
+            return $asignatura;
+        }
+
+        $this->ultimoError = 'No se encontro la carrera ' . $carrera;
+        return false;
+    }
+
+    function getUltimoError() {
+        return $this->ultimoError;
+    }
+
+
 
 }
