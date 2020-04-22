@@ -43,7 +43,7 @@ class RequisitosAprobacionType extends AbstractType {
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
-        
+
         $builder->add('fechaRecupPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Primer Parcial',
             'choices' => array(date('d/m/Y'), date('Y') + 1),
@@ -55,16 +55,56 @@ class RequisitosAprobacionType extends AbstractType {
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
-        
-        
+
+
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Primer Parcial',
+            'label' => 'Prevé promoción parcial ',
             'choices' => array('Sí', 'No'),
             'expanded' => true,
             'attr' => array('class' => 'form-control')
         ));
-        
-        
+
+        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Prevé coloquio final integrador ',
+            'choices' => array('Sí', 'No'),
+            'expanded' => true,
+            'attr' => array('class' => 'form-control')
+        ));
+
+        $builder->add('fechaParcailCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Fecha integrador',
+            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            'attr' => array('class' => 'form-control')
+        ));
+
+        $builder->add('fechaRecupCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Recuperatorio',
+            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            'attr' => array('class' => 'form-control')
+        ));
+
+        $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Modalidad CFI',
+            'attr' => array(
+                'class' => 'form-control'
+            )
+        ));
+
+        $builder->add('examenFinalModalidadRegulares', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Modalidad estudiantes regulares',
+            'attr' => array(
+                'class' => 'form-control'
+            )
+        ));
+        $builder->add('examenFinalModalidadLibres', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Modalidad estudiantes libres',
+            'attr' => array(
+                'class' => 'form-control'
+            )
+        ));
+
+
+
 
 
         /* $builder->add('contenidosMinimos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
