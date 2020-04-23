@@ -4,6 +4,7 @@ namespace PlanificacionesBundle\Controller;
 
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
+use PlanificacionesBundle\Entity\ActividadCurricular;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -66,10 +67,20 @@ class PlanificacionAjaxController extends Controller {
         ));
     }
 
-    public function getCronogramaFormAction() {
+    public function getCronogramaFormAction(Request $request) {
+        
+        $actividadCurricular = new ActividadCurricular();
+        $form = $this->createForm("PlanificacionesBundle\Form\ActividadCurricularType", $actividadCurricular);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
         return $this->render('PlanificacionesBundle:Planificacion:tab-cronograma.html.twig', array(
-                        // ...
-        ));
+                    'form' => $form->createView(),
+        // ...
+        ));        
+        
     }
 
     public function getCargaHorariaFormAction() {
