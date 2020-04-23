@@ -5,6 +5,7 @@ namespace PlanificacionesBundle\Controller;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Entity\ActividadCurricular;
+use PlanificacionesBundle\Entity\Temario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -55,9 +56,18 @@ class PlanificacionAjaxController extends Controller {
         ));
     }
 
-    public function getTemarioFormAction() {
+    public function getTemarioFormAction(Request $request) {
+
+        $temario = new Temario();
+        $form = $this->createForm("PlanificacionesBundle\Form\TemarioType", $temario);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
+
         return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
-                        // ...
+                        'form' => $form->createView()
         ));
     }
 
