@@ -1,0 +1,13 @@
+<div class="notificaciones">
+    {% from '::macros.html.twig' import notificacion %}
+    <div>
+        {% for flash_message in app.session.flashBag.get('success') %}
+            {{ notificacion('Mensaje', flash_message, 'success') }}                                                          
+        {% endfor %}
+    </div>
+    <div>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            {{ notificacion('Error', flash_message, 'error') }}                 
+        {% endfor %}
+    </div>
+</div>

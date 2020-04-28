@@ -18,7 +18,12 @@ class PlanificacionController extends Controller {
         ));
     }
 
-    public function editAction() {
+    public function editAction(Request $request, \PlanificacionesBundle\Entity\Planificacion $planificacion) {
+        
+        
+        
+        
+        
         return $this->render('PlanificacionesBundle:Planificacion:edit.html.twig', array(
                         'page_title' => 'Modificar planificación',
         ));

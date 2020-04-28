@@ -10,6 +10,11 @@ $(document).ready(function () {
         console.log("Tab info basica ");
 
         getInfoBasicaForm(SECCIONES.info_basica, null);
+        
+        if(PLANIFICACIONES.id !== null){
+            activarTabCheck( $('#tab-info-basica i') );            
+        }
+        
     });
 
     // 1 - Equipo Docente
@@ -87,13 +92,15 @@ function actualizarAsignaturas(select) {
 
     //Actualizar input Plan de estudio:
     var planes = JSON.parse($(select).attr('data-planes-carrera'));
-    if(planes.length > 0 && typeof planes[carrera] === 'string'){
-        $('#planificacionesbundle_planificacion_planEstudio').val( planes[carrera] );
+    //console.log(typeof planes, typeof planes[carrera], planes, carrera, planes.length > 0 && typeof planes[carrera] === 'string');
+    if (typeof planes === 'object' && typeof planes[carrera] === 'string') {
+        $('#planificacionesbundle_planificacion_plan').attr('value', planes[carrera]);
     }
-    
+
 
     //Define el ecomportamiento del select de asignatura sin disparar el evento:
     var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
+    //select_asignatura.hide();
     select_asignatura.change(function (e) {
         var option = $(this).children("option:selected");
         var asignatura = JSON.parse(option.attr('data-json'));
@@ -101,7 +108,7 @@ function actualizarAsignaturas(select) {
 
         console.log(asignatura);
     });
-    
+
     //setear la carrera en la url:
     var url = SECCIONES.get_asignaturas;
     url = url.replace('--CARRERA--', carrera);
@@ -125,8 +132,12 @@ function actualizarAsignaturas(select) {
                 });
 
                 //Esto produce que se complete los datos de la asignatura.
-                select_asignatura.select2();
+                select_asignatura.select2({
+                    allowClear: true,
+                    containerCssClass: 'fix-select2-styles'
+                });
                 select_asignatura.trigger('change');
+                select_asignatura.fadeIn();
             }
             //console.log(response);
         }
@@ -135,4 +146,10 @@ function actualizarAsignaturas(select) {
 
     //console.log('selecciono ' + carrera);
     //console.log(url);
+}
+
+function activarTabCheck(target){
+    if(typeof target === 'object'){
+         target.hide().addClass('fa-check-circle').css('color', 'green').fadeIn();
+    }   
 }

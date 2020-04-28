@@ -53,8 +53,7 @@
 
         {% block barra %}
             {% include 'navbar.html.twig' %}
-        {% endblock %}
-
+        {% endblock %}        
 
         {% block content %}
 
@@ -110,7 +109,7 @@
 
             <script src="{{ asset('bundles/app/js/custom.js') }}"></script>
             <script src="{{ asset('bundles/app/js/validacion.js') }}"></script>
-            
+
             <script src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
             <script src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
 
@@ -234,7 +233,7 @@
                         event.preventDefault();
                         var element = $(event.target);
                         var href = element.attr('href');
-                        
+
                         bootbox.confirm({
                             message: "¿Esta seguro que desea salir de del sistema?",
                             title: 'Cerrar sesión',

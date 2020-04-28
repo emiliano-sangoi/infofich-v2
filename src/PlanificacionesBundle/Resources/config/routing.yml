@@ -1,5 +1,6 @@
 planificaciones_ajax:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
+    prefix: /ajax/planificaciones
 
 academica_planificaciones_homepage:
     path:     /academica
@@ -18,5 +19,5 @@ planificaciones_new:
     defaults: { _controller: PlanificacionesBundle:Planificacion:new }
 
 planificaciones_edit:
-    path:     /editar
+    path:     /{id}/editar
     defaults: { _controller: PlanificacionesBundle:Planificacion:edit }

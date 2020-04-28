@@ -1,10 +1,10 @@
 planificacion_ajax_get_info_basica_form:
-    path:     /informacion-basica
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getInfoBasicaForm }
+    path:     /{id}/informacion-basica
+    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getInfoBasicaForm, id: -1 }
     methods: [GET, POST]   
     
 planificacion_ajax_get_form_equipo_docente:
-    path:     /equipo-docente
+    path:     /{id}/equipo-docente
     defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getFormEquipoDocente }    
 
 planificacion_ajax_get_requisitos_aprob_form:

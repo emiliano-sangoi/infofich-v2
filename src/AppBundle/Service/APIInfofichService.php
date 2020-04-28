@@ -74,6 +74,12 @@ class APIInfofichService {
         return false;
     }
 
+    /**
+     * 
+     * @param string $carrera Codigo de la carrera, por ej. '01', '02', etc.
+     * 
+     * @return FICH\APIInfofich\Model\Carrera|false
+     */
     public function getCarrera($carrera) {
         $carreras_fich = $this->getCarreras(array($carrera));
 
@@ -130,7 +136,7 @@ class APIInfofichService {
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
      */
-    public function getAsignatura($carrera, $codigo) {        
+    public function getAsignatura($carrera, $codigo) {                       
 
         $carreras_fich = $this->getCarreras(array($carrera));
 
@@ -147,14 +153,16 @@ class APIInfofichService {
                     ->soloMaterias(array($codigo))            
                     ->setCacheEnabled(true);
 
-            $asignatura = $query->getResultado();
+            $asignaturas = $query->getResultado();
 
-            if (!$asignatura) {
+            if (!$asignaturas) {
                 $this->ultimoError = $query->getError();
                 return false;
+            }else if(count($asignaturas) > 0){
+                return array_shift($asignaturas);
             }
-
-            return $asignatura;
+            
+            return null;
         }
 
         $this->ultimoError = 'No se encontro la carrera ' . $carrera;

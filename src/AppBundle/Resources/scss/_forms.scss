@@ -1,0 +1,66 @@
+
+
+.js-select2 {
+
+    /*background-color: red;*/
+
+}
+
+.select2 {
+    .select2-container{
+        /*background-color: red;*/
+        /*height: calc(1.5em + .75rem + 2px) !important;*/
+
+        /*.select2-selection .select2-selection--single{*/
+            /*height: 100% !important;*/
+        /*}*/
+
+
+    }
+}
+
+
+
+form {
+
+    label.required:after {
+        content:" *";
+        color:red;
+    }
+
+    .form-row{
+        margin-bottom: 2.5rem !important;
+
+
+    }
+
+/*    select.select2-js{
+        background-color: red !important;
+    }*/
+    
+/*    select, span.select2{
+        background-color: blue !important;
+    }*/
+
+
+}
+
+.fix-select2-styles{
+    /*height: calc(1.5em + .75rem + 2px) !important;*/
+    /*background-color: yellow !important;*/
+    
+    
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px) !important;;
+    padding: .375rem .75rem !important;;
+    font-size: 1rem !important;;
+    font-weight: 400 !important;;
+    line-height: 1.5 !important;;
+    color: #495057 !important;;
+    background-color: #fff !important;;
+    background-clip: padding-box !important;
+    border: 1px solid #ced4da !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+

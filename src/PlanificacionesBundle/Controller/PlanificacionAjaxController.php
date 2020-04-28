@@ -14,25 +14,63 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlanificacionAjaxController extends Controller {
 
-    public function getInfoBasicaFormAction(Request $request) {
+    /**
+     * Primer pantalla de la planificacion
+     * 
+     * Muestra la informacion basica de una planificacion:
+     *      - Carrera
+     *      - Asignatura
+     *      - Año academico
+     *      - Departamento
+     *      - Contenidos minimos
+     * 
+     * En el caso de que id de planificacion sea null va a crear una planificacion vacia.
+     * 
+     * @param Request $request
+     * @param int|null $id_planificacion
+     * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function getInfoBasicaFormAction(Request $request, $id_planificacion = null) {
 
-        $planificacion = new Planificacion();
+        $em = $this->getDoctrine()->getManager();
+        if ($id_planificacion) {
+            $planificacion = $em->getRepository('PlanificacionesBundle:Planificacion')->findOneBy($id_planificacion);
+            if (!$planificacion) {
+                throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException("No se encontro ninguna planificacion con id $id_planificacion.");
+            }
+        } else {
+            $planificacion = new Planificacion();
+        }
+
+
         $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-        }
 
-        //sleep(25);
+            $em->persist($planificacion);
+            $em->flush();
+
+            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+
+            //Causar redireccion para evitar "re-submits" del form:
+            return $this->redirectToRoute('planificacion_ajax_get_info_basica_form', array('id' => $planificacion->getId()));
+        }
 
         return $this->render('PlanificacionesBundle:Planificacion:tab-informacion-basica.html.twig', array(
                     'form' => $form->createView(),
+                    'planificacion' => $planificacion
         ));
     }
+
     
-    public function getFormEquipoDocenteAction() {
+    
+    
+    
+    public function getFormEquipoDocenteAction(Request $request, Planificacion $planificacion) {
         return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
+                    'planificacion' => $planificacion
         ));
     }
 
@@ -46,7 +84,7 @@ class PlanificacionAjaxController extends Controller {
         }
         return $this->render('PlanificacionesBundle:Planificacion:tab-aprobacion-asignatura.html.twig', array(
                     'form' => $form->createView(),
-        // ...
+                        // ...
         ));
     }
 
@@ -67,7 +105,7 @@ class PlanificacionAjaxController extends Controller {
         }
 
         return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
-                        'form' => $form->createView()
+                    'form' => $form->createView()
         ));
     }
 
@@ -78,7 +116,7 @@ class PlanificacionAjaxController extends Controller {
     }
 
     public function getCronogramaFormAction(Request $request) {
-        
+
         $actividadCurricular = new ActividadCurricular();
         $form = $this->createForm("PlanificacionesBundle\Form\ActividadCurricularType", $actividadCurricular);
         $form->handleRequest($request);
@@ -88,9 +126,8 @@ class PlanificacionAjaxController extends Controller {
         }
         return $this->render('PlanificacionesBundle:Planificacion:tab-cronograma.html.twig', array(
                     'form' => $form->createView(),
-        // ...
-        ));        
-        
+                        // ...
+        ));
     }
 
     public function getCargaHorariaFormAction() {

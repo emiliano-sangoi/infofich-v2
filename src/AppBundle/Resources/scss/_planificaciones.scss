@@ -1,7 +1,7 @@
 
 
 
-#planificaciones, #tab-content{
+#planificaciones{
     background-color: $gris-4;
 
 
@@ -25,4 +25,12 @@
 
 #v-pills-tab a.active{
     background-color: white;
+}
+
+
+.tab-pane{
+    /*margin: 0;*/
+    /*padding: 0;*/
+    background-color: $white;
+    padding-top: 1em;
 }
