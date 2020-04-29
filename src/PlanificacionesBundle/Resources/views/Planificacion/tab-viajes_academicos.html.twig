@@ -5,120 +5,120 @@
             <div class="mb-4">
                 <h4>Viajes Académicos</h4>
             </div>
-            <form name="formViajes" id="formViajes" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
-                <div class="form-row">
-                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <label for="responsable">Actividad</label>
-                    </div>
-                    <div class="form-group required col-md-6 col-sm-6 col-xs-12">
-                        <label class="control-label" for="objetivo">Descripción
-                        </label>
-                        <textarea id="descripcion" name="descripcion" class=" form-control" required></textarea>
-                    </div>
-
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label for="responsable">Actividad</label>
+                </div>
+                <div class="form-group required col-md-6 col-sm-6 col-xs-12">
+                    {{ form_label(form.descripcion) }}
+                    {{ form_widget(form.descripcion) }}
+                    {{ form_errors(form.descripcion) }} 
                 </div>
 
+            </div>
 
 
-                <div class="form-row">
-                    
-                    <div class="form-group offset-2 required col-md-6 col-sm-6 col-xs-12">
-                        <label class="control-label" for="objetivo">Objetivo
-                        </label>
-                        <textarea id="objetivo" name="objetivo" class=" form-control" required></textarea>
-                    </div>
 
-                </div>
-                <div class="form-row">
-                    <div class="form-group required col-md-6 offset-md-2">
-                        <label class="control-label" for="recorrido">Recorrido (indicando horarios) </label>
-                        <textarea id="recorrido" name="recorrido" class="form-control" required=""></textarea></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <label for="pasajeros">Pasajeros</label>
-                    </div>
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label class="control-label" for="pasajeros_estudiantes">Estudiantes </label>
-                        <input type="number" class="form-control" id="pasajeros_estudiantes" name="pasajeros_estudiantes" required/>
+            <div class="form-row">
 
-                        <div class="valid-feedback">
-                            V&aacute;lido
-                        </div>
-                    </div>
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label class="control-label" for="pasajeros_docentes">Docentes </label>
-                        <input type="number" class="form-control" id="pasajeros_docentes" name="pasajeros_docentes" required/>
-
-                        <div class="valid-feedback">
-                            V&aacute;lido
-                        </div>
-                    </div>
-                    <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label for="pasajeros_total">Total </label>
-                        <input type="number" class="form-control" 
-                               id="pasajeros_total" name="pasajeros_total" disabled/>
-                    </div>
-
-                </div>
-                <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
-                        <label class="control-label" for="movilidad">Tipo de movilidad </label>
-                        <select class="form-control" id="movilidad" name="movilidad" required>
-                            <option value="">Seleccione</option>
-                            <option value="auto">Auto</option>
-                            <option value="colectivo">Colectivo</option>
-                            <option value="colectivo">Embarcación</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
-                        <label class="control-label" for="fecha_tentativa">Fecha tentativa</label>
-                        <input type="date" class="form-control" id="fecha_tentativa" name="fecha_tentativa" required/>
-                    </div>
-                    <div class="form-group required col-md-3">
-                        <label class="control-label" for="cant_dias">Cantidad de días</label>
-                        <input type="number" class="form-control" id="cant_dias" name="cant_dias" required/>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
-                        <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
-                        <select class="form-control" id="asig_vinc" name="asig_vinc">
-                            <option value="">Seleccione</option>
-                            <option value="Algebra">Álgebra</option>
-                            <option value="Matematica">Matemática Básica</option>
-                            <option value="Otras">Otras</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="listado">Listado</label>
-
-                    </div>
-                </div>
-                <div class="form-row">
-
-                    <div class="form-group required col-md-4 offset-md-2">
-                        <a href="{{ path('homepage') }}" >
-                              <i class="fa fa-plus-circle"></i>Añadir
-                        </a>
-                    </div>
+                <div class="form-group offset-2 required col-md-6 col-sm-6 col-xs-12">
+                    {{ form_label(form.objetivos) }}
+                    {{ form_widget(form.objetivos) }}
+                    {{ form_errors(form.objetivos) }} 
                 </div>
 
-                <div class="col-12 mt-s text-right mb-4">
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-6 offset-md-2">
+                    {{ form_label(form.recorrido) }}
+                    {{ form_widget(form.recorrido) }}
+                    {{ form_errors(form.recorrido) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <label for="pasajeros">Pasajeros</label>
+                </div>
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantEstudiantes) }}
+                    {{ form_widget(form.cantEstudiantes) }}
+                    {{ form_errors(form.cantEstudiantes) }}
+                    <div class="valid-feedback">
+                        V&aacute;lido
+                    </div>
+                </div>
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantDocentes) }}
+                    {{ form_widget(form.cantDocentes) }}
+                    {{ form_errors(form.cantDocentes) }}
+                    <div class="valid-feedback">
+                        V&aacute;lido
+                    </div>
+                </div>
+                <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label for="pasajeros_total">Total </label>
+                    <input type="number" class="form-control" 
+                           id="pasajeros_total" name="pasajeros_total" disabled/>
+                </div>
 
-                    <button type="submit" class="btn btn btn-verde">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Guardar
-                    </button>
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    {{ form_label(form.vehiculos) }}
+                    {{ form_widget(form.vehiculos) }}
+                    {{ form_errors(form.vehiculos) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    {{ form_label(form.fechaTentativa) }}
+                    {{ form_widget(form.fechaTentativa) }}
+                    {{ form_errors(form.fechaTentativa) }}
+                </div>
+                <div class="form-group required col-md-3">
+                    {{ form_label(form.cantDias) }}
+                    {{ form_widget(form.cantDias) }}
+                    {{ form_errors(form.cantDias) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-md-4 offset-md-2">
+                    <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
+                    <select class="form-control" id="asig_vinc" name="asig_vinc">
+                        <option value="">Seleccione</option>
+                        <option value="Algebra">Álgebra</option>
+                        <option value="Matematica">Matemática Básica</option>
+                        <option value="Otras">Otras</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="listado">Listado</label>
 
-                    <a href="#" class="btn btn-secondary">
-                        Cancelar
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group required col-md-4 offset-md-2">
+                    <a href="{{ path('homepage') }}" >
+                          <i class="fa fa-plus-circle"></i>Añadir
                     </a>
                 </div>
+            </div>
 
-            </form>
+            <div class="col-12 mt-s text-right mb-4">
+
+                <button type="submit" class="btn btn btn-verde">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
+
+                <a href="#" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+
+            {{ form_end(form) }}
         </div>
 
     </div>

@@ -7,6 +7,7 @@ use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Entity\CargaHoraria;
+use PlanificacionesBundle\Entity\ViajeAcademico;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -148,10 +149,21 @@ class PlanificacionAjaxController extends Controller {
         
     }
 
-    public function getViajesAcademicosFormAction() {
+    public function getViajesAcademicosFormAction(Request $request) {
+        
+        $viajeAcademico = new ViajeAcademico();
+        $form = $this->createForm("PlanificacionesBundle\Form\ViajeAcademicoType", $viajeAcademico);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
+
         return $this->render('PlanificacionesBundle:Planificacion:tab-viajes_academicos.html.twig', array(
-                        // ...
+                        'form' => $form->createView()
         ));
+        
+        
     }
 
 }
