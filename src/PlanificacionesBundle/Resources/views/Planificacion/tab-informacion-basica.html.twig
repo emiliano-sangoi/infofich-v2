@@ -1,8 +1,11 @@
 <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-info-basica">
-    <div class="container pr-0 mt-4" >
+    <div class="container" >
         <div class="card card-register mx-auto">
 
             <div class="card-body px-5">
+
+                {% include '::notificaciones.html.twig' %}
+
                 <div class="mb-4">
                     <h4>Informaci&oacute;n b&aacute;sica de la asignatura</h4>
                 </div>
@@ -10,7 +13,7 @@
                 {{ form_start(form) }}
 
                 <div class="form-row">
-                    <div class="form-group required col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-12">
                         {{ form_label(form.carrera) }}
                         {{ form_widget(form.carrera) }}
                         {{ form_errors(form.carrera) }}      
@@ -18,7 +21,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group required col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-12">
                         {{ form_label(form.asignatura) }}
                         {{ form_widget(form.asignatura) }}
                         {{ form_errors(form.asignatura) }}      
@@ -26,180 +29,167 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group required col-xs-12 col-sm-4">
+                    <div class="col-xs-12 col-sm-4">
                         {{ form_label(form.anioAcad) }}
                         {{ form_widget(form.anioAcad) }}
                         {{ form_errors(form.anioAcad) }}                              
                     </div>
-                    <div class="form-group col-xs-12 col-sm-4">
+                    <div class="col-xs-12 col-sm-4">
                         {{ form_label(form.codigoSiu) }}
                         {{ form_widget(form.codigoSiu) }}                                
                     </div>
-                    <div class="form-group col-xs-12 col-sm-4">
-                        {{ form_label(form.planEstudio) }}
-                        {{ form_widget(form.planEstudio) }}                                
+                    <div class="col-xs-12 col-sm-4">
+                        {{ form_label(form.plan) }}
+                        {{ form_widget(form.plan) }}                                
                     </div>
                 </div>
 
-                {#<div class="form-row">
-                    <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                        <label class="control-label" for="asignatura">Asignatura</label>
-                        <select id="asignatura" 
-                                name="asignatura" 
-                                title="Seleccione la asignatura..." 
-                                class="selectpicker form-control js-select2" 
-                                data-live-search="true" 
-                                data-live-search-style="begins" 
-                                onclick="completar_datos_asignatura(this);" required>
-                            <option value="">Seleccione</option>
-                            <option value="1">Álgebra Lineal</option>
-                            <option value="Opcion">Otra opcion</option>
-                        </select>
-                    </div>
-                </div>#}
-
                 <div class="form-row">
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                           
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-xs-12 col-sm-4">
                         {{ form_label(form.departamento) }}
                         {{ form_widget(form.departamento) }}
                         {{ form_errors(form.departamento) }}               
                     </div>
-                    {#<div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label for="codigo_siu">C&oacute;digo SIU
-                        </label>
-                        <input class="form-control" id="codigo_siu" 
-                               name="codigo_siu" type="text" value="" disabled/>
+                    <div class="col-xs-12 col-sm-4">
+                        {{ form_label(form.caracter) }}
+                        {{ form_widget(form.caracter) }}                                   
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label for="plan_estudio">Plan de estudio
-                        </label>
-                        <input class="form-control" id="plan_estudio" 
-                               name="plan_estudio" type="text" value="" disabled/>
-                    </div>#}
+                    <div class="col-xs-12 col-sm-4">
+                        {{ form_label(form.cargaHoraria) }}
+                        {{ form_widget(form.cargaHoraria) }}                                   
+                    </div>
                 </div>
 
 
                 <div class="form-row">
-                    <div class="form-group col-sm-12">
+                    <div class="col-sm-12">
                         {{ form_label(form.contenidosMinimos) }}
                         {{ form_widget(form.contenidosMinimos) }}
                         {{ form_errors(form.contenidosMinimos) }}      
                     </div>
                 </div>
-                {{ form_widget(form) }}
 
-
+                <div class="form-row">
+                    <div class="col-xs-12 col-sm-4">
+                        <button id="btn-guardar-info-basica" class="btn btn-primary">Guardar</button>
+                    </div>
+                    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+                        {{ form_widget(form.reset) }}
+                    </div>
+                </div>
 
                 {{ form_end(form) }}
 
-                <button id="btn-guardar-info-basica" class="btn btn-primary">Guardar</button>
-
-                <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
-
-                    <div class="form-row mt-4">
-                        <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                            <label class="control-label" for="carrera">Carrera</label>
-                            <select id="carrera" 
-                                    name="carrera" 
-                                    title="Seleccione una carrera..." 
-                                    class="form-control js-select2" 
-                                    required>
-                                <option value="">Seleccione</option>
-                                <option value="1">Ingenier&iacute;a en Recursos H&iacute;dricos</option>
-                                <option value="2">Ingenier&iacute;a en Inform&acute;tica</option>
-                                <option value="3">Ingenier&iacute;a Ambiental</option>
-                                <option value="Opcion">Otra opcion</option>
-                            </select>
-                        </div>
-                    </div>
+                {% if planificacion.id is not null %}
+                    <input id="planificacion_id" type="hidden" value="{{ planificacion.id }}"/>
+                {% endif %}
 
 
-                    <div class="form-row mt-4">
-                        <div class="form-group required col-md-13 col-sm-12 col-xs-12">
-                            <label class="control-label" for="asignatura">Asignatura</label>
-                            <select id="asignatura" 
-                                    name="asignatura" 
-                                    title="Seleccione la asignatura..." 
-                                    class="selectpicker form-control js-select2" 
-                                    data-live-search="true" 
-                                    data-live-search-style="begins" 
-                                    onclick="completar_datos_asignatura(this);" required>
-                                <option value="">Seleccione</option>
-                                <option value="1">Álgebra Lineal</option>
-                                <option value="Opcion">Otra opcion</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="form-row">
-                        <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label class="control-label" for="anio">Año
-                            </label>
-                            <input class="form-control" id="anio" name="anio" 
-                                   type="text" value="" required/>                    
-                        </div>
-                        <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="codigo_siu">C&oacute;digo SIU
-                            </label>
-                            <input class="form-control" id="codigo_siu" 
-                                   name="codigo_siu" type="text" value="" disabled/>
-                        </div>
-                        <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="plan_estudio">Plan de estudio
-                            </label>
-                            <input class="form-control" id="plan_estudio" 
-                                   name="plan_estudio" type="text" value="" disabled/>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-row mt-4">
-                        <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label class="control-label" for="departamento">Departamento</label>
-                            <input class="form-control" id="departamento" 
-                                   name="departamento" type="text" value="" required/>
-                        </div>
-                        <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="caracter">Carácter
-                            </label>
-                            <input class="form-control" id="caracter" 
-                                   name="caracter" type="text" value="" disabled/>
-                        </div>
-                        <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label for="carga_horaria">Carga Horaria total
-                            </label>
-                            <input class="form-control" id="carga_horaria" 
-                                   name="carga_horaria" type="text" value="" disabled/>
-                        </div>
-
-                    </div>
-
-                    <div class="form-row mt-4">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <label for="contenidos_minimos">Contenidos Mínimos</label>
-                            <textarea id="contenidos_minimos" name="contenidos_minimos" rows="10"
-                                      class=" form-control">Si esta creando una nueva planificación debe completar este campo
-                            </textarea>
-                        </div>
-                    </div>           
-
-                    <div class="col-12 mt-s text-right mb-4">
-
-                        <button type="submit" class="btn btn btn-verde">
-                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                            Guardar
-                        </button>
-
-                        <a href="{{ path('homepage') }}" class="btn btn-secondary">
-                            Cancelar
-                        </a>
-                    </div>
-                </form>
+                {# <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+ 
+                     <div class="form-row mt-4">
+                         <div class=" col-md-13 col-sm-12 col-xs-12">
+                             <label class="control-label" for="carrera">Carrera</label>
+                             <select id="carrera" 
+                                     name="carrera" 
+                                     title="Seleccione una carrera..." 
+                                     class="form-control js-select2" 
+                                     required>
+                                 <option value="">Seleccione</option>
+                                 <option value="1">Ingenier&iacute;a en Recursos H&iacute;dricos</option>
+                                 <option value="2">Ingenier&iacute;a en Inform&acute;tica</option>
+                                 <option value="3">Ingenier&iacute;a Ambiental</option>
+                                 <option value="Opcion">Otra opcion</option>
+                             </select>
+                         </div>
+                     </div>
+ 
+ 
+                     <div class="form-row mt-4">
+                         <div class=" col-md-13 col-sm-12 col-xs-12">
+                             <label class="control-label" for="asignatura">Asignatura</label>
+                             <select id="asignatura" 
+                                     name="asignatura" 
+                                     title="Seleccione la asignatura..." 
+                                     class="selectpicker form-control js-select2" 
+                                     data-live-search="true" 
+                                     data-live-search-style="begins" 
+                                     onclick="completar_datos_asignatura(this);" required>
+                                 <option value="">Seleccione</option>
+                                 <option value="1">Álgebra Lineal</option>
+                                 <option value="Opcion">Otra opcion</option>
+                             </select>
+                         </div>
+                     </div>
+ 
+ 
+                     <div class="form-row">
+                         <div class="  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label class="control-label" for="anio">Año
+                             </label>
+                             <input class="form-control" id="anio" name="anio" 
+                                    type="text" value="" required/>                    
+                         </div>
+                         <div class="form-group  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label for="codigo_siu">C&oacute;digo SIU
+                             </label>
+                             <input class="form-control" id="codigo_siu" 
+                                    name="codigo_siu" type="text" value="" disabled/>
+                         </div>
+                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label for="plan_estudio">Plan de estudio
+                             </label>
+                             <input class="form-control" id="plan_estudio" 
+                                    name="plan_estudio" type="text" value="" disabled/>
+                         </div>
+                     </div>
+ 
+ 
+ 
+                     <div class="form-row mt-4">
+                         <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label class="control-label" for="departamento">Departamento</label>
+                             <input class="form-control" id="departamento" 
+                                    name="departamento" type="text" value="" required/>
+                         </div>
+                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label for="caracter">Carácter
+                             </label>
+                             <input class="form-control" id="caracter" 
+                                    name="caracter" type="text" value="" disabled/>
+                         </div>
+                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                             <label for="carga_horaria">Carga Horaria total
+                             </label>
+                             <input class="form-control" id="carga_horaria" 
+                                    name="carga_horaria" type="text" value="" disabled/>
+                         </div>
+ 
+                     </div>
+ 
+                     <div class="form-row mt-4">
+                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                             <label for="contenidos_minimos">Contenidos Mínimos</label>
+                             <textarea id="contenidos_minimos" name="contenidos_minimos" rows="10"
+                                       class=" form-control">Si esta creando una nueva planificación debe completar este campo
+                             </textarea>
+                         </div>
+                     </div>           
+ 
+                     <div class="col-12 mt-s text-right mb-4">
+ 
+                         <button type="submit" class="btn btn btn-verde">
+                             <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                             Guardar
+                         </button>
+ 
+                         <a href="{{ path('homepage') }}" class="btn btn-secondary">
+                             Cancelar
+                         </a>
+                     </div>
+                 </form>
+                
+                #}
             </div>
 
         </div>

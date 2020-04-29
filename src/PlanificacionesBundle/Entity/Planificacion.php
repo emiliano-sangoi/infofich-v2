@@ -27,7 +27,7 @@ class Planificacion
      * @var int
      *
      * @ORM\Column(name="anio_acad", type="smallint")
-     * @Assert\GreaterThanOrEqual(value=2020, message="Este campo debe ser mayor o igual que {{ compared_value }}")
+     * 
      */
     private $anioAcad;
 
@@ -35,6 +35,7 @@ class Planificacion
      * @var string
      *
      * @ORM\Column(name="contenidos_minimos", type="text", nullable=true)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío")
      */
     private $contenidosMinimos;
 
@@ -72,11 +73,39 @@ class Planificacion
      *
      * @var Asignatura
      * 
-     * @ORM\ManyToOne(targetEntity="Asignatura")
-     * @ORM\JoinColumn(name="planif_asignaturas_id",referencedColumnName="id")
+     * @ORM\Column(name="carrera", type="string", length=4)
+     * @Assert\NotBlank(message="El campo Carrera es obligatorio")
+     */
+    private $carrera;
+    
+    /**
+     * Plan al que pertenece la carrera.
+     *      
+     * @var int
+     * 
+     * @ORM\Column(name="plan", type="integer")
+     */
+    private $plan;
+    
+    /**
+     * Plan al que pertenece la carrera.
+     *      
+     * @var int
+     * 
+     * @ORM\Column(name="version_plan", type="integer")
+     */
+    private $versionPlan;
+    
+    /**
+     *
+     * @var Asignatura
+     * 
+     * @ORM\Column(name="asignatura", type="string", length=12)
+     * @Assert\NotBlank(message="El campo Asignatura es obligatorio")
      */
     private $asignatura;
     
+        
     /**
      *
      * @var ArrayCollection
@@ -134,7 +163,7 @@ class Planificacion
     
     public function __construct() {
         $this->docentesPlanificacion = new ArrayCollection;
-        $this->historicosEstados = new ArrayCollection;
+        $this->historicosEstado = new ArrayCollection;
         $this->actividadesCurriculares = new ArrayCollection;
         $this->bibliografiasPlanificacion = new ArrayCollection;
         $this->viajesAcademicos = new ArrayCollection;
@@ -295,30 +324,6 @@ class Planificacion
     public function getDepartamento()
     {
         return $this->departamento;
-    }
-
-    /**
-     * Set asignatura
-     *
-     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
-     *
-     * @return Planificacion
-     */
-    public function setAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura = null)
-    {
-        $this->asignatura = $asignatura;
-
-        return $this;
-    }
-
-    /**
-     * Get asignatura
-     *
-     * @return \PlanificacionesBundle\Entity\Asignatura
-     */
-    public function getAsignatura()
-    {
-        return $this->asignatura;
     }
 
     /**
@@ -538,5 +543,103 @@ class Planificacion
     public function getRequisitosAprobacion()
     {
         return $this->requisitosAprobacion;
+    }
+
+    /**
+     * Set carrera
+     *
+     * @param string $carrera
+     *
+     * @return Planificacion
+     */
+    public function setCarrera($carrera)
+    {
+        $this->carrera = $carrera;
+
+        return $this;
+    }
+
+    /**
+     * Get carrera
+     *
+     * @return string
+     */
+    public function getCarrera()
+    {
+        return $this->carrera;
+    }
+
+    /**
+     * Set plan
+     *
+     * @param integer $plan
+     *
+     * @return Planificacion
+     */
+    public function setPlan($plan)
+    {
+        $this->plan = $plan;
+
+        return $this;
+    }
+
+    /**
+     * Get plan
+     *
+     * @return integer
+     */
+    public function getPlan()
+    {
+        return $this->plan;
+    }
+
+
+
+    /**
+     * Set versionPlan
+     *
+     * @param integer $versionPlan
+     *
+     * @return Planificacion
+     */
+    public function setVersionPlan($versionPlan)
+    {
+        $this->versionPlan = $versionPlan;
+
+        return $this;
+    }
+
+    /**
+     * Get versionPlan
+     *
+     * @return integer
+     */
+    public function getVersionPlan()
+    {
+        return $this->versionPlan;
+    }
+
+    /**
+     * Set asignatura
+     *
+     * @param string $asignatura
+     *
+     * @return Planificacion
+     */
+    public function setAsignatura($asignatura)
+    {
+        $this->asignatura = $asignatura;
+
+        return $this;
+    }
+
+    /**
+     * Get asignatura
+     *
+     * @return string
+     */
+    public function getAsignatura()
+    {
+        return $this->asignatura;
     }
 }

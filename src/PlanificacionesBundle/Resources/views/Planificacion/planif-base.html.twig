@@ -22,40 +22,40 @@
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link" id="tab-info-basica" href="#" data-toggle="pill" role="tab" aria-controls="tab-info-basica" aria-selected="false">
                         Información básica
-                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-equipo-docente" data-toggle="pill" href="#" role="tab" aria-controls="tab-equipo-docente" aria-selected="false">
                         Equipo docente
-                        <i class="far fa-check-circle float-right" style="color:green"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-aprobacion" data-toggle="pill" href="#" role="tab" aria-controls="tab-aprobacion" aria-selected="false">
                         Aprobación de la asignatura
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-objetivos" data-toggle="pill" href="#" role="tab" aria-controls="tab-objetivos" aria-selected="false">
                         Objetivos de la asignatura
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-temario" data-toggle="pill" href="#" role="tab" aria-controls="tab-temario" aria-selected="false">
                         Temario
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-bibliografia" data-toggle="pill" href="#" role="tab" aria-controls="tab-bibliografia" aria-selected="false">
                         Bibliografia
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
 
                     <a class="nav-link" id="tab-cronograma" data-toggle="pill" href="#" role="tab" aria-controls="tab-cronograma" aria-selected="false">
                         Cronograma de actividades
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-distribucion" data-toggle="pill" href="#" role="tab" aria-controls="tab-distribucion" aria-selected="false">
                         Distribucion de carga horaria
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="nav-link" id="tab-viajes-academicos" data-toggle="pill" href="#" role="tab" aria-controls="tab-viajes-academicos" aria-selected="false">
                         Viajes académicos
-                        <i class="far fa-circle float-right"></i>
+                        <i class="far float-right"></i>
                     </a>
                     <a class="btn border-azul w-100 text-left p-3 pl-4" 
                        id="v-pills-revisar-tab" data-toggle="pill" href="#v-pills-revisar" role="tab" aria-controls="v-pills-revisar" aria-selected="false">
@@ -67,10 +67,13 @@
 
             </div>
 
-            <div class="col-9">
+            <div class="col-9">                                
 
+                    
                 <div class="tab-content" id="tab-content">
 
+                   
+                    
                     {% block tab_content %}
 
 
@@ -117,7 +120,7 @@
     <script>
         SECCIONES = {
             info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
-            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente') }}",
+            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente', {'id' : '--ID--'}) }}",
             req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
             objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
             temario: "{{ path('planificacion_ajax_get_temario_form') }}",
@@ -125,20 +128,23 @@
             cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
             distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
             viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",
-            get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",            
-            get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",            
+            get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+            get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
+            seccion_actual: null
         };
+        
+        SECCIONES.seccion_actual = SECCIONES.info_basica;
 
         $(document).ready(function () {
             $('#tab-info-basica').tab('show');
 
 
-            {#$('.select-carrera').on('change', function (e) {
-                var carrera = this.value;
-                console.log(carrera);
-            });#}
+        {#$('.select-carrera').on('change', function (e) {
+            var carrera = this.value;
+            console.log(carrera);
+        });#}
 
-        });
+            });
 
         {#$("#btnAñadirAdscripto").click(function () {
             $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");

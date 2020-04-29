@@ -6,7 +6,15 @@ function getInfoBasicaForm(url, data) {
     var success = function (response) {
 
         //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
+        var target = $('#tab-content');
+        target.hide().html(response);
+        target.find('.js-select2').select2({
+            allowClear: true,
+            containerCssClass: 'fix-select2-styles'
+        });
+
+        //target.find('.select2-selection .select2-selection--single').addClass('height-fix');
+        
 
         var btn = $('#btn-guardar-info-basica');
 
@@ -24,12 +32,14 @@ function getInfoBasicaForm(url, data) {
 
             //disparar el evento en el select para que se recargue el listado de asignaturas
             var select_carrera = $('#planificacionesbundle_planificacion_carrera');
-            select_carrera.select2();
             select_carrera.trigger('change');
+
 
         }
 
         dialog.modal('hide');
+        
+        target.fadeIn();
     };
 
     $.ajax({
@@ -44,10 +54,31 @@ function getInfoBasicaForm(url, data) {
 
 
 function postInfoBasicaForm(url, form_data) {
+    
+    var dialog = crearDialogEspera('Guardandando ...');
 
     var success = function (response) {
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
+
+        var target = $('#tab-content');
+        target.hide().html(response);
+
+        // console.log(PLANIFICACION);
+        var planificacion_id = target.find("#planificacion_id");
+        //console.log(planificacion_id, typeof planificacion_id, typeof planificacion_id === 'object')
+        //actualizar el id de la planificacion
+        if (typeof planificacion_id === 'object') {
+            PLANIFICACION.id = planificacion_id.val();
+            console.log(PLANIFICACION);
+        }
+
+        activarCierreAutomaticoNotificaciones();
+        
+        //activar el checkbox:
+        activarTabCheck( $('#tab-info-basica i') );
+        
+        dialog.modal('hide');                
+        
+        target.fadeIn();
     };
 
     $.ajax({

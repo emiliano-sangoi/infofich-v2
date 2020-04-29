@@ -1,7 +1,12 @@
 $(document).ready(function () {
-    
+
     $('#login .errores').hide().fadeIn();
-    
+
+
+
+
+
+
 });
 
 
@@ -44,4 +49,24 @@ function crearDialogEspera(message, title) {
     });
 
     return dialog;
+}
+
+
+function activarCierreAutomaticoNotificaciones() {
+
+    $(".notificaciones div.notificacion").each(function (index, value) {
+        //console.log("la CDTM")
+        var notificacion = $(this);
+        var duracion = 3000 + index * 1500;
+        //notificacion.delay(duracion).alert('close');
+        // console.log(notificacion);
+        
+        //notificacion.fadeOut("slow");
+
+        setTimeout(function () {
+            notificacion.fadeOut("slow");
+                    //.alert('close');
+        }, duracion);
+    });
+
 }
