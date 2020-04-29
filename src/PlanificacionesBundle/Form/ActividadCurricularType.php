@@ -20,14 +20,14 @@ class ActividadCurricularType extends AbstractType {
                 ->add('otras', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Otras',
                     'attr' => array(
-                        'rows' => 4,
+                        'rows' => 3,
                         'class' => 'form-control'
                     )
                 ))
                 ->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Contenido',
                     'attr' => array(
-                        'rows' => 4,
+                        'rows' => 3,
                         'class' => 'form-control'
                     )
                 ))
@@ -46,17 +46,17 @@ class ActividadCurricularType extends AbstractType {
                 ->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Descripción',
                     'attr' => array(
-                        'rows' => 4,
+                        'rows' => 3,
                         'class' => 'form-control'
                     )
                 ))
-                ->add('planificacion')
+                //->add('planificacion')
                 ->add('tipoActividadCurricular', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                     'label' => 'Tipo',
                     /* 'choices' => array(date('d/m/Y'), date('Y') + 1), */
                     'attr' => array('class' => 'form-control')
-                ))
-                ->add('temario');
+                ));
+                //->add('temario');
     }
 
     /**

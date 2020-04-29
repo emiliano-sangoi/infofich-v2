@@ -5,107 +5,101 @@
             <div class="mb-4">
                 <h5>Distribución de carga horaria</h5>
             </div>
-            <form name="formDistribucion" id="formDistribucion" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
-                <div class="form-row">
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label class="control-label" for="total"> Total
-                        </label>
-                        <input class="form-control" id="total" name="total" type="number" value="" disabled/>                        
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <label class="control-label" for="total"> Total
+                    </label>
+                    <input class="form-control" id="total" name="total" type="number" value="" disabled/>                        
+                </div>
+                <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <label class="control-label" for="autonomo"> Estudio Autónomo </label>
+                    <input class="form-control" id="autonomo" name="autonomo" 
+                           type="number" value="" disabled />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group required col-lg-6 col-md-6 col-sm-6">
+                    <div>
+                        <label class="control-label" for="form_prac"> Formación práctica </label>
                     </div>
-                    <div class="form-group required col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <label class="control-label" for="autonomo"> Estudio Autónomo </label>
-                        <input class="form-control" id="autonomo" name="autonomo" 
-                               type="number" value="" disabled />
+                    <div class="form-group ">
+                        <input class="form-control col-lg-3" id="form_prac" 
+                               name="form_prac" type="number" value="" disabled />
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group required col-lg-6 col-md-6 col-sm-6">
-                        <div>
-                            <label class="control-label" for="form_prac"> Formación práctica </label>
-                        </div>
-                        <div class="form-group ">
-                            <input class="form-control col-lg-3" id="form_prac" 
-                                   name="form_prac" type="number" value="" disabled />
-                        </div>
-
-                    </div>                    
-                </div>
-                <div class="form-row">
-                    <div class="form-group required col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div>
-                            <label class="control-label" for="form_exp">Formación experimental
-                            </label>
-                            <input class="form-control" id="form_exp" name="form_exp" 
-                                   type="number" value="" disabled/>
-                        </div>
-
-                    </div>    
-                    <div class="form-group required  col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                        <div>
-                            <label class="control-label" for="resol_problem">Resolución de problemas abiertos de ing
-                            </label>
-                            <input class="form-control" id="resol_problem" name="resol_problem" type="number" value="" required/>
-                        </div>
-
-
-                    </div> 
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <label class="control-label" for="ejer_rut">Ejercicios rutinarios 
+                </div>                    
+            </div>
+            <div class="form-row">
+                <div class="form-group required col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div>
+                        <label class="control-label" for="form_exp">Formación experimental
                         </label>
-                        <input class="form-control" id="ejer_rut" name="ejer_rut" type="number" value="" required/>
+                        <input class="form-control" id="form_exp" name="form_exp" 
+                               type="number" value="" disabled/>
+                    </div>
 
-                    </div>    
-                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label class="control-label" for="act_proy">Act. de proyecto y diseño
-                        </label>
-                        <input class="form-control" id="act_proy" name="act_proy" type="number" value="" required/>
+                </div>    
+                <div class="form-group required  col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                    <div>
+                        {{ form_label(form.cantHsResolProbIng) }}
+                        {{ form_widget(form.cantHsResolProbIng) }}
+                        {{ form_errors(form.cantHsResolProbIng) }} 
+                    </div>
+                </div> 
+            </div>
 
-                    </div> 
-                    <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label class="control-label" for="prac_final">Práctica final supervisada
-                        </label>
-                        <input class="form-control" id="prac_final" name="prac_final" type="number" value="" required/>
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantHsEjRutinarios) }}
+                    {{ form_widget(form.cantHsEjRutinarios) }}
+                    {{ form_errors(form.cantHsEjRutinarios) }} 
+                </div>  
 
-                    </div> 
-                </div>
+                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantHsActProyDisenio) }}
+                    {{ form_widget(form.cantHsActProyDisenio) }}
+                    {{ form_errors(form.cantHsActProyDisenio) }} 
+                </div> 
+                <div class="form-group required  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantHsPracticaProfSup) }}
+                    {{ form_widget(form.cantHsPracticaProfSup) }}
+                    {{ form_errors(form.cantHsPracticaProfSup) }} 
 
-                <div class="form-row">
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label class="control-label" for="ejer_rut">Teoría 
-                        </label>
-                        <input class="form-control" id="ejer_rut" name="ejer_rut" type="number" value="" required/>
+                </div> 
+            </div>
 
-                    </div>    
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <label class="control-label" for="act_proy">Evaluación
-                        </label>
-                        <input class="form-control" id="act_proy" name="act_proy" type="number" value="" required/>
+            <div class="form-row">
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    {{ form_label(form.cantHsTeoria) }}
+                    {{ form_widget(form.cantHsTeoria) }}
+                    {{ form_errors(form.cantHsTeoria) }} 
+                </div>    
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                   {{ form_label(form.cantHsConsulta) }}
+                    {{ form_widget(form.cantHsConsulta) }}
+                    {{ form_errors(form.cantHsConsulta) }} 
+                </div> 
+                <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    {{ form_label(form.cantHsEvaluacion) }}
+                    {{ form_widget(form.cantHsEvaluacion) }}
+                    {{ form_errors(form.cantHsEvaluacion) }} 
+                </div> 
+            </div>
 
-                    </div> 
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <label class="control-label" for="prac_final">Consultas
-                        </label>
-                        <input class="form-control" id="prac_final" name="prac_final" type="number" value="" required/>
+            <div class="col-12 mt-s text-right mb-4">
 
-                    </div> 
-                </div>
+                <button type="submit" class="btn btn btn-verde">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Guardar
+                </button>
 
-                <div class="col-12 mt-s text-right mb-4">
-
-                    <button type="submit" class="btn btn btn-verde">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Guardar
-                    </button>
-
-                    <a href="#" class="btn btn-secondary">
-                        Cancelar
-                    </a>
-                </div>
-            </form>
+                <a href="#" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 </div>

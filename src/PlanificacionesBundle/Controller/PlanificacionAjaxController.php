@@ -6,6 +6,7 @@ use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Temario;
+use PlanificacionesBundle\Entity\CargaHoraria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -93,10 +94,21 @@ class PlanificacionAjaxController extends Controller {
         
     }
 
-    public function getCargaHorariaFormAction() {
+    public function getCargaHorariaFormAction(Request $request) {
+        
+        $cargaHoraria = new CargaHoraria();
+        $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
+
         return $this->render('PlanificacionesBundle:Planificacion:tab-distribucion.html.twig', array(
-                        // ...
+                        'form' => $form->createView()
         ));
+        
+        
     }
 
     public function getViajesAcademicosFormAction() {
