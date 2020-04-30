@@ -26,6 +26,7 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('porcentajeAsistencia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Asistencia',
+            'required' => true,
             'mapped' => false,
             'choices' => array(70, 80, 90, 100),
             'attr' => array('class' => 'form-control')
@@ -34,24 +35,28 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('fechaPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Primer Parcial',
+            'required' => true,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('fechaSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Primer Parcial',
+            'label' => 'Segundo Parcial',
+            'required' => true,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('fechaRecupPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Primer Parcial',
+            'required' => true,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('fechaRecupSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Primer Parcial',
+            'label' => 'Segundo Parcial',
+            'required' => true,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
@@ -59,7 +64,7 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Prevé promoción parcial ',
-            'choices' => array('Sí', 'No'),
+            'choices' => array('Teoría', 'Práctica'),
             'expanded' => true,
             'attr' => array('class' => 'form-control')
         ));
@@ -73,6 +78,7 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('fechaParcailCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Fecha integrador',
+            'required' => true,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
