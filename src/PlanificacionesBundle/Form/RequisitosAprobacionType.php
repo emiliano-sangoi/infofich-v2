@@ -27,7 +27,6 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('porcentajeAsistencia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Asistencia',
             'required' => true,
-            'mapped' => false,
             'choices' => array(70, 80, 90, 100),
             'attr' => array('class' => 'form-control')
         ));
@@ -62,11 +61,14 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
 
-        $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Prevé promoción parcial ',
-            'choices' => array('Teoría', 'Práctica'),
-            'expanded' => true,
-            'attr' => array('class' => 'form-control')
+        $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
+            'label' => 'Teoría',        
+            //'attr' => array('class' => 'form-control')
+        ));
+        
+        $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
+            'label' => 'Práctica',
+           // 'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
