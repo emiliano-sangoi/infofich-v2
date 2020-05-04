@@ -1,126 +1,128 @@
-<div class="container pr-0 mt-4">
-    <div class="card card-register mx-auto">
+<div class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-viajes-academicos">
+    <div class="container" >
+        <div class="card card-register mx-auto">
 
-        <div class="card-body px-5">
-            <div class="mb-4">
-                <h4>Viajes Académicos</h4>
-            </div>
-            {{ form_start(form) }}
-            <div class="form-row">
-                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <label for="responsable">Actividad</label>
+            <div class="card-body px-5">
+                <div class="mb-4">
+                    <h4>Viajes Académicos</h4>
                 </div>
-                <div class="form-group required col-md-6 col-sm-6 col-xs-12">
-                    {{ form_label(form.descripcion) }}
-                    {{ form_widget(form.descripcion) }}
-                    {{ form_errors(form.descripcion) }} 
-                </div>
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <label for="responsable">Actividad</label>
+                    </div>
+                    <div class="form-group required col-md-6 col-sm-6 col-xs-12">
+                        {{ form_label(form.descripcion) }}
+                        {{ form_widget(form.descripcion) }}
+                        {{ form_errors(form.descripcion) }} 
+                    </div>
 
-            </div>
-
-
-
-            <div class="form-row">
-
-                <div class="form-group offset-2 required col-md-6 col-sm-6 col-xs-12">
-                    {{ form_label(form.objetivos) }}
-                    {{ form_widget(form.objetivos) }}
-                    {{ form_errors(form.objetivos) }} 
                 </div>
 
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-6 offset-md-2">
-                    {{ form_label(form.recorrido) }}
-                    {{ form_widget(form.recorrido) }}
-                    {{ form_errors(form.recorrido) }}
+
+
+                <div class="form-row">
+
+                    <div class="form-group offset-2 required col-md-6 col-sm-6 col-xs-12">
+                        {{ form_label(form.objetivos) }}
+                        {{ form_widget(form.objetivos) }}
+                        {{ form_errors(form.objetivos) }} 
+                    </div>
+
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <label for="pasajeros">Pasajeros</label>
-                </div>
-                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    {{ form_label(form.cantEstudiantes) }}
-                    {{ form_widget(form.cantEstudiantes) }}
-                    {{ form_errors(form.cantEstudiantes) }}
-                    <div class="valid-feedback">
-                        V&aacute;lido
+                <div class="form-row">
+                    <div class="form-group required col-md-6 offset-md-2">
+                        {{ form_label(form.recorrido) }}
+                        {{ form_widget(form.recorrido) }}
+                        {{ form_errors(form.recorrido) }}
                     </div>
                 </div>
-                <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    {{ form_label(form.cantDocentes) }}
-                    {{ form_widget(form.cantDocentes) }}
-                    {{ form_errors(form.cantDocentes) }}
-                    <div class="valid-feedback">
-                        V&aacute;lido
+                <div class="form-row">
+                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <label for="pasajeros">Pasajeros</label>
+                    </div>
+                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        {{ form_label(form.cantEstudiantes) }}
+                        {{ form_widget(form.cantEstudiantes) }}
+                        {{ form_errors(form.cantEstudiantes) }}
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        {{ form_label(form.cantDocentes) }}
+                        {{ form_widget(form.cantDocentes) }}
+                        {{ form_errors(form.cantDocentes) }}
+                        <div class="valid-feedback">
+                            V&aacute;lido
+                        </div>
+                    </div>
+                    <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <label for="pasajeros_total">Total </label>
+                        <input type="number" class="form-control" 
+                               id="pasajeros_total" name="pasajeros_total" disabled/>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        {{ form_label(form.vehiculos) }}
+                        {{ form_widget(form.vehiculos) }}
+                        {{ form_errors(form.vehiculos) }}
                     </div>
                 </div>
-                <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label for="pasajeros_total">Total </label>
-                    <input type="number" class="form-control" 
-                           id="pasajeros_total" name="pasajeros_total" disabled/>
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        {{ form_label(form.fechaTentativa) }}
+                        {{ form_widget(form.fechaTentativa) }}
+                        {{ form_errors(form.fechaTentativa) }}
+                    </div>
+                    <div class="form-group required col-md-3">
+                        {{ form_label(form.cantDias) }}
+                        {{ form_widget(form.cantDias) }}
+                        {{ form_errors(form.cantDias) }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
+                        <select class="form-control" id="asig_vinc" name="asig_vinc">
+                            <option value="">Seleccione</option>
+                            <option value="Algebra">Álgebra</option>
+                            <option value="Matematica">Matemática Básica</option>
+                            <option value="Otras">Otras</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="listado">Listado</label>
+
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group required col-md-4 offset-md-2">
+                        <a href="{{ path('homepage') }}" >
+                              <i class="fa fa-plus-circle"></i>Añadir
+                        </a>
+                    </div>
                 </div>
 
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    {{ form_label(form.vehiculos) }}
-                    {{ form_widget(form.vehiculos) }}
-                    {{ form_errors(form.vehiculos) }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    {{ form_label(form.fechaTentativa) }}
-                    {{ form_widget(form.fechaTentativa) }}
-                    {{ form_errors(form.fechaTentativa) }}
-                </div>
-                <div class="form-group required col-md-3">
-                    {{ form_label(form.cantDias) }}
-                    {{ form_widget(form.cantDias) }}
-                    {{ form_errors(form.cantDias) }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group required col-md-4 offset-md-2">
-                    <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
-                    <select class="form-control" id="asig_vinc" name="asig_vinc">
-                        <option value="">Seleccione</option>
-                        <option value="Algebra">Álgebra</option>
-                        <option value="Matematica">Matemática Básica</option>
-                        <option value="Otras">Otras</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="listado">Listado</label>
+                <div class="col-12 mt-s text-right mb-4">
 
-                </div>
-            </div>
-            <div class="form-row">
+                    <button type="submit" class="btn btn btn-verde">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Guardar
+                    </button>
 
-                <div class="form-group required col-md-4 offset-md-2">
-                    <a href="{{ path('homepage') }}" >
-                          <i class="fa fa-plus-circle"></i>Añadir
+                    <a href="#" class="btn btn-secondary">
+                        Cancelar
                     </a>
                 </div>
+
+                {{ form_end(form) }}
             </div>
 
-            <div class="col-12 mt-s text-right mb-4">
-
-                <button type="submit" class="btn btn btn-verde">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                    Guardar
-                </button>
-
-                <a href="#" class="btn btn-secondary">
-                    Cancelar
-                </a>
-            </div>
-
-            {{ form_end(form) }}
         </div>
-
     </div>
 </div>
 
