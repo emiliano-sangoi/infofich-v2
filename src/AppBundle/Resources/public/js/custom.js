@@ -70,3 +70,27 @@ function activarCierreAutomaticoNotificaciones() {
     });
 
 }
+
+
+function crearAlert(message, title) {
+
+    if (typeof title === 'undefined') {
+        title = "<span class='text-primary'>Mensaje</span>";
+    }    
+
+    var alert = bootbox.alert({
+        title: title,
+        message: message,
+        backdrop: true,
+    });
+
+    // Luego de cierto tiempo cerrar el dialogo.
+    var TIMEOUT = 15000; //20 segundos
+    alert.init(function () {
+        setTimeout(function () {
+            alert.modal('hide');
+        }, TIMEOUT);
+    });
+
+    return alert;
+}

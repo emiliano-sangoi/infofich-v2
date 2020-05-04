@@ -402,8 +402,8 @@ and open the template in the editor.
 #tab-content form .form-row {
   margin-bottom: 1.5rem; }
 
-#planificaciones {
-  min-height: 120vh; }
+#planificaciones, .tab-pane {
+  min-height: 100vh; }
 
 #v-pills-tab a.active {
   background-color: white; }

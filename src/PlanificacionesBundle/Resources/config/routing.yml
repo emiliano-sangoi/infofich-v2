@@ -1,6 +1,6 @@
 planificaciones_ajax:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
-    prefix: /ajax/planificaciones
+    prefix: /ajax
 
 academica_planificaciones_homepage:
     path:     /academica
@@ -21,3 +21,7 @@ planificaciones_new:
 planificaciones_edit:
     path:     /{id}/editar
     defaults: { _controller: PlanificacionesBundle:Planificacion:edit }
+    
+planificaciones_show_notif:
+    path:     /mensajes
+    defaults: { _controller: PlanificacionesBundle:Planificacion:showNotificacion }

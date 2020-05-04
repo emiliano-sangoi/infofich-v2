@@ -1,92 +1,102 @@
+/**
+ * Carga el formulario de informacion basica.
+ * 
+ * @returns {undefined}
+ */
+function cargarFormInfoBasica() {
 
-function getInfoBasicaForm(url, data) {
+    var url = SECCIONES.info_basica;
 
     var dialog = crearDialogEspera('Cargando <em>informaci&oacute;n b&aacute;sica</em> ...');
 
-    var success = function (response) {
-
-        //console.log(response);
+    var success = function (response, status) {
+        //console.log(response, status);
         var target = $('#tab-content');
         target.hide().html(response);
+
+        // actualizar eventos
         target.find('.js-select2').select2({
             allowClear: true,
             containerCssClass: 'fix-select2-styles'
         });
 
-        //target.find('.select2-selection .select2-selection--single').addClass('height-fix');
-        
-
-        var btn = $('#btn-guardar-info-basica');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postInfoBasicaForm(url, form_data);
-
-            });
-
-            //disparar el evento en el select para que se recargue el listado de asignaturas
-            var select_carrera = $('#planificacionesbundle_planificacion_carrera');
-            select_carrera.trigger('change');
-
-
-        }
-
-        dialog.modal('hide');
-        
         target.fadeIn();
     };
 
-    $.ajax({
+    var jqxhr = $.ajax({
         method: "GET",
         url: url,
-        data: data,
+        data: null,
         success: success,
         dataType: 'html'
     });
 
+    jqxhr.done(function () {
+        //dialog.modal('hide');
+    }).fail(function () {
+        //alert("error");
+    }).always(function () {
+        dialog.modal('hide');
+    });
+
 }
 
+/**
+ * Evento que se ejecuta cuando se presiona el boton guardar.
+ * 
+ * @param {type} e
+ * @returns {undefined}
+ */
+function onGuardarInfoBasicaClick(e) {
+    e.preventDefault();
 
-function postInfoBasicaForm(url, form_data) {
-    
     var dialog = crearDialogEspera('Guardandando ...');
 
-    var success = function (response) {
 
-        var target = $('#tab-content');
-        target.hide().html(response);
-
-        // console.log(PLANIFICACION);
-        var planificacion_id = target.find("#planificacion_id");
-        //console.log(planificacion_id, typeof planificacion_id, typeof planificacion_id === 'object')
-        //actualizar el id de la planificacion
-        if (typeof planificacion_id === 'object') {
-            PLANIFICACION.id = planificacion_id.val();
-            console.log(PLANIFICACION);
-        }
-
-        activarCierreAutomaticoNotificaciones();
-        
-        //activar el checkbox:
-        activarTabCheck( $('#tab-info-basica i') );
-        
-        dialog.modal('hide');                
-        
-        target.fadeIn();
+    var onGuardarClickSuccess = function (planificacion_id) {
+        var goto = SECCIONES.editar_planif;
+        goto = goto.replace('--ID--', planificacion_id);
+        window.location.href = goto;
     };
 
-    $.ajax({
+
+    var onGuardarClickError = function (response) {
+        var target = $('#tab-content');
+        target.hide().html(response.responseText);
+        target.find('.js-select2').select2({
+            allowClear: true,
+            containerCssClass: 'fix-select2-styles'
+        });
+        
+        var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
+        
+        select_asignatura.on('change', function(){
+            target.fadeIn();
+        });
+        
+        //Disparar el evento sobre el select de carreras para
+        // que se actualice
+        $('#planificacionesbundle_planificacion_carrera').trigger('change');        
+        
+        
+        
+    };
+
+    var form = $('form');
+
+    var jqxhr = $.ajax({
         method: "POST",
-        url: url,
-        data: form_data,
-        success: success,
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: onGuardarClickSuccess,
+        error: onGuardarClickError,
         dataType: 'html'
+    });
+
+    jqxhr.fail(function () {
+        //alert("error");
+    }).always(function () {
+        dialog.modal('hide');
     });
 
 

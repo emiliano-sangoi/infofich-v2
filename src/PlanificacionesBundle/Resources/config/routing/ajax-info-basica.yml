@@ -1,0 +1,15 @@
+planificaciones_ajax_info_basica_get:
+    path: /
+    defaults: { _controller: PlanificacionesBundle:InfoBasica:get }
+    methods: [GET]
+    
+    
+planificaciones_ajax_info_basica_post:
+    path:     /crear
+    defaults: { _controller: PlanificacionesBundle:InfoBasica:post }
+    methods: [POST]
+    
+planificaciones_ajax_info_basica_edit:
+    path:     /{id}/editar
+    defaults: { _controller: PlanificacionesBundle:InfoBasica:edit }
+    methods: [GET, POST]

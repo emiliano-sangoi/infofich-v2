@@ -8,6 +8,7 @@
 }
 
 #tab-content{
+    
     form {
         label{
             font-weight: bold;
@@ -19,8 +20,8 @@
     }
 }
 
-#planificaciones{
-    min-height: 120vh;
+#planificaciones, .tab-pane{
+    min-height: 100vh;
 }
 
 #v-pills-tab a.active{

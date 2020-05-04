@@ -1,7 +1,7 @@
-planificacion_ajax_get_info_basica_form:
-    path:     /{id}/informacion-basica
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getInfoBasicaForm, id: -1 }
-    methods: [GET, POST]   
+planificaciones_ajax_info_basica:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-info-basica.yml"
+    prefix: /info-basica
+    
     
 planificacion_ajax_get_form_equipo_docente:
     path:     /{id}/equipo-docente

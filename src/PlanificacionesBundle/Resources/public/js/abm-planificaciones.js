@@ -1,95 +1,177 @@
 $(document).ready(function () {
 
+    var msg = "<p class='lead'>Para cargar los datos de esta sección debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
 
-    $('#tab-info-basica').on('shown.bs.tab', function (e) {
-//        e.preventDefault();
-        //e.target // newly activated tab        
-        //e.relatedTarget // previous active tab
-        //console.log(e.target, e.relatedTarget);
+    // ================================================================================================
+    // TABS:
+    var tab_info_basica = $('#tab-info-basica');
+    var tab_equipo_docente = $('#tab-equipo-docente');
+    var tab_aprobacion = $('#tab-aprobacion');
+    var tab_objetivos = $('#tab-objetivos');
+    var tab_temario = $('#tab-temario');
+    var tab_bibliografia = $('#tab-bibliografia');
+    var tab_cronograma = $('#tab-cronograma');
+    var tab_distribucion = $('#tab-distribucion');
+    var tab_viajes = $('#tab-viajes-academicos');
+    var tab_revisar = $('#tab-revisar');
 
-        console.log("Tab info basica ");
 
-        getInfoBasicaForm(SECCIONES.info_basica, null);
-        
-        if(PLANIFICACIONES.id !== null){
-            activarTabCheck( $('#tab-info-basica i') );            
+    // ================================================================================================
+    // INFO BASICA
+    tab_info_basica.on('shown.bs.tab', function (e) {
+        cargarFormInfoBasica();
+    });
+
+    // ================================================================================================
+    // EQUIPO DOCENTE
+    tab_equipo_docente.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_equipo_docente.on('shown.bs.tab', function (e) {
+                getFormEquipoDocente();
+            });
+            tab_equipo_docente.tab('show');
+        } else {
+            crearAlert(msg, 'Equipo docente');
+            return false;
         }
-        
     });
 
-    // 1 - Equipo Docente
-    $('#tab-equipo-docente').on('shown.bs.tab', function (e) {
-        //e.target // newly activated tab        
-        //e.relatedTarget // previous active tab
-        //console.log(e.target, e.relatedTarget);
-        console.log("Tab equipo docente ");
-        getFormEquipoDocente(SECCIONES.equipo_docente, null);
+    // ================================================================================================
+    // REQUISITOS APROBACION
+    tab_aprobacion.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_aprobacion.on('shown.bs.tab', function (e) {
+                getRequisitosAprobForm(SECCIONES.req_aprobacion, null);
+            });
+            tab_aprobacion.tab('show');
+        } else {
+            crearAlert(msg, 'Requisitos de aprobación');
+            return false;
+        }
     });
 
-    // 2 - Requisitos de aprobacion
-    $('#tab-aprobacion').on('shown.bs.tab', function (e) {
-        //e.target // newly activated tab        
-        //e.relatedTarget // previous active tab
-        //console.log(e.target, e.relatedTarget);
-        console.log("Tab requisitos de aprobacion ");
-        getRequisitosAprobForm(SECCIONES.req_aprobacion, null);
-    });
-
-    // 3 - Ojetivos
-    $('#tab-objetivos').on('shown.bs.tab', function (e) {
-        //e.target // newly activated tab        
-        //e.relatedTarget // previous active tab
-        //console.log(e.target, e.relatedTarget);
-        console.log("Tab objetivos");
-        getObjetivosForm(SECCIONES.objetivos, null);
-    });
-
-    // 4 - Temario
-    $('#tab-temario').on('shown.bs.tab', function (e) {
-        console.log("Tab temario");
-        getTemarioForm(SECCIONES.temario, null);
-    });
-
-    // 5 - Bibliografia.
-    $('#tab-bibliografia').on('shown.bs.tab', function (e) {
-        console.log("Tab bibliografia");
-        getBibliografiaForm(SECCIONES.bibliografia, null);
-    });
-
-    // 6 - Cronograma
-    $('#tab-cronograma').on('shown.bs.tab', function (e) {
-        console.log("Tab cronograma");
-        getCronogramaForm(SECCIONES.cronograma, null);
+    // ================================================================================================
+    // OBJETIVOS
+    tab_objetivos.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_objetivos.on('shown.bs.tab', function (e) {
+                getObjetivosForm(SECCIONES.objetivos, null);
+            });
+            tab_objetivos.tab('show');
+        } else {
+            crearAlert(msg, 'Objetivos de la planificación');
+            return false;
+        }
     });
 
 
-    // 7 - Distribucion
-    $('#tab-distribucion').on('shown.bs.tab', function (e) {
-        console.log("Tab distribucion");
-        getDistribucionForm(SECCIONES.distribucion, null);
+    // ================================================================================================
+    // TEMARIO
+    tab_temario.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_temario.on('shown.bs.tab', function (e) {
+                getTemarioForm(SECCIONES.temario, null);
+            });
+            tab_temario.tab('show');
+        } else {
+            crearAlert(msg, 'Temario');
+            return false;
+        }
     });
 
-    // 8 - Viajes Academicos
-    $('#tab-viajes-academicos').on('shown.bs.tab', function (e) {
-        console.log("Tab viajes academicos");
-        getViajesAcademicosForm(SECCIONES.viajes_academicos, null);
+    // ================================================================================================
+    // BIBLIOGRAFIA
+    tab_bibliografia.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_bibliografia.on('shown.bs.tab', function (e) {
+                getBibliografiaForm(SECCIONES.bibliografia, null);
+            });
+            tab_bibliografia.tab('show');
+        } else {
+            crearAlert(msg, 'Bibliografía');
+            return false;
+        }
+    });
+
+    // ================================================================================================
+    // CRONOGRAMA
+    tab_cronograma.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_cronograma.on('shown.bs.tab', function (e) {
+                getCronogramaForm(SECCIONES.cronograma, null);
+            });
+            tab_cronograma.tab('show');
+        } else {
+            crearAlert(msg, 'Cronograma');
+            return false;
+        }
+    });
+
+    // ================================================================================================
+    // DISTRIBUCION
+    tab_distribucion.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_distribucion.on('shown.bs.tab', function (e) {
+                getDistribucionForm(SECCIONES.distribucion, null);
+            });
+            tab_distribucion.tab('show');
+        } else {
+            crearAlert(msg, 'Distribución horaria');
+            return false;
+        }
+    });
+
+    // ================================================================================================
+    // DISTRIBUCION
+    tab_viajes.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_viajes.on('shown.bs.tab', function (e) {
+                getViajesAcademicosForm(SECCIONES.viajes_academicos, null);
+            });
+            tab_viajes.tab('show');
+        } else {
+            crearAlert(msg, 'Viajes académicos');
+            return false;
+        }
+    });
+    
+    
+     // ================================================================================================
+    // REVISAR
+    tab_revisar.click(function (e) {
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_revisar.on('shown.bs.tab', function (e) {
+                console.log('implementame');
+            });
+            tab_revisar.tab('show');
+        } else {
+            crearAlert(msg, 'Revisar borrador');
+            return false;
+        }
     });
 
 
 
-
-});
-
+}
+);
 /**
  * Actualiza el listado de asignaturas al cambiar la carrera elegida.
- * 
+ *
  * @param {type} select
  * @returns {undefined}
  */
 function actualizarAsignaturas(select) {
     var carrera = $(select).val();
-
-
+    console.log('Carrera elegida: ' + carrera);
     //Actualizar input Plan de estudio:
     var planes = JSON.parse($(select).attr('data-planes-carrera'));
     //console.log(typeof planes, typeof planes[carrera], planes, carrera, planes.length > 0 && typeof planes[carrera] === 'string');
@@ -97,22 +179,21 @@ function actualizarAsignaturas(select) {
         $('#planificacionesbundle_planificacion_plan').attr('value', planes[carrera]);
     }
 
-
+    //Borrar errores si los hya:
+    $('.select-asignaturas-container').find('ul').remove();
+    
     //Define el ecomportamiento del select de asignatura sin disparar el evento:
     var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
-    //select_asignatura.hide();
+    select_asignatura.addClass('disabled');
     select_asignatura.change(function (e) {
         var option = $(this).children("option:selected");
         var asignatura = JSON.parse(option.attr('data-json'));
         $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
-
         console.log(asignatura);
     });
-
     //setear la carrera en la url:
     var url = SECCIONES.get_asignaturas;
     url = url.replace('--CARRERA--', carrera);
-
     //llamada ajax
     $.ajax({
         dataType: "json",
@@ -121,35 +202,38 @@ function actualizarAsignaturas(select) {
         success: function (response) {
 
             if (response.length > 0) {
+                var val_selected = select_asignatura.val();
                 select_asignatura.html('');
-
-                response.forEach(function (val) {
+                response.forEach(function (val, index) {
                     var opt = $(document.createElement('option'));
+                    //opt.attr('value', index);
                     opt.attr('value', val.codigoMateria);
                     opt.attr('data-json', JSON.stringify(val));
                     opt.text(val.nombreMateria);
+                    if(val.codigoMateria == val_selected){
+                       // console.log('Seteando selected a ' + val_selected);
+                       // opt.attr('selected', 'selected');
+                    }
                     select_asignatura.append(opt);
                 });
-
                 //Esto produce que se complete los datos de la asignatura.
                 select_asignatura.select2({
                     allowClear: true,
                     containerCssClass: 'fix-select2-styles'
                 });
                 select_asignatura.trigger('change');
-                select_asignatura.fadeIn();
+                select_asignatura.removeClass('disabled');
+                //select_asignatura.fadeIn();
             }
             //console.log(response);
         }
     });
-
-
     //console.log('selecciono ' + carrera);
     //console.log(url);
 }
 
-function activarTabCheck(target){
-    if(typeof target === 'object'){
-         target.hide().addClass('fa-check-circle').css('color', 'green').fadeIn();
-    }   
+function activarTabCheck(target) {
+    if (typeof target === 'object') {
+        target.hide().addClass('fa-check-circle').css('color', 'green').fadeIn();
+    }
 }

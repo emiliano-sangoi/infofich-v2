@@ -140,6 +140,19 @@ class PlanificacionType extends AbstractType {
      * @param array $options
      */
     function setEventosForm(FormBuilderInterface $builder) {
+        
+        
+        $listenerPreSubmitEvent = function (FormEvent $event) {
+            $form_data = $event->getData();
+            //dump($form_data, $event->getForm()->getData());exit;            
+
+            $this->setAsignaturas($form_data['carrera']);
+
+            if (isset($this->asignaturas[$form_data['asignatura']])) {
+                $asignatura = $this->asignaturas[$form_data['asignatura']];
+                $this->planificacion->setAsignatura($asignatura->getCodigoMateria());
+            }
+        };
 
         $listenerSubmitEvent = function (FormEvent $event) {
 
@@ -149,9 +162,15 @@ class PlanificacionType extends AbstractType {
             $this->planificacion->setPlan($carrera->getPlanCarrera());
             $this->planificacion->setVersionPlan($carrera->getVersionPlan());
 
+//            $formData = $event->getData();
+//            dump($formData, $this->planificacion);
+//            exit;
+            //$this->setAsignaturas($cod_carrera);
         };
 
 
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, $listenerPreSubmitEvent);
+        //$builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
         $builder->addEventListener(FormEvents::SUBMIT, $listenerSubmitEvent);
     }
 
@@ -187,8 +206,8 @@ class PlanificacionType extends AbstractType {
      */
     private function addAsignatura(FormBuilderInterface $builder) {
 
-        $this->setAsignaturas(null);
 
+        $this->setAsignaturas($this->planificacion->getCarrera());
         //dump($this->asignaturas);exit;
 
         $config = array(
@@ -198,7 +217,16 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control select-asignatura selectpicker js-select2')
         );
 
-        $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);        
+        $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+
+
+        $transform = function($v) {
+            //dump($v);exit;
+        };
+        $reverseTransform = function($v) {
+            return isset($this->asignaturas[$v]) ? $this->asignaturas[$v] : $v;
+        };
+       // $builder->get('asignatura')->addViewTransformer(new CallbackTransformer($transform, $reverseTransform));
     }
 
     /**
@@ -241,7 +269,7 @@ class PlanificacionType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
-            'carrera_default' => WSHelper::CARRERA_II            
+            'carrera_default' => WSHelper::CARRERA_II
         ));
     }
 
@@ -272,21 +300,21 @@ class PlanificacionType extends AbstractType {
         return $aux;
     }
 
-
-
-    public function setAsignaturas($carrera) {
+    public function setAsignaturas($cod_carrera) {
 
         $asignaturas = $this->apiInfofichService
-                ->getAsignaturasPorCarrera($carrera ?: $this->options['carrera_default']);
-
-        if (!is_array($asignaturas)) {
-            $this->asignaturas = array();
-        }
+                ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
 
         $this->asignaturas = array();
+        
+        if (!is_array($asignaturas)) {            
+            return;
+        }
+        
         foreach ($asignaturas as $a) {
             $this->asignaturas[$a->getCodigoMateria()] = $a;
         }
+        
     }
 
 }

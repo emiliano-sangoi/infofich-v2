@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-12 select-asignaturas-container">
                         {{ form_label(form.asignatura) }}
                         {{ form_widget(form.asignatura) }}
                         {{ form_errors(form.asignatura) }}      
@@ -71,19 +71,24 @@
 
                 <div class="form-row">
                     <div class="col-xs-12 col-sm-4">
-                        <button id="btn-guardar-info-basica" class="btn btn-primary">Guardar</button>
+                        <button id="btn-guardar-info-basicaaaaaaaaa" class="btn btn-primary" onclick="onGuardarInfoBasicaClick(event)">Guardar</button>
                     </div>
                     <div class="col-xs-12 offset-4 col-sm-4 text-right">
                         {{ form_widget(form.reset) }}
                     </div>
                 </div>
+                    
+                    
+                    
+                    
 
                 {{ form_end(form) }}
 
-                {% if planificacion.id is not null %}
+              {#  {% if planificacion.id is not null %}
                     <input id="planificacion_id" type="hidden" value="{{ planificacion.id }}"/>
-                {% endif %}
+                {% endif %}#}
 
+                {{ dump(planificacion) }}
 
                 {# <form name="formInfoBasica" id="formInfoBasica" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
  

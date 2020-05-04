@@ -1,8 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% set is_planificacion_definida =  planificacion is defined and planificacion.id is not null %}
+
 {% block content %}
     <div id="planificaciones">
-
 
         {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
 
@@ -24,7 +25,8 @@
                         Información básica
                         <i class="far float-right"></i>
                     </a>
-                    <a class="nav-link" id="tab-equipo-docente" data-toggle="pill" href="#" role="tab" aria-controls="tab-equipo-docente" aria-selected="false">
+                    <a class="nav-link" id="tab-equipo-docente" data-toggle="pill" href="#" role="tab" aria-controls="tab-equipo-docente" 
+                       aria-selected="false" title="kaskaska" >
                         Equipo docente
                         <i class="far float-right"></i>
                     </a>
@@ -57,8 +59,7 @@
                         Viajes académicos
                         <i class="far float-right"></i>
                     </a>
-                    <a class="btn border-azul w-100 text-left p-3 pl-4" 
-                       id="v-pills-revisar-tab" data-toggle="pill" href="#v-pills-revisar" role="tab" aria-controls="v-pills-revisar" aria-selected="false">
+                    <a class="nav-link" id="tab-revisar" data-toggle="pill" href="#" role="tab" aria-controls="tab-revisar" aria-selected="false">
                         Revisar borrador                        
                     </a>
 
@@ -69,11 +70,11 @@
 
             <div class="col-9">                                
 
-                    
+
                 <div class="tab-content" id="tab-content">
 
-                   
-                    
+
+
                     {% block tab_content %}
 
 
@@ -88,6 +89,7 @@
 
 
     </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -98,9 +100,11 @@
     <script>
 
         // Objeto global que guardara toda la informacion de la planificacion
-        PLANIFICACION = {
-            id: null
-        };
+        {% if is_planificacion_definida %}
+            PLANIFICACION = {
+                id:{{ planificacion.id }}
+            };
+        {% endif %}
     </script>
 
 
@@ -118,25 +122,26 @@
     <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>
 
     <script>
-        SECCIONES = {
-            info_basica: "{{ path('planificacion_ajax_get_info_basica_form') }}",
-            equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente', {'id' : '--ID--'}) }}",
-            req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
-            objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
-            temario: "{{ path('planificacion_ajax_get_temario_form') }}",
-            bibliografia: "{{ path('planificacion_ajax_get_bibliografia_form') }}",
-            cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
-            distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
-            viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",
-            get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
-            get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
-            seccion_actual: null
-        };
-        
-        SECCIONES.seccion_actual = SECCIONES.info_basica;
+            SECCIONES = {
+                info_basica: "{{ path('planificaciones_ajax_info_basica_get') }}",
+                editar_planif: "{{ path('planificaciones_edit', {'id' : '--ID--'}) }}",
+                equipo_docente: "{{ path('planificacion_ajax_get_form_equipo_docente', {'id' : '--ID--'}) }}",
+                req_aprobacion: "{{ path('planificacion_ajax_get_requisitos_aprob_form') }}",
+                objetivos: "{{ path('planificacion_ajax_get_objetivos_form') }}",
+                temario: "{{ path('planificacion_ajax_get_temario_form') }}",
+                bibliografia: "{{ path('planificacion_ajax_get_bibliografia_form') }}",
+                cronograma: "{{ path('planificacion_ajax_get_cronograma_form') }}",
+                distribucion: "{{ path('planificacion_ajax_get_carga_horaria_form') }}",
+                viajes_academicos: "{{ path('planificacion_ajax_get_viajes_academicos_form') }}",
+                get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+                get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",              
+                seccion_actual: null
+            };
 
-        $(document).ready(function () {
-            $('#tab-info-basica').tab('show');
+            SECCIONES.seccion_actual = SECCIONES.info_basica;
+
+            $(document).ready(function () {
+                $('#tab-info-basica').tab('show');
 
 
         {#$('.select-carrera').on('change', function (e) {

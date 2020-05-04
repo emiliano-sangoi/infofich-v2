@@ -1,17 +1,21 @@
 
-function getFormEquipoDocente(url, data) {
+function getFormEquipoDocente() {
+    if (typeof PLANIFICACION === 'undefined') {
+        return;
+    }
 
+    var url = SECCIONES.equipo_docente;
     
     
     var tab_content = $('#tab-content');
+    tab_content.hide();
     
-    if(PLANIFICACION.id === null){
-        var msg = "<p class='p-5 lead'>Para definir esta información debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
-        tab_content.hide().html(msg).fadeIn();
-        return;
-    }else{
-        tab_content.hide();
-    }
+//    if(typeof PLANIFICACION === 'undefined'){    
+//        crearAlert(message, title);
+//        //var msg = "<p class='p-5 lead'>Para definir esta información debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
+//        //tab_content.hide().html(msg).fadeIn();
+//        //return;
+//    }
     
     var dialog = crearDialogEspera('Cargando equipo docente ...');
 
@@ -42,7 +46,7 @@ function getFormEquipoDocente(url, data) {
     $.ajax({
         method: "GET",
         url: url,
-        data: data,
+        data: null,
         success: success,
         dataType: 'html'
     });
