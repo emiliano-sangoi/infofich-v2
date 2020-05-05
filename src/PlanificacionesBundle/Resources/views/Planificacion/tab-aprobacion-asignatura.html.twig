@@ -3,6 +3,7 @@
         <div class="card card-register mx-auto">
             <div class="card-body px-5">
 
+                {% include '::notificaciones.html.twig' %}
 
                 <div class="mb-4">
                     <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
@@ -14,7 +15,7 @@
 
                 <div class="form-row">
 
-                    <div class="form-group required offset-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group offset-2 col-xs-12 col-sm-2">
                         {{ form_label(form.porcentajeAsistencia) }}
                         {{ form_widget(form.porcentajeAsistencia) }}
                         {{ form_errors(form.porcentajeAsistencia) }}      
@@ -27,10 +28,10 @@
 
                 <!-- Parciales -->
                 <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         <label for="responsable">Parciales</label>
                     </div>
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-3 col-xs-12">
                         {{ form_label(form.fechaPrimerParcial) }}
                         {{ form_widget(form.fechaPrimerParcial) }}
                         {{ form_errors(form.fechaPrimerParcial) }}      
@@ -38,7 +39,7 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-3 col-xs-12">
                         {{ form_label(form.fechaSegundoParcial) }}
                         {{ form_widget(form.fechaSegundoParcial) }}
                         {{ form_errors(form.fechaSegundoParcial) }}  
@@ -51,10 +52,10 @@
 
                 <!-- Recuperatorios -->
                 <div class="form-row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         <label for="responsable">Recupetarios</label>
                     </div>
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-3 col-xs-12">
                         {{ form_label(form.fechaRecupPrimerParcial) }}
                         {{ form_widget(form.fechaRecupPrimerParcial) }}
                         {{ form_errors(form.fechaRecupPrimerParcial) }}      
@@ -62,7 +63,7 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-3 col-xs-12">
                         {{ form_label(form.fechaRecupSegundoParcial) }}
                         {{ form_widget(form.fechaRecupSegundoParcial) }}
                         {{ form_errors(form.fechaRecupSegundoParcial) }}  
@@ -74,16 +75,15 @@
                 </div>
 
                 <div class="mb-4 mt-4">
-                    <h4 data-toggle="tooltip" data-placement="top" title="Art. 32 del régimen de enseñanza">
-                        Requisitos para la promoción de la asignatura</h4>
+                    <h4>Requisitos para la promoción de la asignatura</h4>
                 </div>
                 <div class="form-row">
-                    <div class="form-group mb-0 offset-2 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
                         <label class="control-label"  for="promocion_parcial">Prevé promoción parcial </label>
                     </div> 
                 </div>
                 <div class="form-row">
-                    <div class="form-group mb-0 offset-2 col-lg-4 col-md-4  col-sm-12 col-xs-12">
+                    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
                         <label class="radio-inline">
                             Sí <input type="radio" name="promo_parcial_radio" checked>
                         </label>
@@ -95,13 +95,13 @@
                 <!-- Estas opciones deben aparecer Solo si se tilda Si arribaa -->
                 <p>Crep que estas 2 "Teoria-practica" solo deben aparecer si se tilda "Sí" arribaa</p>
                 <div class="form-row">
-                    <div class="form-group mb-0 offset-2 col-lg-2 col-md-2  col-sm-12 col-xs-12">
+                    <div class="form-group mb-0 offset-2 col-sm-2 col-xs-12">
                         {{ form_label(form.prevePromParcialTeoria) }}
                         {{ form_widget(form.prevePromParcialTeoria) }}
                         {{ form_errors(form.prevePromParcialTeoria) }} 
 
                     </div>
-                    <div class="form-group mb-0 col-lg-2 col-md-2  col-sm-12 col-xs-12">
+                    <div class="form-group mb-0 col-sm-2 col-xs-12">
                         {{ form_label(form.prevePromParcialPractica) }}
                         {{ form_widget(form.prevePromParcialPractica) }}
                         {{ form_errors(form.prevePromParcialPractica) }}   
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group mb-0 offset-2 col-lg-4 col-md-4  col-sm-12 col-xs-12">
+                    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
                         {{ form_label(form.preveCfi) }}
                         {{ form_widget(form.preveCfi) }}
                         {{ form_errors(form.preveCfi) }} 
@@ -118,7 +118,7 @@
 
                 <div class="form-row">
 
-                    <div class="form-group offset-2  required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group offset-2  col-sm-3 col-xs-12">
                         {{ form_label(form.fechaParcailCfi) }}
                         {{ form_widget(form.fechaParcailCfi) }}
                         {{ form_errors(form.fechaParcailCfi) }}  
@@ -126,7 +126,7 @@
                             V&aacute;lido
                         </div>
                     </div>
-                    <div class="form-group required  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-3 col-xs-12">
                         {{ form_label(form.fechaRecupCfi) }}
                         {{ form_widget(form.fechaRecupCfi) }}
                         {{ form_errors(form.fechaRecupCfi) }}  
@@ -149,7 +149,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group offset-2 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group offset-2 col-sm-6 col-xs-12">
                         {{ form_label(form.examenFinalModalidadRegulares) }}
                         {{ form_widget(form.examenFinalModalidadRegulares) }}
                         {{ form_errors(form.examenFinalModalidadRegulares) }}  
@@ -157,12 +157,13 @@
                 </div>    
 
                 <div class="form-row">
-                    <div class="form-group  offset-2  col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group  offset-2 col-sm-6 col-xs-12">
                         {{ form_label(form.examenFinalModalidadLibres) }}
                         {{ form_widget(form.examenFinalModalidadLibres) }}
                         {{ form_errors(form.examenFinalModalidadLibres) }}  
                     </div>
                 </div>   
+
 
                 <div class="col-12 mt-s text-right mb-4">
 

@@ -14,6 +14,7 @@ class ActividadCurricularType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('fecha', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                     'label' => 'Fecha',
+                    'required' => true,
                     'choices' => array(date('d/m/Y'), date('Y') + 1),
                     'attr' => array('class' => 'form-control')
                 ))
@@ -25,7 +26,7 @@ class ActividadCurricularType extends AbstractType {
                     )
                 ))
                 ->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-                    'label' => 'Contenido',
+                    'label' => 'Contenidos',
                     'attr' => array(
                         'rows' => 3,
                         'class' => 'form-control'
