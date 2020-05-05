@@ -1,0 +1,9 @@
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+    <div class="field-error alert alert-danger small py-1 mt-1">
+        {%- for error in errors -%}
+            <div class="">{{ error.message }}</div>
+        {%- endfor -%}
+    </div>
+    {%- endif -%}
+{%- endblock form_errors -%}

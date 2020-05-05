@@ -25,30 +25,6 @@ class PlanificacionType extends AbstractType {
 
     /**
      *
-     * @var Planificacion 
-     */
-    private $planificacion;
-
-    /**
-     *
-     * @var bool
-     */
-    private $creandoPlanificacion;
-
-    /**
-     *
-     * @var array 
-     */
-    private $carreras;
-
-    /**
-     *
-     * @var array
-     */
-    private $asignaturas;
-
-    /**
-     *
      * @var array 
      */
     private $options;
@@ -57,8 +33,6 @@ class PlanificacionType extends AbstractType {
         $this->apiInfofichService = $apiInfofichService;
 
         $this->planes = array();
-        $this->carreras = array();
-        $this->asignaturas = array();
     }
 
     /**
@@ -67,13 +41,11 @@ class PlanificacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->options = $options;
-        $this->planificacion = $builder->getData();
 
         //Bandera que indica si se esta creando(id es null) o editando la planificacion:
-        $this->creandoPlanificacion = $this->planificacion->getId() === null;
+        //$this->creandoPlanificacion = $this->planificacion->getId() === null;
 
         $this->addCarrera($builder, $options);
-        $this->addAsignatura($builder, $options);
         $this->addAniAcad($builder, $options);
 
         $builder->add('codigoSiu', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -87,7 +59,6 @@ class PlanificacionType extends AbstractType {
             'label' => 'Plan de estudio',
             'disabled' => true,
             'attr' => array('class' => 'form-control'),
-                //'data' => 2006
         ));
 
         $builder->add('caracter', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -140,38 +111,33 @@ class PlanificacionType extends AbstractType {
      * @param array $options
      */
     function setEventosForm(FormBuilderInterface $builder) {
-        
-        
-        $listenerPreSubmitEvent = function (FormEvent $event) {
-            $form_data = $event->getData();
-            //dump($form_data, $event->getForm()->getData());exit;            
 
-            $this->setAsignaturas($form_data['carrera']);
 
-            if (isset($this->asignaturas[$form_data['asignatura']])) {
-                $asignatura = $this->asignaturas[$form_data['asignatura']];
-                $this->planificacion->setAsignatura($asignatura->getCodigoMateria());
+        $listenerPreSetDataEvent = function (FormEvent $event) {
+            $this->addAsignaturas($event->getForm(), null);
+        };
+
+        $listenerPostSubmitEvent = function (FormEvent $event) {
+
+            $cod_carrera = $event->getForm()->getData();
+
+            $planif = $event->getForm()->getParent()->getData();
+            //Setear los campos plan y versionPlan en funcion de la carrera elegida.
+            if ($cod_carrera) {
+                $carrera = $this->apiInfofichService->getCarrera($cod_carrera);
+
+                $planif->setPlan($carrera->getPlanCarrera())
+                        ->setVersionPlan($carrera->getVersionPlan());
+
+                //Agregar la asignautura:
+                $this->addAsignaturas($event->getForm()->getParent(), $cod_carrera);
             }
         };
 
-        $listenerSubmitEvent = function (FormEvent $event) {
 
-            //Setear los campos plan y versionPlan en funcion de la carrera elegida.
-            $cod_carrera = $this->planificacion->getCarrera();
-            $carrera = $this->apiInfofichService->getCarrera($cod_carrera);
-            $this->planificacion->setPlan($carrera->getPlanCarrera());
-            $this->planificacion->setVersionPlan($carrera->getVersionPlan());
-
-//            $formData = $event->getData();
-//            dump($formData, $this->planificacion);
-//            exit;
-            //$this->setAsignaturas($cod_carrera);
-        };
-
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, $listenerPreSubmitEvent);
-        //$builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
-        $builder->addEventListener(FormEvents::SUBMIT, $listenerSubmitEvent);
+        //$builder->addEventListener(FormEvents::PRE_SUBMIT, $listenerPreSubmitEvent);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
+        $builder->get('carrera')->addEventListener(FormEvents::POST_SUBMIT, $listenerPostSubmitEvent);
     }
 
     /**
@@ -192,7 +158,7 @@ class PlanificacionType extends AbstractType {
                 'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
         );
 
-        if (!$this->planificacion->getCarrera()) {
+        if (!$builder->getData()->getCarrera()) {
             $config['data'] = $this->options['carrera_default'];
         }
 
@@ -204,29 +170,18 @@ class PlanificacionType extends AbstractType {
      * 
      * @param FormBuilderInterface $builder
      */
-    private function addAsignatura(FormBuilderInterface $builder) {
+    private function addAsignaturas(\Symfony\Component\Form\FormInterface $builder, $cod_carrera = null) {
 
-
-        $this->setAsignaturas($this->planificacion->getCarrera());
-        //dump($this->asignaturas);exit;
+        $asignaturas = $this->getAsignaturas($cod_carrera);
 
         $config = array(
             'label' => 'Asignatura',
-            //'mapped' => false,
-            'choices' => $this->asignaturas, // esto se carga por JS
+            'choices' => $asignaturas,
             'attr' => array('class' => 'form-control select-asignatura selectpicker js-select2')
         );
 
         $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
 
-
-        $transform = function($v) {
-            //dump($v);exit;
-        };
-        $reverseTransform = function($v) {
-            return isset($this->asignaturas[$v]) ? $this->asignaturas[$v] : $v;
-        };
-       // $builder->get('asignatura')->addViewTransformer(new CallbackTransformer($transform, $reverseTransform));
     }
 
     /**
@@ -241,7 +196,7 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control js-select2'),
         );
 
-        if ($this->creandoPlanificacion) {
+        if ($builder->getData()->getId() == null) {
             //En modo edicion solo puede elegir entre el año actual y el siguiente
 
             $y = date('Y');
@@ -280,7 +235,7 @@ class PlanificacionType extends AbstractType {
         return 'planificacionesbundle_planificacion';
     }
 
-    public function getCarreras() {
+    private function getCarreras() {
 
         //obtiene las carreras de grado de la fich:
         $carreras_fich = $this->apiInfofichService->getCarreras();
@@ -300,21 +255,27 @@ class PlanificacionType extends AbstractType {
         return $aux;
     }
 
-    public function setAsignaturas($cod_carrera) {
+    /**
+     * Obtiene las asignaturas de cierta carrera
+     * 
+     * @param type $cod_carrera
+     * @return type
+     */
+    private function getAsignaturas($cod_carrera) {
 
         $asignaturas = $this->apiInfofichService
                 ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
 
-        $this->asignaturas = array();
-        
-        if (!is_array($asignaturas)) {            
-            return;
+        if (!is_array($asignaturas)) {
+            return array();
         }
-        
+
+        $aux = array();
         foreach ($asignaturas as $a) {
-            $this->asignaturas[$a->getCodigoMateria()] = $a;
+            $aux[$a->getCodigoMateria()] = $a;
         }
-        
+
+        return $aux;
     }
 
 }

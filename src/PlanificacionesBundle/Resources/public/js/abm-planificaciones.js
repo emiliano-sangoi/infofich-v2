@@ -170,17 +170,14 @@ $(document).ready(function () {
  * @returns {undefined}
  */
 function actualizarAsignaturas(select) {
+    
     var carrera = $(select).val();
-    console.log('Carrera elegida: ' + carrera);
+    //console.log('Carrera elegida: ' + carrera);
     //Actualizar input Plan de estudio:
-    var planes = JSON.parse($(select).attr('data-planes-carrera'));
-    //console.log(typeof planes, typeof planes[carrera], planes, carrera, planes.length > 0 && typeof planes[carrera] === 'string');
+    var planes = JSON.parse($(select).attr('data-planes-carrera'));    
     if (typeof planes === 'object' && typeof planes[carrera] === 'string') {
         $('#planificacionesbundle_planificacion_plan').attr('value', planes[carrera]);
     }
-
-    //Borrar errores si los hya:
-    $('.select-asignaturas-container').find('ul').remove();
     
     //Define el ecomportamiento del select de asignatura sin disparar el evento:
     var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
@@ -201,19 +198,13 @@ function actualizarAsignaturas(select) {
         data: null,
         success: function (response) {
 
-            if (response.length > 0) {
-                var val_selected = select_asignatura.val();
+            if (response.length > 0) {                
                 select_asignatura.html('');
                 response.forEach(function (val, index) {
                     var opt = $(document.createElement('option'));
-                    //opt.attr('value', index);
                     opt.attr('value', val.codigoMateria);
                     opt.attr('data-json', JSON.stringify(val));
                     opt.text(val.nombreMateria);
-                    if(val.codigoMateria == val_selected){
-                       // console.log('Seteando selected a ' + val_selected);
-                       // opt.attr('selected', 'selected');
-                    }
                     select_asignatura.append(opt);
                 });
                 //Esto produce que se complete los datos de la asignatura.
@@ -222,14 +213,10 @@ function actualizarAsignaturas(select) {
                     containerCssClass: 'fix-select2-styles'
                 });
                 select_asignatura.trigger('change');
-                select_asignatura.removeClass('disabled');
-                //select_asignatura.fadeIn();
-            }
-            //console.log(response);
+                select_asignatura.removeClass('disabled');                
+            }            
         }
     });
-    //console.log('selecciono ' + carrera);
-    //console.log(url);
 }
 
 function activarTabCheck(target) {

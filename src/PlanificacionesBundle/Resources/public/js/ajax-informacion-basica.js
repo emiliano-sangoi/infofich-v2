@@ -68,17 +68,7 @@ function onGuardarInfoBasicaClick(e) {
             containerCssClass: 'fix-select2-styles'
         });
         
-        var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
-        
-        select_asignatura.on('change', function(){
-            target.fadeIn();
-        });
-        
-        //Disparar el evento sobre el select de carreras para
-        // que se actualice
-        $('#planificacionesbundle_planificacion_carrera').trigger('change');        
-        
-        
+         target.fadeIn();
         
     };
 
