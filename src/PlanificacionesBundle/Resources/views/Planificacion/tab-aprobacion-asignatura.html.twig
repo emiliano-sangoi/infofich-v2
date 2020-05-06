@@ -165,7 +165,15 @@
                 </div>   
 
 
-                <div class="col-12 mt-s text-right mb-4">
+                <div class="form-row">
+                    <div class="col-xs-12 col-sm-4">
+                        <button id="btn-guardar-aprobacion-asig" class="btn btn-primary" onclick="onGuardarInfoBasicaClick(event)">Guardar</button>
+                    </div>
+                    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+                        {{ form_widget(form.reset) }}
+                    </div>
+                </div>
+                {#<div class="col-12 mt-s text-right mb-4">
 
                     <button type="submit" class="btn btn btn-verde">
                         <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
@@ -175,7 +183,7 @@
                     <a href="#" class="btn btn-secondary">
                         Cancelar
                     </a>
-                </div>
+                </div>#}
                 {{ form_end(form) }}
             </div>
 

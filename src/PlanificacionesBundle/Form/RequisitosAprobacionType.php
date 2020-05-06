@@ -62,13 +62,13 @@ class RequisitosAprobacionType extends AbstractType {
 
 
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
-            'label' => 'Teoría',        
-            //'attr' => array('class' => 'form-control')
+            'label' => 'Teoría',
+                //'attr' => array('class' => 'form-control')
         ));
-        
+
         $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
             'label' => 'Práctica',
-           // 'attr' => array('class' => 'form-control')
+                // 'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
@@ -111,31 +111,10 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
-
-
-
-
-        /* $builder->add('contenidosMinimos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-          'label' => 'Contenidos mínimos',
-          'attr' => array(
-          'rows' => 8,
-          'class' => 'form-control'
-          )
-          ));
-
-          $builder->add('departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-          'label' => 'Departamento',
-          'class' => 'PlanificacionesBundle\Entity\Departamento',
-          'attr' => array(
-          'class' => 'form-control'
-          )
-          ));
-
-
-          $builder
-          ->add('asignatura')
-          ->add('cargaHoraria')
-          ->add('requisitosAprobacion'); */
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Limpiar campos',
+            'attr' => array('class' => 'btn btn-secondary')
+        ));
     }
 
     /**
@@ -152,22 +131,6 @@ class RequisitosAprobacionType extends AbstractType {
      */
     public function getBlockPrefix() {
         return 'planificacionesbundle_planificacion';
-    }
-
-    public function getCarreras() {
-
-        $carreras_fich = $this->apiInfofichService->getCarrerasFICH();
-
-        if (!$carreras_fich) {
-            return array();
-        }
-
-        $carreras = array();
-        foreach ($carreras_fich as $carrera) {
-            $carreras[$carrera['codigoCarrera']] = $carrera['nombreCarrera'] . ' - Plan ' . $carrera['planCarrera'];
-        }
-
-        return $carreras;
     }
 
 }

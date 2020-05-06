@@ -35,7 +35,21 @@ class PlanificacionAjaxController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($requisitosAprob);
+                $em->flush();
+
+                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+
+                //$statusCode = Response::HTTP_OK;
+                
+                //Causar redireccion para evitar "re-submits" del form:
+                return $this->redirectToRoute('planificaciones_ajax_aprob_asig_edit', 
+                array('id' => $requisitosAprob->getId()));
+            }else{
+                $this->addFlash('error', 'Hay errores en el formulario.');
+            }
         }
         return $this->render('PlanificacionesBundle:Planificacion:tab-aprobacion-asignatura.html.twig', array(
                     'form' => $form->createView(),
