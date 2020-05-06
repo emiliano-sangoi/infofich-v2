@@ -15,20 +15,23 @@ class ViajeAcademicoType extends AbstractType
     {
         $builder->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
             'label' => 'Descripcion',
+            'required' => true,
             'attr' => array(
                 'rows' => 3,
-                'class' => 'form-control', 'required' => true)
+                'class' => 'form-control')
             )
         )
         ->add('objetivos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
             'label' => 'Objetivos',
+            'required' => true,
             'attr' => array(
-                'rows' => 3,
-                'class' => 'form-control', 'required' => true)
+                'rows' => 3,                
+                'class' => 'form-control')
             )
         )
         ->add('recorrido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
             'label' => 'Recorrido (indicando horarios)',
+            'required' => true,
             'attr' => array(
                 'rows' => 3,
                 'class' => 'form-control')
@@ -37,19 +40,20 @@ class ViajeAcademicoType extends AbstractType
         ->add('cantEstudiantes', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Estudiantes',
             'mapped' => false,
-            'required' => false,
+            'required' => true,
             'attr' => array('class' => 'form-control')
         ))
         ->add('cantDocentes', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Docentes',
-            'mapped' => false,
-            'required' => false,
+            'mapped' => true,
+            'required' => true,
             'attr' => array('class' => 'form-control')
         ))
         ->add('vehiculos')//Tipo de movilidad
                 
         ->add('fechaTentativa', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Fecha Tentativa',
+            'required' => false,
             'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ))

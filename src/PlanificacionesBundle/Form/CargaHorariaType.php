@@ -16,43 +16,50 @@ class CargaHorariaType extends AbstractType
         $builder->add('cantHsResolProbIng','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Resolución de problemas abiertos de ing',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsEjRutinarios','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Ejercicios rutinarios',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsActProyDisenio','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Act. de proyecto y diseño',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsPracticaProfSup','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Práctica final supervisada',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsTeoria','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Teoría',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsConsulta','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Evaluación',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ))
                 ->add('cantHsEvaluacion','Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Consultas',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'required' => true
                     )
                 ));
                         /*->add('planificacion');*/

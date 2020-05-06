@@ -8,10 +8,10 @@
                 </div>
                 {{ form_start(form) }}
                 <div class="form-row">
-                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         <label for="responsable">Actividad</label>
                     </div>
-                    <div class="form-group required col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-6 col-xs-12">
                         {{ form_label(form.descripcion) }}
                         {{ form_widget(form.descripcion) }}
                         {{ form_errors(form.descripcion) }} 
@@ -23,7 +23,7 @@
 
                 <div class="form-row">
 
-                    <div class="form-group offset-2 required col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group offset-2 col-sm-6 col-xs-12">
                         {{ form_label(form.objetivos) }}
                         {{ form_widget(form.objetivos) }}
                         {{ form_errors(form.objetivos) }} 
@@ -31,33 +31,29 @@
 
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-md-6 offset-md-2">
+                    <div class="form-group  col-md-6 offset-md-2">
                         {{ form_label(form.recorrido) }}
                         {{ form_widget(form.recorrido) }}
                         {{ form_errors(form.recorrido) }}
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group  col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         <label for="pasajeros">Pasajeros</label>
                     </div>
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group  col-sm-2 col-xs-12">
                         {{ form_label(form.cantEstudiantes) }}
                         {{ form_widget(form.cantEstudiantes) }}
                         {{ form_errors(form.cantEstudiantes) }}
-                        <div class="valid-feedback">
-                            V&aacute;lido
-                        </div>
+                       
                     </div>
-                    <div class="form-group required  col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         {{ form_label(form.cantDocentes) }}
                         {{ form_widget(form.cantDocentes) }}
                         {{ form_errors(form.cantDocentes) }}
-                        <div class="valid-feedback">
-                            V&aacute;lido
-                        </div>
+                        
                     </div>
-                    <div class="form-group   col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group col-sm-2 col-xs-12">
                         <label for="pasajeros_total">Total </label>
                         <input type="number" class="form-control" 
                                id="pasajeros_total" name="pasajeros_total" disabled/>
@@ -65,26 +61,26 @@
 
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
+                    <div class="form-group  col-md-4 offset-md-2">
                         {{ form_label(form.vehiculos) }}
                         {{ form_widget(form.vehiculos) }}
                         {{ form_errors(form.vehiculos) }}
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
+                    <div class="form-group  col-md-4 offset-md-2">
                         {{ form_label(form.fechaTentativa) }}
                         {{ form_widget(form.fechaTentativa) }}
                         {{ form_errors(form.fechaTentativa) }}
                     </div>
-                    <div class="form-group required col-md-3">
+                    <div class="form-group  col-md-3">
                         {{ form_label(form.cantDias) }}
                         {{ form_widget(form.cantDias) }}
                         {{ form_errors(form.cantDias) }}
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group required col-md-4 offset-md-2">
+                    <div class="form-group  col-md-4 offset-md-2">
                         <label class="control-label" for="asig_vinc">Asignaturas vinculadas</label>
                         <select class="form-control" id="asig_vinc" name="asig_vinc">
                             <option value="">Seleccione</option>
@@ -100,7 +96,7 @@
                 </div>
                 <div class="form-row">
 
-                    <div class="form-group required col-md-4 offset-md-2">
+                    <div class="form-group  col-md-4 offset-md-2">
                         <a href="{{ path('homepage') }}" >
                               <i class="fa fa-plus-circle"></i>Añadir
                         </a>
