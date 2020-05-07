@@ -7,6 +7,7 @@ use PlanificacionesBundle\Entity\CargaHoraria;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Entity\Temario;
+use PlanificacionesBundle\Entity\Bibliografia;
 use PlanificacionesBundle\Entity\ViajeAcademico;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,10 +79,20 @@ class PlanificacionAjaxController extends Controller {
         ));
     }
 
-    public function getBibliografiaFormAction() {
+    public function getBibliografiaFormAction(Request $request) {
+        
+        $bibliografia = new Bibliografia();
+        $form = $this->createForm("PlanificacionesBundle\Form\BibliografiaType", $bibliografia);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
+
         return $this->render('PlanificacionesBundle:Planificacion:tab-bibliografia.html.twig', array(
-                        // ...
+                    'form' => $form->createView()
         ));
+        
     }
 
     public function getCronogramaFormAction(Request $request) {
