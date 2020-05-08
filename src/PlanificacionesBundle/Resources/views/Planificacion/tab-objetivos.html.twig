@@ -2,37 +2,37 @@
     <div class="container">
         <div class="card card-register mx-auto">
             <div class="card-body px-5">
+                
+                {% include '::notificaciones.html.twig' %}
+                
                 <div class="mb-4">
                     <h4>Objetivos de la asignatura</h4>
                 </div>
 
-                <form name="formObjetivos" id="formObjetivos" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
+                {{ form_start(form) }}
 
                     <div class="form-row mt-4">
-                        <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                            <label class="control-label" for="objetivos_general">General</label>
-                            <textarea id="objetivos_general" name="objetivos_general" class=" form-control" required></textarea>
-                        </div>
+                         {{ form_label(form.objetivosGral) }}
+                        {{ form_widget(form.objetivosGral) }}
+                        {{ form_errors(form.objetivosGral) }}      
                     </div>
 
                     <div class="form-row mt-4">
-                        <div class="form-group required col-md-12 col-sm-12 col-xs-12">
-                            <label class="control-label" for="objetivos_especificos">Específicos</label>
-                            <textarea id="objetivos_especificos" name="objetivos_especificos" class=" form-control" required></textarea>
-                        </div>
+                         {{ form_label(form.objetivosEspecificos) }}
+                        {{ form_widget(form.objetivosEspecificos) }}
+                        {{ form_errors(form.objetivosEspecificos) }}      
                     </div>
-                    <div class="col-12 mt-s text-right mb-4">
-
-                        <button type="submit" class="btn btn btn-verde">
-                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                            Guardar
-                        </button>
-
-                        <a href="#" class="btn btn-secondary">
-                            Cancelar
-                        </a>
+                   
+                <div class="form-row">
+                    <div class="col-xs-12 col-sm-4">
+                        <button id="btn-guardar-aprobacion-asig" class="btn btn-primary" onclick="onGuardarInfoBasicaClick(event)">Guardar</button>
                     </div>
-                </form>
+                    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+                        {{ form_widget(form.reset) }}
+                    </div>
+                </div>
+               
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
