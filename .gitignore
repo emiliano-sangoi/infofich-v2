@@ -19,5 +19,5 @@ src/AppBundle/Resources/css
 src/AppBundle/Resources/public/css/*.map
 app/docs/infofich2_modelo.mwb.bak
 security.example.yml
-app/Resources/views/jquery.collection.html.twig
-web/js/jquery.collection.js
+#app/Resources/views/jquery.collection.html.twig
+#web/js/jquery.collection.js
