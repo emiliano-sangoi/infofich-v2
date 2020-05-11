@@ -1,7 +1,10 @@
 planificaciones_ajax_info_basica:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-info-basica.yml"
     prefix: /info-basica
-    
+
+planificaciones_ajax_temario:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-temario.yml"
+    prefix: /temario
     
 planificacion_ajax_get_form_equipo_docente:
     path:     /{id}/equipo-docente
@@ -14,10 +17,6 @@ planificacion_ajax_get_requisitos_aprob_form:
 planificacion_ajax_get_objetivos_form:
     path:     /objetivos
     defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getObjetivosForm }
-
-planificacion_ajax_get_temario_form:
-    path:     /temario
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getTemarioForm }
 
 planificacion_ajax_get_bibliografia_form:
     path:     /bibliografia

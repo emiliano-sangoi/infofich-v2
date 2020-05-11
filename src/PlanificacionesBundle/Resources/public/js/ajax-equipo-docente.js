@@ -2,7 +2,7 @@
 function getFormEquipoDocente() {
     if (typeof PLANIFICACION === 'undefined') {
         return;
-    }
+    }        
 
     var url = SECCIONES.equipo_docente;
     

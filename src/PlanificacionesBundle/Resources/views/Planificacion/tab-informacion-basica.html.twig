@@ -71,7 +71,7 @@
 
                 <div class="form-row">
                     <div class="col-xs-12 col-sm-4">
-                        <button id="btn-guardar-info-basicaaaaaaaaa" class="btn btn-primary" onclick="onGuardarInfoBasicaClick(event)">Guardar</button>
+                        {{ form_widget(form.submit) }}                        
                     </div>
                     <div class="col-xs-12 offset-4 col-sm-4 text-right">
                         {{ form_widget(form.reset) }}

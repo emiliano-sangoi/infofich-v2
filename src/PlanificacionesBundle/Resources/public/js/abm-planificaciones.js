@@ -74,7 +74,7 @@ $(document).ready(function () {
         e.preventDefault();
         if (typeof PLANIFICACION !== 'undefined') {
             tab_temario.on('shown.bs.tab', function (e) {
-                getTemarioForm(SECCIONES.temario, null);
+                getTemarioForm();
             });
             tab_temario.tab('show');
         } else {

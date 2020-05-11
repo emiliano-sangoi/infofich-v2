@@ -64,20 +64,7 @@ class PlanificacionAjaxController extends Controller {
         ));
     }
 
-    public function getTemarioFormAction(Request $request) {
 
-        $temario = new Temario();
-        $form = $this->createForm("PlanificacionesBundle\Form\TemarioType", $temario);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-        }
-
-        return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
-                    'form' => $form->createView()
-        ));
-    }
 
     public function getBibliografiaFormAction(Request $request) {
         

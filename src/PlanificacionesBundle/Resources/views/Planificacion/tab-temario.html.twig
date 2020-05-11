@@ -3,17 +3,21 @@
         <div class="card card-register mx-auto">
 
             <div class="card-body px-5">
-
+                
+                {% include '::notificaciones.html.twig' %}
                 
                 <div class="container mb-4 ml-10">
                     <h4>Temario</h4>
                 </div>
 
-                {{ form_start(form) }}
+{#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
+{#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
+                {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}
 
-                {% include 'temario-item.html.twig' %}
+{#                {% include 'temario-item.html.twig' %}#}
 
-                <div class="form-row">
+                {#<div class="form-row">
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a href="#" id="btnAñadirTema" >
                             <i class="fa fa-plus-circle"></i>
@@ -31,9 +35,9 @@
                     <a href="#" class="btn btn-secondary">
                         Cancelar
                     </a>
-                </div>
+                </div>#}
 
-                {{ form_end(form) }}
+{#                {{ form_end(form) }}#}
 
             </div>
         </div>

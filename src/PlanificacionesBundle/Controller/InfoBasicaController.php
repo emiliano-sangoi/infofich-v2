@@ -113,7 +113,7 @@ class InfoBasicaController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
         
-        $action = $this->generateUrl('planificaciones_ajax_info_basica_edit');
+        $action = $this->generateUrl('planificaciones_ajax_info_basica_edit', array('id' => $planificacion->getId()));
         $form = $this->crearForm($planificacion, $action);
         
         $statusCode = Response::HTTP_OK;
@@ -128,7 +128,7 @@ class InfoBasicaController extends Controller {
                 $this->addFlash('success', 'Los datos de esta sección fueron modificados correctamente.');
 
                 //Causar redireccion para evitar "re-submits" del form:
-                return $this->redirectToRoute($action, array('id' => $planificacion->getId()));
+                return $this->redirect($action);
             }else{
                 $statusCode = Response::HTTP_BAD_REQUEST;
                 $this->addFlash('error', 'Hay errores en el formulario.');

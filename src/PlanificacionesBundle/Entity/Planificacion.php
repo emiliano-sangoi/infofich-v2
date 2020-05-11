@@ -146,6 +146,15 @@ class Planificacion
     
     /**
      *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Temario", mappedBy="planificacion", cascade={"persist","remove"})
+     * @Assert\Valid
+     */
+    private $temario;
+    
+    /**
+     *
      * @var CargaHoraria
      * 
      * @ORM\OneToOne(targetEntity="CargaHoraria", mappedBy="planificacion")
@@ -167,6 +176,7 @@ class Planificacion
         $this->actividadesCurriculares = new ArrayCollection;
         $this->bibliografiasPlanificacion = new ArrayCollection;
         $this->viajesAcademicos = new ArrayCollection;
+        $this->temario = new ArrayCollection;
         
         $this->fechaCreacion = new \DateTime;
     }
@@ -641,5 +651,41 @@ class Planificacion
     public function getAsignatura()
     {
         return $this->asignatura;
+    }
+
+    /**
+     * Add temario
+     *
+     * @param \PlanificacionesBundle\Entity\Temario $temario
+     *
+     * @return Planificacion
+     */
+    public function addTemario(\PlanificacionesBundle\Entity\Temario $temario)
+    {
+        $temario->setPlanificacion($this);
+        
+        $this->temario[] = $temario;
+
+        return $this;
+    }
+
+    /**
+     * Remove temario
+     *
+     * @param \PlanificacionesBundle\Entity\Temario $temario
+     */
+    public function removeTemario(\PlanificacionesBundle\Entity\Temario $temario)
+    {
+        $this->temario->removeElement($temario);
+    }
+
+    /**
+     * Get temario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTemario()
+    {
+        return $this->temario;
     }
 }

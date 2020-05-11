@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Temario
@@ -32,6 +33,7 @@ class Temario
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=512)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío")
      */
     private $titulo;
 
@@ -46,7 +48,7 @@ class Temario
      *
      * @var Planificacion
      * 
-     * @ORM\ManyToOne(targetEntity="Planificacion")
+     * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="temario")
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;

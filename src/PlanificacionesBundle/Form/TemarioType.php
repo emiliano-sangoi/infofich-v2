@@ -6,54 +6,62 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TemarioType extends AbstractType
-{
+class TemarioType extends AbstractType {
+
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        //$builder->add('unidad')->add('titulo')->add('contenido')->add('planificacion');
+    public function buildForm(FormBuilderInterface $builder, array $options) {
 
-
-        $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'label' => 'Unidad',
-            'attr' => array('class' => 'form-control', 
-                'required' => true)
-        ));
-
-        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'label' => 'Titulo',
-            'attr' => array('class' => 'form-control', 
-                'required' => true)
-        ));
-        
-        $builder->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+        $builder->add('temario', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+            // each entry in the array will be an "email" field
+            'entry_type' => 'PlanificacionesBundle\Form\TemaType',
+            // Estos campo
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            
+            // para que se pueda persistir en cascada:
+            'by_reference' => false, 
+            // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
+            
+            
             'attr' => array(
-                'rows' => 4,
-                'class' => 'form-control', 
-                'required' => true)
-            )
-        );
+                'class' => 'temario-selector',
+            ),
+            'entry_options' => array(
+                'label' => false
+            ),            
+            'label' => false,
+        ));                
+        
+        $submit_opt = array(
+            'attr' => array(
+                'class' => 'btn btn-secondary',
+                'onclick' => 'onGuardarTemarioClick(event);'
+             ),
+            'label' => 'Guardar cambios'
+        );                
+        
+        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
+        
+        
+    }
 
-
-    }/**
+    /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Temario'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
         ));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return 'planificacionesbundle_temario';
     }
-
 
 }

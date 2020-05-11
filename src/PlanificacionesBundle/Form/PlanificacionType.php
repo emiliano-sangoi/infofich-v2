@@ -99,7 +99,20 @@ class PlanificacionType extends AbstractType {
             'label' => 'Limpiar campos',
             'attr' => array('class' => 'btn btn-secondary')
         ));
-
+        
+        $submit_opt = array(
+            'attr' => array('class' => 'btn btn-secondary')
+        );
+        
+        if($builder->getData()->getId()){
+            $submit_opt['label'] = 'Guardar cambios';
+            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
+        }else{
+            $submit_opt['label'] = 'Crear';
+            $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
+        }
+        
+        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
 
         $this->setEventosForm($builder);
     }
