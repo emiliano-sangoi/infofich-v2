@@ -6,6 +6,12 @@
                 <div class="mb-4">
                     <h4>Viajes Académicos</h4>
                 </div>
+                
+                {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}
+                
+                {#
+                
                 {{ form_start(form) }}
                 <div class="form-row">
                     <div class="form-group col-sm-2 col-xs-12">
@@ -116,6 +122,7 @@
                 </div>
 
                 {{ form_end(form) }}
+                #}
             </div>
 
         </div>

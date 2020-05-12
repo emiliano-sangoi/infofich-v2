@@ -140,7 +140,8 @@ class Planificacion
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="Planificacion", mappedBy="planificacion")
+     * @ORM\OneToMany(targetEntity="ViajeAcademico", mappedBy="planificacion", cascade={"persist","remove"})
+     * @Assert\Valid 
      */
     private $viajesAcademicos;
     
@@ -476,12 +477,14 @@ class Planificacion
     /**
      * Add viajesAcademico
      *
-     * @param \PlanificacionesBundle\Entity\Planificacion $viajesAcademico
+     * @param \PlanificacionesBundle\Entity\ViajeAcademico $viajesAcademico
      *
      * @return Planificacion
      */
-    public function addViajesAcademico(\PlanificacionesBundle\Entity\Planificacion $viajesAcademico)
+    public function addViajesAcademico(\PlanificacionesBundle\Entity\ViajeAcademico $viajesAcademico)
     {
+        $viajesAcademico->setPlanificacion($this);
+        
         $this->viajesAcademicos[] = $viajesAcademico;
 
         return $this;
@@ -490,9 +493,9 @@ class Planificacion
     /**
      * Remove viajesAcademico
      *
-     * @param \PlanificacionesBundle\Entity\Planificacion $viajesAcademico
+     * @param \PlanificacionesBundle\Entity\ViajeAcademico $viajesAcademico
      */
-    public function removeViajesAcademico(\PlanificacionesBundle\Entity\Planificacion $viajesAcademico)
+    public function removeViajesAcademico(\PlanificacionesBundle\Entity\ViajeAcademico $viajesAcademico)
     {
         $this->viajesAcademicos->removeElement($viajesAcademico);
     }

@@ -1,57 +1,71 @@
 
 function getViajesAcademicosForm(url, data) {
 
-    var dialog = crearDialogEspera('Cargando viajes academicos ...');
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
 
-    var success = function (response) {
+    var url = SECCIONES.viajes_academicos;
+    url = url.replace('--ID--', PLANIFICACION.id);
+    console.log(url, PLANIFICACION);
 
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
+    // var dialog = crearDialogEspera('Cargando el viajes_academicos  ...');
 
-        var btn = $('#btn-guardar-viajes-academicos');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postViajesAcademicosForm(url, form_data);
-
-            });
-
-        }
-
-        dialog.modal('hide');
-    };
-
-    $.ajax({
+    var jqxhr = $.ajax({
         method: "GET",
         url: url,
-        data: data,
-        success: success,
+        data: null,
+        success: updateViajesAcademicosHTML,
         dataType: 'html'
+    });
+
+
+    jqxhr.always(function () {
+        // dialog.modal('hide');
     });
 
 }
 
 
-function postViajesAcademicosForm(url, form_data) {
+function onGuardarViajesAcademicosClick(e) {
+    e.preventDefault();
+    
 
-    var success = function (response) {
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-    };
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
+    
+    var dialog = crearDialogEspera('Guardando ...');
 
-    $.ajax({
+    var url = SECCIONES.viajes_academicos;
+    url = url.replace('--ID--', PLANIFICACION.id);
+    
+    //console.log("Clicccccck!!! ");
+    var form_data = $('form').serialize();
+
+    var jqxhr = $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: success,
+        success: updateViajesAcademicosHTML,
         dataType: 'html'
     });
+    
+    jqxhr.always(function () {
+        dialog.modal('hide');
+    });
+
+
+}
+
+function updateViajesAcademicosHTML(url, form_data) {
+
+
+    //console.log(response);        
+    var target = $('#tab-content');
+    target.hide().html(response)
+    target.find('.viajeAcademico-selector').collection();
+    target.fadeIn();
 
 
 }
