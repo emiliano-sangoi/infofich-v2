@@ -65,7 +65,7 @@ class ViajesAcademicosController extends Controller {
             return $this->redirectToRoute('planificacion_ajax_viajes_acad_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:Planificacion:tab-viajes_academicos.html.twig', array(
+        return $this->render('PlanificacionesBundle:Planificacion:tab-viajes-academicos.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion
         ));

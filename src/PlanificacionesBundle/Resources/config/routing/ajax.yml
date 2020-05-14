@@ -8,7 +8,7 @@ planificaciones_ajax_temario:
     
 planificacion_ajax_viajes_academicos:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-viajes-academicos.yml"
-    prefix: /viajes_academicos
+    prefix: /viajes-academicos
     
 planificacion_ajax_get_form_equipo_docente:
     path:     /{id}/equipo-docente
