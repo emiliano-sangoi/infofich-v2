@@ -58,7 +58,7 @@ function onGuardarViajesAcademicosClick(e) {
 
 }
 
-function updateViajesAcademicosHTML(url, form_data) {
+function updateViajesAcademicosHTML(response) {
 
 
     //console.log(response);        
