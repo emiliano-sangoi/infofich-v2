@@ -44,7 +44,7 @@ class ViajesAcademicosController extends Controller {
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
             
             
-            //Buscar los temarios de la base de datos
+            //Buscar los viajes academicos de la base de datos
             $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajesAcademicos')
                     ->findBy(array('planificacion' => $planificacion));
             

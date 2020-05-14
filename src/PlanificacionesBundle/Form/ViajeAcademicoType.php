@@ -49,7 +49,12 @@ class ViajeAcademicoType extends AbstractType
             'required' => true,
             'attr' => array('class' => 'form-control')
         ))
-        ->add('vehiculos')//Tipo de movilidad
+        ->add('vehiculos', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Tipo de movilidad',
+            'required' => false,
+            'choices' => array('Vehiculos 1', 'Vehiculos 2'),
+            'attr' => array('class' => 'form-control')
+            ))//Tipo de movilidad
                 
         ->add('fechaTentativa', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Fecha Tentativa',
@@ -62,7 +67,13 @@ class ViajeAcademicoType extends AbstractType
             'mapped' => false,
             'required' => false,
             'attr' => array('class' => 'form-control')
-        ));
+        ))
+        ->add('asignaturas','Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => 'Asignaturas vinculadas',
+            'required' => false,
+            'choices' => array('Agregar Asig', 'Agregar Asig'),
+            'attr' => array('class' => 'form-control')
+            ));
                 /*->add('planificacion')->add('asignaturas');*/
     }/**
      * {@inheritdoc}
