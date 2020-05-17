@@ -22,11 +22,7 @@ class PlanificacionAjaxController extends Controller {
 
 
 
-    public function getFormEquipoDocenteAction(Request $request, Planificacion $planificacion = null) {
-        return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
-                    'planificacion' => $planificacion
-        ));
-    }
+
 
     public function getRequisitosAprobFormAction(Request $request) {
         $requisitosAprob = new RequisitosAprobacion();

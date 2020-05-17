@@ -26,8 +26,7 @@ function getTemarioForm() {
 
 
 function onGuardarTemarioClick(e) {
-    e.preventDefault();
-    
+    e.preventDefault();    
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
         return;
@@ -38,7 +37,6 @@ function onGuardarTemarioClick(e) {
     var url = SECCIONES.temario;
     url = url.replace('--ID--', PLANIFICACION.id);
     
-    //console.log("Clicccccck!!! ");
     var form_data = $('form').serialize();
 
     var jqxhr = $.ajax({

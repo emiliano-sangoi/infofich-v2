@@ -105,14 +105,31 @@ class Planificacion
      */
     private $asignatura;
     
-        
     /**
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="DocentePlanificacion", mappedBy="planificacion")
+     * @ORM\OneToOne(targetEntity="DocenteResponsablePlanificacion", mappedBy="planificacion")
      */
-    private $docentesPlanificacion;
+    private $docenteResponsable;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="DocenteColaboradorPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
+     */
+    private $docentesColaboradores;
+    
+     /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="DocenteAdscriptoPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
+     */
+    private $docentesAdscriptos;
+    
+        
     
     /**
      *
@@ -172,7 +189,8 @@ class Planificacion
     
     
     public function __construct() {
-        $this->docentesPlanificacion = new ArrayCollection;
+        $this->docentesAdscriptos = new ArrayCollection;
+        $this->docentesColaboradores = new ArrayCollection;
         $this->historicosEstado = new ArrayCollection;
         $this->actividadesCurriculares = new ArrayCollection;
         $this->bibliografiasPlanificacion = new ArrayCollection;
@@ -335,40 +353,6 @@ class Planificacion
     public function getDepartamento()
     {
         return $this->departamento;
-    }
-
-    /**
-     * Add docentesPlanificacion
-     *
-     * @param \PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion
-     *
-     * @return Planificacion
-     */
-    public function addDocentesPlanificacion(\PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion)
-    {
-        $this->docentesPlanificacion[] = $docentesPlanificacion;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentesPlanificacion
-     *
-     * @param \PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion
-     */
-    public function removeDocentesPlanificacion(\PlanificacionesBundle\Entity\DocentePlanificacion $docentesPlanificacion)
-    {
-        $this->docentesPlanificacion->removeElement($docentesPlanificacion);
-    }
-
-    /**
-     * Get docentesPlanificacion
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentesPlanificacion()
-    {
-        return $this->docentesPlanificacion;
     }
 
 
@@ -690,5 +674,97 @@ class Planificacion
     public function getTemario()
     {
         return $this->temario;
+    }
+
+    /**
+     * Set docenteResponsable
+     *
+     * @param \PlanificacionesBundle\Entity\DocenteResponsablePlanificacion $docenteResponsable
+     *
+     * @return Planificacion
+     */
+    public function setDocenteResponsable(\PlanificacionesBundle\Entity\DocenteResponsablePlanificacion $docenteResponsable = null)
+    {
+        $this->docenteResponsable = $docenteResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Get docenteResponsable
+     *
+     * @return \PlanificacionesBundle\Entity\DocenteResponsablePlanificacion
+     */
+    public function getDocenteResponsable()
+    {
+        return $this->docenteResponsable;
+    }
+
+    /**
+     * Add docentesColaboradore
+     *
+     * @param \PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore
+     *
+     * @return Planificacion
+     */
+    public function addDocentesColaboradore(\PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore)
+    {
+        $this->docentesColaboradores[] = $docentesColaboradore;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesColaboradore
+     *
+     * @param \PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore
+     */
+    public function removeDocentesColaboradore(\PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore)
+    {
+        $this->docentesColaboradores->removeElement($docentesColaboradore);
+    }
+
+    /**
+     * Get docentesColaboradores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesColaboradores()
+    {
+        return $this->docentesColaboradores;
+    }
+
+    /**
+     * Add docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto
+     *
+     * @return Planificacion
+     */
+    public function addDocentesAdscripto(\PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto)
+    {
+        $this->docentesAdscriptos[] = $docentesAdscripto;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto
+     */
+    public function removeDocentesAdscripto(\PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto)
+    {
+        $this->docentesAdscriptos->removeElement($docentesAdscripto);
+    }
+
+    /**
+     * Get docentesAdscriptos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesAdscriptos()
+    {
+        return $this->docentesAdscriptos;
     }
 }

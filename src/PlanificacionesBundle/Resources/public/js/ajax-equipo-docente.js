@@ -1,73 +1,58 @@
 
 function getFormEquipoDocente() {
-    if (typeof PLANIFICACION === 'undefined') {
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
         return;
-    }        
-
-    var url = SECCIONES.equipo_docente;
-    
-    
-    var tab_content = $('#tab-content');
-    tab_content.hide();
-    
-//    if(typeof PLANIFICACION === 'undefined'){    
-//        crearAlert(message, title);
-//        //var msg = "<p class='p-5 lead'>Para definir esta información debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
-//        //tab_content.hide().html(msg).fadeIn();
-//        //return;
-//    }
+    }
     
     var dialog = crearDialogEspera('Cargando equipo docente ...');
 
-    var success = function (response) {
+    var url = SECCIONES.equipo_docente;
+    url = url.replace('--ID--', PLANIFICACION.id);                 
 
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-
-        var btn = $('#btn-guardar-equipo-docente');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postFormEquipoDocente(url, form_data);
-
-            });
-
-        }
-
-        dialog.modal('hide');
-    };
-
-    $.ajax({
+    var jqxhr = $.ajax({
         method: "GET",
         url: url,
         data: null,
-        success: success,
+        success: updateEquipoDocenteHTML,
         dataType: 'html'
+    });
+    
+    jqxhr.always(function () {
+        dialog.modal('hide');
     });
 
 }
 
 
-function postFormEquipoDocente(url, form_data) {
+function onGuardarCambiosDocentesClick(e) {
+    e.preventDefault();
+    
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
 
-    var success = function (response) {
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-    };
+    var url = SECCIONES.equipo_docente;
+    url = url.replace('--ID--', PLANIFICACION.id);      
+
+    
+    var form_data = $('form').serialize();
 
     $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: success,
+        success: updateEquipoDocenteHTML,
         dataType: 'html'
     });
 
 
+}
+
+function updateEquipoDocenteHTML(response){
+    //console.log(response);        
+        var target = $('#tab-content');
+        target.hide().html(response);
+        target.find('.docentes-colaboradores-selector').collection();
+        target.find('.docentes-adscriptos-selector').collection();
+        target.fadeIn();
 }

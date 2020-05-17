@@ -4,13 +4,10 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * DocentePlanificacion
- *
- * @ORM\Table(name="planif_docente_planificacion")
- * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\DocentePlanificacionRepository")
+/** 
+ * @ORM\MappedSuperclass 
  */
-class DocentePlanificacion
+abstract class DocentePlanificacion
 {
     /**
      * @var int
@@ -19,17 +16,7 @@ class DocentePlanificacion
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    
-    
-    /**
-     *
-     * @var Planificacion
-     * 
-     * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="docentesPlanificacion")
-     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
-     */
-    private $planificacion;
+    private $id;       
     
     /**
      *
@@ -38,16 +25,14 @@ class DocentePlanificacion
      * @ORM\ManyToOne(targetEntity="Docente")
      * @ORM\JoinColumn(name="planif_docentes_id", referencedColumnName="id") 
      */
-    private $docente;
+    private $docente;   
     
     /**
+     * @var \DateTime
      *
-     * @var TipoDocente
-     * 
-     * @ORM\ManyToOne(targetEntity="TipoDocente")
-     * @ORM\JoinColumn(name="planif_tipos_docente_id", referencedColumnName="id") 
+     * @ORM\Column(name="fecha_creacion", type="datetime")
      */
-    private $tipoDocente;
+    private $fechaCreacion;
 
 
     /**
@@ -60,28 +45,30 @@ class DocentePlanificacion
         return $this->id;
     }
 
+ 
+
     /**
-     * Set planificacion
+     * Set fechaCreacion
      *
-     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     * @param \DateTime $fechaCreacion
      *
      * @return DocentePlanificacion
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    public function setFechaCreacion($fechaCreacion)
     {
-        $this->planificacion = $planificacion;
+        $this->fechaCreacion = $fechaCreacion;
 
         return $this;
     }
 
     /**
-     * Get planificacion
+     * Get fechaCreacion
      *
-     * @return \PlanificacionesBundle\Entity\Planificacion
+     * @return \DateTime
      */
-    public function getPlanificacion()
+    public function getFechaCreacion()
     {
-        return $this->planificacion;
+        return $this->fechaCreacion;
     }
 
     /**
@@ -106,29 +93,5 @@ class DocentePlanificacion
     public function getDocente()
     {
         return $this->docente;
-    }
-
-    /**
-     * Set tipoDocente
-     *
-     * @param \PlanificacionesBundle\Entity\TipoDocente $tipoDocente
-     *
-     * @return DocentePlanificacion
-     */
-    public function setTipoDocente(\PlanificacionesBundle\Entity\TipoDocente $tipoDocente = null)
-    {
-        $this->tipoDocente = $tipoDocente;
-
-        return $this;
-    }
-
-    /**
-     * Get tipoDocente
-     *
-     * @return \PlanificacionesBundle\Entity\TipoDocente
-     */
-    public function getTipoDocente()
-    {
-        return $this->tipoDocente;
     }
 }

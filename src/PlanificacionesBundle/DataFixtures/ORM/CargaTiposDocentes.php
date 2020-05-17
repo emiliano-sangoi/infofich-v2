@@ -6,7 +6,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use PlanificacionesBundle\Entity\TipoDocente;
 
-class CargaTiposDocentes extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface {
+class CargaTiposDocentes {
+//class CargaTiposDocentes extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
 

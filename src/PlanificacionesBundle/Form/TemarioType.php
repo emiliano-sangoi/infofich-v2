@@ -16,7 +16,6 @@ class TemarioType extends AbstractType {
         $builder->add('temario', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
             // each entry in the array will be an "email" field
             'entry_type' => 'PlanificacionesBundle\Form\TemaType',
-            // Estos campo
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
