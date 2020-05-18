@@ -124,8 +124,8 @@ class Planificacion
     /**
      *
      * @var ArrayCollection
-     * 
-     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion") 
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion", cascade={"persist","remove"})
+     * @Assert\Valid  
      */
     private $actividadesCurriculares;
     
@@ -407,27 +407,29 @@ class Planificacion
     }
 
     /**
-     * Add actividadesCurriculare
+     * Add actividadesCurriculares
      *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares
      *
      * @return Planificacion
      */
-    public function addActividadesCurriculare(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare)
+    public function addActividadesCurriculares(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares)
     {
-        $this->actividadesCurriculares[] = $actividadesCurriculare;
+        $actividadesCurriculares->setPlanificacion($this);
+        
+        $this->actividadesCurriculares[] = $actividadesCurriculares;
 
         return $this;
     }
 
     /**
-     * Remove actividadesCurriculare
+     * Remove actividadesCurriculares
      *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares
      */
-    public function removeActividadesCurriculare(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculare)
+    public function removeActividadesCurriculares(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares)
     {
-        $this->actividadesCurriculares->removeElement($actividadesCurriculare);
+        $this->actividadesCurriculares->removeElement($actividadesCurriculares);
     }
 
     /**
