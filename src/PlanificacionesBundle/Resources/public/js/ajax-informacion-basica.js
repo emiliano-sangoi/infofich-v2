@@ -58,7 +58,7 @@ function cargarFormInfoBasica() {
 }
 
 /**
- * Evento que se ejecuta cuando se presiona el boton guardar.
+ * Evento que se ejecuta cuando se presiona el boton "Crear".
  * 
  * @param {type} e
  * @returns {undefined}
@@ -68,9 +68,10 @@ function onGuardarInfoBasicaClick(e) {
 
     var dialog = crearDialogEspera('Guardandando ...');
 
-    var onGuardarClickSuccess = function (planificacion_id) {
+    var onGuardarClickSuccess = function (planificacion_id) {        
         var goto = SECCIONES.editar_planif;
         goto = goto.replace('--ID--', planificacion_id);
+        console.log(goto, SECCIONES.editar_planif, planificacion_id);
         window.location.href = goto;
     };
 
@@ -104,7 +105,12 @@ function onGuardarInfoBasicaClick(e) {
 
 }
 
-
+/**
+ * Evento que se ejecuta cuando se presiona el boton "Guardar cambios".
+ * 
+ * @param {type} e
+ * @returns {undefined}
+ */
 function onModificarInfoBasicaClick(e) {
     e.preventDefault();
 

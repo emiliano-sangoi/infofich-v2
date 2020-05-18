@@ -1,0 +1,15 @@
+planificacion_ajax_equipo_docente_edit:
+    path:     /editar
+    defaults: { _controller: PlanificacionesBundle:Docentes:edit }    
+    methods: [GET, POST]
+    
+# Utilizado cuando se crea
+#planificaciones_ajax_equipo_docente_post:
+#    path:     /crear
+#    defaults: { _controller: PlanificacionesBundle:InfoBasica:post }
+#    methods: [POST]
+#    
+#planificaciones_ajax_equipo_docente_edit:
+#    path:     /{id}/editar
+#    defaults: { _controller: PlanificacionesBundle:InfoBasica:edit }
+#    methods: [GET, POST]

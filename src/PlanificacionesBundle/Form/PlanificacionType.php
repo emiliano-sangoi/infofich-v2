@@ -99,19 +99,19 @@ class PlanificacionType extends AbstractType {
             'label' => 'Limpiar campos',
             'attr' => array('class' => 'btn btn-secondary')
         ));
-        
+
         $submit_opt = array(
             'attr' => array('class' => 'btn btn-secondary')
         );
-        
-        if($builder->getData()->getId()){
+
+        if ($builder->getData()->getId()) {
             $submit_opt['label'] = 'Guardar cambios';
-            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
-        }else{
-            $submit_opt['label'] = 'Crear';
             $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
+        } else {
+            $submit_opt['label'] = 'Crear';
+            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
         }
-        
+
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
 
         $this->setEventosForm($builder);
@@ -194,7 +194,6 @@ class PlanificacionType extends AbstractType {
         );
 
         $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
-
     }
 
     /**
@@ -211,22 +210,25 @@ class PlanificacionType extends AbstractType {
 
         if ($builder->getData()->getId() == null) {
             //En modo edicion solo puede elegir entre el año actual y el siguiente
-
             $y = date('Y');
-            $choices = array(
-                $y => $y,
-                $y + 1 => $y + 1
-            );
-
-            $config['choices'] = $choices;
-
-            $config['constraints'] = array(
-                new Choice(array(
-                    'choices' => $choices,
-                    'message' => 'Las opciones posibles son ' . implode(' y ', $choices)
-                        ))
-            );
+        } else {
+            $y = $builder->getData()->getAnioAcad();
         }
+
+        $choices = array(
+            $y => $y,
+            $y + 1 => $y + 1
+        );
+
+        $config['choices'] = $choices;
+
+        $config['constraints'] = array(
+            new Choice(array(
+                'choices' => $choices,
+                'message' => 'Las opciones posibles son ' . implode(' y ', $choices)
+                    ))
+        );
+
 
         $builder->add('anioAcad', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
     }

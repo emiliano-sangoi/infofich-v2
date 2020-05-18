@@ -6,6 +6,16 @@
                 <div class="mb-4">
                     <h4>Equipo Docente</h4>
                 </div>  
+                
+                {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}
+                
+                
+                
+                <hr/>
+                <hr/>
+                <hr/>
+                <hr/>
 
                 <form name="formEquipoDoc" id="formEquipoDoc" action="carga-formulario.php" method="post" class="needs-validation" novalidate>
                         <div id="equipo-doc-res">

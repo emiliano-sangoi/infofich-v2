@@ -4,7 +4,7 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
+/*
  * TipoDocente
  *
  * @ORM\Table(name="planif_tipos_docente")

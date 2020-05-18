@@ -41,6 +41,14 @@ class Persona
      * @ORM\Column(name="documento", type="string", length=12, unique=true)
      */
     private $documento;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cuil", type="string", length=16, nullable=true, unique=true)
+     */
+    private $cuil;
 
     /**
      * @var string
@@ -185,5 +193,29 @@ class Persona
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    /**
+     * Set cuil
+     *
+     * @param string $cuil
+     *
+     * @return Persona
+     */
+    public function setCuil($cuil)
+    {
+        $this->cuil = $cuil;
+
+        return $this;
+    }
+
+    /**
+     * Get cuil
+     *
+     * @return string
+     */
+    public function getCuil()
+    {
+        return $this->cuil;
     }
 }

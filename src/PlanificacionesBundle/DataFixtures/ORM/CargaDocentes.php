@@ -7,7 +7,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use PlanificacionesBundle\Entity\Docente;
 
 
-class CargaDocentes extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface{
+class CargaDocentes{
+//class CargaDocentes extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface{
 
 
   public function load(ObjectManager $manager){

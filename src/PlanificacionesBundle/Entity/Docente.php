@@ -21,47 +21,14 @@ class Docente
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellidos", type="string", length=255)
-     */
-    private $apellidos;
 
     /**
-     * @var string
+     * @var AppBundle\Entity\Persona
      *
-     * @ORM\Column(name="nombres", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona")
+     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
      */
-    private $nombres;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono", type="string", length=64)
-     */
-    private $telefono;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="dni", type="integer", unique=true)
-     */
-    private $dni;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resolucion", type="string", length=64, nullable=true)
-     */
-    private $resolucion;
+    private $persona;
 
     /**
      * @var string
@@ -81,149 +48,7 @@ class Docente
         return $this->id;
     }
 
-    /**
-     * Set apellidos
-     *
-     * @param string $apellidos
-     *
-     * @return Docente
-     */
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
 
-        return $this;
-    }
-
-    /**
-     * Get apellidos
-     *
-     * @return string
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * Set nombres
-     *
-     * @param string $nombres
-     *
-     * @return Docente
-     */
-    public function setNombres($nombres)
-    {
-        $this->nombres = $nombres;
-
-        return $this;
-    }
-
-    /**
-     * Get nombres
-     *
-     * @return string
-     */
-    public function getNombres()
-    {
-        return $this->nombres;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Docente
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set telefono
-     *
-     * @param string $telefono
-     *
-     * @return Docente
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return string
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
-     * Set dni
-     *
-     * @param integer $dni
-     *
-     * @return Docente
-     */
-    public function setDni($dni)
-    {
-        $this->dni = $dni;
-
-        return $this;
-    }
-
-    /**
-     * Get dni
-     *
-     * @return int
-     */
-    public function getDni()
-    {
-        return $this->dni;
-    }
-
-    /**
-     * Set resolucion
-     *
-     * @param string $resolucion
-     *
-     * @return Docente
-     */
-    public function setResolucion($resolucion)
-    {
-        $this->resolucion = $resolucion;
-
-        return $this;
-    }
-
-    /**
-     * Get resolucion
-     *
-     * @return string
-     */
-    public function getResolucion()
-    {
-        return $this->resolucion;
-    }
 
     /**
      * Set nroLegajo
@@ -248,5 +73,28 @@ class Docente
     {
         return $this->nroLegajo;
     }
-}
 
+    /**
+     * Set persona
+     *
+     * @param \AppBundle\Entity\Persona $persona
+     *
+     * @return Docente
+     */
+    public function setPersona(\AppBundle\Entity\Persona $persona = null)
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \AppBundle\Entity\Persona
+     */
+    public function getPersona()
+    {
+        return $this->persona;
+    }
+}
