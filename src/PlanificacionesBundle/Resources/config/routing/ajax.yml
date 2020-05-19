@@ -13,6 +13,10 @@ planificacion_ajax_viajes_academicos:
 planificaciones_ajax_equipo_docente:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-equipo-docente.yml"
     prefix: /{id}/equipo-docente
+    
+planificaciones_ajax_cronograma:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-cronograma.yml"
+    prefix: /cronograma
 
 planificacion_ajax_get_requisitos_aprob_form:
     path:     /aprobacion
@@ -25,10 +29,6 @@ planificacion_ajax_get_objetivos_form:
 planificacion_ajax_get_bibliografia_form:
     path:     /bibliografia
     defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getBibliografiaForm }
-
-planificacion_ajax_get_cronograma_form:
-    path:     /cronograma
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getCronogramaForm }
 
 planificacion_ajax_get_carga_horaria_form:
     path:     /carga-horaria

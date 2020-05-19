@@ -2,16 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use PlanificacionesBundle\Entity\ActividadCurricular;
-use PlanificacionesBundle\Entity\CargaHoraria;
-use PlanificacionesBundle\Entity\Planificacion;
-use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Entity\Bibliografia;
+use PlanificacionesBundle\Entity\CargaHoraria;
+use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * En esta clase van todas las funciones que permiten la gestion de las planificaciones via Ajax
@@ -74,21 +69,6 @@ class PlanificacionAjaxController extends Controller {
                     'form' => $form->createView()
         ));
         
-    }
-
-    public function getCronogramaFormAction(Request $request) {
-
-        $actividadCurricular = new ActividadCurricular();
-        $form = $this->createForm("PlanificacionesBundle\Form\ActividadCurricularType", $actividadCurricular);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-        }
-        return $this->render('PlanificacionesBundle:Planificacion:tab-cronograma.html.twig', array(
-                    'form' => $form->createView(),
-                        // ...
-        ));
     }
 
     public function getCargaHorariaFormAction(Request $request) {

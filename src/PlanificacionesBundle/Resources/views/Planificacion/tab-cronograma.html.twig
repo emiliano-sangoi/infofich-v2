@@ -6,7 +6,8 @@
                 <div class="mb-4">
                     <h4>Cronograma de actividades</h4>
                 </div>
-                {{ form_start(form) }}
+
+
                 <div class="form-row">
                     <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="control-label" for="unidad">Unidad
@@ -25,87 +26,91 @@
                     </div>
                 </div>
 
-                <div class="form-row mt-4">
-                    <div class="form-group col-sm-4 col-xs-12">
-                        <h5>Actividad curricular </h5>                        
-                    </div>
 
-                    <div class="form-group col-sm-3 col-xs-12">
-                        <a href="{{ path('homepage') }}">
-                            <i class="fa fa-plus-circle"></i> Añadir
-                        </a>
-                    </div>
-                </div>
+                {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}
 
-
-                <div class="form-row">
-                    <div class="form-group col-sm-4 col-xs-12">
-                        {{ form_label(form.tipoActividadCurricular) }}
-                        {{ form_widget(form.tipoActividadCurricular) }}
-                        {{ form_errors(form.tipoActividadCurricular) }}     
-                    </div>
-                    <div class="form-group col-sm-4 col-xs-12">
-                        {{ form_label(form.fecha) }}
-                        {{ form_widget(form.fecha) }}
-                        {{ form_errors(form.fecha) }} 
-                    </div>
-                </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group col-sm-12 col-xs-12">
-                        {{ form_label(form.otras) }}
-                        {{ form_widget(form.otras) }}
-                        {{ form_errors(form.otras) }} 
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-4 col-xs-12">
-                        {{ form_label(form.cargaHorariaAula) }}
-                        {{ form_widget(form.cargaHorariaAula) }}
-                        {{ form_errors(form.cargaHorariaAula) }} 
-                    </div>
-                    <div class="form-group col-sm-4 col-xs-12">
-                        {{ form_label(form.cargaHorariaAutonomo) }}
-                        {{ form_widget(form.cargaHorariaAutonomo) }}
-                        {{ form_errors(form.cargaHorariaAutonomo) }} 
-                    </div>
-                </div>
-                <div class="form-row mt-4">
-                    <div class="form-group col-sm-12 col-xs-12">
-                        {{ form_label(form.contenido) }}
-                        {{ form_widget(form.contenido) }}
-                        {{ form_errors(form.contenido) }} 
-                    </div>
-                </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group col-sm-12 col-xs-12">
-                        {{ form_label(form.descripcion) }}
-                        {{ form_widget(form.descripcion) }}
-                        {{ form_errors(form.descripcion) }} 
-                    </div>
-                </div>
-
-                <div class="form-row mt-4">
-                    <div class="form-group col-sm-4 col-xs-12">
-                        <a href="{{ path('homepage') }}">
-                            <i class="fa fa-plus-circle"></i> Añadir
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-12 mt-s text-right mb-4">
-
-                    <button type="submit" class="btn btn btn-verde">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Guardar
-                    </button>
-
-                    <a href="#" class="btn btn-secondary">
-                        Cancelar
-                    </a>
-                </div>
-                {{ form_end(form) }}
+                {#       <div class="form-row mt-4">
+                           <div class="form-group col-sm-4 col-xs-12">
+                               <h5>Actividad curricular </h5>                        
+                           </div>
+       
+                           <div class="form-group col-sm-3 col-xs-12">
+                               <a href="{{ path('homepage') }}">
+                                   <i class="fa fa-plus-circle"></i> Añadir
+                               </a>
+                           </div>
+                       </div>
+       
+       
+                       <div class="form-row">
+                           <div class="form-group col-sm-4 col-xs-12">
+                               {{ form_label(form.tipoActividadCurricular) }}
+                               {{ form_widget(form.tipoActividadCurricular) }}
+                               {{ form_errors(form.tipoActividadCurricular) }}     
+                           </div>
+                           <div class="form-group col-sm-4 col-xs-12">
+                               {{ form_label(form.fecha) }}
+                               {{ form_widget(form.fecha) }}
+                               {{ form_errors(form.fecha) }} 
+                           </div>
+                       </div>
+       
+                       <div class="form-row mt-4">
+                           <div class="form-group col-sm-12 col-xs-12">
+                               {{ form_label(form.otras) }}
+                               {{ form_widget(form.otras) }}
+                               {{ form_errors(form.otras) }} 
+                           </div>
+                       </div>
+                       <div class="form-row">
+                           <div class="form-group col-sm-4 col-xs-12">
+                               {{ form_label(form.cargaHorariaAula) }}
+                               {{ form_widget(form.cargaHorariaAula) }}
+                               {{ form_errors(form.cargaHorariaAula) }} 
+                           </div>
+                           <div class="form-group col-sm-4 col-xs-12">
+                               {{ form_label(form.cargaHorariaAutonomo) }}
+                               {{ form_widget(form.cargaHorariaAutonomo) }}
+                               {{ form_errors(form.cargaHorariaAutonomo) }} 
+                           </div>
+                       </div>
+                       <div class="form-row mt-4">
+                           <div class="form-group col-sm-12 col-xs-12">
+                               {{ form_label(form.contenido) }}
+                               {{ form_widget(form.contenido) }}
+                               {{ form_errors(form.contenido) }} 
+                           </div>
+                       </div>
+       
+                       <div class="form-row mt-4">
+                           <div class="form-group col-sm-12 col-xs-12">
+                               {{ form_label(form.descripcion) }}
+                               {{ form_widget(form.descripcion) }}
+                               {{ form_errors(form.descripcion) }} 
+                           </div>
+                       </div>
+       
+                       <div class="form-row mt-4">
+                           <div class="form-group col-sm-4 col-xs-12">
+                               <a href="{{ path('homepage') }}">
+                                   <i class="fa fa-plus-circle"></i> Añadir
+                               </a>
+                           </div>
+                       </div>
+       
+                       <div class="col-12 mt-s text-right mb-4">
+       
+                           <button type="submit" class="btn btn btn-verde">
+                               <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                               Guardar
+                           </button>
+       
+                           <a href="#" class="btn btn-secondary">
+                               Cancelar
+                           </a>
+                       </div>
+                       #}
             </div>
         </div>
     </div>
