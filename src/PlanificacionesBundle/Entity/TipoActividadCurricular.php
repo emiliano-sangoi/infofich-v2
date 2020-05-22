@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoActividadCurricular {
 
+    const ACTIVIDAD1 = 'Ejemplo1';
+    const ACTIVIDAD2 = 'Ejemplo2';
+    const ACTIVIDAD3 = 'Ejemplo3';
+    const ACTIVIDAD4 = 'Ejemplo4';
+
     /**
      * @var int
      *
@@ -89,7 +94,7 @@ class TipoActividadCurricular {
     }
 
     public function __toString() {
-        return $this->descripcion;
+        return $this->nombre;
     }
 
 }
