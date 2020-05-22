@@ -52,12 +52,14 @@ class ActividadCurricularType extends AbstractType {
                     )
                 ))
                 //->add('planificacion')
-                ->add('tipoActividadCurricular', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+                ->add('tipoActividadCurricular', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                     'label' => 'Tipo',
-                    /* 'choices' => array(date('d/m/Y'), date('Y') + 1), */
-                    'attr' => array('class' => 'form-control')
-                ));
-                //->add('temario');
+                    'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
+                    'attr' => array(
+                        'class' => 'form-control js-select2'
+                    ))
+        );
+        //->add('temario');
     }
 
     /**

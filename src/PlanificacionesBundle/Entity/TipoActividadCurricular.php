@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="planif_tipos_actividad_curricular")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TipoActividadCurricularRepository")
  */
-class TipoActividadCurricular
-{
+class TipoActividadCurricular {
+
     /**
      * @var int
      *
@@ -35,14 +35,12 @@ class TipoActividadCurricular
      */
     private $descripcion;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -53,8 +51,7 @@ class TipoActividadCurricular
      *
      * @return TipoActividadCurricular
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
 
         return $this;
@@ -65,8 +62,7 @@ class TipoActividadCurricular
      *
      * @return string
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -77,8 +73,7 @@ class TipoActividadCurricular
      *
      * @return TipoActividadCurricular
      */
-    public function setDescripcion($descripcion)
-    {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -89,9 +84,12 @@ class TipoActividadCurricular
      *
      * @return string
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->descripcion;
     }
-}
 
+    public function __toString() {
+        return $this->descripcion;
+    }
+
+}
