@@ -26,9 +26,9 @@ planificacion_ajax_get_objetivos_form:
     path:     /objetivos
     defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getObjetivosForm }
 
-planificacion_ajax_get_bibliografia_form:
-    path:     /bibliografia
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getBibliografiaForm }
+planificacion_ajax_bibliografia:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-bibliografia.yml"
+    prefix:     /bibliografia
 
 planificacion_ajax_get_carga_horaria_form:
     path:     /carga-horaria

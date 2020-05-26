@@ -54,22 +54,22 @@ class PlanificacionAjaxController extends Controller {
     }
 
 
-
+/*
     public function getBibliografiaFormAction(Request $request) {
-        
+        /*
         $bibliografia = new Bibliografia();
         $form = $this->createForm("PlanificacionesBundle\Form\BibliografiaType", $bibliografia);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-        }
-
+        }*/
+/*
         return $this->render('PlanificacionesBundle:Planificacion:tab-bibliografia.html.twig', array(
-                    'form' => $form->createView()
+               //    'form' => $form->createView()
         ));
         
-    }
+    }*/
 
     public function getCargaHorariaFormAction(Request $request) {
 
