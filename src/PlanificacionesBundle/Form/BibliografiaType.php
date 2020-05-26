@@ -15,7 +15,7 @@ class BibliografiaType extends AbstractType
     {
         //Armar el constructor con todos los campos
 
-        $builder->add('titulo', 'Symfony\Componednt\Form\Extension\Core\Type\TextType', array(
+        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Título',
             'required' => true,
             'attr' => array(
