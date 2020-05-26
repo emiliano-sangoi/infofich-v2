@@ -7,72 +7,45 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BibliografiaType extends AbstractType {
-
+    
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Título',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('autores', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Autores',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('editorial', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Editorial',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('anioEdicion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Año de edición',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('nroEdicion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'N° de edición',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('issnIsbn', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'ISSN o ISBN',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
-                    'label' => 'Disponible en biblioteca',
-                        //'attr' => array('class' => 'form-control')
-                ))
-                ->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
-                    'label' => 'Disponible online',
-                        //'attr' => array('class' => 'form-control')
-                ))
-                ->add('fechaConsultaOnline', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-                    'label' => 'Fecha consulta online',
-                    'choices' => array(date('d/m/Y'), date('Y') + 1),
-                    'attr' => array('class' => 'form-control')
-                ))
-                ->add('enlaceOnline', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Enlace',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-        ));
+
+        $builder->add('bibliografia', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+            // each entry in the array will be an "email" field
+            'entry_type' => 'PlanificacionesBundle\Form\BibliografiaType',
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            
+            // para que se pueda persistir en cascada:
+            'by_reference' => false, 
+            // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
+            
+            
+            'attr' => array(
+                'class' => 'bibliografia-selector',
+            ),
+            'entry_options' => array(
+                'label' => false
+            ),            
+            //para que no cree una etiqueta obligatoria
+            'label' => false
+        ));                
+        
+        $submit_opt = array(
+            'attr' => array(
+                'class' => 'btn btn-secondary',
+                'onclick' => 'onGuardarBibliografiaClick(event);'
+             ),
+            'label' => 'Guardar cambios'
+        );                
+        
+        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
+        
+        
     }
 
     /**
@@ -80,9 +53,10 @@ class BibliografiaType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Bibliografia'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
         ));
     }
+
 
     /**
      * {@inheritdoc}

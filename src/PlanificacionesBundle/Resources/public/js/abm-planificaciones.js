@@ -89,8 +89,8 @@ $(document).ready(function () {
         e.preventDefault();
         if (typeof PLANIFICACION !== 'undefined') {
             tab_bibliografia.on('shown.bs.tab', function (e) {
-                //getBibliografiaForm();
-                getBibliografiaForm(SECCIONES.bibliografia, null);
+                getBibliografiaForm();
+                //getBibliografiaForm(SECCIONES.bibliografia, null);
             });
             tab_bibliografia.tab('show');
         } else {

@@ -20,8 +20,11 @@ class BibliografiaController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\BibliografiaType", $planificacion);
+        $form = $this->createForm("PlanificacionesBundle\Form\BibliografiasType", $planificacion);
         $form->handleRequest($request);
+//var_dump($form); 
+//exit; 
+        
         if ($form->isSubmitted() && $form->isValid()) {
 
             //dump($planificacion);exit;
