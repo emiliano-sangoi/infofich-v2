@@ -6,8 +6,12 @@
                 <div class="mb-4">
                     <h4>Bibliografía</h4>
                 </div>            
-                {{ form_start(form) }}
+                
 
+                {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}
+
+                {#{ form_start(form) }}
                 <div class="form-row">
                     <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <label class="radio-inline">
@@ -108,7 +112,7 @@
                         Cancelar
                     </a>
                 </div>
-                {{ form_end(form) }}
+                {{ form_end(form) }#}
             </div>
         </div>
     </div>

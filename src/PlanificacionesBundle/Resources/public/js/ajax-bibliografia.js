@@ -55,3 +55,11 @@ function postBibliografiaForm(url, form_data) {
 
 
 }
+
+function updateBibliografiaHTML(response){
+    //console.log(response);        
+        var target = $('#tab-content');
+        target.hide().html(response)
+        target.find('.bibliografia-selector').collection();
+        target.fadeIn();
+}

@@ -149,7 +149,8 @@ class Planificacion
     /**
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BibliografiaPlanificacion", mappedBy="planificacion") 
+     * @ORM\OneToMany(targetEntity="BibliografiaPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
+     * @Assert\Valid 
      */
     private $bibliografiasPlanificacion;
     
@@ -435,6 +436,9 @@ class Planificacion
      */
     public function addBibliografiasPlanificacion(\PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion)
     {
+
+        $bibliografiasPlanificacion->setPlanificacion($this);
+        
         $this->bibliografiasPlanificacion[] = $bibliografiasPlanificacion;
 
         return $this;
