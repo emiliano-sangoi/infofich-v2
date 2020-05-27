@@ -18,9 +18,9 @@ planificaciones_ajax_cronograma:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-cronograma.yml"
     prefix: /cronograma
 
-planificacion_ajax_get_requisitos_aprob_form:
-    path:     /aprobacion
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getRequisitosAprobForm }
+planificacion_ajax_requisitos_aprob:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-aprobacion.yml"
+    prefix: /aprobacion
 
 planificacion_ajax_get_objetivos_form:
     path:     /objetivos
@@ -28,7 +28,7 @@ planificacion_ajax_get_objetivos_form:
 
 planificacion_ajax_bibliografia:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-bibliografia.yml"
-    prefix:     /bibliografia
+    prefix: /bibliografia
 
 planificacion_ajax_get_carga_horaria_form:
     path:     /carga-horaria

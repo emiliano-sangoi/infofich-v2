@@ -64,6 +64,7 @@ function cargarFormInfoBasica() {
  * @returns {undefined}
  */
 function onGuardarInfoBasicaClick(e) {
+    alert('sfsfdsdfsd');
     e.preventDefault();
 
     var dialog = crearDialogEspera('Guardandando ...');

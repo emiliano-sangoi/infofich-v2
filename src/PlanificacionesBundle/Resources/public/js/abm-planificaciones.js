@@ -43,7 +43,7 @@ $(document).ready(function () {
         e.preventDefault();
         if (typeof PLANIFICACION !== 'undefined') {
             tab_aprobacion.on('shown.bs.tab', function (e) {
-                getRequisitosAprobForm(SECCIONES.req_aprobacion, null);
+                getRequisitosAprobForm();
             });
             tab_aprobacion.tab('show');
         } else {

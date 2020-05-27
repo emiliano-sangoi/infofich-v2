@@ -1,56 +1,71 @@
+//Funcion llamada desde abm-planificaciones.js
+function getRequisitosAprobForm() {
 
-function getRequisitosAprobForm(url, data) {
-    
-    var dialog = crearDialogEspera('Cargando requisitos de aprobaci&oacute;n de la asignatura ...');
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
 
-    var success = function (response) {
+    var url = SECCIONES.req_aprobacion;
+    url = url.replace('--ID--', PLANIFICACION.id);
+    console.log(url, PLANIFICACION);
 
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-
-
-        var btn = $('#btn-guardar-requisitos');
-
-        if (btn.length > 0) {
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postRequisitosAprobForm(url, form_data);
-
-            });
-        }
-
-        dialog.modal('hide');
-    };
-
-    $.ajax({
+     var jqxhr = $.ajax({
         method: "GET",
         url: url,
-        data: data,
-        success: success,
+        data: null,
+        success: updateReqAprobacionHTML,
         dataType: 'html'
     });
-
+    
+    
+    jqxhr.always(function () {
+       // dialog.modal('hide');
+    });
 }
 
 
-function postRequisitosAprobForm(url, form_data) {
+function onGuardarReqAprobacionClick(e) {
 
-    var success = function (response) {
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-    };
+    e.preventDefault();
 
-    $.ajax({
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
+
+    var dialog = crearDialogEspera('Guardando Requisitos ...');
+
+
+    var url = SECCIONES.req_aprobacion;
+    url = url.replace('--ID--', PLANIFICACION.id);
+
+    var form_data = $('form').serialize();
+
+    var jqxhr = $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: success,
+        success: updateReqAprobacionHTML,
         dataType: 'html'
     });
 
+    jqxhr.always(function () {
+        dialog.modal('hide');
+    });
 
+
+}
+
+function updateReqAprobacionHTML(response) {
+    //console.log(response);
+    //alert('wasap');
+    var target = $('#tab-content');
+    target.hide().html(response);
+
+    // actualizar eventos
+    target.find('.js-select2').select2({
+        allowClear: true,
+        containerCssClass: 'fix-select2-styles'
+    });
+
+    target.fadeIn();
 }
