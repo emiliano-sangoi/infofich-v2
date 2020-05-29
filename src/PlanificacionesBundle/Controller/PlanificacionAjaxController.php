@@ -1,7 +1,7 @@
 <?php
 
 namespace PlanificacionesBundle\Controller;
-
+use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\CargaHoraria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,8 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 class PlanificacionAjaxController extends Controller {
     
 
-    public function getObjetivosFormAction() {
+    public function editObjetivosAction(Request $request, Planificacion $planificacion) {
+
+	$form = $this->createForm("PlanificacionesBundle\Form\ObjetivosType", $planificacion);
+        $form->handleRequest($request);        
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            die('adoiajsdaosdijasd');
+        }
         return $this->render('PlanificacionesBundle:Planificacion:tab-objetivos.html.twig', array(
+                    'form' => $form->createView()
                         // ...
         ));
     }

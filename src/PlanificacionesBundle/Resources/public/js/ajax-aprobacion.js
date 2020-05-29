@@ -6,7 +6,9 @@ function getRequisitosAprobForm() {
     }
 
     var url = SECCIONES.req_aprobacion;
+    
     url = url.replace('--ID--', PLANIFICACION.id);
+    
     console.log(url, PLANIFICACION);
 
      var jqxhr = $.ajax({
@@ -36,6 +38,7 @@ function onGuardarReqAprobacionClick(e) {
 
 
     var url = SECCIONES.req_aprobacion;
+
     url = url.replace('--ID--', PLANIFICACION.id);
 
     var form_data = $('form').serialize();
@@ -57,8 +60,8 @@ function onGuardarReqAprobacionClick(e) {
 
 function updateReqAprobacionHTML(response) {
     //console.log(response);
-    //alert('wasap');
-    var target = $('#tab-content');
+    alert('wasap');
+    /*var target = $('#tab-content');
     target.hide().html(response);
 
     // actualizar eventos
@@ -67,5 +70,5 @@ function updateReqAprobacionHTML(response) {
         containerCssClass: 'fix-select2-styles'
     });
 
-    target.fadeIn();
+    target.fadeIn();*/
 }

@@ -22,9 +22,9 @@ planificacion_ajax_requisitos_aprob:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-aprobacion.yml"
     prefix: /aprobacion
 
-planificacion_ajax_get_objetivos_form:
-    path:     /objetivos
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getObjetivosForm }
+planificaciones_ajax_objetivos:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-objetivos.yml"
+    prefix: /objetivos
 
 planificacion_ajax_bibliografia:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-bibliografia.yml"

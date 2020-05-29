@@ -1,6 +1,17 @@
-
+//Funcion llamada desde abm-planificaciones.js
 function getObjetivosForm(url, data) {
 
+   
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
+
+    var url = SECCIONES.objetivos;
+    
+    url = url.replace('--ID--', PLANIFICACION.id);
+    
+    console.log(url, PLANIFICACION);
+    
     var dialog = crearDialogEspera('Cargando <em>Objetivos</em> ...');
 
     var success = function (response) {
