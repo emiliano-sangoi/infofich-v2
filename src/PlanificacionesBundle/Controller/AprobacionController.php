@@ -18,7 +18,7 @@ class AprobacionController extends Controller {
      * @return Response
      */
     public function editAction(Request $request, Planificacion $planificacion) {
-        var_dump($planificacion);exit;
+        //var_dump($planificacion);exit;
 
         $requisitosAprob = new RequisitosAprobacion();
         $form = $this->createForm("PlanificacionesBundle\Form\RequisitosAprobacionType", $requisitosAprob);
