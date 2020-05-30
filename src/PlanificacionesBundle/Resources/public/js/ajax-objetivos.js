@@ -12,7 +12,7 @@ function getObjetivosForm(url, data) {
     
     console.log(url, PLANIFICACION);
     
-    var dialog = crearDialogEspera('Cargando <em>Objetivos</em> ...');
+    //var dialog = crearDialogEspera('Cargando <em>Objetivos</em> ...');
 
     var success = function (response) {
 
@@ -35,7 +35,7 @@ function getObjetivosForm(url, data) {
 
         }
 
-        dialog.modal('hide');
+        //dialog.modal('hide');
     };
 
     $.ajax({

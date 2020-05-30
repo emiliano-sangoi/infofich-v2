@@ -40,8 +40,6 @@ class PlanificacionController extends Controller {
 //        }
 
 
-
-
         return $this->render('PlanificacionesBundle:Planificacion:edit.html.twig', array(
                     'page_title' => 'Modificar planificación',
                     'planificacion' => $planificacion

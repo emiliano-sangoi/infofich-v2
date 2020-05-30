@@ -1,28 +1,50 @@
 //Funcion llamada desde abm-planificaciones.js
-function getRequisitosAprobForm() {
+function getRequisitosAprobForm(url, data) {
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
         return;
     }
 
     var url = SECCIONES.req_aprobacion;
-
+    
     url = url.replace('--ID--', PLANIFICACION.id);
-
+    
     console.log(url, PLANIFICACION);
+    
+    //var dialog = crearDialogEspera('Cargando <em>Requisitos Aprobación</em> ...');
 
-    var jqxhr = $.ajax({
+    var success = function (response) {
+
+        //console.log(response);
+        $('#tab-content').hide().html(response).fadeIn();
+
+        var btn = $('#btn-guardar-aprobacion');
+
+        if (btn.length > 0) {
+
+            btn.click(function (e) {
+                e.preventDefault();
+
+                //console.log("Clicccccck!!! ");
+                var form_data = $('form').serialize();
+                //console.log(form_data);
+                updateReqAprobacionForm(url, form_data);
+
+            });
+
+        }
+
+        //dialog.modal('hide');
+    };
+
+    $.ajax({
         method: "GET",
         url: url,
-        data: null,
-        success: updateReqAprobacionHTML,
+        data: data,
+        success: success,
         dataType: 'html'
     });
 
-
-    jqxhr.always(function () {
-        // dialog.modal('hide');
-    });
 }
 
 
@@ -58,7 +80,7 @@ function onGuardarReqAprobacionClick(e) {
 
 }
 
-function updateReqAprobacionHTML(url, form_data) {
+function updateReqAprobacionForm(url, form_data) {
     //console.log(response);
 
     var success = function (response) {
@@ -73,16 +95,4 @@ function updateReqAprobacionHTML(url, form_data) {
         success: success,
         dataType: 'html'
     });
-
-
-    /*var target = $('#tab-content');
-     target.hide().html(response);
-     
-     // actualizar eventos
-     target.find('.js-select2').select2({
-     allowClear: true,
-     containerCssClass: 'fix-select2-styles'
-     });
-     
-     target.fadeIn();*/
 }

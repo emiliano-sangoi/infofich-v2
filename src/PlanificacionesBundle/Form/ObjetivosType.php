@@ -35,7 +35,7 @@ class ObjetivosType extends AbstractType {
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
                 'class' => 'btn btn-secondary',
-                //'onclick' => 'onGuardarCronogramaClick(event);'
+                'onclick' => 'onGuardarObjetivosClick(event);'
             ),
             'label' => 'Guardar'
         ));
