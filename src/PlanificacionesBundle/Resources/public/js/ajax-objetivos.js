@@ -19,22 +19,6 @@ function getObjetivosForm(url, data) {
         //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
 
-        var btn = $('#btn-guardar-objetivos');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postObjetivosForm(url, form_data);
-
-            });
-
-        }
-
         //dialog.modal('hide');
     };
 
@@ -49,7 +33,7 @@ function getObjetivosForm(url, data) {
 }
 
 
-function postObjetivosForm(url, form_data) {
+/*function postObjetivosForm(url, form_data) {
 
     var success = function (response) {
         //console.log(response);
@@ -64,8 +48,7 @@ function postObjetivosForm(url, form_data) {
         dataType: 'html'
     });
 
-
-}
+}*/
 
 /**
  * Comment
@@ -84,12 +67,9 @@ function onGuardarObjetivosClick(e) {
 
     var form_data = $('form').serialize();
 
-    var onGuardarClickSuccess = function (planificacion_id) {
-      /*  var goto = SECCIONES.objetivos;
-        goto = goto.replace('--ID--', planificacion_id);
-        console.log(goto, SECCIONES.objetivos, planificacion_id);*/
-        window.location.href = goto;
-        alert('no se porque no muestra cartel');
+    var onGuardarClickSuccess = function (response) {
+        $('#tab-content').hide().html(response).fadeIn();
+        dialog.modal('hide');
     };
 
     var jqxhr = $.ajax({

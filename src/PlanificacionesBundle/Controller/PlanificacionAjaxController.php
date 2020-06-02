@@ -34,7 +34,6 @@ class PlanificacionAjaxController extends Controller {
                 $em->persist($planificacion);
                 $em->flush();
 
-
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
                 return $this->redirectToRoute('planificacion_ajax_objetivos_editar', array('id' => $planificacion->getId()));
