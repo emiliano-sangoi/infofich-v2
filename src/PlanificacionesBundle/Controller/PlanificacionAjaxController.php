@@ -34,10 +34,11 @@ class PlanificacionAjaxController extends Controller {
                 $em->persist($planificacion);
                 $em->flush();
 
-                $this->addFlash('success', 'Los datos de esta sección fueron modificados correctamente.');
 
-                //Causar redireccion para evitar "re-submits" del form:
-                return $this->redirect('planificacion_ajax_objetivos_editar', array('id' => $planificacion->getId()));
+                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+
+                return $this->redirectToRoute('planificacion_ajax_objetivos_editar', array('id' => $planificacion->getId()));
+                
             } else {
                 $statusCode = Response::HTTP_BAD_REQUEST;
                 $this->addFlash('error', 'Hay errores en el formulario.');

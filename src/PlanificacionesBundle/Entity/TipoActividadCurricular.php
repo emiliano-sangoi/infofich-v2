@@ -12,10 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoActividadCurricular {
 
-    const ACTIVIDAD1 = 'Ejemplo1';
-    const ACTIVIDAD2 = 'Ejemplo2';
-    const ACTIVIDAD3 = 'Ejemplo3';
-    const ACTIVIDAD4 = 'Ejemplo4';
+    const ACTIVIDAD1 = 'Clase teórica';
+    const ACTIVIDAD2 = 'Coloquio';
+    const ACTIVIDAD3 = 'Seminario';
+    const ACTIVIDAD4 = 'Trabajo práctico';
+    const ACTIVIDAD5 = 'Taller';
+    const ACTIVIDAD6 = 'Clase teórico–práctica';
+    const ACTIVIDAD7 = 'Resolución de problemas';
+    const ACTIVIDAD8 = 'Consulta';
+    const ACTIVIDAD9 = 'Evaluaciones en sus diversas modalidades';
+    const ACTIVIDAD10 = 'Empleo de plataformas virtuales de aprendizaje';
+    const ACTIVIDAD11 = 'Otras actividades';
 
     /**
      * @var int

@@ -25,6 +25,35 @@ class CargaTiposActCurricular extends AbstractFixture implements FixtureInterfac
         $actividadCurricular = new TipoActividadCurricular();
         $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD4);
         $manager->persist($actividadCurricular);
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD5);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD6);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD7);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD8);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD9);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD10);
+        $manager->persist($actividadCurricular);
+
+        $actividadCurricular = new TipoActividadCurricular();
+        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD11);
+        $manager->persist($actividadCurricular);
+
+        
         
         $manager->flush();
         

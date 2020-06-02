@@ -84,11 +84,19 @@ function onGuardarObjetivosClick(e) {
 
     var form_data = $('form').serialize();
 
+    var onGuardarClickSuccess = function (planificacion_id) {
+      /*  var goto = SECCIONES.objetivos;
+        goto = goto.replace('--ID--', planificacion_id);
+        console.log(goto, SECCIONES.objetivos, planificacion_id);*/
+        window.location.href = goto;
+        alert('no se porque no muestra cartel');
+    };
+
     var jqxhr = $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: postObjetivosForm,
+        success: onGuardarClickSuccess,
         dataType: 'html'
     });
 
