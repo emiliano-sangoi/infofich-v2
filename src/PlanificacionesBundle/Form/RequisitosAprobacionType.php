@@ -22,34 +22,43 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
 
-        $builder->add('fechaPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('fechaPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Primer Parcial',
-            'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+
+        $builder->add('fechaSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Segundo Parcial',
-            'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupPrimerParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+
+        $builder->add('fechaRecupPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Primer Parcial',
-            'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('fechaRecupSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Segundo Parcial',
-            'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
-
 
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Teoría',
@@ -68,17 +77,22 @@ class RequisitosAprobacionType extends AbstractType {
             'attr' => array('class' => '')
         ));
 
-        $builder->add('fechaParcailCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Fecha integrador',
+        $builder->add('fechaParcailCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
             'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label' => 'Fecha integrador',
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('fechaRecupCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Recuperatorio',
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
         $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -100,16 +114,16 @@ class RequisitosAprobacionType extends AbstractType {
                 'class' => 'form-control'
             )
         ));
-        
+
         $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'mapped'=>false,
+            'mapped' => false,
             'label' => 'Prevé promoción ',
             'choices' => array('Sí', 'No'),
             'expanded' => true,
             'attr' => array('class' => '',
-                            'onchange'=>"onChangePreve(event);")
+                'onchange' => "onChangePreve(event);")
         ));
-        
+
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
                 'class' => 'btn btn-secondary',
