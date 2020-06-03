@@ -42,7 +42,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('fechaSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Segundo Parcial',
             'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            //'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
@@ -56,7 +56,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('fechaRecupSegundoParcial', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Segundo Parcial',
             'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            //'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
@@ -81,7 +81,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('fechaParcailCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Fecha integrador',
             'required' => true,
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            //'choices' => array(date('d/m/Y'), date('Y') + 1),
             'attr' => array('class' => 'form-control')
         ));
 
@@ -125,7 +125,7 @@ class RequisitosAprobacionType extends AbstractType {
                 'class' => 'btn btn-secondary',
                 'onclick' => 'onGuardarReqAprobacionClick(event);'
             ),
-            'label' => 'Guardar Capo'
+            'label' => 'Guardar'
         ));
 
         $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
