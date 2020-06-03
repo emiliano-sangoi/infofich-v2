@@ -62,17 +62,6 @@ class InfoBasicaController extends Controller {
      */
     public function postAction(Request $request) {
 
-       /* $em = $this->getDoctrine()->getManager();
-        if ($id_planificacion) {
-            $planificacion = $em->getRepository('PlanificacionesBundle:Planificacion')->findOneBy($id_planificacion);
-            if (!$planificacion) {
-                throw new NotFoundHttpException("No se encontro ninguna planificacion con id $id_planificacion.");
-            }
-        } else {
-            $planificacion = new Planificacion();
-        }*/
-        //$statusCode = Response::HTTP_BAD_REQUEST;
-        dump($this->get('api_infofich_service'));exit;
         $planificacion = new Planificacion();
         $form = $this->crearForm($planificacion);
         
@@ -85,10 +74,8 @@ class InfoBasicaController extends Controller {
 
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
-                //$statusCode = Response::HTTP_OK;
                 return new Response($planificacion->getId());
-                //Causar redireccion para evitar "re-submits" del form:
-                //return $this->redirectToRoute('planificaciones_ajax_info_basica_edit', array('id' => $planificacion->getId()));
+
             }else{
                 $this->addFlash('error', 'Hay errores en el formulario.');
             }
@@ -98,7 +85,6 @@ class InfoBasicaController extends Controller {
             'form' => $form->createView(),
             'planificacion' => $planificacion
         ));
-        //$response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         $response->setStatusCode(Response::HTTP_BAD_REQUEST);
 
         return $response;
