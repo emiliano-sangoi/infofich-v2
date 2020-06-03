@@ -77,20 +77,22 @@
                 <div class="mb-4 mt-4">
                     <h4>Requisitos para la promoción de la asignatura</h4>
                 </div>
+                    
                 <div class="form-row">
                     <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
-                        <label class="control-label"  for="promocion_parcial">Prevé promoción parcial </label>
-                    </div> 
-                </div>
-                <div class="form-row">
-                    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
-                        <label class="radio-inline">
+                    <!--    <label class="radio-inline">
                             Sí <input type="radio" name="promo_parcial_radio" checked>
                         </label>
                         <label class="radio-inline">
                             No <input type="radio" name="promo_parcial_radio">
                         </label>
+                    </div>-->
+                        {{ form_label(form.preveProm) }}
+                        {{ form_widget(form.preveProm) }}
+                        {{ form_errors(form.preveProm) }} 
+
                     </div>
+                    
                 </div>
                 <!-- Estas opciones deben aparecer Solo si se tilda Si arribaa -->
                 <p>Crep que estas 2 "Teoria-practica" solo deben aparecer si se tilda "Sí" arribaa</p>
@@ -167,7 +169,7 @@
 
                 <div class="form-row">
                     <div class="col-xs-12 col-sm-4">
-                        <button id="btn-guardar-aprobacion-asig" class="btn btn-primary" onclick="onGuardarReqAprobacionClick(event)">Guardar</button>
+                         {{ form_widget(form.submit) }}
                     </div>
                     <div class="col-xs-12 offset-4 col-sm-4 text-right">
                         {{ form_widget(form.reset) }}
