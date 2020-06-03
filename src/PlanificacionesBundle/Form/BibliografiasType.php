@@ -13,9 +13,9 @@ class BibliografiasType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('bibliografia', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+        $builder->add('bibliografiasPlanificacion', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
             // each entry in the array will be an "email" field
-            'entry_type' => 'PlanificacionesBundle\Form\BibliografiaType',
+            'entry_type' => 'PlanificacionesBundle\Form\BibliografiaPlanificacionType',
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
@@ -32,7 +32,10 @@ class BibliografiasType extends AbstractType {
                 'label' => false
             ),            
             //para que no cree una etiqueta obligatoria
-            'label' => false
+            'label' => false,
+             'constraints' => array(
+                        new \Symfony\Component\Validator\Constraints\Valid()
+                    )
         ));                
         
         $submit_opt = array(
@@ -53,16 +56,10 @@ class BibliografiasType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
+            'compound' => true
         ));
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix() {
-        return 'planificacionesbundle_bibliografia';
-    }
 
 }

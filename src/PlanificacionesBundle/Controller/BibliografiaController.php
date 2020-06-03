@@ -36,15 +36,15 @@ class BibliografiaController extends Controller {
             
             
             //Buscar las bibliografias de la base de datos
-            $BibliografiaOriginal = $em->getRepository('PlanificacionesBundle:Bibliografia')
+            $bibliografiasPlanificacion = $em->getRepository('PlanificacionesBundle:BibliografiaPlanificacion')
                     ->findBy(array('planificacion' => $planificacion));
             
             
-            foreach ($BibliografiaOriginal as $bibliografia) {
-                if (false === $planificacion->getBibliografiasPlanificacion()->contains($bibliografia)) {
+            foreach ($bibliografiasPlanificacion as $bp) {
+                if (false === $planificacion->getBibliografiasPlanificacion()->contains($bp)) {
                     // remove the Task from the Tag
-                    $planificacion->getBibliografiasPlanificacion->removeElement($bibliografia);
-                    $em->remove($bibliografia);
+                    $planificacion->getBibliografiasPlanificacion()->removeElement($bp);
+                    $em->remove($bp);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////
