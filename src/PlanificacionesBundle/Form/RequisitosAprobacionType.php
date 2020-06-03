@@ -113,9 +113,9 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
                 'class' => 'btn btn-secondary',
-                'onclick' => 'onGuardarReqAprobClick(event);'
+                'onclick' => 'onGuardarReqAprobacionClick(event);'
             ),
-            'label' => 'Guardar'
+            'label' => 'Guardar Capo'
         ));
 
         $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
