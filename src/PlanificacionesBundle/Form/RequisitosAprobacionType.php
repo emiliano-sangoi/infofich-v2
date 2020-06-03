@@ -2,7 +2,6 @@
 
 namespace PlanificacionesBundle\Form;
 
-use AppBundle\Service\APIInfofichService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -86,13 +85,10 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-            'widget' => 'single_text',
-            'format' => 'dd/MM/yyyy',
-            'required' => true,
+        $builder->add('fechaRecupCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Recuperatorio',
-            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
+            'choices' => array(date('d/m/Y'), date('Y') + 1),
+            'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -129,7 +125,7 @@ class RequisitosAprobacionType extends AbstractType {
                 'class' => 'btn btn-secondary',
                 'onclick' => 'onGuardarReqAprobacionClick(event);'
             ),
-            'label' => 'Guardar Capo'
+            'label' => 'Guardar'
         ));
 
         $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
