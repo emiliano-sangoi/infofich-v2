@@ -10,16 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RequisitosAprobacionType extends AbstractType {
 
     /**
-     *
-     * @var APIInfofichService 
-     */
-    private $apiInfofichService;
-
-    /* public function __construct(APIInfofichService $apiInfofichService) {
-      $this->apiInfofichService = $apiInfofichService;
-      } */
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {

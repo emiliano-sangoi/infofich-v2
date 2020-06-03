@@ -39,6 +39,11 @@ class ObjetivosType extends AbstractType {
             ),
             'label' => 'Guardar'
         ));
+
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Limpiar campos',
+            'attr' => array('class' => 'btn btn-secondary')
+        ));
     }
 
 /**
