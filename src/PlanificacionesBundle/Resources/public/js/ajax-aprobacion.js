@@ -9,32 +9,9 @@ function getRequisitosAprobForm(url, data) {
     
     url = url.replace('--ID--', PLANIFICACION.id);
     
-    console.log(url, PLANIFICACION);
-    
-    //var dialog = crearDialogEspera('Cargando <em>Requisitos Aprobación</em> ...');
-
     var success = function (response) {
 
-        //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
-
-        var btn = $('#btn-guardar-aprobacion');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                updateReqAprobacionForm(url, form_data);
-
-            });
-
-        }
-
-        //dialog.modal('hide');
     };
 
     $.ajax({
@@ -51,6 +28,8 @@ function getRequisitosAprobForm(url, data) {
 function onGuardarReqAprobacionClick(e) {
 
     e.preventDefault();
+    alert (123456);
+
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
         return;
@@ -65,11 +44,16 @@ function onGuardarReqAprobacionClick(e) {
 
     var form_data = $('form').serialize();
 
+    var onGuardarClickSuccess = function (response) {
+        $('#tab-content').hide().html(response).fadeIn();
+        dialog.modal('hide');
+    };
+
     var jqxhr = $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: updateReqAprobacionHTML,
+        success: onGuardarClickSuccess,
         dataType: 'html'
     });
 
@@ -79,7 +63,7 @@ function onGuardarReqAprobacionClick(e) {
 
 
 }
-
+/*
 function updateReqAprobacionForm(url, form_data) {
     //console.log(response);
 
@@ -96,10 +80,11 @@ function updateReqAprobacionForm(url, form_data) {
         dataType: 'html'
     });
 }
+*/
 
 function onChangePreve(e){
     e.preventDefault();
-    alert('lala');
+    alert('lala land');
     $(".preveProm").show();  
     //$(".preveProm").hide();
 }
