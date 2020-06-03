@@ -67,7 +67,7 @@ function onGuardarInfoBasicaClick(e) {
     
     e.preventDefault();
 
-    var dialog = crearDialogEspera('Guardandando ...');
+    var dialog = crearDialogEspera('Guardando ...');
 
     var onGuardarClickSuccess = function (planificacion_id) {        
         var goto = SECCIONES.editar_planif;

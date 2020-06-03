@@ -80,13 +80,6 @@
                     
                 <div class="form-row">
                     <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
-                    <!--    <label class="radio-inline">
-                            Sí <input type="radio" name="promo_parcial_radio" checked>
-                        </label>
-                        <label class="radio-inline">
-                            No <input type="radio" name="promo_parcial_radio">
-                        </label>
-                    </div>-->
                         {{ form_label(form.preveProm) }}
                         {{ form_widget(form.preveProm) }}
                         {{ form_errors(form.preveProm) }} 
@@ -95,8 +88,8 @@
                     
                 </div>
                 <!-- Estas opciones deben aparecer Solo si se tilda Si arribaa -->
-                <p>Crep que estas 2 "Teoria-practica" solo deben aparecer si se tilda "Sí" arribaa</p>
-                <div class="form-row">
+                
+                <div class="form-row preveProm">
                     <div class="form-group mb-0 offset-2 col-sm-2 col-xs-12">
                         {{ form_label(form.prevePromParcialTeoria) }}
                         {{ form_widget(form.prevePromParcialTeoria) }}

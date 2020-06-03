@@ -54,7 +54,10 @@ $(document).ready(function () {
 
     // ================================================================================================
     // OBJETIVOS
+    
     tab_objetivos.click(function (e) {
+    
+        $(".preveProm").hide();
         e.preventDefault();
         if (typeof PLANIFICACION !== 'undefined') {
             tab_objetivos.on('shown.bs.tab', function (e) {                

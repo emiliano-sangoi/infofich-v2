@@ -96,3 +96,10 @@ function updateReqAprobacionForm(url, form_data) {
         dataType: 'html'
     });
 }
+
+function onChangePreve(e){
+    e.preventDefault();
+    alert('lala');
+    $(".preveProm").show();  
+    //$(".preveProm").hide();
+}

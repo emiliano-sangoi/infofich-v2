@@ -1,5 +1,5 @@
 planificacion_ajax_objetivos_editar:
     path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:editObjetivos }
+    defaults: { _controller: PlanificacionesBundle:Objetivos:edit }
 
 
