@@ -34,10 +34,10 @@ class BibliografiaPlanificacion
      *
      * @var Bibliografia
      * 
-     * @ORM\ManyToOne(targetEntity="Bibliografia")
+     * @ORM\ManyToOne(targetEntity="Bibliografia", cascade={"persist"})
      * @ORM\JoinColumn(name="planif_bibliografias_id", referencedColumnName="id")
      */
-    private $biliografia;
+    private $bibliografia;
     
     
     /**
@@ -85,30 +85,6 @@ class BibliografiaPlanificacion
     }
 
     /**
-     * Set biliografia
-     *
-     * @param \PlanificacionesBundle\Entity\Bibliografia $biliografia
-     *
-     * @return BibliografiaPlanificacion
-     */
-    public function setBiliografia(\PlanificacionesBundle\Entity\Bibliografia $biliografia = null)
-    {
-        $this->biliografia = $biliografia;
-
-        return $this;
-    }
-
-    /**
-     * Get biliografia
-     *
-     * @return \PlanificacionesBundle\Entity\Bibliografia
-     */
-    public function getBiliografia()
-    {
-        return $this->biliografia;
-    }
-
-    /**
      * Set tipoBibliografia
      *
      * @param \PlanificacionesBundle\Entity\TipoBibliografia $tipoBibliografia
@@ -130,5 +106,29 @@ class BibliografiaPlanificacion
     public function getTipoBibliografia()
     {
         return $this->tipoBibliografia;
+    }
+
+    /**
+     * Set bibliografia
+     *
+     * @param \PlanificacionesBundle\Entity\Bibliografia $bibliografia
+     *
+     * @return BibliografiaPlanificacion
+     */
+    public function setBibliografia(\PlanificacionesBundle\Entity\Bibliografia $bibliografia = null)
+    {
+        $this->bibliografia = $bibliografia;
+
+        return $this;
+    }
+
+    /**
+     * Get bibliografia
+     *
+     * @return \PlanificacionesBundle\Entity\Bibliografia
+     */
+    public function getBibliografia()
+    {
+        return $this->bibliografia;
     }
 }

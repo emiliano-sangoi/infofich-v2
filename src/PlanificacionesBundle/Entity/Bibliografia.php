@@ -90,6 +90,14 @@ class Bibliografia
      * @ORM\Column(name="enlace_online", type="string", length=512, nullable=true)
      */
     private $enlaceOnline;
+    
+    public function __construct() {
+        $this->fechaConsultaOnline = new \DateTime();
+    }
+    
+    public function __toString() {
+        return $this->titulo;
+    }
 
 
     /**
@@ -342,4 +350,3 @@ class Bibliografia
         return $this->enlaceOnline;
     }
 }
-

@@ -2,7 +2,6 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,7 +22,9 @@ class PlanificacionController extends Controller {
         ));
     }
 
-    public function editAction(Request $request, Planificacion $planificacion) {
+    public function editAction(Request $request, \PlanificacionesBundle\Entity\Planificacion $planificacion) {
+        
+       // dump($planificacion, $this->get('api_infofich_service'));exit;
 
 //        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion);
 //        $form->handleRequest($request);

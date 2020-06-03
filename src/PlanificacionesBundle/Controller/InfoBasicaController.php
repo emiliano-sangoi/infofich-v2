@@ -18,7 +18,8 @@ class InfoBasicaController extends Controller {
         
         $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
             'method' => 'POST',
-            'action' => $action
+            'action' => $action,
+            'api_infofich_service' => $this->get('api_infofich_service')
         ));
         
         return $form;
@@ -35,7 +36,7 @@ class InfoBasicaController extends Controller {
 
         $planificacion = new Planificacion();
         $form = $this->crearForm($planificacion);
-
+//dump($planificacion, $this->get('api_infofich_service'));exit;
         return $this->render('PlanificacionesBundle:Planificacion:tab-informacion-basica.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion
@@ -71,7 +72,7 @@ class InfoBasicaController extends Controller {
             $planificacion = new Planificacion();
         }*/
         //$statusCode = Response::HTTP_BAD_REQUEST;
-        
+        dump($this->get('api_infofich_service'));exit;
         $planificacion = new Planificacion();
         $form = $this->crearForm($planificacion);
         

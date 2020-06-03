@@ -11,6 +11,7 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
 
@@ -29,8 +30,10 @@ class PlanificacionType extends AbstractType {
      */
     private $options;
 
-    public function __construct(APIInfofichService $apiInfofichService) {
-        $this->apiInfofichService = $apiInfofichService;
+//    public function __construct(APIInfofichService $apiInfofichService) {
+    public function __construct() {
+//        dump($apiInfofichService);exit;
+//        $this->apiInfofichService = $apiInfofichService;
 
         $this->planes = array();
     }
@@ -41,6 +44,11 @@ class PlanificacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->options = $options;
+        
+        $this->apiInfofichService = $options['api_infofich_service'];
+        if(!$this->apiInfofichService instanceof APIInfofichService){
+            throw new \Exception('El parametro: api_infofich_service debe ser instancia de AppBundle\Service\APIInfofichService');
+        }
 
         //Bandera que indica si se esta creando(id es null) o editando la planificacion:
         //$this->creandoPlanificacion = $this->planificacion->getId() === null;
@@ -183,7 +191,7 @@ class PlanificacionType extends AbstractType {
      * 
      * @param FormBuilderInterface $builder
      */
-    private function addAsignaturas(\Symfony\Component\Form\FormInterface $builder, $cod_carrera = null) {
+    private function addAsignaturas(FormInterface $builder, $cod_carrera = null) {
 
         $asignaturas = $this->getAsignaturas($cod_carrera);
 
@@ -239,7 +247,8 @@ class PlanificacionType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
-            'carrera_default' => WSHelper::CARRERA_II
+            'carrera_default' => WSHelper::CARRERA_II,
+            'api_infofich_service' => null
         ));
     }
 

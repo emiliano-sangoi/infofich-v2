@@ -1,6 +1,7 @@
-services:
-    planificaciones.form.type.planificacion:
-        class: PlanificacionesBundle\Form\PlanificacionType
-        arguments: ['@api_infofich_service']
-        tags:
-            - { name: form.type }
+#services:
+#    planificaciones.form.type.planificacion:
+#        class: PlanificacionesBundle\Form\PlanificacionType
+#        arguments: ['@api_infofich_service']
+#        autowired: true
+#        tags:
+#            - { name: form.type }
