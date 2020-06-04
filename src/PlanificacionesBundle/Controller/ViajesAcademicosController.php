@@ -45,7 +45,7 @@ class ViajesAcademicosController extends Controller {
             
             
             //Buscar los viajes academicos de la base de datos
-            $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajesAcademicos')
+            $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajeAcademico')
                     ->findBy(array('planificacion' => $planificacion));
             
             
