@@ -71,7 +71,10 @@
 
                 <div class="form-row">
                     <div class="col-xs-12 col-sm-4">
-                        {{ form_widget(form.submit) }}                        
+
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-verde'}}) }}
+                        {#{ form_widget(form.submit) }#}   
+                                             
                     </div>
                     <div class="col-xs-12 offset-4 col-sm-4 text-right">
                         {{ form_widget(form.reset) }}
