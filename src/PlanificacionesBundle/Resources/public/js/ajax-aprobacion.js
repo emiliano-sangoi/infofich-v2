@@ -6,9 +6,9 @@ function getRequisitosAprobForm(url, data) {
     }
 
     var url = SECCIONES.req_aprobacion;
-    
+
     url = url.replace('--ID--', PLANIFICACION.id);
-    
+
     var success = function (response) {
 
         $('#tab-content').hide().html(response).fadeIn();
@@ -28,7 +28,7 @@ function getRequisitosAprobForm(url, data) {
 function onGuardarReqAprobacionClick(e) {
 
     e.preventDefault();
-    alert (123456);
+    alert(123456);
 
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
@@ -64,27 +64,31 @@ function onGuardarReqAprobacionClick(e) {
 
 }
 /*
-function updateReqAprobacionForm(url, form_data) {
-    //console.log(response);
+ function updateReqAprobacionForm(url, form_data) {
+ //console.log(response);
+ 
+ var success = function (response) {
+ //console.log(response);
+ $('#tab-content').hide().html(response).fadeIn();
+ };
+ 
+ $.ajax({
+ method: "POST",
+ url: url,
+ data: form_data,
+ success: success,
+ dataType: 'html'
+ });
+ }
+ */
 
-    var success = function (response) {
-        //console.log(response);
-        $('#tab-content').hide().html(response).fadeIn();
-    };
+/*
+ * Funcion llamada desde el onchage de las opciones de PreveProm
+ */
+function onChangePreve(e) {
+    //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
+    //Caso contrario ocultar la Div PrevePromDiv
 
-    $.ajax({
-        method: "POST",
-        url: url,
-        data: form_data,
-        success: success,
-        dataType: 'html'
-    });
-}
-*/
-
-function onChangePreve(e){
-    e.preventDefault();
-    alert('lala land');
-    $(".preveProm").show();  
-    //$(".preveProm").hide();
+    //$(".prevePromDiv").show();
+    //$(".prevePromDiv").hide();
 }

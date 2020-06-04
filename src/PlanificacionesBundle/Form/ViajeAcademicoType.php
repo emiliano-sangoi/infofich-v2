@@ -54,11 +54,13 @@ class ViajeAcademicoType extends AbstractType {
                     'attr' => array(
                         'class' => 'form-control js-select2')
                 ))
-                ->add('fechaTentativa', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-                    'label' => 'Fecha Tentativa',
+                ->add('fechaTentativa', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'choices' => array(date('d/m/Y'), date('Y') + 1),
-                    'attr' => array('class' => 'form-control')
+                    'label' => 'Fecha tentativa',
+                    'label_attr' => array('class' => 'font-weight-bold')
                 ))
                 ->add('cantDias', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Cantidad de días',
@@ -66,19 +68,20 @@ class ViajeAcademicoType extends AbstractType {
                     'required' => false,
                     'attr' => array('class' => 'form-control')
                 ))
-                ->add('asignaturas', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+                ->add('asignaturas', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Asignaturas vinculadas',
-                    'required' => false,
-                    'choices' => array('Agregar Asig', 'Agregar Asig'),
-                    'attr' => array('class' => 'form-control')
-        ));
+                    'required' => true,
+                    'attr' => array(
+                        'rows' => 3,
+                        'class' => 'form-control')
+                        )
+        );
         /* ->add('planificacion')->add('asignaturas'); */
     }
 
-/**
+    /**
      * {@inheritdoc}
      */
-
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\ViajeAcademico'

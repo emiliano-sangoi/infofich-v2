@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="planif_viajes_academicos")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\ViajeAcademicoRepository")
  */
-class ViajeAcademico
-{
+class ViajeAcademico {
+
     /**
      * @var int
      *
@@ -70,7 +70,7 @@ class ViajeAcademico
      * @ORM\Column(name="cant_dias", type="smallint")
      */
     private $cantDias;
-    
+
     /**
      *
      * @var Planificacion
@@ -79,20 +79,14 @@ class ViajeAcademico
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
-    
+
     /**
+     * @var string
      *
-     * @var Asignatura
-     * 
-     * Many Users have Many Groups.
-     * @ORM\ManyToMany(targetEntity="Asignatura")
-     * @ORM\JoinTable(name="planif_asignaturas_viajes_academicos",
-     *      joinColumns={@ORM\JoinColumn(name="planif_viajes_academicos_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="planif_asignaturas_id", referencedColumnName="id")}
-     * )
+     * @ORM\Column(name="asignaturas", type="text")
      */
     private $asignaturas;
-    
+
     /**
      *
      * @var ArrayCollection
@@ -110,7 +104,6 @@ class ViajeAcademico
      * )
      */
     private $vehiculos;
-    
 
     public function __construct() {
         $this->asignaturas = new ArrayCollection;
@@ -122,8 +115,7 @@ class ViajeAcademico
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -134,8 +126,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setDescripcion($descripcion)
-    {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -146,8 +137,7 @@ class ViajeAcademico
      *
      * @return string
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->descripcion;
     }
 
@@ -158,8 +148,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setObjetivos($objetivos)
-    {
+    public function setObjetivos($objetivos) {
         $this->objetivos = $objetivos;
 
         return $this;
@@ -170,8 +159,7 @@ class ViajeAcademico
      *
      * @return string
      */
-    public function getObjetivos()
-    {
+    public function getObjetivos() {
         return $this->objetivos;
     }
 
@@ -182,8 +170,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setRecorrido($recorrido)
-    {
+    public function setRecorrido($recorrido) {
         $this->recorrido = $recorrido;
 
         return $this;
@@ -194,8 +181,7 @@ class ViajeAcademico
      *
      * @return string
      */
-    public function getRecorrido()
-    {
+    public function getRecorrido() {
         return $this->recorrido;
     }
 
@@ -206,8 +192,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setCantEstudiantes($cantEstudiantes)
-    {
+    public function setCantEstudiantes($cantEstudiantes) {
         $this->cantEstudiantes = $cantEstudiantes;
 
         return $this;
@@ -218,8 +203,7 @@ class ViajeAcademico
      *
      * @return int
      */
-    public function getCantEstudiantes()
-    {
+    public function getCantEstudiantes() {
         return $this->cantEstudiantes;
     }
 
@@ -230,8 +214,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setCantDocentes($cantDocentes)
-    {
+    public function setCantDocentes($cantDocentes) {
         $this->cantDocentes = $cantDocentes;
 
         return $this;
@@ -242,8 +225,7 @@ class ViajeAcademico
      *
      * @return int
      */
-    public function getCantDocentes()
-    {
+    public function getCantDocentes() {
         return $this->cantDocentes;
     }
 
@@ -254,8 +236,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setFechaTentativa($fechaTentativa)
-    {
+    public function setFechaTentativa($fechaTentativa) {
         $this->fechaTentativa = $fechaTentativa;
 
         return $this;
@@ -266,8 +247,7 @@ class ViajeAcademico
      *
      * @return \DateTime
      */
-    public function getFechaTentativa()
-    {
+    public function getFechaTentativa() {
         return $this->fechaTentativa;
     }
 
@@ -278,8 +258,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setCantDias($cantDias)
-    {
+    public function setCantDias($cantDias) {
         $this->cantDias = $cantDias;
 
         return $this;
@@ -290,42 +269,29 @@ class ViajeAcademico
      *
      * @return int
      */
-    public function getCantDias()
-    {
+    public function getCantDias() {
         return $this->cantDias;
     }
 
     /**
-     * Add asignatura
+     * Set asignaturas
      *
-     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     * @param string $asignaturas
      *
      * @return ViajeAcademico
      */
-    public function addAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
-    {
-        $this->asignaturas[] = $asignatura;
+    public function setAsignaturas($asignaturas) {
+        $this->asignaturas = $asignaturas;
 
         return $this;
     }
 
     /**
-     * Remove asignatura
-     *
-     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
-     */
-    public function removeAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
-    {
-        $this->asignaturas->removeElement($asignatura);
-    }
-
-    /**
      * Get asignaturas
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
-    public function getAsignaturas()
-    {
+    public function getAsignaturas() {
         return $this->asignaturas;
     }
 
@@ -336,8 +302,7 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
-    {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
         $this->planificacion = $planificacion;
 
         return $this;
@@ -348,11 +313,9 @@ class ViajeAcademico
      *
      * @return \PlanificacionesBundle\Entity\Planificacion
      */
-    public function getPlanificacion()
-    {
+    public function getPlanificacion() {
         return $this->planificacion;
     }
-
 
     /**
      * Add vehiculo
@@ -361,8 +324,8 @@ class ViajeAcademico
      *
      * @return ViajeAcademico
      */
-    public function addVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo)
-    {
+    public function addVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo) {
+        
         $this->vehiculos[] = $vehiculo;
 
         return $this;
@@ -373,8 +336,7 @@ class ViajeAcademico
      *
      * @param \PlanificacionesBundle\Entity\Vehiculo $vehiculo
      */
-    public function removeVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo)
-    {
+    public function removeVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo) {
         $this->vehiculos->removeElement($vehiculo);
     }
 
@@ -383,8 +345,8 @@ class ViajeAcademico
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getVehiculos()
-    {
+    public function getVehiculos() {
         return $this->vehiculos;
     }
+
 }

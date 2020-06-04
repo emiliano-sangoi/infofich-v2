@@ -35,17 +35,21 @@ class ViajesAcademicosType extends AbstractType
             'label' => false,
         ));                
         
-        $submit_opt = array(
+        
+       
+        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
                 'class' => 'btn btn-secondary',
                 'onclick' => 'onGuardarViajesAcademicosClick(event);'
-             ),
-            'label' => 'Guardar cambios'
-        );                
-        
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
-        
-                /*->add('planificacion')->add('asignaturas');*/
+            ),
+            'label' => 'Guardar'
+        ));
+
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Limpiar campos',
+            'attr' => array('class' => 'btn btn-secondary')
+        ));
+           
     }/**
      * {@inheritdoc}
      */

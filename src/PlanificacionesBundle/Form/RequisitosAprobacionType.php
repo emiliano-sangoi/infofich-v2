@@ -61,11 +61,13 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Teoría',
+            'required' => false,
                 //'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Práctica',
+            'required' => false,
                 // 'attr' => array('class' => 'form-control')
         ));
 
@@ -85,10 +87,13 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('fechaRecupCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => true,
             'label' => 'Recuperatorio',
-            'choices' => array(date('d/m/Y'), date('Y') + 1),
-            'attr' => array('class' => 'form-control')
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
         $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -112,11 +117,11 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
         $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'mapped' => false,
-            'label' => 'Prevé promoción ',
+            'mapped'=> false,
+            'label' => 'Prevé promoción',
             'choices' => array('Sí', 'No'),
             'expanded' => true,
-            'attr' => array('class' => '',
+            'attr' => array('class' => '',        
                 'onchange' => "onChangePreve(event);")
         ));
 
