@@ -533,6 +533,9 @@ class Planificacion
      */
     public function setRequisitosAprobacion(\PlanificacionesBundle\Entity\RequisitosAprobacion $requisitosAprobacion = null)
     {
+        // Esto es para setear la planificacion en RequisitoAprobacion:
+        $requisitosAprobacion->setPlanificacion($this);
+        
         $this->requisitosAprobacion = $requisitosAprobacion;
 
         return $this;
