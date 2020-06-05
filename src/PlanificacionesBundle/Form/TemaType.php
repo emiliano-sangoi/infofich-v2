@@ -16,7 +16,7 @@ class TemaType extends AbstractType
 
         $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
             'label' => 'Nro. Unidad',
-            //'help' => 'El número de Unidad correspondiente al tema.',
+            'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array('class' => 'form-control required')
         ));
 
