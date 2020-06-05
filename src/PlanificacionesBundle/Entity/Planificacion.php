@@ -509,6 +509,9 @@ class Planificacion
      */
     public function setCargaHoraria(\PlanificacionesBundle\Entity\CargaHoraria $cargaHoraria = null)
     {
+        // Esto es para setear la planificacion en CargaHoraria:
+        $cargaHoraria->setPlanificacion($this);
+        
         $this->cargaHoraria = $cargaHoraria;
 
         return $this;

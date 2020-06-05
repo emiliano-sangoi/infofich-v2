@@ -30,8 +30,8 @@ planificacion_ajax_bibliografia:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-bibliografia.yml"
     prefix: /bibliografia
 
-planificacion_ajax_get_carga_horaria_form:
-    path:     /carga-horaria
-    defaults: { _controller: PlanificacionesBundle:PlanificacionAjax:getCargaHorariaForm }
+planificacion_ajax_distribucion_form:
+    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-distribucion.yml"
+    prefix: /carga-horaria
 
 

@@ -1,30 +1,17 @@
-
+//Funcion llamada desde abm-planificaciones.js
 function getDistribucionForm(url, data) {
 
-    var dialog = crearDialogEspera('Cargando distribucion de carga horaria...');
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
+
+    var url = SECCIONES.distribucion;
+
+    url = url.replace('--ID--', PLANIFICACION.id);
 
     var success = function (response) {
 
-        //console.log(response);
         $('#tab-content').hide().html(response).fadeIn();
-
-        var btn = $('#btn-guardar-distribucion');
-
-        if (btn.length > 0) {
-
-            btn.click(function (e) {
-                e.preventDefault();
-
-                //console.log("Clicccccck!!! ");
-                var form_data = $('form').serialize();
-                //console.log(form_data);
-                postDistribucionForm(url, form_data);
-
-            });
-
-        }
-
-        dialog.modal('hide');
     };
 
     $.ajax({
@@ -38,19 +25,38 @@ function getDistribucionForm(url, data) {
 }
 
 
-function postDistribucionForm(url, form_data) {
+function onGuardarDistribucionClick(e) {
 
-    var success = function (response) {
-        //console.log(response);
+    e.preventDefault();
+
+    if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
+        return;
+    }
+
+    var dialog = crearDialogEspera('Guardando Distribucion ...');
+
+
+    var url = SECCIONES.distribucion;
+
+    url = url.replace('--ID--', PLANIFICACION.id);
+
+    var form_data = $('form').serialize();
+
+    var onGuardarClickSuccess = function (response) {
         $('#tab-content').hide().html(response).fadeIn();
+        dialog.modal('hide');
     };
 
-    $.ajax({
+    var jqxhr = $.ajax({
         method: "POST",
         url: url,
         data: form_data,
-        success: success,
+        success: onGuardarClickSuccess,
         dataType: 'html'
+    });
+
+    jqxhr.always(function () {
+        dialog.modal('hide');
     });
 
 

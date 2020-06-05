@@ -3,8 +3,8 @@
         <div class="card card-register mx-auto">
 
             <div class="card-body px-5">
-            {% include '::notificaciones.html.twig' %}
-               
+                {% include '::notificaciones.html.twig' %}
+
                 <div class="container mb-4 ml-10">
                     <h5>Distribución de carga horaria</h5>
                 </div>
@@ -94,16 +94,13 @@
                     </div> 
                 </div>
 
-                <div class="col-12 mt-s text-right mb-4">
-
-                    <button type="submit" class="btn btn btn-verde">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Guardar
-                    </button>
-
-                    <a href="#" class="btn btn-secondary">
-                        Cancelar
-                    </a>
+                <div class="form-row">
+                    <div class="col-xs-12 col-sm-4">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+                        {{ form_widget(form.reset) }}
+                    </div>
                 </div>
                 {{ form_end(form) }}
             </div>

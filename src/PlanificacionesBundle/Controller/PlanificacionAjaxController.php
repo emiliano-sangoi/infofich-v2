@@ -13,19 +13,4 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PlanificacionAjaxController extends Controller {
 
-    public function getCargaHorariaFormAction(Request $request) {
-
-        $cargaHoraria = new CargaHoraria();
-        $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-        }
-
-        return $this->render('PlanificacionesBundle:Planificacion:tab-distribucion.html.twig', array(
-                    'form' => $form->createView()
-        ));
-    }
-
 }
