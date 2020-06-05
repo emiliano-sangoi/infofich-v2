@@ -14,8 +14,9 @@ class TemaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
             'label' => 'Nro. Unidad',
+            //'help' => 'El número de Unidad correspondiente al tema.',
             'attr' => array('class' => 'form-control required')
         ));
 
@@ -33,7 +34,8 @@ class TemaType extends AbstractType
         );
 
 
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
