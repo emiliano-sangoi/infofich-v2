@@ -26,6 +26,10 @@ class Temario
      * @var int
      *
      * @ORM\Column(name="unidad", type="smallint")
+     * @Assert\Type(
+     *     type="int",
+     *     message="La unidad del tema debe ser un número entero")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $unidad;
 
@@ -33,7 +37,7 @@ class Temario
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=512)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $titulo;
 
