@@ -36,10 +36,10 @@ class TemarioType extends AbstractType {
         
         $submit_opt = array(
             'attr' => array(
-                'class' => 'btn btn-secondary',
+                'class' => 'btn bg-verde text-color-white',
                 'onclick' => 'onGuardarTemarioClick(event);'
              ),
-            'label' => 'Guardar cambios'
+            'label' => 'Guardar'
         );                
         
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
