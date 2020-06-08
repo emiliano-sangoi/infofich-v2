@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RequisitosAprobacion
@@ -46,6 +47,10 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_parcail_cfi", type="datetime", nullable=true)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * 
      */
     private $fechaParcailCfi;
 
@@ -53,6 +58,13 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_recup_cfi", type="datetime", nullable=true)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\Expression(
+     *     "this.getfechaRecupCfi() > this.getFechaParcailCfi()",
+     *     message="La fecha de recuperatorio debe ser mayor a la fecha de parcial."
+     * ) 
      */
     private $fechaRecupCfi;
 
@@ -67,6 +79,13 @@ class RequisitosAprobacion
      * @var string
      *
      * @ORM\Column(name="porcentaje_asistencia", type="decimal", precision=4, scale=1)
+     * @Assert\Range(
+     *      min = "70",
+     *      max = "100",
+     *      minMessage = "El valor debe ser mayor a {{ limit }}",
+     *      maxMessage = "El valor debe ser mayor a {{ limit }}"
+     * )
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
     private $porcentajeAsistencia;
 
