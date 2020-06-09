@@ -28,6 +28,7 @@ class TemaType extends AbstractType
         
         $builder->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
             'label' => 'Contenido',
+            'required' => false,
             'attr' => array(
                 'rows' => 4,
                 'class' => 'form-control ')
