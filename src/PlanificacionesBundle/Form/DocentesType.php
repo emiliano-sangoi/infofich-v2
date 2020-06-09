@@ -77,10 +77,10 @@ class DocentesType extends AbstractType {
 
         $submit_opt = array(
             'attr' => array(
-                'class' => 'btn btn-secondary',
+                'class' => 'btn bg-verde text-color-white',
                 'onclick' => 'onGuardarCambiosDocentesClick(event);'
             ),
-            'label' => 'Guardar cambios'
+            'label' => 'Guardar'
         );
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);

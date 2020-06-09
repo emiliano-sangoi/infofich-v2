@@ -109,11 +109,11 @@ class PlanificacionType extends AbstractType {
         ));
 
         $submit_opt = array(
-            'attr' => array('class' => 'btn btn-secondary')     // 'btn btn-verde')
+            'attr' => array('class' => 'btn bg-verde text-color-white')     
         );
 
         if ($builder->getData()->getId()) {
-            $submit_opt['label'] = 'Guardar cambios';
+            $submit_opt['label'] = 'Guardar';
             $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
         } else {
             $submit_opt['label'] = 'Crear';
