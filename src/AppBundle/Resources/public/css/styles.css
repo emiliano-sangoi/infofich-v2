@@ -437,6 +437,9 @@ form {
   form .form-row {
     margin-bottom: 2.5rem !important; }
 
+#tab-pane-temario form .form-row {
+  margin-bottom: 1rem !important; }
+
 .fix-select2-styles {
   /*height: calc(1.5em + .75rem + 2px) !important;*/
   /*background-color: yellow !important;*/
@@ -453,15 +456,6 @@ form {
   border: 1px solid #ced4da !important;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
 
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 23, 2020, 8:49:35 PM
-    Author     : emi88
-*/
 /*--------------------------------------------------------------------------------------------------------*/
 /* Tipografias */
 /* Fin Tipografias */

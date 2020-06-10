@@ -12,12 +12,15 @@
         /*height: calc(1.5em + .75rem + 2px) !important;*/
 
         /*.select2-selection .select2-selection--single{*/
-            /*height: 100% !important;*/
+        /*height: 100% !important;*/
         /*}*/
 
 
     }
 }
+
+
+
 
 
 
@@ -30,26 +33,31 @@ form {
 
     .form-row{
         margin-bottom: 2.5rem !important;
-
-
     }
 
-/*    select.select2-js{
-        background-color: red !important;
-    }*/
-    
-/*    select, span.select2{
-        background-color: blue !important;
-    }*/
+    /*    select.select2-js{
+            background-color: red !important;
+        }*/
+
+    /*    select, span.select2{
+            background-color: blue !important;
+        }*/
 
 
 }
 
+#tab-pane-temario {
+    form .form-row{
+        margin-bottom: 1rem !important;
+    }
+}
+
+
 .fix-select2-styles{
     /*height: calc(1.5em + .75rem + 2px) !important;*/
     /*background-color: yellow !important;*/
-    
-    
+
+
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px) !important;;

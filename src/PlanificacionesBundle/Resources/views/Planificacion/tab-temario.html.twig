@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-temario">
+<div class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-temario" id="tab-pane-temario">
     <div class="container" >
         <div class="card card-register mx-auto">
 
@@ -12,8 +12,10 @@
 
 {#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
 {#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
-                {% form_theme form 'jquery.collection.html.twig'  %}
-                {{ form(form) }}
+              {#  {% form_theme form 'jquery.collection.html.twig'  %}
+                {{ form(form) }}#}
+                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig'  %}
+            {{ form(form) }}  
 
 {#                {% include 'temario-item.html.twig' %}#}
 
