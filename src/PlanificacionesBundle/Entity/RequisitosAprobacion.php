@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="planif_requisitos_aprobacion")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\RequisitosAprobacionRepository")
  */
-class RequisitosAprobacion
-{
+class RequisitosAprobacion {
+
     /**
      * @var int
      *
@@ -40,6 +40,7 @@ class RequisitosAprobacion
      * @var bool
      *
      * @ORM\Column(name="preve_cfi", type="boolean")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
     private $preveCfi;
 
@@ -47,7 +48,6 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_parcail_cfi", type="datetime", nullable=true)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * 
@@ -58,13 +58,8 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_recup_cfi", type="datetime", nullable=true)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
-     * @Assert\Expression(
-     *     "this.getfechaRecupCfi() > this.getFechaParcailCfi()",
-     *     message="La fecha de recuperatorio debe ser mayor a la fecha de parcial."
-     * ) 
      */
     private $fechaRecupCfi;
 
@@ -72,6 +67,12 @@ class RequisitosAprobacion
      * @var string
      *
      * @ORM\Column(name="modalidad_cfi", type="string", length=512, nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 512,
+     *      minMessage = "Este campo debe tener como mínimo {{ limit }} caracteres",
+     *      maxMessage = "Este campo debe tener como máximo {{ limit }} caracteres"
+     * )
      */
     private $modalidadCfi;
 
@@ -82,8 +83,8 @@ class RequisitosAprobacion
      * @Assert\Range(
      *      min = "70",
      *      max = "100",
-     *      minMessage = "El valor debe ser mayor a {{ limit }}",
-     *      maxMessage = "El valor debe ser mayor a {{ limit }}"
+     *      minMessage = "El valor debe ser mayor o igual a {{ limit }}",
+     *      maxMessage = "El valor debe ser menor  o igual a {{ limit }}"
      * )
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
@@ -93,6 +94,9 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_primer_parcial", type="datetime")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaPrimerParcial;
 
@@ -100,6 +104,13 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_segundo_parcial", type="datetime")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\Expression(
+     *     "this.getFechaSegundoParcial() > this.getFechaPrimerParcial()",
+     *     message="Este campo debe ser mayor a la fecha de primer parcial."
+     * )
      */
     private $fechaSegundoParcial;
 
@@ -107,6 +118,13 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_recup_primer_parcial", type="datetime")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\Expression(
+     *     "this.getFechaRecupPrimerParcial() > this.getFechaPrimerParcial()",
+     *     message="Este campo debe ser mayor a la fecha de segundo parcial."
+     * )
      */
     private $fechaRecupPrimerParcial;
 
@@ -114,6 +132,13 @@ class RequisitosAprobacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_recup_segundo_parcial", type="datetime")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\Expression(
+     *     "this.getFechaRecupSegundoParcial() > this.getFechaRecupPrimerParcial()",
+     *     message="Este campo debe ser mayor a la fecha del recuperatorio del primer parcial."
+     * )
      */
     private $fechaRecupSegundoParcial;
 
@@ -121,6 +146,12 @@ class RequisitosAprobacion
      * @var string
      *
      * @ORM\Column(name="examen_final_modalidad_regulares", type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 512,
+     *      minMessage = "Este campo debe tener como mínimo {{ limit }} caracteres",
+     *      maxMessage = "Este campo debe tener como máximo {{ limit }} caracteres"
+     * )
      */
     private $examenFinalModalidadRegulares;
 
@@ -128,9 +159,15 @@ class RequisitosAprobacion
      * @var string
      *
      * @ORM\Column(name="examen_final_modalidad_libres", type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 512,
+     *      minMessage = "Este campo debe tener como mínimo {{ limit }} caracteres",
+     *      maxMessage = "Este campo debe tener como máximo {{ limit }} caracteres"
+     * )
      */
     private $examenFinalModalidadLibres;
-    
+
     /**
      *
      * @var Planificacion
@@ -139,14 +176,12 @@ class RequisitosAprobacion
      */
     private $planificacion;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -157,8 +192,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setPrevePromParcialTeoria($prevePromParcialTeoria)
-    {
+    public function setPrevePromParcialTeoria($prevePromParcialTeoria) {
         $this->prevePromParcialTeoria = $prevePromParcialTeoria;
 
         return $this;
@@ -169,8 +203,7 @@ class RequisitosAprobacion
      *
      * @return bool
      */
-    public function getPrevePromParcialTeoria()
-    {
+    public function getPrevePromParcialTeoria() {
         return $this->prevePromParcialTeoria;
     }
 
@@ -181,8 +214,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setPrevePromParcialPractica($prevePromParcialPractica)
-    {
+    public function setPrevePromParcialPractica($prevePromParcialPractica) {
         $this->prevePromParcialPractica = $prevePromParcialPractica;
 
         return $this;
@@ -193,8 +225,7 @@ class RequisitosAprobacion
      *
      * @return bool
      */
-    public function getPrevePromParcialPractica()
-    {
+    public function getPrevePromParcialPractica() {
         return $this->prevePromParcialPractica;
     }
 
@@ -205,8 +236,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setPreveCfi($preveCfi)
-    {
+    public function setPreveCfi($preveCfi) {
         $this->preveCfi = $preveCfi;
 
         return $this;
@@ -217,8 +247,7 @@ class RequisitosAprobacion
      *
      * @return bool
      */
-    public function getPreveCfi()
-    {
+    public function getPreveCfi() {
         return $this->preveCfi;
     }
 
@@ -229,8 +258,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaParcailCfi($fechaParcailCfi)
-    {
+    public function setFechaParcailCfi($fechaParcailCfi) {
         $this->fechaParcailCfi = $fechaParcailCfi;
 
         return $this;
@@ -241,8 +269,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaParcailCfi()
-    {
+    public function getFechaParcailCfi() {
         return $this->fechaParcailCfi;
     }
 
@@ -253,8 +280,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaRecupCfi($fechaRecupCfi)
-    {
+    public function setFechaRecupCfi($fechaRecupCfi) {
         $this->fechaRecupCfi = $fechaRecupCfi;
 
         return $this;
@@ -265,8 +291,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaRecupCfi()
-    {
+    public function getFechaRecupCfi() {
         return $this->fechaRecupCfi;
     }
 
@@ -277,8 +302,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setModalidadCfi($modalidadCfi)
-    {
+    public function setModalidadCfi($modalidadCfi) {
         $this->modalidadCfi = $modalidadCfi;
 
         return $this;
@@ -289,8 +313,7 @@ class RequisitosAprobacion
      *
      * @return string
      */
-    public function getModalidadCfi()
-    {
+    public function getModalidadCfi() {
         return $this->modalidadCfi;
     }
 
@@ -301,8 +324,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setPorcentajeAsistencia($porcentajeAsistencia)
-    {
+    public function setPorcentajeAsistencia($porcentajeAsistencia) {
         $this->porcentajeAsistencia = $porcentajeAsistencia;
 
         return $this;
@@ -313,8 +335,7 @@ class RequisitosAprobacion
      *
      * @return string
      */
-    public function getPorcentajeAsistencia()
-    {
+    public function getPorcentajeAsistencia() {
         return $this->porcentajeAsistencia;
     }
 
@@ -325,8 +346,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaPrimerParcial($fechaPrimerParcial)
-    {
+    public function setFechaPrimerParcial($fechaPrimerParcial) {
         $this->fechaPrimerParcial = $fechaPrimerParcial;
 
         return $this;
@@ -337,8 +357,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaPrimerParcial()
-    {
+    public function getFechaPrimerParcial() {
         return $this->fechaPrimerParcial;
     }
 
@@ -349,8 +368,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaSegundoParcial($fechaSegundoParcial)
-    {
+    public function setFechaSegundoParcial($fechaSegundoParcial) {
         $this->fechaSegundoParcial = $fechaSegundoParcial;
 
         return $this;
@@ -361,8 +379,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaSegundoParcial()
-    {
+    public function getFechaSegundoParcial() {
         return $this->fechaSegundoParcial;
     }
 
@@ -373,8 +390,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaRecupPrimerParcial($fechaRecupPrimerParcial)
-    {
+    public function setFechaRecupPrimerParcial($fechaRecupPrimerParcial) {
         $this->fechaRecupPrimerParcial = $fechaRecupPrimerParcial;
 
         return $this;
@@ -385,8 +401,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaRecupPrimerParcial()
-    {
+    public function getFechaRecupPrimerParcial() {
         return $this->fechaRecupPrimerParcial;
     }
 
@@ -397,8 +412,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setFechaRecupSegundoParcial($fechaRecupSegundoParcial)
-    {
+    public function setFechaRecupSegundoParcial($fechaRecupSegundoParcial) {
         $this->fechaRecupSegundoParcial = $fechaRecupSegundoParcial;
 
         return $this;
@@ -409,8 +423,7 @@ class RequisitosAprobacion
      *
      * @return \DateTime
      */
-    public function getFechaRecupSegundoParcial()
-    {
+    public function getFechaRecupSegundoParcial() {
         return $this->fechaRecupSegundoParcial;
     }
 
@@ -421,8 +434,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setExamenFinalModalidadRegulares($examenFinalModalidadRegulares)
-    {
+    public function setExamenFinalModalidadRegulares($examenFinalModalidadRegulares) {
         $this->examenFinalModalidadRegulares = $examenFinalModalidadRegulares;
 
         return $this;
@@ -433,8 +445,7 @@ class RequisitosAprobacion
      *
      * @return string
      */
-    public function getExamenFinalModalidadRegulares()
-    {
+    public function getExamenFinalModalidadRegulares() {
         return $this->examenFinalModalidadRegulares;
     }
 
@@ -445,8 +456,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setExamenFinalModalidadLibres($examenFinalModalidadLibres)
-    {
+    public function setExamenFinalModalidadLibres($examenFinalModalidadLibres) {
         $this->examenFinalModalidadLibres = $examenFinalModalidadLibres;
 
         return $this;
@@ -457,8 +467,7 @@ class RequisitosAprobacion
      *
      * @return string
      */
-    public function getExamenFinalModalidadLibres()
-    {
+    public function getExamenFinalModalidadLibres() {
         return $this->examenFinalModalidadLibres;
     }
 
@@ -469,8 +478,7 @@ class RequisitosAprobacion
      *
      * @return RequisitosAprobacion
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
-    {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
         $this->planificacion = $planificacion;
 
         return $this;
@@ -481,8 +489,8 @@ class RequisitosAprobacion
      *
      * @return \PlanificacionesBundle\Entity\Planificacion
      */
-    public function getPlanificacion()
-    {
+    public function getPlanificacion() {
         return $this->planificacion;
     }
+
 }

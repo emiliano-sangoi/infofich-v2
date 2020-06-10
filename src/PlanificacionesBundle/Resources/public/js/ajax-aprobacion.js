@@ -28,8 +28,6 @@ function getRequisitosAprobForm(url, data) {
 function onGuardarReqAprobacionClick(e) {
 
     e.preventDefault();
-    alert(123456);
-
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {
         return;

@@ -16,7 +16,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('porcentajeAsistencia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Asistencia',
             'required' => true,
-            'choices' => array(70, 80, 90, 100),
+            'choices' => array('70' => 70, '80' => 80, '90' => 90, '100' => 100),
             'attr' => array('class' => 'form-control')
         ));
 
@@ -59,6 +59,19 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
+        /*
+         * Este campo no esta mapeado
+         */
+        $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'mapped' => false,
+            'required' => true,
+            'label' => 'Prevé promoción',
+            'choices' => array('Sí', 'No'),
+            'expanded' => true,
+            'attr' => array('class' => '',
+                'onchange' => "onChangePreve(event);")
+        ));
+
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Teoría',
             'required' => false,
@@ -73,6 +86,7 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Prevé coloquio final integrador ',
+            'required' => true,
             'choices' => array('Sí', 'No'),
             'expanded' => true,
             'attr' => array('class' => '')
@@ -82,7 +96,7 @@ class RequisitosAprobacionType extends AbstractType {
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
-            'required' => true,
+            'required' => false,
             'label' => 'Fecha integrador',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
@@ -91,13 +105,14 @@ class RequisitosAprobacionType extends AbstractType {
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
-            'required' => true,
+            'required' => false,
             'label' => 'Recuperatorio',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
         $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Modalidad CFI',
+            'required' => false,
             'attr' => array(
                 'class' => 'form-control'
             )
@@ -105,24 +120,17 @@ class RequisitosAprobacionType extends AbstractType {
 
         $builder->add('examenFinalModalidadRegulares', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Modalidad estudiantes regulares',
+            'required' => false,
             'attr' => array(
                 'class' => 'form-control'
             )
         ));
         $builder->add('examenFinalModalidadLibres', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Modalidad estudiantes libres',
+            'required' => false,
             'attr' => array(
                 'class' => 'form-control'
             )
-        ));
-
-        $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'mapped'=> false,
-            'label' => 'Prevé promoción',
-            'choices' => array('Sí', 'No'),
-            'expanded' => true,
-            'attr' => array('class' => '',        
-                'onchange' => "onChangePreve(event);")
         ));
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
