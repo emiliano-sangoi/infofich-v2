@@ -51,13 +51,14 @@ class BibliografiaType extends AbstractType {
                 ))
                 ->add('issnIsbn', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'ISSN o ISBN',
-                    'required' => true,
+                    'required' => false,
                     'attr' => array(
                         'class' => 'form-control'
                     )
                 ))
                 ->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
                     'label' => 'Disponible en biblioteca',
+                    'required' => true,
                         //'attr' => array('class' => 'form-control')
                 ))
                 ->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
@@ -70,7 +71,7 @@ class BibliografiaType extends AbstractType {
                     'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
-                    'required' => true,
+                    'required' => false,
                     'label' => 'Fecha consulta online',
                     'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')));
 
@@ -78,6 +79,7 @@ class BibliografiaType extends AbstractType {
         $builder
                 ->add('enlaceOnline', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Enlace',
+                    'required' => false,
                     'attr' => array(
                         'class' => 'form-control'
                     )

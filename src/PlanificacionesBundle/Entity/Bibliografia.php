@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bibliografia
@@ -25,6 +26,7 @@ class Bibliografia
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=512)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $titulo;
 
@@ -32,6 +34,7 @@ class Bibliografia
      * @var string
      *
      * @ORM\Column(name="autores", type="string", length=512)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $autores;
 
@@ -39,6 +42,7 @@ class Bibliografia
      * @var string
      *
      * @ORM\Column(name="editorial", type="string", length=512)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $editorial;
 
@@ -46,6 +50,7 @@ class Bibliografia
      * @var int
      *
      * @ORM\Column(name="anio_edicion", type="smallint")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $anioEdicion;
 
@@ -53,6 +58,7 @@ class Bibliografia
      * @var int
      *
      * @ORM\Column(name="nro_edicion", type="smallint")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $nroEdicion;
 
@@ -67,6 +73,7 @@ class Bibliografia
      * @var bool
      *
      * @ORM\Column(name="disponible_biblioteca", type="boolean")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $disponibleBiblioteca;
 
@@ -74,6 +81,7 @@ class Bibliografia
      * @var bool
      *
      * @ORM\Column(name="disponible_online", type="boolean")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $disponibleOnline;
 
