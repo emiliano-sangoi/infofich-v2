@@ -28,6 +28,7 @@ function getCronogramaForm(url, data) {
 }
 
 function onGuardarCronogramaClick(e) {
+    alert('alo');
     e.preventDefault();    
 
     if (typeof PLANIFICACION === 'undefined' || typeof PLANIFICACION.id !== 'number') {

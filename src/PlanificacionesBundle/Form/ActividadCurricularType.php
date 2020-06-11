@@ -12,16 +12,39 @@ class ActividadCurricularType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('fecha', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('tipoActividadCurricular', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                    'label' => 'Tipo',
+                    'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
+                    'attr' => array(
+                        'class' => 'form-control js-select2')
+            ))                
+                
+                ->add('fecha', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                     'label' => 'Fecha',
-                    'required' => true,
-                    'choices' => array(date('d/m/Y'), date('Y') + 1),
-                    'attr' => array('class' => 'form-control')
+                    'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
                 ))
                 ->add('otras', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Otras',
+                    'required' => false,
                     'attr' => array(
                         'rows' => 3,
+                        'class' => 'form-control'
+                    )
+                ))
+                ->add('cargaHorariaAula', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                    'label' => 'Carga horaria en aula',
+                    'required' => false,
+                    'attr' => array(
+                        'class' => 'form-control'
+                    )
+                ))
+                ->add('cargaHorariaAutonomo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                    'label' => 'Horas de estudio autónomo',
+                    'required' => false,
+                    'attr' => array(
                         'class' => 'form-control'
                     )
                 ))
@@ -31,34 +54,16 @@ class ActividadCurricularType extends AbstractType {
                         'rows' => 3,
                         'class' => 'form-control'
                     )
-                ))
-                ->add('cargaHorariaAula', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Carga horaria en aula',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('cargaHorariaAutonomo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Horas de estudio autónomo',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
+                ))                
                 ->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Descripción',
+                    'required' => false,
                     'attr' => array(
                         'rows' => 3,
                         'class' => 'form-control'
                     )
-                ))
+                ));
                 //->add('planificacion')
-                ->add('tipoActividadCurricular', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                    'label' => 'Tipo',
-                    'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
-                    'attr' => array(
-                        'class' => 'form-control js-select2'
-                    ))
-        );
         //->add('temario');
     }
 

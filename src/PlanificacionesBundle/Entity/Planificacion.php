@@ -50,6 +50,7 @@ class Planificacion
      * @var string
      *
      * @ORM\Column(name="objetivos_gral", type="text", nullable=true)
+     * @Assert\Valid
      */
     private $objetivosGral;
 
@@ -57,6 +58,7 @@ class Planificacion
      * @var string
      *
      * @ORM\Column(name="objetivos_especificos", type="text", nullable=true)
+     * @Assert\Valid
      */
     private $objetivosEspecificos;
     

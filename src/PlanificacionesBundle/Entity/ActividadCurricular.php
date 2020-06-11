@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ActividadCurricular
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="planif_actividad_curricular")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\ActividadCurricularRepository")
  */
-class ActividadCurricular
-{
+class ActividadCurricular {
+
     /**
      * @var int
      *
@@ -25,13 +26,17 @@ class ActividadCurricular
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * 
      */
     private $fecha;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="otras", type="text")
+     * @ORM\Column(name="otras", type="text", nullable = true)
      */
     private $otras;
 
@@ -39,6 +44,7 @@ class ActividadCurricular
      * @var string
      *
      * @ORM\Column(name="contenido", type="text")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
     private $contenido;
 
@@ -46,13 +52,19 @@ class ActividadCurricular
      * @var string
      *
      * @ORM\Column(name="carga_horaria_aula", type="decimal", precision=6, scale=1, nullable=true)
-     */
+     * @Assert\Type(
+     *     type="double",
+     *     message="La carga horaria debe ser un número decimal")
+     */    
     private $cargaHorariaAula;
 
     /**
      * @var string
      *
      * @ORM\Column(name="carga_horaria_autonomo", type="decimal", precision=6, scale=1, nullable=true)
+     * @Assert\Type(
+     *     type="double",
+     *     message="La carga horaria debe ser un número decimal")
      */
     private $cargaHorariaAutonomo;
 
@@ -62,7 +74,7 @@ class ActividadCurricular
      * @ORM\Column(name="descripcion", type="text", nullable=true)
      */
     private $descripcion;
-    
+
     /**
      *
      * @var Planificacion
@@ -71,7 +83,7 @@ class ActividadCurricular
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
-    
+
     /**
      *
      * @var TipoActividadCurricular
@@ -80,7 +92,7 @@ class ActividadCurricular
      * @ORM\JoinColumn(name="planif_tipos_actividad_curricular_id", referencedColumnName="id") 
      */
     private $tipoActividadCurricular;
-    
+
     /**
      *
      * @var Temario
@@ -90,14 +102,12 @@ class ActividadCurricular
      */
     private $temario;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -108,8 +118,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setFecha($fecha)
-    {
+    public function setFecha($fecha) {
         $this->fecha = $fecha;
 
         return $this;
@@ -120,8 +129,7 @@ class ActividadCurricular
      *
      * @return \DateTime
      */
-    public function getFecha()
-    {
+    public function getFecha() {
         return $this->fecha;
     }
 
@@ -132,8 +140,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setOtras($otras)
-    {
+    public function setOtras($otras) {
         $this->otras = $otras;
 
         return $this;
@@ -144,8 +151,7 @@ class ActividadCurricular
      *
      * @return string
      */
-    public function getOtras()
-    {
+    public function getOtras() {
         return $this->otras;
     }
 
@@ -156,8 +162,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setContenido($contenido)
-    {
+    public function setContenido($contenido) {
         $this->contenido = $contenido;
 
         return $this;
@@ -168,8 +173,7 @@ class ActividadCurricular
      *
      * @return string
      */
-    public function getContenido()
-    {
+    public function getContenido() {
         return $this->contenido;
     }
 
@@ -180,8 +184,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setCargaHorariaAula($cargaHorariaAula)
-    {
+    public function setCargaHorariaAula($cargaHorariaAula) {
         $this->cargaHorariaAula = $cargaHorariaAula;
 
         return $this;
@@ -192,8 +195,7 @@ class ActividadCurricular
      *
      * @return string
      */
-    public function getCargaHorariaAula()
-    {
+    public function getCargaHorariaAula() {
         return $this->cargaHorariaAula;
     }
 
@@ -204,8 +206,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setCargaHorariaAutonomo($cargaHorariaAutonomo)
-    {
+    public function setCargaHorariaAutonomo($cargaHorariaAutonomo) {
         $this->cargaHorariaAutonomo = $cargaHorariaAutonomo;
 
         return $this;
@@ -216,8 +217,7 @@ class ActividadCurricular
      *
      * @return string
      */
-    public function getCargaHorariaAutonomo()
-    {
+    public function getCargaHorariaAutonomo() {
         return $this->cargaHorariaAutonomo;
     }
 
@@ -228,8 +228,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setDescripcion($descripcion)
-    {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -240,8 +239,7 @@ class ActividadCurricular
      *
      * @return string
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->descripcion;
     }
 
@@ -252,8 +250,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
-    {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
         $this->planificacion = $planificacion;
 
         return $this;
@@ -264,8 +261,7 @@ class ActividadCurricular
      *
      * @return \PlanificacionesBundle\Entity\Planificacion
      */
-    public function getPlanificacion()
-    {
+    public function getPlanificacion() {
         return $this->planificacion;
     }
 
@@ -276,8 +272,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setTipoActividadCurricular(\PlanificacionesBundle\Entity\TipoActividadCurricular $tipoActividadCurricular = null)
-    {
+    public function setTipoActividadCurricular(\PlanificacionesBundle\Entity\TipoActividadCurricular $tipoActividadCurricular = null) {
         $this->tipoActividadCurricular = $tipoActividadCurricular;
 
         return $this;
@@ -288,8 +283,7 @@ class ActividadCurricular
      *
      * @return \PlanificacionesBundle\Entity\TipoActividadCurricular
      */
-    public function getTipoActividadCurricular()
-    {
+    public function getTipoActividadCurricular() {
         return $this->tipoActividadCurricular;
     }
 
@@ -300,8 +294,7 @@ class ActividadCurricular
      *
      * @return ActividadCurricular
      */
-    public function setTemario(\PlanificacionesBundle\Entity\Temario $temario = null)
-    {
+    public function setTemario(\PlanificacionesBundle\Entity\Temario $temario = null) {
         $this->temario = $temario;
 
         return $this;
@@ -312,8 +305,8 @@ class ActividadCurricular
      *
      * @return \PlanificacionesBundle\Entity\Temario
      */
-    public function getTemario()
-    {
+    public function getTemario() {
         return $this->temario;
     }
+
 }
