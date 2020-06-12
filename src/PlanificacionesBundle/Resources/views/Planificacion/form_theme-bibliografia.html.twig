@@ -1,0 +1,79 @@
+{#{% block planificacionesbundle_tema_row %}
+    {{ dump(form) }}
+    <div class="form-row">
+        <div class="col-md-3">
+            {{ form_label(form.unidad) }}
+            {{ form_widget(form.unidad) }}
+            {{ form_errors(form.unidad) }}
+        </div>
+        <div class="col-md-9">
+            {{ form_label(form.titulo) }}            
+            {{ form_widget(form.titulo) }}     
+            {{ form_errors(form.titulo) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            {{ form_label(form.contenido) }}            
+            {{ form_widget(form.contenido) }}
+            {{ form_errors(form.contenido) }}
+        </div>
+    </div>
+            
+{% endblock %}#}
+
+{% block planificacionesbundle_bibliografia_widget %}
+    <div class="mb-5">
+        <div class="form-row">
+            <div class="col-md-2">
+                {{ form_label(form.titulo) }}
+                {{ form_widget(form.titulo) }}
+                {{ form_errors(form.titulo) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form.autores) }}            
+                {{ form_widget(form.autores) }}     
+                {{ form_errors(form.autores) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-8">
+                {{ form_label(form.editorial) }}            
+                {{ form_widget(form.editorial) }}
+                {{ form_errors(form.editorial) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-8 text-right">
+                <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
+                    <i class="fa fa-arrow-up"></i>
+                </a>
+
+                <a href="#" class="collection-down btn btn-sm btn-outline-secondary ml-1">
+                    <i class="fa fa-arrow-down"></i>
+                </a>
+
+                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1">
+                    <i class="fa fa-trash"></i>
+                </a>
+
+                <a href="#" class="collection-add btn btn-sm btn-outline-primary ml-1">
+                    <i class="fa fa-plus"></i>
+                </a>
+
+                {#<div class="col-md-1">
+                    <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
+                </div>#}
+            </div>
+        </div>
+    </div>
+    {#    {{ dump(form) }}#}
+    {#    {{ form_widget(form) }}#}
+    {#    <br/>
+        <p class="text-center">
+            <a href="#" class="btn btn-outline-primary collection-up btn btn-default">&lt;</a>
+            <a href="#" class="btn btn-outline-primary collection-remove btn btn-default">-</a>
+            <a href="#" class="btn btn-outline-primary collection-add btn btn-default">+</a>
+            <a href="#" class="btn btn-outline-primary collection-down btn btn-default">&gt;</a>
+        </p>    #}           
+{% endblock %}

@@ -50,6 +50,9 @@ class Bibliografia
      * @var int
      *
      * @ORM\Column(name="anio_edicion", type="smallint")
+     * @Assert\Type(
+     *     type="int",
+     *     message="Este campo debe ser un número entero")
      * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $anioEdicion;
@@ -57,7 +60,10 @@ class Bibliografia
     /**
      * @var int
      *
-     * @ORM\Column(name="nro_edicion", type="smallint")
+     * @ORM\Column(name="nro_edicion", type="smallint")     
+     * @Assert\Type(
+     *     type="int",
+     *     message="Este campo debe ser un número entero")    
      * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $nroEdicion;
@@ -89,6 +95,8 @@ class Bibliografia
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_consulta_online", type="datetime", nullable=true)
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaConsultaOnline;
 

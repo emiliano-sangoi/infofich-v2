@@ -19,36 +19,31 @@ class BibliografiasType extends AbstractType {
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            
             // para que se pueda persistir en cascada:
-            'by_reference' => false, 
+            'by_reference' => false,
             // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
-            
-            
             'attr' => array(
                 'class' => 'bibliografia-selector',
             ),
             'entry_options' => array(
                 'label' => false
-            ),            
+            ),
             //para que no cree una etiqueta obligatoria
             'label' => false,
-             'constraints' => array(
-                        new \Symfony\Component\Validator\Constraints\Valid()
-                    )
-        ));                
-        
+            'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\Valid()
+            )
+        ));
+
         $submit_opt = array(
             'attr' => array(
                 'class' => 'btn bg-verde text-color-white',
                 'onclick' => 'onGuardarBibliografiaClick(event);'
-             ),
+            ),
             'label' => 'Guardar'
-        );                
-        
+        );
+
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
-        
-        
     }
 
     /**
@@ -61,5 +56,11 @@ class BibliografiasType extends AbstractType {
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return 'planificacionesbundle_bibliografia';
+    }
 
 }
