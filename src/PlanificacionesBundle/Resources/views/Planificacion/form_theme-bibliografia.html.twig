@@ -1,36 +1,93 @@
 {#{% block planificacionesbundle_tema_row %}
-    {{ dump(form) }}
-    <div class="form-row">
-        <div class="col-md-3">
-            {{ form_label(form.unidad) }}
-            {{ form_widget(form.unidad) }}
-            {{ form_errors(form.unidad) }}
-        </div>
-        <div class="col-md-9">
-            {{ form_label(form.titulo) }}            
-            {{ form_widget(form.titulo) }}     
-            {{ form_errors(form.titulo) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-12">
-            {{ form_label(form.contenido) }}            
-            {{ form_widget(form.contenido) }}
-            {{ form_errors(form.contenido) }}
-        </div>
-    </div>
+ <div class="form-row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        {{ form_label(form.titulo) }}
+                        {{ form_widget(form.titulo) }}
+                        {{ form_errors(form.titulo) }}    
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        {{ form_label(form.autores) }}
+                        {{ form_widget(form.autores) }}
+                        {{ form_errors(form.autores) }}    
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        {{ form_label(form.editorial) }}
+                        {{ form_widget(form.editorial) }}
+                        {{ form_errors(form.editorial) }}   
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-2 col-xs-12">
+                        {{ form_label(form.anioEdicion) }}
+                        {{ form_widget(form.anioEdicion) }}
+                        {{ form_errors(form.anioEdicion) }} 
+                    </div>
+                    <div class="form-group col-sm-2 col-xs-12">
+                        {{ form_label(form.nroEdicion) }}
+                        {{ form_widget(form.nroEdicion) }}
+                        {{ form_errors(form.nroEdicion) }} 
+                    </div>
+                    <div class="form-group col-sm-2 col-xs-12">
+                        {{ form_label(form.issnIsbn) }}
+                        {{ form_widget(form.issnIsbn) }}
+                        {{ form_errors(form.issnIsbn) }} 
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        {{ form_label(form.disponibleBiblioteca) }}
+                        {{ form_widget(form.disponibleBiblioteca) }}
+                        {{ form_errors(form.disponibleBiblioteca) }} 
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-3 col-xs-12">
+                        {{ form_label(form.disponibleOnline) }}
+                        {{ form_widget(form.disponibleOnline) }}
+                        {{ form_errors(form.disponibleOnline) }} 
+                    </div>
+                    <div class="form-group col-sm-3 col-xs-12">
+                        {{ form_label(form.fechaConsultaOnline) }}
+                        {{ form_widget(form.fechaConsultaOnline) }}
+                        {{ form_errors(form.fechaConsultaOnline) }} 
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                         {{ form_label(form.enlaceOnline) }}
+                        {{ form_widget(form.enlaceOnline) }}
+                        {{ form_errors(form.enlaceOnline) }} 
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="{{ path('homepage') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Añadir
+                        </a>
+                    </div>
+                </div>     
             
 {% endblock %}#}
 
 {% block planificacionesbundle_bibliografia_widget %}
     <div class="mb-5">
         <div class="form-row">
-            <div class="col-md-2">
+            <div class="col-md-8">
                 {{ form_label(form.titulo) }}
                 {{ form_widget(form.titulo) }}
                 {{ form_errors(form.titulo) }}
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="form-row">
+            <div class="col-md-8">
                 {{ form_label(form.autores) }}            
                 {{ form_widget(form.autores) }}     
                 {{ form_errors(form.autores) }}
@@ -42,6 +99,50 @@
                 {{ form_widget(form.editorial) }}
                 {{ form_errors(form.editorial) }}
             </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-2 col-xs-12">
+                {{ form_label(form.anioEdicion) }}
+                {{ form_widget(form.anioEdicion) }}
+                {{ form_errors(form.anioEdicion) }} 
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                {{ form_label(form.nroEdicion) }}
+                {{ form_widget(form.nroEdicion) }}
+                {{ form_errors(form.nroEdicion) }} 
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                {{ form_label(form.issnIsbn) }}
+                {{ form_widget(form.issnIsbn) }}
+                {{ form_errors(form.issnIsbn) }} 
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-4 col-xs-12">
+                {{ form_label(form.disponibleBiblioteca) }}
+                {{ form_widget(form.disponibleBiblioteca) }}
+                {{ form_errors(form.disponibleBiblioteca) }} 
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-3 col-xs-12">
+                {{ form_label(form.disponibleOnline) }}
+                {{ form_widget(form.disponibleOnline) }}
+                {{ form_errors(form.disponibleOnline) }} 
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+                {{ form_label(form.fechaConsultaOnline) }}
+                {{ form_widget(form.fechaConsultaOnline) }}
+                {{ form_errors(form.fechaConsultaOnline) }} 
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                {{ form_label(form.enlaceOnline) }}
+                {{ form_widget(form.enlaceOnline) }}
+                {{ form_errors(form.enlaceOnline) }} 
+            </div>
+
         </div>
         <div class="form-row">
             <div class="col-md-8 text-right">

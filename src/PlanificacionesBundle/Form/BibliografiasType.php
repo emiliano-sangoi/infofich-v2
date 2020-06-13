@@ -60,7 +60,7 @@ class BibliografiasType extends AbstractType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return 'planificacionesbundle_bibliografia';
+        return 'planificacionesbundle_bibliografiaplanificacion';
     }
 
 }

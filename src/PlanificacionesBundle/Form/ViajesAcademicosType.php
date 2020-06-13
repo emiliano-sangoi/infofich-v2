@@ -65,7 +65,7 @@ class ViajesAcademicosType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'planificacionesbundle_viajeacademico';
+        return 'planificacionesbundle_viajesacademicos';
     }
 
 

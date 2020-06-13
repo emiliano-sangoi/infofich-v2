@@ -94,5 +94,13 @@ class BibliografiaType extends AbstractType {
             'data_class' => 'PlanificacionesBundle\Entity\Bibliografia'
         ));
     }
+    
+        /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return 'planificacionesbundle_bibliografia';
+    }
+
 
 }
