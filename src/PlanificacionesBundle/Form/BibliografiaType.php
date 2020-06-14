@@ -58,11 +58,12 @@ class BibliografiaType extends AbstractType {
                 ))
                 ->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
                     'label' => 'Disponible en biblioteca',
-                    'required' => true,
+                    'required' => false,
                         //'attr' => array('class' => 'form-control')
                 ))
                 ->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
                     'label' => 'Disponible online',
+                    'required' => false,
                         //'attr' => array('class' => 'form-control')
         ));
 
