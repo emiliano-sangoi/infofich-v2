@@ -65,9 +65,10 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'mapped' => false,
             'required' => true,
+            'empty_data' => 'Si', //En teoria este es para el valor por defecto
             'label' => 'Prevé promoción',
-            'choices' => array('Sí', 'No'),
-            'expanded' => true,
+            'choices' => array('Si'=>'Sí','No'=>'No'),
+            'expanded' => true, //Es para que se vea como radiobuttons
             'attr' => array('class' => '',
                 'onchange' => "onChangePreve(event);")
         ));
@@ -89,7 +90,8 @@ class RequisitosAprobacionType extends AbstractType {
             'required' => true,
             'choices' => array('Sí', 'No'),
             'expanded' => true,
-            'attr' => array('class' => '')
+            'attr' => array('class' => '', 
+                'onchange'=>"onChangePreveIntegrador(event);")
         ));
 
         $builder->add('fechaParcailCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(

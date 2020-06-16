@@ -86,7 +86,20 @@ function onGuardarReqAprobacionClick(e) {
 function onChangePreve(e) {
     //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
     //Caso contrario ocultar la Div PrevePromDiv
+    alert('Si tildo Sí, debe aparecer la div Teoria-Practica')
+    $(".prevePromDiv").show();
+    //$(".prevePromDiv").hide();
+}
 
-    //$(".prevePromDiv").show();
+/*
+ * Funcion llamada desde el onchage de las opciones de PreveProm
+ */
+function onChangePreveIntegrador(e) {
+    //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
+    //Caso contrario ocultar la Div PrevePromDiv
+    alert('Si tildo Sí, debe aparecer la div Fechas CFI')
+    $(".preveCfiDiv").show();
+    //Se le colocaria la clase "required"?
+    
     //$(".prevePromDiv").hide();
 }
