@@ -16,7 +16,27 @@ class DocenteType extends AbstractType
         $builder->add('nomape', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Nombre y apellido',
             'mapped' => false,
-            'choices' => array()
+            'choices' => array(),
+            'attr' => array('class' => 'form-control')
+        ));
+        
+        
+        $builder->add('nroDni', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'DNI',
+            'mapped' => false,
+            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
+        ));
+        
+        $builder->add('telefono', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Teléfono',
+            'mapped' => false,
+            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
+        ));
+        
+        $builder->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
+            'label' => 'Correo electrónico',
+            'mapped' => false,
+            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
         ));
     }
     

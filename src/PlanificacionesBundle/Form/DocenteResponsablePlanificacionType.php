@@ -25,5 +25,13 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
             'data_class' => 'PlanificacionesBundle\Entity\DocenteResponsablePlanificacion'
         ));
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'planificacionesbundle_doc_resp_planif';
+    }
 
 }

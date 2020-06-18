@@ -16,7 +16,8 @@ class DocenteAdscriptoPlanificacionType extends DocentePlanificacionType
         parent::buildForm($builder, $options);
         
         $builder->add('resolucion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'label' => 'Resolución'
+            'label' => 'Resolución de consejo directivo',
+            'attr' => array('class' => 'form-control')
         ));
         
     }
@@ -29,6 +30,13 @@ class DocenteAdscriptoPlanificacionType extends DocentePlanificacionType
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion'
         ));
+    }
+    
+        /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return 'planificacionesbundle_doc_adscripto_planif';
     }
 
 

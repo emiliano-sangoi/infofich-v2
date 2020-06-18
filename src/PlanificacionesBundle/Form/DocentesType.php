@@ -32,7 +32,10 @@ class DocentesType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('docenteResponsable', 'PlanificacionesBundle\Form\DocenteResponsablePlanificacionType', array(
-                    'label' => 'Rsponsable'
+                    'label' => 'Responsable',
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),
         ));
 
 
@@ -53,6 +56,9 @@ class DocentesType extends AbstractType {
                         'label' => false
                     ),
                     'label' => 'Colaborador/a',
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),
         ));
 
 
@@ -72,7 +78,10 @@ class DocentesType extends AbstractType {
                     'entry_options' => array(
                         'label' => false
                     ),
-                    'label' => 'Adscripto/a'
+                    'label' => 'Adscripto/a',
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),
         ));
 
         $submit_opt = array(

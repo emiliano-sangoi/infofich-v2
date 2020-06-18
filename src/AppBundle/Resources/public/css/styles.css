@@ -440,6 +440,9 @@ form {
 #tab-pane-temario form .form-row {
   margin-bottom: 1rem !important; }
 
+#tab-pane-equipo-docente form .form-row {
+  margin-bottom: 1rem !important; }
+
 .fix-select2-styles {
   /*height: calc(1.5em + .75rem + 2px) !important;*/
   /*background-color: yellow !important;*/
