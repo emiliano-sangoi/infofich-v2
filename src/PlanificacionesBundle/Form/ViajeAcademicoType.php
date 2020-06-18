@@ -36,22 +36,22 @@ class ViajeAcademicoType extends AbstractType {
                         'class' => 'form-control')
                         )
                 )
-                ->add('cantEstudiantes', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                ->add('cantEstudiantes', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'Estudiantes',
                     'required' => true,
                     'attr' => array('class' => 'form-control')
                 ))
-                ->add('cantDocentes', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                ->add('cantDocentes', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'Docentes',
                     'required' => true,
                     'attr' => array('class' => 'form-control')
                 ))
-               /* ->add('vehiculos', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                ->add('vehiculo', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                     'label' => 'Tipo de movilidad',
                     'class' => 'PlanificacionesBundle\Entity\Vehiculo',
                     'attr' => array(
                         'class' => 'form-control js-select2')
-                ))*/
+                ))
                 ->add('fechaTentativa', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
                     'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
                     'widget' => 'single_text',
@@ -60,7 +60,7 @@ class ViajeAcademicoType extends AbstractType {
                     'label' => 'Fecha tentativa',
                     'label_attr' => array('class' => 'font-weight-bold')
                 ))
-                ->add('cantDias', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                ->add('cantDias', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'Cantidad de días',
                     'required' => false,
                     'attr' => array('class' => 'form-control')

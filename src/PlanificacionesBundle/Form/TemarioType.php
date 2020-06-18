@@ -19,32 +19,32 @@ class TemarioType extends AbstractType {
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            
             // para que se pueda persistir en cascada:
-            'by_reference' => false, 
+            'by_reference' => false,
             // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
-            
-            
             'attr' => array(
                 'class' => 'temario-selector',
             ),
             'entry_options' => array(
                 'label' => false
-            ),            
+            ),
             'label' => false,
-        ));                
-        
+        ));
+
         $submit_opt = array(
             'attr' => array(
                 'class' => 'btn bg-verde text-color-white',
                 'onclick' => 'onGuardarTemarioClick(event);'
-             ),
+            ),
             'label' => 'Guardar'
-        );                
-        
+        );
+
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
-        
-        
+
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Limpiar campos',
+            'attr' => array('class' => 'btn btn-secondary')
+        ));
     }
 
     /**

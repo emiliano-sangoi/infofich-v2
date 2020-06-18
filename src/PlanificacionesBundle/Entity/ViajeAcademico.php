@@ -4,6 +4,7 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ViajeAcademico
@@ -26,6 +27,7 @@ class ViajeAcademico {
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $descripcion;
 
@@ -33,6 +35,7 @@ class ViajeAcademico {
      * @var string
      *
      * @ORM\Column(name="objetivos", type="text")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $objetivos;
 
@@ -40,6 +43,7 @@ class ViajeAcademico {
      * @var string
      *
      * @ORM\Column(name="recorrido", type="text")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $recorrido;
 
@@ -47,6 +51,10 @@ class ViajeAcademico {
      * @var int
      *
      * @ORM\Column(name="cant_estudiantes", type="smallint")
+     * @Assert\Type(
+     *     type="int",
+     *     message="Este campo debe ser un número entero")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $cantEstudiantes;
 
@@ -54,6 +62,10 @@ class ViajeAcademico {
      * @var int
      *
      * @ORM\Column(name="cant_docentes", type="smallint")
+     * @Assert\Type(
+     *     type="int",
+     *     message="Este campo  debe ser un número entero")
+     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $cantDocentes;
 
@@ -61,6 +73,8 @@ class ViajeAcademico {
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_tentativa", type="datetime")
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaTentativa;
 
@@ -68,6 +82,9 @@ class ViajeAcademico {
      * @var int
      *
      * @ORM\Column(name="cant_dias", type="smallint")
+     * @Assert\Type(
+     *     type="int",
+     *     message="Este campo debe ser un número entero")
      */
     private $cantDias;
 
@@ -88,26 +105,16 @@ class ViajeAcademico {
     private $asignaturas;
 
     /**
-     *
-     * @var ArrayCollection
+     * @var Vehiculo
      * 
-     * @ORM\ManyToMany(targetEntity="Vehiculo")
-     * @ORM\JoinTable(
-     *      name="planif_viajes_academicos_vehiculos",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="planif_viajes_academicos_id", referencedColumnName="id")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="planif_transportes_id", referencedColumnName="id")
-     *      }
-     * 
-     * )
+     * @ORM\ManyToOne(targetEntity="Vehiculo")
+     * @ORM\JoinColumn(name="planif_vehiculo_id", referencedColumnName="id") 
      */
-    private $vehiculos;
+    private $vehiculo;
 
     public function __construct() {
         $this->asignaturas = new ArrayCollection;
-        $this->vehiculos = new ArrayCollection;
+        //$this->vehiculos = new ArrayCollection;
     }
 
     /**
@@ -316,37 +323,27 @@ class ViajeAcademico {
     public function getPlanificacion() {
         return $this->planificacion;
     }
-
+    
     /**
-     * Add vehiculo
+     * Set vehiculo
      *
      * @param \PlanificacionesBundle\Entity\Vehiculo $vehiculo
      *
      * @return ViajeAcademico
      */
-    public function addVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo) {
-        
-        $this->vehiculos[] = $vehiculo;
+    public function setVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo = null) {
+        $this->vehiculo = $vehiculo;
 
         return $this;
     }
 
     /**
-     * Remove vehiculo
+     * Get vehiculo
      *
-     * @param \PlanificacionesBundle\Entity\Vehiculo $vehiculo
+     * @return \PlanificacionesBundle\Entity\Vehiculo
      */
-    public function removeVehiculo(\PlanificacionesBundle\Entity\Vehiculo $vehiculo) {
-        $this->vehiculos->removeElement($vehiculo);
-    }
-
-    /**
-     * Get vehiculos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getVehiculos() {
-        return $this->vehiculos;
+    public function getVehiculo() {
+        return $this->vehiculo;
     }
 
 }

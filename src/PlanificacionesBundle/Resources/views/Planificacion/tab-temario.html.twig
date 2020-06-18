@@ -3,21 +3,34 @@
         <div class="card card-register mx-auto">
 
             <div class="card-body px-5">
-                
+
                 {% include '::notificaciones.html.twig' %}
-                
+
                 <div class="mb-4 ml-10">  {#  quito la clase container  #}
                     <h4>Temario</h4>
                 </div>
 
-{#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
-{#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
-              {#  {% form_theme form 'jquery.collection.html.twig'  %}
-                {{ form(form) }}#}
+                {#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
+                {#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
+                {#  {% form_theme form 'jquery.collection.html.twig'  %}
+                  {{ form(form) }}#}
                 {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig'  %}
-            {{ form(form) }}  
 
-{#                {% include 'temario-item.html.twig' %}#}
+
+
+                {{ form(form) }}  
+
+                <div class="form-row">
+                    <div class="col-xs-12 col-sm-4">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+                        {{ form_widget(form.reset) }}
+                    </div>
+                </div>
+
+
+                {#                {% include 'temario-item.html.twig' %}#}
 
                 {#<div class="form-row">
                     <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -39,7 +52,7 @@
                     </a>
                 </div>#}
 
-{#                {{ form_end(form) }}#}
+                {#                {{ form_end(form) }}#}
 
             </div>
         </div>

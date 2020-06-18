@@ -65,7 +65,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'mapped' => false,
             'required' => true,
-            'empty_data' => 'Si', //En teoria este es para el valor por defecto
+            'empty_data' => 'No', //En teoria este es para el valor por defecto
             'label' => 'Prevé promoción',
             'choices' => array('Si'=>'Sí','No'=>'No'),
             'expanded' => true, //Es para que se vea como radiobuttons
