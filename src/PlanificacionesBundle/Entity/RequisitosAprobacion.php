@@ -40,7 +40,7 @@ class RequisitosAprobacion {
      * @var bool
      *
      * @ORM\Column(name="preve_cfi", type="boolean")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * 
      */
     private $preveCfi;
 

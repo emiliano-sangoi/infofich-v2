@@ -64,9 +64,12 @@ class RequisitosAprobacionType extends AbstractType {
          */
         $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'mapped' => false,
-            'required' => true,
-            'empty_data' => 'No', //En teoria este es para el valor por defecto
+            'required' => false,
+            'placeholder' => false,
+            'empty_data' => 'No', 
+            'data' => 'No', //valor por defecto
             'label' => 'Prevé promoción',
+            'label_attr' => array('class' => 'required'),
             'choices' => array('Si'=>'Sí','No'=>'No'),
             'expanded' => true, //Es para que se vea como radiobuttons
             'attr' => array('class' => '',
@@ -86,10 +89,16 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
         $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'mapped' => false,
             'label' => 'Prevé coloquio final integrador ',
-            'required' => true,
+            'label_attr' => array('class' => 'required'),
+            'empty_data' => 'No', 
+            'data' => 'No', //valor por defecto
+            'required' => false,
+            'placeholder' => false,
             'choices' => array('Si'=>'Sí','No'=>'No'),
             'expanded' => true,
+            'multiple' => false,
             'attr' => array('class' => '', 
                 'onchange'=>"onChangePreveIntegrador(event);")
         ));

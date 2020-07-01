@@ -104,9 +104,8 @@ function onChangePreveIntegrador(e) {
     //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
     //Caso contrario ocultar la Div PrevePromDiv
     
-
     var radioValue = $("input[name='planificacionesbundle_planificacion[preveCfi]']:checked").val();
- alert(radioValue);
+
     if (radioValue == 'Si') {
         $(".preveCfiDiv").show();
       } else {
