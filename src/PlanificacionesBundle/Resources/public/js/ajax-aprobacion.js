@@ -86,9 +86,15 @@ function onGuardarReqAprobacionClick(e) {
 function onChangePreve(e) {
     //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
     //Caso contrario ocultar la Div PrevePromDiv
-    alert('Si tildo Sí, debe aparecer la div Teoria-Practica')
-    $(".prevePromDiv").show();
-    //$(".prevePromDiv").hide();
+
+    var radioValue = $("input[name='planificacionesbundle_planificacion[preveProm]']:checked").val();
+ 
+    if (radioValue == 'Si') {
+        $(".prevePromDiv").show();
+      } else {
+        $(".prevePromDiv").hide();
+      }
+
 }
 
 /*
@@ -97,9 +103,14 @@ function onChangePreve(e) {
 function onChangePreveIntegrador(e) {
     //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
     //Caso contrario ocultar la Div PrevePromDiv
-    alert('Si tildo Sí, debe aparecer la div Fechas CFI')
-    $(".preveCfiDiv").show();
-    //Se le colocaria la clase "required"?
     
-    //$(".prevePromDiv").hide();
+
+    var radioValue = $("input[name='planificacionesbundle_planificacion[preveCfi]']:checked").val();
+ alert(radioValue);
+    if (radioValue == 'Si') {
+        $(".preveCfiDiv").show();
+      } else {
+        $(".preveCfiDiv").hide();
+      }
+    
 }

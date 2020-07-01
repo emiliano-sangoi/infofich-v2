@@ -88,7 +88,7 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Prevé coloquio final integrador ',
             'required' => true,
-            'choices' => array('Sí', 'No'),
+            'choices' => array('Si'=>'Sí','No'=>'No'),
             'expanded' => true,
             'attr' => array('class' => '', 
                 'onchange'=>"onChangePreveIntegrador(event);")
