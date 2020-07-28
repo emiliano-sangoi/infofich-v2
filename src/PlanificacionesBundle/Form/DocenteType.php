@@ -16,31 +16,43 @@ class DocenteType extends AbstractType
         $builder->add('nomape', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
             'label' => 'Nombre y apellido',
             'mapped' => false,
-            'choices' => array(),
-            'attr' => array('class' => 'form-control')
+            'required' => false,
+            'choices' => $this->getDocentes(),
+            'attr' => array('class' => 'form-control js-select2')
         ));
         
         
         $builder->add('nroDni', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'DNI',
             'mapped' => false,
-            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control nro-dni', 'disabled' => 'disabled')
         ));
         
         $builder->add('telefono', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Teléfono',
             'mapped' => false,
-            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control telefono', 'disabled' => 'disabled')
         ));
         
         $builder->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
             'label' => 'Correo electrónico',
             'mapped' => false,
-            'attr' => array('class' => 'form-control', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control email', 'disabled' => 'disabled')
         ));
     }
     
-    
+    public function getDocentes(){
+        
+        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();        
+        $docentes = $q->setCacheEnabled(true)
+                ->getDocentes();
+
+        return $docentes;                        
+    }
+
+
+
+
     /**
      * {@inheritdoc}
      */

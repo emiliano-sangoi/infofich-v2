@@ -27,6 +27,7 @@ class Docente
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona")
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
+     * @ORM\NotNull(message="Debe seleccionar una persona")
      */
     private $persona;
 

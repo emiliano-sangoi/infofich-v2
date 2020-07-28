@@ -42,5 +42,26 @@ class DocentesController extends Controller {
                     'form' => $form->createView()
         ));
     }
+    
+    /**
+     * 
+     * @param Request $request
+     * @param type $pos
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @throws type
+     */
+    public function getDocenteAction(Request $request, $pos) {
+        
+        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();        
+        $docentes = $q->setCacheEnabled(true)
+                ->getDocentes();
+        
+        if(!isset($docentes[$pos])){
+            throw $this->createNotFoundException('No se encontro el docente especificado');
+        }
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse($docentes[$pos]);
+        
+    }
 
 }

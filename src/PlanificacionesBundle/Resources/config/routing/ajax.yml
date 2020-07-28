@@ -12,7 +12,7 @@ planificacion_ajax_viajes_academicos:
     
 planificaciones_ajax_equipo_docente:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-equipo-docente.yml"
-    prefix: /{id}/equipo-docente
+    prefix: /equipo-docente
     
 planificaciones_ajax_cronograma:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-cronograma.yml"
