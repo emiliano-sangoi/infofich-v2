@@ -22,7 +22,7 @@ abstract class DocentePlanificacion
      *
      * @var Docente
      * 
-     * @ORM\ManyToOne(targetEntity="Docente")
+     * @ORM\ManyToOne(targetEntity="Docente", cascade={"persist"})
      * @ORM\JoinColumn(name="planif_docentes_id", referencedColumnName="id") 
      */
     private $docente;   

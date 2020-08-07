@@ -2,8 +2,11 @@
 
 namespace PlanificacionesBundle\Form;
 
+use FICH\APIInfofich\Query\Docentes\QueryDocentes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocenteType extends AbstractType
@@ -39,11 +42,26 @@ class DocenteType extends AbstractType
             'mapped' => false,
             'attr' => array('class' => 'form-control email', 'disabled' => 'disabled')
         ));
+        
+        //TODO: se debe buscar e instanciar una persona
+//        $builder->addEventListener(
+//            FormEvents::SUBMIT,
+//            function (FormEvent $event) {                
+//                $data = $event->getData();
+//                $dataForm = $event->getForm()->getData();
+//                
+//                
+//                dump($data, $dataForm);exit;
+//
+////                $formModifier($event->getForm(), $data->getSport());
+//            }
+//        );
+        
     }
     
     public function getDocentes(){
         
-        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();        
+        $q = new QueryDocentes();        
         $docentes = $q->setCacheEnabled(true)
                 ->getDocentes();
 

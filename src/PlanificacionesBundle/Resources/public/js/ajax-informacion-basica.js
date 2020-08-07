@@ -27,9 +27,12 @@ function cargarHTML(response) {
     target.find('.js-select2').select2({
         allowClear: true,
         containerCssClass: 'fix-select2-styles'
-    });
+    });        
 
     target.fadeIn();
+    
+    //disparar el evento change en la carrera para que se actualice la informacion de la carrera y materia.
+    $('.select-carrera').trigger('change');
 }
 
 /**

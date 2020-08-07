@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Docente
@@ -27,7 +28,7 @@ class Docente
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona")
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
-     * @ORM\NotNull(message="Debe seleccionar una persona")
+     * @Assert\NotNull(message="Debe seleccionar una persona")
      */
     private $persona;
 

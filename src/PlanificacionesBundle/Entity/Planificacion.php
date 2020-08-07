@@ -111,7 +111,7 @@ class Planificacion
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToOne(targetEntity="DocenteResponsablePlanificacion", mappedBy="planificacion")
+     * @ORM\OneToOne(targetEntity="DocenteResponsablePlanificacion", mappedBy="planificacion", cascade={"persist", "remove"})
      */
     private $docenteResponsable;
     

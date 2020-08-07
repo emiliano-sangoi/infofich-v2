@@ -28,6 +28,8 @@ class DocentesController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $form = $this->crearForm($planificacion);
+        
+        //dump($form);exit;
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
