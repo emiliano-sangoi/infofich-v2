@@ -20,6 +20,10 @@ class DocenteColaboradorPlanificacion extends DocentePlanificacion {
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
+    
+    public function __construct() {
+        parent::__construct();
+    }
 
     /**
      * Set planificacion

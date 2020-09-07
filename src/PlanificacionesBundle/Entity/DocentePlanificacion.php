@@ -22,7 +22,7 @@ abstract class DocentePlanificacion
      *
      * @var Docente
      * 
-     * @ORM\ManyToOne(targetEntity="Docente", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Docente")
      * @ORM\JoinColumn(name="planif_docentes_id", referencedColumnName="id") 
      */
     private $docente;   
@@ -33,6 +33,10 @@ abstract class DocentePlanificacion
      * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     private $fechaCreacion;
+    
+    public function __construct() {
+        $this->fechaCreacion = new \DateTime();
+    }
 
 
     /**

@@ -28,6 +28,10 @@ class DocenteAdscriptoPlanificacion extends DocentePlanificacion {
      */
     private $planificacion;
     
+    public function __construct() {
+        parent::__construct();
+    }
+    
       /**
      * Set planificacion
      *

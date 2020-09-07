@@ -91,7 +91,8 @@ function updateEquipoDocenteHTML(response) {
         var element = $(event.target);
         var pos = element.val();
 
-        getDocente(pos, $('#docentes_docenteResponsable'));
+//        getDocente(pos, $('#docentes_docenteResponsable'));
+        getDocente(pos, $('#docente_responsable'));
 
     });
     //select.trigger('change');    

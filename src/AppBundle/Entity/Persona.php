@@ -36,6 +36,13 @@ class Persona
     private $nombres;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipo_documento", type="smallint", nullable=true)
+     */
+    private $tipoDocumento;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="documento", type="string", length=12, unique=true)
@@ -146,7 +153,28 @@ class Persona
     {
         return $this->documento;
     }
+    
+    /**
+     * Get tipo documento
+     *
+     * @return integer
+     */
+    function getTipoDocumento() {
+        return $this->tipoDocumento;
+    }
 
+    /**
+     * 
+     * @param integer $tipoDocumento
+     * 
+     * @return $this
+     */
+    function setTipoDocumento($tipoDocumento) {
+        $this->tipoDocumento = $tipoDocumento;
+        return $this;
+    }
+
+    
     /**
      * Set email
      *

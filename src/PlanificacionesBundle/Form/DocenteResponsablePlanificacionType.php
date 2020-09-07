@@ -13,7 +13,15 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);        
+        parent::buildForm($builder, $options);      
+        
+        $planificacion = $options['planificacion'];
+        if($planificacion instanceof \PlanificacionesBundle\Entity\Planificacion){
+             $builder->get('nomape')->setData( $planificacion->getDocenteResponsable()->getDocente()->getNroLegajo());
+        }
+       
+        
+        
     }
     
     /**
@@ -22,7 +30,8 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\DocenteResponsablePlanificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\DocenteResponsablePlanificacion',
+            'planificacion' => null
         ));
     }
     

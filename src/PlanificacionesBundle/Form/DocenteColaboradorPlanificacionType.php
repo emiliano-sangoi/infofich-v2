@@ -11,7 +11,7 @@ class DocenteColaboradorPlanificacionType extends DocentePlanificacionType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options) {        
         parent::buildForm($builder, $options);
     }
 
@@ -20,7 +20,8 @@ class DocenteColaboradorPlanificacionType extends DocentePlanificacionType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion',
+            'planificacion' => null
         ));
     }
 
@@ -30,5 +31,6 @@ class DocenteColaboradorPlanificacionType extends DocentePlanificacionType {
     public function getBlockPrefix() {
         return 'planificacionesbundle_doc_colabor_planif';
     }
+
 
 }

@@ -1,5 +1,7 @@
 {# DocenteResponsablePlanificacionType::getBlockPrefix() + '_widget' #}
-{% block planificacionesbundle_docente_widget %}
+{#{% block planificacionesbundle_docente_widget %}#}
+{% block planificacionesbundle_doc_resp_planif_widget %}
+    {#    {{dump(form)}}#}
     <div class="">
         <div class="form-row">
             <div class="col-md-6">
@@ -8,22 +10,22 @@
                 {{ form_errors(form.nomape) }}
             </div>
             <div class="col-md-3">
-                {{ form_label(form.nroDni) }}
-                {{ form_widget(form.nroDni) }}
-                {{ form_errors(form.nroDni) }}
+                {{ form_label(form.docente.persona.documento) }}
+                {{ form_widget(form.docente.persona.documento) }}
+                {{ form_errors(form.docente.persona.documento) }}
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-md-3">
-                {{ form_label(form.telefono) }}
-                {{ form_widget(form.telefono) }}
-                {{ form_errors(form.telefono) }}
+                {{ form_label(form.docente.persona.telefono) }}
+                {{ form_widget(form.docente.persona.telefono) }}
+                {{ form_errors(form.docente.persona.telefono) }}
             </div>
             <div class="col-md-6">
-                {{ form_label(form.email) }}
-                {{ form_widget(form.email) }}
-                {{ form_errors(form.email) }}
+                {{ form_label(form.docente.persona.email) }}
+                {{ form_widget(form.docente.persona.email) }}
+                {{ form_errors(form.docente.persona.email) }}
             </div>
         </div>
     </div>
@@ -33,7 +35,38 @@
 {# DocenteColaboradorPlanificacionType::getBlockPrefix() + '_widget' #}
 {% block planificacionesbundle_doc_colabor_planif_widget %}
     <div class="mb-5">
-        {{ form_widget(form) }}
+        {#        {{ form_widget(form) }}#}
+        <div class="">
+            <div class="form-row">
+                <div class="col-md-6">
+                    {{ form_label(form.nomape) }}
+{#                    {{ form_widget(form.nomape, {'data': form.docente.nroLegajo.vars.value}) }}#}
+                    {{ form_widget(form.nomape) }}
+                    {{ form_errors(form.nomape) }}
+                </div>
+                {#<div class="col-md-6">
+                    {{ dump(form.docente.nroLegajo.vars.value) }}
+                </div>#}
+                <div class="col-md-3">
+                    {{ form_label(form.docente.persona.documento) }}
+                    {{ form_widget(form.docente.persona.documento) }}
+                    {{ form_errors(form.docente.persona.documento) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    {{ form_label(form.docente.persona.telefono) }}
+                    {{ form_widget(form.docente.persona.telefono) }}
+                    {{ form_errors(form.docente.persona.telefono) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.docente.persona.email) }}
+                    {{ form_widget(form.docente.persona.email) }}
+                    {{ form_errors(form.docente.persona.email) }}
+                </div>
+            </div>
+        </div>
         <div class="form-row">
             <div class="col-md-3">
                 <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
@@ -63,30 +96,30 @@
 {# DocenteAdscriptoPlanificacionType::getBlockPrefix() + '_widget' #}
 {% block planificacionesbundle_doc_adscripto_planif_widget %}
     <div class="mb-5">
-
+        {#{{ dump(form.docente.persona) }}#}
         <div class="form-row">
             <div class="col-md-6">
-                {{ form_label(form.docente.nomape) }}
-                {{ form_widget(form.docente.nomape) }}
-                {{ form_errors(form.docente.nomape) }}
+                {{ form_label(form.nomape) }}
+                {{ form_widget(form.nomape) }}
+                {{ form_errors(form.nomape) }}
             </div>
             <div class="col-md-3">
-                {{ form_label(form.docente.nroDni) }}
-                {{ form_widget(form.docente.nroDni) }}
-                {{ form_errors(form.docente.nroDni) }}
+                {{ form_label(form.docente.persona.documento) }}
+                {{ form_widget(form.docente.persona.documento) }}
+                {{ form_errors(form.docente.persona.documento) }}
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-md-3">
-                {{ form_label(form.docente.telefono) }}
-                {{ form_widget(form.docente.telefono) }}
-                {{ form_errors(form.docente.telefono) }}
+                {{ form_label(form.docente.persona.telefono) }}
+                {{ form_widget(form.docente.persona.telefono) }}
+                {{ form_errors(form.docente.persona.telefono) }}
             </div>
             <div class="col-md-6">
-                {{ form_label(form.docente.email) }}
-                {{ form_widget(form.docente.email) }}
-                {{ form_errors(form.docente.email) }}
+                {{ form_label(form.docente.persona.email) }}
+                {{ form_widget(form.docente.persona.email) }}
+                {{ form_errors(form.docente.persona.email) }}
             </div>
         </div>
 
@@ -119,7 +152,7 @@
                 </a>
             </div>
         </div>
-            
+
     </div>
 
 {% endblock %}

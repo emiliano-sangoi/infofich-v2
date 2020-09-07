@@ -103,6 +103,8 @@ class InfoBasicaController extends Controller {
         $action = $this->generateUrl('planificaciones_ajax_info_basica_edit', array('id' => $planificacion->getId()));
         $form = $this->crearForm($planificacion, $action);
         
+       // dump($planificacion);exit;
+        
         $statusCode = Response::HTTP_OK;
         
         $form->handleRequest($request);

@@ -38,6 +38,13 @@ class Docente
      * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true)
      */
     private $nroLegajo;
+    
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
 
 
     /**
@@ -98,5 +105,29 @@ class Docente
     public function getPersona()
     {
         return $this->persona;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Docente
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

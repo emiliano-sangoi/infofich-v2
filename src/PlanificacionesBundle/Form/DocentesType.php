@@ -30,9 +30,13 @@ class DocentesType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        
+        $planificacion = $builder->getData();
+        
         $builder
                 ->add('docenteResponsable', 'PlanificacionesBundle\Form\DocenteResponsablePlanificacionType', array(
                     'label' => 'Responsable',
+                    'planificacion' => $planificacion,
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
                     ),

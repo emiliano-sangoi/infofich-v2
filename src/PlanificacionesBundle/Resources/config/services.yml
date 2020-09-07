@@ -5,3 +5,29 @@
 #        autowired: true
 #        tags:
 #            - { name: form.type }
+services:
+    planificaciones.form.type.doc_planif_type:
+        class: PlanificacionesBundle\Form\DocentePlanificacionType
+        arguments: ['@doctrine.orm.entity_manager']
+        # as no class is configured, the parent service MUST be abstract
+        abstract:  true
+        tags:
+            - { name: form.type }
+            
+    planificaciones.form.type.doc_resp_type:
+        class: PlanificacionesBundle\Form\DocenteResponsablePlanificacionType
+        parent: planificaciones.form.type.doc_planif_type
+        tags:
+            - { name: form.type }
+        
+    planificaciones.form.type.doc_colabor_type:
+        class: PlanificacionesBundle\Form\DocenteColaboradorPlanificacionType
+        parent: planificaciones.form.type.doc_planif_type
+        tags:
+            - { name: form.type }
+        
+    planificaciones.form.type.doc_adscripto_type:
+        class: PlanificacionesBundle\Form\DocenteAdscriptoPlanificacionType
+        parent: planificaciones.form.type.doc_planif_type
+        tags:
+            - { name: form.type }

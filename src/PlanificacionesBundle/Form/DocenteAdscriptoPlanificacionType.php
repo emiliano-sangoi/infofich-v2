@@ -15,6 +15,12 @@ class DocenteAdscriptoPlanificacionType extends DocentePlanificacionType
     {
         parent::buildForm($builder, $options);
         
+        //dump($builder->getData());exit;
+//          $planificacion = $options['planificacion'];
+//        if($planificacion instanceof \PlanificacionesBundle\Entity\Planificacion){
+//             $builder->get('nomape')->setData( $planificacion->getDocenteResponsable()->getDocente()->getNroLegajo());
+//        }
+        
         $builder->add('resolucion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Resolución de consejo directivo',
             'attr' => array('class' => 'form-control')
@@ -28,7 +34,8 @@ class DocenteAdscriptoPlanificacionType extends DocentePlanificacionType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion',
+            'planificacion' => null
         ));
     }
     

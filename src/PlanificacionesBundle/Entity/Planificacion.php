@@ -699,6 +699,8 @@ class Planificacion
      */
     public function setDocenteResponsable(\PlanificacionesBundle\Entity\DocenteResponsablePlanificacion $docenteResponsable = null)
     {
+        $docenteResponsable->setPlanificacion($this);
+        
         $this->docenteResponsable = $docenteResponsable;
 
         return $this;
@@ -723,6 +725,8 @@ class Planificacion
      */
     public function addDocentesColaboradore(\PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore)
     {
+        $docentesColaboradore->setPlanificacion($this);
+        
         $this->docentesColaboradores[] = $docentesColaboradore;
 
         return $this;
@@ -757,6 +761,8 @@ class Planificacion
      */
     public function addDocentesAdscripto(\PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto)
     {
+        $docentesAdscripto->setPlanificacion($this);
+        
         $this->docentesAdscriptos[] = $docentesAdscripto;
 
         return $this;

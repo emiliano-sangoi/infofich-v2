@@ -29,7 +29,7 @@ class DocentesController extends Controller {
 
         $form = $this->crearForm($planificacion);
         
-        //dump($form);exit;
+       // dump($planificacion);exit;
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
