@@ -1,0 +1,3 @@
+planif_dist_carga_horaria_editar:
+    path:     /{id}/carga-horaria/editar
+    defaults: { _controller: PlanificacionesBundle:CargaHoraria:edit}

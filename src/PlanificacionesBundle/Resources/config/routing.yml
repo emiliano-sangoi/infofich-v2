@@ -1,27 +1,74 @@
-planificaciones_ajax:
-    resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
-    prefix: /ajax
+#planificaciones_ajax:
+#    resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
+#    prefix: /ajax    
 
-academica_planificaciones_homepage:
-    path:     /academica
-    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica } 
+
     
-academica_planificaciones_revisar:
-    path:     /academica/revisar
-    defaults: { _controller: PlanificacionesBundle:Default:revisarPlanificacion }     
+#planif_equipo_docente_index:
+#   path: /{id}/equipo-docente
+#   defaults: { _controller: PlanificacionesBundle:Docentes:index }
+#   methods: [GET, POST]
+   
+#academica_planificaciones_homepage:
+#    path:     /academica
+#    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica } 
+#    
+#academica_planificaciones_revisar:
+#    path:     /academica/revisar
+#    defaults: { _controller: PlanificacionesBundle:Default:revisarPlanificacion }     
 
 planificaciones_homepage:
     path:     /
     defaults: { _controller: PlanificacionesBundle:Planificacion:index }
 
-planificaciones_new:
-    path:     /nueva
-    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
-
-planificaciones_edit:
-    path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:Planificacion:edit }
+#planificaciones_new:
+#    path:     /nueva
+#    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
+#
+#planificaciones_edit:
+#    path:     /{id}/editar
+#    defaults: { _controller: PlanificacionesBundle:Planificacion:edit }
     
 planificaciones_show_notif:
     path:     /mensajes
     defaults: { _controller: PlanificacionesBundle:Planificacion:showNotificacion }
+    
+planificaciones_info_basica:
+    resource: "@PlanificacionesBundle/Resources/config/routing/info-basica.yml"
+    prefix: /
+
+planificaciones_equipo_docente:
+    resource: "@PlanificacionesBundle/Resources/config/routing/equipo-docente.yml"
+    prefix: /
+    
+planificaciones_aprobacion:
+    resource: "@PlanificacionesBundle/Resources/config/routing/aprobacion-asignatura.yml"
+    prefix: /
+    
+planificaciones_objetivos:
+    resource: "@PlanificacionesBundle/Resources/config/routing/objetivos-asignatura.yml"
+    prefix: /
+    
+planificaciones_temario:
+    resource: "@PlanificacionesBundle/Resources/config/routing/temario.yml"
+    prefix: /
+    
+planificaciones_bibliografia:
+    resource: "@PlanificacionesBundle/Resources/config/routing/bibliografia.yml"
+    prefix: /
+
+planificaciones_cronograma:
+    resource: "@PlanificacionesBundle/Resources/config/routing/cronograma.yml"
+    prefix: /
+    
+planificaciones_dist_carga_horaria:
+    resource: "@PlanificacionesBundle/Resources/config/routing/dist-carga-horaria.yml"
+    prefix: /
+    
+planificaciones_viajes_acad:
+    resource: "@PlanificacionesBundle/Resources/config/routing/viajes-acad.yml"
+    prefix: /
+
+planificaciones_revisar:
+    path:     /{id}/revisar-borrador
+    defaults: { _controller: PlanificacionesBundle:Planificacion:revisar }

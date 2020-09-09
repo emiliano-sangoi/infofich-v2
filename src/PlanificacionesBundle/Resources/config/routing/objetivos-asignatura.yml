@@ -1,0 +1,5 @@
+planif_objetivos_editar:
+    path:     /{id}/objetivos-asignatura/editar
+    defaults: { _controller: PlanificacionesBundle:Objetivos:edit }
+
+

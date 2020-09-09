@@ -1,6 +1,6 @@
-planificaciones_ajax_info_basica:
-    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-info-basica.yml"
-    prefix: /info-basica
+#planificaciones_ajax_info_basica:
+#    resource: "@PlanificacionesBundle/Resources/config/routing/ajax-info-basica.yml"
+#    prefix: /info-basica
 
 planificaciones_ajax_temario:
     resource: "@PlanificacionesBundle/Resources/config/routing/ajax-temario.yml"

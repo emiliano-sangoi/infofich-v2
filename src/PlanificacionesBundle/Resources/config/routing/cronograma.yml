@@ -1,0 +1,3 @@
+planif_cronograma_editar:
+    path:     /{id}/cronograma/editar
+    defaults: { _controller: PlanificacionesBundle:Cronograma:edit }

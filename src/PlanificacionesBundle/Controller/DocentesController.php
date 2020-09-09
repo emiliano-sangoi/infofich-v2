@@ -8,43 +8,67 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
 
-    /**
+    public function editAction(Request $request, Planificacion $planificacion) {
+
+        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion, array(
+                //'planificacion' => $planificacion,
+        ));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('success', 'Cambios guardados correctamente.');
+
+            //Causar redireccion para evitar "re-submits" del form:
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
+        }
+
+        return $this->render('PlanificacionesBundle:equipo-docente:edit.html.twig', array(
+                    'planificacion' => $planificacion,
+                    'form' => $form->createView(),
+                    'page_title' => 'Equipo docente',
+        ));
+    }
+
+    /*
      * 
      * @param Planificacion $planificacion
      * @return Symfony\Component\Form\Form
      */
-    private function crearForm(Planificacion $planificacion) {
+//    private function crearForm(Planificacion $planificacion) {
+//
+//        $action = $this->generateUrl('planificacion_ajax_equipo_docente_edit', array('id' => $planificacion->getId()));
+//
+//        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion, array(
+//            'method' => 'POST',
+//            'action' => $action
+//        ));
+//
+//        return $form;
+//    }
 
-        $action = $this->generateUrl('planificacion_ajax_equipo_docente_edit', array('id' => $planificacion->getId()));
+//    public function editAction(Request $request, Planificacion $planificacion) {
+//
+//        $form = $this->crearForm($planificacion);
+//        
+//       // dump($planificacion);exit;
+//
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted()) {
+//            if ($form->isValid()) {
+//                $em = $this->getDoctrine()->getManager();
+//                $em->flush();
+//            }
+//        }
+//
+//        return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
+//                    'planificacion' => $planificacion,
+//                    'form' => $form->createView()
+//        ));
+//    }
 
-        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion, array(
-            'method' => 'POST',
-            'action' => $action
-        ));
-
-        return $form;
-    }
-
-    public function editAction(Request $request, Planificacion $planificacion) {
-
-        $form = $this->crearForm($planificacion);
-        
-       // dump($planificacion);exit;
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
-        }
-
-        return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
-                    'planificacion' => $planificacion,
-                    'form' => $form->createView()
-        ));
-    }
-    
     /**
      * 
      * @param Request $request
@@ -53,17 +77,16 @@ class DocentesController extends Controller {
      * @throws type
      */
     public function getDocenteAction(Request $request, $pos) {
-        
-        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();        
+
+        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();
         $docentes = $q->setCacheEnabled(true)
                 ->getDocentes();
-        
-        if(!isset($docentes[$pos])){
+
+        if (!isset($docentes[$pos])) {
             throw $this->createNotFoundException('No se encontro el docente especificado');
         }
-        
+
         return new \Symfony\Component\HttpFoundation\JsonResponse($docentes[$pos]);
-        
     }
 
 }

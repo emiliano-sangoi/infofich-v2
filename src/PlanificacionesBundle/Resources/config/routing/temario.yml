@@ -1,0 +1,3 @@
+planif_temario_editar:
+    path:     /{id}/temario/editar
+    defaults: { _controller: PlanificacionesBundle:Temario:edit }

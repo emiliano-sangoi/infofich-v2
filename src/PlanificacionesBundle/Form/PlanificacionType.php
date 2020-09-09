@@ -114,10 +114,10 @@ class PlanificacionType extends AbstractType {
 
         if ($builder->getData()->getId()) {
             $submit_opt['label'] = 'Guardar';
-            $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
+//            $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
         } else {
             $submit_opt['label'] = 'Crear';
-            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
+//            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
         }
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);

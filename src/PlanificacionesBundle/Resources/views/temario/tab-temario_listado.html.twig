@@ -1,0 +1,103 @@
+<div class="container pr-0 mt-4">
+    <div class="card card-register mx-auto">
+
+        <div class="card-body px-5">
+            <div class="mb-4">
+                <h4>Temario</h4>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group required  col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="unidad">Unidad
+                    </label>
+                    <input class="form-control" id="unidad" name="unidad" type="text" value="" required/>
+                </div>
+                <div class="form-group required col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="control-label" for="titulo">Título
+                    </label>
+                    <input class="form-control" id="titulo" name="titulo" type="text" value="" required/>
+                </div>
+            </div>
+
+            <div class="form-row mt-4">
+                <div class="form-group required col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label" for="contenidos">Contenidos
+                    </label>
+                    <textarea id="contenidos" name="contenidos" class=" form-control" required></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="{{ path('homepage') }}">
+                        <i class="fa fa-plus-circle"></i>
+                        Añadir
+                    </a>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Contenidos</th>
+                        <th scope="col">Operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>UNIDAD I</td>
+                        <td>ESPACIOS VECTORIALES</td>
+                        <td>Definición y propiedades. Los espacios Rn, Pn, C[a,b], Mmn,Cn. Subespacios.
+                            Subespacio generado por un conjunto de vectores. Dependencia e
+                            independencia lineal. Base y dimensión de un espacio vectorial.
+                            Espacio fila y espacio columna de una matriz. Rango y nulidad.
+                            Cambio de base en un espacio vectorial. Vectores de coordenadas y matriz de
+                            transición.</td>
+                        <td><a href="{{ path('homepage') }}">
+                                <i class="fa fa-edit"></i>
+                            </a>                         
+                            <a href="{{ path('homepage') }}">
+                                <i class="fa fa-remove"></i>
+                            </a> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>UNIDAD II</td>
+                        <td>ESPACIOS CON PRODUCTO INTERNO</td>
+                        <td>Longitud de un vector. Conjuntos ortogonales y ortonormales. Independencia
+                            lineal de los conjuntos ortogonales de vectores no nulos. Proceso de
+                            ortonormalización de Gram-Schidt. Bases ortogonales. Proyecciones
+                            ortogonales sobre subespacios.</td>
+                        <td><a href="{{ path('homepage') }}">
+                                <i class="fa fa-edit"></i>
+                            </a>                         
+                            <a href="{{ path('homepage') }}">
+                                <i class="fa fa-remove"></i>
+                            </a> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>UNIDAD III</td>
+                        <td>TRANSFORMACIONES LINEALES.</td>
+                        <td>Definición y ejemplos. Propiedades. Imagen y núcleo de una transformación
+                            lineal.
+                            Rango y nulidad. Representación matricial. Geometría de las transformaciones
+                            lineales en el plano. Transformaciones inyectivas y sobreyectivas.</td>
+                        <td><a href="{{ path('homepage') }}">
+                                <i class="fa fa-edit"></i>
+                            </a>                         
+                            <a href="{{ path('homepage') }}">
+                                <i class="fa fa-remove"></i>
+                            </a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

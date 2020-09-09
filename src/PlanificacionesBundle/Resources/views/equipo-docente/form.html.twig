@@ -1,0 +1,65 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_label(form.docenteResponsable) }}
+{#            Responsable#}
+        </div>
+        <div class="col-md-10" id="docente_responsable">
+            {% form_theme form.docenteResponsable 'PlanificacionesBundle:equipo-docente:form_theme-equipo-docente.html.twig'  %}
+            {{ form_widget(form.docenteResponsable) }}
+{#            {{ form_widget(form.docenteResponsable) }}#}
+        </div>
+    </div>
+
+</div>
+
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_label(form.docentesColaboradores) }}
+        </div>
+        <div class="col-md-10">
+            {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:equipo-docente:form_theme-equipo-docente.html.twig'  %}
+            {{ form_row(form.docentesColaboradores) }}
+        </div>
+    </div>
+
+</div>
+
+
+{#                {{ form_rest(form) }}#}
+
+
+
+
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_label(form.docentesAdscriptos) }}
+        </div>
+        <div class="col-md-10">
+            {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:equipo-docente:form_theme-equipo-docente.html.twig'  %}
+            {{ form_row(form.docentesAdscriptos) }}
+        </div>
+    </div>
+
+</div>
+
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-4">
+
+        {{ form_widget(form.submit, {'attr': {'class': 'btn bg-verde text-color-white'}}) }}
+        {#{ form_widget(form.submit) }#}   
+
+    </div>
+    {#<div class="col-xs-12 offset-4 col-sm-4 text-right">
+        {{ form_widget(form.reset) }}
+    </div>#}
+</div>
+
+
+
+{{ form_end(form) }}

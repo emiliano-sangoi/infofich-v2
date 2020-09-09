@@ -24,22 +24,20 @@ class BibliografiaController extends Controller {
         $form->handleRequest($request);
 //var_dump($form); 
 //exit; 
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             //dump($planificacion);exit;
-            $em = $this->getDoctrine()->getManager();                       
-            
+            $em = $this->getDoctrine()->getManager();
+
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-            
-            
             //Buscar las bibliografias de la base de datos
             $bibliografiasPlanificacion = $em->getRepository('PlanificacionesBundle:BibliografiaPlanificacion')
                     ->findBy(array('planificacion' => $planificacion));
-            
-            
+
+
             foreach ($bibliografiasPlanificacion as $bp) {
                 if (false === $planificacion->getBibliografiasPlanificacion()->contains($bp)) {
                     // remove the Task from the Tag
@@ -53,10 +51,10 @@ class BibliografiaController extends Controller {
 
             $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
-            return $this->redirectToRoute('planificacion_ajax_bibliografia_editar', array('id' => $planificacion->getId()));
+            return $this->redirectToRoute('planif_bibliografia_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:Planificacion:tab-bibliografia.html.twig', array(
+        return $this->render('PlanificacionesBundle:bibliografia:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion
         ));

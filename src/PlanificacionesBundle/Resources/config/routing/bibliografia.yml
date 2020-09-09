@@ -1,0 +1,3 @@
+planif_bibliografia_editar:
+    path:     /{id}/bibliografia/editar
+    defaults: { _controller: PlanificacionesBundle:Bibliografia:edit }

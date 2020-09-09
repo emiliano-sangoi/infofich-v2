@@ -15,11 +15,11 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
     {
         parent::buildForm($builder, $options);      
         
-        $planificacion = $options['planificacion'];
-        if($planificacion instanceof \PlanificacionesBundle\Entity\Planificacion){
-             $builder->get('nomape')->setData( $planificacion->getDocenteResponsable()->getDocente()->getNroLegajo());
-        }
-       
+//        $planificacion = $options['planificacion'];
+//        if($planificacion instanceof \PlanificacionesBundle\Entity\Planificacion){
+//             $builder->get('nomape')->setData( $planificacion->getDocenteResponsable()->getDocente()->getNroLegajo());
+//        }
+//       
         
         
     }

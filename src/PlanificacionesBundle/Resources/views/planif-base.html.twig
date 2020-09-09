@@ -1,0 +1,191 @@
+{% extends '::base.html.twig' %}
+
+{% set is_planificacion_definida =  planificacion is defined and planificacion.id is not null %}
+{% set disabled =  is_planificacion_definida ? '' : 'disabled' %}
+{% if info_basica_route is not defined %}
+    {% set info_basica_route =  path('planif_info_basica_editar', {id : planificacion.id}) %}
+{% endif %}
+
+
+{% block content %}
+    <div id="planificaciones" class="bg-white">
+
+        {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
+
+        <div class="light-font mb-0">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-azul mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ page_title|default('Sin título') }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="row no-gutters pt-0" id="menuLateral">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link {{ page_id == 1 ? 'active' : ''}}" id="tab-info-basica" href="{{ info_basica_route ?: '#'}}" >
+                        Información básica
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 2 ? 'active' : ''}} {{ disabled }}" id="tab-equipo-docente" href="{{ is_planificacion_definida ? path('planif_equipo_docente_editar', {id : planificacion.id}) : '#' }}" >
+                        {#                    <a class="nav-link " id="tab-equipo-docente" href="#" >#}
+                        Equipo docente
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 3 ? 'active' : ''}} {{ disabled }}" id="tab-aprobacion"  href="{{ is_planificacion_definida ? path('planif_aprobacion_editar', {id : planificacion.id}) : '#' }}">
+                        Aprobación de la asignatura
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 4 ? 'active' : ''}} {{ disabled }}" id="tab-objetivos"  href="{{ is_planificacion_definida ? path('planif_objetivos_editar', {id : planificacion.id}) : '#' }}">
+                        Objetivos de la asignatura
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 5 ? 'active' : ''}} {{ disabled }} " id="tab-temario"  href="{{ is_planificacion_definida ? path('planif_temario_editar', {id : planificacion.id}) : '#' }}">
+                        Temario
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 6 ? 'active' : ''}} {{ disabled }} " id="tab-bibliografia"  href="{{ is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' }}">
+                        Bibliografia
+                        <i class="far float-right"></i>
+                    </a>
+
+                    <a class="nav-link {{ page_id == 7 ? 'active' : ''}}  {{ disabled }}" id="tab-cronograma"  href="{{ is_planificacion_definida ? path('planif_cronograma_editar', {id : planificacion.id}) : '#' }}">
+                        Cronograma de actividades
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 8 ? 'active' : ''}}  {{ disabled }}" id="tab-distribucion"  href="{{ is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' }}">
+                        Distribucion de carga horaria
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 9 ? 'active' : ''}}  {{ disabled }}" id="tab-viajes-academicos"  href="{{ is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' }}">
+                        Viajes académicos
+                        <i class="far float-right"></i>
+                    </a>
+                    <a class="nav-link {{ page_id == 10 ? 'active' : ''}}  {{ disabled }}" id="tab-revisar"  href="{{ is_planificacion_definida ? path('planificaciones_revisar', {id : planificacion.id}) : '#' }}">
+                        Revisar borrador                        
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-9">                                
+
+
+                <div class="tab-content" id="tab-content">
+
+                    {% include '::notificaciones.html.twig' %}
+
+                    {% block tab_content %}
+
+
+                    {% endblock %}                     
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+
+
+    {#    <script>
+    
+            // Objeto global que guardara toda la informacion de la planificacion
+            {% if is_planificacion_definida %}
+                PLANIFICACION = {
+                    id:{{ planificacion.id }}
+                };
+                console.log("hay id!!!", PLANIFICACION );
+            {% endif %}
+        </script>
+    #}
+
+    {#
+        <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-objetivos.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-temario.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-bibliografia.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-cronograma.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-distribucion.js') }}"></script>
+        <script src="{{ asset('bundles/planificaciones/js/ajax-viajes-academicos.js') }}"></script>
+    
+        <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>#}
+
+
+
+    <script>
+        SECCIONES = {
+        {# info_basica: "{{ path('planificaciones_ajax_info_basica_get') }}",
+         info_basica_edit: "{{ path('planificaciones_ajax_info_basica_edit', {'id' : '--ID--'}) }}",
+         editar_planif: "{{ path('planificaciones_edit', {'id' : '--ID--'}) }}",
+         equipo_docente: "{{ path('planificacion_ajax_equipo_docente_edit', {'id' : '--ID--'}) }}",#}
+                 get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'pos' : '--POS--'}) }}",
+        {# req_aprobacion: "{{ path('planificacion_ajax_aprobacion_editar' ,{'id' : '--ID--'}) }}",
+        objetivos: "{{ path('planificacion_ajax_objetivos_editar', {'id' : '--ID--'}) }}",
+        temario: "{{ path('planificacion_ajax_temario_editar', {'id' : '--ID--'}) }}",
+        bibliografia: "{{ path('planificacion_ajax_bibliografia_editar', {'id' : '--ID--'}) }}",
+        cronograma: "{{ path('planificacion_ajax_cronograma_editar', {'id' : '--ID--'}) }}",
+        distribucion: "{{ path('planificacion_ajax_distribucion_editar', {'id' : '--ID--'}) }}",
+        viajes_academicos: "{{ path('planificacion_ajax_viajes_acad_editar', {'id' : '--ID--'}) }}",             #}   
+                 get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+                 get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
+        {#                seccion_actual: null#}
+            };
+        {#
+                    SECCIONES.seccion_actual = SECCIONES.info_basica;
+        #}
+        {#            $(document).ready(function () {
+                        $('#tab-info-basica').tab('show');
+        #}
+
+        {#$('.select-carrera').on('change', function (e) {
+            var carrera = this.value;
+            console.log(carrera);
+        });#}
+
+        {#     });#}
+
+
+
+
+
+
+
+        {#$("#btnAñadirAdscripto").click(function () {
+            $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");
+        });
+        $("#btnAñadirColab").click(function () {
+            $(".bloque_colaborador:last").clone().insertAfter(".bloque_colaborador:last");
+        });
+        $("#btnAñadirTema").click(function () {
+            //alert('sdfsddf');
+            $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
+            //alert('2');
+        });#}
+        {#            });#}
+    </script>
+
+
+    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>
+
+    {# JQUERY COLLECTION #}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+
+{% endblock %}

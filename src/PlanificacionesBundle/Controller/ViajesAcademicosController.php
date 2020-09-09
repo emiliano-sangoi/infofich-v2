@@ -8,21 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ViajesAcademicosController extends Controller {
-//    public function getTemarioFormAction(Request $request) {
-//
-//        $temario = new Temario();
-//        $form = $this->createForm("PlanificacionesBundle\Form\TemarioType", $temario);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            
-//        }
-//
-//        return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
-//                    'form' => $form->createView()
-//        ));
-//    }
-
+    
     /**
      * Metodo que maneja la edicion del formulario.
      * 
@@ -62,10 +48,10 @@ class ViajesAcademicosController extends Controller {
 
             $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
-            return $this->redirectToRoute('planificacion_ajax_viajes_acad_editar', array('id' => $planificacion->getId()));
+            return $this->redirectToRoute('planif_viajes_acad_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:Planificacion:tab-viajes-academicos.html.twig', array(
+        return $this->render('PlanificacionesBundle:viajes-acad:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion
         ));

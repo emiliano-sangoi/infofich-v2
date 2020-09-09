@@ -1,4 +1,4 @@
-#planificacion_ajax_equipo_docente_edit:
+#planificacion_equipo_docente_edit:
 #    path:     /{id}/editar
 #    defaults: { _controller: PlanificacionesBundle:Docentes:edit }    
 #    methods: [GET, POST]
@@ -13,3 +13,8 @@ planificaciones_ajax_equipo_docente_get_docente:
 #    path:     /{id}/editar
 #    defaults: { _controller: PlanificacionesBundle:InfoBasica:edit }
 #    methods: [GET, POST]
+
+planif_equipo_docente_editar:
+   path: /{id}/equipo-docente/editar
+   defaults: { _controller: PlanificacionesBundle:Docentes:edit }
+   methods: [GET, POST]

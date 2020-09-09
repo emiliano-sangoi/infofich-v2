@@ -64,11 +64,12 @@ class TemarioController extends Controller {
 
             $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
-            return $this->redirectToRoute('planificacion_ajax_temario_editar', array('id' => $planificacion->getId()));
+            return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:Planificacion:tab-temario.html.twig', array(
+        return $this->render('PlanificacionesBundle:temario:edit.html.twig', array(
                     'form' => $form->createView(),
+            'page_title' => 'Temario',                    
                     'planificacion' => $planificacion
         ));
     }

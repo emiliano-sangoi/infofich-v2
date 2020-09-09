@@ -21,19 +21,18 @@ class CargaHorariaController extends Controller {
         //var_dump($planificacion);exit;
 
         $cargaHoraria = $planificacion->getCargaHoraria();
-        
+
         if (!$cargaHoraria) {
             $cargaHoraria = new CargaHoraria();
-            
-        }      
-        
+        }
+
         $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                
+
                 $em->persist($cargaHoraria);
                 $planificacion->setCargaHoraria($cargaHoraria);
                 $em->flush();
@@ -42,14 +41,15 @@ class CargaHorariaController extends Controller {
 
                 //$statusCode = Response::HTTP_OK;
                 //Causar redireccion para evitar "re-submits" del form:
-                return $this->redirectToRoute('planificacion_ajax_distribucion_editar', array('id' => $planificacion->getId()));
+                return $this->redirectToRoute('planif_dist_carga_horaria_editar', array('id' => $planificacion->getId()));
             } else {
                 $this->addFlash('error', 'Hay errores en el formulario.');
             }
         }
-        return $this->render('PlanificacionesBundle:Planificacion:tab-distribucion.html.twig', array(
+        return $this->render('PlanificacionesBundle:dist-carga-horaria:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'planificacion' =>  $planificacion
+                    'planificacion' => $planificacion,
+                    'page_title' => 'Distribución de carga horaria'
         ));
     }
 

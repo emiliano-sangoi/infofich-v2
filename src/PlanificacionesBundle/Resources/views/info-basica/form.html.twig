@@ -1,0 +1,76 @@
+{{ form_start(form) }}
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-12">
+        {{ form_label(form.carrera) }}
+        {{ form_widget(form.carrera) }}
+        {{ form_errors(form.carrera) }}      
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-12 select-asignaturas-container">
+        {{ form_label(form.asignatura) }}
+        {{ form_widget(form.asignatura) }}
+        {{ form_errors(form.asignatura) }}      
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.anioAcad) }}
+        {{ form_widget(form.anioAcad) }}
+        {{ form_errors(form.anioAcad) }}                              
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.codigoSiu) }}
+        {{ form_widget(form.codigoSiu) }}                                
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.plan) }}
+        {{ form_widget(form.plan) }}                                
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.departamento) }}
+        {{ form_widget(form.departamento) }}
+        {{ form_errors(form.departamento) }}               
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.caracter) }}
+        {{ form_widget(form.caracter) }}                                   
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        {{ form_label(form.cargaHoraria) }}
+        {{ form_widget(form.cargaHoraria) }}                                   
+    </div>
+</div>
+
+
+<div class="form-row">
+    <div class="col-sm-12">
+        {{ form_label(form.contenidosMinimos) }}
+        {{ form_widget(form.contenidosMinimos) }}
+        {{ form_errors(form.contenidosMinimos) }}      
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-4">
+
+        {{ form_widget(form.submit, {'attr': {'class': 'btn bg-verde text-color-white'}}) }}
+        {#{ form_widget(form.submit) }#}   
+
+    </div>
+    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+        {{ form_widget(form.reset) }}
+    </div>
+</div>
+
+
+
+
+
+{{ form_end(form) }}

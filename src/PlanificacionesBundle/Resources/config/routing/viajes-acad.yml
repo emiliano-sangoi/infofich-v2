@@ -1,0 +1,3 @@
+planif_viajes_acad_editar:
+    path:     /{id}/viajes-academicos/editar
+    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:edit }

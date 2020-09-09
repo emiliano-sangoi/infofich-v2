@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+
+<div class="form-row mt-4">
+    {{ form_label(form.objetivosGral) }}
+    {{ form_widget(form.objetivosGral) }}
+    {{ form_errors(form.objetivosGral) }}      
+</div>
+
+<div class="form-row mt-4">
+    {{ form_label(form.objetivosEspecificos) }}
+    {{ form_widget(form.objetivosEspecificos) }}
+    {{ form_errors(form.objetivosEspecificos) }}      
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-4">
+        {{ form_widget(form.submit) }}
+    </div>
+    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+        {{ form_widget(form.reset) }}
+    </div>
+</div>
+
+{{ form_end(form) }}

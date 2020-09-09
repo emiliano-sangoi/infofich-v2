@@ -21,35 +21,32 @@ class AprobacionController extends Controller {
         //var_dump($planificacion);exit;
 
         $requisitosAprob = $planificacion->getRequisitosAprobacion();
-        
+
         if (!$requisitosAprob) {
             $requisitosAprob = new RequisitosAprobacion();
-            
-        }      
-        
+        }
+
         $form = $this->createForm("PlanificacionesBundle\Form\RequisitosAprobacionType", $requisitosAprob);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                
-                $em->persist($requisitosAprob);
-                $planificacion->setRequisitosAprobacion($requisitosAprob);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
-                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+            $em->persist($requisitosAprob);
+            $planificacion->setRequisitosAprobacion($requisitosAprob);
+            $em->flush();
 
-                //$statusCode = Response::HTTP_OK;
-                //Causar redireccion para evitar "re-submits" del form:
-                return $this->redirectToRoute('planificacion_ajax_aprobacion_editar', array('id' => $planificacion->getId()));
-            } else {
-                $this->addFlash('error', 'Hay errores en el formulario.');
-            }
+            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+
+            //$statusCode = Response::HTTP_OK;
+            //Causar redireccion para evitar "re-submits" del form:
+            return $this->redirectToRoute('planif_aprobacion_edit', array('id' => $planificacion->getId()));
         }
-        return $this->render('PlanificacionesBundle:Planificacion:tab-aprobacion-asignatura.html.twig', array(
+
+        return $this->render('PlanificacionesBundle:aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'planificacion' =>  $planificacion
+                    'page_title' => 'Requisitos de aprobación de la asignatura',
+                    'planificacion' => $planificacion
         ));
     }
 
