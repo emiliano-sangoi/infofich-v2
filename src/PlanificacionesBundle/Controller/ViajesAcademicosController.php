@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ViajesAcademicosController extends Controller {
-    
+
     /**
      * Metodo que maneja la edicion del formulario.
      * 
@@ -23,18 +23,16 @@ class ViajesAcademicosController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //dump($planificacion);exit;
-            $em = $this->getDoctrine()->getManager();                       
-            
+            $em = $this->getDoctrine()->getManager();
+
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-            
-            
             //Buscar los viajes academicos de la base de datos
             $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajeAcademico')
                     ->findBy(array('planificacion' => $planificacion));
-            
-            
+
+
             foreach ($viajesAcadOriginal as $viajeAcad) {
                 if (false === $planificacion->getViajesAcademicos()->contains($viajeAcad)) {
                     // remove the Task from the Tag
@@ -51,8 +49,9 @@ class ViajesAcademicosController extends Controller {
             return $this->redirectToRoute('planif_viajes_acad_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:viajes-acad:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:9-viajes-acad:edit.html.twig', array(
                     'form' => $form->createView(),
+                    'page_title' => 'Viajes Académicos',
                     'planificacion' => $planificacion
         ));
     }

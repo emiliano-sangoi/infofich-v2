@@ -38,7 +38,7 @@ class ObjetivosController extends Controller {
             return $this->redirectToRoute('planif_objetivos_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:objetivos-asignatura:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:4-objetivos-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => 'Objetivos de la asignatura',
                     'planificacion' => $planificacion

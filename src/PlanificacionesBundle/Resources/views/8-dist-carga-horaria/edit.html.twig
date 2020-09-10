@@ -1,0 +1,24 @@
+{% set page_id = 8 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+    {% include "PlanificacionesBundle:8-dist-carga-horaria:form.html.twig" %}   
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+
+
+
+{% endblock %} 

@@ -1,0 +1,48 @@
+{% set page_id = 5 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+
+    {#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
+    {#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
+    {#  {% form_theme form 'jquery.collection.html.twig'  %}
+      {{ form(form) }}#}
+    {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:5-temario:form_theme-tema.html.twig'  %}
+
+
+    {{ form_start(form) }}  
+
+    {{ form_row(form.temario) }}
+
+    <div class="form-row mt-3">
+        <div class="col-xs-12 col-lg-4">
+
+            {{ form_widget(form.submit, {'attr': {'class': 'btn bg-verde text-color-white'}}) }}
+
+        </div>
+        <div class="col-xs-12 col-lg-8 text-right">
+            {{ form_widget(form.reset) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}  
+
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.temario-selector').collection();
+        });
+    </script>
+
+
+
+
+{% endblock %} 

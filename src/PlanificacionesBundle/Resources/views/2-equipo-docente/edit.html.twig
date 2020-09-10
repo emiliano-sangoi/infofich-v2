@@ -3,25 +3,7 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    <div class="bg-white">
-        <div class="container" >
-            <div class="card card-register mx-auto">
-
-                <div class="card-body px-5">
-
-                    {% include '::notificaciones.html.twig' %}
-
-                    <div class="mb-4 ml-10">
-                        <h4>Equipo Docente</h4>
-                    </div>
-
-                    {% include "PlanificacionesBundle:equipo-docente:form.html.twig" %}  
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+    {% include "PlanificacionesBundle:2-equipo-docente:form.html.twig" %}  
 {% endblock %} 
 
 

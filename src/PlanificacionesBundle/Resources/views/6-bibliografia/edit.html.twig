@@ -1,0 +1,32 @@
+{% set page_id = 6 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+    {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:6-bibliografia:form_theme-bibliografia.html.twig' %}
+    {#% form_theme form 'jquery.collection.html.twig' %#}
+    {{ form(form) }} 
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.bibliografia-selector').collection();
+
+        });
+    </script>
+
+
+
+
+{% endblock %}    
+
+
+
+
+

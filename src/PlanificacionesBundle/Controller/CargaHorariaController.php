@@ -46,7 +46,7 @@ class CargaHorariaController extends Controller {
                 $this->addFlash('error', 'Hay errores en el formulario.');
             }
         }
-        return $this->render('PlanificacionesBundle:dist-carga-horaria:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:8-dist-carga-horaria:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion,
                     'page_title' => 'Distribución de carga horaria'

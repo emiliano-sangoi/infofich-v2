@@ -25,7 +25,7 @@ class DocentesController extends Controller {
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:equipo-docente:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:2-equipo-docente:edit.html.twig', array(
                     'planificacion' => $planificacion,
                     'form' => $form->createView(),
                     'page_title' => 'Equipo docente',

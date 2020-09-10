@@ -2,32 +2,62 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class PlanificacionController extends Controller {
 
-    private $router = array(
-            //'info-basica': 
-    );
-
     public function indexAction(Request $request) {
 
-        return $this->render('PlanificacionesBundle:Planificacion:inicio.html.twig');
+        return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig');
     }
-    
+
+    /**
+     * 
+     * @param Request $request
+     * @return type
+     */
+    public function newAction(Request $request) {
+
+        $planificacion = new Planificacion();
+        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
+            'api_infofich_service' => $this->get('api_infofich_service')
+        ));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($planificacion);
+            $em->flush();
+
+            $this->addFlash('success', 'La planificacion creada correctamente.');
+
+            //Causar redireccion para evitar "re-submits" del form:
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
+        }
+
+
+        return $this->render('PlanificacionesBundle:1-info-basica:new.html.twig', array(
+                    'form' => $form->createView(),
+                    'info_basica_route' => $this->generateUrl('planificaciones_nueva'),
+                    'planificacion' => $planificacion,
+                    'page_title' => 'Nueva planificación'
+        ));
+    }
+
     /**
      * Muestra el contenido cargado de la planificacion.
      * 
      * @param Request $request
      * @return type
      */
-    public function revisarAction(Request $request, \PlanificacionesBundle\Entity\Planificacion $planificacion)
-    {
+    public function revisarAction(Request $request, Planificacion $planificacion) {
         // replace this example code with whatever you need
-        return $this->render('PlanificacionesBundle:revisar:revisar.html.twig', array(
-            'planificacion' => $planificacion,
-            'page_title' => 'Revisar borrador'
+        return $this->render('PlanificacionesBundle:planificacion:revisar.html.twig', array(
+                    'planificacion' => $planificacion,
+                    'page_title' => 'Revisar borrador'
         ));
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
@@ -59,7 +89,6 @@ class PlanificacionController extends Controller {
 //                    'page_title' => 'Nueva planificación'
 //        ));
 //    }
-
 //    public function editAction(Request $request, \PlanificacionesBundle\Entity\Planificacion $planificacion) {
 //                  
 //        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
@@ -103,7 +132,7 @@ class PlanificacionController extends Controller {
 
     public function showNotificacionAction(Request $request) {
         // replace this example code with whatever you need
-        return $this->render('PlanificacionesBundle:Planificacion:mensaje.html.twig');
+        return $this->render('PlanificacionesBundle:planificacion:mensaje.html.twig');
         //, array('base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),));
     }
 

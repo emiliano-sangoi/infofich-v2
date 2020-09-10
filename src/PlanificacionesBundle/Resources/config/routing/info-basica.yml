@@ -1,7 +1,7 @@
-planif_info_basica_nueva:
-   path: /info-basica
-   defaults: { _controller: PlanificacionesBundle:InfoBasica:new }
-   methods: [GET, POST]
+#planif_info_basica_nueva:
+#   path: /info-basica
+#   defaults: { _controller: PlanificacionesBundle:InfoBasica:new }
+#   methods: [GET, POST]
    
 planif_info_basica_editar:
    path: /{id}/info-basica/editar

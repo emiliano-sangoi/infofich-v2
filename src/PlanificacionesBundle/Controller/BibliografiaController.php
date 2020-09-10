@@ -54,8 +54,9 @@ class BibliografiaController extends Controller {
             return $this->redirectToRoute('planif_bibliografia_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:bibliografia:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:6-bibliografia:edit.html.twig', array(
                     'form' => $form->createView(),
+                    'page_title' => 'Bibliografía',
                     'planificacion' => $planificacion
         ));
     }

@@ -43,9 +43,9 @@ class AprobacionController extends Controller {
             return $this->redirectToRoute('planif_aprobacion_edit', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:aprobacion-asignatura:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => 'Requisitos de aprobación de la asignatura',
+                    'page_title' => 'Requisitos para la regularización de la asignatura',
                     'planificacion' => $planificacion
         ));
     }

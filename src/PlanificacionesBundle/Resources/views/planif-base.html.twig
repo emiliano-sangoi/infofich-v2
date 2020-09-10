@@ -74,25 +74,22 @@
             </div>
 
             <div class="col-9">                                
-
-
                 <div class="tab-content" id="tab-content">
-
                     {% include '::notificaciones.html.twig' %}
-
-                    {% block tab_content %}
-
-
-                    {% endblock %}                     
-
-
+                    <div>
+                        <div class="container" >
+                            <div class="mb-4 mt-3">
+                                <h4>{{ page_title }}</h4>
+                            </div>
+                            <div class="">                    
+                                {% block tab_content %}
+                                {% endblock %}   
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
-
     </div>
 
 {% endblock %}

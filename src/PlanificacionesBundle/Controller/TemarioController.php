@@ -67,7 +67,7 @@ class TemarioController extends Controller {
             return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:temario:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:5-temario:edit.html.twig', array(
                     'form' => $form->createView(),
             'page_title' => 'Temario',                    
                     'planificacion' => $planificacion

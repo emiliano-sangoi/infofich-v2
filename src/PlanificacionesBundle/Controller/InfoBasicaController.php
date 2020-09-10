@@ -8,36 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class InfoBasicaController extends Controller {
-
-    public function newAction(Request $request) {
-
-        $planificacion = new Planificacion();
-        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
-            'api_infofich_service' => $this->get('api_infofich_service')
-        ));
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($planificacion);
-            $em->flush();
-
-            $this->addFlash('success', 'La planificacion creada correctamente.');
-
-            //Causar redireccion para evitar "re-submits" del form:
-            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
-        }
-
-
-        return $this->render('PlanificacionesBundle:info-basica:new.html.twig', array(
-                    'form' => $form->createView(),
-                    'info_basica_route' => $this->generateUrl('planif_info_basica_nueva'),
-                    'planificacion' => $planificacion,
-                    'page_title' => 'Nueva planificación'
-        ));
-    }
+class InfoBasicaController extends Controller {   
 
     public function editAction(Request $request, Planificacion $planificacion) {
 
@@ -75,7 +46,7 @@ class InfoBasicaController extends Controller {
 //        }
 
 
-        return $this->render('PlanificacionesBundle:info-basica:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
              'form' => $form->createView(),
                     'page_title' => 'Modificar planificación',
                     'planificacion' => $planificacion,

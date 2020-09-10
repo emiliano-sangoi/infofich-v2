@@ -1,0 +1,19 @@
+planificaciones_show_notif:
+    path:     /mensajes
+    defaults: { _controller: PlanificacionesBundle:Planificacion:showNotificacion }
+    
+
+planificaciones_homepage:
+    path:     /
+    defaults: { _controller: PlanificacionesBundle:Planificacion:index }
+
+planificaciones_nueva:
+    path:     /nueva
+#    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
+    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
+    methods: [GET, POST]
+#
+#planificaciones_edit:
+#    path:     /{id}/editar
+#    defaults: { _controller: PlanificacionesBundle:Planificacion:edit }
+    

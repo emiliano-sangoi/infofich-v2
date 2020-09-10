@@ -25,18 +25,16 @@ class CronogramaController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //dump($planificacion);exit;
-            $em = $this->getDoctrine()->getManager();                       
-            
+            $em = $this->getDoctrine()->getManager();
+
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-            
-            
             //Buscar los temarios de la base de datos
             $actCurricularOriginal = $em->getRepository('PlanificacionesBundle:ActividadCurricular')
                     ->findBy(array('planificacion' => $planificacion));
-            
-            
+
+
             foreach ($actCurricularOriginal as $actCurricular) {
                 if (false === $planificacion->getTemario()->contains($actCurricularOriginal)) {
                     // remove the Task from the Tag
@@ -53,8 +51,9 @@ class CronogramaController extends Controller {
             return $this->redirectToRoute('planif_cronograma_editar', array('id' => $planificacion->getId()));
         }
 
-        return $this->render('PlanificacionesBundle:cronograma:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
                     'form' => $form->createView(),
+                    'page_title' => 'Cronograma de actividades',
                     'planificacion' => $planificacion
         ));
     }

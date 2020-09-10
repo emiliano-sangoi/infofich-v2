@@ -1,0 +1,21 @@
+{% set page_id = 4 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+    {% include "PlanificacionesBundle:4-objetivos-asignatura:form.html.twig" %}   
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+{% endblock %} 
