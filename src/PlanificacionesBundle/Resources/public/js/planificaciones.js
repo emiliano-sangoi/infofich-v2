@@ -5,61 +5,7 @@ $(document).ready(function () {
 
 }
 );
-/**
- * Actualiza el listado de asignaturas al cambiar la carrera elegida.
- *
- * @param {type} select
- * @returns {undefined}
- */
-function actualizarAsignaturas(select) {
 
-    var carrera = $(select).val();
-    //console.log('Carrera elegida: ' + carrera);
-    //Actualizar input Plan de estudio:
-    var planes = JSON.parse($(select).attr('data-planes-carrera'));
-    if (typeof planes === 'object' && typeof planes[carrera] === 'string') {
-        $('#planificacionesbundle_planificacion_plan').attr('value', planes[carrera]);
-    }
-
-    //Define el ecomportamiento del select de asignatura sin disparar el evento:
-    var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
-    select_asignatura.addClass('disabled');
-    select_asignatura.change(function (e) {
-        var option = $(this).children("option:selected");
-        var asignatura = JSON.parse(option.attr('data-json'));
-        $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
-        console.log(asignatura);
-    });
-    //setear la carrera en la url:
-    var url = SECCIONES.get_asignaturas;
-    url = url.replace('--CARRERA--', carrera);
-    //llamada ajax
-    $.ajax({
-        dataType: "json",
-        url: url,
-        data: null,
-        success: function (response) {
-
-            if (response.length > 0) {
-                select_asignatura.html('');
-                response.forEach(function (val, index) {
-                    var opt = $(document.createElement('option'));
-                    opt.attr('value', val.codigoMateria);
-                    opt.attr('data-json', JSON.stringify(val));
-                    opt.text(val.nombreMateria);
-                    select_asignatura.append(opt);
-                });
-                //Esto produce que se complete los datos de la asignatura.
-                select_asignatura.select2({
-                    allowClear: true,
-                    containerCssClass: 'fix-select2-styles'
-                });
-                select_asignatura.trigger('change');
-                select_asignatura.removeClass('disabled');
-            }
-        }
-    });
-}
 
 function getDocente(pos, item) {
 

@@ -4,10 +4,14 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * HistoricoEstados
  *
- * @ORM\Table(name="planif_historico_estados_planif")
+ * @ORM\Table(name="planif_historico_estados_planif", uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="ak_historico_estados", 
+ *            columns={"planif_planificaciones_id", "planif_estados_id", "fecha_desde"})
+ *    })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\HistoricoEstadosRepository")
  */
 class HistoricoEstados

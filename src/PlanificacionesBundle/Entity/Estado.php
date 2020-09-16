@@ -55,6 +55,21 @@ class Estado {
     public function getId() {
         return $this->id;
     }
+    
+    /**
+     * Verifica si el estado pasado como parametro es valido.
+     * 
+     * @param type $cod
+     * @return type
+     */
+    public static function isValido($cod) {
+        return in_array($cod, array(
+            self::PREPARACION,
+            self::REVISION,
+            self::CORRECCION,
+            self::PUBLICADA
+        ));
+    }
 
     public static function getNombrePorCod($cod) {
         switch ($cod) {
@@ -66,6 +81,8 @@ class Estado {
                 return 'En corrección';
             case self::PUBLICADA:
                 return 'Publicada';
+            default:
+                return false;
         }
     }
 

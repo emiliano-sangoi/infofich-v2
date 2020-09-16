@@ -56,7 +56,7 @@ class APIInfofichService {
 
         $query->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
-                ->setCacheEnabled(true);
+                ->setCacheEnabled(FALSE);
 
         if (!$solo_carreras) {
             $solo_carreras = $this->carreras_permitidas;
@@ -113,7 +113,7 @@ class APIInfofichService {
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
                     ->setRaw($raw)
-                    ->setCacheEnabled(true);
+                    ->setCacheEnabled(false);
 
             $asignaturas = $query->getResultado();
 

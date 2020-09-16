@@ -420,6 +420,9 @@ and open the template in the editor.
 .js-select2 {
   /*background-color: red;*/ }
 
+/*.select2-container--bootstrap .select2-selection{
+    font-size: inherit;
+}*/
 .select2 .select2-container {
   /*background-color: red;*/
   /*height: calc(1.5em + .75rem + 2px) !important;*/

@@ -4,7 +4,20 @@ $(document).ready(function () {
 
 
 
+    $(".notificaciones div.notificacion").each(function (index, value) {
+        //console.log("la CDTM")
+        var notificacion = $(this);
+        var duracion = 3000 + index * 1500;
+        //notificacion.delay(duracion).alert('close');
+        // console.log(notificacion);
 
+        //notificacion.fadeOut("slow");
+
+        setTimeout(function () {
+            notificacion.fadeOut("slow");
+            //.alert('close');
+        }, duracion);
+    });
 
 
 });
@@ -52,31 +65,11 @@ function crearDialogEspera(message, title) {
 }
 
 
-function activarCierreAutomaticoNotificaciones() {
-
-    $(".notificaciones div.notificacion").each(function (index, value) {
-        //console.log("la CDTM")
-        var notificacion = $(this);
-        var duracion = 3000 + index * 1500;
-        //notificacion.delay(duracion).alert('close');
-        // console.log(notificacion);
-        
-        //notificacion.fadeOut("slow");
-
-        setTimeout(function () {
-            notificacion.fadeOut("slow");
-                    //.alert('close');
-        }, duracion);
-    });
-
-}
-
-
 function crearAlert(message, title) {
 
     if (typeof title === 'undefined') {
         title = "<span class='text-primary'>Mensaje</span>";
-    }    
+    }
 
     var alert = bootbox.alert({
         title: title,

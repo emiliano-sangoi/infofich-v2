@@ -44,9 +44,9 @@ class PlanificacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->options = $options;
-        
+
         $this->apiInfofichService = $options['api_infofich_service'];
-        if(!$this->apiInfofichService instanceof APIInfofichService){
+        if (!$this->apiInfofichService instanceof APIInfofichService) {
             throw new \Exception('El parametro: api_infofich_service debe ser instancia de AppBundle\Service\APIInfofichService');
         }
 
@@ -55,13 +55,7 @@ class PlanificacionType extends AbstractType {
 
         $this->addCarrera($builder, $options);
         $this->addAniAcad($builder, $options);
-
-        $builder->add('codigoSiu', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'label' => 'Código SIU',
-            'mapped' => false,
-            'required' => false,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
-        ));
+        $this->addCodigoSIU($builder);                
 
         $builder->add('plan', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Plan de estudio',
@@ -98,6 +92,11 @@ class PlanificacionType extends AbstractType {
         $builder->add('departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
             'label' => 'Departamento',
             'class' => 'PlanificacionesBundle\Entity\Departamento',
+            'choice_label' => function ($dpto) {
+                //$nom = str_replace(array('á', 'é', 'í', 'ó', 'ú'), array('Á', 'É', 'Í', 'Ó', 'Ú'), $dpto->getNombre());
+//                return strtoupper( $nom );
+                return $dpto->getNombre();
+            },
             'attr' => array(
                 'class' => 'form-control js-select2'
             )
@@ -109,7 +108,7 @@ class PlanificacionType extends AbstractType {
         ));
 
         $submit_opt = array(
-            'attr' => array('class' => 'btn bg-verde text-color-white')     
+            'attr' => array('class' => 'btn bg-verde text-color-white')
         );
 
         if ($builder->getData()->getId()) {
@@ -136,6 +135,14 @@ class PlanificacionType extends AbstractType {
 
         $listenerPreSetDataEvent = function (FormEvent $event) {
             $this->addAsignaturas($event->getForm(), null);
+            
+//            // setear el codigo de la carrera si este se encuentra definido
+//            $p = $event->getData();
+//            //dump($p != null && $p->getAsignatura());exit;
+//            if($p != null && $p->getAsignatura()){
+//                $event->getForm()->get('codigoSiu')->setData($p->getAsignatura());
+//            }
+
         };
 
         $listenerPostSubmitEvent = function (FormEvent $event) {
@@ -160,6 +167,21 @@ class PlanificacionType extends AbstractType {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
         $builder->get('carrera')->addEventListener(FormEvents::POST_SUBMIT, $listenerPostSubmitEvent);
     }
+    
+    
+    private function addCodigoSIU(FormBuilderInterface $builder) {
+        
+        $p = $builder->getData();
+        $codigoSiu = $p instanceof Planificacion ? $p->getAsignatura() : null;
+        $builder->add('codigoSiu', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Código SIU',
+            'mapped' => false,
+            'required' => false,
+            'data' => $codigoSiu,
+            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+        ));
+        
+    }
 
     /**
      * Agrega los campos relacionados a la carrera
@@ -175,7 +197,7 @@ class PlanificacionType extends AbstractType {
             'choices' => $this->getCarreras(),
             //'required' => false,
             'attr' => array('class' => 'form-control select-carrera js-select2',
-                'onchange' => 'actualizarAsignaturas(this);', //este evento se dispara cuando el usuario selecciona una carrera
+                // 'onchange' => 'actualizarAsignaturas(this);', //este evento se dispara cuando el usuario selecciona una carrera
                 'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
         );
 
@@ -193,12 +215,12 @@ class PlanificacionType extends AbstractType {
      */
     private function addAsignaturas(FormInterface $builder, $cod_carrera = null) {
 
-        $asignaturas = $this->getAsignaturas($cod_carrera);
+        $asignaturas = $this->getAsignaturas($cod_carrera);    
 
         $config = array(
             'label' => 'Asignatura',
             'choices' => $asignaturas,
-            'attr' => array('class' => 'form-control select-asignatura selectpicker js-select2')
+            'attr' => array('class' => 'form-control select-asignatura js-select2')
         );
 
         $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);

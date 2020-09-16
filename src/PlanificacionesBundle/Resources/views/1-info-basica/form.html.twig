@@ -1,12 +1,23 @@
 {{ form_start(form) }}
 
 <div class="form-row">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-2">
+        {{ form_label(form.anioAcad) }}
+        {{ form_widget(form.anioAcad) }}
+        {{ form_errors(form.anioAcad) }}                              
+    </div>
+</div>
+    
+<div class="form-row">
+    <div class="col-xs-12 col-sm-8">
         {{ form_label(form.carrera) }}
         {{ form_widget(form.carrera) }}
         {{ form_errors(form.carrera) }}      
     </div>
-     <div class="col-xs-12 col-sm-6 select-asignaturas-container">
+</div>
+
+<div class="form-row">
+    <div class="col-xs-12 col-sm-8 select-asignaturas-container">
         {{ form_label(form.asignatura) }}
         {{ form_widget(form.asignatura) }}
         {{ form_errors(form.asignatura) }}      
@@ -15,9 +26,9 @@
 
 <div class="form-row">
     <div class="col-xs-12 col-sm-4">
-        {{ form_label(form.anioAcad) }}
-        {{ form_widget(form.anioAcad) }}
-        {{ form_errors(form.anioAcad) }}                              
+        {{ form_label(form.departamento) }}
+        {{ form_widget(form.departamento) }}
+        {{ form_errors(form.departamento) }}               
     </div>
     <div class="col-xs-12 col-sm-4">
         {{ form_label(form.codigoSiu) }}
@@ -30,11 +41,7 @@
 </div>
 
 <div class="form-row">
-    <div class="col-xs-12 col-sm-4">
-        {{ form_label(form.departamento) }}
-        {{ form_widget(form.departamento) }}
-        {{ form_errors(form.departamento) }}               
-    </div>
+   
     <div class="col-xs-12 col-sm-4">
         {{ form_label(form.caracter) }}
         {{ form_widget(form.caracter) }}                                   

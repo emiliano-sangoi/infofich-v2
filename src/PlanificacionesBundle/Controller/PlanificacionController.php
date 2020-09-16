@@ -31,6 +31,10 @@ class PlanificacionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($planificacion);
             $em->flush();
+            
+            //asignar estado:
+            $repoHistorico = $em->getRepository('\PlanificacionesBundle\Entity\HistoricoEstados');
+            $repoHistorico->asignarEstado($planificacion, \PlanificacionesBundle\Entity\Estado::PREPARACION);
 
             $this->addFlash('success', 'La planificacion creada correctamente.');
 
@@ -39,7 +43,7 @@ class PlanificacionController extends Controller {
         }
 
 
-        return $this->render('PlanificacionesBundle:1-info-basica:new.html.twig', array(
+        return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
                     'info_basica_route' => $this->generateUrl('planificaciones_nueva'),
                     'planificacion' => $planificacion,

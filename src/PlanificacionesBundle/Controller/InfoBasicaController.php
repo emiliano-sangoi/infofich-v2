@@ -26,7 +26,7 @@ class InfoBasicaController extends Controller {
             $this->addFlash('success', 'Cambios guardados correctamente.');
 
             //Causar redireccion para evitar "re-submits" del form:
-            return $this->redirectToRoute('planif_equipo_docente_editar', array('id' => $planificacion->getId()));
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
 
 
