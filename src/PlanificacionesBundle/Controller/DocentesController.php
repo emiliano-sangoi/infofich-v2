@@ -2,8 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Util\Texto;
+use FICH\APIInfofich\Query\Docentes\QueryDocentes;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
@@ -25,10 +28,16 @@ class DocentesController extends Controller {
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
 
+        //titulo principal:
+        $api_infofich_service = $this->get('api_infofich_service');
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+
         return $this->render('PlanificacionesBundle:2-equipo-docente:edit.html.twig', array(
                     'planificacion' => $planificacion,
+                    'page_title' => $page_title,
                     'form' => $form->createView(),
-                    'page_title' => 'Equipo docente',
+                    'subtitulo' => 'Modificar equipo docente',
         ));
     }
 
@@ -48,7 +57,6 @@ class DocentesController extends Controller {
 //
 //        return $form;
 //    }
-
 //    public function editAction(Request $request, Planificacion $planificacion) {
 //
 //        $form = $this->crearForm($planificacion);
@@ -73,12 +81,12 @@ class DocentesController extends Controller {
      * 
      * @param Request $request
      * @param type $pos
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      * @throws type
      */
     public function getDocenteAction(Request $request, $pos) {
 
-        $q = new \FICH\APIInfofich\Query\Docentes\QueryDocentes();
+        $q = new QueryDocentes();
         $docentes = $q->setCacheEnabled(true)
                 ->getDocentes();
 
@@ -86,7 +94,7 @@ class DocentesController extends Controller {
             throw $this->createNotFoundException('No se encontro el docente especificado');
         }
 
-        return new \Symfony\Component\HttpFoundation\JsonResponse($docentes[$pos]);
+        return new JsonResponse($docentes[$pos]);
     }
 
 }

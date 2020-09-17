@@ -2,19 +2,21 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class InfoBasicaController extends Controller {   
+class InfoBasicaController extends Controller {
 
     public function editAction(Request $request, Planificacion $planificacion) {
 
+        $api_infofich_service = $this->get('api_infofich_service');
+
         $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
-            'api_infofich_service' => $this->get('api_infofich_service'),
-//            'planificacion' => $planificacion
+            'api_infofich_service' => $api_infofich_service,
         ));
 
         $form->handleRequest($request);
@@ -25,30 +27,18 @@ class InfoBasicaController extends Controller {
 
             $this->addFlash('success', 'Cambios guardados correctamente.');
 
-            //Causar redireccion para evitar "re-submits" del form:
+            //Redireccionar para evitar posibles "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
 
-
-        // dump($planificacion, $this->get('api_infofich_service'));exit;
-//        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->flush();
-//
-//            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-//
-//            //Causar redireccion para evitar "re-submits" del form:
-//            return $this->redirectToRoute('planificaciones_edit', array('id' => $planificacion->getId()));
-//        }
-
+        //titulo principal:
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
-             'form' => $form->createView(),
-                    'page_title' => 'Modificar planificación',
+                    'form' => $form->createView(),
+                    'page_title' => $page_title,
+                    'subtitulo' => 'Modificar información básica',
                     'planificacion' => $planificacion,
                     'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));
@@ -64,7 +54,6 @@ class InfoBasicaController extends Controller {
 //                    'planificacion' => $planificacion
 //        ));
 //    }
-
 //    private function crearForm(Planificacion $planificacion, $action = null) {
 //
 //        if (!$action) {

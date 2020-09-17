@@ -255,7 +255,19 @@ class Planificacion {
         }
         return $res;
     }
-
+    
+    /**
+     * Devuelve un texto indicando el estado actual
+     */
+    public function getEstadoActual() {
+        $hea = $this->getHistoricoEstadoActual();
+        if($hea){
+            return $hea->getEstado()->getNombre();
+        }
+        
+        return null;
+    }
+    
     /**
      * Set anioAcad
      *

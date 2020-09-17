@@ -507,6 +507,9 @@ body {
 .position-absolute {
   position: absolute; }
 
+.opacity-50 {
+  opacity: .5; }
+
 #content .content-info .left-panel {
   height: 23vh;
   position: relative;

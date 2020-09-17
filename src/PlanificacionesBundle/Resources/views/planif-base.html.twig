@@ -81,9 +81,36 @@
                                 {% include '::notificaciones.html.twig' %}
                             </div>
                             <div class="mb-4 mt-4">
-                                <h3 class="font-weight-bold">{{ page_title }}</h3>
+                                {% block titulo_principal %}
+                                    <div class="">
+                                        <span class="h3 font-weight-bold">
+                                            {{ page_title }}
+                                        </span>
+
+                                        {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
+                                            {#                                            {% set estado %}#}
+                                            <span class="lead opacity-50">
+                                                &nbsp;/&nbsp;
+                                                <span class="">
+                                                    {{ planificacion.getAnioAcad() }}
+                                                </span>
+                                                &nbsp;/&nbsp;
+                                                <span class="text-primary">                                                
+                                                    {{ planificacion.getEstadoActual() }}
+                                                </span>
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                {% endblock %} 
+                                {% block subtitulo %}
+                                    {% if subtitulo is defined %}
+                                        <h4 class="font-weight-bold text-color-gray-600">
+                                            {{ subtitulo }}
+                                        </h4>
+                                    {% endif %}
+                                {% endblock %} 
                             </div>
-                            <div class="">                    
+                            <div class="py-4">                    
                                 {% block tab_content %}
                                 {% endblock %}   
                             </div>
