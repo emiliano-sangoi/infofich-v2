@@ -46,7 +46,7 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if($this->environment == 'dev'){
-            return '/home/vagrant/infofich/cache/' . $this->environment;
+            return '/home/vagrant/infofich2/cache/' . $this->environment;
         }
         return parent::getCacheDir();
     }
@@ -54,7 +54,7 @@ class AppKernel extends Kernel
     public function getLogDir()
     {
         if($this->environment == 'dev'){
-            return '/home/vagrant/infofich/logs/'  . $this->environment;
+            return '/home/vagrant/infofich2/logs/'  . $this->environment;
         }
         return parent::getLogDir();
     }

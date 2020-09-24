@@ -40,25 +40,21 @@
             var select_doc_colabor = $('.docente_colaborador_item .js-select2');
             select_doc_colabor.change(function (event) {
                 var element = $(event.target);
-                //var pos = element.val();
-
-                //ar legajo = 
                 var legajo = element.val();
                 var target = element.closest('.docente_colaborador_item');
-               getDocente(legajo, target);
-              // console.log(legajo, element, target);
+                getDocente(legajo, target);
             });
             select_doc_colabor.trigger('change');
 
 
 
             // =====================================================================================
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             // DOCENTES ADSCRIPTOS
             // =====================================================================================
             $('.docentes-adscriptos-selector').collection({
@@ -68,58 +64,17 @@
             var select_doc_adscripto = $('.docente_adscripto_item .js-select2');
             select_doc_adscripto.change(function (event) {
                 var element = $(event.target);
-                //var pos = element.val();
-
-                //ar legajo = 
                 var legajo = element.val();
                 var target = element.closest('.docente_adscripto_item');
-               getDocente(legajo, target);
-              // console.log(legajo, element, target);
+                getDocente(legajo, target);
             });
             select_doc_adscripto.trigger('change');
 
 
 
-            // =====================================================================================
-            
-            
-            
-            
-            
-            
-            
-            
+            // =====================================================================================                                                                                               
 
-        {# 
-         var select_doc_colabor = $('.docente_coleborador_item');
-         var select_doc_adscriptos = $('.docentes-adscriptos-selector');
-
-         select_doc_colabor.collection({
-             after_add: afterAddDocente
-         });
-            
-         select_doc_adscriptos.collection({
-             after_add: afterAddDocente
-         });
-
-           
-         // Instanciar select:
-            
-        // $('#docentes_docentesColaboradores')
-           
-           
-        select_doc_colabor.change(function(event){
-            var element = $(event.target);
-             var pos = element.val();
-             console.log(element, pos);
-        });            
-         select_doc_colabor.trigger('change');#}
-
-
-
-        {#            select_doc_adscriptos.trigger('change');#}
-
-            });
+        });
     </script>
 
 

@@ -11,13 +11,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
 
+    /**
+     * Metodo encargado de guardar los cambios en equipo docente.
+     * 
+     * IMPORTANTE:
+     *  Al guardarse un nuevo docente se revisa si la persona asociada ya existe en la base de datos. Si existe, se reutiliza,
+     *  sino se crea una nueva.
+     *  Esto se maneja en un evento de Doctrine, ver el metodo prePersist, en PlanificacionesBundle/EventListener/DocenteListener
+     * 
+     * 
+     * @param Request $request
+     * @param Planificacion $planificacion
+     * @return type
+     */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion, array(
-                //'planificacion' => $planificacion,
-        ));
-
-        //dump($planificacion);exit;
+        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,51 +98,15 @@ class DocentesController extends Controller {
             }
         }
     }
-
-    /*
-     * 
-     * @param Planificacion $planificacion
-     * @return Symfony\Component\Form\Form
-     */
-//    private function crearForm(Planificacion $planificacion) {
-//
-//        $action = $this->generateUrl('planificacion_ajax_equipo_docente_edit', array('id' => $planificacion->getId()));
-//
-//        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion, array(
-//            'method' => 'POST',
-//            'action' => $action
-//        ));
-//
-//        return $form;
-//    }
-//    public function editAction(Request $request, Planificacion $planificacion) {
-//
-//        $form = $this->crearForm($planificacion);
-//        
-//       // dump($planificacion);exit;
-//
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted()) {
-//            if ($form->isValid()) {
-//                $em = $this->getDoctrine()->getManager();
-//                $em->flush();
-//            }
-//        }
-//
-//        return $this->render('PlanificacionesBundle:Planificacion:tab-equipo_docente.html.twig', array(
-//                    'planificacion' => $planificacion,
-//                    'form' => $form->createView()
-//        ));
-//    }
-
+   
     /**
+     * Metodo que permite obtener los datos de un docente via Ajax o algun otro cliente
      * 
-     * @param Request $request
-     * @param type $pos
+     *      
+     * @param string $legajo
      * @return JsonResponse
-     * @throws type
      */
-    public function getDocenteAction(Request $request, $legajo) {
+    public function getDocenteAction($legajo) {
 
         $q = new QueryDocentes();
         $docentes = $q->setCacheEnabled(true)

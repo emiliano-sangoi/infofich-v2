@@ -17,16 +17,6 @@ use PlanificacionesBundle\Util\Util;
  */
 class DocenteListener {
 
-//    /**
-//     *
-//     * @var \AppBundle\Service\APIInfofichService 
-//     */
-//    private $apiInfofichService;
-//    
-//    public function __construct(\AppBundle\Service\APIInfofichService $apiInfofichService) {
-//        $this->apiInfofichService = $apiInfofichService;
-//    }
-
     public function prePersist(LifecycleEventArgs $args) {
 
         $entity = $args->getObject();

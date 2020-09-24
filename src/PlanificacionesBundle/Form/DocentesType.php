@@ -31,15 +31,9 @@ class DocentesType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $planificacion = $builder->getData();
-        //dump($builder->getData()->getDocenteResponsable()->getDocente()->getNroLegajo());exit;
-        //dump($builder->getData());exit;
-        //dump($planificacion);exit;
-
         $builder
                 ->add('docenteResponsable', 'PlanificacionesBundle\Form\DocenteResponsablePlanificacionType', array(
                     'label' => false,
-                    'planificacion' => $planificacion,
                     'attr' => array(
                         'class' => 'docentes-responsable-selector',
                     ),
