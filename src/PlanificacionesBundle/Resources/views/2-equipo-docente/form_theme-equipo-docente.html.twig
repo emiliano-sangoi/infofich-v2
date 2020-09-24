@@ -5,9 +5,9 @@
     <div class="">
         <div class="form-row">
             <div class="col-md-6">
-                {{ form_label(form.nomape) }}
-                {{ form_widget(form.nomape) }}
-                {{ form_errors(form.nomape) }}
+                {{ form_label(form.docente.nroLegajo) }}
+                {{ form_widget(form.docente.nroLegajo) }}
+                {{ form_errors(form.docente.nroLegajo) }}
             </div>
             <div class="col-md-3">
                 {{ form_label(form.docente.persona.documento) }}
@@ -36,13 +36,12 @@
 {% block planificacionesbundle_doc_colabor_planif_widget %}
     <div class="mb-5">
         {#        {{ form_widget(form) }}#}
-        <div class="">
+        <div class="docente_colaborador_item">
             <div class="form-row">
                 <div class="col-md-6">
-                    {{ form_label(form.nomape) }}
-{#                    {{ form_widget(form.nomape, {'data': form.docente.nroLegajo.vars.value}) }}#}
-                    {{ form_widget(form.nomape) }}
-                    {{ form_errors(form.nomape) }}
+                    {{ form_label(form.docente.nroLegajo) }}
+                    {{ form_widget(form.docente.nroLegajo) }}
+                    {{ form_errors(form.docente.nroLegajo) }}
                 </div>
                 {#<div class="col-md-6">
                     {{ dump(form.docente.nroLegajo.vars.value) }}
@@ -95,13 +94,13 @@
 
 {# DocenteAdscriptoPlanificacionType::getBlockPrefix() + '_widget' #}
 {% block planificacionesbundle_doc_adscripto_planif_widget %}
-    <div class="mb-5">
+    <div class="mb-5 docente_adscripto_item">
         {#{{ dump(form.docente.persona) }}#}
         <div class="form-row">
             <div class="col-md-6">
-                {{ form_label(form.nomape) }}
-                {{ form_widget(form.nomape) }}
-                {{ form_errors(form.nomape) }}
+                {{ form_label(form.docente.nroLegajo) }}
+                {{ form_widget(form.docente.nroLegajo) }}
+                {{ form_errors(form.docente.nroLegajo) }}
             </div>
             <div class="col-md-3">
                 {{ form_label(form.docente.persona.documento) }}

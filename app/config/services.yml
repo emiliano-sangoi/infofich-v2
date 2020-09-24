@@ -15,3 +15,8 @@ services:
         class: AppBundle\Service\APIInfofichService
         arguments: ["@doctrine.orm.entity_manager"]
         
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }

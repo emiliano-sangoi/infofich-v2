@@ -20,19 +20,19 @@ class PersonaType extends AbstractType
         
         $builder->add('documento', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'DNI',
-            'mapped' => false,
+          //  'mapped' => false,
             'attr' => array('class' => 'form-control nro-dni', 'disabled' => 'disabled')
         ));
         
         $builder->add('telefono', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Teléfono',
-             'mapped' => false,
+       //      'mapped' => false,
             'attr' => array('class' => 'form-control telefono', 'disabled' => 'disabled')
         ));
         
         $builder->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
             'label' => 'Correo electrónico',
-             'mapped' => false,
+      //       'mapped' => false,
             'attr' => array('class' => 'form-control email', 'disabled' => 'disabled')
         ));
         

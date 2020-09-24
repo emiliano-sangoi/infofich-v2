@@ -1,0 +1,6 @@
+
+services:
+#    app.persona.listener:
+#        class: AppBundle\EventListener\PersonaListener
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist }

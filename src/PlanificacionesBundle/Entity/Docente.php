@@ -26,9 +26,9 @@ class Docente
     /**
      * @var AppBundle\Entity\Persona
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona", cascade={"persist"})
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
-     * @Assert\NotNull(message="Debe seleccionar una persona")
+     * 
      */
     private $persona;
 

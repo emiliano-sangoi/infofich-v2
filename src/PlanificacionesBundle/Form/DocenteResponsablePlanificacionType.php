@@ -13,7 +13,10 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);      
+        //dump($builder->getData(), $options['planificacion']);exit;
+        parent::buildForm($builder, $options);   
+        
+        //$builder->get()
         
 //        $planificacion = $options['planificacion'];
 //        if($planificacion instanceof \PlanificacionesBundle\Entity\Planificacion){
@@ -31,7 +34,8 @@ class DocenteResponsablePlanificacionType extends DocentePlanificacionType
     {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\DocenteResponsablePlanificacion',
-            'planificacion' => null
+            'planificacion' => null,
+            //'inherit_data' => true,
         ));
     }
     

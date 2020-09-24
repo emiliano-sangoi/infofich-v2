@@ -140,6 +140,7 @@ class InfofichViejoService {
 
             //dump(get_class($user));exit;
             $doc = $row['numero_documento'];
+            //dump($row);exit;
             
             //no incluir repetidos:
             if(!is_numeric($doc) || in_array($doc, $insertados)){
@@ -149,9 +150,23 @@ class InfofichViejoService {
             }
             
             $persona = new Persona();
-            $persona->setApellidos($row['apellidos']);
-            $persona->setNombres($row['nombres']);
+            $persona->setApellidos( ucwords( strtolower($row['apellidos']) ) );
+            $persona->setNombres( ucwords( strtolower($row['nombres']) ) );
             $persona->setDocumento($doc);
+            
+            //Tipo de documento
+            // en la BD esta la descripcion DNI, LC, LE, etc.
+            // se traduce esta descripcion al codigo utilizado por los web services de rectorado.
+            $cod_tipo_doc = \FICH\APIRectorado\Config\WSHelper::getCodigoTipoDocPorDesc( $row['tipo_docum'] );
+            if(is_null($cod_tipo_doc)){
+                throw new \Exception("No se pudo traducir el tipo de documento " . $row['tipo_docum'] . ' a un codigo valido.');
+            }
+            $persona->setTipoDocumento($cod_tipo_doc);
+            
+            //email:
+            if(filter_var($row['email'], FILTER_VALIDATE_EMAIL)){
+                $persona->setEmail($row['email']);
+            }
             
             $insertados[] = $doc;
 
@@ -159,6 +174,7 @@ class InfofichViejoService {
             $usuario->setPersona($persona);
             $usuario->setUsername($row['nombre_usuario']);
             $usuario->setPassword($row['password']);
+            
 
             $this->em->persist($usuario);
 

@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="app_personas")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Persona
 {

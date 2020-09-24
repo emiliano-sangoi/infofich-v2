@@ -14,32 +14,112 @@
 
         $(document).ready(function () {
 
+            // DOCENTE RESPONSABLE
+            // =====================================================================================
+            var select_doc_resp = $('#docentes_docenteResponsable_docente_nroLegajo');
+            select_doc_resp.select2({});
+            var fOnChangeSelect = function (event) {
+                var element = $(event.target);
+                var legajo = element.val();
+
+                getDocente(legajo, $('#docente_responsable'));
+            };
+            select_doc_resp.change(fOnChangeSelect);
+            select_doc_resp.trigger('change');
+            // =====================================================================================
+
+
+
+
+            // DOCENTES COLABORADORES
+            // =====================================================================================
             $('.docentes-colaboradores-selector').collection({
                 after_add: afterAddDocente
             });
+
+            var select_doc_colabor = $('.docente_colaborador_item .js-select2');
+            select_doc_colabor.change(function (event) {
+                var element = $(event.target);
+                //var pos = element.val();
+
+                //ar legajo = 
+                var legajo = element.val();
+                var target = element.closest('.docente_colaborador_item');
+               getDocente(legajo, target);
+              // console.log(legajo, element, target);
+            });
+            select_doc_colabor.trigger('change');
+
+
+
+            // =====================================================================================
+            
+            
+            
+            
+            
+            
+            // DOCENTES ADSCRIPTOS
+            // =====================================================================================
             $('.docentes-adscriptos-selector').collection({
                 after_add: afterAddDocente
             });
 
-            var select = $('#docentes_docenteResponsable_nomape');
-
-            // Instanciar select:
-            select.select2({
-                allowClear: true,
-                containerCssClass: 'fix-select2-styles'
-            });
-
-            select.change(function (event) {
+            var select_doc_adscripto = $('.docente_adscripto_item .js-select2');
+            select_doc_adscripto.change(function (event) {
                 var element = $(event.target);
-                var pos = element.val();
+                //var pos = element.val();
 
-                getDocente(pos, $('#docente_responsable'));
+                //ar legajo = 
+                var legajo = element.val();
+                var target = element.closest('.docente_adscripto_item');
+               getDocente(legajo, target);
+              // console.log(legajo, element, target);
+            });
+            select_doc_adscripto.trigger('change');
+
+
+
+            // =====================================================================================
+            
+            
+            
+            
+            
+            
+            
+            
+
+        {# 
+         var select_doc_colabor = $('.docente_coleborador_item');
+         var select_doc_adscriptos = $('.docentes-adscriptos-selector');
+
+         select_doc_colabor.collection({
+             after_add: afterAddDocente
+         });
+            
+         select_doc_adscriptos.collection({
+             after_add: afterAddDocente
+         });
+
+           
+         // Instanciar select:
+            
+        // $('#docentes_docentesColaboradores')
+           
+           
+        select_doc_colabor.change(function(event){
+            var element = $(event.target);
+             var pos = element.val();
+             console.log(element, pos);
+        });            
+         select_doc_colabor.trigger('change');#}
+
+
+
+        {#            select_doc_adscriptos.trigger('change');#}
 
             });
-
-            select.trigger('change');
-
-        });
     </script>
 
 

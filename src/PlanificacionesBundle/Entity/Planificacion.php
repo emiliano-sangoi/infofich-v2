@@ -199,7 +199,7 @@ class Planificacion {
         $this->temario = new ArrayCollection;
 
         $this->fechaCreacion = new \DateTime;
-    }
+    }   
 
     /**
      * Get id

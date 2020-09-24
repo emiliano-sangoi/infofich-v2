@@ -13,6 +13,13 @@ services:
         abstract:  true
         tags:
             - { name: form.type }
+    
+    planificaciones.form.type.doc_type:
+        class: PlanificacionesBundle\Form\DocenteType
+        arguments: ['@doctrine.orm.entity_manager']
+        # as no class is configured, the parent service MUST be abstract
+        tags:
+            - { name: form.type }
             
     planificaciones.form.type.doc_resp_type:
         class: PlanificacionesBundle\Form\DocenteResponsablePlanificacionType
@@ -31,3 +38,10 @@ services:
         parent: planificaciones.form.type.doc_planif_type
         tags:
             - { name: form.type }
+
+    # https://symfony.com/doc/2.8/doctrine/event_listeners_subscribers.html
+    planificaciones.docentes.listener:
+        class: PlanificacionesBundle\EventListener\DocenteListener
+#        arguments: ['@api_infofich_service']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

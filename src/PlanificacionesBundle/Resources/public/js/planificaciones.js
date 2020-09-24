@@ -7,7 +7,7 @@ $(document).ready(function () {
 );
 
 
-function getDocente(pos, item) {
+function getDocente(legajo, item) {
 
     //Actualiza los campos dni, telefono y email
     var successCallback = function (response) {
@@ -27,12 +27,12 @@ function getDocente(pos, item) {
             email.val(response.email.length > 0 ? response.email : '-');
         }
 
-        console.log(response, item, dni, tel, email);
+        //console.log(response, item, dni, tel, email);
     };
 
     //pos es la posicion del docente en el listado
     var url = SECCIONES.get_docente;
-    url = url.replace('--POS--', pos);
+    url = url.replace('--LEGAJO--', legajo);
 
     $.ajax({
         method: "GET",
@@ -53,10 +53,7 @@ function getDocente(pos, item) {
  */
 function afterAddDocente(collection, item) {
     var target = item.find('.js-select2');
-    target.select2({
-        allowClear: true,
-        containerCssClass: 'fix-select2-styles'
-    });
+    target.select2({});
 
     // console.log(item);
     target.change(function (event) {

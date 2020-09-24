@@ -30,10 +30,12 @@ class DocentesType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+
         $planificacion = $builder->getData();
+        //dump($builder->getData()->getDocenteResponsable()->getDocente()->getNroLegajo());exit;
+        //dump($builder->getData());exit;
         //dump($planificacion);exit;
-        
+
         $builder
                 ->add('docenteResponsable', 'PlanificacionesBundle\Form\DocenteResponsablePlanificacionType', array(
                     'label' => false,
@@ -61,9 +63,10 @@ class DocentesType extends AbstractType {
                         'class' => 'docentes-colaboradores-selector',
                     ),
                     'entry_options' => array(
-                        'label' => false
+                        'label' => false,
+                        'attr' => array('class' => 'bg-primary')
                     ),
-                    'label' => 'Colaborador/a',
+                    'label' => false,
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
                     ),
@@ -86,7 +89,7 @@ class DocentesType extends AbstractType {
                     'entry_options' => array(
                         'label' => false
                     ),
-                    'label' => 'Adscripto/a',
+                    'label' => false,
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
                     ),
@@ -108,7 +111,8 @@ class DocentesType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
+            'compound' => true
         ));
     }
 

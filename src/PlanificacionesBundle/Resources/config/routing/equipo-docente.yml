@@ -5,7 +5,7 @@
 #    
 ## Utilizado cuando se crea
 planificaciones_ajax_equipo_docente_get_docente:
-    path:     /{pos}/get
+    path:     /{legajo}/get
     defaults: { _controller: PlanificacionesBundle:Docentes:getDocente }
     methods: [GET]
 #    

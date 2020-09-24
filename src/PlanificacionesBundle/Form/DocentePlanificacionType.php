@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class DocentePlanificacionType extends AbstractType {
+class DocentePlanificacionType extends AbstractType {
 
     /**
      *
@@ -47,28 +47,33 @@ abstract class DocentePlanificacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $this->options = $options;
 
-        //dump($options['planificacion']);exit;
+        //dump($builder->getData());exit;
 
-        $builder->add('nomape', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Nombre y apellido',
-            'mapped' => false,
-            'required' => true,
-            'choices' => $this->getDocentes(),
-            'attr' => array('class' => 'form-control js-select2')
-        ));
+       // $this->addNomApe($builder, $options);
+
 
         $builder->add('docente', 'PlanificacionesBundle\Form\DocenteType', array(
             'label' => false
         ));
 
-       // dump($builder->getData());exit;
+        // dump($builder->getData());exit;
 
-        $builder->get('nomape')->addEventListener(
-                FormEvents::SUBMIT, array($this, 'onSubmitData')
-        );
-        
-       
+//        $builder->get('nomape')->addEventListener(
+//                FormEvents::SUBMIT, array($this, 'onSubmitData')
+//        );
     }
+
+//    public function addNomApe(FormBuilderInterface $builder, array $options) {
+//
+//        $builder->add('nroLegajo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+//            'label' => 'Nombre y apellido',
+//            //'mapped' => false,
+//            'required' => true,
+//            'choices' => $this->getDocentes(),
+//            'attr' => array('class' => 'form-control js-select2')
+//        ));
+//        
+//    }
 
     public function onSubmitData(FormEvent $event) {
 //        function () {                
@@ -132,7 +137,7 @@ abstract class DocentePlanificacionType extends AbstractType {
 //                $formModifier($event->getForm(), $data->getSport());
 //            }
     }
-    
+
 //    public function onPreSetData(FormEvent $event) {
 //        
 //        //$sport = $event->getForm()->getData();
@@ -140,6 +145,17 @@ abstract class DocentePlanificacionType extends AbstractType {
 //        
 //        dump($dataForm);exit;
 //    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            //'inherit_data' => true,
+            'data_class' => 'PlanificacionesBundle\Entity\DocentePlanificacion',
+        ));
+    }
 
     public function getDocentes() {
 
