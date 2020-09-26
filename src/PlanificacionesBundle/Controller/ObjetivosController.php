@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ObjetivosController extends Controller {
 
     /**
-     * Metodo que maneja la edicion del formulario.
+     * Metodo que maneja la modificacion de los campos "objetivos generales y especificos de la planificación".
      * 
      * @param Request $request
      * @param Planificacion $planificacion
@@ -24,8 +24,6 @@ class ObjetivosController extends Controller {
 
         $form = $this->createForm("PlanificacionesBundle\Form\ObjetivosType", $planificacion);
         $form->handleRequest($request);
-
-//        $statusCode = Response::HTTP_OK;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -37,40 +35,17 @@ class ObjetivosController extends Controller {
 
             return $this->redirectToRoute('planif_objetivos_editar', array('id' => $planificacion->getId()));
         }
+        
+        //titulo principal:
+        $api_infofich_service = $this->get('api_infofich_service');
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         return $this->render('PlanificacionesBundle:4-objetivos-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => 'Objetivos de la asignatura',
+                    'page_title' => $page_title,
                     'planificacion' => $planificacion
         ));
     }
 
-//     public function editAction(Request $request, Planificacion $planificacion) {
-//
-//        $form = $this->createForm("PlanificacionesBundle\Form\ObjetivosType", $planificacion);
-//        $form->handleRequest($request);
-//
-//        $statusCode = Response::HTTP_OK;
-//
-//        if ($form->isSubmitted()) {
-//            if ($form->isValid()) {
-//                $em = $this->getDoctrine()->getManager();
-//                //los campos objetivos esta dentro de la entidad Planificacion
-//                $em->persist($planificacion);
-//                $em->flush();
-//
-//                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-//
-//                return $this->redirectToRoute('planificacion_ajax_objetivos_editar', array('id' => $planificacion->getId()));
-//                
-//            } else {
-//                $statusCode = Response::HTTP_BAD_REQUEST;
-//                $this->addFlash('error', 'Hay errores en el formulario.');
-//            }
-//        }
-//        return $this->render('PlanificacionesBundle:Planificacion:tab-objetivos.html.twig', array(
-//                    'form' => $form->createView()
-//                        // ...
-//        ));
-//    }
 }

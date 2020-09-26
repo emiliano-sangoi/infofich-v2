@@ -2,8 +2,9 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use PlanificacionesBundle\Entity\RequisitosAprobacion;
+use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,10 +43,15 @@ class AprobacionController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_aprobacion_edit', array('id' => $planificacion->getId()));
         }
+        
+        //titulo principal:
+        $api_infofich_service = $this->get('api_infofich_service');
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => 'Requisitos para la regularización de la asignatura',
+                    'page_title' => $page_title,
                     'planificacion' => $planificacion
         ));
     }

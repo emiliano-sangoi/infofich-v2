@@ -13,24 +13,8 @@ class ObjetivosType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('objetivosGral', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-            'label' => 'General',
-            'attr' => array(
-                'rows' => 4,
-                'class' => 'form-control',
-                'required' => true)
-                )
-        );
-
-        $builder->add('objetivosEspecificos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-            'label' => 'Específicos',
-            'attr' => array(
-                'rows' => 4,
-                'class' => 'form-control',
-                'required' => true)
-                )
-        );
-
+        $this->addObjetivosGenerales($builder, $options);
+        $this->addObjetivosEspecificos($builder, $options);
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
@@ -46,10 +30,63 @@ class ObjetivosType extends AbstractType {
         ));
     }
 
-/**
+    /**
+     * Agrega el campo objetivos generales en el formulario.
+     *      
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    private function addObjetivosGenerales(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Generales',
+            'required' => true,
+            'attr' => array(
+                'rows' => 6,
+                'class' => 'form-control',
+            //'required' => true
+            ),
+            'constraints' => array()
+        );
+        
+        //el campo es requerido:
+        $config['constraints'][] = new \Symfony\Component\Validator\Constraints\NotBlank(array(
+           'message'  => 'Este campo no puede quedar vacio'
+        ));
+
+        $builder->add('objetivosGral', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
+    }
+    
+    
+    /**
+     * Agrega el campo objetivos generales en el formulario.
+     *      
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    private function addObjetivosEspecificos(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Específicos',
+            'required' => true,
+            'attr' => array(
+                'rows' => 6,
+                'class' => 'form-control'
+            ),                
+            'constraints' => array()
+        );
+        
+        //el campo es requerido:
+        $config['constraints'][] = new \Symfony\Component\Validator\Constraints\NotBlank(array(
+           'message'  => 'Este campo no puede quedar vacio'
+        ));
+
+        $builder->add('objetivosEspecificos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
+    }
+
+    /**
      * {@inheritdoc}
      */
-
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\Planificacion'

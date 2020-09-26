@@ -37,8 +37,7 @@ class InfoBasicaController extends Controller {
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
-                    'subtitulo' => 'Modificar información básica',
+                    'page_title' => $page_title,                    
                     'planificacion' => $planificacion,
                     'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));
