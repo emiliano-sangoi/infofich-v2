@@ -41,10 +41,10 @@ class TemarioType extends AbstractType {
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Limpiar campos',
-            'attr' => array('class' => 'btn btn-secondary')
-        ));
+//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+//            'label' => 'Limpiar campos',
+//            'attr' => array('class' => 'btn btn-secondary')
+//        ));
     }
 
     /**

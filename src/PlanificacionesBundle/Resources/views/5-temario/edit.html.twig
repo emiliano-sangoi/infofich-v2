@@ -4,10 +4,6 @@
 
 {% block tab_content %}
 
-    {#                {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' %}#}
-    {#                {% form_theme form 'PlanificacionesBundle:Planificacion:form_theme-tema.html.twig' 'jquery.collection.html.twig'  %}#}
-    {#  {% form_theme form 'jquery.collection.html.twig'  %}
-      {{ form(form) }}#}
     {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:5-temario:form_theme-tema.html.twig'  %}
 
 
@@ -21,9 +17,9 @@
             {{ form_widget(form.submit, {'attr': {'class': 'btn bg-verde text-color-white'}}) }}
 
         </div>
-        <div class="col-xs-12 col-lg-8 text-right">
+        {#<div class="col-xs-12 col-lg-8 text-right">
             {{ form_widget(form.reset) }}
-        </div>
+        </div>#}
     </div>
 
     {{ form_end(form) }}  

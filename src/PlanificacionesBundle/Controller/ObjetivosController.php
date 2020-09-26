@@ -2,8 +2,8 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
-use PlanificacionesBundle\Entity\CargaHoraria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
