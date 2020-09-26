@@ -9,6 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class BibliografiaPlanificacionType extends AbstractType {
 
     /**
+     *
+     * @var \Doctrine\ORM\EntityManager 
+     */
+    private $em;
+
+    /**
+     *
+     * @var PlanificacionesBundle\Repository\TipoBibliografiaRepository 
+     */
+    private $repoTipos;
+
+    public function __construct(\Doctrine\ORM\EntityManager $em) {
+        $this->em = $em;
+        $this->repoTipos = $this->em->getRepository('PlanificacionesBundle:TipoBibliografia');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -20,13 +37,22 @@ class BibliografiaPlanificacionType extends AbstractType {
         ));
 
 
-        $builder
-                ->add('tipoBibliografia', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                    'class' => 'PlanificacionesBundle\Entity\TipoBibliografia',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
+        $this->addTipo($builder, $options);
+    }
+
+    public function addTipo(FormBuilderInterface $builder, array $options) {
+
+        $tipoInicial = $this->repoTipos->findOneBy(array(
+            'codigo' => \PlanificacionesBundle\Entity\TipoBibliografia::BASICA
+        ));
+
+        $builder->add('tipoBibliografia', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+            'label' => false,
+            'class' => 'PlanificacionesBundle:TipoBibliografia',
+            'choice_label' => 'nombre',
+            'expanded' => true,
+            'data' => $tipoInicial,
+            'required' => true,
         ));
     }
 
@@ -38,6 +64,12 @@ class BibliografiaPlanificacionType extends AbstractType {
             'data_class' => 'PlanificacionesBundle\Entity\BibliografiaPlanificacion'
         ));
     }
-
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return 'planificacionesbundle_bibliografiaplanificacion';
+    }
 
 }

@@ -12,60 +12,52 @@ class BibliografiaType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        //Armar el constructor con todos los campos
 
-        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Título',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('autores', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Autores',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
+        $this->addTitulo($builder, $options);
+        $this->addAutores($builder, $options);
+
+        $builder
                 ->add('editorial', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Editorial',
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control'
                     )
-                ))
-                ->add('anioEdicion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        ));
+
+
+        $builder
+                ->add('anioEdicion', 'Symfony\Component\Form\Extension\Core\Type\NumberType', array(
                     'label' => 'Año de edición',
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control'
                     )
-                ))
-                ->add('nroEdicion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        ));
+
+
+        $builder
+                ->add('nroEdicion', 'Symfony\Component\Form\Extension\Core\Type\NumberType', array(
                     'label' => 'N° de edición',
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control'
                     )
-                ))
+        ));
+
+
+        $builder
                 ->add('issnIsbn', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'ISSN o ISBN',
                     'required' => false,
                     'attr' => array(
                         'class' => 'form-control'
                     )
-                ))
-                ->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
-                    'label' => 'Disponible en biblioteca',
-                    'required' => false,
-                        //'attr' => array('class' => 'form-control')
-                ))
-                ->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\RadioType', array(
-                    'label' => 'Disponible online',
-                    'required' => false,
-                        //'attr' => array('class' => 'form-control')
         ));
+
+
+        $this->addDisponibleBiblioteca($builder, $options);
+        $this->addDisponibleOnline($builder, $options);
 
         $builder
                 ->add('fechaConsultaOnline', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
@@ -87,6 +79,63 @@ class BibliografiaType extends AbstractType {
         ));
     }
 
+    public function addTitulo(FormBuilderInterface $builder, array $options) {
+
+        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Título',
+            'required' => true,
+            'attr' => array(
+                'class' => 'form-control'
+            )
+        ));
+    }
+
+    public function addAutores(FormBuilderInterface $builder, array $options) {
+        $builder->add('autores', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Autores',
+            'required' => true,
+            'attr' => array(
+                'class' => 'form-control',
+                'placeholder' => 'Apellido, NOMBRE'
+            )
+        ));
+    }
+    
+    
+    public function addDisponibleBiblioteca(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => '¿Disponible en biblioteca?',
+            'choices' => array(
+                'Si' => true,
+                'No' => false,
+            ),
+            'choices_as_values' => true,
+            'data' => true,
+            'required' => true,
+            'expanded' => true
+        );
+
+        $builder->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+    }
+
+    public function addDisponibleOnline(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => '¿Disponible online?',
+            'choices' => array(
+                'Si' => true,
+                'No' => false,
+            ),
+            'choices_as_values' => true,
+            'data' => false,
+            'required' => true,
+            'expanded' => true
+        );
+
+        $builder->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -95,13 +144,6 @@ class BibliografiaType extends AbstractType {
             'data_class' => 'PlanificacionesBundle\Entity\Bibliografia'
         ));
     }
-    
-        /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix() {
-        return 'planificacionesbundle_bibliografia';
-    }
-
+   
 
 }

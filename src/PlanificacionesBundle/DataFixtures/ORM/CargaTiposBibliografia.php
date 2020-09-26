@@ -11,12 +11,14 @@ class CargaTiposBibliografia extends AbstractFixture implements FixtureInterface
     public function load(ObjectManager $manager) {
 
         $tipo1 = new TipoBibliografia();
-        $tipo1->setNombre(TipoBibliografia::BASICA);
+        $tipo1->setCodigo(TipoBibliografia::BASICA);
+        $tipo1->setNombre('Básica');
         $tipo1->setDescripcion('Bibliografia principal de la asignatura.');
         
         
         $tipo2 = new TipoBibliografia();
-        $tipo2->setNombre(TipoBibliografia::COMPLEMENTARIA);
+        $tipo2->setCodigo(TipoBibliografia::COMPLEMENTARIA);
+        $tipo2->setNombre('Complementaria');
         $tipo2->setDescripcion('Bibliografia complementaria a la bibliografía básica.');                
         
         $manager->persist($tipo1);

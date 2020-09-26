@@ -462,7 +462,7 @@ class Planificacion {
      */
     public function getActividadesCurriculares() {
         return $this->actividadesCurriculares;
-    }
+    }    
 
     /**
      * Add bibliografiasPlanificacion

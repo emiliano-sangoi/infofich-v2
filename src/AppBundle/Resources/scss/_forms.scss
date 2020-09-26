@@ -32,9 +32,15 @@
 
 form {
 
-    label.required:after {
-        content:" *";
-        color:red;
+    label{
+        &.required:after {
+            content:" *";
+            color:red;
+        }                
+    }
+    
+    input[type='radio']{
+        margin-right: .5em;
     }
 
     .form-row{
@@ -49,6 +55,18 @@ form {
             background-color: blue !important;
         }*/
 
+
+}
+
+.formato-inputs-groups {
+
+    label{
+        &.required:after {
+            content: none;        
+        }
+        
+        margin-right: 3em;
+    }
 
 }
 

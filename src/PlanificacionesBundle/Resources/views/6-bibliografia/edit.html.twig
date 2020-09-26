@@ -3,9 +3,30 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:6-bibliografia:form_theme-bibliografia.html.twig' %}
-    {#% form_theme form 'jquery.collection.html.twig' %#}
-    {{ form(form) }} 
+    <div id="bibliografia">
+
+        {{ form_start(form) }}
+
+
+        {% form_theme form.bibliografiasPlanificacion 'jquery.collection.html.twig' 'PlanificacionesBundle:6-bibliografia:form_theme-bibliografia.html.twig' %}
+        {#% form_theme form 'jquery.collection.html.twig' %#}
+        {{ form_widget(form.bibliografiasPlanificacion) }} 
+
+
+        <div class="form-row">
+            <div class="col-xs-12 col-sm-4">
+
+                {{ form_widget(form.submit, {'attr': {'class': 'btn bg-verde text-color-white'}}) }}        
+
+            </div>
+            {#<div class="col-xs-12 offset-4 col-sm-4 text-right">
+                {{ form_widget(form.reset) }}
+            </div>#}
+        </div>
+
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %} 
 
 

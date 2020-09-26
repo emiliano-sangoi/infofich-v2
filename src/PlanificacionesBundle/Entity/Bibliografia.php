@@ -28,7 +28,7 @@ class Bibliografia
      * @ORM\Column(name="titulo", type="string", length=512)
      * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
-    private $titulo;
+    private $titulo;    
 
     /**
      * @var string
@@ -74,6 +74,7 @@ class Bibliografia
      * @ORM\Column(name="issn_isbn", type="string", length=256, nullable=true)
      */
     private $issnIsbn;
+    
 
     /**
      * @var bool
@@ -365,4 +366,5 @@ class Bibliografia
     {
         return $this->enlaceOnline;
     }
+    
 }

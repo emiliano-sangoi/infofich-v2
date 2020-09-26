@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoBibliografia
 {
-    const BASICA = 'Basica';
-    const COMPLEMENTARIA = 'Complementaria';
+    const BASICA = 1;
+    const COMPLEMENTARIA = 2;
     
     /**
      * @var int
@@ -23,6 +23,14 @@ class TipoBibliografia
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="codigo", type="integer", unique=true)
+     * 
+     */
+    private $codigo;
 
     /**
      * @var string
@@ -100,5 +108,28 @@ class TipoBibliografia
     public function __toString() {
         return $this->nombre;
     }
-}
 
+    /**
+     * Set codigo
+     *
+     * @param integer $codigo
+     *
+     * @return TipoBibliografia
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return integer
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+}

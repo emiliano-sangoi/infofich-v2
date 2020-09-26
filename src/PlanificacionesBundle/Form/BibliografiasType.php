@@ -37,8 +37,7 @@ class BibliografiasType extends AbstractType {
 
         $submit_opt = array(
             'attr' => array(
-                'class' => 'btn bg-verde text-color-white',
-                'onclick' => 'onGuardarBibliografiaClick(event);'
+                'class' => 'btn bg-verde text-color-white'
             ),
             'label' => 'Guardar'
         );

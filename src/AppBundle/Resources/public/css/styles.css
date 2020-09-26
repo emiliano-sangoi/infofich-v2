@@ -440,8 +440,15 @@ form {
   form label.required:after {
     content: " *";
     color: red; }
+  form input[type='radio'] {
+    margin-right: .5em; }
   form .form-row {
     margin-bottom: 2.5rem !important; }
+
+.formato-inputs-groups label {
+  margin-right: 3em; }
+  .formato-inputs-groups label.required:after {
+    content: none; }
 
 #tab-pane-temario form .form-row {
   margin-bottom: 1rem !important; }
