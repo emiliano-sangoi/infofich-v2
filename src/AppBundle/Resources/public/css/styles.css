@@ -441,7 +441,7 @@ form {
   form label.required:after {
     content: " *";
     color: red; }
-  form input[type='radio'] {
+  form input[type='radio'], form input[type='checkbox'] {
     margin-right: .5em; }
   form .form-row {
     margin-bottom: 2.5rem !important; }

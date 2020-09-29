@@ -40,6 +40,7 @@ class RequisitosAprobacion {
      * @var bool
      *
      * @ORM\Column(name="preve_cfi", type="boolean")
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
      * 
      */
     private $preveCfi;
@@ -122,7 +123,7 @@ class RequisitosAprobacion {
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
-     *     "this.getFechaRecupPrimerParcial() > this.getFechaPrimerParcial()",
+     *     "this.getFechaRecupPrimerParcial() >= this.getFechaPrimerParcial()",
      *     message="Este campo debe ser mayor a la fecha de segundo parcial."
      * )
      */
@@ -136,7 +137,7 @@ class RequisitosAprobacion {
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
-     *     "this.getFechaRecupSegundoParcial() > this.getFechaRecupPrimerParcial()",
+     *     "this.getFechaRecupSegundoParcial() >= this.getFechaRecupPrimerParcial()",
      *     message="Este campo debe ser mayor a la fecha del recuperatorio del primer parcial."
      * )
      */
@@ -175,6 +176,11 @@ class RequisitosAprobacion {
      * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="requisitosAprobacion")
      */
     private $planificacion;
+    
+    public function __construct() {
+        $this->prevePromParcialTeoria = true;
+        $this->prevePromParcialPractica = true;        
+    }
 
     /**
      * Get id
@@ -248,6 +254,15 @@ class RequisitosAprobacion {
      * @return bool
      */
     public function getPreveCfi() {
+        return $this->preveCfi;
+    }
+    
+    /**
+     * Get preveCfi
+     * 
+     * @return bool
+     */
+    public function preveCfi() {
         return $this->preveCfi;
     }
 

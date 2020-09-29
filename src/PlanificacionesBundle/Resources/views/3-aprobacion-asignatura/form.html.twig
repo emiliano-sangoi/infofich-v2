@@ -1,16 +1,15 @@
 {{ form_start(form) }}
 
+<div class="mb-4">
+    <h4>Requisitos para la aprobaci&oacute;n de la asignatura</h4>
+</div>
+
 
 <div class="form-row">
-
-    <div class="form-group offset-2 col-xs-12 col-sm-2">
+    <div class="form-group offset-2 col-xs-12 col-sm-3">
         {{ form_label(form.porcentajeAsistencia) }}
         {{ form_widget(form.porcentajeAsistencia) }}
         {{ form_errors(form.porcentajeAsistencia) }}      
-
-        <div class="valid-feedback">
-            V&aacute;lido
-        </div>
     </div>
 </div>
 
@@ -20,20 +19,13 @@
         <label for="responsable">Parciales</label>
     </div>
     <div class="form-group col-sm-3 col-xs-12">
-        {{ form_label(form.fechaPrimerParcial) }}
-        {{ form_widget(form.fechaPrimerParcial) }}
-        {{ form_errors(form.fechaPrimerParcial) }}      
-        <div class="valid-feedback">
-            V&aacute;lido
-        </div>
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.fechaPrimerParcial, 'fecha_1er_parcial_picker', true ) }}      
+
     </div>
     <div class="form-group col-sm-3 col-xs-12">
-        {{ form_label(form.fechaSegundoParcial) }}
-        {{ form_widget(form.fechaSegundoParcial) }}
-        {{ form_errors(form.fechaSegundoParcial) }}  
-        <div class="valid-feedback">
-            V&aacute;lido
-        </div>
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.fechaSegundoParcial, 'fecha_2do_parcial_picker', true ) }} 
     </div>
 
 </div>
@@ -43,21 +35,13 @@
     <div class="form-group col-sm-2 col-xs-12">
         <label for="responsable">Recupetarios</label>
     </div>
-    <div class="form-group col-sm-3 col-xs-12">
-        {{ form_label(form.fechaRecupPrimerParcial) }}
-        {{ form_widget(form.fechaRecupPrimerParcial) }}
-        {{ form_errors(form.fechaRecupPrimerParcial) }}      
-        <div class="valid-feedback">
-            V&aacute;lido
-        </div>
+    <div class="form-group col-sm-3 col-xs-12">    
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.fechaRecupPrimerParcial, 'fecha_recu_1er_parcial_picker', true ) }} 
     </div>
     <div class="form-group col-sm-3 col-xs-12">
-        {{ form_label(form.fechaRecupSegundoParcial) }}
-        {{ form_widget(form.fechaRecupSegundoParcial) }}
-        {{ form_errors(form.fechaRecupSegundoParcial) }}  
-        <div class="valid-feedback">
-            V&aacute;lido
-        </div>
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.fechaRecupSegundoParcial, 'fecha_recu_2do_parcial_picker', true ) }} 
     </div>
 
 </div>
@@ -67,57 +51,50 @@
 </div>
 
 <div class="form-row">
-    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
-        {{ form_label(form.preveProm) }}
-        {{ form_widget(form.preveProm) }}
-        {{ form_errors(form.preveProm) }} 
+    <div class="form-group mb-0 offset-2 col-sm-3 col-xs-12">
+        <label for="preveeProm">¿Prevé promoción?</label>
+        <div id="preveeProm" class="formato-inputs-groups">
+            <div class="d-inline-block">
+                {{ form_widget(form.prevePromParcialTeoria) }}
+                {{ form_label(form.prevePromParcialTeoria) }}        
+                {{ form_errors(form.prevePromParcialTeoria) }} 
+            </div>
 
+            <div class="d-inline-block">
+                {{ form_widget(form.prevePromParcialPractica) }}
+                {{ form_label(form.prevePromParcialPractica) }}        
+                {{ form_errors(form.prevePromParcialPractica) }}   
+            </div>
+        </div>
     </div>
 
-</div>
-<!-- Estas opciones deben aparecer Solo si se tilda Si arribaa -->
-
-<div class="form-row prevePromDiv" style="display:none">
-    <div class="form-group mb-0 offset-2 col-sm-2 col-xs-12">
-        {{ form_label(form.prevePromParcialTeoria) }}
-        {{ form_widget(form.prevePromParcialTeoria) }}
-        {{ form_errors(form.prevePromParcialTeoria) }} 
-
-    </div>
-    <div class="form-group mb-0 col-sm-2 col-xs-12">
-        {{ form_label(form.prevePromParcialPractica) }}
-        {{ form_widget(form.prevePromParcialPractica) }}
-        {{ form_errors(form.prevePromParcialPractica) }}   
-    </div>
 </div>
 
 <div class="form-row">
-    <div class="form-group mb-0 offset-2 col-sm-4 col-xs-12">
+    <div class="offset-2 col-sm-4 col-xs-12 formato-inputs-groups ">
         {{ form_label(form.preveCfi) }}
         {{ form_widget(form.preveCfi) }}
         {{ form_errors(form.preveCfi) }} 
     </div>
 </div>
 
-<div class="form-row preveCfiDiv" style="display:none">
-
-    <div class="form-group offset-2  col-sm-3 col-xs-12">
-        {{ form_label(form.fechaParcailCfi) }}
-        {{ form_widget(form.fechaParcailCfi) }}
-        {{ form_errors(form.fechaParcailCfi) }}  
+<div class="preveCfiDiv {{ planificacion.requisitosAprobacion.preveCfi ? '' : 'd-none' }}">
+    <div class="form-row">
+        <div class="offset-2 col-sm-3 col-xs-12">
+            {% from '::macros.html.twig' import input_datetime_picker %}     
+            {{  input_datetime_picker(form.fechaParcailCfi, 'fecha_cfi_picker', true ) }}
+        </div>
+        <div class="col-sm-3 col-xs-12">
+            {% from '::macros.html.twig' import input_datetime_picker %}     
+            {{  input_datetime_picker(form.fechaRecupCfi, 'fecha_recup_cfi_picker', true ) }}
+        </div>
     </div>
-    <div class="form-group col-sm-3 col-xs-12">
-        {{ form_label(form.fechaRecupCfi) }}
-        {{ form_widget(form.fechaRecupCfi) }}
-        {{ form_errors(form.fechaRecupCfi) }}  
-    </div>
-
-</div>
-<div class="form-row">
-    <div class="form-group offset-2 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        {{ form_label(form.modalidadCfi) }}
-        {{ form_widget(form.modalidadCfi) }}
-        {{ form_errors(form.modalidadCfi) }}  
+    <div class="form-row">
+        <div class="offset-2 col-md-6 col-sm-6 col-xs-12">
+            {{ form_label(form.modalidadCfi) }}
+            {{ form_widget(form.modalidadCfi) }}
+            {{ form_errors(form.modalidadCfi) }}  
+        </div>
     </div>
 </div>
 
@@ -150,15 +127,5 @@
         {{ form_widget(form.reset) }}
     </div>
 </div>
-{#<div class="col-12 mt-s text-right mb-4">
 
-    <button type="submit" class="btn btn btn-verde">
-        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-        Guardar
-    </button>
-
-    <a href="#" class="btn btn-secondary">
-        Cancelar
-    </a>
-</div>#}
 {{ form_end(form) }}

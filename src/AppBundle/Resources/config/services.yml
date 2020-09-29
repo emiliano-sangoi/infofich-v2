@@ -1,4 +1,8 @@
 services:
+    app.form.type.datalist_type:
+        class: AppBundle\Form\DatalistType
+        tags:
+            -  { name: form.type, alias: datalist }
 #    app.persona.listener:
 #        class: AppBundle\EventListener\PersonaListener
 #        tags:

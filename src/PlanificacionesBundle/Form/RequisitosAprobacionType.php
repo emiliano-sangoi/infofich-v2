@@ -2,8 +2,11 @@
 
 namespace PlanificacionesBundle\Form;
 
+use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RequisitosAprobacionType extends AbstractType {
@@ -13,23 +16,22 @@ class RequisitosAprobacionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('porcentajeAsistencia', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'label' => 'Asistencia',
+        $builder->add('porcentajeAsistencia', 'AppBundle\Form\DatalistType', array(
+            'label' => 'Asistencia',   
             'required' => true,
-            'choices' => array('70' => 70, '80' => 80, '90' => 90, '100' => 100),
+            'choices' => array(70, 75, 80, 85, 90, 95, 100),
             'attr' => array('class' => 'form-control')
-        ));
-
+        ));        
 
         $builder->add('fechaPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
             'required' => true,
             'label' => 'Primer Parcial',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
-
+        
 
         $builder->add('fechaSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
@@ -54,53 +56,33 @@ class RequisitosAprobacionType extends AbstractType {
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
-            'required' => true,
-            'label' => 'Segundo Parcial',
-            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
-        ));
-
-        /*
-         * Este campo no esta mapeado
-         */
-        $builder->add('preveProm', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'mapped' => false,
             'required' => false,
-            'placeholder' => false,
-            'empty_data' => 'No', 
-            'data' => 'No', //valor por defecto
-            'label' => 'Prevé promoción',
-            'label_attr' => array('class' => 'required'),
-            'choices' => array('Si'=>'Sí','No'=>'No'),
-            'expanded' => true, //Es para que se vea como radiobuttons
-            'attr' => array('class' => '',
-                'onchange' => "onChangePreve(event);")
+            'label' => 'Segundo Parcial',
+            'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.')
         ));
 
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Teoría',
             'required' => false,
-                //'attr' => array('class' => 'form-control')
+              //  'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Práctica',
             'required' => false,
-                // 'attr' => array('class' => 'form-control')
+        //    'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-            'mapped' => false,
-            'label' => 'Prevé coloquio final integrador ',
-            'label_attr' => array('class' => 'required'),
-            'empty_data' => 'No', 
-            'data' => 'No', //valor por defecto
-            'required' => false,
-            'placeholder' => false,
-            'choices' => array('Si'=>'Sí','No'=>'No'),
+        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(            
+            'label' => '¿Prevé coloquio final integrador?',            
+            'required' => true,            
+            'choices' => array('Sí' => true,'No'=> false),
+            'choices_as_values' => true,
             'expanded' => true,
             'multiple' => false,
             'attr' => array('class' => '', 
-                'onchange'=>"onChangePreveIntegrador(event);")
+                'onchange'=>"onChangePreveIntegrador(event);"
+            )
         ));
 
         $builder->add('fechaParcailCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
@@ -156,6 +138,20 @@ class RequisitosAprobacionType extends AbstractType {
             'label' => 'Limpiar campos',
             'attr' => array('class' => 'btn btn-secondary')
         ));
+        
+        
+        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event){
+            $requisitosAprobacion = $event->getForm()->getData();
+            if($requisitosAprobacion instanceof RequisitosAprobacion && false === $requisitosAprobacion->preveCfi()){
+                //en caso de que la asignatura no prevea un CFI se debe poner en null los campos:
+                //  - fechaParcailCfi
+                //  - fechaRecupCfi
+                //  - modalidadCfi
+                $requisitosAprobacion->setFechaParcailCfi(null);
+                $requisitosAprobacion->setFechaRecupCfi(null);
+                $requisitosAprobacion->setModalidadCfi(null);                
+            }            
+        });
     }
 
     /**

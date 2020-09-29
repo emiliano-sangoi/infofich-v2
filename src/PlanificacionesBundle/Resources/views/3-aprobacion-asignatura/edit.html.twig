@@ -16,6 +16,22 @@
 
 
         });
+
+        /*
+         * Funcion llamada desde el onchage de las opciones de PreveProm
+         */
+        function onChangePreveIntegrador(e) {
+            //Si hizo click en Si debe aparecer la Div con la clase prevePromDiv
+            //Caso contrario ocultar la Div PrevePromDiv
+            var radioValue = $("input[name='planificacionesbundle_planificacion[preveCfi]']:checked").val();
+
+            if (radioValue == 1) {                
+                $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();
+            } else {                
+                $(".preveCfiDiv").addClass('d-none');
+            }
+
+        }
     </script>
 
 {% endblock %} 
