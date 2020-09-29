@@ -92,7 +92,7 @@ class DocentesType extends AbstractType {
         $submit_opt = array(
             'attr' => array(
                 'class' => 'btn bg-verde text-color-white',
-                'onclick' => 'onGuardarCambiosDocentesClick(event);'
+               // 'onclick' => 'onGuardarCambiosDocentesClick(event);'
             ),
             'label' => 'Guardar'
         );

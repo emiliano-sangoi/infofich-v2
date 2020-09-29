@@ -12,9 +12,15 @@ class ActividadesCurricularesType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        
+        $planif = $builder->getData();
+        
+        if(!$planif instanceof \PlanificacionesBundle\Entity\Planificacion){
+            throw new \Exception('Debe especificar una planificacion al utilizar este formulario.');
+        }
 
-        $builder->add('actividadesCurriculares', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
-            // each entry in the array will be an "email" field
+        $builder->add('actividadCurricular', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+           // 'error_bubbling' => false,   
             'entry_type' => 'PlanificacionesBundle\Form\ActividadCurricularType',
             'allow_add' => true,
             'allow_delete' => true,
@@ -26,18 +32,24 @@ class ActividadesCurricularesType extends AbstractType {
             
             
             'attr' => array(
-                'class' => 'cronograma-selector',
+                'class' => 'cronograma-selector',                
             ),
-            'entry_options' => array(
-                'label' => false
+            'entry_options' => array(        
+                'label' => false,
+                'error_bubbling' => false,
+                'planificacion' => $planif,                
             ),            
-            'label' => false,
+            'label' => false,   
+            'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\Valid()
+            ),
+            'error_bubbling' => false,                     
         ));                
         
         $submit_opt = array(
             'attr' => array(
                 'class' => 'btn bg-verde text-color-white',
-                'onclick' => 'onGuardarCronogramaClick(event);'
+                //'onclick' => 'onGuardarCronogramaClick(event);'
              ),
             'label' => 'Guardar'
         );                
@@ -52,15 +64,10 @@ class ActividadesCurricularesType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
+          //  'error_bubbling' => false,
+             'error_bubbling' => false
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix() {
-        return 'planificacionesbundle_cronograma';
     }
 
 }

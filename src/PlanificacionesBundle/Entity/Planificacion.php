@@ -142,10 +142,10 @@ class Planificacion {
     /**
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion", cascade={"persist","remove"})
-     * @Assert\Valid  
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion", cascade={"persist","remove"})  
+     * 
      */
-    private $actividadesCurriculares;
+    private $actividadCurricular;
 
     /**
      *
@@ -193,7 +193,7 @@ class Planificacion {
         $this->docentesAdscriptos = new ArrayCollection;
         $this->docentesColaboradores = new ArrayCollection;
         $this->historicosEstado = new ArrayCollection;
-        $this->actividadesCurriculares = new ArrayCollection;
+        $this->actividadCurricular = new ArrayCollection;
         $this->bibliografiasPlanificacion = new ArrayCollection;
         $this->viajesAcademicos = new ArrayCollection;
         $this->temario = new ArrayCollection;
@@ -429,40 +429,7 @@ class Planificacion {
      */
     public function getHistoricosEstado() {
         return $this->historicosEstado;
-    }
-
-    /**
-     * Add actividadesCurriculares
-     *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares
-     *
-     * @return Planificacion
-     */
-    public function addActividadesCurriculares(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares) {
-        $actividadesCurriculares->setPlanificacion($this);
-
-        $this->actividadesCurriculares[] = $actividadesCurriculares;
-
-        return $this;
-    }
-
-    /**
-     * Remove actividadesCurriculares
-     *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares
-     */
-    public function removeActividadesCurriculares(\PlanificacionesBundle\Entity\ActividadCurricular $actividadesCurriculares) {
-        $this->actividadesCurriculares->removeElement($actividadesCurriculares);
-    }
-
-    /**
-     * Get actividadesCurriculares
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getActividadesCurriculares() {
-        return $this->actividadesCurriculares;
-    }    
+    }  
 
     /**
      * Add bibliografiasPlanificacion
@@ -792,4 +759,41 @@ class Planificacion {
         return $this->docentesAdscriptos;
     }
 
+
+
+    /**
+     * Add actividadCurricular
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular
+     *
+     * @return Planificacion
+     */
+    public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
+    {
+        $actividadCurricular->setPlanificacion($this);
+        
+        $this->actividadCurricular[] = $actividadCurricular;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividadCurricular
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular
+     */
+    public function removeActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
+    {
+        $this->actividadCurricular->removeElement($actividadCurricular);
+    }
+
+    /**
+     * Get actividadCurricular
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActividadCurricular()
+    {
+        return $this->actividadCurricular;
+    }
 }

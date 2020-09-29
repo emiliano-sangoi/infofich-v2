@@ -65,5 +65,4 @@ function afterAddDocente(collection, item) {
 
 
     });
-}
-;
+};

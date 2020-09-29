@@ -56,6 +56,14 @@ class Temario
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
+    
+    public function __construct() {
+        ;
+    }
+    
+    public function __toString() {
+        return 'Unidad ' . $this->unidad . ' - ' . $this->titulo;
+    }
 
 
     /**

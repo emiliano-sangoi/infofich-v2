@@ -1,0 +1,16 @@
+<label for="{{ html_id }}" class="font-weight-bold mb-0">{{ form_label( form_field ) }}</label>
+<div class="input-group date tempusdominus-datetimepicker" id="{{ html_id }}" data-target-input="nearest">
+    {{ form_widget(form_field, { 
+        attr: {
+            'data-target': '#' ~ html_id,
+            'class': 'form-control datetimepicker-input'
+        }
+      })
+    }}
+    <div class="input-group-append" data-target="#{{ html_id }}" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    </div>
+</div>
+<div>
+  {{ form_errors( form_field ) }}
+</div>

@@ -44,7 +44,7 @@ class ActividadCurricular {
      * @var string
      *
      * @ORM\Column(name="contenido", type="text")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * 
      */
     private $contenido;
 
@@ -101,6 +101,15 @@ class ActividadCurricular {
      * @ORM\JoinColumn(name="planif_temarios_id", referencedColumnName="id") 
      */
     private $temario;
+    
+    /**
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+    
+    public function __construct() {
+        //$this->posicion = 1;
+    }
 
     /**
      * Get id
@@ -309,4 +318,28 @@ class ActividadCurricular {
         return $this->temario;
     }
 
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return ActividadCurricular
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
 }

@@ -430,6 +430,7 @@ and open the template in the editor.
   /*height: 100% !important;*/
   /*}*/ }
 
+/*.actividad-curricular:nth-child(even) {background-color: red;};*/
 form {
   /*    select.select2-js{
           background-color: red !important;

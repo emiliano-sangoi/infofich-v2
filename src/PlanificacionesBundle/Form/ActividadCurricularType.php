@@ -2,69 +2,169 @@
 
 namespace PlanificacionesBundle\Form;
 
+use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Repository\TemarioRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ActividadCurricularType extends AbstractType {
+
+    /**
+     *
+     * @var Planificacion 
+     */
+    private $planificacion;
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('tipoActividadCurricular', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                    'label' => 'Tipo',
-                    'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
-                    'attr' => array(
-                        'class' => 'form-control js-select2')
-            ))                
-                
-                ->add('fecha', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'label' => 'Fecha',
-                    'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
-                ))
-                ->add('otras', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-                    'label' => 'Otras',
-                    'required' => false,
-                    'attr' => array(
-                        'rows' => 3,
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('cargaHorariaAula', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Carga horaria en aula',
-                    'required' => false,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('cargaHorariaAutonomo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'label' => 'Horas de estudio autónomo',
-                    'required' => false,
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ))
-                ->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-                    'label' => 'Contenidos',
-                    'attr' => array(
-                        'rows' => 3,
-                        'class' => 'form-control'
-                    )
-                ))                
-                ->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
-                    'label' => 'Descripción',
-                    'required' => false,
-                    'attr' => array(
-                        'rows' => 3,
-                        'class' => 'form-control'
-                    )
-                ));
-                //->add('planificacion')
-        //->add('temario');
+
+        // dump($builder->getForm()->getParent()->getData());exit;
+        $this->planificacion = $options['planificacion'];
+        
+        //dump($options);exit;
+
+        $this->addTemario($builder, $options);
+        $this->addTipoActividadCurricular($builder, $options);
+        $this->addFecha($builder, $options);
+        $this->addOtras($builder, $options);
+        $this->addCargaHorariaAula($builder, $options);
+        $this->addCargaHorariaAutonomo($builder, $options);
+        $this->addDescripcion($builder, $options);
+        $this->addContenido($builder, $options);
+        
+        $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+            'attr' => array(
+                'class' => 'posicion',
+            )
+        ));
+        
+    }
+
+    private function addTipoActividadCurricular(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Tipo',
+            'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
+            'attr' => array(
+                'class' => 'form-control js-select2'
+            )
+        );
+
+        $builder->add('tipoActividadCurricular', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', $config);
+    }
+
+    private function addTemario(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Unidad',
+            'attr' => array('class' => 'form-control js-select2'),
+            'class' => 'PlanificacionesBundle:Temario',
+            'query_builder' => function(TemarioRepository $tr) {
+                //dump($tr);exit;
+                $qb = $tr->createQueryBuilder('t');
+                $condicion = $qb->expr()->eq('t.planificacion', $this->planificacion->getId());
+                $qb->where($condicion);
+                return $qb;
+            },
+            //'expanded' => true,
+            'required' => true,
+        );
+
+        //'Symfony\Component\Form\Extension\Core\Type\ChoiceType'
+        $builder->add('temario', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', $config);
+    }
+
+    private function addFecha(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'error_bubbling' => false,
+            'label' => 'Fecha',
+            'label_attr' => array(
+                'class' => 'font-weight-bold requerido',
+                'title' => 'Este campo es obligatorio.')
+        );
+
+        $builder->add('fecha', "Symfony\Component\Form\Extension\Core\Type\DateType", $config);
+    }
+
+    private function addOtras(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'label' => 'Otras',
+            'required' => false,
+            'attr' => array(
+                'rows' => 3,
+                'class' => 'form-control',
+                'autocomplete' => 'off'
+            )
+        );
+
+        $builder->add('otras', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
+    }
+
+    private function addCargaHorariaAula(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'label' => 'Carga horaria en aula',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control',
+                'autocomplete' => 'off'
+            )
+        );
+
+        $builder->add('cargaHorariaAula', 'Symfony\Component\Form\Extension\Core\Type\NumberType', $config);
+    }
+
+    private function addCargaHorariaAutonomo(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'label' => 'Horas de estudio autónomo',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control',
+                'autocomplete' => 'off'
+            )
+        );
+
+        $builder->add('cargaHorariaAutonomo', 'Symfony\Component\Form\Extension\Core\Type\NumberType', $config);
+    }
+
+    private function addContenido(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Contenidos',
+            'attr' => array(
+                'rows' => 3,
+                'class' => 'form-control',
+                'autocomplete' => 'off'
+            ),            
+            'required' => false,
+            'constraints' => array(
+                new NotBlank(array('message' => "Esdsdsdsdste campo no puede quedar vacio."))
+            )
+        );
+
+
+        $builder->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
+    }
+
+    private function addDescripcion(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'label' => 'Descripción',
+            'required' => false,
+            'attr' => array(
+                'rows' => 3,
+                'class' => 'form-control',
+                'autocomplete' => 'off'
+            )
+        );
+
+
+        $builder->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
     }
 
     /**
@@ -72,7 +172,13 @@ class ActividadCurricularType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\ActividadCurricular'
+            'data_class' => 'PlanificacionesBundle\Entity\ActividadCurricular',
+            'planificacion' => null,
+            'error_bubbling' => null
+//            'format_label' => function($a){
+//                //dump($a);exit;
+//                return 'lala';
+//            }
         ));
     }
 
