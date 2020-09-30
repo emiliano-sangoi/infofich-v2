@@ -37,7 +37,10 @@
 
         $(document).ready(function () {
 
-            $('.bibliografia-selector').collection();
+            $('.bibliografia-selector').collection({
+                position_field_selector: '.posicion',
+                add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar actividad</a>',
+            });
 
         });
     </script>

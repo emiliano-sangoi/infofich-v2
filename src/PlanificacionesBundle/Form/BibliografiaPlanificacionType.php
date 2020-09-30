@@ -35,6 +35,12 @@ class BibliografiaPlanificacionType extends AbstractType {
             'label' => false,
             'required' => true,
         ));
+        
+        $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+            'attr' => array(
+                'class' => 'posicion',
+            )
+        ));
 
 
         $this->addTipo($builder, $options);

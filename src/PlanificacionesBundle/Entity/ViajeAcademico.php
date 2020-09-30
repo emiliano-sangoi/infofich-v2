@@ -72,8 +72,7 @@ class ViajeAcademico {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_tentativa", type="datetime")
-     * @Assert\Date()
+     * @ORM\Column(name="fecha_tentativa", type="datetime")     
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaTentativa;
@@ -112,9 +111,20 @@ class ViajeAcademico {
      */
     private $vehiculo;
 
+    /**
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+
     public function __construct() {
         $this->asignaturas = new ArrayCollection;
+        $this->cantDocentes = 0;
+        $this->cantEstudiantes = 0;
         //$this->vehiculos = new ArrayCollection;
+    }
+    
+    public function getTotalPasajeros(){
+        return $this->cantDocentes + $this->cantEstudiantes;
     }
 
     /**
@@ -323,7 +333,7 @@ class ViajeAcademico {
     public function getPlanificacion() {
         return $this->planificacion;
     }
-    
+
     /**
      * Set vehiculo
      *
@@ -346,4 +356,28 @@ class ViajeAcademico {
         return $this->vehiculo;
     }
 
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return ViajeAcademico
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
 }

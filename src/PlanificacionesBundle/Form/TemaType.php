@@ -37,6 +37,12 @@ class TemaType extends AbstractType
                 'class' => 'form-control ')
             )
         );
+        
+        $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+            'attr' => array(
+                'class' => 'posicion',
+            )
+        ));
 
 
     }

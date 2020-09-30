@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="planif_temarios")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TemarioRepository")
  */
-class Temario
-{
+class Temario {
+
     /**
      * @var int
      *
@@ -47,7 +47,7 @@ class Temario
      * @ORM\Column(name="contenido", type="text", nullable=true)
      */
     private $contenido;
-    
+
     /**
      *
      * @var Planificacion
@@ -56,23 +56,26 @@ class Temario
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
-    
+
+    /**
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+
     public function __construct() {
         ;
     }
-    
+
     public function __toString() {
         return 'Unidad ' . $this->unidad . ' - ' . $this->titulo;
     }
-
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -83,8 +86,7 @@ class Temario
      *
      * @return Temario
      */
-    public function setUnidad($unidad)
-    {
+    public function setUnidad($unidad) {
         $this->unidad = $unidad;
 
         return $this;
@@ -95,8 +97,7 @@ class Temario
      *
      * @return int
      */
-    public function getUnidad()
-    {
+    public function getUnidad() {
         return $this->unidad;
     }
 
@@ -107,8 +108,7 @@ class Temario
      *
      * @return Temario
      */
-    public function setTitulo($titulo)
-    {
+    public function setTitulo($titulo) {
         $this->titulo = $titulo;
 
         return $this;
@@ -119,8 +119,7 @@ class Temario
      *
      * @return string
      */
-    public function getTitulo()
-    {
+    public function getTitulo() {
         return $this->titulo;
     }
 
@@ -131,8 +130,7 @@ class Temario
      *
      * @return Temario
      */
-    public function setContenido($contenido)
-    {
+    public function setContenido($contenido) {
         $this->contenido = $contenido;
 
         return $this;
@@ -143,8 +141,7 @@ class Temario
      *
      * @return string
      */
-    public function getContenido()
-    {
+    public function getContenido() {
         return $this->contenido;
     }
 
@@ -155,8 +152,7 @@ class Temario
      *
      * @return Temario
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
-    {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
         $this->planificacion = $planificacion;
 
         return $this;
@@ -167,8 +163,32 @@ class Temario
      *
      * @return \PlanificacionesBundle\Entity\Planificacion
      */
-    public function getPlanificacion()
-    {
+    public function getPlanificacion() {
         return $this->planificacion;
+    }
+
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return Temario
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
     }
 }

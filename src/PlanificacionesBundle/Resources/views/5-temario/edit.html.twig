@@ -4,9 +4,10 @@
 
 {% block tab_content %}
 
-    {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:5-temario:form_theme-tema.html.twig'  %}
+    
+    {{ form_errors(form) }}
 
-
+    {% form_theme form.temario 'jquery.collection.html.twig' 'PlanificacionesBundle:5-temario:form_theme-tema.html.twig'  %}
     {{ form_start(form) }}  
 
     {{ form_row(form.temario) }}
@@ -34,7 +35,10 @@
 
         $(document).ready(function () {
 
-            $('.temario-selector').collection();
+            $('.temario-selector').collection({
+                 position_field_selector: '.posicion',
+                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar tema</a>',
+            });
         });
     </script>
 

@@ -22,26 +22,9 @@ class ViajesAcademicosController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //dump($planificacion);exit;
+            $this->actualizarViajes($planificacion);
+            
             $em = $this->getDoctrine()->getManager();
-
-            ////////////////////////////////////////////////////////////////////////////////
-            // PARA QUE ANDE EL DELETE LEER:
-            // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-            //Buscar los viajes academicos de la base de datos
-            $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajeAcademico')
-                    ->findBy(array('planificacion' => $planificacion));
-
-
-            foreach ($viajesAcadOriginal as $viajeAcad) {
-                if (false === $planificacion->getViajesAcademicos()->contains($viajeAcad)) {
-                    // remove the Task from the Tag
-                    $planificacion->getViajesAcademicos()->removeElement($viajeAcad);
-                    $em->remove($viajeAcad);
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////
-
             $em->flush();
 
             $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
@@ -54,6 +37,34 @@ class ViajesAcademicosController extends Controller {
                     'page_title' => 'Viajes Académicos',
                     'planificacion' => $planificacion
         ));
+    }
+
+    /**
+     * Funcion auxiliar para remover los items que fueron borrados por el formulario.
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function actualizarViajes(Planificacion $planificacion) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // ESTO ES NECESARIO PARA QUE ANDE EL DELETE EN LAS COLLECCIONES
+        // VER:
+        // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
+        //Buscar los temarios de la base de datos
+
+        $viajesAcadOriginal = $em->getRepository('PlanificacionesBundle:ViajeAcademico')
+                ->findBy(array('planificacion' => $planificacion));
+
+
+        foreach ($viajesAcadOriginal as $viajeAcad) {
+            if (false === $planificacion->getViajesAcademicos()->contains($viajeAcad)) {
+                // remove the Task from the Tag
+                $planificacion->getViajesAcademicos()->removeElement($viajeAcad);
+                $em->remove($viajeAcad);
+            }
+        }
     }
 
 }

@@ -24,14 +24,22 @@ class TemarioController extends Controller {
         $form = $this->createForm("PlanificacionesBundle\Form\TemarioType", $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           
+
             $this->actualizarTemario($planificacion);
-            
+
             $em = $this->getDoctrine()->getManager();
-            $em->flush();
 
-            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
+            try {
+                $em->flush();
+                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+                //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+                $msg = 'Los temas definidos no pueden ser borrados porque estan siendo utilizados en la sección Cronograma de actividades.';
+                $this->addFlash('error', $msg);
+                //$form->addError(new \Symfony\Component\Form\FormError($msg));
+            }
+            
             return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
         }
 
@@ -71,7 +79,6 @@ class TemarioController extends Controller {
                 $em->remove($temario);
             }
         }
-        
     }
 
 }

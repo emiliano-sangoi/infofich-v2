@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="planif_bibliografia_planificacion")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\BibliografiaPlanificacionRepository")
  */
-class BibliografiaPlanificacion
-{
+class BibliografiaPlanificacion {
+
     /**
      * @var int
      *
@@ -20,7 +20,7 @@ class BibliografiaPlanificacion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      *
      * @var Planificacion
@@ -29,7 +29,7 @@ class BibliografiaPlanificacion
      * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
      */
     private $planificacion;
-    
+
     /**
      *
      * @var Bibliografia
@@ -38,8 +38,7 @@ class BibliografiaPlanificacion
      * @ORM\JoinColumn(name="planif_bibliografias_id", referencedColumnName="id")
      */
     private $bibliografia;
-    
-    
+
     /**
      *
      * @var TipoBibliografia
@@ -49,14 +48,17 @@ class BibliografiaPlanificacion
      */
     private $tipoBibliografia;
 
+    /**
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -67,8 +69,7 @@ class BibliografiaPlanificacion
      *
      * @return BibliografiaPlanificacion
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
-    {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
         $this->planificacion = $planificacion;
 
         return $this;
@@ -79,8 +80,7 @@ class BibliografiaPlanificacion
      *
      * @return \PlanificacionesBundle\Entity\Planificacion
      */
-    public function getPlanificacion()
-    {
+    public function getPlanificacion() {
         return $this->planificacion;
     }
 
@@ -91,8 +91,7 @@ class BibliografiaPlanificacion
      *
      * @return BibliografiaPlanificacion
      */
-    public function setTipoBibliografia(\PlanificacionesBundle\Entity\TipoBibliografia $tipoBibliografia = null)
-    {
+    public function setTipoBibliografia(\PlanificacionesBundle\Entity\TipoBibliografia $tipoBibliografia = null) {
         $this->tipoBibliografia = $tipoBibliografia;
 
         return $this;
@@ -103,8 +102,7 @@ class BibliografiaPlanificacion
      *
      * @return \PlanificacionesBundle\Entity\TipoBibliografia
      */
-    public function getTipoBibliografia()
-    {
+    public function getTipoBibliografia() {
         return $this->tipoBibliografia;
     }
 
@@ -115,8 +113,7 @@ class BibliografiaPlanificacion
      *
      * @return BibliografiaPlanificacion
      */
-    public function setBibliografia(\PlanificacionesBundle\Entity\Bibliografia $bibliografia = null)
-    {
+    public function setBibliografia(\PlanificacionesBundle\Entity\Bibliografia $bibliografia = null) {
         $this->bibliografia = $bibliografia;
 
         return $this;
@@ -127,8 +124,32 @@ class BibliografiaPlanificacion
      *
      * @return \PlanificacionesBundle\Entity\Bibliografia
      */
-    public function getBibliografia()
-    {
+    public function getBibliografia() {
         return $this->bibliografia;
+    }
+
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return BibliografiaPlanificacion
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
     }
 }

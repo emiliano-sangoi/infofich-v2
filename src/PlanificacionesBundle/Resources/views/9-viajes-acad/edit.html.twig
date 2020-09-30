@@ -3,8 +3,12 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% form_theme form 'jquery.collection.html.twig' 'PlanificacionesBundle:9-viajes-acad:form_theme-viajeAcademico.html.twig' %}
-    {{ form(form) }}
+    {% form_theme form.viajesAcademicos 'jquery.collection.html.twig' 'PlanificacionesBundle:9-viajes-acad:form_theme-viajeAcademico.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form.viajesAcademicos) }}
+
+    {% include 'PlanificacionesBundle::botonera.html.twig' %}
+    {{ form_end(form) }}
 {% endblock %} 
 
 {% block javascripts %}
@@ -14,7 +18,49 @@
 
         $(document).ready(function () {
 
-            $('.viajeAcademico-selector').collection();
+
+            var actualizar_total_pasajeros = function (e) {                
+                var target = $(e.target).closest('.pasajeros');
+                var cant_estudiantes = target.find('.cant_estudiantes').val();
+                var cant_docentes = target.find('.cant_docentes').val();
+                
+                if(cant_estudiantes === ''){
+                    cant_estudiantes = 0;
+                }else{
+                    cant_estudiantes = parseInt(cant_estudiantes);
+                }
+                
+                if(cant_docentes === ''){
+                    cant_docentes = 0;
+                }else{
+                    cant_docentes = parseInt(cant_docentes);
+                }
+                
+                //console.log(cant_estudiantes, cant_docentes);
+                target.find('.total_pasajeros').val(cant_estudiantes + cant_docentes);
+            };
+
+            $('.viajeAcademico-selector').collection({
+                position_field_selector: '.posicion',
+                add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar viaje</a>',
+
+                after_add: function (collection, item) {
+                    
+                    item.find('.js-select2').select2({});
+                    
+                    item.find('.tempusdominus-datepicker').datetimepicker({
+                        locale: 'es',
+                        format: 'L'
+                    });
+
+                    item.find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);
+                    item.find('.cant_docentes').on('keyup mouseup', actualizar_total_pasajeros);
+
+                }
+            });
+
+
+
         });
     </script>
 
