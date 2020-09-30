@@ -61,9 +61,8 @@
                 {{ form_errors(form.bibliografia.disponibleOnline) }} 
             </div>
             <div class="form-group col-sm-3 col-xs-12">
-                {{ form_label(form.bibliografia.fechaConsultaOnline) }}
-                {{ form_widget(form.bibliografia.fechaConsultaOnline) }}
-                {{ form_errors(form.bibliografia.fechaConsultaOnline) }} 
+                {% from '::macros.html.twig' import input_datetime_picker %}     
+                {{  input_datetime_picker(form.bibliografia.fechaConsultaOnline, form.vars.id ~ '_picker', true ) }} 
             </div>
             <div class="form-group col-sm-4 col-xs-12">
                 {{ form_label(form.bibliografia.enlaceOnline) }}

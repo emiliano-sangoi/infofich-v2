@@ -165,9 +165,8 @@
         </div>
         <div class="form-row">
             <div class="form-group  col-md-4 offset-md-2">
-                {{ form_label(form.fechaTentativa) }}
-                {{ form_widget(form.fechaTentativa) }}
-                {{ form_errors(form.fechaTentativa) }}
+                 {% from '::macros.html.twig' import input_datetime_picker %}     
+                {{  input_datetime_picker(form.fechaTentativa, form.vars.id ~ '_picker', true ) }} 
             </div>
             <div class="form-group  col-md-3">
                 {{ form_label(form.cantDias) }}

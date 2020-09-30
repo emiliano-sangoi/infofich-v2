@@ -103,7 +103,11 @@
                                                 </span>
                                                 &nbsp;/&nbsp;
                                                 <span class="text-primary">                                                
-                                                    {{ planificacion.getEstadoActual() }}
+                                                    {{ planificacion.getEstadoActual() }} <a href="#" class="mostrar-historico">
+                                                        <small>
+                                                            <i class="fa fa-history"></i>
+                                                        </small>
+                                                    </a>
                                                 </span>
                                             </span>
                                         {% endif %}
@@ -128,90 +132,50 @@
         </div>
     </div>
 
+    {% include 'PlanificacionesBundle::historico-modal.html.twig' %}
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-
-
-    {#    <script>
-    
-            // Objeto global que guardara toda la informacion de la planificacion
-            {% if is_planificacion_definida %}
-                PLANIFICACION = {
-                    id:{{ planificacion.id }}
-                };
-                console.log("hay id!!!", PLANIFICACION );
-            {% endif %}
-        </script>
-    #}
-
-    {#
-        <script src="{{ asset('bundles/planificaciones/js/ajax-informacion-basica.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-equipo-docente.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-aprobacion.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-objetivos.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-temario.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-bibliografia.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-cronograma.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-distribucion.js') }}"></script>
-        <script src="{{ asset('bundles/planificaciones/js/ajax-viajes-academicos.js') }}"></script>
-    
-        <script src="{{ asset('bundles/planificaciones/js/abm-planificaciones.js') }}"></script>#}
-
-
-
     <script>
         SECCIONES = {
-        {# info_basica: "{{ path('planificaciones_ajax_info_basica_get') }}",
-         info_basica_edit: "{{ path('planificaciones_ajax_info_basica_edit', {'id' : '--ID--'}) }}",
-         editar_planif: "{{ path('planificaciones_edit', {'id' : '--ID--'}) }}",
-         equipo_docente: "{{ path('planificacion_ajax_equipo_docente_edit', {'id' : '--ID--'}) }}",#}
-                 get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'legajo' : '--LEGAJO--'}) }}",
-        {# req_aprobacion: "{{ path('planificacion_ajax_aprobacion_editar' ,{'id' : '--ID--'}) }}",
-        objetivos: "{{ path('planificacion_ajax_objetivos_editar', {'id' : '--ID--'}) }}",
-        temario: "{{ path('planificacion_ajax_temario_editar', {'id' : '--ID--'}) }}",
-        bibliografia: "{{ path('planificacion_ajax_bibliografia_editar', {'id' : '--ID--'}) }}",
-        cronograma: "{{ path('planificacion_ajax_cronograma_editar', {'id' : '--ID--'}) }}",
-        distribucion: "{{ path('planificacion_ajax_distribucion_editar', {'id' : '--ID--'}) }}",
-        viajes_academicos: "{{ path('planificacion_ajax_viajes_acad_editar', {'id' : '--ID--'}) }}",             #}   
-                 get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
-                 get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
-        {#                seccion_actual: null#}
-            };
-        {#
-                    SECCIONES.seccion_actual = SECCIONES.info_basica;
-        #}
-        {#            $(document).ready(function () {
-                        $('#tab-info-basica').tab('show');
-        #}
+            get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'legajo' : '--LEGAJO--'}) }}",
+            get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+            get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
+        };
 
-        {#$('.select-carrera').on('change', function (e) {
-            var carrera = this.value;
-            console.log(carrera);
-        });#}
+        $(document).ready(function () {
+            $('.mostrar-historico').click(function (e) {
 
-        {#     });#}
+                var hist = $('#historico').clone();
+                hist.removeClass('d-none');
 
 
+                var dialog = bootbox.dialog({
+                    title: "<span class='font-weight-bold'>Histórico de cambios</span>",
+                    message: hist.html(),
+                    size: 'xl',
+                    backdrop: true,
+                    onEscape: true,
+                    centerVertical: true,
+                    className: 'lala',
+                    closeButton: true,
+                    buttons: {
+                        cancel: {
+                            label: 'Cerrar',
+                            className: 'btn-primary'
+                        }
+                    },
 
+                });
 
+                dialog.find('.modal-body').addClass('p-0');
+            });
 
-
-
-        {#$("#btnAñadirAdscripto").click(function () {
-            $(".bloque_adscripto:last").clone().insertAfter(".bloque_adscripto:last");
         });
-        $("#btnAñadirColab").click(function () {
-            $(".bloque_colaborador:last").clone().insertAfter(".bloque_colaborador:last");
-        });
-        $("#btnAñadirTema").click(function () {
-            //alert('sdfsddf');
-            $(".bloque_tema").clone().insertAfter(".bloque_tema:last");
-            //alert('2');
-        });#}
-        {#            });#}
+
     </script>
 
 
