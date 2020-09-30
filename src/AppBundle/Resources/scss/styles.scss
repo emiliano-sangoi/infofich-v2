@@ -115,7 +115,32 @@ $content-info-right-panel-h: 20.25vh;
 
 }
 
-
+#resumen-indice{
+    position: fixed;
+    right: 3em;
+    bottom: 3em;    
+    background-color: $gris-4;
+    
+    
+    h5, a.nav-link{
+        padding: .75em 1em;
+    }
+    
+    h5{
+        font-size: 100%;
+        color: black;
+    }
+    
+    a.nav-link{
+        line-height: 100%;        
+        color: black;
+        
+        &:hover{
+            color: $primary;
+        }
+    }
+    
+}
 
 
 .content-header{

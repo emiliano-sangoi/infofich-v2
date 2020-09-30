@@ -24,9 +24,9 @@ class Docente
 
 
     /**
-     * @var AppBundle\Entity\Persona
+     * @var \AppBundle\Entity\Persona
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Persona", cascade={"persist"},fetch="EAGER")
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
      * 
      */
@@ -57,9 +57,11 @@ class Docente
         return $this->id;
     }
 
+    public function getCodApeNom($apellido_uppercase = false){
+        return $this->nroLegajo . ' - ' . $this->persona->getApeNom($apellido_uppercase);
+    }
 
-
-    /**
+        /**
      * Set nroLegajo
      *
      * @param string $nroLegajo

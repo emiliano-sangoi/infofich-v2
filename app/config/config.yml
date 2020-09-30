@@ -39,6 +39,8 @@ twig:
     form_themes:
         - 'form/fields.html.twig'
     strict_variables: "%kernel.debug%"
+    globals:
+        global_sd: 'Sin definir'
 
 # Doctrine Configuration
 doctrine:

@@ -4,46 +4,15 @@
 
 {% block tab_content %}
 
-    <div class="row">
-        <div class="col-lg-8">
-            <i class="far fa-check-circle float-left fa-3x" style="color:green"></i>
-            <div class="mt-4 float-left">
+    {% include 'PlanificacionesBundle:1-info-basica:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %}
 
-                <b>Su carga de planificaciones ha finalizado con éxito
-                </b>
-                <br>
-
-                Recuerde que debe enviar la planificación para cumplir
-                su presentación a Secretaría Académica.<br>
-                <a href="#">
-
-                    Ver planificación completa (pdf)
-                </a>
-                <br>
-
-                <br>
-                <br>
-                Muchas Gracias
-            </div>
-
-
-            <div class="mt-s text-right ">
-
-
-                <button type="button" class="btn btn btn-success">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                    Enviar Planificación
-                </button>
-                <a href="#" class="btn btn-secondary">
-                    Volver
-                </a>
-
-            </div>
-
-
-        </div>
+        
+    <div class="" id="resumen-indice">
+        <h5>Navegaci&oacute;n</h5>
+        <a class="nav-link js-scroll-trigger" href="#resumen-info-basica">Informaci&oacute;n b&aacute;sica</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-equipo-docente">Equipo docente</a>
     </div>
-
 
 {% endblock %} 
 

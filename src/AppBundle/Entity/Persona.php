@@ -83,6 +83,17 @@ class Persona
     {
         return $this->id;
     }
+    
+     /**
+     * Get apellido y nombre
+     *
+     * @return string
+     */
+    public function getApeNom($apellido_uppercase = false)
+    {
+        $s = $apellido_uppercase ? strtoupper($this->apellidos) : $this->apellidos;
+        return $s . ', ' . $this->nombres;
+    }
 
     /**
      * Set apellidos

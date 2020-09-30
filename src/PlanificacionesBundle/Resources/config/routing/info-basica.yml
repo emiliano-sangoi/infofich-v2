@@ -4,6 +4,6 @@
 #   methods: [GET, POST]
    
 planif_info_basica_editar:
-   path: /{id}/info-basica/editar
+   path: /{id}/editar
    defaults: { _controller: PlanificacionesBundle:InfoBasica:edit }
    methods: [GET, POST]

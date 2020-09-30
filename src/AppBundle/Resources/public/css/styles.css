@@ -534,6 +534,22 @@ body {
 #content .content-info .right-panel .right-panel-header {
   height: 20.25vh !important; }
 
+#resumen-indice {
+  position: fixed;
+  right: 3em;
+  bottom: 3em;
+  background-color: #eeeeee; }
+  #resumen-indice h5, #resumen-indice a.nav-link {
+    padding: .75em 1em; }
+  #resumen-indice h5 {
+    font-size: 100%;
+    color: black; }
+  #resumen-indice a.nav-link {
+    line-height: 100%;
+    color: black; }
+    #resumen-indice a.nav-link:hover {
+      color: #006CB7; }
+
 .line-height-100 {
   line-height: 100%; }
 

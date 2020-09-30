@@ -1,0 +1,64 @@
+{# Utilizado en la sección revisar #}
+<div>
+    <div class="mb-4">        
+        <h4 class="font-weight-bold" id="resumen-equipo-docente">Equipo docente</h4>                    
+    </div>
+
+    <div class="row">        
+        <div class="col-sm-3 text-right">
+            <label class="font-weight-bold">Responsable:</label>
+        </div>
+        <div class="col-sm-6 {{ resumen.docente_resp ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+            {{ resumen.docente_resp|default(global_sd) }}            
+        </div>        
+    </div>
+
+    <div class="row mt-3">        
+        <div class="col-sm-3 text-right">
+            <label class="font-weight-bold">Colaboladores ({{ resumen.docentes_colab_count }}):</label>
+        </div>
+        <div class="col-sm-6" >                         
+            {% if resumen.docentes_colab is null %}
+                <div class="text-danger">{{ global_sd }}</div>
+            {% else %}
+                {% for d in resumen.docentes_colab %}
+                    <p>
+                        {#                        <span class="font-weight-bold">#{{ loop.index }}</span> #}
+                        {{ d }}
+                    </p>
+                {% endfor %}
+            {% endif %}                        
+        </div>     
+    </div>
+    <div class="row mt-3">        
+        <div class="col-sm-3 text-right">
+            <label class="font-weight-bold">Adscriptos ({{ resumen.docentes_adscriptos_count }}):</label>
+        </div>
+        <div class="col-sm-6" >                         
+            {% if resumen.docentes_adscriptos is null %}
+                <div class="text-danger">{{ global_sd }}</div>
+            {% else %}
+                {% for d in resumen.docentes_adscriptos %}
+                    <p>                        
+                        {{ d }}
+                    </p>
+                {% endfor %}
+            {% endif %}                        
+        </div>     
+    </div>
+
+
+
+
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+
+            <a class="btn btn-outline-primary" href="{{ path('planif_equipo_docente_editar', {id : planificacion.id}) }}">Modificar</a>
+            <hr class="mb-5 mt-4"/>
+        </div>
+    </div>
+
+
+    {#{{ dump(planificacion) }}#}
+</div>
