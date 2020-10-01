@@ -2,6 +2,10 @@
 
 namespace PlanificacionesBundle\Form;
 
+use Doctrine\ORM\EntityManager;
+use PlanificacionesBundle\Entity\BibliografiaPlanificacion;
+use PlanificacionesBundle\Entity\TipoBibliografia;
+use PlanificacionesBundle\Repository\TipoBibliografiaRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,17 +14,17 @@ class BibliografiaPlanificacionType extends AbstractType {
 
     /**
      *
-     * @var \Doctrine\ORM\EntityManager 
+     * @var EntityManager 
      */
     private $em;
 
     /**
      *
-     * @var PlanificacionesBundle\Repository\TipoBibliografiaRepository 
+     * @var TipoBibliografiaRepository 
      */
     private $repoTipos;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em) {
+    public function __construct(EntityManager $em) {
         $this->em = $em;
         $this->repoTipos = $this->em->getRepository('PlanificacionesBundle:TipoBibliografia');
     }
@@ -35,7 +39,7 @@ class BibliografiaPlanificacionType extends AbstractType {
             'label' => false,
             'required' => true,
         ));
-        
+
         $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
             'attr' => array(
                 'class' => 'posicion',
@@ -48,18 +52,25 @@ class BibliografiaPlanificacionType extends AbstractType {
 
     public function addTipo(FormBuilderInterface $builder, array $options) {
 
-        $tipoInicial = $this->repoTipos->findOneBy(array(
-            'codigo' => \PlanificacionesBundle\Entity\TipoBibliografia::BASICA
-        ));
-
-        $builder->add('tipoBibliografia', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+        $config = array(
             'label' => false,
             'class' => 'PlanificacionesBundle:TipoBibliografia',
             'choice_label' => 'nombre',
-            'expanded' => true,
-            'data' => $tipoInicial,
+            'expanded' => true,            
             'required' => true,
-        ));
+        );
+
+//        $bp = $builder->getData();
+//        dump($bp);exit;
+//        if ($bp instanceof BibliografiaPlanificacion && is_null($bp->getTipoBibliografia())) {
+//            $default = $this->repoTipos->findOneBy(array(
+//                'codigo' => TipoBibliografia::BASICA
+//            ));
+//            
+//            $config['data'] = $default;
+//        }
+
+        $builder->add('tipoBibliografia', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', $config);
     }
 
     /**
@@ -70,7 +81,7 @@ class BibliografiaPlanificacionType extends AbstractType {
             'data_class' => 'PlanificacionesBundle\Entity\BibliografiaPlanificacion'
         ));
     }
-    
+
     /**
      * {@inheritdoc}
      */

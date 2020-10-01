@@ -111,7 +111,6 @@ class BibliografiaType extends AbstractType {
                 'No' => false,
             ),
             'choices_as_values' => true,
-            'data' => true,
             'required' => true,
             'expanded' => true
         );
@@ -128,7 +127,6 @@ class BibliografiaType extends AbstractType {
                 'No' => false,
             ),
             'choices_as_values' => true,
-            'data' => false,
             'required' => true,
             'expanded' => true
         );

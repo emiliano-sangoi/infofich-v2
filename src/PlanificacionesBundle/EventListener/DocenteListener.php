@@ -45,7 +45,10 @@ class DocenteListener {
         
 
         $em = $args->getObjectManager();
-        $persona = $this->buscarPersona($em, $docente->getTipoDocumento(), $docente->getNumeroDocumento());
+        $persona = $em->getRepository('AppBundle:Persona')->findOneBy(array(
+            'documento' => $docente->getNumeroDocumento(),
+            //'tipoDocumento' => $cod_tipo_doc
+        ));
         
         if($persona){
             //la persona ya existe
@@ -67,14 +70,8 @@ class DocenteListener {
             //$em->persist($persona);
         }
         
-        //$em->flush();
         //guardo la persona en el docente (PlanifiacionesBundle\Entity\Docente):
         $entity->setPersona( $persona );                        
-
-     //   dump($entity, $docente, $persona);
-     //   exit;
-        
-        
         
     }
 
@@ -86,6 +83,8 @@ class DocenteListener {
      * @param string $nro_doc  Numero de documento.
      * @return null|AppBundle\Entity\Persona
      * @throws Exception
+     * 
+     * @deprecated Se deshabilito la busqueda utilizando tipo de doc. Hay diferencias entre el dato devuelto en el WS y el existente en la base de datos.
      */
     private function buscarPersona(EntityManager $em, $tipo_doc, $nro_doc) {
 
@@ -96,10 +95,12 @@ class DocenteListener {
         if (is_null($cod_tipo_doc)) {
             throw new Exception("No se encontro el código correcto para el tipo de documento: $nro_doc");
         }
+        
+        //dump($nro_doc, $cod_tipo_doc);exit;
 
         $persona = $em->getRepository('AppBundle:Persona')->findOneBy(array(
             'documento' => $nro_doc,
-            'tipoDocumento' => $cod_tipo_doc
+            //'tipoDocumento' => $cod_tipo_doc
         ));
 
 

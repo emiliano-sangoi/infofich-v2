@@ -25,7 +25,7 @@ class BibliografiaController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->actualizarTemario($planificacion);
+            $this->actualizarBibliografias($planificacion);
             
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -52,7 +52,7 @@ class BibliografiaController extends Controller {
      * 
      * @param Planificacion $planificacion
      */
-    private function actualizarTemario(Planificacion $planificacion) {
+    private function actualizarBibliografias(Planificacion $planificacion) {
 
         $em = $this->getDoctrine()->getManager();
 

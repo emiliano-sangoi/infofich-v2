@@ -110,6 +110,8 @@ class Bibliografia
     
     public function __construct() {
         $this->fechaConsultaOnline = new \DateTime();
+        $this->disponibleBiblioteca = false;
+        $this->disponibleOnline = false;
     }
     
     public function __toString() {
