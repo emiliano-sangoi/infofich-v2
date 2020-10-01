@@ -142,9 +142,9 @@ class ActividadCurricularType extends AbstractType {
                 'class' => 'form-control',
                 'autocomplete' => 'off'
             ),            
-            'required' => false,
+            'required' => true,
             'constraints' => array(
-                new NotBlank(array('message' => "Esdsdsdsdste campo no puede quedar vacio."))
+                new NotBlank(array('message' => "Este campo no puede quedar vacio."))
             )
         );
 

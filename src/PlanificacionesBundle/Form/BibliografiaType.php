@@ -27,7 +27,7 @@ class BibliografiaType extends AbstractType {
 
 
         $builder
-                ->add('anioEdicion', 'Symfony\Component\Form\Extension\Core\Type\NumberType', array(
+                ->add('anioEdicion', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'Año de edición',
                     'required' => true,
                     'attr' => array(
@@ -37,7 +37,7 @@ class BibliografiaType extends AbstractType {
 
 
         $builder
-                ->add('nroEdicion', 'Symfony\Component\Form\Extension\Core\Type\NumberType', array(
+                ->add('nroEdicion', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'N° de edición',
                     'required' => true,
                     'attr' => array(
