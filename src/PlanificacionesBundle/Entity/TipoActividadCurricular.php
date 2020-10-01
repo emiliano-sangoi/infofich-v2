@@ -11,18 +11,61 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TipoActividadCurricularRepository")
  */
 class TipoActividadCurricular {
+    
+    const TEORICA = 1;
+    const COLOQUIO = 2;
+    const SEMINARIO = 3;
+    const TP = 4;
+    const TALLER = 5;
+    const TEORICA_PRACTICA = 6;
+    const RESOLUC_PROB = 7;
+    const CONSULTA = 8;
+    const EVALUACIONES = 9;
+    const EMPLEO = 10;
+    const OTRAS_ACT = 11;
+    
+    private static $nombres_tipos = array(
+        self::TEORICA => 'Clase teórica',
+        self::COLOQUIO => 'Coloquio',
+        self::SEMINARIO => 'Seminario',
+        self::TP => 'Trabajo práctico',
+        self::TALLER => 'Taller',
+        self::TEORICA_PRACTICA => 'Clase teórico–práctica',
+        self::RESOLUC_PROB => 'Resolución de problemas',
+        self::CONSULTA => 'Consulta',
+        self::EVALUACIONES => 'Evaluaciones en sus diversas modalidades',        
+        self::EMPLEO => 'Empleo de plataformas virtuales de aprendizaje',
+        self::OTRAS_ACT => 'Otras actividades',
+    );
+    
+    public static function getTipos(){
+        return self::$nombres_tipos;
+    }
+    
+    public static function getTiposPractica(){
+        
+    }
 
-    const ACTIVIDAD1 = 'Clase teórica';
-    const ACTIVIDAD2 = 'Coloquio';
-    const ACTIVIDAD3 = 'Seminario';
-    const ACTIVIDAD4 = 'Trabajo práctico';
-    const ACTIVIDAD5 = 'Taller';
-    const ACTIVIDAD6 = 'Clase teórico–práctica';
-    const ACTIVIDAD7 = 'Resolución de problemas';
-    const ACTIVIDAD8 = 'Consulta';
-    const ACTIVIDAD9 = 'Evaluaciones en sus diversas modalidades';
-    const ACTIVIDAD10 = 'Empleo de plataformas virtuales de aprendizaje';
-    const ACTIVIDAD11 = 'Otras actividades';
+    
+    public static function isTipoValido($cod_tipo){
+        return isset($this->nombres_tipos[ $cod_tipo ]);
+    } 
+    
+    public static function isPractica($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::TP,
+            self::RESOLUC_PROB,            
+            // TODO: Definir codigos 
+        ));
+    }
+    
+    public static function isExperimental($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::RESOLUC_PROB,
+            self::TALLER,            
+            // TODO: Definir codigos 
+        ));
+    }
 
     /**
      * @var int
@@ -32,21 +75,22 @@ class TipoActividadCurricular {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="nombre", type="string", length=64, unique=true)
+     * @ORM\Column(name="codigo", type="integer", unique=true)
+     * 
      */
-    private $nombre;
+    private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=512, nullable=true)
+     * @ORM\Column(name="descripcion", type="string", length=64, unique=true)
      */
     private $descripcion;
-
+       
     /**
      * Get id
      *
@@ -54,38 +98,47 @@ class TipoActividadCurricular {
      */
     public function getId() {
         return $this->id;
-    }
+    }    
 
-    /**
-     * Set nombre
+
+    public function __toString() {
+        return $this->descripcion;
+    }
+    
+      /**
+     * Set codigo
      *
-     * @param string $nombre
+     * @param integer $codigo
      *
      * @return TipoActividadCurricular
      */
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
 
         return $this;
     }
 
     /**
-     * Get nombre
+     * Get codigo
      *
-     * @return string
+     * @return integer
      */
-    public function getNombre() {
-        return $this->nombre;
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
-
-    /**
+    
+    
+        /**
      * Set descripcion
      *
      * @param string $descripcion
      *
      * @return TipoActividadCurricular
      */
-    public function setDescripcion($descripcion) {
+    public function setDescripcion($descripcion)
+    {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -96,12 +149,9 @@ class TipoActividadCurricular {
      *
      * @return string
      */
-    public function getDescripcion() {
+    public function getDescripcion()
+    {
         return $this->descripcion;
-    }
-
-    public function __toString() {
-        return $this->nombre;
     }
 
 }

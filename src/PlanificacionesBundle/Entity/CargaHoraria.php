@@ -77,9 +77,9 @@ class CargaHoraria
      * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="cargaHoraria")
      */
     private $planificacion;
+           
 
-
-    /**
+        /**
      * Get id
      *
      * @return int
@@ -88,6 +88,7 @@ class CargaHoraria
     {
         return $this->id;
     }
+   
 
     /**
      * Set cantHsResolProbIng

@@ -208,7 +208,50 @@ class Planificacion {
      */
     public function getId() {
         return $this->id;
+    }    
+    
+    
+        /**
+     * Devuelve el total de horas de todas las actividades curriculares definidas.
+     * 
+     * @return type
+     */
+    public function getTotalCargaHorariaAula(){
+        $sum = 0;       
+        foreach ($this->actividadCurricular as $a){            
+            $sum += $a->getCargaHorariaAula();
+        }
+        return $sum;        
     }
+    
+    public function getTotalCargaHorariaAutonomo(){
+        $sum = 0;       
+        foreach ($this->actividadCurricular as $a){
+            $sum += $a->getCargaHorariaAutonomo();
+        }
+        return $sum;        
+    }
+    
+    public function getTotalFormacionPractica(){
+        $sum = 0;       
+        foreach ($this->actividadCurricular as $a){
+            if($a->isPractica()){
+                $sum += $a->getCargaHorariaAula();
+            }            
+        }
+        return $sum;        
+    }
+    
+    public function getTotalFormacionExperimental(){
+        $sum = 0;       
+        foreach ($this->actividadCurricular as $a){
+            if($a->isExperimental()){
+                $sum += $a->getCargaHorariaAula();
+            }            
+        }
+        return $sum;        
+    }
+    
 
     public function enPreparacion() {
         return $this->isEstado(Estado::PREPARACION);

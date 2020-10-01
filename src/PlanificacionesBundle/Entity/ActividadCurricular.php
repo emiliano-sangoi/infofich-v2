@@ -108,9 +108,35 @@ class ActividadCurricular {
     private $posicion;
     
     public function __construct() {
+        
         //$this->posicion = 1;
     }
-
+    
+    /**
+     * Devuelve true si la actividad es considerada como practica
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isPractica(){
+        return TipoActividadCurricular::isPractica( $this->tipoActividadCurricular->getCodigo() );
+    }
+    
+    /**
+     * Devuelve true si la actividad es considerada como practica
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isExperimental(){
+        return TipoActividadCurricular::isExperimental( $this->tipoActividadCurricular->getCodigo() );
+    }
+    
+    
     /**
      * Get id
      *

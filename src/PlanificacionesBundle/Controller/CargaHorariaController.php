@@ -26,9 +26,11 @@ class CargaHorariaController extends Controller {
             $cargaHoraria = new CargaHoraria();
         }
 
-        $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria);
+        $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria, array(
+            'planificacion' => $planificacion
+        ));
+        
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();

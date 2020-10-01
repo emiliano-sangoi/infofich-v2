@@ -9,51 +9,13 @@ use PlanificacionesBundle\Entity\TipoActividadCurricular;
 class CargaTiposActCurricular extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD1);
-        $manager->persist($actividadCurricular);
         
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD2);
-        $manager->persist($actividadCurricular);
-        
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD3);
-        $manager->persist($actividadCurricular);
-        
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD4);
-        $manager->persist($actividadCurricular);
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD5);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD6);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD7);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD8);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD9);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD10);
-        $manager->persist($actividadCurricular);
-
-        $actividadCurricular = new TipoActividadCurricular();
-        $actividadCurricular->setNombre(TipoActividadCurricular::ACTIVIDAD11);
-        $manager->persist($actividadCurricular);
-
-        
+        foreach (TipoActividadCurricular::getTipos() as $cod => $desc){
+            $ac = new TipoActividadCurricular();
+            $ac->setCodigo($cod);
+            $ac->setDescripcion($desc);
+            $manager->persist($ac);
+        }
         
         $manager->flush();
         
