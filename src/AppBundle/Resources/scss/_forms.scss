@@ -25,6 +25,12 @@
     }
 }
 
+form[name='buscador']{
+    label{
+        font-weight: bold;        
+    }
+}
+
 
 /*.actividad-curricular:nth-child(even) {background-color: red;};*/
 
@@ -87,7 +93,7 @@ form {
     /*height: calc(1.5em + .75rem + 2px) !important;*/
     /*background-color: yellow !important;*/
 
-
+/*
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px) !important;;
@@ -99,6 +105,6 @@ form {
     background-color: #fff !important;;
     background-clip: padding-box !important;
     border: 1px solid #ced4da !important;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
 }
 

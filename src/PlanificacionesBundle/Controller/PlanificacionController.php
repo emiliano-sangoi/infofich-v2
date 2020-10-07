@@ -17,13 +17,24 @@ class PlanificacionController extends Controller {
 
     public function indexAction(Request $request) {
 
+        
+        
+        $dql   = "SELECT p FROM PlanificacionesBundle:Planificacion p";
         $em = $this->getDoctrine()->getManager();
-        $planificaciones = $em->getRepository('PlanificacionesBundle:Planificacion')->findAll();
-        $this->resumen = array();
+        $query = $em->createQuery($dql);
+
+        $form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
+
+        $paginator = $this->get('knp_paginator');
+        $paginado = $paginator->paginate(
+                $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
+        );
+
 
         return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
-                    'planificaciones' => $planificaciones,
-                    'page_title' => 'Planificaciones de grado'
+                    'page_title' => 'Planificaciones de grado',
+                    'form' => $form->createView(),
+                    'paginado' => $paginado
         ));
     }
 

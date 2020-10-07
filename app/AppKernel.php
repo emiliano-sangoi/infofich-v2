@@ -19,6 +19,8 @@ class AppKernel extends Kernel
 
             new Vich\UploaderBundle\VichUploaderBundle(),
             new PlanificacionesBundle\PlanificacionesBundle(),
+            
+            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

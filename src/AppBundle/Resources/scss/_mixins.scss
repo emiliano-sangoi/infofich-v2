@@ -17,3 +17,25 @@
     }
     
 }
+
+
+/*
+  Centrar elementos horizontalmente, verticalmente o ambos.
+
+  La clase padre debe tener posicionamiento relativo.
+  https://css-tricks.com/snippets/sass/centering-mixin/
+*/
+@mixin centerer($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}

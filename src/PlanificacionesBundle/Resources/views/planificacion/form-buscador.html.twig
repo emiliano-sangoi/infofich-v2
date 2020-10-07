@@ -1,0 +1,39 @@
+<div class="pt-4 pb-1 px-4 bg-light">
+
+    {{ form_start(form) }}
+
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-8">
+            {{ form_label(form.carrera) }}
+            {{ form_widget(form.carrera) }}
+            {{ form_errors(form.carrera) }}      
+        </div>        
+    </div>
+
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-8 select-asignaturas-container">
+            {{ form_label(form.codigoAsignatura) }}
+            {{ form_widget(form.codigoAsignatura) }}
+            {{ form_errors(form.codigoAsignatura) }}      
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            {{ form_label(form.anioAcad) }}
+            {{ form_widget(form.anioAcad) }}
+            {{ form_errors(form.anioAcad) }}                              
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-4">
+            {{ form_widget(form.submit) }}
+        </div>
+        <div class="col-xs-12 offset-4 col-sm-4 text-right">
+            {{ form_widget(form.reset) }}
+        </div>
+    </div>
+
+
+
+
+    {{ form_end(form) }}
+</div>

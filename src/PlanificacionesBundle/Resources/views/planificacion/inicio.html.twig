@@ -2,20 +2,27 @@
 
 {% block content %}
     <div class="container-inicio">
-        <div class="light-font mb-0">
-            <nav aria-label="breadcrumb ">
-                <ol class="breadcrumb bg-azul mb-0">
-                    <li class="breadcrumb-item">
+        <div class="light-font mb-0 position-relative">
+            <nav aria-label="breadcrumb " class="bg-azul">
+                <ol class="breadcrumb d-inline-block mb-0">
+                    <li class="breadcrumb-item w-80">
                         <a class="text-color-white" href="#">PLANIFICACIONES</a>
-                    </li>
-
+                    </li>                    
                 </ol>
+                <span class="navbar-side-action centrate-y">
+                    <a href="{{ path('planificaciones_nueva') }}" class="">
+                        Nueva planificaci&oacute;n
+                    </a>
+                </span>
             </nav>
+
         </div>
 
         <div class="row mx-0">
             <div class="offset-3 col-lg-6 pt-5">
                 <div >
+
+                    {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig'%}
 
 
 
@@ -33,12 +40,12 @@
 
                 </div>
 
-                {% if planificaciones[0] is defined %}
+                {% if paginado[0] is defined %}
 
                     <div class="row mt-4">
                         <div class="col-md-12">
                             <div id="accordion">
-                                {%for p in planificaciones %}
+                                {%for p in paginado %}
                                     {% set id = 'collapse' ~ loop.index %}
                                     <div class="card mb-1">
                                         <div class="card-header card-header-azul" id="heading{{ loop.index }}">
@@ -92,7 +99,13 @@
                                 {% endfor %}
                             </div>
                         </div>
-                    </div>
+                    </div>                    
+                    <div class="navigation mt-3 centrate-x">                        
+                        {{ knp_pagination_render(paginado) }}
+                    </div>                    
+
+
+
                 {% else %}
                     <div class="alert alert-info">
                         No se encontro ninguna planificacion.
@@ -209,17 +222,11 @@
 
                 {#                        =======================================================================================#}
 
-                <div class="mt-s text-right">
-
-                    {# <button type="submit" class="btn btn btn-success">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Crear Nueva
-                    </button>#}
-                    <a href="{{ path('planificaciones_nueva') }}" class="btn btn-success">
-                        Crear Nueva
-                    </a>
-
-                </div>
+                {#      <div class="mt-4 text-right">
+                          <a href="{{ path('planificaciones_nueva') }}" class="btn btn-success">
+                              Crear Nueva
+                          </a>
+                      </div>#}
 
 
             </div>

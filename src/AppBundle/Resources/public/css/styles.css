@@ -179,6 +179,18 @@ and open the template in the editor.
     Author     : brisa
 */
 /*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 7, 2020, 8:30:59 PM
+    Author     : emi88
+*/
+.breadcrumb {
+  background-color: inherit; }
+
+/*
  _main-header.scss
 
  Estilos para el header principal y todos los elementos que contiene
@@ -352,6 +364,12 @@ a {
     margin-right: auto;
     margin-left: auto; } }
 /*
+  Centrar elementos horizontalmente, verticalmente o ambos.
+
+  La clase padre debe tener posicionamiento relativo.
+  https://css-tricks.com/snippets/sass/centering-mixin/
+*/
+/*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
@@ -427,6 +445,9 @@ and open the template in the editor.
   /*height: 100% !important;*/
   /*}*/ }
 
+form[name='buscador'] label {
+  font-weight: bold; }
+
 /*.actividad-curricular:nth-child(even) {background-color: red;};*/
 form {
   /*    select.select2-js{
@@ -457,18 +478,19 @@ form {
 .fix-select2-styles {
   /*height: calc(1.5em + .75rem + 2px) !important;*/
   /*background-color: yellow !important;*/
-  display: block;
-  width: 100%;
-  height: calc(1.5em + .75rem + 2px) !important;
-  padding: .375rem .75rem !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  line-height: 1.5 !important;
-  color: #495057 !important;
-  background-color: #fff !important;
-  background-clip: padding-box !important;
-  border: 1px solid #ced4da !important;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
+  /*
+      display: block;
+      width: 100%;
+      height: calc(1.5em + .75rem + 2px) !important;;
+      padding: .375rem .75rem !important;;
+      font-size: 1rem !important;;
+      font-weight: 400 !important;;
+      line-height: 1.5 !important;;
+      color: #495057 !important;;
+      background-color: #fff !important;;
+      background-clip: padding-box !important;
+      border: 1px solid #ced4da !important;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/ }
 
 /*--------------------------------------------------------------------------------------------------------*/
 /* Tipografias */
@@ -610,9 +632,38 @@ body {
 .container-inicio {
   background-color: #eeeeee;
   /*height: 100vh;*/
-  height: 100%;
+  /*height: 100%;*/
+  min-height: 100%;
   /*    & *{
           border: 1px solid red;
       }*/ }
+
+.w-80 {
+  width: 80%; }
+
+.navbar-side-action {
+  position: absolute;
+  right: 1em; }
+  .navbar-side-action a {
+    color: white;
+    text-decoration: none; }
+    .navbar-side-action a:hover {
+      color: #eeeeee; }
+
+.centrate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.centrate-x {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0); }
+
+.centrate-y {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%); }
 
 /*# sourceMappingURL=styles.css.map */
