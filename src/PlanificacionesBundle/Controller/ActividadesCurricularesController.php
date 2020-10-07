@@ -35,7 +35,7 @@ class ActividadesCurricularesController extends Controller {
 
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(

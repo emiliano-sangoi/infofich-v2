@@ -12,11 +12,18 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "%db_infofich_viejo%"]
 
     api_infofich_service:
-        class: AppBundle\Service\APIInfofichService
+        class: AppBundle\Service\APIInfofichService        
         arguments: ["@doctrine.orm.entity_manager"]
         
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+            
+    app.apiinfofich.twig_extension:
+        class: AppBundle\Twig\APIInfofichExtension
+        arguments: ["@api_infofich_service"]
         public: false
         tags:
             - { name: twig.extension }

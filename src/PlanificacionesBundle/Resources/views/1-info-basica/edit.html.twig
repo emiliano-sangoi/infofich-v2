@@ -22,7 +22,7 @@
 
             //combo de asignaturas:
             //var select = $('#planificacionesbundle_planificacion_carrera');
-            var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
+            var select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             select_asignatura.change(function (e) {
                 var option = $(this).children("option:selected");
                 var asignatura = JSON.parse(option.attr('data-json'));
@@ -48,7 +48,7 @@
             resetInfoAsignatura();
             
             var select_carreras = $('#planificacionesbundle_planificacion_carrera');
-            var select_asignatura = $('#planificacionesbundle_planificacion_asignatura');
+            var select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             
             // desactivar combo de asignaturas:
             select_asignatura.prop("disabled", true);

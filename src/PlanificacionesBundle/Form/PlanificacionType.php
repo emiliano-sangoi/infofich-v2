@@ -172,7 +172,7 @@ class PlanificacionType extends AbstractType {
     private function addCodigoSIU(FormBuilderInterface $builder) {
         
         $p = $builder->getData();
-        $codigoSiu = $p instanceof Planificacion ? $p->getAsignatura() : null;
+        $codigoSiu = $p instanceof Planificacion ? $p->getCodigoAsignatura() : null;
         $builder->add('codigoSiu', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Código SIU',
             'mapped' => false,
@@ -223,7 +223,7 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control select-asignatura js-select2')
         );
 
-        $builder->add('asignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('codigoAsignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
     }
 
     /**

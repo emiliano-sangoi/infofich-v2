@@ -1,11 +1,26 @@
 services:
 
     # https://symfony.com/doc/2.8/doctrine/event_listeners_subscribers.html
-    planificaciones.docentes.listener:
-        class: PlanificacionesBundle\EventListener\DocenteListener
+#    planificaciones.docentes.listener:
+#        class: PlanificacionesBundle\EventListener\DocenteListener
+##        arguments: ['@api_infofich_service']
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist }
+    
+    planificaciones.planificacion.listener:
+        class: PlanificacionesBundle\EventListener\PlanificacionListener
 #        arguments: ['@api_infofich_service']
+#        arguments: [ '@service_container' ]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            
+#    planificaciones.planificacion.listener:
+#        class: PlanificacionesBundle\EventListener\PlanificacionListener
+#        arguments: ['@api_infofich_service']
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist }
+#            - { name: doctrine.event_listener, event: preUpdate }
     
     planificaciones.form.bibliografia_planificacion.type:
         class: PlanificacionesBundle\Form\BibliografiaPlanificacionType

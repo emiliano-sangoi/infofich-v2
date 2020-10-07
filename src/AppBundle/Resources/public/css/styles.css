@@ -267,9 +267,6 @@ a {
 #accordion .card .card-header .btn {
   color: white; }
 
-.container-inicio {
-  background-color: #eeeeee; }
-
 .btn-link:focus, .btn-link:hover {
   text-decoration: none; }
 
@@ -477,6 +474,10 @@ form {
 /* Tipografias */
 /* Fin Tipografias */
 /*--------------------------------------------------------------------------------------------------------*/
+html, body {
+  height: 100%;
+  margin: 0px; }
+
 html {
   font-size: 17px; }
 
@@ -605,5 +606,13 @@ body {
 .container_temario, .container_equipo-docente {
   padding-left: 50px;
   padding-top: 20px; }
+
+.container-inicio {
+  background-color: #eeeeee;
+  /*height: 100vh;*/
+  height: 100%;
+  /*    & *{
+          border: 1px solid red;
+      }*/ }
 
 /*# sourceMappingURL=styles.css.map */

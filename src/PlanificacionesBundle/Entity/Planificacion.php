@@ -73,7 +73,7 @@ class Planificacion {
 
     /**
      *
-     * @var Asignatura
+     * @var string
      * 
      * @ORM\Column(name="carrera", type="string", length=4)
      * @Assert\NotBlank(message="El campo Carrera es obligatorio")
@@ -103,10 +103,19 @@ class Planificacion {
      * 
      * @var Asignatura
      * 
-     * @ORM\Column(name="asignatura", type="string", length=12)
+     * @ORM\Column(name="codigo_asignatura", type="string", length=12)
      * @Assert\NotBlank(message="El campo Asignatura es obligatorio")
      */
-    private $asignatura;
+    private $codigoAsignatura;
+    
+    /**
+     * Nombre de la asignatura
+     * 
+     * @var Asignatura
+     * 
+     * @ORM\Column(name="nombre_asignatura", type="string", length=256)
+     */
+    private $nombreAsignatura;
 
     /**
      *
@@ -188,6 +197,14 @@ class Planificacion {
      * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion")
      */
     private $requisitosAprobacion;
+    
+    /**
+     *
+     * @var \DateTime 
+     * 
+     * @ORM\Column(name="ultima_modif", type="datetime")
+     */
+    private $ultimaModif;
 
     public function __construct() {
         $this->docentesAdscriptos = new ArrayCollection;
@@ -199,6 +216,7 @@ class Planificacion {
         $this->temario = new ArrayCollection;
 
         $this->fechaCreacion = new \DateTime;
+        $this->ultimaModif = new \DateTime;
     }   
 
     /**
@@ -210,8 +228,16 @@ class Planificacion {
         return $this->id;
     }    
     
-    
-        /**
+    public function getTitulo(){
+        return $this->nombreAsignatura . ' ' . $this->anioAcad;
+    }
+
+    public function __toString() {
+        return $this->getTitulo();
+    }
+
+
+    /**
      * Devuelve el total de horas de todas las actividades curriculares definidas.
      * 
      * @return type
@@ -658,28 +684,6 @@ class Planificacion {
     }
 
     /**
-     * Set asignatura
-     *
-     * @param string $asignatura
-     *
-     * @return Planificacion
-     */
-    public function setAsignatura($asignatura) {
-        $this->asignatura = $asignatura;
-
-        return $this;
-    }
-
-    /**
-     * Get asignatura
-     *
-     * @return string
-     */
-    public function getAsignatura() {
-        return $this->asignatura;
-    }
-
-    /**
      * Add temario
      *
      * @param \PlanificacionesBundle\Entity\Temario $temario
@@ -838,5 +842,77 @@ class Planificacion {
     public function getActividadCurricular()
     {
         return $this->actividadCurricular;
+    }
+
+    /**
+     * Set codigoAsignatura
+     *
+     * @param string $codigoAsignatura
+     *
+     * @return Planificacion
+     */
+    public function setCodigoAsignatura($codigoAsignatura)
+    {
+        $this->codigoAsignatura = $codigoAsignatura;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoAsignatura
+     *
+     * @return string
+     */
+    public function getCodigoAsignatura()
+    {
+        return $this->codigoAsignatura;
+    }
+
+    /**
+     * Set nombreAsignatura
+     *
+     * @param string $nombreAsignatura
+     *
+     * @return Planificacion
+     */
+    public function setNombreAsignatura($nombreAsignatura)
+    {
+        $this->nombreAsignatura = $nombreAsignatura;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreAsignatura
+     *
+     * @return string
+     */
+    public function getNombreAsignatura()
+    {
+        return $this->nombreAsignatura;
+    }
+
+    /**
+     * Set ultimaModif
+     *
+     * @param \DateTime $ultimaModif
+     *
+     * @return Planificacion
+     */
+    public function setUltimaModif($ultimaModif)
+    {
+        $this->ultimaModif = $ultimaModif;
+
+        return $this;
+    }
+
+    /**
+     * Get ultimaModif
+     *
+     * @return \DateTime
+     */
+    public function getUltimaModif()
+    {
+        return $this->ultimaModif;
     }
 }

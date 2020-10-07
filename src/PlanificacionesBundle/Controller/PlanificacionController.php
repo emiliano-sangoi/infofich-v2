@@ -17,7 +17,14 @@ class PlanificacionController extends Controller {
 
     public function indexAction(Request $request) {
 
-        return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $planificaciones = $em->getRepository('PlanificacionesBundle:Planificacion')->findAll();
+        $this->resumen = array();
+
+        return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
+                    'planificaciones' => $planificaciones,
+                    'page_title' => 'Planificaciones de grado'
+        ));
     }
 
     /**
@@ -34,6 +41,12 @@ class PlanificacionController extends Controller {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //nombre de la asignatura:      
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+            $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+            $planificacion->setNombreAsignatura($nombreAsignatura);
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($planificacion);
@@ -70,7 +83,7 @@ class PlanificacionController extends Controller {
         $this->infofichService = $this->get('api_infofich_service');
 
         //titulo principal:      
-        $asignatura = $this->infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
+        $asignatura = $this->infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         $this->addInfoBasica($planificacion);
@@ -107,42 +120,42 @@ class PlanificacionController extends Controller {
         $this->resumen['anioAcad'] = $planificacion->getAnioAcad();
         $this->resumen['nombreMateria'] = null;
         $this->resumen['contenidosMinimos'] = $planificacion->getContenidosMinimos();
-        
-        
-        /*Carrera {#796 ▼
-            #codigoCarrera: "03"
-            #nombreCarrera: "INGENIERÍA EN INFORMÁTICA"
-            #planCarrera: "2006"
-            #versionPlan: "29"
-            #estado: "V"
-            #tipoTitulo: 1
-            #tipoCarrera: "Grado"
-        */
+
+
+        /* Carrera {#796 ▼
+          #codigoCarrera: "03"
+          #nombreCarrera: "INGENIERÍA EN INFORMÁTICA"
+          #planCarrera: "2006"
+          #versionPlan: "29"
+          #estado: "V"
+          #tipoTitulo: 1
+          #tipoCarrera: "Grado"
+         */
         //obtiene las carreras de grado de la fich:       
         $carrera = $this->infofichService->getCarrera($planificacion->getCarrera());
         if ($planificacion->getCarrera() && $carrera instanceof Carrera) {
             $this->resumen['carrera'] = $planificacion->getCarrera() . ' - ' . $carrera->getNombreCarrera();
             $this->resumen['carrera_plan'] = $carrera->getPlanCarrera();
         }
-        
+
         //Ejemplo de campos de una materia:
-        /*Materia {#787 ▼
-                    #codigoMateria: "00716"
-                    #nombreMateria: "INTELIGENCIA ARTIFICIAL"
-                    #tipoMateria: "O"
-                    #horasSemanales: null
-                    #cargaHoraria: null
-                    #valorMateria: "60"
-                    #promediable: true
-                    #obligatoria: false
-                }
+        /* Materia {#787 ▼
+          #codigoMateria: "00716"
+          #nombreMateria: "INTELIGENCIA ARTIFICIAL"
+          #tipoMateria: "O"
+          #horasSemanales: null
+          #cargaHoraria: null
+          #valorMateria: "60"
+          #promediable: true
+          #obligatoria: false
+          }
          */
-        $asignatura = $this->infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getAsignatura());
-        if($asignatura instanceof Materia){
+        $asignatura = $this->infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        if ($asignatura instanceof Materia) {
             $this->resumen['nombreMateria'] = $asignatura->getNombreMateria();
         }
     }
-    
+
     /**
      * Funcion auxiliar que busca y valida los campos a mostrar en el resumen.
      * Se encarga de asugar que los campos necesarios esten seteados, con valores o null en su defecto.
@@ -151,35 +164,35 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addDocentes(Planificacion $planificacion) {
-        
+
         $this->resumen['docente_resp'] = null;
-        
-        if($planificacion->getDocenteResponsable()){            
-            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getDocente()->getCodApeNom(true);                        
+
+        if ($planificacion->getDocenteResponsable()) {
+            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getDocente()->getCodApeNom(true);
         }
-        
+
         $this->resumen['docentes_colab'] = null;
         $i = 0;
-        foreach ($planificacion->getDocentesColaboradores() as $docente){
+        foreach ($planificacion->getDocentesColaboradores() as $docente) {
             $this->resumen['docentes_colab'][] = $docente->getDocente()->getCodApeNom(true);
             $i++;
         }
         $this->resumen['docentes_colab_count'] = $i;
-        
-        
+
+
         $this->resumen['docentes_adscriptos'] = null;
         $i = 0;
         //dump($planificacion->getDocentesAdscriptos()->toArray());exit;
-        foreach ($planificacion->getDocentesAdscriptos() as $docente){
+        foreach ($planificacion->getDocentesAdscriptos() as $docente) {
             $cod_ape_nom = $docente->getDocente()->getCodApeNom(true);
-           // dump($cod_ape_nom, $docente->getDocente());exit;
+            // dump($cod_ape_nom, $docente->getDocente());exit;
             $cod_ape_nom .= ' (Resolución N° ' . $docente->getResolucion() . ')';
             $this->resumen['docentes_adscriptos'][] = $cod_ape_nom;
             $i++;
         }
         $this->resumen['docentes_adscriptos_count'] = $i;
-        
-      //  dump($this->resumen);exit;
+
+        //  dump($this->resumen);exit;
     }
 
 }
