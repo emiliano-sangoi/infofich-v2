@@ -34,7 +34,8 @@
             // DOCENTES COLABORADORES
             // =====================================================================================
             $('.docentes-colaboradores-selector').collection({
-                after_add: afterAddDocente
+                after_add: afterAddDocente,
+                add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar colaborador</a>',
             });
 
             var select_doc_colabor = $('.docente_colaborador_item .js-select2');
@@ -58,7 +59,8 @@
             // DOCENTES ADSCRIPTOS
             // =====================================================================================
             $('.docentes-adscriptos-selector').collection({
-                after_add: afterAddDocente
+                after_add: afterAddDocente,
+                add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar adscripto</a>',
             });
 
             var select_doc_adscripto = $('.docente_adscripto_item .js-select2');

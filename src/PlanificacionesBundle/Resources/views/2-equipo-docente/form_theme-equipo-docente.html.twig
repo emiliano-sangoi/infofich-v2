@@ -66,8 +66,16 @@
                 </div>
             </div>
         </div>
+
+
         <div class="form-row">
-            <div class="col-md-3">
+            <div class="form-group col-md-3 pl-0">
+                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
+                    <i class="fa fa-plus"></i> Agregar
+                </a>
+
+            </div>
+            <div class="col-md-6 text-right">                                
                 <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
                     <i class="fa fa-arrow-up"></i>
                 </a>
@@ -76,19 +84,14 @@
                     <i class="fa fa-arrow-down"></i>
                 </a>
 
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1">
-                    <i class="fa fa-trash"></i>
+                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
+                    <i class="fa fa-trash"></i> Borrar
                 </a>
 
-                <a href="#" class="collection-add btn btn-sm btn-outline-primary ml-1" onclick="onDocenteAddClick(event);">
-                    <i class="fa fa-plus"></i>
-                </a>
+                {{ form_widget(form.reset) }}
 
-                {#<div class="col-md-1">
-                    <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
-                </div>#}
             </div>
-        </div>
+        </div>  
     </div>
 {% endblock %}
 
@@ -123,7 +126,8 @@
         </div>
 
         <div class="form-row">
-            <div class="col-md-6">
+            
+            <div class="col-md-4"> 
                 {{ form_label(form.resolucion) }}
                 {{ form_widget(form.resolucion) }}
                 {{ form_errors(form.resolucion) }}
@@ -131,9 +135,13 @@
         </div>
 
         <div class="form-row">
+            <div class="form-group col-md-3 pl-0">
+                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
+                    <i class="fa fa-plus"></i> Agregar
+                </a>
 
-            <div class="col-md-3">
-
+            </div>
+            <div class="col-md-6 text-right">                                
                 <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
                     <i class="fa fa-arrow-up"></i>
                 </a>
@@ -142,15 +150,14 @@
                     <i class="fa fa-arrow-down"></i>
                 </a>
 
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1">
-                    <i class="fa fa-trash"></i>
+                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
+                    <i class="fa fa-trash"></i> Borrar
                 </a>
 
-                <a href="#" class="collection-add btn btn-sm btn-outline-primary ml-1" onclick="onDocenteAddClick(event);">
-                    <i class="fa fa-plus"></i>
-                </a>
+                {{ form_widget(form.reset) }}
+
             </div>
-        </div>
+        </div>  
 
     </div>
 

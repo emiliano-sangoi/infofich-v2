@@ -71,8 +71,16 @@
             </div>
         </div>
         {{ form_row(form.posicion) }}
+
+
         <div class="form-row">
-            <div class="col-md-10 text-right">
+            <div class="form-group col-md-3 pl-0">
+                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
+                    <i class="fa fa-plus"></i> Agregar
+                </a>
+
+            </div>
+            <div class="col-md-7 text-right">                                
                 <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
                     <i class="fa fa-arrow-up"></i>
                 </a>
@@ -81,18 +89,20 @@
                     <i class="fa fa-arrow-down"></i>
                 </a>
 
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1">
-                    <i class="fa fa-trash"></i>
+                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
+                    <i class="fa fa-trash"></i> Borrar
                 </a>
 
-                <a href="#" class="collection-add btn btn-sm btn-outline-primary ml-1">
-                    <i class="fa fa-plus"></i> Agregar bibliograf&iacute;a
-                </a>
+                {{ form_widget(form.bibliografia.reset) }}
+
 
                 {#<div class="col-md-1">
                     <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
                 </div>#}
             </div>
-        </div>
+        </div>  
+
+
+
     </div>
 {% endblock %}

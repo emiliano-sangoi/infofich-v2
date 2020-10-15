@@ -77,6 +77,11 @@ class BibliografiaType extends AbstractType {
                         'class' => 'form-control'
                     )
         ));
+
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Descartar cambios',
+            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
+        ));
     }
 
     public function addTitulo(FormBuilderInterface $builder, array $options) {
@@ -100,8 +105,7 @@ class BibliografiaType extends AbstractType {
             )
         ));
     }
-    
-    
+
     public function addDisponibleBiblioteca(FormBuilderInterface $builder, array $options) {
 
         $config = array(
@@ -142,6 +146,5 @@ class BibliografiaType extends AbstractType {
             'data_class' => 'PlanificacionesBundle\Entity\Bibliografia'
         ));
     }
-   
 
 }

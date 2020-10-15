@@ -1,24 +1,24 @@
 {% block planificacionesbundle_viajeacademico_widget %}
     <div class="mb-5">
         <div class="form-row">
-            <div class="form-group col-sm-2 col-xs-12">
+            <div class="form-group col-md-2 col-xs-12">
                 <label>Actividad</label>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 {{ form_label(form.descripcion) }}
                 {{ form_widget(form.descripcion) }}
                 {{ form_errors(form.descripcion) }}
             </div>
         </div>
         <div class="form-row">
-            <div class="offset-2 col-md-8">
+            <div class="offset-2 col-md-10">
                 {{ form_label(form.objetivos) }}            
                 {{ form_widget(form.objetivos) }}
                 {{ form_errors(form.objetivos) }}
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group  col-md-8 offset-md-2">
+            <div class="form-group offset-2 col-md-10">
                 {{ form_label(form.recorrido) }}
                 {{ form_widget(form.recorrido) }}
                 {{ form_errors(form.recorrido) }}
@@ -42,10 +42,10 @@
             <div class="form-group col-sm-2 col-xs-12">
                 {{ form_label(form.totalPasajeros) }}
                 {{ form_widget(form.totalPasajeros) }}
-                
-          {#      <label for="pasajeros_total">Total </label>
-                <input type="number" class="form-control" 
-                       id="pasajeros_total" name="pasajeros_total" disabled/>#}
+
+                {#      <label for="pasajeros_total">Total </label>
+                      <input type="number" class="form-control" 
+                             id="pasajeros_total" name="pasajeros_total" disabled/>#}
             </div>
 
         </div>
@@ -58,7 +58,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-4 offset-md-2">
-                 {% from '::macros.html.twig' import input_datetime_picker %}     
+                {% from '::macros.html.twig' import input_datetime_picker %}     
                 {{  input_datetime_picker(form.fechaTentativa, form.vars.id ~ '_picker', true ) }} 
             </div>
             <div class="form-group  col-md-3">
@@ -74,12 +74,15 @@
                 {{ form_errors(form.asignaturas) }}
             </div>
         </div>
-            
+
         {{ form_row(form.posicion) }}
-            
+
         <div class="form-row">
-            <div class="form-group col-md-2 offset-md-2">
-                {{ form_widget(form.reset) }}
+            <div class="form-group col-md-2 offset-md-2 pl-0">
+                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
+                    <i class="fa fa-plus"></i> Agregar
+                </a>
+
             </div>
             <div class="col-md-6 text-right">                                
                 <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
@@ -90,19 +93,14 @@
                     <i class="fa fa-arrow-down"></i>
                 </a>
 
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1">
-                    <i class="fa fa-trash"></i>
+                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
+                    <i class="fa fa-trash"></i> Borrar
                 </a>
 
-                <a href="#" class="collection-add btn btn-sm btn-outline-primary ml-1">
-                    <i class="fa fa-plus"></i>Agregar viaje
-                </a>
+                {{ form_widget(form.reset) }}
 
-                {#<div class="col-md-1">
-                    <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
-                </div>#}
             </div>
-        </div>        
+        </div>  
 
     </div>          
 {% endblock %}

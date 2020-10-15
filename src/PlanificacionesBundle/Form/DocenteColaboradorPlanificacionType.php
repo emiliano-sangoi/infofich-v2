@@ -12,6 +12,12 @@ class DocenteColaboradorPlanificacionType extends DocentePlanificacionType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
+        
+        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+            'label' => 'Descartar cambios',
+            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
+        ));
+        
     }
 
     /**
