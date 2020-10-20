@@ -5,47 +5,51 @@
     </div>
 
     <div class="row">        
-        <div class="col-sm-3 text-right">
-            <label class="font-weight-bold">Responsable:</label>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Responsable</label>
+            <div class="{{ resumen.docente_resp ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.docente_resp|default(global_sd) }}            
+            </div> 
         </div>
-        <div class="col-sm-6 {{ resumen.docente_resp ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
-            {{ resumen.docente_resp|default(global_sd) }}            
-        </div>        
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Colaboladores ({{ resumen.docentes_colab_count }})</label>
+            <div class="" >                         
+                {% if resumen.docentes_colab is null %}
+                    <div class="text-danger">{{ global_sd }}</div>
+                {% else %}
+                    {% for d in resumen.docentes_colab %}
+                        <p>
+                            {#                        <span class="font-weight-bold">#{{ loop.index }}</span> #}
+                            {{ d }}
+                        </p>
+                    {% endfor %}
+                {% endif %}                        
+            </div>  
+        </div>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Adscriptos ({{ resumen.docentes_adscriptos_count }})</label>
+            <div class="" >                         
+                {% if resumen.docentes_adscriptos is null %}
+                    <div class="text-danger">{{ global_sd }}</div>
+                {% else %}
+                    {% for d in resumen.docentes_adscriptos %}
+                        <p>                        
+                            {{ d }}
+                        </p>
+                    {% endfor %}
+                {% endif %}                        
+            </div>    
+        </div>
+
+
+
     </div>
 
-    <div class="row mt-3">        
-        <div class="col-sm-3 text-right">
-            <label class="font-weight-bold">Colaboladores ({{ resumen.docentes_colab_count }}):</label>
-        </div>
-        <div class="col-sm-6" >                         
-            {% if resumen.docentes_colab is null %}
-                <div class="text-danger">{{ global_sd }}</div>
-            {% else %}
-                {% for d in resumen.docentes_colab %}
-                    <p>
-                        {#                        <span class="font-weight-bold">#{{ loop.index }}</span> #}
-                        {{ d }}
-                    </p>
-                {% endfor %}
-            {% endif %}                        
-        </div>     
-    </div>
-    <div class="row mt-3">        
-        <div class="col-sm-3 text-right">
-            <label class="font-weight-bold">Adscriptos ({{ resumen.docentes_adscriptos_count }}):</label>
-        </div>
-        <div class="col-sm-6" >                         
-            {% if resumen.docentes_adscriptos is null %}
-                <div class="text-danger">{{ global_sd }}</div>
-            {% else %}
-                {% for d in resumen.docentes_adscriptos %}
-                    <p>                        
-                        {{ d }}
-                    </p>
-                {% endfor %}
-            {% endif %}                        
-        </div>     
-    </div>
+
+
+
+
+
 
 
 

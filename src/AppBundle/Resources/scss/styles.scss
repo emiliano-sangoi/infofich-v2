@@ -221,11 +221,11 @@ $content-info-right-panel-h: 20.25vh;
 .navbar-side-action{
     position: absolute;
     right: 1em;
-    
+
     a{
         color: white;
         text-decoration: none;
-        
+
         &:hover{
             color: $gris-4;
         }
@@ -243,3 +243,4 @@ $content-info-right-panel-h: 20.25vh;
 .centrate-y {
     @include centerer(false, true);
 }
+
