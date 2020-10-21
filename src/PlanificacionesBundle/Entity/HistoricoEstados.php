@@ -59,6 +59,16 @@ class HistoricoEstados
     private $planificacion;
     
     
+    /**
+     * 
+     * @var AppBundle\Entity\Usuario
+     * 
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     */
+    private $usuario;
+    
+    
     public function __construct() {
         $this->fechaDesde = new \DateTime();
     }
@@ -168,5 +178,29 @@ class HistoricoEstados
     public function getPlanificacion()
     {
         return $this->planificacion;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     *
+     * @return HistoricoEstados
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

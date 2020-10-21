@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
 class Rol {
+    
+    const ADMIN = 1;
+    const SEC_ACAD = 2;
+    
 
     /**
      * @var int
@@ -22,6 +26,14 @@ class Rol {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     *
+     * @var integer 
+     * 
+     * @ORM\Column(name="codigo", type="integer", unique=true)
+     */
+    private $codigo;
 
     /**
      * @var string
@@ -29,49 +41,40 @@ class Rol {
      * @ORM\Column(name="nombre", type="string", length=255, unique=true)
      */
     private $nombre;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="titulo", type="string", length=255)
+     */
+    private $titulo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
      */
-    private $descripcion;
-
-    /*
-     * @var ArrayCollection
+    private $descripcion;    
+    
+    /**
      * 
-     * Un rol tiene asociado muchos permisos
+     * @var ArrayCollection 
      * 
-     * @ORM\ManyToMany(targetEntity="Permiso")
+     * @ORM\ManyToMany(targetEntity="Permiso", inversedBy="roles")
      * @ORM\JoinTable(name="app_roles_permisos",
-     *      joinColumns={@ORM\JoinColumn(name="rol_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="permiso_id", referencedColumnName="id")}
      *      )
      */
-    //private $permisos;
-    
-    /**
-     * @var Rol
-     * 
-     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="hijos")
-     * @ORM\JoinColumn(name="padre_id", referencedColumnName="id")
-     */
-    private $padre;
-    
-
-    /**
-     * @var ArrayCollection
-     * 
-     * Un rol puede tener muchos hijos
-     * 
-     * @ORM\OneToMany(targetEntity="Rol", mappedBy="padre")
-     */
-    private $hijos;
+    private $permisos;
     
 
     public function __construct() {
         $this->permisos = new ArrayCollection();
-        $this->hijos = new ArrayCollection();
+    }
+    
+    public function __toString() {
+        return $this->nombre;
     }
 
     /**
@@ -129,60 +132,84 @@ class Rol {
 
 
     /**
-     * Set padre
+     * Set codigo
      *
-     * @param \AppBundle\Entity\Rol $padre
+     * @param integer $codigo
      *
      * @return Rol
      */
-    public function setPadre(\AppBundle\Entity\Rol $padre = null)
+    public function setCodigo($codigo)
     {
-        $this->padre = $padre;
+        $this->codigo = $codigo;
 
         return $this;
     }
 
     /**
-     * Get padre
+     * Get codigo
      *
-     * @return \AppBundle\Entity\Rol
+     * @return integer
      */
-    public function getPadre()
+    public function getCodigo()
     {
-        return $this->padre;
+        return $this->codigo;
     }
 
     /**
-     * Add hijo
+     * Add permiso
      *
-     * @param \AppBundle\Entity\Rol $hijo
+     * @param \AppBundle\Entity\Permiso $permiso
      *
      * @return Rol
      */
-    public function addHijo(\AppBundle\Entity\Rol $hijo)
+    public function addPermiso(\AppBundle\Entity\Permiso $permiso)
     {
-        $this->hijos[] = $hijo;
+        $this->permisos[] = $permiso;                
 
         return $this;
     }
 
     /**
-     * Remove hijo
+     * Remove permiso
      *
-     * @param \AppBundle\Entity\Rol $hijo
+     * @param \AppBundle\Entity\Permiso $permiso
      */
-    public function removeHijo(\AppBundle\Entity\Rol $hijo)
+    public function removePermiso(\AppBundle\Entity\Permiso $permiso)
     {
-        $this->hijos->removeElement($hijo);
+        $this->permisos->removeElement($permiso);
     }
 
     /**
-     * Get hijos
+     * Get permisos
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getHijos()
+    public function getPermisos()
     {
-        return $this->hijos;
+        return $this->permisos;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     *
+     * @return Rol
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
     }
 }

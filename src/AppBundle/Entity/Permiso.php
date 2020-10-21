@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,20 +21,21 @@ class Permiso
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     *
+     * @var integer 
+     * 
+     * @ORM\Column(name="codigo", type="integer", unique=true)
+     */
+    private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titulo", type="string", length=255)
+     * @ORM\Column(name="titulo", type="string", length=512)
      */
     private $titulo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=128, unique=true)
-     */
-    private $nombre;
 
     /**
      * @var string
@@ -41,6 +43,22 @@ class Permiso
      * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
      */
     private $descripcion;
+    
+    /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="Rol", mappedBy="permisos")
+     */
+    private $roles;
+    
+    
+    public function __construct() {
+        $this->permisos = new ArrayCollection();
+        ;
+    }
+    
+    public function __toString() {
+        return $this->titulo;
+    }
 
 
     /**
@@ -78,30 +96,6 @@ class Permiso
     }
 
     /**
-     * Set nombre
-     *
-     * @param string $nombre
-     *
-     * @return Permiso
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
      * Set descripcion
      *
      * @param string $descripcion
@@ -124,5 +118,62 @@ class Permiso
     {
         return $this->descripcion;
     }
-}
 
+    /**
+     * Set codigo
+     *
+     * @param integer $codigo
+     *
+     * @return Permiso
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return integer
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    /**
+     * Add role
+     *
+     * @param \AppBundle\Entity\Rol $role
+     *
+     * @return Permiso
+     */
+    public function addRole(\AppBundle\Entity\Rol $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \AppBundle\Entity\Rol $role
+     */
+    public function removeRole(\AppBundle\Entity\Rol $role)
+    {
+        $this->roles->removeElement($role);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+}
