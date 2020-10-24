@@ -1,26 +1,21 @@
 {% extends '::base.html.twig' %}
 
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}
+            <span class="navbar-side-action  centrate-y">
+                <a href="{{ path('planificaciones_nueva') }}" class="">
+                    Nueva planificaci&oacute;n
+                </a>
+            </span>                    
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
 {% block content %}
-    <div class="container-inicio">
-        <div class="light-font mb-0 position-relative">
-            <nav aria-label="breadcrumb " class="bg-azul">
-                <ol class="breadcrumb d-inline-block mb-0">
-                    <li class="breadcrumb-item w-80">
-                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
-                    </li>                    
-                </ol>
-                <span class="navbar-side-action centrate-y">
-                    <a href="{{ path('planificaciones_nueva') }}" class="">
-                        Nueva planificaci&oacute;n
-                    </a>
-                </span>
-            </nav>
-
-        </div>
-
-        <div class="row mx-0">
-            <div class="offset-3 col-lg-6 pt-5">
-                <div >
+        <div class="">
+            <div class="">
+                <div>
 
                     {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig'%}
 
@@ -100,7 +95,7 @@
                             </div>
                         </div>
                     </div>                    
-                    <div class="navigation mt-3 centrate-x">                        
+                    <div class="navigation mt-3 mb-5 centrate-x">                        
                         {{ knp_pagination_render(paginado) }}
                     </div>                    
 
@@ -231,6 +226,5 @@
 
             </div>
         </div>
-
-    </div>    
+  
 {% endblock %}

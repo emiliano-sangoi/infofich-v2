@@ -1,0 +1,12 @@
+<nav class="bg-azul light-font mb-0 position-relative" id="navbar2">   
+
+    {{ wo_render_breadcrumbs() }}
+
+    {% block navbar2_actions %}
+        <span class="navbar-side-action centrate-y">
+            <a href="{{ path('planificaciones_nueva') }}" class="">
+                Nueva planificaci&oacute;n
+            </a>
+        </span>
+    {% endblock %}
+</nav>

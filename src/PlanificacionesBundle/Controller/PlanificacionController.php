@@ -29,6 +29,11 @@ class PlanificacionController extends Controller {
         $paginado = $paginator->paginate(
                 $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
         );
+        
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("PLANIFICACIONES");
 
 
         return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
@@ -72,6 +77,12 @@ class PlanificacionController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
+        
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem("NUEVA");
 
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(

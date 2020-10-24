@@ -41,6 +41,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         global_sd: 'Sin definir'
+        full_width: false
 
 # Doctrine Configuration
 doctrine:
@@ -94,3 +95,15 @@ knp_paginator:
         pagination: 'pagination.html.twig'     # sliding pagination controls template
         sortable: '@KnpPaginator/Pagination/twitter_bootstrap_v4_font_awesome_sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+        
+        
+white_october_breadcrumbs:
+    separator:          '/'
+    separatorClass:     'separator text-white px-2'
+    #listId:             'wo-breadcrumbs'
+    #listClass:          'breadcrumb'
+    itemClass:          'text-white'
+    #linkRel:            ''
+    #locale:             ~ # defaults to null, so the default locale is used
+    #translation_domain: ~ # defaults to null, so the default domain is used
+    viewTemplate:       '::breadcrumb.html.twig'

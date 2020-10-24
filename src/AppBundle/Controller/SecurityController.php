@@ -39,6 +39,10 @@ class SecurityController extends Controller {
             $ok = $usuario instanceof Usuario && $this->loguearUsuario($usuario, $plain_password, $request);
 
             if ($ok) {
+                
+                //actualizar fecha de ultimo ingreso:
+                $usuario->setUltimoIngreso(new \DateTime);
+                $em->flush();
 
                 return $this->redirectToRoute('homepage');
             } else {

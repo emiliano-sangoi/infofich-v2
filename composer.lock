@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d5a7d01f6fbc8b30e148fd6bb749f72",
+    "content-hash": "f36305d9cf4e86edf4dc8a6e52b41dde",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2951,6 +2951,55 @@
                 "upload"
             ],
             "time": "2014-12-12T10:26:46+00:00"
+        },
+        {
+            "name": "whiteoctober/breadcrumbs-bundle",
+            "version": "1.4.5",
+            "target-dir": "WhiteOctober/BreadcrumbsBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whiteoctober/BreadcrumbsBundle.git",
+                "reference": "ad813b53f4f12fa7450d75bceb7a5d7ab9c39672"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whiteoctober/BreadcrumbsBundle/zipball/ad813b53f4f12fa7450d75bceb7a5d7ab9c39672",
+                "reference": "ad813b53f4f12fa7450d75bceb7a5d7ab9c39672",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.0|~3.0|^4.0",
+                "symfony/templating": "~2.7|~3.0|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4",
+                "symfony/browser-kit": "~2.7|~3.0|^4.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "WhiteOctober\\BreadcrumbsBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rich Sage",
+                    "email": "rich.sage@gmail.com"
+                }
+            ],
+            "description": "A small breadcrumbs bundle for Symfony2",
+            "homepage": "https://github.com/whiteoctober/BreadcrumbsBundle",
+            "keywords": [
+                "breadcrumbs",
+                "symfony"
+            ],
+            "abandoned": "mhujer/breadcrumbs-bundle",
+            "time": "2019-10-18T12:03:08+00:00"
         }
     ],
     "packages-dev": [

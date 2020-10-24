@@ -25,7 +25,8 @@
 	"fich/api-infofich": "dev-master",
         "knplabs/knp-paginator-bundle": "^2.8",
         "nelmio/api-doc-bundle": "^2.13",
-        "ninsuo/symfony-collection": "^2.1"        
+        "ninsuo/symfony-collection": "^2.1",
+        "whiteoctober/breadcrumbs-bundle": "^1.4"        
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

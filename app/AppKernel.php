@@ -20,7 +20,10 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new PlanificacionesBundle\PlanificacionesBundle(),
             
-            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
+            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            
+            // https://github.com/whiteoctober/BreadcrumbsBundle
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

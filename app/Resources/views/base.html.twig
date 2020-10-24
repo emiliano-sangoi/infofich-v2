@@ -50,13 +50,20 @@
     </head>
     <body id="page-top">
 
-        {% block barra %}
-            {% include 'navbar.html.twig' %}
-        {% endblock %}        
+        {% block navbar %}
+            {% include 'navbar.html.twig' %}         
+        {% endblock %}   
 
-        {% block content %}
+        {% block navbar2 %}            
+            {% include 'navbar2.html.twig' %}            
+        {% endblock %}          
+ 
 
-        {% endblock %}
+        <div class="{{ full_width ? 'container-fluid p-0' : 'container p-5' }}">
+            {% block content %}
+
+            {% endblock %}
+        </div>
 
 
         <!-- <div id="btn-to-top">
@@ -117,163 +124,163 @@
 
 
                     //Pantalla informacion Basica
-                    {#$('#asignatura').on('change', function () {
-                        $('#codigo_siu').val('IF005');
-                        $('#plan_estudio').val('2015');
-                        $('#caracter').val('Cuatrimestral');
-                        $('#carga_horaria').val('20');
+                {#$('#asignatura').on('change', function () {
+                    $('#codigo_siu').val('IF005');
+                    $('#plan_estudio').val('2015');
+                    $('#caracter').val('Cuatrimestral');
+                    $('#carga_horaria').val('20');
 
-                        //alert('You selected - ' + $(this).val())
-                    });#}
-{#
-                    //Pantalla equipo-docente
-                    $('#nombre_docente_res').on('change', function () {
-                        $('#dni_docente_res').val('31222555');
-                        $('#tel_docente_res').val('342512345678');
-                        $('#email_docente_res').val('docente@gmail.com');
-                    });
+                    //alert('You selected - ' + $(this).val())
+                });#}
+                {#
+                                    //Pantalla equipo-docente
+                                    $('#nombre_docente_res').on('change', function () {
+                                        $('#dni_docente_res').val('31222555');
+                                        $('#tel_docente_res').val('342512345678');
+                                        $('#email_docente_res').val('docente@gmail.com');
+                                    });
 
-                    $('#nombre_docente_col').on('change', function () {
-                        $('#dni_docente_col').val('12345679');
-                        $('#tel_docente_col').val('3421114445');
-                        $('#email_docente_col').val('colaborador@gmail.com');
-                    });
+                                    $('#nombre_docente_col').on('change', function () {
+                                        $('#dni_docente_col').val('12345679');
+                                        $('#tel_docente_col').val('3421114445');
+                                        $('#email_docente_col').val('colaborador@gmail.com');
+                                    });
 
-                    $('#nombre_docente_ads').on('change', function () {
-                        $('#dni_docente_ads').val('12345679');
-                        $('#tel_docente_ads').val('3421114445');
-                        $('#email_docente_ads').val('adscripto@gmail.com');
-                    });#}
+                                    $('#nombre_docente_ads').on('change', function () {
+                                        $('#dni_docente_ads').val('12345679');
+                                        $('#tel_docente_ads').val('3421114445');
+                                        $('#email_docente_ads').val('adscripto@gmail.com');
+                                    });#}
 
-             {#       function completar_datos_asignatura(elemento) {
-                        alert('sfdsfdfs');
-                        var id = $("#" + elemento.id).val();
-                        alert(id);
-                        //$('#curso_planificacion').selectpicker('destroy');
+                {#       function completar_datos_asignatura(elemento) {
+                           alert('sfdsfdfs');
+                           var id = $("#" + elemento.id).val();
+                           alert(id);
+                           //$('#curso_planificacion').selectpicker('destroy');
 
-                        $('#codigo_siu').val('IF005');
-                        $('#plan_estudio').val('2015');
-                        $('#caracter').val('Cuatrimestral');
-                        $('#carga_horaria').val('20');
-
-
-                        /* $.getJSON('../ajax-completa-cursos.php',
-                         "idCarreraCompletarCombo=" + id + "&rand=" + Math.random(),
-                         function (data) {
-                         if ((data.length) > 0) {
-                         var optionSelect = "";
-                         for (var indice = 0; indice < data.length; indice++) {
-                         optionSelect += "<option value='" + data[indice]['id_curso'] + "'>" + data[indice]['nombre'] + "</option>"
-                         }
-                         $('#curso_planificacion').html(optionSelect);
-                         //alert(optionSelect);
-                         $('#curso_planificacion').selectpicker();
-                         } else {
-                         $('#curso_planificacion').html("<option value='0'>No existen cursos cargados</option>");
-                         $('#curso_planificacion').selectpicker();
-                         }
-                         });
-                         //$('#curso_planificacion').selectpicker('refresh');
-                         //$('#curso_planificacion').val('Mustard');*/
-                    }
-#}
+                           $('#codigo_siu').val('IF005');
+                           $('#plan_estudio').val('2015');
+                           $('#caracter').val('Cuatrimestral');
+                           $('#carga_horaria').val('20');
 
 
-                    // Boton para imprimir pagina:
-                    $('.print-page').click(function () {
-                        window.print();
-                    });
-
-
-                    // Ventana para redes sociales:
-                    $('.btn-social-icon').click(function (event) {
-                        javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
-                        return false;
-                        /*event.preventDefault();
-                         
-                         var e = $(this);
-                         console.log(e.data('url'));
-                         
-                         FB.ui({
-                         method: 'share',
-                         href: e.data('url'),
-                         }, function (response) {});*/
-
-
-
-                    });
-
-                    $('.mp-image').magnificPopup({
-                        type: 'image',
-                        fixedContentPos: false,
-                        closeOnBgClick: true,
-                        callbacks: {
-                            open: function () {
-                                jQuery('body').addClass('noscroll');
-                            },
-                            close: function () {
-                                jQuery('body').removeClass('noscroll');
+                           /* $.getJSON('../ajax-completa-cursos.php',
+                            "idCarreraCompletarCombo=" + id + "&rand=" + Math.random(),
+                            function (data) {
+                            if ((data.length) > 0) {
+                            var optionSelect = "";
+                            for (var indice = 0; indice < data.length; indice++) {
+                            optionSelect += "<option value='" + data[indice]['id_curso'] + "'>" + data[indice]['nombre'] + "</option>"
                             }
-                        }
-                    });
-
-
-
-                    $('.log-out').click(function (event) {
-                        event.preventDefault();
-                        var element = $(event.target);
-                        var href = element.attr('href');
-
-                        bootbox.confirm({
-                            message: "¿Esta seguro que desea salir de del sistema?",
-                            title: 'Cerrar sesión',
-                            buttons: {
-                                confirm: {
-                                    label: 'Si',
-                                    className: 'btn-primary'
-                                },
-                                cancel: {
-                                    label: 'No',
-                                    className: 'btn-danger'
-                                }
-                            },
-                            callback: function (result) {
-                                console.log(href);
-                                window.location.pathname = href;
-                                //console.log('This was logged in the callback: ' + result);
+                            $('#curso_planificacion').html(optionSelect);
+                            //alert(optionSelect);
+                            $('#curso_planificacion').selectpicker();
+                            } else {
+                            $('#curso_planificacion').html("<option value='0'>No existen cursos cargados</option>");
+                            $('#curso_planificacion').selectpicker();
                             }
-                        });
-
-                    });
-
-
-
-
+                            });
+                            //$('#curso_planificacion').selectpicker('refresh');
+                            //$('#curso_planificacion').val('Mustard');*/
+                       }
+   #}
 
 
-                });
+           // Boton para imprimir pagina:
+           $('.print-page').click(function () {
+               window.print();
+           });
 
-                $(function () {
-                    $('.tempusdominus-datetimepicker').datetimepicker({
-                        locale: 'es'
-                    });
-                    
-                    $('.tempusdominus-datepicker').datetimepicker({
-                        locale: 'es',
-                        format: 'L'
-                    });
 
-                    $('.confirmar-borrado').on('click', function (event) {
-                        var x = confirm("¿Esta seguro que desea borrar este registro?");
-                        if (x)
-                            return true;
-                        else
-                            return false;
-                    });
+           // Ventana para redes sociales:
+           $('.btn-social-icon').click(function (event) {
+               javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+               return false;
+               /*event.preventDefault();
+                
+                var e = $(this);
+                console.log(e.data('url'));
+                
+                FB.ui({
+                method: 'share',
+                href: e.data('url'),
+                }, function (response) {});*/
 
 
 
-                });
+           });
+
+           $('.mp-image').magnificPopup({
+               type: 'image',
+               fixedContentPos: false,
+               closeOnBgClick: true,
+               callbacks: {
+                   open: function () {
+                       jQuery('body').addClass('noscroll');
+                   },
+                   close: function () {
+                       jQuery('body').removeClass('noscroll');
+                   }
+               }
+           });
+
+
+
+           $('.log-out').click(function (event) {
+               event.preventDefault();
+               var element = $(event.target);
+               var href = element.attr('href');
+
+               bootbox.confirm({
+                   message: "¿Esta seguro que desea salir de del sistema?",
+                   title: 'Cerrar sesión',
+                   buttons: {
+                       confirm: {
+                           label: 'Si',
+                           className: 'btn-primary'
+                       },
+                       cancel: {
+                           label: 'No',
+                           className: 'btn-danger'
+                       }
+                   },
+                   callback: function (result) {
+                       console.log(href);
+                       window.location.pathname = href;
+                       //console.log('This was logged in the callback: ' + result);
+                   }
+               });
+
+           });
+
+
+
+
+
+
+       });
+
+       $(function () {
+           $('.tempusdominus-datetimepicker').datetimepicker({
+               locale: 'es'
+           });
+
+           $('.tempusdominus-datepicker').datetimepicker({
+               locale: 'es',
+               format: 'L'
+           });
+
+           $('.confirmar-borrado').on('click', function (event) {
+               var x = confirm("¿Esta seguro que desea borrar este registro?");
+               if (x)
+                   return true;
+               else
+                   return false;
+           });
+
+
+
+       });
 
 
 

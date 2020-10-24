@@ -187,8 +187,18 @@ and open the template in the editor.
     Created on : Oct 7, 2020, 8:30:59 PM
     Author     : emi88
 */
-.breadcrumb {
-  background-color: inherit; }
+/*#breadcrumb{
+    .breadcrumb {
+        background-color: inherit; 
+    }
+
+    box-shadow: 0 4px 8px rgba(0,0,0,.25);
+
+}*/
+#wo-breadcrumbs a {
+  color: white; }
+#wo-breadcrumbs li:last-child span[itemprop="name"] {
+  font-weight: bold; }
 
 /*
  _main-header.scss
@@ -206,6 +216,16 @@ and open the template in the editor.
       height: 8.5vh;
       top: 4.8vh;
       left: 8%; }
+
+#navbar1 {
+  background-color: white; }
+  #navbar1 .navbar-brand .logo {
+    width: 30%; }
+
+#navbar2 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); }
+  #navbar2 .breadcrumb {
+    background-color: inherit; }
 
 /**
 * _overrides.scss
@@ -504,14 +524,15 @@ html {
   font-size: 17px; }
 
 body {
-  font-family: "Lato"; }
+  font-family: "Lato";
+  background-color: #eeeeee; }
 
 .debug * {
   border: 1px dashed red; }
 
 * {
-  margin: 0;
-  padding: 0; }
+  /*    margin: 0;
+      padding: 0;*/ }
 
 /*Posicionamiento*/
 .float-left {
@@ -628,15 +649,6 @@ body {
 .container_temario, .container_equipo-docente {
   padding-left: 50px;
   padding-top: 20px; }
-
-.container-inicio {
-  background-color: #eeeeee;
-  /*height: 100vh;*/
-  /*height: 100%;*/
-  min-height: 100%;
-  /*    & *{
-          border: 1px solid red;
-      }*/ }
 
 .w-80 {
   width: 80%; }

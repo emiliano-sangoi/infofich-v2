@@ -10,7 +10,9 @@ use FICH\APIRectorado\Config\WSHelper;
 class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
-        return $this->render('index.html.twig');
+        return $this->render('index.html.twig', array(
+            'page_title' => 'InfoFICH - Inicio'
+        ));
     }
 
     public function pruebaAction(Request $request) {

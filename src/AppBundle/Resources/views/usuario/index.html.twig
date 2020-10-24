@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}    
+        {% block navbar2_actions %}
+            <span class="navbar-side-action centrate-y">
+                <a href="{{ path('usuarios_new') }}" class="">
+                    Nuevo usuario
+                </a>
+            </span>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}  
+
+
+
+{% block content %}
+
+    <div class="">
+        <div class="">
+            
+            {% if usuarios[0] is defined %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha creaci&oacute;n</th>
+                                <th>Nombre de usuario</th>
+                                <th>Bloqueado</th>                            
+                                <th>Ultimo ingreso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td>
+                                        {% if usuario.fechaCreacion %}{{ usuario.fechaCreacion|date('d/m/Y H:i') }}{% endif %}
+                                    </td>
+                                    <td>{{ usuario.username }}</td>
+                                    <td>{% if usuario.bloqueado %}Yes{% else %}No{% endif %}</td>                                
+                                    <td>{% if usuario.ultimoIngreso %}{{ usuario.ultimoIngreso|date('d/m/Y H:i:s') }}{% endif %}</td>
+                                    <td>
+
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('usuarios_show', { 'id': usuario.id }) }}">Ver</a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Editar</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="navigation my-4 centrate-x">                        
+                    {{ knp_pagination_render(usuarios) }}
+                </div>
+
+            </div>
+        </div>
+
+    {% else %}
+
+    {% endif %}
+
+{% endblock %}

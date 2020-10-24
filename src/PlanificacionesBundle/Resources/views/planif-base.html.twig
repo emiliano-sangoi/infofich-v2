@@ -6,13 +6,22 @@
     {% set info_basica_route =  path('planif_info_basica_editar', {id : planificacion.id}) %}
 {% endif %}
 
+{% block navbar2 %}             
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}                 
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% set full_width = true %}
 
 {% block content %}
     <div id="planificaciones" class="bg-white">
 
         {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
 
-        <div class="light-font mb-0">
+{#        <div class="light-font mb-0">
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb bg-azul mb-0">
                     <li class="breadcrumb-item">
@@ -22,7 +31,7 @@
                 </ol>
             </nav>
         </div>
-
+#}
         <div class="row no-gutters pt-0" id="menuLateral">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

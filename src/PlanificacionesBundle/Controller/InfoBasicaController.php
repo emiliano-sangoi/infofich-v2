@@ -39,6 +39,13 @@ class InfoBasicaController extends Controller {
         //titulo principal:
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion, $this->get("router")->generate("planif_info_basica_editar", array('id' => $planificacion->getId())));
+        $breadcrumbs->addItem("EDITAR");
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),

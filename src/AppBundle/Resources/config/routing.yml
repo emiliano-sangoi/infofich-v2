@@ -1,3 +1,7 @@
+app_usuarios:
+    resource: "@AppBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuarios
+
 
 homepage:
     path: /

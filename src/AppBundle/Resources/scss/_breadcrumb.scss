@@ -8,6 +8,25 @@ and open the template in the editor.
     Author     : emi88
 */
 
-.breadcrumb {
-    background-color: inherit;    
+
+
+/*#breadcrumb{
+    .breadcrumb {
+        background-color: inherit; 
+    }
+
+    box-shadow: 0 4px 8px rgba(0,0,0,.25);
+
+}*/
+
+#wo-breadcrumbs{
+    a{
+        color: white;
+    }
+    
+    li:last-child{
+        span[itemprop="name"]{
+            font-weight: bold;
+        }
+    }
 }
