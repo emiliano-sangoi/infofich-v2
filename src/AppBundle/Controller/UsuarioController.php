@@ -60,8 +60,15 @@ class UsuarioController extends Controller {
             return $this->redirectToRoute('usuarios_show', array('id' => $usuario->getId()));
         }
 
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Usuarios", $this->get("router")->generate("usuarios_index"));
+        $breadcrumbs->addItem("NUEVO");
+
         return $this->render('AppBundle:usuario:new.html.twig', array(
                     'usuario' => $usuario,
+                    'page_title' => 'Nuevo usuario',
                     'form' => $form->createView(),
         ));
     }

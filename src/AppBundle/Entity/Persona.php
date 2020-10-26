@@ -72,6 +72,10 @@ class Persona
      * @ORM\Column(name="telefono", type="string", length=32, nullable=true)
      */
     private $telefono;
+    
+    public function __toString() {
+        return $this->apellidos . ', ' . $this->nombres;
+    }
 
 
     /**
