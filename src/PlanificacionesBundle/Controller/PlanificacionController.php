@@ -110,6 +110,14 @@ class PlanificacionController extends Controller {
 
         $this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
+        
+        
+         // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);        
+        $breadcrumbs->addItem("REVISAR");
 
 
         //dump($planificacion->getDocenteResponsable()->getDocente()->getPersona()->getApellidos());exit;

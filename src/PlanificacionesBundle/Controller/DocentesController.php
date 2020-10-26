@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo encargado de guardar los cambios en equipo docente.
@@ -50,6 +52,10 @@ class DocentesController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Equipo docente', 
+                $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:2-equipo-docente:edit.html.twig', array(
                     'planificacion' => $planificacion,

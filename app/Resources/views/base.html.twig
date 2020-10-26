@@ -50,19 +50,17 @@
     </head>
     <body id="page-top">
 
-        {% block navbar %}
-            {% include 'navbar.html.twig' %}         
-        {% endblock %}   
+            {% block navbar %}
+                {% include 'navbar.html.twig' %}         
+            {% endblock %}   
 
-        {% block navbar2 %}            
-            {% include 'navbar2.html.twig' %}            
-        {% endblock %}          
- 
+            {% block navbar2 %}            
+                {% include 'navbar2.html.twig' %}            
+            {% endblock %}          
+
 
         <div class="{{ full_width ? 'container-fluid p-0' : 'container p-5' }}">
-            {% block content %}
-
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
 
 

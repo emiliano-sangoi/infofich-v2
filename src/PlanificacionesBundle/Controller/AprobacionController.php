@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AprobacionController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -46,6 +48,10 @@ class AprobacionController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', 
+                $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  */
 class ObjetivosController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la modificacion de los campos "objetivos generales y especificos de la planificación".
@@ -40,6 +42,10 @@ class ObjetivosController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Objetivos de la asignatura', 
+                $this->get("router")->generate('planif_objetivos_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:4-objetivos-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),

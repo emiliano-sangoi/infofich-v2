@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ActividadesCurricularesController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -37,6 +39,10 @@ class ActividadesCurricularesController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', 
+                $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
                     'form' => $form->createView(),

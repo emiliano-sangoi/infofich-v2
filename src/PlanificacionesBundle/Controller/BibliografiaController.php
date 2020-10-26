@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BibliografiaController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -39,6 +41,10 @@ class BibliografiaController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Bibliografía', 
+                $this->get("router")->generate('planif_bibliografia_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:6-bibliografia:edit.html.twig', array(
                     'form' => $form->createView(),

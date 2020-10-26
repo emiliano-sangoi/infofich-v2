@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InfoBasicaController extends Controller {
 
+    use PlanificacionTrait;
+
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $api_infofich_service = $this->get('api_infofich_service');
@@ -21,9 +23,9 @@ class InfoBasicaController extends Controller {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             //nombre de la asignatura:      
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());                        
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 
@@ -39,17 +41,14 @@ class InfoBasicaController extends Controller {
         //titulo principal:
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
+
         // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
-        $breadcrumbs->addItem($planificacion, $this->get("router")->generate("planif_info_basica_editar", array('id' => $planificacion->getId())));
-        $breadcrumbs->addItem("EDITAR");
+        $this->setBreadcrumb($planificacion, 'Información básica', 
+                $this->get("router")->generate('planif_info_basica_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,                    
+                    'page_title' => $page_title,
                     'planificacion' => $planificacion,
                     'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));

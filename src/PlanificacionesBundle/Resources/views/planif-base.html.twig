@@ -8,7 +8,15 @@
 
 {% block navbar2 %}             
     {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}                 
+        {% block navbar2_actions %}     
+            {% if is_planificacion_definida and planificacion.getEstadoActual()  %}     
+                <span class="navbar-side-action centrate-y text-color-white">                    
+                    <a href="#" class="mostrar-historico">
+                        {{ planificacion.getEstadoActual()|upper }} 
+                        <i class="fa fa-history"></i>
+                    </a>
+                </span>
+            {% endif %}            
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -21,17 +29,17 @@
 
         {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
 
-{#        <div class="light-font mb-0">
-            <nav aria-label="breadcrumb ">
-                <ol class="breadcrumb bg-azul mb-0">
-                    <li class="breadcrumb-item">
-                        <a class="text-color-white" href="#">PLANIFICACIONES</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ page_title|default('Sin título') }}</li>
-                </ol>
-            </nav>
-        </div>
-#}
+        {#        <div class="light-font mb-0">
+                    <nav aria-label="breadcrumb ">
+                        <ol class="breadcrumb bg-azul mb-0">
+                            <li class="breadcrumb-item">
+                                <a class="text-color-white" href="#">PLANIFICACIONES</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ page_title|default('Sin título') }}</li>
+                        </ol>
+                    </nav>
+                </div>
+        #}
         <div class="row no-gutters pt-0" id="menuLateral">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -89,47 +97,46 @@
                             <div class="my-3">
                                 {% include '::notificaciones.html.twig' %}
                             </div>
-                            <div class="mb-4 mt-4">
-                                {% block titulo_principal %}
-                                    <div class="">
-                                        <span class="h4 mr-2">
-                                            {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
-                                                <i class="fa fa-edit"></i>
-                                            {% else %}
-                                                <i class="fa fa-plus"></i>
-                                            {% endif %}
-                                        </span>
-                                        <span class="h3 font-weight-bold">
-                                            {{ page_title }}
-                                        </span>
-
+                            {#                            <div class="mb-4 mt-4">#}
+                            {#{% block titulo_principal %}
+                                <div class="">
+                                    <span class="h4 mr-2">
                                         {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
-                                            {#                                            {% set estado %}#}
-                                            <span class="lead opacity-50">
-                                                &nbsp;/&nbsp;
-                                                <span class="">
-                                                    {{ planificacion.getAnioAcad() }}
-                                                </span>
-                                                &nbsp;/&nbsp;
-                                                <span class="text-primary">                                                
-                                                    {{ planificacion.getEstadoActual() }} <a href="#" class="mostrar-historico">
-                                                        <small>
-                                                            <i class="fa fa-history"></i>
-                                                        </small>
-                                                    </a>
-                                                </span>
-                                            </span>
+                                            <i class="fa fa-edit"></i>
+                                        {% else %}
+                                            <i class="fa fa-plus"></i>
                                         {% endif %}
-                                    </div>
-                                {% endblock %} 
-                                {#{% block subtitulo %}
-                                    {% if subtitulo is defined %}
-                                        <h4 class="font-weight-bold text-color-gray-600 mt-2">
-                                            {{ subtitulo }}
-                                        </h4>
+                                    </span>
+                                    <span class="h3 font-weight-bold">
+                                        {{ page_title }}
+                                    </span>
+
+                                    {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
+                                        <span class="lead opacity-50">
+                                            &nbsp;/&nbsp;
+                                            <span class="">
+                                                {{ planificacion.getAnioAcad() }}
+                                            </span>
+                                            &nbsp;/&nbsp;
+                                            <span class="text-primary">                                                
+                                                {{ planificacion.getEstadoActual() }} <a href="#" class="mostrar-historico">
+                                                    <small>
+                                                        <i class="fa fa-history"></i>
+                                                    </small>
+                                                </a>
+                                            </span>
+                                        </span>
                                     {% endif %}
-                                {% endblock %} #}
-                            </div>
+                                </div>
+                            {% endblock %} #}
+                            {#{% block subtitulo %}
+                                {% if subtitulo is defined %}
+                                    <h4 class="font-weight-bold text-color-gray-600 mt-2">
+                                        {{ subtitulo }}
+                                    </h4>
+                                {% endif %}
+                            {% endblock %} #}
+                            {#                            </div>#}
                             <div class="py-4">                    
                                 {% block tab_content %}
                                 {% endblock %}   

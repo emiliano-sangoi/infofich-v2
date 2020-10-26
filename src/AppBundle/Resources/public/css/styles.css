@@ -195,10 +195,12 @@ and open the template in the editor.
     box-shadow: 0 4px 8px rgba(0,0,0,.25);
 
 }*/
-#wo-breadcrumbs a {
-  color: white; }
-#wo-breadcrumbs li:last-child span[itemprop="name"] {
-  font-weight: bold; }
+#wo-breadcrumbs {
+  margin-bottom: 0px; }
+  #wo-breadcrumbs a {
+    color: white; }
+  #wo-breadcrumbs li:last-child span[itemprop="name"] {
+    font-weight: bold; }
 
 /*
  _main-header.scss
@@ -223,7 +225,8 @@ and open the template in the editor.
     width: 30%; }
 
 #navbar2 {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); }
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  z-index: 500; }
   #navbar2 .breadcrumb {
     background-color: inherit; }
 

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ViajesAcademicosController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -31,6 +33,10 @@ class ViajesAcademicosController extends Controller {
 
             return $this->redirectToRoute('planif_viajes_acad_editar', array('id' => $planificacion->getId()));
         }
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Viajes académicos', 
+                $this->get("router")->generate('planif_viajes_acad_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:edit.html.twig', array(
                     'form' => $form->createView(),

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CargaHorariaController extends Controller {
 
+    use PlanificacionTrait;
+    
     /**
      * Metodo que maneja la edicion del formulario.
      * 
@@ -48,6 +50,11 @@ class CargaHorariaController extends Controller {
                 $this->addFlash('error', 'Hay errores en el formulario.');
             }
         }
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Distribución de carga horaria', 
+                $this->get("router")->generate('planif_dist_carga_horaria_editar', array('id' => $planificacion->getId())));
+        
         return $this->render('PlanificacionesBundle:8-dist-carga-horaria:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion,

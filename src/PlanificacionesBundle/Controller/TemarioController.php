@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TemarioController extends Controller {
+    
+    use PlanificacionTrait;
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -47,6 +49,10 @@ class TemarioController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Temario', 
+                $this->get("router")->generate('planif_temario_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:5-temario:edit.html.twig', array(
                     'form' => $form->createView(),
