@@ -2,7 +2,11 @@ app_usuarios:
     resource: "@AppBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuarios
 
-
+app_roles:
+    resource: "@AppBundle/Resources/config/routing/rol.yml"
+    prefix:   /roles
+    
+    
 homepage:
     path: /
     defaults: { _controller: AppBundle:Default:index }

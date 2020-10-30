@@ -1,0 +1,24 @@
+rol_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Rol:index" }
+    methods:  GET
+
+rol_show:
+    path:     /{id}/ver
+    defaults: { _controller: "AppBundle:Rol:show" }
+    methods:  GET
+
+rol_new:
+    path:     /nuevo
+    defaults: { _controller: "AppBundle:Rol:new" }
+    methods:  [GET, POST]
+
+rol_edit:
+    path:     /{id}/editar
+    defaults: { _controller: "AppBundle:Rol:edit" }
+    methods:  [GET, POST]
+
+rol_delete:
+    path:     /{id}/borrar
+    defaults: { _controller: "AppBundle:Rol:delete" }
+    methods:  DELETE

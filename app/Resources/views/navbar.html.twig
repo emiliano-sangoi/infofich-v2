@@ -6,7 +6,7 @@
     <!-- Navbar brand -->
     <a class="navbar-brand text-color-azul ml-3 pt-0" href="#">
 
-{#        <img class="img-fluid logo" alt="InfoFICH" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>#}
+        {#        <img class="img-fluid logo" alt="InfoFICH" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>#}
         <img class="img-fluid logo" alt="InfoFICH" src="{{ asset('bundles/app/images/infofich.png') }}"/>
     </a>            
     {# <div class="topbar-divider d-none d-sm-block"></div> #}
@@ -59,6 +59,11 @@
                 <a class="dropdown-item" href="{{ path('usuarios_index') }}">
                     <i class="fas fa-users fa-sm fa-fw text-gray-400"></i>
                     Usuarios
+                </a>
+
+                <a class="dropdown-item" href="{{ path('rol_index') }}">
+                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>
+                    Roles
                 </a>
             </div>
         </li>

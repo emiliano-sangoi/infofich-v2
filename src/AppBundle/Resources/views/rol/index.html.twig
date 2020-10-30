@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}    
+        {% block navbar2_actions %}
+            <a href="{{ path('rol_new') }}" class="">
+                Nuevo rol
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}  
+
+
+
+{% block content %}
+
+    <div class="px-lg-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <div class="bg-light">
+
+
+            <div class="table-responsive">
+                <table class="table table-condensed mb-0">
+                    <thead class="bg-gray-400">
+                        <tr>
+                            <th>#</th>                
+                            <th>Nombre</th>
+                            <th>T&iacute;tulo</th>
+{#                            <th>Descripci&oacute;n</th>#}
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rol in rols %}
+                            <tr>
+                                <td>
+                                    {{ loop.index }}
+                                </td>
+                                <td>{{ rol.nombre }}</td>
+                                <td>{{ rol.titulo }}</td>
+{#                                <td>{{ rol.descripcion|default('-') }}</td>#}
+                                <td>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_show', { 'id': rol.id }) }}">
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_edit', { 'id': rol.id }) }}">
+                                        Editar
+                                    </a>                       
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>           
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}     
+            <a href="{{ path('rol_index') }}">Listado de roles</a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="">
+        <div class="px-lg-5">
+
+            <div class="my-3">
+                {% include '::notificaciones.html.twig' %}
+            </div>
+
+            <div class="bg-light p-5">
+
+                <div class="row">        
+
+                    <div class="col-sm-3">
+                        <label class="font-weight-bold">Nombre</label>
+                        <div class="" >                        
+                            {{ rol.nombre }}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label class="font-weight-bold">T&iacute;tulo</label>
+                        <div class="" >                                                    
+                            {{ rol.titulo }}                       
+                        </div> 
+                    </div> 
+
+                    <div class="col-sm-6">
+                        <label class="font-weight-bold">Descripci&oacute;n</label>
+                        <div class="" >                                                    
+                            {{ rol.descripcion }}       
+                        </div> 
+                    </div> 
+                </div>
+
+                {#<div class="row">        
+                    <div class="col-sm-12">
+                        <label class="font-weight-bold">Permisos</label>
+                        <div class="" >                        
+
+                        </div> 
+                    </div>                    
+                </div>   #}          
+
+            </div>
+
+
+
+
+            {% embed '::botonera.html.twig' %}
+
+                {% block left %}
+                    <a class="btn btn-primary" href="{{ path('rol_edit', { 'id': rol.id }) }}">Editar</a>                    
+                {% endblock %}                            
+                {% block right %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este rol?'>
+                    {{ form_end(delete_form) }}
+                {% endblock %}
+
+            {% endembed %}
+
+
+        </div>
+    </div>
+
+{% endblock %}

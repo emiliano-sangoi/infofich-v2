@@ -12,14 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_roles")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
-class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
+class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {    
     
-    // constantes para usar y 
-    // buscar utilizando el campo código:
-    
-    const ADMIN = 1;
-    const SEC_ACAD = 2;
-    
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USUARIO = 'ROLE_USUARIO';
+    const ROLE_SECRETARIA_ACAD = 'ROLE_SECRETARIA_ACAD';
 
     /**
      * @var int
@@ -28,15 +25,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    
-    /**
-     *
-     * @var integer 
-     * 
-     * @ORM\Column(name="codigo", type="integer", unique=true)
-     */
-    private $codigo;
+    private $id;   
 
     /**
      * @var string
@@ -131,31 +120,6 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      */
     public function getDescripcion() {
         return $this->descripcion;
-    }
-
-
-    /**
-     * Set codigo
-     *
-     * @param integer $codigo
-     *
-     * @return Rol
-     */
-    public function setCodigo($codigo)
-    {
-        $this->codigo = $codigo;
-
-        return $this;
-    }
-
-    /**
-     * Get codigo
-     *
-     * @return integer
-     */
-    public function getCodigo()
-    {
-        return $this->codigo;
     }
 
     /**

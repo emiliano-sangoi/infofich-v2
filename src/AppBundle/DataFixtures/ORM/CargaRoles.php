@@ -12,16 +12,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
+        
 
         $rol = new Rol();
-        $rol->setNombre('ROLE_ADMIN');
-        $rol->setCodigo(Rol::ADMIN);
+        $rol->setNombre(Rol::ROLE_ADMIN);
         $rol->setTitulo('Administrador del Sistema');
         $rol->setDescripcion('Administrador del Sistema. Posee control sobre todos los aspectos del sistema.');
         
         $rol2 = new Rol();
-        $rol2->setNombre('ROLE_SEC_ACAD');
-        $rol2->setCodigo(Rol::SEC_ACAD);
+        $rol2->setNombre(Rol::ROLE_SECRETARIA_ACAD);
         $rol2->setTitulo('Secretaría Académica');
         $rol2->setDescripcion('Los usuarios con este rol pertenecen a la Secretaría Académica de la Facultad.');
        

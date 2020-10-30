@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}          
+            <a href="{{ path('rol_index') }}">Listado de roles</a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="px-lg-5">
+
+            <div class="my-3">
+                {% include '::notificaciones.html.twig' %}
+            </div>
+
+            <div class="">
+                
+                
+                
+                {% embed 'AppBundle:rol:form.html.twig' %}
+
+                    {% block botonera %}
+                        {% embed '::botonera.html.twig' %}
+
+                            {% block left %}
+                                <input type="submit" value="Crear rol" class="btn btn-primary" />
+                            {% endblock %}                            
+                            {% block right %}
+                                <a href="{{ path('rol_index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            {% endblock %}
+
+                        {% endembed %}
+
+                    {% endblock %}                
+
+                {% endembed %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+
+           {# $('#usuario_roles').select2({
+                'multiple': true
+            });#}
+
+
+
+
+
+        });
+
+    </script>
+
+
+{% endblock %}

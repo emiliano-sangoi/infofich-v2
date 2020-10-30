@@ -1,0 +1,63 @@
+{{ form_start(form) }}
+
+{#{{ dump(form) }}#}
+<div class="bg-light p-5">
+    <div>
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="form-row">   
+        <div class="col-5">
+            {{ form_label(form.nombre) }}
+            {{ form_widget(form.nombre) }}
+            {{ form_errors(form.nombre) }}      
+        </div>
+
+        <div class="col-7">
+            {{ form_label(form.titulo) }}
+            {{ form_widget(form.titulo) }}
+            {{ form_errors(form.titulo) }}      
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12">
+            {{ form_label(form.descripcion) }}
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}      
+        </div>
+    </div>
+
+    {% if rol.id %}
+        <div class="row">    
+            <div class="col-12">
+                permisos
+            </div>    
+        </div>
+    {% endif %}
+
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-4">
+        {% block left %}
+        {% endblock %}
+    </div>
+    <div class="col-4 text-center">
+        {% block center %}
+        {% endblock %}
+    </div>
+    <div class="col-4 text-right">
+        {% block right %}
+            {% if rol.id %}
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este rol?'/>
+                {{ form_end(delete_form) }}
+            {% endif %}
+        {% endblock %}
+    </div>
+</div>
+
+
+{{ form_end(form) }}
