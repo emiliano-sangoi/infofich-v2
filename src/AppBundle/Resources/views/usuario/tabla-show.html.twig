@@ -1,0 +1,48 @@
+{#Tabla alternativa para mostrar los datos del usuario#}
+{#Actualmente no se utiliza#}
+<table class="table table-borderless">
+    <tbody>
+        <tr class="row">
+            <th class="text-right col-3">Id:</th>
+            <td class="col-7">{{ usuario.id }}</td>
+        </tr>                        
+        <tr class="row">
+            <th class="text-right col-3">Nombre de usuario:</th>
+            <td class="col-7">{{ usuario.username }}</td>
+        </tr>
+        <tr class="row">
+            <th class="text-right col-3">Apellido:</th>
+            <td class="col-7">{{ usuario.persona.apellidos }}</td>
+        </tr>
+        <tr class="row">
+            <th class="text-right col-3">Fecha creaci&oacute;n:</th>
+            <td class="col-7">{% if usuario.fechaCreacion %}{{ usuario.fechaCreacion|date('d/m/Y H:i') }}{% endif %}</td>
+        </tr>
+        <tr class="row">
+            <th class="text-right col-3">Bloqueado:</th>
+            <td class="col-7">{% if usuario.bloqueado %}Si{% else %}No{% endif %}</td>
+        </tr>
+        <tr class="row">
+            <th class="text-right col-3">Fecha ultimo ingreso:</th>
+            <td class="col-7">
+                {% if usuario.ultimoIngreso %}
+                    {{ usuario.ultimoIngreso|date('d/m/Y H:i') }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+        </tr>
+        <tr class="row">
+            <th class="text-right col-3">
+                Roles:
+            </th>
+            <td class="col-7">
+                <ul class="list-unstyled">
+                    {% for rol in usuario.roles %}
+                        <li> #{{ loop.index }}&nbsp;-&nbsp;{{ rol.titulo }} </li>
+                        {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>              

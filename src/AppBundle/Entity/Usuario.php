@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * 
@@ -14,8 +15,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="app_usuarios")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
+ * @UniqueEntity(fields={"username"},
+ *     message="El nombre de usuario ingresado ya se encuentra en uso."
+ * )
  */
-class Usuario{
+class Usuario implements \Symfony\Component\Security\Core\User\UserInterface{
     
     const PLAIN_PWD_MIN_LENGTH = 8;    
     const PLAIN_PWD_MAX_LENGTH = 24;
@@ -50,7 +54,7 @@ class Usuario{
 
     /**
      * 
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Assert\NotBlank(message="El nombre de usuario no puede quedar vacio.")
      * @Assert\Length(
      *      min = Usuario::USERNAME_MIN_LENGTH,
@@ -62,6 +66,14 @@ class Usuario{
      * @var string
      */
     protected $username;
+    
+    /**
+     * 
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     * 
+     * @var string
+     */
+    protected $salt;
 
     /**
      * @var boolean
@@ -74,13 +86,6 @@ class Usuario{
      * Hash de la contraseña
      * 
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank(message="El campo contraseña es obligatorio.")
-     * @Assert\Length(
-     *      min = Usuario::PLAIN_PWD_MIN_LENGTH,
-     *      max = Usuario::PLAIN_PWD_MAX_LENGTH,
-     *      minMessage = "La contraseña debe tener al menos {{ limit }} caracteres.",
-     *      maxMessage = "La contraseña puede tener a lo sumo {{ limit }} caracteres."
-     * )
      *
      * @var string
      */
@@ -102,6 +107,16 @@ class Usuario{
      *      )
      */
     protected $roles;
+    
+    
+    /**
+     * Indica cuando el usuario fue dado de baja (baja logica).
+     * 
+     * @var DateTime
+     * 
+     * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
+     */
+    protected $fechaBaja;
 
 
 
@@ -111,8 +126,7 @@ class Usuario{
         $this->fechaCreacion = new DateTime();
         $this->bloqueado = false;
     }
-
-    
+        
 
 
     /**
@@ -121,8 +135,16 @@ class Usuario{
      * @return array The roles
      */
     public function getRoles() {
+        
+//        $roles_str = array();
+//        foreach ($this->roles as $rol){
+//            $roles_str[] = $rol->getNombre();
+//        }
+//        return $roles_str; 
+        
+        return $this->roles->toArray();
 
-        return array('ROLE_ADMIN');
+       /* return array('ROLE_ADMIN');
 
 
         // TODO: Revisar
@@ -132,7 +154,20 @@ class Usuario{
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
 
-        return array_unique($roles);
+        return array_unique($roles);*/
+    }
+    
+    /**
+     * Devuelve los roles como un arreglo de strings
+     * 
+     * @return array
+     */
+    public function getRolesAsStr() {
+        $roles_str = array();
+        foreach ($this->roles as $rol){
+            $roles_str[] = $rol->getNombre();
+        }
+        return $roles_str;        
     }
 
     /**
@@ -315,5 +350,53 @@ class Usuario{
     
     public function __toString() {
         return $this->username;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getSalt() {
+        return $this->salt;
+    }
+       
+
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return Usuario
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Set fechaBaja
+     *
+     * @param \DateTime $fechaBaja
+     *
+     * @return Usuario
+     */
+    public function setFechaBaja($fechaBaja)
+    {
+        $this->fechaBaja = $fechaBaja;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaBaja
+     *
+     * @return \DateTime
+     */
+    public function getFechaBaja()
+    {
+        return $this->fechaBaja;
     }
 }

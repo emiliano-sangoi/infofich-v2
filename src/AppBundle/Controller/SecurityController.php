@@ -76,7 +76,7 @@ class SecurityController extends Controller {
 
         $firewall_name = 'firewall_admin';
 
-        //Crear token
+        //Crear token        
         $token = new UsernamePasswordToken($usuario, $plain_password, $firewall_name, $usuario->getRoles());
         $this->get('security.token_storage')->setToken($token);
 

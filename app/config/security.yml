@@ -17,7 +17,7 @@ security:
         #SI SE LE CAMBIA EL NOMBRE ACTUALIZAR AppBundle\Controller\SecurityController
         firewall_admin:
             pattern: ^/
-            anonymous: true
+            anonymous: true            
             logout:
                 path: app_logout
                 target: app_login
@@ -50,11 +50,13 @@ security:
 
 
     role_hierarchy:
+        ROL_ADMIN:
         
     
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: [ROLE_ADMIN] }
 
 

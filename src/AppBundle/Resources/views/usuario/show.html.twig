@@ -1,48 +1,177 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Usuario</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ usuario.id }}</td>
-            </tr>
-            <tr>
-                <th>Fechacreacion</th>
-                <td>{% if usuario.fechaCreacion %}{{ usuario.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ usuario.username }}</td>
-            </tr>
-            <tr>
-                <th>Bloqueado</th>
-                <td>{% if usuario.bloqueado %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ usuario.password }}</td>
-            </tr>
-            <tr>
-                <th>Ultimoingreso</th>
-                <td>{% if usuario.ultimoIngreso %}{{ usuario.ultimoIngreso|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}     
+            <a href="{{ path('usuarios_index') }}">Listado de usuarios</a>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="px-lg-5">
+
+            <div class="my-3">
+                {% include '::notificaciones.html.twig' %}
+            </div>
+
+            <div class="bg-light p-5">
+
+                <div class="row mb-5">        
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Nombre de usuario</label>
+                        <div class="" >                        
+                            {{ usuario.username }}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Apellido y nombre</label>
+                        <div class="" >                        
+                            {{ usuario.persona }}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Tipo y Nro. Documento</label>
+                        <div class="" >                                                    
+                            {{ usuario.persona.getTipoYNroDocumento() }}                       
+                        </div> 
+                    </div>
+                </div>
+
+                <div class="row mb-5">        
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Bloqueado</label>
+                        <div class="" >                        
+                            {% if usuario.bloqueado %}
+                                <span class="font-weight-bold text-danger">Si</span>
+                            {% else %}
+                                No
+                            {% endif %}
+                        </div> 
+                    </div>                    
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Fecha creaci&oacute;n</label>
+                        <div class="" >                        
+                            {% if usuario.fechaCreacion %}
+                                {{ usuario.fechaCreacion|date('d/m/Y H:i') }}&nbsp;Hs.
+                            {% endif %}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Fecha &uacute;ltimo ingreso</label>
+                        <div class="" >                        
+                            {% if usuario.ultimoIngreso %}
+                                {{ usuario.ultimoIngreso|date('d/m/Y H:i') }}&nbsp;Hs.
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div> 
+                    </div>
+
+                </div>
+
+                <div class="row mb-5">        
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Correo electr&oacute;nico</label>
+                        <div class="" >                        
+                            {{ usuario.persona.email|default('-') }}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Tel&eacute;fono</label>
+                        <div class="" >                        
+                            {{ usuario.persona.telefono|default('-') }}
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="font-weight-bold">Fecha nacimiento</label>
+                        <div class="" >                        
+                            {% if usuario.persona.fechaNacimiento %}
+                                {{ usuario.persona.fechaNacimiento|date('d/m/Y') }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div> 
+                    </div>
+                </div>
+
+                <div class="row">   
+                    <div class="col-sm-12">
+                        <label class="font-weight-bold">Roles</label>
+                        <div class="" >   
+                            {% if roles[0] is defined %}
+                                <table class="table table-sm">
+                                    <thead class="bg-gray-500">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nombre</th>
+                                            <th>T&iacute;tulo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for rol in usuario.roles %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                <td>{{ rol.nombre }}</td>
+                                                <td>{{ rol.titulo }}</td>                                    
+                                            </tr>
+                                        {% endfor %}
+                                    <tbody>
+                                </table>
+                            {% else %}
+                                <span class="text-muted">El usuario no posee ning&uacute;n rol asignado.</span>
+                            {% endif %}
+                        </div> 
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% embed '::botonera.html.twig' %}
+
+                {% block left %}
+                    <a class="btn btn-primary" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Editar</a>                    
+                {% endblock %}                            
+                {% block right %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar el usuario?'>
+                    {{ form_end(delete_form) }}
+                {% endblock %}
+
+            {% endembed %}
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+
+
+
+
+
+
+        });
+
+    </script>
+
+
+{% endblock %}
+

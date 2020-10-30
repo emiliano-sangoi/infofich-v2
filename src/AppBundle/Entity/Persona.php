@@ -3,17 +3,22 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Persona
  *
  * @ORM\Table(name="app_personas")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
+ * @UniqueEntity(fields={"tipoDocumento", "documento"},
+ *     message="Ya existe una persona registrada con el tipo y numero de documento ingresado."
+ * )
  * 
  * @ORM\HasLifecycleCallbacks()
  */
 class Persona
 {
+ 
     /**
      * @var int
      *
@@ -21,35 +26,35 @@ class Persona
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="apellidos", type="string", length=512)
      */
-    private $apellidos;
+    protected $apellidos;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nombres", type="string", length=512)
      */
-    private $nombres;
+    protected $nombres;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="tipo_documento", type="smallint", nullable=true)
      */
-    private $tipoDocumento;
+    protected $tipoDocumento;
     
     /**
      * @var string
      *
      * @ORM\Column(name="documento", type="string", length=12, unique=true)
      */
-    private $documento;
+    protected $documento;
     
     
     /**
@@ -57,21 +62,35 @@ class Persona
      *
      * @ORM\Column(name="cuil", type="string", length=16, nullable=true, unique=true)
      */
-    private $cuil;
+    protected $cuil;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telefono", type="string", length=32, nullable=true)
      */
-    private $telefono;
+    protected $telefono;
+    
+    
+    /**
+     *
+     * @var DateTime 
+     * 
+     * @ORM\Column(name="fechaNacimiento", type="datetime", nullable=true)
+     */
+    protected $fechaNacimiento;
+
+
+    public function __construct() {        
+        ;
+    }
     
     public function __toString() {
         return $this->apellidos . ', ' . $this->nombres;
@@ -190,6 +209,15 @@ class Persona
         $this->tipoDocumento = $tipoDocumento;
         return $this;
     }
+    
+    function getTipoYNroDocumento(){
+        $tipo = \FICH\APIRectorado\Config\WSHelper::getDescTipoDoc($this->tipoDocumento);
+        if(isset($tipo[0])){
+            return strtoupper($tipo[0]) . ' - ' . $this->documento;            
+        }
+        return $this->documento;
+        
+    }
 
     
     /**
@@ -262,5 +290,29 @@ class Persona
     public function getCuil()
     {
         return $this->cuil;
+    }
+
+    /**
+     * Set fechaNacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     *
+     * @return Persona
+     */
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento;
     }
 }

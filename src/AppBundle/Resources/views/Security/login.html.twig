@@ -5,6 +5,13 @@
 {% block barra %}
 {% endblock %}
 
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}                            
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
 {% set full_width = true %}
 
 {% block content %}

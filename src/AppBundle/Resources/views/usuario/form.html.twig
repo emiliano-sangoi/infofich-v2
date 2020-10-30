@@ -1,0 +1,94 @@
+{{ form_start(form) }}
+
+{#{{ dump(form) }}#}
+<div>
+    {{ form_errors(form) }}
+</div>
+
+<div class="form-row">   
+    <div class="col-4">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username) }}
+        {{ form_errors(form.username) }}      
+    </div>
+
+    <div class="col-4">
+        {{ form_label(form.plainPassword) }}
+        {{ form_widget(form.plainPassword) }}
+        {{ form_errors(form.plainPassword) }}      
+    </div>
+    <div class="col-4">
+        {{ form_label(form.bloqueado) }}
+        {{ form_widget(form.bloqueado) }}
+        {{ form_errors(form.bloqueado) }}
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-6">
+        {{ form_label(form.persona.tipoDocumento) }}
+        {{ form_widget(form.persona.tipoDocumento) }}
+        {{ form_errors(form.persona.tipoDocumento) }}      
+    </div>
+    <div class="col-6">
+        {{ form_label(form.persona.documento) }}
+        {{ form_widget(form.persona.documento) }}
+        {{ form_errors(form.persona.documento) }}
+    </div>
+
+</div>
+
+
+
+<div class="form-row">
+    <div class="col-4">
+        {{ form_label(form.persona.apellidos) }}
+        {{ form_widget(form.persona.apellidos) }}
+        {{ form_errors(form.persona.apellidos) }}      
+    </div>
+    <div class="col-4">
+        {{ form_label(form.persona.nombres) }}
+        {{ form_widget(form.persona.nombres) }}
+        {{ form_errors(form.persona.nombres) }}
+    </div>
+    <div class="col-4">
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.persona.fechaNacimiento, form.persona.fechaNacimiento.vars.id ~ '_picker', true ) }} 
+    </div>
+</div>
+
+
+<div class="form-row">    
+    <div class="col-6">
+        {{ form_label(form.persona.email) }}
+        {{ form_widget(form.persona.email) }}
+        {{ form_errors(form.persona.email) }}      
+    </div>
+    <div class="col-3">
+        {{ form_label(form.persona.telefono) }}
+        {{ form_widget(form.persona.telefono) }}
+        {{ form_errors(form.persona.telefono) }}
+    </div>
+</div>
+
+<div class="form-row">    
+    <div class="col-12">
+        {{ form_label(form.roles) }}
+        {{ form_widget(form.roles) }}
+        {{ form_errors(form.roles) }}      
+    </div>    
+</div>
+
+
+<div class="row">    
+    <div class="col-6">
+        {% block botones_left %}
+        {%endblock %}
+    </div>  
+    <div class="col-6 text-right">  
+        {% block botones_right %}
+        {%endblock %}
+    </div>  
+</div>
+
+{{ form_end(form) }}

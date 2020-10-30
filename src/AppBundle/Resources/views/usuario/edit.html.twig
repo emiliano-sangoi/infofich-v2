@@ -1,21 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Usuario edit</h1>
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}     
+            <a href="{{ path('usuarios_index') }}">Listado de usuarios</a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+{% block content %}
+    <div class="">
+        <div class="px-lg-5">
 
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            <div class="my-3">
+                {% include '::notificaciones.html.twig' %}
+            </div>
+
+            <div class="bg-light p-5">
+                {% embed 'AppBundle:usuario:form.html.twig' %}
+
+                    {% block botones_left %}
+                        <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+                    {%endblock %}
+
+                    {% block botones_right %}
+                        <a href="{{ path('usuarios_index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                    {%endblock %}
+
+                {% endembed %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('#usuario_roles').select2({
+                'multiple': true
+            });
+
+
+
+
+
+        });
+
+    </script>
+
+
 {% endblock %}

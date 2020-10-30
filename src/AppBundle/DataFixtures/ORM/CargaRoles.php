@@ -14,13 +14,13 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
     public function load(ObjectManager $manager) {
 
         $rol = new Rol();
-        $rol->setNombre('ROL_ADMIN');
+        $rol->setNombre('ROLE_ADMIN');
         $rol->setCodigo(Rol::ADMIN);
         $rol->setTitulo('Administrador del Sistema');
         $rol->setDescripcion('Administrador del Sistema. Posee control sobre todos los aspectos del sistema.');
         
         $rol2 = new Rol();
-        $rol2->setNombre('ROL_SEC_ACAD');
+        $rol2->setNombre('ROLE_SEC_ACAD');
         $rol2->setCodigo(Rol::SEC_ACAD);
         $rol2->setTitulo('Secretaría Académica');
         $rol2->setDescripcion('Los usuarios con este rol pertenecen a la Secretaría Académica de la Facultad.');

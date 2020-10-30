@@ -10,6 +10,12 @@ use FICH\APIRectorado\Config\WSHelper;
 class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
+        
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        
+        
         return $this->render('index.html.twig', array(
             'page_title' => 'InfoFICH - Inicio'
         ));

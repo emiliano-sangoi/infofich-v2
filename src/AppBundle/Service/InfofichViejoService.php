@@ -3,9 +3,12 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Persona;
+use AppBundle\Entity\Rol;
 use AppBundle\Entity\Usuario;
+use AppBundle\Repository\RolRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
+use FICH\APIRectorado\Config\WSHelper;
 use PDO;
 use PDOException;
 use stdClass;
@@ -40,6 +43,13 @@ class InfofichViejoService {
      * @var EntityManager 
      */
     private $em;
+    
+    /**
+     *
+     * @var RolRepository 
+     */
+    private $repoRoles;
+    
 
     public function __construct($entityManager, $db_infofich_viejo) {
 
@@ -51,6 +61,8 @@ class InfofichViejoService {
         $this->dbParams->nombre = $db_infofich_viejo['nombre'];
         $this->dbParams->usuario = $db_infofich_viejo['usuario'];
         $this->dbParams->password = $db_infofich_viejo['password'];
+        
+        $this->repoRoles = $this->em->getRepository('AppBundle:Rol');
     }
 
     /**
@@ -128,6 +140,14 @@ class InfofichViejoService {
                 return false;
             }
         }
+        
+        $rolAdmin = $this->repoRoles->findOneByCodigo(Rol::ADMIN);
+        $admins = array(
+            '33496269',
+            '31272619',//Romi
+            '30786020',//Brisa   
+            // agregar aca los usuarios admins del viejo sistema
+        );
 
 
         $sql = "SELECT * FROM sistema_usuarios";
@@ -157,7 +177,7 @@ class InfofichViejoService {
             //Tipo de documento
             // en la BD esta la descripcion DNI, LC, LE, etc.
             // se traduce esta descripcion al codigo utilizado por los web services de rectorado.
-            $cod_tipo_doc = \FICH\APIRectorado\Config\WSHelper::getCodigoTipoDocPorDesc( $row['tipo_docum'] );
+            $cod_tipo_doc = WSHelper::getCodigoTipoDocPorDesc( $row['tipo_docum'] );
             if(is_null($cod_tipo_doc)){
                 throw new \Exception("No se pudo traducir el tipo de documento " . $row['tipo_docum'] . ' a un codigo valido.');
             }
@@ -175,6 +195,10 @@ class InfofichViejoService {
             $usuario->setUsername($row['nombre_usuario']);
             $usuario->setPassword($row['password']);
             
+            //Roles:
+            if(in_array($usuario->getUsername(), $admins)){
+                $usuario->addRole($rolAdmin);
+            }            
 
             $this->em->persist($usuario);
 

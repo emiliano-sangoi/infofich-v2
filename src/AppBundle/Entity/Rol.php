@@ -12,7 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_roles")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
-class Rol {
+class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
+    
+    // constantes para usar y 
+    // buscar utilizando el campo código:
     
     const ADMIN = 1;
     const SEC_ACAD = 2;
@@ -212,4 +215,9 @@ class Rol {
     {
         return $this->titulo;
     }
+
+    public function getRole() {
+        return $this->nombre;        
+    }
+
 }

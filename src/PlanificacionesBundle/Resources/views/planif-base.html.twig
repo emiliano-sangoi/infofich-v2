@@ -10,12 +10,12 @@
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}     
             {% if is_planificacion_definida and planificacion.getEstadoActual()  %}     
-                <span class="navbar-side-action centrate-y text-color-white">                    
+                                
                     <a href="#" class="mostrar-historico">
                         {{ planificacion.getEstadoActual()|upper }} 
                         <i class="fa fa-history"></i>
                     </a>
-                </span>
+           
             {% endif %}            
         {% endblock %}
     {% endembed %}

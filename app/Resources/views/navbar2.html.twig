@@ -2,11 +2,13 @@
 
     {{ wo_render_breadcrumbs() }}
 
+    <span class="navbar-side-action centrate-y text-color-white">
     {% block navbar2_actions %}
-        <span class="navbar-side-action centrate-y">
+        
             <a href="{{ path('planificaciones_nueva') }}" class="">
                 Nueva planificaci&oacute;n
             </a>
-        </span>
+       
     {% endblock %}
+     </span>
 </nav>

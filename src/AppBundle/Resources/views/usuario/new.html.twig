@@ -9,18 +9,50 @@
 
 {% block content %}
     <div class="">
-        <div class="">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Create" />
-            {{ form_end(form) }}
+        <div class="px-lg-5">
 
-            <ul>
-                <li>
-                    <a href="{{ path('usuarios_index') }}">Back to the list</a>
-                </li>
-            </ul>
+            <div class="my-3">
+                {% include '::notificaciones.html.twig' %}
+            </div>
 
+            <div class="bg-light p-5">
+                {% embed 'AppBundle:usuario:form.html.twig' %}
+
+                    {% block botones_left %}
+                        <input type="submit" value="Crear usuario" class="btn btn-primary" />
+                    {%endblock %}
+
+                    {% block botones_right %}
+                        <a href="{{ path('usuarios_index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                    {%endblock %}
+
+                {% endembed %}
+
+            </div>
         </div>
     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('#usuario_roles').select2({
+                'multiple': true
+            });
+
+
+
+
+
+        });
+
+    </script>
+
+
 {% endblock %}

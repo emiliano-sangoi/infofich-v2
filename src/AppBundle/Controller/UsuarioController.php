@@ -3,7 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -29,7 +32,7 @@ class UsuarioController extends Controller {
 
         $paginator = $this->get('knp_paginator');
         $paginado = $paginator->paginate(
-                $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
+                $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 15 /* limit per page */
         );
 
         // Breadcrumbs
@@ -49,15 +52,33 @@ class UsuarioController extends Controller {
      */
     public function newAction(Request $request) {
         $usuario = new Usuario();
+
         $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $form->add('persona', 'AppBundle\Form\PersonaType');
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            //dump($usuario);exit;
             $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
 
-            return $this->redirectToRoute('usuarios_show', array('id' => $usuario->getId()));
+            try {
+
+                $plainPwd = $form->get('plainPassword')->getData();
+
+                // Codificar la contraseña:
+                $encodedPwd = $this->container->get('security.password_encoder')
+                        ->encodePassword($usuario, $plainPwd);
+                $usuario->setPassword($encodedPwd);
+
+                $em->persist($usuario);
+                $em->flush();
+
+                $this->addFlash('success', 'Usuario creado correctamente');
+
+                return $this->redirectToRoute('usuarios_show', array('id' => $usuario->getId()));
+            } catch (UniqueConstraintViolationException $ex) {
+                $msg = 'Ya existe una persona con el tipo y numero de documento ingresado.';
+                $form->get('persona')->get('documento')->addError(new FormError($msg));
+            }
         }
 
         // Breadcrumbs
@@ -80,9 +101,17 @@ class UsuarioController extends Controller {
     public function showAction(Usuario $usuario) {
         $deleteForm = $this->createDeleteForm($usuario);
 
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Usuarios", $this->get("router")->generate("usuarios_index"));
+        $breadcrumbs->addItem($usuario);
+        //$breadcrumbs->addItem($usuario);
+
         return $this->render('AppBundle:usuario:show.html.twig', array(
                     'usuario' => $usuario,
                     'delete_form' => $deleteForm->createView(),
+                    'page_title' => $usuario->__toString() . ' - Ver',
         ));
     }
 
@@ -91,20 +120,51 @@ class UsuarioController extends Controller {
      *
      */
     public function editAction(Request $request, Usuario $usuario) {
+
         $deleteForm = $this->createDeleteForm($usuario);
-        $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-        $editForm->handleRequest($request);
+        $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $form->add('persona', 'AppBundle\Form\PersonaType');
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('usuarios_edit', array('id' => $usuario->getId()));
+            $em = $this->getDoctrine()->getManager();
+
+            try {
+
+                $plainPwd = $form->get('plainPassword')->getData();
+
+                if ($plainPwd) {
+                    // Codificar y actualizar la contraseña:
+                    $encodedPwd = $this->container->get('security.password_encoder')
+                            ->encodePassword($usuario, $plainPwd);
+                    $usuario->setPassword($encodedPwd);
+                }
+
+                //dump($usuario);exit;
+
+                $em->flush();
+
+                $this->addFlash('success', 'Datos modificados correctamente');
+
+                return $this->redirectToRoute('usuarios_edit', array('id' => $usuario->getId()));
+            } catch (UniqueConstraintViolationException $ex) {
+                $msg = 'Ya existe una persona con el tipo y numero de documento ingresado.';
+                $form->get('persona')->get('documento')->addError(new FormError($msg));
+            }
         }
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Usuarios", $this->get("router")->generate("usuarios_index"));
+        $breadcrumbs->addItem($usuario, $this->get("router")->generate("usuarios_show", array('id' => $usuario->getId())));
+        $breadcrumbs->addItem('EDITAR');
 
         return $this->render('AppBundle:usuario:edit.html.twig', array(
                     'usuario' => $usuario,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $form->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'page_title' => $usuario->__toString() . ' - Editar',
         ));
     }
 
@@ -117,9 +177,24 @@ class UsuarioController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
-            $em->remove($usuario);
-            $em->flush();
+
+            try {
+                $em->remove($usuario);
+                $em->flush();
+                              
+                $this->addFlash('success', 'El usuario fue dado de baja correctamente.');
+                
+            } catch (UniqueConstraintViolationException $ex) {
+
+                //Si el usuario esta siendo utilizado por otra tabla, se lo da de baja logicamente:
+                $usuario->setFechaBaja(new \DateTime());
+                $em->flush();
+                
+                $this->addFlash('warning', 'El usuario fue dado de baja correctamente (baja lógica).');
+            }
+                        
         }
 
         return $this->redirectToRoute('usuarios_index');
@@ -130,7 +205,7 @@ class UsuarioController extends Controller {
      *
      * @param Usuario $usuario The usuario entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createDeleteForm(Usuario $usuario) {
         return $this->createFormBuilder()

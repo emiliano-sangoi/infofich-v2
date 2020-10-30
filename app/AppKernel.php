@@ -48,19 +48,19 @@ class AppKernel extends Kernel
     }
     
     
-    public function getCacheDir()
-    {
-        if($this->environment == 'dev'){
-            return '/home/vagrant/infofich2/cache/' . $this->environment;
-        }
-        return parent::getCacheDir();
-    }
-    
-    public function getLogDir()
-    {
-        if($this->environment == 'dev'){
-            return '/home/vagrant/infofich2/logs/'  . $this->environment;
-        }
-        return parent::getLogDir();
-    }
+//    public function getCacheDir()
+//    {
+//        if($this->environment == 'dev'){
+//            return '/home/vagrant/infofich2/cache/' . $this->environment;
+//        }
+//        return parent::getCacheDir();
+//    }
+//    
+//    public function getLogDir()
+//    {
+//        if($this->environment == 'dev'){
+//            return '/home/vagrant/infofich2/logs/'  . $this->environment;
+//        }
+//        return parent::getLogDir();
+//    }
 }
