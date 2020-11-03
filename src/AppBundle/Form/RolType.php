@@ -16,7 +16,7 @@ class RolType extends AbstractType {
         $builder->add('nombre', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Nombre',
             'attr' => array('class' => 'form-control',
-                'autocomplete' => 'off', 
+                'autocomplete' => 'off',
                 'placeholder' => 'Ej. ROLE_ADMIN, ROLE_USUARIO'),
             'label_attr' => array(
                 'class' => 'font-weight-bold'
@@ -27,7 +27,7 @@ class RolType extends AbstractType {
         $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Título',
             'attr' => array('class' => 'form-control',
-                'autocomplete' => 'off', 
+                'autocomplete' => 'off',
                 'placeholder' => "Ej. \"Administrador del sistema\", \"Secretario académico\""),
             'label_attr' => array(
                 'class' => 'font-weight-bold'
@@ -48,6 +48,17 @@ class RolType extends AbstractType {
                     )
         ));
 
+        $builder->add('permisos', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+            'attr' => array('class' => '',
+                'placeholder' => ''),
+            'class' => 'AppBundle:Permiso',
+            'multiple' => true,
+            'expanded' => true,
+            'choice_label' => 'titulo',            
+            'label_attr' => array(
+                'class' => 'font-weight-bold'
+            )
+        ));
 
         // $builder->add('permisos');
     }

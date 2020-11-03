@@ -53,11 +53,16 @@ class Permiso
     
     public function __construct() {
         $this->permisos = new ArrayCollection();
+        $this->roles = new ArrayCollection;
         ;
     }
     
     public function __toString() {
         return $this->titulo;
+    }
+    
+    public function getListaRoles(){
+        return $this->roles->count() === 0 ? null : implode(', ', $this->roles);
     }
 
 
@@ -153,6 +158,8 @@ class Permiso
     public function addRole(\AppBundle\Entity\Rol $role)
     {
         $this->roles[] = $role;
+        
+        $role->addPermiso($this);
 
         return $this;
     }

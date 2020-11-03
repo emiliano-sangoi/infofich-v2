@@ -2,8 +2,8 @@
 
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}     
-            <a href="{{ path('rol_index') }}">
+        {% block navbar2_actions %}          
+            <a href="{{ path('permisos_index') }}">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
             </a>
         {% endblock %}
@@ -22,55 +22,49 @@
 
             <div class="bg-light p-5">
 
-                <div class="row mb-4">        
+                <div class="row">        
 
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Nombre</label>
+                    <div class="col-sm-2">
+                        <label class="font-weight-bold">C&oacute;digo</label>
                         <div class="" >                        
-                            {{ rol.nombre }}
+                            {{ permiso.codigo }}
                         </div> 
                     </div>
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         <label class="font-weight-bold">T&iacute;tulo</label>
                         <div class="" >                                                    
-                            {{ rol.titulo }}                       
+                            {{ permiso.titulo }}                       
                         </div> 
                     </div> 
 
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label class="font-weight-bold">Descripci&oacute;n</label>
                         <div class="" >                                                    
-                            {{ rol.descripcion|default('-') }}       
+                            {{ permiso.descripcion }}       
                         </div> 
                     </div> 
-                </div>
+                </div>       
 
-                <div class="row">        
+                {#<div class="row">        
                     <div class="col-sm-12">
-                        <label class="font-weight-bold">Permisos</label>                        
-                        <div class="" >
-                            {% include 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : rol.permisos, 'tabla_sm': true } %}                                                       
+                        <label class="font-weight-bold">Roles que contienen este permiso</label>
+                        <div class="" >                        
+                            {{ permiso.getListaRoles()|default('-') }}
                         </div> 
-                    </div>                    
-                </div>          
+                    </div>
+                </div>#}
 
             </div>
-
-
-
 
             {% embed '::botonera.html.twig' %}
 
                 {% block left %}
-                    <a class="btn btn-primary" href="{{ path('rol_edit', { 'id': rol.id }) }}">Editar</a>                    
+                    <a class="btn btn-primary" href="{{ path('permisos_edit', { 'id': permiso.id }) }}">Editar</a>                    
                 {% endblock %}                            
                 {% block right %}
                     {{ form_start(delete_form) }}
-                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este rol?'>
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este permiso?'>
                     {{ form_end(delete_form) }}
                 {% endblock %}
 

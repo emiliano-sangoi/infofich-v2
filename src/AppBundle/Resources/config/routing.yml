@@ -5,7 +5,11 @@ app_usuarios:
 app_roles:
     resource: "@AppBundle/Resources/config/routing/rol.yml"
     prefix:   /roles
-    
+
+app_permisos:
+    resource: "@AppBundle/Resources/config/routing/permiso.yml"
+    prefix:   /permisos
+
     
 homepage:
     path: /

@@ -52,9 +52,9 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      * 
      * @var ArrayCollection 
      * 
-     * @ORM\ManyToMany(targetEntity="Permiso", inversedBy="roles")
+     * @ORM\ManyToMany(targetEntity="Permiso", inversedBy="roles", cascade={"persist"})
      * @ORM\JoinTable(name="app_roles_permisos",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="rol_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="permiso_id", referencedColumnName="id")}
      *      )
      */
@@ -131,7 +131,9 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      */
     public function addPermiso(\AppBundle\Entity\Permiso $permiso)
     {
-        $this->permisos[] = $permiso;                
+        $this->permisos[] = $permiso;    
+        
+        $permiso->addRole($this);
 
         return $this;
     }

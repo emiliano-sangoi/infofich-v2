@@ -4,6 +4,7 @@
     {% embed 'navbar2.html.twig' %}    
         {% block navbar2_actions %}
             <a href="{{ path('rol_new') }}" class="">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;
                 Nuevo rol
             </a>
         {% endblock %}
@@ -22,40 +23,50 @@
 
         <div class="bg-light">
 
-
-            <div class="table-responsive">
-                <table class="table table-condensed mb-0">
-                    <thead class="bg-gray-400">
-                        <tr>
-                            <th>#</th>                
-                            <th>Nombre</th>
-                            <th>T&iacute;tulo</th>
-{#                            <th>Descripci&oacute;n</th>#}
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for rol in rols %}
+            {% if rols[0] is defined %}
+                <div class="table-responsive">
+                    <table class="table table-condensed mb-0">
+                        <thead class="bg-gray-400">
                             <tr>
-                                <td>
-                                    {{ loop.index }}
-                                </td>
-                                <td>{{ rol.nombre }}</td>
-                                <td>{{ rol.titulo }}</td>
-{#                                <td>{{ rol.descripcion|default('-') }}</td>#}
-                                <td>
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_show', { 'id': rol.id }) }}">
-                                        Ver
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_edit', { 'id': rol.id }) }}">
-                                        Editar
-                                    </a>                       
-                                </td>
+                                <th>#</th>                
+                                <th>Nombre</th>
+                                <th>T&iacute;tulo</th>
+                                    {#                            <th>Descripci&oacute;n</th>#}
+                                <th>Acciones</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>           
+                        </thead>
+                        <tbody>
+                            {% for rol in rols %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td>{{ rol.nombre }}</td>
+                                    <td>{{ rol.titulo }}</td>
+                                    {#                                <td>{{ rol.descripcion|default('-') }}</td>#}
+                                    <td>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_show', { 'id': rol.id }) }}">
+                                            Ver
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_edit', { 'id': rol.id }) }}">
+                                            Editar
+                                        </a>                       
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>     
+
+                <div class="navigation my-4 centrate-x">                        
+                    {{ knp_pagination_render(rols) }}
+                </div>
+
+            {% else %}
+                <div class="p-4 text-muted">
+                    No existen permisos cargados.
+                </div>
+            {% endif %}
 
         </div>
     </div>

@@ -65,9 +65,10 @@ class RolController extends Controller {
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Roles", $this->get("router")->generate("rol_index"));
-        $breadcrumbs->addItem($rol);
+        $router = $this->get("router");
+        $breadcrumbs->addItem("Inicio", $router->generate("homepage"));
+        $breadcrumbs->addItem("Roles", $router->generate("rol_index"));
+        $breadcrumbs->addItem($rol, $router->generate("rol_show", array('id' => $rol->getId())));        
         $breadcrumbs->addItem('VER');
 
         return $this->render('AppBundle:rol:show.html.twig', array(
@@ -85,7 +86,9 @@ class RolController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('rol_show', array('id' => $rol->getId()));
+            $this->addFlash('success', 'Cambios guardados correctamente.');
+            
+            return $this->redirectToRoute('rol_edit', array('id' => $rol->getId()));
         }
 
 
@@ -111,6 +114,8 @@ class RolController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->remove($rol);
             $em->flush();
+            
+            $this->addFlash('success', 'Rol borrado correctamente.');
         }
 
         return $this->redirectToRoute('rol_index');

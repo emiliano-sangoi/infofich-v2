@@ -1,0 +1,24 @@
+permisos_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Permiso:index" }
+    methods:  GET
+
+permisos_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Permiso:show" }
+    methods:  GET
+
+permisos_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Permiso:new" }
+    methods:  [GET, POST]
+
+permisos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Permiso:edit" }
+    methods:  [GET, POST]
+
+permisos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Permiso:delete" }
+    methods:  DELETE

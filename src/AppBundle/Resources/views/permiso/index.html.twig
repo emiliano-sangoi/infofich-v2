@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}    
+        {% block navbar2_actions %}
+            <a href="{{ path('permisos_new') }}" class="">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;
+                Nuevo permiso
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}  
+
+
+{% block content %}
+
+    <div class="px-lg-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <div class="bg-light">
+            {% if permisos[0] is defined %}
+                {% include 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : permisos, 'mostrar_acciones': true, 'tabla_sm': false } %}                                 
+
+                <div class="navigation my-4 centrate-x">                        
+                    {{ knp_pagination_render(permisos) }}
+                </div>
+            {% else %}
+                <div class="p-4 text-muted">
+                    No existen permisos cargados.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

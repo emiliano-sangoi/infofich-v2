@@ -1,0 +1,44 @@
+{% if permisos[0] is defined %}
+    <div class="table-responsive">
+        <table class="table {{ tabla_sm|default(false) ? 'table-sm' : '' }} table-condensed mb-0">
+            <thead class="bg-gray-400">
+                <tr>
+                    <th>#</th>                    
+                    <th>T&iacute;tulo</th>
+                    <th>C&oacute;digo</th>
+                    <th>Descripci&oacute;n</th>
+                        {% if mostrar_acciones|default(false) %}
+                        <th>Acciones</th>
+                        {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for permiso in permisos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>                        
+                        <td>{{ permiso.titulo }}</td>
+                        <td>{{ permiso.codigo }}</td>
+                        <td>{{ permiso.descripcion }}</td>
+                        {% if mostrar_acciones|default(false) %}
+                            <td>
+
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ path('permisos_show', { 'id': permiso.id }) }}">
+                                    Ver
+                                </a>
+
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ path('permisos_edit', { 'id': permiso.id }) }}">
+                                    Editar
+                                </a>
+
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="bg-white p-3 text-muted">
+        No existen permisos cargados.
+    </div>
+{% endif %}

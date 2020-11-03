@@ -10,4 +10,22 @@ namespace AppBundle\Repository;
  */
 class PermisoRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function generarCodigo(){
+        
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('MAX(p.codigo)');
+        $maxv = $qb->getQuery()->getSingleResult();  
+
+        if(is_array($maxv) && count($maxv) === 1){
+            //devuelve el siguiente al maximo:
+            return array_shift($maxv) + 1;
+        }
+        
+        // si devuelve 1 es porque no habia registros en la base de datos.
+        return 1;
+        
+    }
+    
+    
 }

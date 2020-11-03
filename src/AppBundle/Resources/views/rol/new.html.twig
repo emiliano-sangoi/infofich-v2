@@ -3,7 +3,9 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}          
-            <a href="{{ path('rol_index') }}">Listado de roles</a>
+            <a href="{{ path('rol_index') }}">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -17,24 +19,16 @@
             </div>
 
             <div class="">
-                
-                
-                
-                {% embed 'AppBundle:rol:form.html.twig' %}
+                {% include 'AppBundle:rol:form.html.twig' %}
 
-                    {% block botonera %}
-                        {% embed '::botonera.html.twig' %}
+                {% embed '::botonera.html.twig' %}
 
-                            {% block left %}
-                                <input type="submit" value="Crear rol" class="btn btn-primary" />
-                            {% endblock %}                            
-                            {% block right %}
-                                <a href="{{ path('rol_index') }}" class="btn btn-outline-secondary">Cancelar</a>
-                            {% endblock %}
-
-                        {% endembed %}
-
-                    {% endblock %}                
+                    {% block left %}
+                        <input type="submit" id="crearRol" value="Crear rol" class="btn btn-primary" />
+                    {% endblock %}                            
+                    {% block right %}
+                        <a href="{{ path('rol_index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                    {% endblock %}
 
                 {% endembed %}
             </div>
@@ -49,19 +43,14 @@
 
     <script>
         $(document).ready(function () {
-
-
-           {# $('#usuario_roles').select2({
-                'multiple': true
-            });#}
-
-
-
-
-
+            $(document).ready(function () {
+                $('#crearRol').click(function (e) {
+                    e.preventDefault();
+                    $("form[name='appbundle_rol']").submit();
+                });
+            });
         });
 
     </script>
-
 
 {% endblock %}
