@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_permisos")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PermisoRepository")
  */
-class Permiso
+class Permiso implements \JsonSerializable
 {
     /**
      * @var int
@@ -182,5 +182,14 @@ class Permiso
     public function getRoles()
     {
         return $this->roles;
+    }
+    
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'codigo' => $this->codigo,
+            'titulo' => $this->titulo,
+            'descripcion' => $this->descripcion
+        );
     }
 }

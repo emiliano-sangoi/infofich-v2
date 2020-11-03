@@ -34,9 +34,8 @@ form[name='buscador']{
 
 /*.actividad-curricular:nth-child(even) {background-color: red;};*/
 
-
-
 form {
+    
 
     label{
         &.required:after {
@@ -52,6 +51,8 @@ form {
     .form-row{
         margin-bottom: 2.5rem !important;
     }
+    
+    
 
     /*    select.select2-js{
             background-color: red !important;
@@ -71,7 +72,7 @@ form {
             content: none;        
         }
         
-        margin-right: 3em;
+        margin-right: 2em;
     }
 
 }

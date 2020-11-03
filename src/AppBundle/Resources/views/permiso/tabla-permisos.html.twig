@@ -37,6 +37,13 @@
             </tbody>
         </table>
     </div>
+
+    {% block navigation %}
+        <div class="navigation my-4 centrate-x">                        
+            {{ knp_pagination_render(permisos) }}
+        </div>
+    {% endblock %}
+    
 {% else %}
     <div class="bg-white p-3 text-muted">
         No existen permisos cargados.

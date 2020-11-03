@@ -32,7 +32,8 @@ class UsuarioType extends AbstractType {
             'choices_as_values' => true,
             'expanded' => true,
             'label_attr' => array(
-                'class' => 'font-weight-bold'
+                'class' => 'font-weight-bold',
+                //'required' => false
             ),
             'label' => '¿Bloqueado?'
         ));
@@ -83,10 +84,11 @@ class UsuarioType extends AbstractType {
         $builder->add('roles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
             'class' => 'AppBundle\Entity\Rol',
             'multiple' => true,
-            'expanded' => false,
+            'expanded' => true,
+            'choice_label' => 'titulo',
             'attr' => array('class' => 'form-control select2-js'),
             'label_attr' => array(
-                'class' => ''
+                'class' => 'font-weight-bold'
             )
         ));
     }
@@ -96,7 +98,7 @@ class UsuarioType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Usuario',
+            'data_class' => 'AppBundle\Entity\Usuario',            
         ));
     }
 

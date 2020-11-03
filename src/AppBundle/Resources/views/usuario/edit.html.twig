@@ -3,7 +3,9 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}     
-            <a href="{{ path('usuarios_index') }}">Listado de usuarios</a>
+            <a href="{{ path('usuarios_index') }}">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -16,16 +18,23 @@
                 {% include '::notificaciones.html.twig' %}
             </div>
 
-            <div class="bg-light p-5">
-                {% embed 'AppBundle:usuario:form.html.twig' %}
+            <div class="">
 
-                    {% block botones_left %}
-                        <input type="submit" value="Guardar cambios" class="btn btn-primary" />
-                    {%endblock %}
+                {% include 'AppBundle:usuario:form.html.twig' %}
 
-                    {% block botones_right %}
-                        <a href="{{ path('usuarios_index') }}" class="btn btn-outline-secondary">Cancelar</a>
-                    {%endblock %}
+                {% embed '::botonera.html.twig' %}
+
+                    {% block left %}
+                        <button id="guardarCambios" class="btn btn-primary">
+                            Guardar cambios
+                        </button>
+                    {% endblock %}
+
+                    {% block right %}
+                        {{ form_start(delete_form) }}
+                        <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este usuario?'/>
+                        {{ form_end(delete_form) }}
+                    {% endblock %}
 
                 {% endembed %}
 
@@ -39,12 +48,28 @@
 
     {{ parent() }}
 
+
+    <script src="{{ asset('bundles/app/js/roles.js') }}" ></script>
+
     <script>
         $(document).ready(function () {
+            $('#guardarCambios').click(function (e) {
+                e.preventDefault();
+                $("form[name='usuario']").submit();
+            });
 
+            var url_rol_as_json = "{{ path('rol_get_rol_as_json', {'id': 'ID_ROL'}) }}";
+            var url_edit_rol = "{{ path('rol_edit', {'id': 'ID_ROL'}) }}";
 
-            $('#usuario_roles').select2({
-                'multiple': true
+            $('.consultar-permisos').click(function (e) {
+                e.preventDefault();
+
+                var id_rol = $(e.target).data('id-rol');
+                var c_url_rol_as_json = url_rol_as_json.replace('ID_ROL', id_rol);
+                var c_url_edit_rol = url_edit_rol.replace('ID_ROL', id_rol);
+
+                ajaxGetRolAsJson(c_url_rol_as_json, c_url_edit_rol);
+
             });
 
 
@@ -52,7 +77,6 @@
 
 
         });
-
     </script>
 
 

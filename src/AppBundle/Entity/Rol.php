@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_roles")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
-class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {    
-    
+class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonSerializable {
+
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_USUARIO = 'ROLE_USUARIO';
     const ROLE_SECRETARIA_ACAD = 'ROLE_SECRETARIA_ACAD';
@@ -25,7 +25,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;   
+    private $id;
 
     /**
      * @var string
@@ -33,8 +33,8 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      * @ORM\Column(name="nombre", type="string", length=255, unique=true)
      */
     private $nombre;
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=255)
@@ -46,8 +46,8 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
      */
-    private $descripcion;    
-    
+    private $descripcion;
+
     /**
      * 
      * @var ArrayCollection 
@@ -59,12 +59,11 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *      )
      */
     private $permisos;
-    
 
     public function __construct() {
         $this->permisos = new ArrayCollection();
     }
-    
+
     public function __toString() {
         return $this->nombre;
     }
@@ -129,10 +128,9 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @return Rol
      */
-    public function addPermiso(\AppBundle\Entity\Permiso $permiso)
-    {
-        $this->permisos[] = $permiso;    
-        
+    public function addPermiso(\AppBundle\Entity\Permiso $permiso) {
+        $this->permisos[] = $permiso;
+
         $permiso->addRole($this);
 
         return $this;
@@ -143,8 +141,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @param \AppBundle\Entity\Permiso $permiso
      */
-    public function removePermiso(\AppBundle\Entity\Permiso $permiso)
-    {
+    public function removePermiso(\AppBundle\Entity\Permiso $permiso) {
         $this->permisos->removeElement($permiso);
     }
 
@@ -153,8 +150,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPermisos()
-    {
+    public function getPermisos() {
         return $this->permisos;
     }
 
@@ -165,8 +161,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @return Rol
      */
-    public function setTitulo($titulo)
-    {
+    public function setTitulo($titulo) {
         $this->titulo = $titulo;
 
         return $this;
@@ -177,13 +172,21 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface {
      *
      * @return string
      */
-    public function getTitulo()
-    {
+    public function getTitulo() {
         return $this->titulo;
     }
 
     public function getRole() {
-        return $this->nombre;        
+        return $this->nombre;
+    }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'nombre' => $this->nombre,
+            'titulo' => $this->titulo,
+            'permisos' => $this->permisos->toArray()
+        );
     }
 
 }

@@ -135,5 +135,18 @@ class RolController extends Controller {
                         ->getForm()
         ;
     }
+    
+    
+    /**
+     * Devuelve los permisos que posee un rol.
+     * 
+     * @param Rol $rol
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getRolAsJsonAction(Rol $rol){
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse($rol);
+        
+    }
 
 }

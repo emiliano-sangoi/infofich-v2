@@ -22,3 +22,9 @@ rol_delete:
     path:     /{id}/borrar
     defaults: { _controller: "AppBundle:Rol:delete" }
     methods:  DELETE
+
+
+rol_get_rol_as_json:
+    path:     /{id}/json
+    defaults: { _controller: "AppBundle:Rol:getRolAsJson" }
+    methods:  GET

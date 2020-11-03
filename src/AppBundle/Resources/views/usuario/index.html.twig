@@ -4,6 +4,7 @@
     {% embed 'navbar2.html.twig' %}    
         {% block navbar2_actions %}
             <a href="{{ path('usuarios_new') }}" class="">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;
                 Nuevo usuario
             </a>
         {% endblock %}
@@ -62,7 +63,9 @@
         </div>
 
     {% else %}
-
+        <div class="bg-white p-3 text-muted">
+            No existen usuarios cargados.
+        </div>
     {% endif %}
 
 {% endblock %}

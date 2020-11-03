@@ -488,7 +488,7 @@ form {
     margin-bottom: 2.5rem !important; }
 
 .formato-inputs-groups label {
-  margin-right: 3em; }
+  margin-right: 2em; }
   .formato-inputs-groups label.required:after {
     content: none; }
 

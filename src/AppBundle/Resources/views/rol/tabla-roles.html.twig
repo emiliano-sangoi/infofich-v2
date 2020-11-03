@@ -1,0 +1,49 @@
+{% if rols[0] is defined %}
+    <div class="table-responsive">
+        <table class="table  {{ tabla_sm|default(false) ? 'table-sm' : '' }} table-condensed mb-0">
+            <thead class="bg-gray-400">
+                <tr>
+                    <th>#</th>       
+                    <th>T&iacute;tulo</th>
+                    <th>Nombre</th>                    
+                        {% if mostrar_acciones|default(false) %}
+                        <th>Acciones</th>
+                        {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for rol in rols %}
+                    <tr>
+                        <td>
+                            {{ loop.index }}
+                        </td>                        
+                        <td>{{ rol.titulo }}</td>
+                        <td>{{ rol.nombre }}</td>
+                        {#                                <td>{{ rol.descripcion|default('-') }}</td>#}
+                        {% if mostrar_acciones|default(false) %}
+                            <td>
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_show', { 'id': rol.id }) }}">
+                                    Ver
+                                </a>
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ path('rol_edit', { 'id': rol.id }) }}">
+                                    Editar
+                                </a>                       
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>     
+
+    {% block navigation %}
+        <div class="navigation my-4 centrate-x">                        
+            {{ knp_pagination_render(rols) }}
+        </div>
+    {% endblock %}
+
+{% else %}
+    <div class="p-4 text-muted">
+        No existen permisos cargados.
+    </div>
+{% endif %}

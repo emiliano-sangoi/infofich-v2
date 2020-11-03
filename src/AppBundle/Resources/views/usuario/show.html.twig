@@ -3,7 +3,9 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}     
-            <a href="{{ path('usuarios_index') }}">Listado de usuarios</a>
+            <a href="{{ path('usuarios_index') }}">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -106,8 +108,16 @@
                 <div class="row">   
                     <div class="col-sm-12">
                         <label class="font-weight-bold">Roles</label>
-                        <div class="" >   
-                            {% if roles[0] is defined %}
+                        <div class="" >  
+                            {% embed 'AppBundle:rol:tabla-roles.html.twig' with {'rols': usuario.roles, 'tabla_sm': true} %}
+
+                                {% block navigation %}
+                                {% endblock %}
+
+
+                            {% endembed %}
+
+                            {#{% if roles[0] is defined %}
                                 <table class="table table-sm">
                                     <thead class="bg-gray-500">
                                         <tr>
@@ -128,7 +138,7 @@
                                 </table>
                             {% else %}
                                 <span class="text-muted">El usuario no posee ning&uacute;n rol asignado.</span>
-                            {% endif %}
+                            {% endif %}#}
                         </div> 
                     </div>
 

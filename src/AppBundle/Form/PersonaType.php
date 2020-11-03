@@ -32,11 +32,11 @@ class PersonaType extends AbstractType {
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
-            'required' => true,
+            'required' => false,
             'label' => 'Fecha nacimiento',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
-
+                
 
         //$tipos_desc = \FICH\APIRectorado\Config\WSHelper::getDescTipoDoc($tipo_doc)
         // dump($tipos);exit;
@@ -69,6 +69,7 @@ class PersonaType extends AbstractType {
         $builder
                 ->add('telefono', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'attr' => array('class' => 'form-control'),
+                    'required' => false,
                     'label_attr' => array(
                         'class' => 'font-weight-bold'
                     )
