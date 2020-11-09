@@ -17,7 +17,9 @@ class Vehiculo
     const AUTO = 'Automovil';
     const COLECTIVO = 'Colectivo';
     const AVION = 'Avion';
-    const BARCO = 'Barco';
+    const EMBARCACION1 = 'Embarcación Azimut';
+    const EMBARCACION2 = 'Gomón FICH-1';
+    const EMBARCACION3 = 'Embarcación pequeña FICH-2';
     
     /**
      * @var int
