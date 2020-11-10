@@ -15,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonSerializable {
 
     const ROLE_ADMIN = 'ROLE_ADMIN';
-    const ROLE_USUARIO = 'ROLE_USUARIO';
-    const ROLE_SECRETARIA_ACAD = 'ROLE_SECRETARIA_ACAD';
+    const ROLE_ADMIN_PLANIF_GRADO = 'ROLE_ADMIN_PLANIF_GRADO';
+    const ROLE_DOCENTE_GRADO = 'ROLE_DOCENTE_GRADO';
 
     /**
      * @var int

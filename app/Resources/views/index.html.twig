@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% set full_width = true %}
+{% set full_width = false %}
 
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
@@ -11,113 +11,93 @@
 
 
 {% block content %}
-    
-    <div class="row">
-        <nav class="col-md-3 d-none d-md-block bg-light sidebar p-5">
 
-            <h1 class="h2">Bienvenidx
-                <div class="text-color-azul">
-                    Usuarix
+    <div class="">
+
+
+
+        {#            {% include '::sidebar.html.twig' %}#}
+
+
+        <div class="">
+            <div class="row my-5">
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="card text-center py-5 w-100">
+                            {#  <img class="card-img-top" src="img_avatar1.png" alt="Card image">#}
+                            <i class="fa fa-list fa-5x"></i>
+                            <div class="card-body">
+                                <h4 class="card-title">Planificaciones</h4>
+                                <p class="card-text">
+                                    Alta, bajas, modificaciones y busquedas de usuarios.
+                                </p>
+                                <a href="{{ path('planificaciones_homepage') }}" class="btn btn-primary">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </h1>
-            <hr/>
+
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="card text-center py-5 w-100">
+                            {#  <img class="card-img-top" src="img_avatar1.png" alt="Card image">#}
+                            <i class="fa fa-users fa-5x"></i>
+                            <div class="card-body">
+                                <h4 class="card-title">Usuarios</h4>
+                                <p class="card-text">
+                                    Alta, bajas, modificaciones y busquedas de usuarios.
+                                </p>
+                                <a href="{{ path('usuarios_index') }}" class="btn btn-primary">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-            <div class="sidebar-sticky">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
-                    <span>Listados</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Personas
-                        </a>
-                    </li>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="card text-center py-5 w-100">
+                            {#  <img class="card-img-top" src="img_avatar1.png" alt="Card image">#}
+                            <i class="fa fa-key fa-5x"></i>
+                            <div class="card-body">
+                                <h4 class="card-title">Roles y permisos</h4>
+                                <p class="card-text">
+                                    Alta, bajas, modificaciones y busquedas roles y permisos.
+                                </p>
+                                <a href="#" class="btn btn-primary">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('usuarios_index') }}">
-                            <span data-feather="file"></span>
-                            Usuarios
-                        </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Equipamiento
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            Publicaciones
-                        </a>
-                    </li>
-                </ul>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
-                    <span>Indicadores</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            Alumnos
-                        </a>
-                    </li>
-                </ul>
 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 ">
-                    <span>Módulos</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('planificaciones_homepage') }}">
-                            <span data-feather="file-text"></span>
-                            Planificaciones
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Ficha Docente
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Cooperadora
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Graduados
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Boletines
-                        </a>
-                    </li>
-                </ul>
             </div>
-        </nav>
-
-        {# <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-             <img class="img-fluid pt-5" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>
-         </main>#}
 
 
+            {#<div class="row">
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="card text-center py-5 w-100">
+
+                            <i class="fa fa-list fa-5x"></i>
+                            <div class="card-body">
+                                <h4 class="card-title">Adscripciones</h4>
+                                <p class="card-text">
+                                    Gestion de adscripciones de la FICH (docentes, investigadores, etc.).
+                                </p>
+                                <a href="#" class="btn btn-primary disabled">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>#}
+
+            {# <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                 <img class="img-fluid pt-5" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>
+             </main>#}
+
+
+        </div>
     </div>
 {% endblock %}

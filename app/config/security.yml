@@ -50,14 +50,18 @@ security:
 
 
     role_hierarchy:
-        ROL_ADMIN:
+        ROLE_ADMIN_PLANIF_GRADO: ROL_ADMIN
         
     
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: [ROLE_ADMIN] }
+        - { path: ^/usuarios, roles: [ROLE_ADMIN] }
+        - { path: ^/roles, roles: [ROLE_ADMIN] }
+        - { path: ^/permisos, roles: [ROLE_ADMIN] }
+        - { path: ^/, roles: [ROLE_ADMIN, ROLE_ADMIN_PLANIF_GRADO] }        
+        - { path: ^/planificaciones, roles: [ROLE_ADMIN_PLANIF_GRADO] }
 
 
 

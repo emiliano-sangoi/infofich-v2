@@ -141,7 +141,7 @@ class InfofichViejoService {
             }
         }
         
-        $rolAdmin = $this->repoRoles->findOneByCodigo(Rol::ADMIN);
+        $rolAdmin = $this->repoRoles->findOneByNombre(Rol::ROLE_ADMIN);
         $admins = array(
             '33496269',
             '31272619',//Romi

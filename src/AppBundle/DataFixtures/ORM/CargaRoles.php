@@ -20,9 +20,15 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
         $rol->setDescripcion('Administrador del Sistema. Posee control sobre todos los aspectos del sistema.');
         
         $rol2 = new Rol();
-        $rol2->setNombre(Rol::ROLE_SECRETARIA_ACAD);
-        $rol2->setTitulo('Secretaría Académica');
-        $rol2->setDescripcion('Los usuarios con este rol pertenecen a la Secretaría Académica de la Facultad.');
+        $rol2->setNombre(Rol::ROLE_ADMIN_PLANIF_GRADO);
+        $rol2->setTitulo('Administrador de planificaciones de Grado');
+        $rol2->setDescripcion('Posee los permisos para crear,modificar o borrar planificaciones de grado.');
+        
+//        
+//        $rol2 = new Rol();
+//        $rol2->setNombre(Rol::ROLE_DOCENTE_GRADO);
+//        $rol2->setTitulo('Docente de Grado');
+//        $rol2->setDescripcion('Docente de alguna de.');
        
         $manager->persist($rol);
         $manager->persist($rol2);

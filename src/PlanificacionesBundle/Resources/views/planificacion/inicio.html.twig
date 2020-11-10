@@ -3,11 +3,10 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}
-            <span class="navbar-side-action  centrate-y">
                 <a href="{{ path('planificaciones_nueva') }}" class="">
+                    <i class="fa fa-plus"></i>
                     Nueva planificaci&oacute;n
-                </a>
-            </span>                    
+                </a>                 
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -102,7 +101,7 @@
 
 
                 {% else %}
-                    <div class="alert alert-info">
+                    <div class="bg-light p-4 mt-4">
                         No se encontro ninguna planificacion.
                     </div>
                 {% endif %}
