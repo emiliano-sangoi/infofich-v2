@@ -135,28 +135,42 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface{
      * @return array The roles
      */
     public function getRoles() {
-        
-//        $roles_str = array();
-//        foreach ($this->roles as $rol){
-//            $roles_str[] = $rol->getNombre();
-//        }
-//        return $roles_str; 
-        
         return $this->roles->toArray();
-
-       /* return array('ROLE_ADMIN');
-
-
-        // TODO: Revisar
-
-        $roles = $this->getRoles();
-
-        // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
-
-        return array_unique($roles);*/
     }
     
+    /**
+     * Devuelve los permisos que posee el usuario a partir de los roles que tiene asignado
+     * 
+     * @return array Codigos de los permisos que posee el usuario.
+     */
+    public function getPermisos(){
+        $permisos = array();
+        foreach ($this->roles as $rol){
+            $permisos = array_merge($permisos, $rol->getCodigosPermisos());            
+        }
+        return $permisos;
+    }
+    
+    /**
+     * Funcion que verifica si cierto usuario tiene o no el permiso pasado como argumento.
+     * 
+     * @param int $cod_permiso
+     * @return boolean true si lo tiene o false en caso contrario
+     */
+    public function tienePermiso($cod_permiso){
+        $res = false;
+        foreach ($this->roles as $rol){
+            foreach ($rol->getPermisos() as $permiso){
+                if($permiso->getCodigo() == $cod_permiso){
+                    $res = true;
+                    break 2;
+                }
+            }
+        }
+        return $res;
+    }
+       
+
     /**
      * Devuelve los roles como un arreglo de strings
      * 

@@ -53,7 +53,12 @@
                     <div class="col-sm-12">
                         <label class="font-weight-bold">Permisos</label>                        
                         <div class="" >
-                            {% include 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : rol.permisos, 'tabla_sm': true } %}                                                       
+                            {% embed 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : rol.permisos, 'tabla_sm': true } %}                                                       
+
+                                {% block navigation %}
+                                {% endblock %}
+
+                            {% endembed %}
                         </div> 
                     </div>                    
                 </div>          

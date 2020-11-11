@@ -131,7 +131,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonS
     public function addPermiso(\AppBundle\Entity\Permiso $permiso) {
         $this->permisos[] = $permiso;
 
-        $permiso->addRole($this);
+        //$permiso->addRole($this);
 
         return $this;
     }
@@ -152,6 +152,19 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonS
      */
     public function getPermisos() {
         return $this->permisos;
+    }
+
+    /**
+     * Get permisos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCodigosPermisos() {
+        $permisos = array();
+        foreach ($this->permisos as $p) {
+            $permisos[] = $p->getCodigo();
+        }
+        return $permisos;
     }
 
     /**
