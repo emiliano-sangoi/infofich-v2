@@ -23,7 +23,15 @@ class CargaVehiculos extends AbstractFixture implements FixtureInterface, Ordere
         $manager->persist($vehiculo);
         
         $vehiculo = new Vehiculo();
-        $vehiculo->setNombre(Vehiculo::BARCO);
+        $vehiculo->setNombre(Vehiculo::EMBARCACION1);
+        $manager->persist($vehiculo);
+        
+        $vehiculo = new Vehiculo();
+        $vehiculo->setNombre(Vehiculo::EMBARCACION2);
+        $manager->persist($vehiculo);
+        
+        $vehiculo = new Vehiculo();
+        $vehiculo->setNombre(Vehiculo::EMBARCACION3);
         $manager->persist($vehiculo);
         
         $manager->flush();

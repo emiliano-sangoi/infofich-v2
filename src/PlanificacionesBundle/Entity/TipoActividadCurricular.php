@@ -25,16 +25,16 @@ class TipoActividadCurricular {
     const OTRAS_ACT = 11;
     
     private static $nombres_tipos = array(
-        self::TEORICA => 'Clase teórica',
-        self::COLOQUIO => 'Coloquio',
-        self::SEMINARIO => 'Seminario',
-        self::TP => 'Trabajo práctico',
-        self::TALLER => 'Taller',
-        self::TEORICA_PRACTICA => 'Clase teórico–práctica',
-        self::RESOLUC_PROB => 'Resolución de problemas',
-        self::CONSULTA => 'Consulta',
-        self::EVALUACIONES => 'Evaluaciones en sus diversas modalidades',        
-        self::EMPLEO => 'Empleo de plataformas virtuales de aprendizaje',
+        self::TEORICA => 'Clase teórica', // modif 4/11 
+        self::COLOQUIO => 'Coloquio', // modif 4/11
+        //self::SEMINARIO => 'Seminario',
+        self::TP => 'Clase práctica', // modif 4/11
+        //self::TALLER => 'Taller',
+        self::TEORICA_PRACTICA => 'Clase teórico–práctica', // modif 4/11
+       // self::RESOLUC_PROB => 'Resolución de problemas',
+        self::CONSULTA => 'Consulta', // modif 4/11
+        self::EVALUACIONES => 'Evaluaciones',        //modif 4/11
+      //  self::EMPLEO => 'Empleo de plataformas virtuales de aprendizaje',
         self::OTRAS_ACT => 'Otras actividades',
     );
     
