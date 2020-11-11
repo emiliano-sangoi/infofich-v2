@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
  */
 class Planificacion {
+    
+    const PERMISO_LISTAR = 1;
+    const PERMISO_CREAR = 2;
+    const PERMISO_EDITAR = 3;
+    const PERMISO_BORRAR = 4;
+    const PERMISO_VER = 5;
 
     /**
      * @var int

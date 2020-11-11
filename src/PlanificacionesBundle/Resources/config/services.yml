@@ -33,3 +33,10 @@ services:
         arguments: ['@api_infofich_service']
         tags:
             - { name: form.type }
+            
+    planificaciones.planificacion_voter:
+        class:  PlanificacionesBundle\Security\PlanificacionVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false

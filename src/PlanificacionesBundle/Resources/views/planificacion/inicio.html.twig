@@ -3,10 +3,12 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}
+            {% if puede_crear %}
                 <a href="{{ path('planificaciones_nueva') }}" class="">
                     <i class="fa fa-plus"></i>
                     Nueva planificaci&oacute;n
-                </a>                 
+                </a>     
+                    {% endif %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

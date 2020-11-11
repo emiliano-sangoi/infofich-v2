@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Security\PlanificacionVoter;
 use AppBundle\Util\Texto;
 use FICH\APIInfofich\Model\Carrera;
 use FICH\APIInfofich\Model\Materia;
@@ -16,10 +17,10 @@ class PlanificacionController extends Controller {
     private $infofichService;
 
     public function indexAction(Request $request) {
+//dump($this->isGranted(Planificacion::PERMISO_LISTAR, array('data' => null)));exit;
+        $this->denyAccessUnlessGranted(Planificacion::PERMISO_LISTAR, array('data' => null));
 
-        
-        
-        $dql   = "SELECT p FROM PlanificacionesBundle:Planificacion p";
+        $dql = "SELECT p FROM PlanificacionesBundle:Planificacion p";
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
 
@@ -29,7 +30,7 @@ class PlanificacionController extends Controller {
         $paginado = $paginator->paginate(
                 $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
         );
-        
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -39,7 +40,8 @@ class PlanificacionController extends Controller {
         return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
                     'page_title' => 'Planificaciones de grado',
                     'form' => $form->createView(),
-                    'paginado' => $paginado
+                    'paginado' => $paginado,
+                    'puede_crear' => $this->isGranted(Planificacion::PERMISO_CREAR, array('data' => null))
         ));
     }
 
@@ -49,6 +51,8 @@ class PlanificacionController extends Controller {
      * @return type
      */
     public function newAction(Request $request) {
+
+        $this->denyAccessUnlessGranted(Planificacion::PERMISO_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
         $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
@@ -77,7 +81,7 @@ class PlanificacionController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
-        
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -110,13 +114,13 @@ class PlanificacionController extends Controller {
 
         $this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
-        
-        
-         // Breadcrumbs
+
+
+        // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
-        $breadcrumbs->addItem($planificacion);        
+        $breadcrumbs->addItem($planificacion);
         $breadcrumbs->addItem("REVISAR");
 
 
