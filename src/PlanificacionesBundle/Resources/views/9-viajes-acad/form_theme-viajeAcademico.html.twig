@@ -61,11 +61,12 @@
                 {% from '::macros.html.twig' import input_datetime_picker %}     
                 {{  input_datetime_picker(form.fechaTentativa, form.vars.id ~ '_picker', true ) }} 
             </div>
-            <div class="form-group  col-md-3">
-                {{ form_label(form.cantDias) }}
-                {{ form_widget(form.cantDias) }}
-                {{ form_errors(form.cantDias) }}
+            {# Nuevo campo #}
+            <div class="form-group col-md-4">
+                {% from '::macros.html.twig' import input_datetime_picker %}     
+                {{  input_datetime_picker(form.fechaTentativaRegreso, form.vars.id ~ '_picker', true ) }} 
             </div>
+            
         </div>
         <div class="form-row">
             <div class="form-group offset-md-2 col-md-8">

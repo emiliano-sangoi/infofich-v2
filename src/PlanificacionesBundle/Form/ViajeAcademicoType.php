@@ -82,19 +82,22 @@ class ViajeAcademicoType extends AbstractType {
                 ->add('fechaTentativa', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
                     'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
                     'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
+                    'format' => 'dd/MM/yyyy hh:mm',
                     'required' => false,
-                    'label' => 'Fecha tentativa',
+                    'label' => 'Fecha tentativa de salida',
                     'label_attr' => array('class' => 'font-weight-bold')
-                ));        
-        
+                )); 
+
         $builder
-                ->add('cantDias', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
-                    'label' => 'Cantidad de días',
+                ->add('fechaTentativaRegreso', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy HH:mm',
                     'required' => false,
-                    'attr' => array('class' => 'form-control', 'min' => 0)
-                ));
-        
+                    'label' => 'Fecha tentativa de regreso',
+                    'label_attr' => array('class' => 'font-weight-bold')
+                ));              
+               
         $builder
                 ->add('asignaturas', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
                     'label' => 'Asignaturas vinculadas',

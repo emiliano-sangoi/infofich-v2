@@ -72,20 +72,19 @@ class ViajeAcademico {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_tentativa", type="datetime")     
+     * @ORM\Column(name="fecha_tentativa", type="datetime", nullable=true)     
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaTentativa;
 
     /**
-     * @var int
+     * @var \DateTime
      *
-     * @ORM\Column(name="cant_dias", type="smallint")
-     * @Assert\Type(
-     *     type="int",
-     *     message="Este campo debe ser un número entero")
+     * @ORM\Column(name="fecha_tentativa_regreso", type="datetime", nullable=true)     
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
-    private $cantDias;
+    private $fechaTentativaRegreso;
+
 
     /**
      *
@@ -269,25 +268,25 @@ class ViajeAcademico {
     }
 
     /**
-     * Set cantDias
+     * Set fechaTentativaRegreso
      *
-     * @param integer $cantDias
+     * @param \DateTime $fechaTentativaRegreso
      *
      * @return ViajeAcademico
      */
-    public function setCantDias($cantDias) {
-        $this->cantDias = $cantDias;
+    public function setFechaTentativaRegreso($fechaTentativaRegreso) {
+        $this->fechaTentativaRegreso = $fechaTentativaRegreso;
 
         return $this;
     }
 
     /**
-     * Get cantDias
+     * Get fechaTentativaRegreso
      *
-     * @return int
+     * @return \DateTime
      */
-    public function getCantDias() {
-        return $this->cantDias;
+    public function getFechaTentativaRegreso() {
+        return $this->fechaTentativaRegreso;
     }
 
     /**
