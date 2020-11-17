@@ -2,9 +2,14 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Repository\RolRepository;
+use AppBundle\Entity\Permiso;
+use AppBundle\Entity\Rol;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\Role\RoleInterface;
+use \JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * Rol
@@ -12,10 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_roles")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolRepository")
  */
-class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonSerializable {
+class Rol implements RoleInterface, JsonSerializable {
 
     const ROLE_ADMIN = 'ROLE_ADMIN';
-    const ROLE_ADMIN_PLANIF_GRADO = 'ROLE_ADMIN_PLANIF_GRADO';
+    const ROLE_USUARIO = 'ROLE_USUARIO';
+    const ROLE_SEC_ACADEMICA = 'ROLE_SEC_ACADEMICA';
     const ROLE_DOCENTE_GRADO = 'ROLE_DOCENTE_GRADO';
 
     /**
@@ -124,11 +130,11 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonS
     /**
      * Add permiso
      *
-     * @param \AppBundle\Entity\Permiso $permiso
+     * @param Permiso $permiso
      *
      * @return Rol
      */
-    public function addPermiso(\AppBundle\Entity\Permiso $permiso) {
+    public function addPermiso(Permiso $permiso) {
         $this->permisos[] = $permiso;
 
         //$permiso->addRole($this);
@@ -139,16 +145,16 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonS
     /**
      * Remove permiso
      *
-     * @param \AppBundle\Entity\Permiso $permiso
+     * @param Permiso $permiso
      */
-    public function removePermiso(\AppBundle\Entity\Permiso $permiso) {
+    public function removePermiso(Permiso $permiso) {
         $this->permisos->removeElement($permiso);
     }
 
     /**
      * Get permisos
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPermisos() {
         return $this->permisos;
@@ -157,7 +163,7 @@ class Rol implements \Symfony\Component\Security\Core\Role\RoleInterface, \JsonS
     /**
      * Get permisos
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCodigosPermisos() {
         $permisos = array();

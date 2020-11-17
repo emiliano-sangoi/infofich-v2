@@ -133,6 +133,7 @@ class InfofichViejoService {
         //Vaciar la tabla usuarios:
         if ($truncar) {
             try {
+                $this->em->getConnection()->query('DELETE FROM app_usuario_roles');
                 $this->em->getConnection()->query('DELETE FROM app_usuarios');
                 $this->em->getConnection()->query('DELETE FROM app_personas');
             } catch (Exception $ex) {
@@ -142,13 +143,21 @@ class InfofichViejoService {
         }
         
         $rolAdmin = $this->repoRoles->findOneByNombre(Rol::ROLE_ADMIN);
+        $rolUsuario = $this->repoRoles->findOneByNombre(Rol::ROLE_USUARIO);
+        $rolSA = $this->repoRoles->findOneByNombre(Rol::ROLE_SEC_ACADEMICA);
         $admins = array(
             '33496269',
-            '31272619',//Romi
-            '30786020',//Brisa   
+            '31272619', //Romi
+            '30786020', //Brisa   
+            '24902580', //Ana
             // agregar aca los usuarios admins del viejo sistema
         );
-
+        
+        $sa = array(
+            '13190428', //Giorgetti
+            '14760883', //Marta
+            '31700769', // Gabi
+        );
 
         $sql = "SELECT * FROM sistema_usuarios";
 
@@ -198,7 +207,11 @@ class InfofichViejoService {
             //Roles:
             if(in_array($usuario->getUsername(), $admins)){
                 $usuario->addRole($rolAdmin);
-            }            
+            }else if(in_array($usuario->getUsername(), $sa)){
+                $usuario->addRole($rolSA);            
+            }else{
+                $usuario->addRole($rolUsuario);
+            }           
 
             $this->em->persist($usuario);
 
