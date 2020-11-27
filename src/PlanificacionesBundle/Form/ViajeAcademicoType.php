@@ -80,9 +80,9 @@ class ViajeAcademicoType extends AbstractType {
         
         $builder
                 ->add('fechaTentativa', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
                     'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy hh:mm',
+                    'format' => 'dd/MM/yyyy HH:mm',
                     'required' => false,
                     'label' => 'Fecha tentativa de salida',
                     'label_attr' => array('class' => 'font-weight-bold')
@@ -90,7 +90,7 @@ class ViajeAcademicoType extends AbstractType {
 
         $builder
                 ->add('fechaTentativaRegreso', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy HH:mm',
                     'required' => false,

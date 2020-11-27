@@ -59,12 +59,12 @@
         <div class="form-row">
             <div class="form-group col-md-4 offset-md-2">
                 {% from '::macros.html.twig' import input_datetime_picker %}     
-                {{  input_datetime_picker(form.fechaTentativa, form.vars.id ~ '_picker', true ) }} 
+                {{  input_datetime_picker(form.fechaTentativa, form.fechaTentativa.vars.id ~ '_picker', false ) }} 
             </div>
             {# Nuevo campo #}
             <div class="form-group col-md-4">
                 {% from '::macros.html.twig' import input_datetime_picker %}     
-                {{  input_datetime_picker(form.fechaTentativaRegreso, form.vars.id ~ '_picker', true ) }} 
+                {{  input_datetime_picker(form.fechaTentativaRegreso, form.fechaTentativaRegreso.vars.id ~ '_picker', false ) }} 
             </div>
             
         </div>
