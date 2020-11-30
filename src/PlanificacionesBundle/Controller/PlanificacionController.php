@@ -76,7 +76,7 @@ class PlanificacionController extends Controller {
             $repoHistorico = $em->getRepository('\PlanificacionesBundle\Entity\HistoricoEstados');
             $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION);
 
-            $this->addFlash('success', 'La planificacion creada correctamente.');
+            $this->addFlash('success', 'La planificacion fué creada correctamente.');
 
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));

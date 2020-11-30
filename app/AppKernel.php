@@ -48,13 +48,14 @@ class AppKernel extends Kernel
     }
     
     
-//    public function getCacheDir()
-//    {
-//        if($this->environment == 'dev'){
-//            return '/home/vagrant/infofich2/cache/' . $this->environment;
-//        }
-//        return parent::getCacheDir();
-//    }
+    public function getCacheDir()
+    {
+        if($this->environment == 'prod'){
+            return '/tmp/' . $this->environment;
+        }
+        
+        return parent::getCacheDir();
+    }
 //    
 //    public function getLogDir()
 //    {
