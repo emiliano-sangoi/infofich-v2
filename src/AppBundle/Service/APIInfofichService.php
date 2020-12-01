@@ -114,7 +114,8 @@ class APIInfofichService {
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
                     ->setRaw($raw)
-                    ->setCacheEnabled(false);
+                    ->setWsEnv(WSHelper::ENV_PROD)
+                    ->setCacheEnabled(true);
 
             $asignaturas = $query->getResultado();
 
@@ -151,7 +152,8 @@ class APIInfofichService {
                     ->setCarrera($c->getCodigoCarrera())
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
-                    ->soloMaterias(array($codigo))            
+                    ->soloMaterias(array($codigo))       
+                    ->setWsEnv(WSHelper::ENV_PROD)
                     ->setCacheEnabled(true);
 
             $asignaturas = $query->getResultado();

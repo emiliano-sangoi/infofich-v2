@@ -38,15 +38,28 @@
 </div>
 
 <div class="form-row">
-   
-    <div class="col-xs-12 col-sm-3">
-        {{ form_label(form.caracter) }}
-        {{ form_widget(form.caracter) }}                                   
-    </div>
-    <div class="col-xs-12 col-sm-3">
+    
+    <div class="col-12 col-md-4">
         {{ form_label(form.cargaHoraria) }}
         {{ form_widget(form.cargaHoraria) }}                                   
     </div>
+   
+    <div class="col-12 col-md-2">
+        {{ form_label(form.caracter) }}
+        {{ form_widget(form.caracter) }}                                   
+    </div>
+    
+    
+    <div class="col-12 col-md-2">
+        {{ form_label(form.periodoCursada) }}
+        {{ form_widget(form.periodoCursada) }}                                   
+    </div>
+    
+    <div class="col-12 col-md-2">
+        {{ form_label(form.anioCursada) }}
+        {{ form_widget(form.anioCursada) }}                                   
+    </div>
+        
 </div>
 
 

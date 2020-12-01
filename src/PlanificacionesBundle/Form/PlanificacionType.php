@@ -76,6 +76,20 @@ class PlanificacionType extends AbstractType {
             'required' => false,
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
         ));
+        
+        $builder->add('periodoCursada', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Periodo lectivo',
+            'mapped' => false,
+            'required' => false,
+            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+        ));
+        
+        $builder->add('anioCursada', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+            'label' => 'Año cursada',
+            'mapped' => false,
+            'required' => false,
+            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+        ));
 
         $contenidos_min_config = array(
             'label' => 'Contenidos mínimos',
@@ -196,8 +210,7 @@ class PlanificacionType extends AbstractType {
             'label' => 'Carrera',
             'choices' => $this->getCarreras(),
             //'required' => false,
-            'attr' => array('class' => 'form-control select-carrera js-select2',
-                // 'onchange' => 'actualizarAsignaturas(this);', //este evento se dispara cuando el usuario selecciona una carrera
+            'attr' => array('class' => 'form-control select-carrera js-select2',                
                 'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
         );
 

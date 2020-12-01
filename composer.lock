@@ -961,7 +961,7 @@
             "source": {
                 "type": "git",
                 "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-infofich",
-                "reference": "9124b7bba2a2fd57a3d40fb132f06ed4a7370767"
+                "reference": "807e8e451b415c8610128fa0749b346469938f37"
             },
             "require": {
                 "fich/api-rectorado": "dev-master",
@@ -1021,7 +1021,7 @@
                 "api-infofich",
                 "fich"
             ],
-            "time": "2020-11-27T19:20:18+00:00"
+            "time": "2020-12-01T00:17:57+00:00"
         },
         {
             "name": "fich/api-rectorado",
@@ -1029,7 +1029,7 @@
             "source": {
                 "type": "git",
                 "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-rectorado",
-                "reference": "8c4815a5b77b87f59f67640494b8e3072f85d41b"
+                "reference": "4fd86b715a9e693b5e02796de5917c3d3712fe9d"
             },
             "require": {
                 "deviservi/nusoap": "v1.123",
@@ -1080,7 +1080,7 @@
                 "api-rectorado",
                 "fich"
             ],
-            "time": "2020-11-27T19:14:54+00:00"
+            "time": "2020-12-01T00:16:21+00:00"
         },
         {
             "name": "fzaninotto/faker",
