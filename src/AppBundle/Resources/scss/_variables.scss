@@ -3,9 +3,17 @@
 
 // ======================================================================
 // Colores
-$primary: #006CB7;
+$primary:       #006CB7 !default;
+/*$secondary:     $gray-600 !default;*/
+$success:       #009e75 !default;
+/*$ifo:          $cyan !default;*/
+$warning:       #ffc122 !default;
+$danger:        #dd3445 !default;
+/*$light:         $gray-100 !default;*/
+$dark:          #262626 !default;
+/*$primary: #006CB7;
 $azul: #0063ae;
-$verde :#009e75;
+$verde :#009e75;*/
 
 /**
 */
@@ -37,15 +45,6 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
 
-$dark: #262626;
-$dark-2: #212121;
-
-$grey-1: #ebebeb;
-
-// Notificaciones:
-$notific-alerta: #dd3445;
-$notific-warning: #ffc122;
-$notific-success: #009e75;
 
 /**
 Para todos los colores de esta lista se
@@ -53,28 +52,6 @@ crearan automaticamentes fondos y colores de texto
  */
 $colors: (
         'white': $white,
-        'gray-100': $gray-100,
-        'gray-200': $gray-200,
-        'gray-300': $gray-300,
-        'gray-400': $gray-400,
-        'gray-500': $gray-500,
-        'gray-600': $gray-600,
-        'gray-700': $gray-700,
-        'gray-800': $gray-800,
-        'gray-900': $gray-900,
-        'black': $black,
-        'dark': $dark,
-        'dark-2': $dark-2,
-        'primary': $primary,
-        'azul': $azul,
-        'bordo': $bordo,
-        'gris-1': $gris-1,
-        'gris-2': $gris-2,
-        'gris-3': $gris-3,
-        'gris-4': $gris-4,
-        'alerta': $alerta,       
-        'verde': $verde
-
 );
 
 @each $name, $color in $colors {

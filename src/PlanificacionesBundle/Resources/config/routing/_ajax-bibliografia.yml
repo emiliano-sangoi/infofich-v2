@@ -1,3 +1,0 @@
-planificacion_ajax_bibliografia_editar:
-    path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:Bibliografia:edit }

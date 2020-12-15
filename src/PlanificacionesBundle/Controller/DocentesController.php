@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DocentesController extends Controller {
     
     use PlanificacionTrait;
-
+    
     /**
      * Metodo encargado de guardar los cambios en equipo docente.
      * 

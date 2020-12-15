@@ -26,6 +26,10 @@
 @import '_forms';
 @import '_tabs';
 @import '_media-query';
+
+
+@import '../../../../web/node_modules/bootstrap/scss/bootstrap.scss';
+
 //@import 'sb_admin2/sb-admin-2.scss';
 
 
@@ -162,15 +166,23 @@ $content-info-right-panel-h: 20.25vh;
 }
 
 .notificacion-warning{
-    @include notificacion($notific-warning,$notific-warning);
+    @include notificacion($warning, $warning);
 }
 
 .notificacion-error{
-    @include notificacion($notific-alerta, $notific-alerta);
+    @include notificacion($alerta, $alerta);
 }
 
 .notificacion-success{
-    @include notificacion($notific-success, $notific-success);
+    @include notificacion($success, $success);
+}
+
+.notificacion-primary{
+    @include notificacion($primary, $primary);
+}
+
+.notificacion-info{
+    @include notificacion($info, $info);
 }
 
 

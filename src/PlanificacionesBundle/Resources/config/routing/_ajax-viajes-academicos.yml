@@ -1,3 +1,0 @@
-planificacion_ajax_viajes_acad_editar:
-    path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:edit }

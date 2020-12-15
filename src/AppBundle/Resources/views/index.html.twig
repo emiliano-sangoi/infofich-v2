@@ -1,0 +1,118 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}                 
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="">
+
+
+
+        {#            {% include '::sidebar.html.twig' %}#}
+
+
+        <div class="">
+            <div class="card-columns mt-4 mt-lg-5 mb-3">
+
+                {#  PLANIFICACIONES  ======================================================================================== #}
+                {% 
+                    set attrs = {
+                        'title' : 'Planificaciones',
+                        'descripcion' : 'Alta, bajas, modificaciones y busquedas de usuarios.',
+                        'button_href' : path('planificaciones_homepage')
+                    }
+                %}
+                {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                    {% block icono %}
+                        <i class="fa fa-list fa-5x"></i>
+                    {% endblock %}
+                {% endembed %}
+                
+                {#  DOCENTES ================================================================================================ #}
+                {% 
+                    set attrs = {
+                        'title' : 'Docentes',
+                        'descripcion' : 'Consulta de los docentes de la FICH y adscriptos.',
+                        'button_href' : path('docentes_index')
+                    }
+                %}
+                {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                    {% block icono %}
+                        <img class="img-fluid w-25" src="{{ asset('bundles/app/icons/class.png') }}" alt=""/>
+                    {% endblock %}
+                {% endembed %}   
+
+
+                {#  USUARIOS  ======================================================================================== #}
+                {% 
+                    set attrs = {
+                        'title' : 'Usuarios',
+                        'descripcion' : 'Alta, bajas, modificaciones y busquedas de usuarios.',
+                        'button_href' : path('usuarios_index')
+                    }
+                %}
+                {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                    {% block icono %}
+                        <i class="fa fa-users fa-5x"></i>
+                    {% endblock %}
+                {% endembed %}  
+
+                
+
+            </div>
+
+
+            <div class="card-columns mb-3">
+                
+                {#  ROLES Y PERMISOS ================================================================================= #}
+                {% 
+                    set attrs = {
+                        'title' : 'Roles y permisos',
+                        'descripcion' : 'Alta, bajas, modificaciones y busquedas roles y permisos.',
+                        'button_href' : null
+                    }
+                %}
+                {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                    {% block icono %}
+                        <i class="fa fa-key fa-5x"></i>
+                    {% endblock %}
+                {% endembed %}   
+                
+                
+            </div>
+
+
+            {#<div class="row">
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="card text-center py-5 w-100">
+
+                            <i class="fa fa-list fa-5x"></i>
+                            <div class="card-body">
+                                <h4 class="card-title">Adscripciones</h4>
+                                <p class="card-text">
+                                    Gestion de adscripciones de la FICH (docentes, investigadores, etc.).
+                                </p>
+                                <a href="#" class="btn btn-primary disabled">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>#}
+
+            {# <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                 <img class="img-fluid pt-5" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>
+             </main>#}
+
+
+        </div>
+    </div>
+{% endblock %}

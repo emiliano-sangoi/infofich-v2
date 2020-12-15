@@ -16,7 +16,8 @@ class DefaultController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         
         
-        return $this->render('index.html.twig', array(
+        
+        return $this->render('AppBundle::index.html.twig', array(
             'page_title' => 'InfoFICH - Inicio'
         ));
     }

@@ -4,7 +4,7 @@
 
 
     <!-- Navbar brand -->
-    <a class="navbar-brand text-color-azul ml-3 pt-0" href="#">
+    <a class="navbar-brand text-primary ml-3 pt-0" href="#">
 
         {#        <img class="img-fluid logo" alt="InfoFICH" src="{{ asset('bundles/app/images/FICH-aniversario.png') }}"/>#}
         <img class="img-fluid logo" alt="InfoFICH" src="{{ asset('bundles/app/images/infofich.png') }}"/>
@@ -15,7 +15,7 @@
     <!-- Nav Item - User Information -->
     <ul class="list-unstyled text-right mb-0">
         <li class="nav-item dropdown no-arrow d-inline-block align-middle">
-            <a class="nav-link dropdown-toggle text-color-gris-3" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-secondary" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-circle fa-sm fa-fw fa-2x align-middle"></i>
                 <span class="mr-2 ">
                     {{  app.user }}
@@ -41,33 +41,37 @@
         <!-- Nav Item - Hamburguesa -->
         <li class="nav-item dropdown no-arrow d-inline-block align-middle">
             {#            bg-azul text-white #}
-            <a class="nav-link bg-azul text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                        
+            <a class="nav-link bg-primary text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                        
                 <i class="fas fa-bars fa-2x"></i>
             </a>
             <!-- Dropdown - Hamburguesa -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="{{ path('homepage') }}">
+                    {#                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>#}
                     Inicio
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('planificaciones_homepage') }}">
-                    <i class="fas fa-list fa-sm fa-fw text-gray-400"></i>
+                    {#                    <i class="fas fa-list fa-sm fa-fw text-gray-400"></i>#}
                     Planificaciones
                 </a>
 
+                <a class="dropdown-item" href="{{ path('docentes_index') }}">                    
+                    Docentes
+                </a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('usuarios_index') }}">
-                    <i class="fas fa-users fa-sm fa-fw text-gray-400"></i>
+                    {#                    <i class="fas fa-users fa-sm fa-fw text-gray-400"></i>#}
                     Usuarios
                 </a>
 
                 <a class="dropdown-item" href="{{ path('rol_index') }}">
-                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>
+                    {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
                     Roles
                 </a>
 
                 <a class="dropdown-item" href="{{ path('permisos_index') }}">
-                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>
+                    {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
                     Permisos
                 </a>
             </div>

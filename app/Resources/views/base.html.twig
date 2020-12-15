@@ -11,18 +11,18 @@
 
 
         {% block stylesheets  %}
-            <!-- Bootstrap 4-->
-            <link href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+            {# Bootstrap 4 #}
+            {# Se customiza y se inclute en styles.css #}            
 
+            {#Estilo personalizado#}
+            <link href="{{ asset('bundles/app/css/styles.css') }}" rel="stylesheet" type="text/css">
+            
             <!-- Select 2 -->
             <link href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet"/>
             {# Tema para bootstrap 4
             https://github.com/ttskch/select2-bootstrap4-theme
             #}
-            <link href="{{ asset('node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css') }}" rel="stylesheet"/>
-
-            {#Estilo personalizado#}
-            <link href="{{ asset('bundles/app/css/styles.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css') }}" rel="stylesheet"/>            
 
             {#Font awesome#}
             <link href="{{ asset('node_modules/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">

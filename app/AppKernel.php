@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             
             // https://github.com/whiteoctober/BreadcrumbsBundle
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+            new DocentesGradoBundle\DocentesGradoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -51,7 +52,7 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if($this->environment == 'prod'){
-            return '/tmp/' . $this->environment;
+            return '/tmp/infofich2/cache/' . $this->environment;
         }
         
         return parent::getCacheDir();

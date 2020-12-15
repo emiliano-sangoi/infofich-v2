@@ -1,0 +1,20 @@
+<div class="card text-center py-5 w-100">
+    {#  <img class="card-img-top" src="img_avatar1.png" alt="Card image">#}
+
+    {% block icono %}
+        
+    {% endblock %}
+    
+    <div class="card-body px-lg-4">
+        <h4 class="card-title font-weight-bold my-3">
+            {{ title|default('Titulo') }}
+        </h4>
+        <p class="card-text">
+            {{ descripcion|default('Descripcion') }}            
+        </p>
+        <a href="{{ button_href|default('#') }}" class="btn btn-primary">
+            {{ button_label|default('Acceder') }}
+        </a>
+    </div>
+
+</div>

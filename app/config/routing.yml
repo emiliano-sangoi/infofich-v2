@@ -1,3 +1,7 @@
+docentes_grado:
+    resource: "@DocentesGradoBundle/Resources/config/routing.yml"
+    prefix:   /
+
 planificaciones:
     resource: "@PlanificacionesBundle/Resources/config/routing.yml"
     prefix:   /planificaciones

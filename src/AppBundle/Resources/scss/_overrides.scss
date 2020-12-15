@@ -48,7 +48,7 @@ a{
     background-color: #eeeeee;
     border-right: none;
 
-    border-left: 5px solid $azul;
+    border-left: 5px solid $primary;
 
 }
 
@@ -89,7 +89,7 @@ a{
 
 
 #accordion .card .card-header{
-    background-color: $azul !important; 
+    background-color: $primary !important; 
     color: $white;
     padding: .25rem .25rem;
 }

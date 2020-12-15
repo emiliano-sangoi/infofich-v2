@@ -1,3 +1,0 @@
-planificacion_ajax_distribucion_editar:
-    path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:CargaHoraria:edit}

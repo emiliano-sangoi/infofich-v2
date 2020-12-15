@@ -1,3 +1,0 @@
-planificacion_ajax_aprobacion_editar:
-    path:     /{id}/editar
-    defaults: { _controller: PlanificacionesBundle:Aprobacion:edit}
