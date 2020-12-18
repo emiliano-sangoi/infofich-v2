@@ -138,7 +138,7 @@ console.log(asignatura);
 
             $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
             $('#planificacionesbundle_planificacion_plan').val( getPlanCarrera() );
-            $('#planificacionesbundle_planificacion_caracter').val(asignatura.tipoCursada);
+            $('#planificacionesbundle_planificacion_caracter').val(asignatura.obligatoria ? 'Obligatoria' : 'Optativa' );
             $('#planificacionesbundle_planificacion_cargaHoraria').val(asignatura.cargaHoraria ? asignatura.cargaHoraria : VACIO);
             $('#planificacionesbundle_planificacion_periodoCursada').val(asignatura.periodoCursada ? asignatura.periodoCursada : VACIO);
             $('#planificacionesbundle_planificacion_anioCursada').val(asignatura.anioCursada ? asignatura.anioCursada : VACIO);

@@ -60,7 +60,7 @@ class PlanificacionType extends AbstractType {
         $builder->add('plan', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'label' => 'Plan de estudio',
             'disabled' => true,
-            'attr' => array('class' => 'form-control'),
+            'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('caracter', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -78,7 +78,7 @@ class PlanificacionType extends AbstractType {
         ));
         
         $builder->add('periodoCursada', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'label' => 'Periodo lectivo',
+            'label' => 'Periodo',
             'mapped' => false,
             'required' => false,
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
@@ -97,7 +97,8 @@ class PlanificacionType extends AbstractType {
             'attr' => array(
                 'rows' => 8,
                 'placeholder' => 'Si esta creando una nueva planificación debe completar este campo',
-                'class' => 'form-control'
+                'class' => 'form-control disabled',
+                'disabled' => 'disabled'
             )
         );
 
@@ -112,7 +113,7 @@ class PlanificacionType extends AbstractType {
                 return $dpto->getNombre();
             },
             'attr' => array(
-                'class' => 'form-control js-select2'
+                'class' => 'form-control js-select2',
             )
         ));
 
