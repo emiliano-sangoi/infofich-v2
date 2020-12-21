@@ -41,7 +41,6 @@ class Planificacion {
      * @var string
      *
      * @ORM\Column(name="contenidos_minimos", type="text", nullable=true)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $contenidosMinimos;
 

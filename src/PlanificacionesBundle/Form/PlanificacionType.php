@@ -96,7 +96,7 @@ class PlanificacionType extends AbstractType {
             'required' => false,
             'attr' => array(
                 'rows' => 8,
-                'placeholder' => 'Si esta creando una nueva planificación debe completar este campo',
+                'placeholder' => 'Este campo será completado por Secretaría Académica.',
                 'class' => 'form-control disabled',
                 'disabled' => 'disabled'
             )
