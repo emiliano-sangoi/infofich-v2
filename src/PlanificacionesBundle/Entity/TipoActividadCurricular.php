@@ -53,16 +53,41 @@ class TipoActividadCurricular {
     
     public static function isPractica($cod_tipo){
         return in_array($cod_tipo, array(
-            self::TP,
-            self::RESOLUC_PROB,            
+            self::TP
+           // self::RESOLUC_PROB,            
+            // TODO: Definir codigos 
+        ));
+    }
+    public static function isColoquio($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::COLOQUIO
+        ));
+    }
+    
+    public static function isTeoricoPractica($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::TEORICA_PRACTICA,
             // TODO: Definir codigos 
         ));
     }
     
-    public static function isExperimental($cod_tipo){
+    public static function isConsulta($cod_tipo){
         return in_array($cod_tipo, array(
-            self::RESOLUC_PROB,
-            self::TALLER,            
+            self::CONSULTA,
+            // TODO: Definir codigos 
+        ));
+    }
+    
+    public static function isEvaluacion($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::EVALUACIONES,
+            // TODO: Definir codigos 
+        ));
+    }
+    
+    public static function isOtrasActividades($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::OTRAS_ACT,
             // TODO: Definir codigos 
         ));
     }

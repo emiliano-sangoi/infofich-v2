@@ -44,18 +44,18 @@ class CargaHorariaType extends AbstractType {
         ));
 
         $builder
-                ->add('totalFormacionExperimental', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
+                ->add('totalTeoricoPractica', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
                     'label' => 'Clase Teórico-Práctica',
                     'required' => false,
                     'mapped' => false,
-                    'data' => $p->getTotalFormacionExperimental(),
+                    'data' => $p->getTotalTeoricoPractica(),
                     'attr' => array('class' => 'form-control w-50', 'min' => 0, 'readonly' => true)
                 ))
                 ->add('cantHsResolProbIng', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     //'label' => 'Resolución de problemas abiertos de ing',
                     'label' => 'Otras actividades',
                     'required' => false,
-                    'data' => $p->getTotalFormacionPractica(),
+                    'data' => $p->getTotalOtrasAct(),
                     'attr' => array(
                         'class' => 'form-control w-50',
                         'required' => false,
@@ -86,7 +86,7 @@ class CargaHorariaType extends AbstractType {
         $builder->add('cantHsTeoria', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Teoría',
                     'required' => false,
-                    'data' => $p->getTotalFormacionPractica(),
+                    'data' => $p->getTotalTeoria(),
                     'attr' => array(
                         'class' => 'form-control w-50',
                         'required' => true,
@@ -96,7 +96,7 @@ class CargaHorariaType extends AbstractType {
                 ->add('cantHsConsulta', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Consulta',
                     'required' => false,
-                    'data' => $p->getTotalFormacionPractica(),
+                    'data' => $p->getTotalConsulta(),
                     'attr' => array(
                         'class' => 'form-control w-50',
                         'required' => false,
@@ -106,7 +106,7 @@ class CargaHorariaType extends AbstractType {
                 ->add('cantHsEvaluacion', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Evaluación',
                     'required' => false,
-                    'data' => $p->getTotalFormacionPractica(),
+                    'data' => $p->getTotalEvaluacion(),
                     'attr' => array(
                         'class' => 'form-control w-50',
                         'required' => false,
@@ -116,7 +116,7 @@ class CargaHorariaType extends AbstractType {
                 ->add('cantHsPracticaProfSup', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                     'label' => 'Coloquio',
                     'required' => false,
-                    'data' => $p->getTotalFormacionPractica(),
+                    'data' => $p->getTotalColoquio(),
                     'attr' => array(
                         'class' => 'form-control w-50',
                         'required' => false,

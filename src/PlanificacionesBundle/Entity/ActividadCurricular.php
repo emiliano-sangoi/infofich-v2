@@ -55,7 +55,7 @@ class ActividadCurricular {
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
-     */    
+     */
     private $cargaHorariaAula;
 
     /**
@@ -101,17 +101,17 @@ class ActividadCurricular {
      * @ORM\JoinColumn(name="planif_temarios_id", referencedColumnName="id") 
      */
     private $temario;
-    
+
     /**
      * @ORM\Column(name="posicion", type="integer")
      */
     private $posicion;
-    
+
     public function __construct() {
-        
+
         //$this->posicion = 1;
     }
-    
+
     /**
      * Devuelve true si la actividad es considerada como practica
      * 
@@ -120,10 +120,10 @@ class ActividadCurricular {
      * @param type $cod_tipo
      * @return type
      */
-    public function isPractica(){
-        return TipoActividadCurricular::isPractica( $this->tipoActividadCurricular->getCodigo() );
+    public function isPractica() {
+        return TipoActividadCurricular::isPractica($this->tipoActividadCurricular->getCodigo());
     }
-    
+
     /**
      * Devuelve true si la actividad es considerada como practica
      * 
@@ -132,11 +132,58 @@ class ActividadCurricular {
      * @param type $cod_tipo
      * @return type
      */
-    public function isExperimental(){
-        return TipoActividadCurricular::isExperimental( $this->tipoActividadCurricular->getCodigo() );
+    public function isColoquio() {
+        return TipoActividadCurricular::isColoquio($this->tipoActividadCurricular->getCodigo());
+    }
+
+    /**
+     * Devuelve true si la actividad es considerada como teorico-practica
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isTeoricoPractica() {
+        return TipoActividadCurricular::isTeoricoPractica($this->tipoActividadCurricular->getCodigo());
     }
     
+    /**
+     * Devuelve true si la actividad es considerada como consulta
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isConsulta() {
+        return TipoActividadCurricular::isConsulta($this->tipoActividadCurricular->getCodigo());
+    }
     
+    /**
+     * Devuelve true si la actividad es considerada como evaluacion
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isEvaluacion() {
+        return TipoActividadCurricular::isEvaluacion($this->tipoActividadCurricular->getCodigo());
+    }
+    
+    /**
+     * Devuelve true si la actividad es considerada como consulta
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isOtrasActividades() {
+        return TipoActividadCurricular::isOtrasActividades($this->tipoActividadCurricular->getCodigo());
+    }
+
     /**
      * Get id
      *
@@ -344,7 +391,6 @@ class ActividadCurricular {
         return $this->temario;
     }
 
-
     /**
      * Set posicion
      *
@@ -352,8 +398,7 @@ class ActividadCurricular {
      *
      * @return ActividadCurricular
      */
-    public function setPosicion($posicion)
-    {
+    public function setPosicion($posicion) {
         $this->posicion = $posicion;
 
         return $this;
@@ -364,8 +409,8 @@ class ActividadCurricular {
      *
      * @return integer
      */
-    public function getPosicion()
-    {
+    public function getPosicion() {
         return $this->posicion;
     }
+
 }

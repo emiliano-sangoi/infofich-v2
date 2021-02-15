@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
  */
 class Planificacion {
-    
+
     const PERMISO_LISTAR = 1;
     const PERMISO_CREAR = 2;
     const PERMISO_EDITAR = 3;
@@ -112,7 +112,7 @@ class Planificacion {
      * @Assert\NotBlank(message="El campo Asignatura es obligatorio")
      */
     private $codigoAsignatura;
-    
+
     /**
      * Nombre de la asignatura
      * 
@@ -202,7 +202,7 @@ class Planificacion {
      * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion")
      */
     private $requisitosAprobacion;
-    
+
     /**
      *
      * @var \DateTime 
@@ -222,7 +222,7 @@ class Planificacion {
 
         $this->fechaCreacion = new \DateTime;
         $this->ultimaModif = new \DateTime;
-    }   
+    }
 
     /**
      * Get id
@@ -231,9 +231,9 @@ class Planificacion {
      */
     public function getId() {
         return $this->id;
-    }    
-    
-    public function getTitulo(){
+    }
+
+    public function getTitulo() {
         return $this->nombreAsignatura . ' ' . $this->anioAcad;
     }
 
@@ -241,48 +241,94 @@ class Planificacion {
         return $this->getTitulo();
     }
 
-
     /**
      * Devuelve el total de horas de todas las actividades curriculares definidas.
      * 
      * @return type
      */
-    public function getTotalCargaHorariaAula(){
-        $sum = 0;       
-        foreach ($this->actividadCurricular as $a){            
+    public function getTotalCargaHorariaAula() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
             $sum += $a->getCargaHorariaAula();
         }
-        return $sum;        
+        return $sum;
     }
-    
-    public function getTotalCargaHorariaAutonomo(){
-        $sum = 0;       
-        foreach ($this->actividadCurricular as $a){
+
+    public function getTotalCargaHorariaAutonomo() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
             $sum += $a->getCargaHorariaAutonomo();
         }
-        return $sum;        
+        return $sum;
     }
-    
-    public function getTotalFormacionPractica(){
-        $sum = 0;       
-        foreach ($this->actividadCurricular as $a){
-            if($a->isPractica()){
+
+    public function getTotalTeoria() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->getTipoActividadCurricular()->getCodigo() == 11)
                 $sum += $a->getCargaHorariaAula();
-            }            
         }
-        return $sum;        
+        return $sum;
     }
-    
-    public function getTotalFormacionExperimental(){
-        $sum = 0;       
-        foreach ($this->actividadCurricular as $a){
-            if($a->isExperimental()){
+
+    public function getTotalColoquio() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isColoquio()) {
                 $sum += $a->getCargaHorariaAula();
-            }            
+            }
         }
-        return $sum;        
+        return $sum;
+    }
+
+    public function getTotalTeoricoPractica() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isTeoricoPractica()) {
+                $sum += $a->getCargaHorariaAula();
+            }
+        }
+        return $sum;
+    }
+
+    public function getTotalFormacionPractica() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isPractica()) {
+                $sum += $a->getCargaHorariaAula();
+            }
+        }
+        return $sum;
+    }
+
+    public function getTotalConsulta() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isConsulta()) {
+                $sum += $a->getCargaHorariaAula();
+            }
+        }
+        return $sum;
     }
     
+    public function getTotalEvaluacion() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isEvaluacion()) {
+                $sum += $a->getCargaHorariaAula();
+            }
+        }
+        return $sum;
+    }
+    public function getTotalOtrasAct() {
+        $sum = 0;
+        foreach ($this->actividadCurricular as $a) {
+            if ($a->isOtrasActividades()) {
+                $sum += $a->getCargaHorariaAula();
+            }
+        }
+        return $sum;
+    }
 
     public function enPreparacion() {
         return $this->isEstado(Estado::PREPARACION);
@@ -329,19 +375,19 @@ class Planificacion {
         }
         return $res;
     }
-    
+
     /**
      * Devuelve un texto indicando el estado actual
      */
     public function getEstadoActual() {
         $hea = $this->getHistoricoEstadoActual();
-        if($hea){
+        if ($hea) {
             return $hea->getEstado()->getNombre();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Set anioAcad
      *
@@ -503,7 +549,7 @@ class Planificacion {
      */
     public function getHistoricosEstado() {
         return $this->historicosEstado;
-    }  
+    }
 
     /**
      * Add bibliografiasPlanificacion
@@ -811,8 +857,6 @@ class Planificacion {
         return $this->docentesAdscriptos;
     }
 
-
-
     /**
      * Add actividadCurricular
      *
@@ -820,10 +864,9 @@ class Planificacion {
      *
      * @return Planificacion
      */
-    public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
-    {
+    public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular) {
         $actividadCurricular->setPlanificacion($this);
-        
+
         $this->actividadCurricular[] = $actividadCurricular;
 
         return $this;
@@ -834,8 +877,7 @@ class Planificacion {
      *
      * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular
      */
-    public function removeActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
-    {
+    public function removeActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular) {
         $this->actividadCurricular->removeElement($actividadCurricular);
     }
 
@@ -844,8 +886,7 @@ class Planificacion {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getActividadCurricular()
-    {
+    public function getActividadCurricular() {
         return $this->actividadCurricular;
     }
 
@@ -856,8 +897,7 @@ class Planificacion {
      *
      * @return Planificacion
      */
-    public function setCodigoAsignatura($codigoAsignatura)
-    {
+    public function setCodigoAsignatura($codigoAsignatura) {
         $this->codigoAsignatura = $codigoAsignatura;
 
         return $this;
@@ -868,8 +908,7 @@ class Planificacion {
      *
      * @return string
      */
-    public function getCodigoAsignatura()
-    {
+    public function getCodigoAsignatura() {
         return $this->codigoAsignatura;
     }
 
@@ -880,8 +919,7 @@ class Planificacion {
      *
      * @return Planificacion
      */
-    public function setNombreAsignatura($nombreAsignatura)
-    {
+    public function setNombreAsignatura($nombreAsignatura) {
         $this->nombreAsignatura = $nombreAsignatura;
 
         return $this;
@@ -892,8 +930,7 @@ class Planificacion {
      *
      * @return string
      */
-    public function getNombreAsignatura()
-    {
+    public function getNombreAsignatura() {
         return $this->nombreAsignatura;
     }
 
@@ -904,8 +941,7 @@ class Planificacion {
      *
      * @return Planificacion
      */
-    public function setUltimaModif($ultimaModif)
-    {
+    public function setUltimaModif($ultimaModif) {
         $this->ultimaModif = $ultimaModif;
 
         return $this;
@@ -916,8 +952,8 @@ class Planificacion {
      *
      * @return \DateTime
      */
-    public function getUltimaModif()
-    {
+    public function getUltimaModif() {
         return $this->ultimaModif;
     }
+
 }
