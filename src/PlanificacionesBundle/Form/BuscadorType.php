@@ -41,7 +41,7 @@ class BuscadorType extends AbstractType {
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'label' => 'Buscar',
-            'attr' => array('class' => 'btn bg-verde text-color-white')
+            'attr' => array('class' => 'btn btn-success text-color-white')
         ));
 
         $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(

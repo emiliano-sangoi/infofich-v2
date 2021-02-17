@@ -125,7 +125,7 @@ class CargaHorariaType extends AbstractType {
         ));
         /*   $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
           'attr' => array(
-          'class' => 'btn bg-verde text-color-white',
+          'class' => 'btn btn-success text-color-white',
           'onclick' => 'onGuardarDistribucionClick(event);'
           ),
           'label' => 'Guardar'

@@ -48,7 +48,7 @@ class ActividadesCurricularesType extends AbstractType {
         
         $submit_opt = array(
             'attr' => array(
-                'class' => 'btn bg-verde text-color-white',
+                'class' => 'btn btn-success text-color-white',
                 //'onclick' => 'onGuardarCronogramaClick(event);'
              ),
             'label' => 'Guardar'

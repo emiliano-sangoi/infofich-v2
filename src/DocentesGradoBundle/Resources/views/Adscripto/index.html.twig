@@ -9,6 +9,10 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
+            <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                <i class="fa fa-plus"></i>
+                Nuevo docente
+            </a>  
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -17,25 +21,25 @@
 {% block content %}
 
     <div class="pb-5">
-       {# <h2 class="font-weight-bold">
-            Docentes grado
-        </h2>
-        <hr/>
-        <div>
-            <p class="lead">
-                A continuaci&oacute;n se muestran los docentes de grado de la FICH.
-            </p>
-            <p class="lead">
-                Si desea gestionar los docentes adscriptos de la Facultad, dirijase a la sección correspondiente siguiendo el enlace "Docentes adscriptos" en la esquina superior derecha de esta página.
-            </p>
-        </div>
-
-        <div class="alert alert-light alert-dismissible fade show mb-2" role="alert">
-            Se encontraron <span class="font-weight-bold">{{ docentes_paginado.getTotalItemCount }}</span> docentes.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>#}
+        {# <h2 class="font-weight-bold">
+             Docentes grado
+         </h2>
+         <hr/>
+         <div>
+             <p class="lead">
+                 A continuaci&oacute;n se muestran los docentes de grado de la FICH.
+             </p>
+             <p class="lead">
+                 Si desea gestionar los docentes adscriptos de la Facultad, dirijase a la sección correspondiente siguiendo el enlace "Docentes adscriptos" en la esquina superior derecha de esta página.
+             </p>
+         </div>
+ 
+         <div class="alert alert-light alert-dismissible fade show mb-2" role="alert">
+             Se encontraron <span class="font-weight-bold">{{ docentes_paginado.getTotalItemCount }}</span> docentes.
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+         </div>#}
 
         {% if false and docentes_paginado.items is defined %}
 

@@ -8,4 +8,8 @@ docentes_grado:
 
 docentes_adscriptos:
     path:     /docentes/adscriptos
-    defaults: { _controller: DocentesGradoBundle:Default:adscriptos }
+    defaults: { _controller: DocentesGradoBundle:Adscriptos:index }
+    
+docentes_adscriptos_new:
+    path:     /docentes/adscriptos/nuevo
+    defaults: { _controller: DocentesGradoBundle:Adscriptos:adscriptos }

@@ -52,21 +52,6 @@ class DefaultController extends Controller {
                     'page_title' => 'InfoFICH - Docentes grado',
                     'docentes_paginado' => $docentes_paginado
         ));
-    }
-
-    public function adscriptosAction(Request $request) {
-        
-        // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
-        
-        
-        return $this->render('DocentesGradoBundle:Default:docentes-adscriptos.html.twig', array(
-                    'page_title' => 'InfoFICH - Docentes adscriptos',
-                    //'docentes_paginado' => $docentes_paginado
-        ));
-        
-    }
+    }    
 
 }
