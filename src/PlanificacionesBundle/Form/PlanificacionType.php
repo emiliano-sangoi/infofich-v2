@@ -123,7 +123,7 @@ class PlanificacionType extends AbstractType {
         ));
 
         $submit_opt = array(
-            'attr' => array('class' => 'btn bg-verde text-color-white')
+            'attr' => array('class' => 'btn btn-success text-color-white')
         );
 
         if ($builder->getData()->getId()) {
