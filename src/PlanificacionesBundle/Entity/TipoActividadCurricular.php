@@ -64,6 +64,12 @@ class TipoActividadCurricular {
         ));
     }
     
+    public static function isTeoria($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::TEORICA
+        ));
+    }
+    
     public static function isTeoricoPractica($cod_tipo){
         return in_array($cod_tipo, array(
             self::TEORICA_PRACTICA,

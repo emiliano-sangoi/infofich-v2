@@ -265,7 +265,7 @@ class Planificacion {
     public function getTotalTeoria() {
         $sum = 0;
         foreach ($this->actividadCurricular as $a) {
-            if ($a->getTipoActividadCurricular()->getCodigo() == 11)
+            if ($a->isTeoria())
                 $sum += $a->getCargaHorariaAula();
         }
         return $sum;
