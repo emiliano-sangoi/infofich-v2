@@ -1,0 +1,21 @@
+{% set page_id = 11 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+    {% include "PlanificacionesBundle:11-resultados-asignatura:form.html.twig" %}   
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+{% endblock %} 

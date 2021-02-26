@@ -8,6 +8,7 @@ $(document).ready(function () {
     var tab_equipo_docente = $('#tab-equipo-docente');
     var tab_aprobacion = $('#tab-aprobacion');
     var tab_objetivos = $('#tab-objetivos');
+    var tab_resultados = $('#tab-resultados');
     var tab_temario = $('#tab-temario');
     var tab_bibliografia = $('#tab-bibliografia');
     var tab_cronograma = $('#tab-cronograma');
@@ -52,6 +53,23 @@ $(document).ready(function () {
         }
     });
 
+    // ================================================================================================
+    // RESULTADOS
+    
+    tab_resultados.click(function (e) {
+        
+        e.preventDefault();
+        if (typeof PLANIFICACION !== 'undefined') {
+            tab_resultados.on('shown.bs.tab', function (e) {                
+                getResultadosForm(SECCIONES.resultados, null);
+            });
+            tab_resultados.tab('show');
+        } else {
+            crearAlert(msg, 'Resultados de aprendizajes de la planificación');
+            return false;
+        }
+    });
+    
     // ================================================================================================
     // OBJETIVOS
     

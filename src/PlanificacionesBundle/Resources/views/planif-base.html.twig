@@ -60,6 +60,10 @@
                         Objetivos de la asignatura
                         <i class="far float-right"></i>
                     </a>
+                    <a class="nav-link {{ page_id == 11 ? 'active' : ''}} {{ disabled }}" id="tab-resultados"  href="{{ is_planificacion_definida ? path('planif_resultados_editar', {id : planificacion.id}) : '#' }}">
+                        Resultados de Aprendizajes
+                        <i class="far float-right"></i>
+                    </a>
                     <a class="nav-link {{ page_id == 5 ? 'active' : ''}} {{ disabled }} " id="tab-temario"  href="{{ is_planificacion_definida ? path('planif_temario_editar', {id : planificacion.id}) : '#' }}">
                         Temario
                         <i class="far float-right"></i>

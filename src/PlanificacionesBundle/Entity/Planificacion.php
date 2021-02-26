@@ -54,6 +54,22 @@ class Planificacion {
     /**
      * @var string
      *
+     * @ORM\Column(name="resultado_gral", type="text", nullable=true)
+     * @Assert\Valid
+     */
+    private $resultadoGral;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resultado_especificos", type="text", nullable=true)
+     * @Assert\Valid
+     */
+    private $resultadoEspecificos;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="objetivos_gral", type="text", nullable=true)
      * @Assert\Valid
      */
@@ -66,6 +82,7 @@ class Planificacion {
      * @Assert\Valid
      */
     private $objetivosEspecificos;
+
 
     /**
      *
@@ -496,6 +513,50 @@ class Planificacion {
      */
     public function getObjetivosEspecificos() {
         return $this->objetivosEspecificos;
+    }
+
+    /**
+     * Set resultadoGral
+     *
+     * @param string $resultadoGral
+     *
+     * @return Planificacion
+     */
+    public function setResultadoGral($resultadoGral) {
+        $this->resultadoGral = $resultadoGral;
+
+        return $this;
+    }
+
+    /**
+     * Get objetivosGral
+     *
+     * @return string
+     */
+    public function getResultadoGral() {
+        return $this->resultadoGral;
+    }
+
+    /**
+     * Set resultadoEspecificos
+     *
+     * @param string $resultadoEspecificos
+     *
+     * @return Planificacion
+     */
+    public function setResultadoEspecificos($resultadoEspecificos) {
+        $this->resultadoEspecificos = $resultadoEspecificos;
+
+        return $this;
+    }
+
+    /**
+     * Get resultadoEspecificos
+     *
+     * @return string
+     */
+    public function getResultadoEspecificos() {
+        return $this->resultadoEspecificos;
     }
 
     /**

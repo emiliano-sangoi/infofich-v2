@@ -46,6 +46,10 @@ planificaciones_bibliografia:
     resource: "@PlanificacionesBundle/Resources/config/routing/bibliografia.yml"
     prefix: /
 
+planificaciones_resultados:
+    resource: "@PlanificacionesBundle/Resources/config/routing/resultados-asignatura.yml"
+    prefix: /    
+
 planificaciones_actividades_curriculares:
     resource: "@PlanificacionesBundle/Resources/config/routing/act-curriculares.yml"
     prefix: /
