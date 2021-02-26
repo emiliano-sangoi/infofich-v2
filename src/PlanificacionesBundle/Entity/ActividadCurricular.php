@@ -28,7 +28,7 @@ class ActividadCurricular {
      * @ORM\Column(name="fecha", type="datetime")
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
-     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha de la act debe ser mayor o igual al día de hoy.")
      * 
      */
     private $fecha;
@@ -125,7 +125,19 @@ class ActividadCurricular {
     }
 
     /**
-     * Devuelve true si la actividad es considerada como practica
+     * Devuelve true si la actividad es considerada como teoria
+     * 
+     * 
+     * 
+     * @param type $cod_tipo
+     * @return type
+     */
+    public function isTeoria() {
+        return TipoActividadCurricular::isTeoria($this->tipoActividadCurricular->getCodigo());
+    }
+
+    /**
+     * Devuelve true si la actividad es considerada como coloquio
      * 
      * 
      * 
@@ -147,7 +159,7 @@ class ActividadCurricular {
     public function isTeoricoPractica() {
         return TipoActividadCurricular::isTeoricoPractica($this->tipoActividadCurricular->getCodigo());
     }
-    
+
     /**
      * Devuelve true si la actividad es considerada como consulta
      * 
@@ -159,7 +171,7 @@ class ActividadCurricular {
     public function isConsulta() {
         return TipoActividadCurricular::isConsulta($this->tipoActividadCurricular->getCodigo());
     }
-    
+
     /**
      * Devuelve true si la actividad es considerada como evaluacion
      * 
@@ -171,7 +183,7 @@ class ActividadCurricular {
     public function isEvaluacion() {
         return TipoActividadCurricular::isEvaluacion($this->tipoActividadCurricular->getCodigo());
     }
-    
+
     /**
      * Devuelve true si la actividad es considerada como consulta
      * 
