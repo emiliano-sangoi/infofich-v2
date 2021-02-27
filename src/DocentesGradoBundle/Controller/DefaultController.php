@@ -32,8 +32,11 @@ class DefaultController extends Controller {
         $breadcrumbs->addItem("Docentes grado", $this->get("router")->generate("docentes_grado"));
 
         $queryDocentes = new QueryDocentes();
-        $docentes = $queryDocentes->setWsEnv(WSHelper::ENV_PROD)
+        $docentes = $queryDocentes
+                ->setWsEnv(WSHelper::ENV_PROD)
                 ->setCacheEnabled(true)
+                ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
+                ->setEstado('activo')
                 ->getDocentes();
 
 

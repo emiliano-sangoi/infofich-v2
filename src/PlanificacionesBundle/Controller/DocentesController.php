@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
-    
+
     use PlanificacionTrait;
-    
+
     /**
      * Metodo encargado de guardar los cambios en equipo docente.
      * 
@@ -52,10 +52,9 @@ class DocentesController extends Controller {
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
+
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Equipo docente', 
-                $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Equipo docente', $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:2-equipo-docente:edit.html.twig', array(
                     'planificacion' => $planificacion,
@@ -89,9 +88,8 @@ class DocentesController extends Controller {
                 $em->remove($docente);
             }
         }
-        
+
         // =======================================================================
-        
         //Buscar los temarios de la base de datos
         $docentes_adscriptos = $em->getRepository('PlanificacionesBundle:DocenteAdscriptoPlanificacion')
                 ->findBy(array('planificacion' => $planificacion));
@@ -104,7 +102,7 @@ class DocentesController extends Controller {
             }
         }
     }
-   
+
     /**
      * Metodo que permite obtener los datos de un docente via Ajax o algun otro cliente
      * 
@@ -113,10 +111,9 @@ class DocentesController extends Controller {
      * @return JsonResponse
      */
     public function getDocenteAction($legajo) {
-
-        $q = new QueryDocentes();
-        $docentes = $q->setCacheEnabled(true)
-                ->getDocentes();
+        
+        $service = $this->get('api_infofich_service');
+        $docentes = $service->getDocentesActivos();        
 
         if (!isset($docentes[$legajo])) {
             throw $this->createNotFoundException('No se encontro el docente especificado');

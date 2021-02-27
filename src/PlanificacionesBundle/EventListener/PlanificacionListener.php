@@ -62,10 +62,13 @@ class PlanificacionListener {
     
     public function setPersonaDocente(LifecycleEventArgs $args) {
         $entity = $args->getObject();
-        $legajo = $entity->getNroLegajo();
+        $legajo = $entity->getNroLegajo();               
 
         $q = new QueryDocentes();
         $docentes = $q->setCacheEnabled(true)
+                ->setWsEnv(WSHelper::ENV_PROD)
+                >setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
+                ->setEstado('activo')
                 ->getDocentes();
 
         $docente = isset($docentes[$legajo]) ? $docentes[$legajo] : null;

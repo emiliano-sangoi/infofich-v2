@@ -176,6 +176,22 @@ class APIInfofichService {
         return $this->ultimoError;
     }
 
+    /**
+     * Obtiene los docentes activos de la FICH
+     * 
+     * @return array
+     */
+    public function getDocentesActivos() {
+
+        $q = new QueryDocentes();
+        $docentes = $q->setCacheEnabled(true)
+                ->setWsEnv(WSHelper::ENV_PROD)
+                ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
+                ->setEstado('activo')
+                ->getDocentes();
+
+        return $docentes;
+    }
 
 
 }
