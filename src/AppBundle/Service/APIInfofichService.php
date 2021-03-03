@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use FICH\APIInfofich\Query\Carreras\QueryCarreras;
+use FICH\APIInfofich\Query\Docentes\QueryDocentes;
 use FICH\APIRectorado\Config\WSHelper;
 
 /**
@@ -190,6 +191,11 @@ class APIInfofichService {
                 ->setEstado('activo')
                 ->getDocentes();
 
+        if(!empty($docentes)){
+            uasort($docentes, function($a, $b){
+                return strcasecmp($a->getApellido(), $b->getApellido());
+            });
+        }                    
         return $docentes;
     }
 

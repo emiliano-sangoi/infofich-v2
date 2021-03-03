@@ -31,6 +31,7 @@ class DocenteType extends AbstractType {
             'label' => 'Nombre y apellido',
             //'mapped' => false,
             'required' => true,
+            'placeholder' => 'Seleccione',
             'choices' => $this->getDocentes(),
             'attr' => array('class' => 'form-control js-select2')
         ));
@@ -45,7 +46,12 @@ class DocenteType extends AbstractType {
                 ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
                 ->setEstado('activo')
                 ->getDocentes();
-
+              //  dump(count($docentes)); exit;
+        if(!empty($docentes)){
+            uasort($docentes, function($a, $b){
+                return strcasecmp($a->getApellido(), $b->getApellido());
+            });      
+        }             
         return $docentes;
     }
 
