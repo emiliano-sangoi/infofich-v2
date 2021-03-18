@@ -3,11 +3,14 @@
 <div class="mb-5">
     <div class="row">
         <div class="col-md-2">
-            <span class="font-weight-bold">Responsable <span class='text-danger'>*</span></span>
+            <span class="font-weight-bold">
+                {{ form_label(form.docenteResponsable) }}                    
+            </span>
         </div>
         <div class="col-md-10" id="docente_responsable">
 {#            {% form_theme form.docenteResponsable 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}#}
-            {{ form_row(form.docenteResponsable) }}
+            {{ form_widget(form.docenteResponsable) }}
+            {{ form_errors(form.docenteResponsable) }}
             <small id="docentes_docenteResponsable_help" class="form-text text-muted">Apellido y Nombre / Legajo / Nro. documento</small>
         </div>
     </div>

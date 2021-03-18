@@ -24,6 +24,10 @@ class DocenteGrado extends Docente {
     public function __toString() {
         return $this->nroLegajo . ' - ' . $this->persona->getApeNom(false);
     }
+    
+    public function getDescripcion() {
+        return 'Legajo: ' . $this->nroLegajo . ' / ' . $this->persona->getTipoYNroDocumento() . ' / ' .  $this->persona->getApeNom(false);
+    }
 
     public function getCodApeNom($apellido_uppercase = false) {
         return $this->nroLegajo . ' - ' . $this->persona->getApeNom($apellido_uppercase);

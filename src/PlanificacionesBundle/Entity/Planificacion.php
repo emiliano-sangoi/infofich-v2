@@ -97,8 +97,7 @@ class Planificacion {
      *
      * @var string
      * 
-     * @ORM\Column(name="carrera", type="string", length=4)
-     * @Assert\NotBlank(message="El campo Carrera es obligatorio")
+     * @ORM\Column(name="carrera", type="string", length=4)     
      */
     private $carrera;
 
@@ -125,8 +124,7 @@ class Planificacion {
      * 
      * @var Asignatura
      * 
-     * @ORM\Column(name="codigo_asignatura", type="string", length=12)
-     * @Assert\NotBlank(message="El campo Asignatura es obligatorio")
+     * @ORM\Column(name="codigo_asignatura", type="string", length=12)     
      */
     private $codigoAsignatura;
 
