@@ -8,7 +8,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Persona
  *
- * @ORM\Table(name="app_personas")
+ *
+ * @ORM\Table(name="app_personas", 
+ *    uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="persona_unique1", columns={"tipo_documento", "documento"}),
+ *        @ORM\UniqueConstraint(name="persona_unique2", columns={"cuil"}),
+ *    }
+ * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
  * @UniqueEntity(fields={"tipoDocumento", "documento"},
  *     message="Ya existe una persona registrada con el tipo y numero de documento ingresado."
@@ -86,6 +92,13 @@ class Persona
      * @ORM\Column(name="fechaNacimiento", type="datetime", nullable=true)
      */
     protected $fechaNacimiento;
+    
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="genero", type="boolean", nullable=true)
+     */
+    protected $genero;
 
 
     public function __construct() {        
@@ -314,5 +327,29 @@ class Persona
     public function getFechaNacimiento()
     {
         return $this->fechaNacimiento;
+    }
+
+    /**
+     * Set genero
+     *
+     * @param boolean $genero
+     *
+     * @return Persona
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return boolean
+     */
+    public function getGenero()
+    {
+        return $this->genero;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DocentesGradoBundle\Controller;
+namespace DocentesBundle\Controller;
 
 use AppBundle\Service\APIInfofichService;
 use FICH\APIInfofich\Query\Docentes\QueryDocentes;
@@ -18,7 +18,7 @@ class DefaultController extends Controller {
         $breadcrumbs->addItem("Docentes", $this->get("router")->generate("docentes_index"));
 
 
-        return $this->render('DocentesGradoBundle:Default:index.html.twig', array(
+        return $this->render('DocentesBundle:Default:index.html.twig', array(
                     'page_title' => 'InfoFICH - Docentes',
                     //s'docentes_paginado' => $docentes_paginado
         ));
@@ -51,7 +51,7 @@ class DefaultController extends Controller {
 
 
 
-        return $this->render('DocentesGradoBundle:Default:docentes-grado.html.twig', array(
+        return $this->render('DocentesBundle:Default:docentes-grado.html.twig', array(
                     'page_title' => 'InfoFICH - Docentes grado',
                     'docentes_paginado' => $docentes_paginado
         ));

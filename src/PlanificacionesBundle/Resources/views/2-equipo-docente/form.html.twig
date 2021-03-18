@@ -6,14 +6,15 @@
             <span class="font-weight-bold">Responsable <span class='text-danger'>*</span></span>
         </div>
         <div class="col-md-10" id="docente_responsable">
-            {% form_theme form.docenteResponsable 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
-            {{ form_widget(form.docenteResponsable) }}
+{#            {% form_theme form.docenteResponsable 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}#}
+            {{ form_row(form.docenteResponsable) }}
+            <small id="docentes_docenteResponsable_help" class="form-text text-muted">Apellido y Nombre / Legajo / Nro. documento</small>
         </div>
     </div>
 
 </div>
 
-<div class="mb-5">
+{#<div class="mb-5">
     <div class="row">
         <div class="col-md-2">
             <span class="font-weight-bold">Colaborador/a</span>
@@ -24,10 +25,10 @@
         </div>
     </div>
 
-</div>
+</div>#}
 
 
-<div class="mb-5">
+{#<div class="mb-5">
     <div class="row">
         <div class="col-md-2">
             <span class="font-weight-bold">Adscripto/a</span>
@@ -38,7 +39,7 @@
         </div>
     </div>
 
-</div>
+</div>#}
 
 
 <div class="form-row">

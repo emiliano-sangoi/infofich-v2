@@ -16,16 +16,18 @@
 
             // DOCENTE RESPONSABLE
             // =====================================================================================
-            var select_doc_resp = $('#docentes_docenteResponsable_docente_nroLegajo');
-            select_doc_resp.select2({});
-            var fOnChangeSelect = function (event) {
+{#            var select_doc_resp = $('#docentes_docenteResponsable');
+            select_doc_resp.select2({
+                placeholder: 'Apellido y Nombre / Nro. Legajo / Numero documento'
+            });#}
+            {#var fOnChangeSelect = function (event) {
                 var element = $(event.target);
                 var legajo = element.val();
 
                 getDocente(legajo, $('#docente_responsable'));
             };
             select_doc_resp.change(fOnChangeSelect);
-            select_doc_resp.trigger('change');
+            select_doc_resp.trigger('change');#}
             // =====================================================================================
 
 

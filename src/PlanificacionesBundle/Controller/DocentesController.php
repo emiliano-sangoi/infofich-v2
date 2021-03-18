@@ -28,11 +28,12 @@ class DocentesController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion);
+        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", null);
 
         $form->handleRequest($request);
+       // dump($form->get('docenteResponsable')->getData());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dump($form->getData());exit;
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications

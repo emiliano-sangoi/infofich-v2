@@ -1,6 +1,6 @@
 <?php
 
-namespace DocentesGradoBundle\Controller;
+namespace DocentesBundle\Controller;
 
 use AppBundle\Service\APIInfofichService;
 use FICH\APIInfofich\Query\Docentes\QueryDocentes;
@@ -26,7 +26,7 @@ class AdscriptosController extends Controller {
         $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
         
         
-        return $this->render('DocentesGradoBundle:Adscripto:index.html.twig', array(
+        return $this->render('DocentesBundle:Adscripto:index.html.twig', array(
                     'page_title' => 'InfoFICH - Docentes adscriptos',
                     //'docentes_paginado' => $docentes_paginado
         ));
@@ -42,7 +42,7 @@ class AdscriptosController extends Controller {
         $breadcrumbs->addItem("Nuevo");
         
         
-        return $this->render('DocentesGradoBundle:Adscripto:new.html.twig', array(
+        return $this->render('DocentesBundle:Adscripto:new.html.twig', array(
                     'page_title' => 'InfoFICH - Nuevo docentes adscripto',
                     //'docentes_paginado' => $docentes_paginado
         ));
