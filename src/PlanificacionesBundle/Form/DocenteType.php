@@ -2,9 +2,9 @@
 
 namespace PlanificacionesBundle\Form;
 
-use FICH\APIInfofich\Query\Docentes\QueryDocentes;
-use FICH\APIRectorado\Config\WSHelper;
+use DocentesBundle\Entity\Docente;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,40 +27,41 @@ class DocenteType extends AbstractType {
 //            'attr' => array('class' => 'form-control js-select2')
         ));
 
-        $builder->add('nroLegajo', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('nroLegajo', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
             'label' => 'Nombre y apellido',
             //'mapped' => false,
+            'class' => \DocentesBundle\Entity\DocenteGrado::class,
             'required' => true,
-            'placeholder' => 'Seleccione',
-            'choices' => $this->getDocentes(),
-            'attr' => array('class' => 'form-control js-select2')
+      //      'placeholder' => 'Seleccione',
+    //        'choices' => $this->getDocentes(),
+            'attr' => array('class' => 'form-control')
         ));
     }
 
-    public function getDocentes() {
-
-        $q = new QueryDocentes();
-        $docentes = $q
-                ->setWsEnv(WSHelper::ENV_PROD)
-                ->setCacheEnabled(true)
-                ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
-                ->setEstado('activo')
-                ->getDocentes();
-              //  dump(count($docentes)); exit;
-        if(!empty($docentes)){
-            uasort($docentes, function($a, $b){
-                return strcasecmp($a->getApellido(), $b->getApellido());
-            });      
-        }             
-        return $docentes;
-    }
+//    public function getDocentes() {
+//
+//        $q = new QueryDocentes();
+//        $docentes = $q
+//                ->setWsEnv(WSHelper::ENV_PROD)
+//                ->setCacheEnabled(true)
+//                ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
+//                ->setEstado('activo')
+//                ->getDocentes();
+//              //  dump(count($docentes)); exit;
+//        if(!empty($docentes)){
+//            uasort($docentes, function($a, $b){
+//                return strcasecmp($a->getApellido(), $b->getApellido());
+//            });      
+//        }             
+//        return $docentes;
+//    }
 
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => \PlanificacionesBundle\Entity\DocenteGrado::class
+            'data_class' => \DocentesBundle\Entity\DocenteGrado::class
         ));
     }
 

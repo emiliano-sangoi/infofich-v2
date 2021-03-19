@@ -155,15 +155,17 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="DocentesBundle\Entity\DocenteGrado", mappedBy="planificacion", cascade={"persist","remove"})
-     */
+     * @ORM\ManyToMany(targetEntity="DocentesBundle\Entity\DocenteGrado", inversedBy="planificaciones")
+     * @ORM\JoinTable(name="planif_planificacion_docentes_colaboradores")
+     */     
     private $docentesColaboradores;
 
     /**
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="DocentesBundle\Entity\DocenteAdscripto", mappedBy="planificacion", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="DocentesBundle\Entity\DocenteAdscripto", inversedBy="planificaciones")
+     * @ORM\JoinTable(name="planif_planificacion_docentes_adscriptos")
      */
     private $docentesAdscriptos;
 
@@ -943,20 +945,7 @@ class Planificacion {
         return $this->docenteResponsable;
     }
 
-    /**
-     * Add docentesColaboradore
-     *
-     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
-     *
-     * @return Planificacion
-     */
-    public function addDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
-    {
-        $this->docentesColaboradores[] = $docentesColaboradore;
-
-        return $this;
-    }
-
+  
 
     /**
      * Get docentesAdscriptos
@@ -982,25 +971,6 @@ class Planificacion {
         return $this;
     }
 
-    /**
-     * Remove docentesColaboradore
-     *
-     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
-     */
-    public function removeDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
-    {
-        $this->docentesColaboradores->removeElement($docentesColaboradore);
-    }
-
-    /**
-     * Get docentesColaboradores
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentesColaboradores()
-    {
-        return $this->docentesColaboradores;
-    }
 
     /**
      * Add docentesAdscripto
@@ -1024,5 +994,39 @@ class Planificacion {
     public function removeDocentesAdscripto(\DocentesBundle\Entity\DocenteAdscripto $docentesAdscripto)
     {
         $this->docentesAdscriptos->removeElement($docentesAdscripto);
+    }
+
+    /**
+     * Add docentesColaboradore
+     *
+     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
+     *
+     * @return Planificacion
+     */
+    public function addDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
+    {
+        $this->docentesColaboradores[] = $docentesColaboradore;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesColaboradore
+     *
+     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
+     */
+    public function removeDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
+    {
+        $this->docentesColaboradores->removeElement($docentesColaboradore);
+    }
+
+    /**
+     * Get docentesColaboradores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesColaboradores()
+    {
+        return $this->docentesColaboradores;
     }
 }

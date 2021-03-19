@@ -2,10 +2,12 @@
 
 namespace PlanificacionesBundle\Form;
 
+use DocentesBundle\Entity\DocenteGrado;
 use Doctrine\Common\Collections\ArrayCollection;
+use PlanificacionesBundle\Entity\Planificacion;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,6 +38,30 @@ class DocentesType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->addDocenteResponsable($builder, $options);
+
+        $builder
+                ->add('docentesColaboradores', CollectionType::class, array(
+                    // each entry in the array will be an "email" field
+                    'entry_type' => \DocentesBundle\Form\DocenteGradoType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    // para que se pueda persistir en cascada:
+                    'by_reference' => false,
+                    // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
+                    'attr' => array(
+                        'class' => 'docentes-colaboradores-selector',
+                    ),
+                    'entry_options' => array(     
+                        'label' => false,
+                        'label_format' => 'form.persona.%id%',
+//                        'attr' => array('class' => 'bg-primary')
+                    ),
+                    'label' => false,
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),                    
+        ));
 
 //dump($this->getDocentes());exit;
 //        $builder
@@ -96,9 +122,9 @@ class DocentesType extends AbstractType {
     private function addDocenteResponsable(FormBuilderInterface $builder, array $options) {
 
         $builder
-                ->add('docenteResponsable', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
+                ->add('docenteResponsable', EntityType::class, array(
                     'label' => 'Responsable',
-                    'class' => \DocentesBundle\Entity\DocenteGrado::class,
+                    'class' => DocenteGrado::class,
                     'property' => 'descripcion',
                     //  'property' => 'descripcion',
                     'attr' => array(
@@ -112,7 +138,6 @@ class DocentesType extends AbstractType {
                         'class' => 'font-weight-bold',
                     )
         ));
-
     }
 
     /**
@@ -120,7 +145,7 @@ class DocentesType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => \PlanificacionesBundle\Entity\Planificacion::class,
+            'data_class' => Planificacion::class,
         ));
     }
 

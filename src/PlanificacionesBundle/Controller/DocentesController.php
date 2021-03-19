@@ -3,11 +3,14 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Util\Texto;
-use FICH\APIInfofich\Query\Docentes\QueryDocentes;
+use PlanificacionesBundle\Controller\PlanificacionTrait;
 use PlanificacionesBundle\Entity\Planificacion;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PlanificacionesBundle\Form\DocentesType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+
 
 class DocentesController extends Controller {
 
@@ -28,7 +31,7 @@ class DocentesController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm(\PlanificacionesBundle\Form\DocentesType::class, $planificacion);
+        $form = $this->createForm(DocentesType::class, $planificacion);
 
         $form->handleRequest($request);
        // dump($form->get('docenteResponsable')->getData());exit;

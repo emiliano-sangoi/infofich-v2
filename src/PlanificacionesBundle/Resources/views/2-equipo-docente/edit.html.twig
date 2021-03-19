@@ -38,16 +38,19 @@
             $('.docentes-colaboradores-selector').collection({
                 after_add: afterAddDocente,
                 add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar colaborador</a>',
+                allow_up: false,
+                allow_down: false,
+                allow_duplicate: false
             });
 
-            var select_doc_colabor = $('.docente_colaborador_item .js-select2');
-            select_doc_colabor.change(function (event) {
+{#            $('#docentes_docentesColaboradores select').select2({});#}
+            {#select_doc_colabor.change(function (event) {
                 var element = $(event.target);
                 var legajo = element.val();
                 var target = element.closest('.docente_colaborador_item');
                 getDocente(legajo, target);
             });
-            select_doc_colabor.trigger('change');
+            select_doc_colabor.trigger('change');#}
 
 
 

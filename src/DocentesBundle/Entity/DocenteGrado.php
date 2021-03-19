@@ -19,6 +19,17 @@ class DocenteGrado extends Docente {
      * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true)
      */
     private $nroLegajo;
+    
+    /**
+     * Many Groups have Many Users.
+     * 
+     * @ORM\ManyToMany(targetEntity="PlanificacionesBundle\Entity\Planificacion", mappedBy="docentesColaboradores")
+     */
+    private $planificaciones;
+    
+    public function __construct() {
+        $this->planificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
    
 
     public function __toString() {
@@ -79,4 +90,38 @@ class DocenteGrado extends Docente {
 
 
   
+
+    /**
+     * Add planificacione
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacione
+     *
+     * @return DocenteGrado
+     */
+    public function addPlanificacione(\PlanificacionesBundle\Entity\Planificacion $planificacione)
+    {
+        $this->planificaciones[] = $planificacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove planificacione
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacione
+     */
+    public function removePlanificacione(\PlanificacionesBundle\Entity\Planificacion $planificacione)
+    {
+        $this->planificaciones->removeElement($planificacione);
+    }
+
+    /**
+     * Get planificaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlanificaciones()
+    {
+        return $this->planificaciones;
+    }
 }
