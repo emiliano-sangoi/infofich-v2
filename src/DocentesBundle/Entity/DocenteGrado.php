@@ -2,13 +2,16 @@
 
 namespace DocentesBundle\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use PlanificacionesBundle\Entity\Planificacion;
 
 /**
  * Docente
  *
- * @ORM\Table(name="planif_docentes_grado")
+ * @ORM\Table(name="docentes_grado")
  * @ORM\Entity(repositoryClass="DocentesBundle\Repository\DocenteGradoRepository")
  */
 class DocenteGrado extends Docente {
@@ -21,14 +24,22 @@ class DocenteGrado extends Docente {
     private $nroLegajo;
     
     /**
-     * Many Groups have Many Users.
+     * @var ArrayCollection
      * 
-     * @ORM\ManyToMany(targetEntity="PlanificacionesBundle\Entity\Planificacion", mappedBy="docentesColaboradores")
+     * @ORM\OneToMany(targetEntity="PlanificacionesBundle\Entity\Planificacion", mappedBy="docenteResponsable")
      */
-    private $planificaciones;
+    private $planificacionesResponsable;
+    
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="PlanificacionesBundle\Entity\PlanificacionDocenteColaborador", mappedBy="docenteGrado")
+     */
+    private $planificacionesColaborador;
+    
     
     public function __construct() {
-        $this->planificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->planificacionesColaborador = new ArrayCollection();
     }
    
 
@@ -69,7 +80,7 @@ class DocenteGrado extends Docente {
     /**
      * Set fechaInactivo
      *
-     * @param \DateTime $fechaInactivo
+     * @param DateTime $fechaInactivo
      *
      * @return DocenteGrado
      */
@@ -82,7 +93,7 @@ class DocenteGrado extends Docente {
     /**
      * Get fechaInactivo
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getFechaInactivo() {
         return $this->fechaInactivo;
@@ -94,11 +105,11 @@ class DocenteGrado extends Docente {
     /**
      * Add planificacione
      *
-     * @param \PlanificacionesBundle\Entity\Planificacion $planificacione
+     * @param Planificacion $planificacione
      *
      * @return DocenteGrado
      */
-    public function addPlanificacione(\PlanificacionesBundle\Entity\Planificacion $planificacione)
+    public function addPlanificacione(Planificacion $planificacione)
     {
         $this->planificaciones[] = $planificacione;
 
@@ -108,9 +119,9 @@ class DocenteGrado extends Docente {
     /**
      * Remove planificacione
      *
-     * @param \PlanificacionesBundle\Entity\Planificacion $planificacione
+     * @param Planificacion $planificacione
      */
-    public function removePlanificacione(\PlanificacionesBundle\Entity\Planificacion $planificacione)
+    public function removePlanificacione(Planificacion $planificacione)
     {
         $this->planificaciones->removeElement($planificacione);
     }
@@ -118,10 +129,78 @@ class DocenteGrado extends Docente {
     /**
      * Get planificaciones
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPlanificaciones()
     {
         return $this->planificaciones;
+    }
+
+    /**
+     * Add planificacionesColaborador
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $planificacionesColaborador
+     *
+     * @return DocenteGrado
+     */
+    public function addPlanificacionesColaborador(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $planificacionesColaborador)
+    {
+        $this->planificacionesColaborador[] = $planificacionesColaborador;
+
+        return $this;
+    }
+
+    /**
+     * Remove planificacionesColaborador
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $planificacionesColaborador
+     */
+    public function removePlanificacionesColaborador(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $planificacionesColaborador)
+    {
+        $this->planificacionesColaborador->removeElement($planificacionesColaborador);
+    }
+
+    /**
+     * Get planificacionesColaborador
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlanificacionesColaborador()
+    {
+        return $this->planificacionesColaborador;
+    }
+
+    /**
+     * Add planificacionesResponsable
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacionesResponsable
+     *
+     * @return DocenteGrado
+     */
+    public function addPlanificacionesResponsable(\PlanificacionesBundle\Entity\Planificacion $planificacionesResponsable)
+    {
+        $this->planificacionesResponsable[] = $planificacionesResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Remove planificacionesResponsable
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacionesResponsable
+     */
+    public function removePlanificacionesResponsable(\PlanificacionesBundle\Entity\Planificacion $planificacionesResponsable)
+    {
+        $this->planificacionesResponsable->removeElement($planificacionesResponsable);
+    }
+
+    /**
+     * Get planificacionesResponsable
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlanificacionesResponsable()
+    {
+        return $this->planificacionesResponsable;
     }
 }

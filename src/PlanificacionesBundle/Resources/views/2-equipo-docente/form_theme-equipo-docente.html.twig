@@ -33,74 +33,24 @@
 
 {# DocenteColaboradorPlanificacionType::getBlockPrefix() + '_widget' #}
 {% block docentesbundle_docentegrado_widget %}
-    <div class="mb-3">
-        {#        {{ dump(form) }}#}
+        <div class="row mb-3 mb-lg-4">
+            <div class="col-12">
+                {{ form_widget(form) }}
+                <div class="text-right mt-1">
 
-        <div class="mb-4">
-            <div class="row mb-1">
-              {#  <div class="col-md-1 font-weight-bold">
-                    <span class="centrate">#{{ form.vars.name }}</span>
-                </div>#}
-                <div class="col-md-12">
-                    {{ form_widget(form) }}
-                </div>
-            </div>
+                    <a href="#" class="collection-add btn btn-sm btn-primary" title="Agregar registro">
+                        <i class="fa fa-plus"></i>
+                    </a>
 
-            <div class="text-right mt-1">
+                    <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
+                        <i class="fa fa-trash"></i>
+                    </a>
 
-                <a href="#" class="collection-add btn btn-sm btn-primary" title="Agregar registro">
-                    <i class="fa fa-plus"></i>
-                </a>
-
-{#                <a href="#" class="collection-up btn btn-sm btn-outline-secondary ml-1">
-                    <i class="fa fa-arrow-up"></i>
-                </a>
-
-                <a href="#" class="collection-down btn btn-sm btn-outline-secondary ml-1">
-                    <i class="fa fa-arrow-down"></i>
-                </a>#}
-
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
-                    <i class="fa fa-trash"></i>
-                </a>
-
-                {#                {{ form_widget(form.reset) }}#}
-
-
+                </div>               
             </div>
         </div>
-
-
-        {#<div class="docente_colaborador_item">
-            <div class="form-row">
-                <div class="col-md-6">
-                    {{ form_label(form.nroLegajo) }}
-                    {{ form_widget(form.nroLegajo) }}
-                    {{ form_errors(form.nroLegajo) }}
-                </div>
-                <div class="col-md-3">
-                    {{ form_label(form.persona.documento) }}
-                    {{ form_widget(form.persona.documento) }}
-                    {{ form_errors(form.persona.documento) }}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md-3">
-                    {{ form_label(form.persona.telefono) }}
-                    {{ form_widget(form.persona.telefono) }}
-                    {{ form_errors(form.persona.telefono) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_label(form.persona.email) }}
-                    {{ form_widget(form.persona.email) }}
-                    {{ form_errors(form.persona.email) }}
-                </div>
-            </div>
-        </div>#}
-
-    </div>
 {% endblock %}
+
 
 {# DocenteAdscriptoPlanificacionType::getBlockPrefix() + '_widget' #}
 {% block planificacionesbundle_doc_adscripto_planif_widget %}

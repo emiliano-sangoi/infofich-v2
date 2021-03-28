@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Docente
  *
- * @ORM\Table(name="planif_docentes_adscriptos")
+ * @ORM\Table(name="docentes_adscriptos")
  * @ORM\Entity(repositoryClass="DocentesBundle\Repository\DocenteAdscriptoRepository")
  */
 class DocenteAdscripto extends Docente {
@@ -19,13 +19,14 @@ class DocenteAdscripto extends Docente {
      * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true)
      */
     private $nroLegajo;
-
+    
     /**
-     * Many Groups have Many Users.
+     * @var ArrayCollection
      * 
-     * @ORM\ManyToMany(targetEntity="PlanificacionesBundle\Entity\Planificacion", mappedBy="docentesAdscriptos")
+     * @ORM\OneToMany(targetEntity="PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto", mappedBy="docenteAdscripto")
      */
-    private $planificaciones;
+    private $planificacionesAdscripto;
+    
 
     public function __construct() {
         $this->planificaciones = new \Doctrine\Common\Collections\ArrayCollection();
@@ -114,5 +115,39 @@ class DocenteAdscripto extends Docente {
     public function getPlanificaciones()
     {
         return $this->planificaciones;
+    }
+
+    /**
+     * Add planificacionesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $planificacionesAdscripto
+     *
+     * @return DocenteAdscripto
+     */
+    public function addPlanificacionesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $planificacionesAdscripto)
+    {
+        $this->planificacionesAdscripto[] = $planificacionesAdscripto;
+
+        return $this;
+    }
+
+    /**
+     * Remove planificacionesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $planificacionesAdscripto
+     */
+    public function removePlanificacionesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $planificacionesAdscripto)
+    {
+        $this->planificacionesAdscripto->removeElement($planificacionesAdscripto);
+    }
+
+    /**
+     * Get planificacionesAdscripto
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlanificacionesAdscripto()
+    {
+        return $this->planificacionesAdscripto;
     }
 }

@@ -137,16 +137,11 @@ class Planificacion {
      */
     private $nombreAsignatura;
 
-    /*
-     *
-     * @var ArrayCollection
-     * 
-     * @ORM\OneToOne(targetEntity="DocenteResponsablePlanificacion", mappedBy="planificacion", cascade={"persist", "remove"})
-     */
+
     /**
      * @var \DocentesBundle\Entity\DocenteGrado
      * 
-     * @ORM\ManyToOne(targetEntity="\DocentesBundle\Entity\DocenteGrado")
+     * @ORM\ManyToOne(targetEntity="\DocentesBundle\Entity\DocenteGrado", inversedBy="planificacionesResponsable")
      * @ORM\JoinColumn(name="docente_responsable_id", referencedColumnName="id")
      */
     private $docenteResponsable;
@@ -155,8 +150,7 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\ManyToMany(targetEntity="DocentesBundle\Entity\DocenteGrado", inversedBy="planificaciones")
-     * @ORM\JoinTable(name="planif_planificacion_docentes_colaboradores")
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteColaborador", mappedBy="planificacion")
      */     
     private $docentesColaboradores;
 
@@ -164,8 +158,7 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\ManyToMany(targetEntity="DocentesBundle\Entity\DocenteAdscripto", inversedBy="planificaciones")
-     * @ORM\JoinTable(name="planif_planificacion_docentes_adscriptos")
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteAdscripto", mappedBy="planificacion")
      */
     private $docentesAdscriptos;
 

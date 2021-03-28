@@ -7,12 +7,13 @@
                 {{ form_label(form.docenteResponsable) }}                    
             </span>
         </div>
-        <div class="col-md-10" id="docente_responsable">
+        <div class="col-md-8" id="docente_responsable">
 {#            {% form_theme form.docenteResponsable 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}#}
             {{ form_widget(form.docenteResponsable) }}
             {{ form_errors(form.docenteResponsable) }}
             <small id="docentes_docenteResponsable_help" class="form-text text-muted">Apellido y Nombre / Legajo / Nro. documento</small>
         </div>
+             <hr/>
     </div>
 
 </div>
@@ -22,7 +23,7 @@
         <div class="col-md-2">
             <span class="font-weight-bold">Colaboradores</span>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-8">
             {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
             {{ form_row(form.docentesColaboradores) }}
         </div>
