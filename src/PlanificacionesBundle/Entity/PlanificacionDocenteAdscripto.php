@@ -53,7 +53,7 @@ class PlanificacionDocenteAdscripto {
     }
 
     public function __toString() {
-        return $this->planificacion->getAnioAcad() . ' - ' . $this->planificacion->getCodigoAsignatura() . ' / ' . $this->docenteAdscripto->getNombre();
+        return $this->planificacion->getAnioAcad() . ' - ' . $this->planificacion->getCodigoAsignatura() . ' / ' . $this->docenteAdscripto;
     }
 
     /**

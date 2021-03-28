@@ -11,26 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DocentesType extends AbstractType {
-
-    use DocenteFormTrait;
-
-    /**
-     *
-     * @var ArrayCollection 
-     */
-    private $docentesColaboradores;
-
-    /**
-     *
-     * @var ArrayCollection 
-     */
-    private $docentesAdscriptos;
-
-    public function __construct() {
-        $this->docentesColaboradores = new ArrayCollection;
-        $this->docentesAdscriptos = new ArrayCollection;
-    }
+class PlanificacionDocentesType extends AbstractType {
 
     /**
      * {@inheritdoc}
@@ -42,7 +23,7 @@ class DocentesType extends AbstractType {
         $builder
                 ->add('docentesColaboradores', CollectionType::class, array(
                     // each entry in the array will be an "email" field
-                    'entry_type' => \DocentesBundle\Form\DocenteGradoType::class,
+                    'entry_type' => PlanificacionDocenteColaboradorType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
@@ -51,6 +32,30 @@ class DocentesType extends AbstractType {
                     // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
                     'attr' => array(
                         'class' => 'docentes-colaboradores-selector',
+                    ),
+                    'entry_options' => array(     
+                        'label' => false,
+                        'label_format' => 'form.persona.%id%',
+//                        'attr' => array('class' => 'bg-primary')
+                    ),
+                    'label' => false,
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),                    
+        ));
+        
+        $builder
+                ->add('docentesAdscriptos', CollectionType::class, array(
+                    // each entry in the array will be an "email" field
+                    'entry_type' => PlanificacionDocenteAdscriptoType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    // para que se pueda persistir en cascada:
+                    'by_reference' => false,
+                    // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
+                    'attr' => array(
+                        'class' => 'docentes-adscriptos-selector',
                     ),
                     'entry_options' => array(     
                         'label' => false,

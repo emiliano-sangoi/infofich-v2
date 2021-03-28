@@ -32,30 +32,20 @@
 
 
 {# DocenteColaboradorPlanificacionType::getBlockPrefix() + '_widget' #}
-{% block docentesbundle_docentegrado_widget %}
-        <div class="row mb-3 mb-lg-4">
-            <div class="col-12">
-                {{ form_widget(form) }}
-                <div class="text-right mt-1">
+{% block planif_docentecolaborador_widget %}
+    {% include 'PlanificacionesBundle:2-equipo-docente:docente-widget.html.twig' %}
+{% endblock %}
 
-                    <a href="#" class="collection-add btn btn-sm btn-primary" title="Agregar registro">
-                        <i class="fa fa-plus"></i>
-                    </a>
 
-                    <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
-                        <i class="fa fa-trash"></i>
-                    </a>
-
-                </div>               
-            </div>
-        </div>
+{% block planif_docenteadscripto_widget %}
+    {% include 'PlanificacionesBundle:2-equipo-docente:docente-widget.html.twig' %}
 {% endblock %}
 
 
 {# DocenteAdscriptoPlanificacionType::getBlockPrefix() + '_widget' #}
-{% block planificacionesbundle_doc_adscripto_planif_widget %}
+{#{% block planificacionesbundle_doc_adscripto_planif_widget %}
     <div class="mb-5 docente_adscripto_item">
-        {#{{ dump(form.docente.persona) }}#}
+        {{ dump(form.docente.persona) }}
         <div class="form-row">
             <div class="col-md-6">
                 {{ form_label(form.docente.nroLegajo) }}
@@ -118,4 +108,4 @@
 
     </div>
 
-{% endblock %}
+{% endblock %}#}

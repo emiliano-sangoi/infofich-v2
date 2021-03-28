@@ -44,7 +44,7 @@ class DocenteGrado extends Docente {
    
 
     public function __toString() {
-        return $this->nroLegajo . ' - ' . $this->persona->getApeNom(false);
+        return $this->persona->getApeNom(false);
     }
     
     public function getDescripcion() {

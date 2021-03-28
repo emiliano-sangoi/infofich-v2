@@ -16,72 +16,81 @@
 
             // DOCENTE RESPONSABLE
             // =====================================================================================
-{#            var select_doc_resp = $('#docentes_docenteResponsable');
-            select_doc_resp.select2({
-                placeholder: 'Apellido y Nombre / Nro. Legajo / Numero documento'
-            });#}
-            {#var fOnChangeSelect = function (event) {
-                var element = $(event.target);
-                var legajo = element.val();
+        {#            var select_doc_resp = $('#docentes_docenteResponsable');
+                    select_doc_resp.select2({
+                        placeholder: 'Apellido y Nombre / Nro. Legajo / Numero documento'
+                    });#}
+        {#var fOnChangeSelect = function (event) {
+            var element = $(event.target);
+            var legajo = element.val();
 
-                getDocente(legajo, $('#docente_responsable'));
-            };
-            select_doc_resp.change(fOnChangeSelect);
-            select_doc_resp.trigger('change');#}
-            // =====================================================================================
-
-
-
-
-            // DOCENTES COLABORADORES
-            // =====================================================================================
-            $('.docentes-colaboradores-selector').collection({
-                after_add: afterAddDocente,
-                add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar colaborador</a>',
-                allow_up: false,
-                allow_down: false,
-                allow_duplicate: false
-            });
-
-{#            $('#docentes_docentesColaboradores select').select2({});#}
-            {#select_doc_colabor.change(function (event) {
-                var element = $(event.target);
-                var legajo = element.val();
-                var target = element.closest('.docente_colaborador_item');
-                getDocente(legajo, target);
-            });
-            select_doc_colabor.trigger('change');#}
-
-
-
-            // =====================================================================================
+            getDocente(legajo, $('#docente_responsable'));
+        };
+        select_doc_resp.change(fOnChangeSelect);
+        select_doc_resp.trigger('change');#}
+                    // =====================================================================================
 
 
 
 
+                    // DOCENTES COLABORADORES
+                    // =====================================================================================
+                    $('.docentes-colaboradores-selector').collection({
+                        position_field_selector: '.orden',
+                        after_add: afterAddDocente,
+                        add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar colaborador</a>',
+                        allow_duplicate: false
+                    });
 
 
-            // DOCENTES ADSCRIPTOS
-            // =====================================================================================
-            $('.docentes-adscriptos-selector').collection({
-                after_add: afterAddDocente,
-                add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar adscripto</a>',
-            });
+                    // DOCENTES ADSCRIPTOS
+                    // =====================================================================================
+                    $('.docentes-adscriptos-selector').collection({
+                        position_field_selector: '.orden',
+                        after_add: afterAddDocente,
+                        add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar adscripto</a>',
+                        allow_duplicate: false
+                    });
 
-            var select_doc_adscripto = $('.docente_adscripto_item .js-select2');
-            select_doc_adscripto.change(function (event) {
-                var element = $(event.target);
-                var legajo = element.val();
-                var target = element.closest('.docente_adscripto_item');
-                getDocente(legajo, target);
-            });
-            select_doc_adscripto.trigger('change');
-
-
-
-            // =====================================================================================                                                                                               
-
+        {#            $('#docentes_docentesColaboradores select').select2({});#}
+        {#select_doc_colabor.change(function (event) {
+            var element = $(event.target);
+            var legajo = element.val();
+            var target = element.closest('.docente_colaborador_item');
+            getDocente(legajo, target);
         });
+        select_doc_colabor.trigger('change');#}
+
+
+
+                    // =====================================================================================
+
+
+
+
+
+
+                    // DOCENTES ADSCRIPTOS
+                    // =====================================================================================
+        {#            $('.docentes-adscriptos-selector').collection({
+                        after_add: afterAddDocente,
+                        add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar adscripto</a>',
+                    });
+
+                    var select_doc_adscripto = $('.docente_adscripto_item .js-select2');
+                    select_doc_adscripto.change(function (event) {
+                        var element = $(event.target);
+                        var legajo = element.val();
+                        var target = element.closest('.docente_adscripto_item');
+                        getDocente(legajo, target);
+                    });
+                    select_doc_adscripto.trigger('change');
+        #}
+
+
+                    // =====================================================================================                                                                                               
+
+                });
     </script>
 
 

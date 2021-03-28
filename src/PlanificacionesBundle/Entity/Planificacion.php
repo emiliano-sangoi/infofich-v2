@@ -150,7 +150,7 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="PlanificacionDocenteColaborador", mappedBy="planificacion")
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteColaborador", mappedBy="planificacion", cascade={"persist","remove"})
      */     
     private $docentesColaboradores;
 
@@ -158,7 +158,7 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="PlanificacionDocenteAdscripto", mappedBy="planificacion")
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteAdscripto", mappedBy="planificacion", cascade={"persist","remove"})
      */
     private $docentesAdscriptos;
 
@@ -250,7 +250,7 @@ class Planificacion {
     }
 
     public function getTitulo() {
-        return $this->nombreAsignatura . ' ' . $this->anioAcad;
+        return strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
 
     public function __toString() {
@@ -938,18 +938,6 @@ class Planificacion {
         return $this->docenteResponsable;
     }
 
-  
-
-    /**
-     * Get docentesAdscriptos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentesAdscriptos()
-    {
-        return $this->docentesAdscriptos;
-    }
-
     /**
      * Add actividadCurricular
      *
@@ -965,39 +953,18 @@ class Planificacion {
     }
 
 
-    /**
-     * Add docentesAdscripto
-     *
-     * @param \DocentesBundle\Entity\DocenteAdscripto $docentesAdscripto
-     *
-     * @return Planificacion
-     */
-    public function addDocentesAdscripto(\DocentesBundle\Entity\DocenteAdscripto $docentesAdscripto)
-    {
-        $this->docentesAdscriptos[] = $docentesAdscripto;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentesAdscripto
-     *
-     * @param \DocentesBundle\Entity\DocenteAdscripto $docentesAdscripto
-     */
-    public function removeDocentesAdscripto(\DocentesBundle\Entity\DocenteAdscripto $docentesAdscripto)
-    {
-        $this->docentesAdscriptos->removeElement($docentesAdscripto);
-    }
 
     /**
      * Add docentesColaboradore
      *
-     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore
      *
      * @return Planificacion
      */
-    public function addDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
+    public function addDocentesColaboradore(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore)
     {
+        $docentesColaboradore->setPlanificacion($this);
+        
         $this->docentesColaboradores[] = $docentesColaboradore;
 
         return $this;
@@ -1006,9 +973,9 @@ class Planificacion {
     /**
      * Remove docentesColaboradore
      *
-     * @param \DocentesBundle\Entity\DocenteGrado $docentesColaboradore
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore
      */
-    public function removeDocentesColaboradore(\DocentesBundle\Entity\DocenteGrado $docentesColaboradore)
+    public function removeDocentesColaboradore(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore)
     {
         $this->docentesColaboradores->removeElement($docentesColaboradore);
     }
@@ -1021,5 +988,41 @@ class Planificacion {
     public function getDocentesColaboradores()
     {
         return $this->docentesColaboradores;
+    }
+
+    /**
+     * Add docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto
+     *
+     * @return Planificacion
+     */
+    public function addDocentesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto)
+    {
+        $docentesAdscripto->setPlanificacion($this);
+        
+        $this->docentesAdscriptos[] = $docentesAdscripto;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto
+     */
+    public function removeDocentesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto)
+    {
+        $this->docentesAdscriptos->removeElement($docentesAdscripto);
+    }
+
+    /**
+     * Get docentesAdscriptos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesAdscriptos()
+    {
+        return $this->docentesAdscriptos;
     }
 }

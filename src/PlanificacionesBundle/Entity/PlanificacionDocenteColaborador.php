@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Docente
  *
  * @ORM\Table(name="planif_docentes_colaboradores")
- * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\DocenteColaboradorPlanificacionRepository")
+ * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionDocenteColaboradorRepository")
  */
 class PlanificacionDocenteColaborador {
     
@@ -53,7 +53,7 @@ class PlanificacionDocenteColaborador {
     }
     
     public function __toString() {
-        return $this->planificacion->getAnioAcad() . ' - ' . $this->planificacion->getCodigoAsignatura() . ' / ' . $this->docenteGrado->getNombre();
+        return $this->planificacion->getAnioAcad() . ' - ' . $this->planificacion->getCodigoAsignatura() . ' / ' . $this->docenteGrado;
     }
     
         /**
