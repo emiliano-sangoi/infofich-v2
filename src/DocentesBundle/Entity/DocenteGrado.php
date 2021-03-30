@@ -11,7 +11,9 @@ use PlanificacionesBundle\Entity\Planificacion;
 /**
  * Docente
  *
- * @ORM\Table(name="docentes_grado")
+ * @ORM\Table(name="docentes_grado", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="unique_docente_grado", columns={"nro_legajo"})
+ * })
  * @ORM\Entity(repositoryClass="DocentesBundle\Repository\DocenteGradoRepository")
  */
 class DocenteGrado extends Docente {
@@ -19,7 +21,7 @@ class DocenteGrado extends Docente {
     /**
      * @var string
      *
-     * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true)
+     * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true, unique=true)
      */
     private $nroLegajo;
     

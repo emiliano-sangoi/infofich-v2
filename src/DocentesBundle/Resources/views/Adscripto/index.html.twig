@@ -102,7 +102,7 @@
                                     {{ docente.cargosAsociados|length }}
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                                    <a href="{{ path('docentes_adscriptos_show', { id: docente.id }) }}" class="btn btn-sm btn-outline-secondary">
                                         Ver
                                     </a>
                                 </td>

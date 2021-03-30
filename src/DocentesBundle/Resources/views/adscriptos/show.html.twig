@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}  
+            <a href="{{ path('docentes_adscriptos') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                 <i class="fa fa-plus"></i>
+                 Nuevo docente
+             </a>  #}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+
+
+        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
+
+            {% block form_actions %}
+
+                {% embed "::botonera.html.twig" %}
+
+                    {% block left %}
+                        <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">Edit</a>
+                        {#                        <input type="submit" value="Crear" class="btn btn-primary" />#}
+                    {% endblock %}
+
+                    {% block right %}
+                        {{ form_start(delete_form) }}
+                        <input type="submit" value="Delete">
+                        {{ form_end(delete_form) }}
+                    {% endblock %}
+
+                {% endembed %}
+
+            {% endblock %}
+
+        {% endembed %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+
+<div class="bg-light p-5">
+
+    {#{{ dump(form) }}#}
+    <div>
+        {{ form_errors(form) }}
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-6">
+            {{ form_label(form.tipoDocumento) }}
+            {{ form_widget(form.tipoDocumento) }}
+            {{ form_errors(form.tipoDocumento) }}      
+        </div>
+        <div class="col-6">
+            {{ form_label(form.documento) }}
+            {{ form_widget(form.documento) }}
+            {{ form_errors(form.documento) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-6">
+            {{ form_label(form.resolucion) }}
+            {{ form_widget(form.resolucion) }}
+            {{ form_errors(form.resolucion) }}      
+        </div>
+    </div>
+
+    {% block form_actions %}
+    {% endblock %}
+</div>
+
+{{ form_end(form) }}

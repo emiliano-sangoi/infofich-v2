@@ -1,0 +1,45 @@
+<div class="form-row">
+    <div class="col-6">
+        {{ form_label(form.tipoDocumento) }}
+        {{ form_widget(form.tipoDocumento) }}
+        {{ form_errors(form.tipoDocumento) }}      
+    </div>
+    <div class="col-6">
+        {{ form_label(form.documento) }}
+        {{ form_widget(form.documento) }}
+        {{ form_errors(form.documento) }}
+    </div>
+
+</div>
+
+
+<div class="form-row">
+    <div class="col-4">
+        {{ form_label(form.apellidos) }}
+        {{ form_widget(form.apellidos) }}
+        {{ form_errors(form.apellidos) }}      
+    </div>
+    <div class="col-4">
+        {{ form_label(form.nombres) }}
+        {{ form_widget(form.nombres) }}
+        {{ form_errors(form.nombres) }}
+    </div>
+    <div class="col-4">
+        {% from '::macros.html.twig' import input_datetime_picker %}     
+        {{  input_datetime_picker(form.fechaNacimiento, form.fechaNacimiento.vars.id ~ '_picker', true ) }} 
+    </div>
+</div>
+
+
+<div class="form-row">    
+    <div class="col-6">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}      
+    </div>
+    <div class="col-3">
+        {{ form_label(form.telefono) }}
+        {{ form_widget(form.telefono) }}
+        {{ form_errors(form.telefono) }}
+    </div>
+</div>

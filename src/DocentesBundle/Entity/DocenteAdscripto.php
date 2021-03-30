@@ -8,17 +8,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Docente
  *
- * @ORM\Table(name="docentes_adscriptos")
+ * @ORM\Table(name="docentes_adscriptos", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="unique_docente_adscripto", columns={"resolucion", "persona_id"})
+ * })
  * @ORM\Entity(repositoryClass="DocentesBundle\Repository\DocenteAdscriptoRepository")
  */
 class DocenteAdscripto extends Docente {
 
     /**
+     * Resolucion del concejo directivo
+     * 
      * @var string
      *
-     * @ORM\Column(name="nro_legajo", type="string", length=64, nullable=true)
+     * @ORM\Column(name="resolucion", type="string", length=64)
      */
-    private $nroLegajo;
+    private $resolucion;
     
     /**
      * @var ArrayCollection
@@ -31,33 +35,10 @@ class DocenteAdscripto extends Docente {
     public function __construct() {
         $this->planificaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    public function getCodApeNom($apellido_uppercase = false) {
-        return $this->nroLegajo . ' - ' . $this->persona->getApeNom($apellido_uppercase);
+    
+    public function __toString() {
+        return $this->resolucion . ' - ' . $this->persona->getApeNom($apellido_uppercase);
     }
-
-    /**
-     * Set nroLegajo
-     *
-     * @param string $nroLegajo
-     *
-     * @return Docente
-     */
-    public function setNroLegajo($nroLegajo) {
-        $this->nroLegajo = $nroLegajo;
-
-        return $this;
-    }
-
-    /**
-     * Get nroLegajo
-     *
-     * @return string
-     */
-    public function getNroLegajo() {
-        return $this->nroLegajo;
-    }
-
 
     /**
      * Set fechaInactivo
@@ -149,5 +130,29 @@ class DocenteAdscripto extends Docente {
     public function getPlanificacionesAdscripto()
     {
         return $this->planificacionesAdscripto;
+    }
+
+    /**
+     * Set resolucion
+     *
+     * @param string $resolucion
+     *
+     * @return DocenteAdscripto
+     */
+    public function setResolucion($resolucion)
+    {
+        $this->resolucion = $resolucion;
+
+        return $this;
+    }
+
+    /**
+     * Get resolucion
+     *
+     * @return string
+     */
+    public function getResolucion()
+    {
+        return $this->resolucion;
     }
 }
