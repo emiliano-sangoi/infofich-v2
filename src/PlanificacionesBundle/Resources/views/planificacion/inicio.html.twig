@@ -61,7 +61,7 @@
                                                 <p class='mb-0 mt-4'> 
                                                     <span class='font-weight-bold'> Docente responsable: </span>
                                                     {% if p.getDocenteResponsable() %}
-                                                        {{ p.getDocenteResponsable.getDocente().getPersona().getApeNom() }}                                               
+                                                        {{ p.getDocenteResponsable.getPersona().getApeNom() }}                                               
                                                     {% else %}
                                                         <span class='text-muted'>Sin definir</span>
                                                     {% endif %}

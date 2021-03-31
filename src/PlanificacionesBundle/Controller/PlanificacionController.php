@@ -9,6 +9,8 @@ use FICH\APIInfofich\Model\Materia;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
+use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Form\BuscadorType;
 use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -235,13 +237,14 @@ class PlanificacionController extends Controller {
         $this->resumen['docente_resp'] = null;
 
         if ($planificacion->getDocenteResponsable()) {
-            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getDocente()->getCodApeNom(true);
+            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getCodApeNom(true);
         }
 
         $this->resumen['docentes_colab'] = null;
         $i = 0;
+        /* @var $docente PlanificacionDocenteColaborador */
         foreach ($planificacion->getDocentesColaboradores() as $docente) {
-            $this->resumen['docentes_colab'][] = $docente->getDocente()->getCodApeNom(true);
+            $this->resumen['docentes_colab'][] = $docente->getDocenteGrado()->getCodApeNom(true);
             $i++;
         }
         $this->resumen['docentes_colab_count'] = $i;
@@ -249,11 +252,11 @@ class PlanificacionController extends Controller {
 
         $this->resumen['docentes_adscriptos'] = null;
         $i = 0;
-        //dump($planificacion->getDocentesAdscriptos()->toArray());exit;
+        /* @var $docente PlanificacionDocenteAdscripto */
         foreach ($planificacion->getDocentesAdscriptos() as $docente) {
-            $cod_ape_nom = $docente->getDocente()->getCodApeNom(true);
+            $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();
             // dump($cod_ape_nom, $docente->getDocente());exit;
-            $cod_ape_nom .= ' (Resolución N° ' . $docente->getResolucion() . ')';
+            $cod_ape_nom .= ' (Resolución N° ' . $docente->getDocenteAdscripto()->getResolucion() . ')';
             $this->resumen['docentes_adscriptos'][] = $cod_ape_nom;
             $i++;
         }
