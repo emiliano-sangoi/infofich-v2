@@ -23,7 +23,7 @@ docentes_adscriptos_edit:
     path:     /{id}/edit
     defaults: { _controller: "DocentesBundle:DocenteAdscripto:edit" }
     methods:  [GET, POST]
-
+    
 docentes_adscriptos_delete:
     path:     /{id}/delete
     defaults: { _controller: "DocentesBundle:DocenteAdscripto:delete" }

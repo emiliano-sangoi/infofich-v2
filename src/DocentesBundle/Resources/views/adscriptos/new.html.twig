@@ -1,21 +1,3 @@
-{#{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Docenteadscripto creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('docentes_adscriptos_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}#}
-
-
 {% extends '::base.html.twig' %}
 
 {% set full_width = false %}
@@ -40,19 +22,34 @@
 
     <div class="pb-5">
 
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
 
-        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
-
-            {% block form_actions %}
-
-                {% embed "::botonera.html.twig" %}
-
-                    {% block left %}
-                        <input type="submit" value="Crear" class="btn btn-primary" />
+        {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
+        
+                    {% block form_actions %}
+        
+                        {% embed "::botonera.html.twig" %}
+        
+                            {% block left %}
+                                <input type="submit" value="Crear" class="btn btn-primary" />
+                            {% endblock %}
+        
+                        {% endembed %}
+        
                     {% endblock %}
+        
+                {% endembed %}#}
 
-                {% endembed %}
+        {% include 'DocentesBundle:adscriptos:form.html.twig' %}
 
+        {% embed '::botonera.html.twig' %}
+
+            {% block left %}
+                <button id="btnCrear" class="btn btn-primary">
+                    Crear
+                </button>
             {% endblock %}
 
         {% endembed %}
@@ -64,7 +61,17 @@
 
 {% block javascripts %}
     {{ parent() }}
-    
+
     {% include 'DocentesBundle:adscriptos:ajax-buscar-persona.html.twig' %}
-    
+
+
+    <script>
+        $(document).ready(function () {
+            $('#btnCrear').click(function (e) {
+                e.preventDefault();
+                $("form[name='docentesbundle_docenteadscripto']").submit();
+            });
+        });
+    </script>
+
 {% endblock %}

@@ -20,8 +20,8 @@ class DocenteAdscriptoController extends Controller {
      * Lists all docenteAdscripto entities.
      *
      */
-    public function indexAction(Request $request) {     
-        
+    public function indexAction(Request $request) {
+
         $dql = "SELECT u FROM DocentesBundle:DocenteAdscripto u";
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
@@ -46,58 +46,6 @@ class DocenteAdscriptoController extends Controller {
         ));
     }
 
-    public function buscarAction(Request $request) {
-
-        $form = $this->createForm(BuscarAdscriptoType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $tipo_doc = $form->get('tipoDocumento')->getData();
-            $documento = $form->get('documento')->getData();
-            $resolucion = $form->get('resolucion')->getData();
-
-
-            $em = $this->getDoctrine()->getManager();
-            $repoPersona = $em->getRepository(Persona::class);
-            $persona = $repoPersona->findOneBy(array(
-                'tipoDocumento' => $tipo_doc,
-                'documento' => $documento,
-            ));
-
-            $repoAdscriptos = $em->getRepository(DocenteAdscripto::class);
-            $docente = $repoAdscriptos->findOneBy(array(
-                'tipoDocumento' => $tipo_doc,
-                'persona' => $documento,
-            ));
-            if ($resolucion) {
-                
-            }
-
-            if ($persona instanceof Persona) {
-                
-            } else {
-                
-            }
-
-            dump($tipo_doc, $documento, $resolucion);
-            exit;
-        }
-
-        // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
-        $breadcrumbs->addItem("Buscar");
-
-        return $this->render('DocentesBundle:adscriptos:buscar.html.twig', array(
-                    'form' => $form->createView(),
-                    'page_title' => 'Docentes adscriptos - Buscar docente',
-        ));
-    }
-
-
     /**
      * Alta de una persona
      * 
@@ -112,19 +60,19 @@ class DocenteAdscriptoController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                        
+
             $em = $this->getDoctrine()->getManager();
-            
-            if( $docenteAdscripto->getPersona()->getId() ){
-                $persona = $em->merge( $docenteAdscripto->getPersona() );
+
+            if ($docenteAdscripto->getPersona()->getId()) {
+                $persona = $em->merge($docenteAdscripto->getPersona());
                 $docenteAdscripto->setPersona($persona);
             }
-            
+
             $em->persist($docenteAdscripto);
             $em->flush();
-            
+
             $this->addFlash('success', 'Docente adscripto creado correctamente');
-            
+
             return $this->redirectToRoute('docentes_adscriptos');
 
             //return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
@@ -151,7 +99,7 @@ class DocenteAdscriptoController extends Controller {
             'tipoDocumento' => $tipo_doc,
             'documento' => $documento,
         ));
-        
+
         return $persona;
     }
 
@@ -160,39 +108,107 @@ class DocenteAdscriptoController extends Controller {
      *
      */
     public function showAction(DocenteAdscripto $docenteAdscripto) {
+
         $deleteForm = $this->createDeleteForm($docenteAdscripto);
-        
+        $form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto, array(
+            'disabled' => true
+        ));
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
-        $breadcrumbs->addItem("Ver");
+        $breadcrumbs->addItem($docenteAdscripto->__toString());
 
         return $this->render('DocentesBundle:adscriptos:show.html.twig', array(
                     'docenteAdscripto' => $docenteAdscripto,
                     'delete_form' => $deleteForm->createView(),
+                    'form' => $form->createView(),
+                    'page_title' => 'Docentes adscriptos - Ver docente',
         ));
     }
+
+    public function editActiodn(Request $request, DocenteAdscripto $docenteAdscripto) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $editForm = $form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto);
+
+
+        $data = $request->request->get('docentesbundle_docenteadscripto');
+        $id = isset($data['persona']['id']) ? $data['persona']['id'] : null;
+        $id_prev = $docenteAdscripto->getPersona()->getId();
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $id != $id_prev) {
+            //  dump($data['persona']['id'], $docenteAdscripto->getPersona()->getId());exit;
+            $persona = $em->getRepository(Persona::class)->findOneById($data['persona']['id']);
+            $docenteAdscripto->setPersona($persona);
+            $em->flush();
+        }
+
+        //  return $this->redirectToRoute('docentes_adscriptos_edit', array('id' => $docenteAdscripto->getId()));
+
+        return $this->edit($request, $docenteAdscripto);
+    }
+
+    //private function modificarPersonaAction()
 
     /**
      * Displays a form to edit an existing docenteAdscripto entity.
      *
      */
     public function editAction(Request $request, DocenteAdscripto $docenteAdscripto) {
+
+        $em = $this->getDoctrine()->getManager();
+
         $deleteForm = $this->createDeleteForm($docenteAdscripto);
-        $editForm = $this->createForm('DocentesBundle\Form\DocenteAdscriptoType', $docenteAdscripto);
+        $editForm = $form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto);
+
+        $persona_id = $docenteAdscripto->getPersona()->getId();
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('docentes_adscriptos_edit', array('id' => $docenteAdscripto->getId()));
+            $persona = $docenteAdscripto->getPersona();
+
+            if ($persona->getId() != $persona_id) {                
+                //si se modifico la persona se deben borrar las sentencias SQL pendientes para
+                //que no intente actualizar los campos de la persona que tenia seteada previamente.
+                $em->clear();
+                
+                
+                //luego se graban los cambios que haya modificado el usuario en el form en el objeto de la base de datos
+                $docenteAdscripto = $em->merge($docenteAdscripto);
+                
+                //guardar cambios en la base de datos
+                $em->flush();
+
+                //volver a llamar al metodo ahora con la entidad modificada correctamente
+                return $this->editAction($request, $docenteAdscripto);
+            }
+
+            $em->flush();
+
+            $this->addFlash('success', 'Docente modificado correctamente.');
+
+            return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
         }
 
-        return $this->render('docenteadscripto/edit.html.twig', array(
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
+        $breadcrumbs->addItem($docenteAdscripto->__toString(), $this->get("router")->generate("docentes_adscriptos_show", array('id' => $docenteAdscripto->getId())));
+        $breadcrumbs->addItem('Editar');
+
+        return $this->render('DocentesBundle:adscriptos:edit.html.twig', array(
                     'docenteAdscripto' => $docenteAdscripto,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'page_title' => 'Docentes adscriptos - Editar docente',
         ));
     }
 
@@ -210,7 +226,7 @@ class DocenteAdscriptoController extends Controller {
             $em->flush();
         }
 
-        return $this->redirectToRoute('docentes_adscriptos_index');
+        return $this->redirectToRoute('docentes_adscriptos');
     }
 
     /**

@@ -37,7 +37,7 @@ class DocenteAdscripto extends Docente {
     }
     
     public function __toString() {
-        return $this->resolucion . ' - ' . $this->persona->getApeNom($apellido_uppercase);
+        return $this->resolucion . ' - ' . $this->persona->getApeNom(true);
     }
 
     /**

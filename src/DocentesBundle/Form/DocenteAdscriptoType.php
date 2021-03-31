@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DocenteAdscriptoType extends AbstractType {
 
     use DocenteAdscriptoTrait;
+    //use \AppBundle\Form\PersonaTypeTrait;
     
     /**
      * {@inheritdoc}
@@ -21,6 +22,7 @@ class DocenteAdscriptoType extends AbstractType {
 
         $builder->add('persona', \AppBundle\Form\PersonaType::class, array(
             'label' => false,
+       //     'mapped' => false,
             'constraints' => array(
                 new \Symfony\Component\Validator\Constraints\Valid()
             )

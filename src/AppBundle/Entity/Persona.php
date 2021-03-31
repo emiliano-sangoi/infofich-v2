@@ -24,6 +24,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks()
  */
 class Persona implements \JsonSerializable {
+    
+    const GENERO_MASC = 1;
+    const GENERO_FEM = 2;
 
     /**
      * @var int
@@ -92,9 +95,9 @@ class Persona implements \JsonSerializable {
     protected $fechaNacimiento;
 
     /**
-     * @var boolean
+     * @var integer
      * 
-     * @ORM\Column(name="genero", type="boolean", nullable=true)
+     * @ORM\Column(name="genero", type="smallint", nullable=true)
      */
     protected $genero;
 
@@ -313,28 +316,6 @@ class Persona implements \JsonSerializable {
         return $this->fechaNacimiento;
     }
 
-    /**
-     * Set genero
-     *
-     * @param boolean $genero
-     *
-     * @return Persona
-     */
-    public function setGenero($genero) {
-        $this->genero = $genero;
-
-        return $this;
-    }
-
-    /**
-     * Get genero
-     *
-     * @return boolean
-     */
-    public function getGenero() {
-        return $this->genero;
-    }
-
     public function jsonSerialize() {
         return array(
             'id' => $this->id,
@@ -346,8 +327,32 @@ class Persona implements \JsonSerializable {
             'telefono' => $this->telefono,
             'cuil' => $this->cuil,
             'email' => $this->email,
-            'fechaNacimiento' => $this->fechaNacimiento ? $this->fechaNacimiento->getTimestamp() : null,
+            'fechaNacimiento' => $this->fechaNacimiento ? $this->fechaNacimiento->format('d/m/Y') : null,
         );
     }
 
+
+    /**
+     * Set genero
+     *
+     * @param integer $genero
+     *
+     * @return Persona
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return integer
+     */
+    public function getGenero()
+    {
+        return $this->genero;
+    }
 }

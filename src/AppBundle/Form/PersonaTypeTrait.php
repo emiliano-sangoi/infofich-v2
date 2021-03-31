@@ -8,6 +8,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Persona;
 use FICH\APIRectorado\Config\WSHelper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * PersonaTypeTrait
@@ -66,9 +68,16 @@ trait PersonaTypeTrait {
     private function addGenero(FormBuilderInterface $builder, array $options, $required = false, $disabled = false, $contraints = array()) {
 
         $choices = array(
-            1 => 'Masculino',
-            2 => 'Femenino'
+            null => 'Sin información',
+            Persona::GENERO_MASC => 'Masculino',
+            Persona::GENERO_FEM => 'Femenino'
         );
+        
+        if($required){
+            $contraints[] = new NotBlank(array(
+                'message' => 'Este campo no puede quedar vacio'
+            ));
+        }
 
         $builder->add('genero', ChoiceType::class, array(
             'choices' => $choices,

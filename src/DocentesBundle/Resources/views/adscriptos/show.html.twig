@@ -22,26 +22,49 @@
 
     <div class="pb-5">
 
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
 
-        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
 
-            {% block form_actions %}
-
-                {% embed "::botonera.html.twig" %}
-
-                    {% block left %}
-                        <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">Edit</a>
-                        {#                        <input type="submit" value="Crear" class="btn btn-primary" />#}
+        {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
+        
+                    {% block form_actions %}
+        
+                        {% embed "::botonera.html.twig" %}
+        
+                            {% block left %}
+                                <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-primary">
+                                    Editar
+                                </a>                        
+                            {% endblock %}
+        
+                            {% block right %}
+                                {{ form_start(delete_form) }}
+                                <input type="submit" value="Borrar" class="btn btn-danger">
+                                {{ form_end(delete_form) }}
+                            {% endblock %}
+        
+                        {% endembed %}
+        
                     {% endblock %}
+        
+                {% endembed %}#}
 
-                    {% block right %}
-                        {{ form_start(delete_form) }}
-                        <input type="submit" value="Delete">
-                        {{ form_end(delete_form) }}
-                    {% endblock %}
+        {% include 'DocentesBundle:adscriptos:form.html.twig' %}
 
-                {% endembed %}
+        {% embed '::botonera.html.twig' %}
 
+            {% block left %}
+                <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-primary">
+                    Editar
+                </a>
+            {% endblock %}
+
+            {% block right %}
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar el docente <b>{{ docenteAdscripto.persona }}</b>?'/>
+                {{ form_end(delete_form) }}
             {% endblock %}
 
         {% endembed %}
