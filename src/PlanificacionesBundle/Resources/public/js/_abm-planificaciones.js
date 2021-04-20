@@ -55,17 +55,16 @@ $(document).ready(function () {
 
     // ================================================================================================
     // RESULTADOS
-    
+
     tab_resultados.click(function (e) {
-        
         e.preventDefault();
         if (typeof PLANIFICACION !== 'undefined') {
-            tab_resultados.on('shown.bs.tab', function (e) {                
-                getResultadosForm(SECCIONES.resultados, null);
+            tab_resultados.on('shown.bs.tab', function (e) {
+                getResultadosForm();
             });
             tab_resultados.tab('show');
         } else {
-            crearAlert(msg, 'Resultados de aprendizajes de la planificación');
+            crearAlert(msg, 'Resultados');
             return false;
         }
     });

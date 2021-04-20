@@ -51,21 +51,6 @@ class Planificacion {
      */
     private $fechaCreacion;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resultado_gral", type="text", nullable=true)
-     * @Assert\Valid
-     */
-    private $resultadoGral;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resultado_especificos", type="text", nullable=true)
-     * @Assert\Valid
-     */
-    private $resultadoEspecificos;
 
     /**
      * @var string
@@ -206,6 +191,16 @@ class Planificacion {
 
     /**
      *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="ResultadosAprendizajes", mappedBy="planificacion", cascade={"persist","remove"})
+     * @Assert\Valid
+     */
+    private $resultados;
+
+
+    /**
+     *
      * @var CargaHoraria
      * 
      * @ORM\OneToOne(targetEntity="CargaHoraria", mappedBy="planificacion")
@@ -236,7 +231,7 @@ class Planificacion {
         $this->bibliografiasPlanificacion = new ArrayCollection;
         $this->viajesAcademicos = new ArrayCollection;
         $this->temario = new ArrayCollection;
-
+        $this->resultados = new ArrayCollection;
         $this->fechaCreacion = new \DateTime;
         $this->ultimaModif = new \DateTime;
     }
@@ -513,50 +508,6 @@ class Planificacion {
      */
     public function getObjetivosEspecificos() {
         return $this->objetivosEspecificos;
-    }
-
-    /**
-     * Set resultadoGral
-     *
-     * @param string $resultadoGral
-     *
-     * @return Planificacion
-     */
-    public function setResultadoGral($resultadoGral) {
-        $this->resultadoGral = $resultadoGral;
-
-        return $this;
-    }
-
-    /**
-     * Get objetivosGral
-     *
-     * @return string
-     */
-    public function getResultadoGral() {
-        return $this->resultadoGral;
-    }
-
-    /**
-     * Set resultadoEspecificos
-     *
-     * @param string $resultadoEspecificos
-     *
-     * @return Planificacion
-     */
-    public function setResultadoEspecificos($resultadoEspecificos) {
-        $this->resultadoEspecificos = $resultadoEspecificos;
-
-        return $this;
-    }
-
-    /**
-     * Get resultadoEspecificos
-     *
-     * @return string
-     */
-    public function getResultadoEspecificos() {
-        return $this->resultadoEspecificos;
     }
 
     /**
@@ -1017,4 +968,39 @@ class Planificacion {
         return $this->ultimaModif;
     }
 
+
+    /**
+     * Add resultado
+     *
+     * @param \PlanificacionesBundle\Entity\ResultadosAprendizajes $resultado
+     *
+     * @return Planificacion
+     */
+    public function addResultado(\PlanificacionesBundle\Entity\ResultadosAprendizajes $resultado)
+    {
+        $resultado->setPlanificacion($this);
+        $this->resultados[] = $resultado;
+
+        return $this;
+    }
+
+    /**
+     * Remove resultado
+     *
+     * @param \PlanificacionesBundle\Entity\ResultadosAprendizajes $resultado
+     */
+    public function removeResultado(\PlanificacionesBundle\Entity\ResultadosAprendizajes $resultado)
+    {
+        $this->resultados->removeElement($resultado);
+    }
+
+    /**
+     * Get resultados
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResultados()
+    {
+        return $this->resultados;
+    }
 }

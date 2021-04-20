@@ -1,5 +1,5 @@
 planif_resultados_editar:
     path:     /{id}/resultados-asignatura/editar
-    defaults: { _controller: PlanificacionesBundle:Resultados:edit }
+    defaults: { _controller: PlanificacionesBundle:ResultadosAprendizaje:edit }
 
 

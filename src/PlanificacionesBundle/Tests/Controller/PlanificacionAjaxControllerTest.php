@@ -69,4 +69,11 @@ class PlanificacionAjaxControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/viajes-academicos');
     }
 
+    public function testGetresultadosform()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/resultados-asignatura');
+    }
+
 }

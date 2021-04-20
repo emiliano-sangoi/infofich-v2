@@ -21,3 +21,5 @@ app/docs/infofich2_modelo.mwb.bak
 security.example.yml
 #app/Resources/views/jquery.collection.html.twig
 #web/js/jquery.collection.js
+node_modules
+.vscode

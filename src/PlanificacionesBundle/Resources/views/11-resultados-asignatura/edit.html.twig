@@ -3,7 +3,28 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% include "PlanificacionesBundle:11-resultados-asignatura:form.html.twig" %}   
+
+    
+    {{ form_errors(form) }}
+
+    {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:11-resultados-asignatura:form_theme-resultado.html.twig'  %}
+    {{ form_start(form) }}  
+
+    {{ form_row(form.resultados) }}
+
+    <div class="form-row mt-3">
+        <div class="col-xs-12 col-lg-4">
+
+            {{ form_widget(form.submit) }}
+
+        </div>
+        {#<div class="col-xs-12 col-lg-8 text-right">
+            {{ form_widget(form.reset) }}
+        </div>#}
+    </div>
+
+    {{ form_end(form) }}  
+
 {% endblock %} 
 
 
@@ -14,8 +35,14 @@
 
         $(document).ready(function () {
 
-
+            $('.resultado-selector').collection({
+                 position_field_selector: '.posicion',
+                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar Resultado</a>',
+            });
         });
     </script>
+
+
+
 
 {% endblock %} 
