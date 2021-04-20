@@ -56,13 +56,13 @@ function afterAddDocente(collection, item) {
     target.select2({});
 
     // console.log(item);
-    target.change(function (event) {
-
-        var element = $(event.target);
-        var pos = element.val();
-
-        getDocente(pos, item);
-
-
-    });
+//    target.change(function (event) {
+//
+//        var element = $(event.target);
+//        var pos = element.val();
+//
+//        getDocente(pos, item);
+//
+//
+//    });
 };

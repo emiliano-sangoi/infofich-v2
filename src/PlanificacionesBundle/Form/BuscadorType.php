@@ -44,10 +44,10 @@ class BuscadorType extends AbstractType {
             'attr' => array('class' => 'btn btn-success text-color-white')
         ));
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Limpiar filtros',
-            'attr' => array('class' => 'btn btn-secondary')
-        ));
+//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+//            'label' => 'Limpiar filtros',
+//            'attr' => array('class' => 'btn btn-secondary')
+//        ));
     }
 
     /**
@@ -113,6 +113,8 @@ class BuscadorType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => null,
             'carrera_default' => WSHelper::CARRERA_II,
+            'method' => 'GET',
+            'csrf_protection' => false
         ));
     }
 

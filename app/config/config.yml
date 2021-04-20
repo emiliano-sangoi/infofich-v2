@@ -4,7 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: "@AppBundle/Resources/config/services.yml" }
     - { resource: "@PlanificacionesBundle/Resources/config/services.yml" }
-    - { resource: "@DocentesGradoBundle/Resources/config/services.yml" }
+    - { resource: "@DocentesBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration

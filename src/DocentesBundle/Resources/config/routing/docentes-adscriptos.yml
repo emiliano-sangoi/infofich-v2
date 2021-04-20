@@ -1,0 +1,30 @@
+docentes_adscriptos:
+    path:     /
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:index" }
+    methods:  GET
+
+docentes_adscriptos_show:
+    path:     /{id}/show
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:show" }
+    methods:  GET
+
+docentes_adscriptos_buscar:
+    path:     /buscar
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:buscar" }
+    methods:  [GET]
+    
+    
+docentes_adscriptos_new:
+    path:     /nuevo
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:new" }
+    methods:  [GET, POST]
+
+docentes_adscriptos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:edit" }
+    methods:  [GET, POST]
+    
+docentes_adscriptos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DocentesBundle:DocenteAdscripto:delete" }
+    methods:  DELETE

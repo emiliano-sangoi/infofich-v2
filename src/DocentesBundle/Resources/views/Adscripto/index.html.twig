@@ -1,0 +1,137 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}  
+            <a href="{{ path('docentes_index') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+            <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                <i class="fa fa-plus"></i>
+                Nuevo docente
+            </a>  
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+        {# <h2 class="font-weight-bold">
+             Docentes grado
+         </h2>
+         <hr/>
+         <div>
+             <p class="lead">
+                 A continuaci&oacute;n se muestran los docentes de grado de la FICH.
+             </p>
+             <p class="lead">
+                 Si desea gestionar los docentes adscriptos de la Facultad, dirijase a la sección correspondiente siguiendo el enlace "Docentes adscriptos" en la esquina superior derecha de esta página.
+             </p>
+         </div>
+ 
+         <div class="alert alert-light alert-dismissible fade show mb-2" role="alert">
+             Se encontraron <span class="font-weight-bold">{{ docentes_paginado.getTotalItemCount }}</span> docentes.
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+         </div>#}
+
+        {% if false and docentes_paginado.items is defined %}
+
+            {#            {% from '::macros.html.twig' import notificacion %}
+                        <div class="mb-3">
+                            {{ notificacion('Fuente de los datos', 'Estos datos son obtenidos desde servicios web provistos por Rectorado.' , 'info') }}                                                          
+                        </div>
+            #}
+            <div class="table-responsive bg-light">
+                <table class="table table-condensed mb-0">
+                    <caption class="p-2 p-lg-3">
+                        <div>
+                            <span class="font-weight-bold">Fuente de los datos:</span> Servicios web de Rectorado UNL
+                        </div>
+                    </caption>
+                    <thead class="bg-primary text-light">
+                        <tr>
+                            <td>
+                                #
+                            </td>
+                            <td>
+                                Apellido
+                            </td>
+                            <td>
+                                Nombres
+                            </td>
+                            <td>
+                                Legajo
+                            </td>
+                            <td>
+                                Nro. documento
+                            </td>
+                            <td>
+                                Cant. Cargos
+                            </td>
+                            <td>
+                                Acciones
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for docente in docentes_paginado %}
+                            <tr>
+                                <td>
+                                    {{ loop.index }}
+                                </td>
+                                <td>
+                                    {{ docente.apellido }}
+                                </td>
+                                <td>
+                                    {{ docente.nombre }}
+                                </td>
+                                <td>
+                                    {{ docente.numeroLegajo }}
+                                </td>
+                                <td>
+                                    {{ docente.numeroDocumento }}
+                                </td>
+                                <td>
+                                    {{ docente.cargosAsociados|length }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('docentes_adscriptos_show', { id: docente.id }) }}" class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                            {#                             -tipoDocumento: "LC"
+                               -numeroDocumento: "2759499"
+                               -cuil: "27-2759499-4"
+                               -apellido: "GIUSTI"
+                               -nombre: "ROSITA OLGA LETICIA"
+                               -email: ""
+                               -cargosAsociados: array:2 [ …2]#}
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>                    
+            <div class="navigation mt-3 mb-5 centrate-x">                        
+                {{ knp_pagination_render(docentes_paginado) }}
+            </div>                                
+
+
+
+        {% else %}
+            <div class="bg-light p-4">
+                No se encontro ning&uacute;n docente.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

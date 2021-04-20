@@ -1,0 +1,134 @@
+{#{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Docenteadscriptos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nrolegajo</th>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Fechainactivo</th>
+                <th>Fechaultimaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for docenteAdscripto in docenteAdscriptos %}
+            <tr>
+                <td><a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}">{{ docenteAdscripto.nroLegajo }}</a></td>
+                <td>{{ docenteAdscripto.id }}</td>
+                <td>{{ docenteAdscripto.email }}</td>
+                <td>{% if docenteAdscripto.fechaInactivo %}{{ docenteAdscripto.fechaInactivo|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if docenteAdscripto.fechaUltimaActualizacion %}{{ docenteAdscripto.fechaUltimaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('docentes_adscriptos_new') }}">Create a new docenteAdscripto</a>
+        </li>
+    </ul>
+{% endblock %}
+#}
+
+
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('docentes_index') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+            <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                <i class="fa fa-plus"></i>
+                Nuevo docente
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="px-lg-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <div class="bg-light">
+            {% if docentes[0] is defined %}
+
+                <div class="table-responsive bg-light">
+                    <table class="table table-condensed mb-0">
+                        <tr>
+                            <th>Apellido(s)</th>
+                            <th>Nombre(s)</th>
+                            <th>Tipo y número doc.</th>
+                            <th>Resolución</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for docenteAdscripto in docentes %}
+                                <tr>
+                                    <td>
+                                        {{ docenteAdscripto.persona.apellidos }}
+                                    </td>
+                                    <td>
+                                        {{ docenteAdscripto.persona.nombres }}
+                                    </td>                                
+                                    <td>
+                                        {{ docenteAdscripto.persona.getTipoYNroDocumento() }}
+                                    </td>
+                                    <td>
+                                        {{ docenteAdscripto.resolucion }}
+                                    </td>                                
+                                    <td>
+                                        <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
+                                            Ver
+                                        </a>
+                                        <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
+                                            Editar
+                                        </a>
+                                        {#                                    <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a>#}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {{ knp_pagination_render(docentes) }}
+                </div>
+
+
+
+            {% else %}
+                <div class="bg-light p-4">
+                    No se encontro ning&uacute;n docente adscripto.
+                </div>
+            {% endif %}
+        </div>
+    </div>        
+
+
+{% endblock %}

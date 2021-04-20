@@ -1,0 +1,7 @@
+services:
+#    docentes_grado.example:
+#        class: DocentesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    docentes_grado.docentes:
+        class: DocentesBundle\Service\DocenteService
+        arguments: ["@doctrine.orm.entity_manager", "@api_infofich_service", "@validator"]

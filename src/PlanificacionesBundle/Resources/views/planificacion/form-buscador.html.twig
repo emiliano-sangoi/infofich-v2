@@ -28,7 +28,9 @@
             {{ form_widget(form.submit) }}
         </div>
         <div class="col-xs-12 offset-4 col-sm-4 text-right">
-            {{ form_widget(form.reset) }}
+            <a href="{{ path('planificaciones_homepage') }}" class="btn btn-secondary">
+            Limpiar filtros
+            </a>
         </div>
     </div>
 

@@ -82,8 +82,7 @@ class Planificacion {
      *
      * @var string
      * 
-     * @ORM\Column(name="carrera", type="string", length=4)
-     * @Assert\NotBlank(message="El campo Carrera es obligatorio")
+     * @ORM\Column(name="carrera", type="string", length=4)     
      */
     private $carrera;
 
@@ -110,8 +109,7 @@ class Planificacion {
      * 
      * @var Asignatura
      * 
-     * @ORM\Column(name="codigo_asignatura", type="string", length=12)
-     * @Assert\NotBlank(message="El campo Asignatura es obligatorio")
+     * @ORM\Column(name="codigo_asignatura", type="string", length=12)     
      */
     private $codigoAsignatura;
 
@@ -124,11 +122,12 @@ class Planificacion {
      */
     private $nombreAsignatura;
 
+
     /**
-     *
-     * @var ArrayCollection
+     * @var \DocentesBundle\Entity\DocenteGrado
      * 
-     * @ORM\OneToOne(targetEntity="DocenteResponsablePlanificacion", mappedBy="planificacion", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="\DocentesBundle\Entity\DocenteGrado", inversedBy="planificacionesResponsable")
+     * @ORM\JoinColumn(name="docente_responsable_id", referencedColumnName="id")
      */
     private $docenteResponsable;
 
@@ -136,15 +135,15 @@ class Planificacion {
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="DocenteColaboradorPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
-     */
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteColaborador", mappedBy="planificacion", cascade={"persist","remove"})
+     */     
     private $docentesColaboradores;
 
     /**
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="DocenteAdscriptoPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="PlanificacionDocenteAdscripto", mappedBy="planificacion", cascade={"persist","remove"})
      */
     private $docentesAdscriptos;
 
@@ -246,7 +245,7 @@ class Planificacion {
     }
 
     public function getTitulo() {
-        return $this->nombreAsignatura . ' ' . $this->anioAcad;
+        return strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
 
     public function __toString() {
@@ -779,110 +778,7 @@ class Planificacion {
         return $this->temario;
     }
 
-    /**
-     * Set docenteResponsable
-     *
-     * @param \PlanificacionesBundle\Entity\DocenteResponsablePlanificacion $docenteResponsable
-     *
-     * @return Planificacion
-     */
-    public function setDocenteResponsable(\PlanificacionesBundle\Entity\DocenteResponsablePlanificacion $docenteResponsable = null) {
-        $docenteResponsable->setPlanificacion($this);
-
-        $this->docenteResponsable = $docenteResponsable;
-
-        return $this;
-    }
-
-    /**
-     * Get docenteResponsable
-     *
-     * @return \PlanificacionesBundle\Entity\DocenteResponsablePlanificacion
-     */
-    public function getDocenteResponsable() {
-        return $this->docenteResponsable;
-    }
-
-    /**
-     * Add docentesColaboradore
-     *
-     * @param \PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore
-     *
-     * @return Planificacion
-     */
-    public function addDocentesColaboradore(\PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore) {
-        $docentesColaboradore->setPlanificacion($this);
-
-        $this->docentesColaboradores[] = $docentesColaboradore;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentesColaboradore
-     *
-     * @param \PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore
-     */
-    public function removeDocentesColaboradore(\PlanificacionesBundle\Entity\DocenteColaboradorPlanificacion $docentesColaboradore) {
-        $this->docentesColaboradores->removeElement($docentesColaboradore);
-    }
-
-    /**
-     * Get docentesColaboradores
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentesColaboradores() {
-        return $this->docentesColaboradores;
-    }
-
-    /**
-     * Add docentesAdscripto
-     *
-     * @param \PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto
-     *
-     * @return Planificacion
-     */
-    public function addDocentesAdscripto(\PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto) {
-        $docentesAdscripto->setPlanificacion($this);
-
-        $this->docentesAdscriptos[] = $docentesAdscripto;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentesAdscripto
-     *
-     * @param \PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto
-     */
-    public function removeDocentesAdscripto(\PlanificacionesBundle\Entity\DocenteAdscriptoPlanificacion $docentesAdscripto) {
-        $this->docentesAdscriptos->removeElement($docentesAdscripto);
-    }
-
-    /**
-     * Get docentesAdscriptos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentesAdscriptos() {
-        return $this->docentesAdscriptos;
-    }
-
-    /**
-     * Add actividadCurricular
-     *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular
-     *
-     * @return Planificacion
-     */
-    public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular) {
-        $actividadCurricular->setPlanificacion($this);
-
-        $this->actividadCurricular[] = $actividadCurricular;
-
-        return $this;
-    }
+ 
 
     /**
      * Remove actividadCurricular
@@ -970,6 +866,118 @@ class Planificacion {
 
 
     /**
+     * Set docenteResponsable
+     *
+     * @param \DocentesBundle\Entity\DocenteGrado $docenteResponsable
+     *
+     * @return Planificacion
+     */
+    public function setDocenteResponsable(\DocentesBundle\Entity\DocenteGrado $docenteResponsable = null)
+    {
+        $this->docenteResponsable = $docenteResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Get docenteResponsable
+     *
+     * @return \DocentesBundle\Entity\DocenteGrado
+     */
+    public function getDocenteResponsable()
+    {
+        return $this->docenteResponsable;
+    }
+
+    /**
+     * Add actividadCurricular
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular
+     *
+     * @return Planificacion
+     */
+    public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
+    {
+        $this->actividadCurricular[] = $actividadCurricular;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Add docentesColaboradore
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore
+     *
+     * @return Planificacion
+     */
+    public function addDocentesColaboradore(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore)
+    {
+        $docentesColaboradore->setPlanificacion($this);
+        
+        $this->docentesColaboradores[] = $docentesColaboradore;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesColaboradore
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore
+     */
+    public function removeDocentesColaboradore(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore)
+    {
+        $this->docentesColaboradores->removeElement($docentesColaboradore);
+    }
+
+    /**
+     * Get docentesColaboradores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesColaboradores()
+    {
+        return $this->docentesColaboradores;
+    }
+
+    /**
+     * Add docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto
+     *
+     * @return Planificacion
+     */
+    public function addDocentesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto)
+    {
+        $docentesAdscripto->setPlanificacion($this);
+        
+        $this->docentesAdscriptos[] = $docentesAdscripto;
+
+        return $this;
+    }
+
+    /**
+     * Remove docentesAdscripto
+     *
+     * @param \PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto
+     */
+    public function removeDocentesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto)
+    {
+        $this->docentesAdscriptos->removeElement($docentesAdscripto);
+    }
+
+    /**
+     * Get docentesAdscriptos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocentesAdscriptos()
+    {
+        return $this->docentesAdscriptos;
+    }
+
+    /**
      * Add resultado
      *
      * @param \PlanificacionesBundle\Entity\ResultadosAprendizajes $resultado
@@ -1002,5 +1010,5 @@ class Planificacion {
     public function getResultados()
     {
         return $this->resultados;
-    }
+    }    
 }

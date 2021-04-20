@@ -8,72 +8,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonaType extends AbstractType {
 
+    use PersonaTypeTrait;
+    
+    
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        // dump("lsdslds");exit;
-        $builder->add('apellidos', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-            'attr' => array('class' => 'form-control'),
-            'label_attr' => array(
-                'class' => 'font-weight-bold'
-            )
+        
+        $builder->add('id', \Symfony\Component\Form\Extension\Core\Type\HiddenType::class, array(
+            //'mapped' => false
         ));
 
-        $builder
-                ->add('nombres', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'attr' => array('class' => 'form-control'),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    )
-        ));
-
-        $builder->add('fechaNacimiento', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
-            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
-            'widget' => 'single_text',
-            'format' => 'dd/MM/yyyy',
-            'required' => false,
-            'label' => 'Fecha nacimiento',
-            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
-        ));
-                
-
-        //$tipos_desc = \FICH\APIRectorado\Config\WSHelper::getDescTipoDoc($tipo_doc)
-        // dump($tipos);exit;
-        $builder
-                ->add('tipoDocumento', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-                    'choices' => \FICH\APIRectorado\Config\WSHelper::getTiposDocumentos(),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'attr' => array('class' => 'form-control')
-        ));
-
-        $builder
-                ->add('documento', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
-                    'attr' => array('class' => 'form-control'),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'label' => 'Numero de documento'
-        ));
-
-        $builder
-                ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
-                    'attr' => array('class' => 'form-control'),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    )
-        ));
-
-        $builder
-                ->add('telefono', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
-                    'attr' => array('class' => 'form-control'),
-                    'required' => false,
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    )
-        ));
+        $this->addTipoDocumento($builder, $options);
+        $this->addDocumento($builder, $options);
+        $this->addApellidos($builder, $options);
+        $this->addNombres($builder, $options);
+        $this->addFechaNacimiento($builder, $options);
+        $this->addGenero($builder, $options, true);
+        $this->addTelefono($builder, $options);
+        $this->addEmail($builder, $options, true);
+      
     }
 
     /**
@@ -81,7 +36,7 @@ class PersonaType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Persona'
+            'data_class' => \AppBundle\Entity\Persona::class
         ));
     }
 

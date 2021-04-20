@@ -213,6 +213,9 @@ class PlanificacionType extends AbstractType {
             //'required' => false,
             'attr' => array('class' => 'form-control select-carrera js-select2',                
                 'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
+            'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\NotBlank( array('message' => "El campo Carrera es obligatorio.") )
+            )
         );
 
         if (!$builder->getData()->getCarrera()) {
@@ -234,7 +237,10 @@ class PlanificacionType extends AbstractType {
         $config = array(
             'label' => 'Asignatura',
             'choices' => $asignaturas,
-            'attr' => array('class' => 'form-control select-asignatura js-select2')
+            'attr' => array('class' => 'form-control select-asignatura js-select2'),
+            'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\NotBlank( array('message' => 'El campo Asignatura es obligatorio.') )
+            )
         );
 
         $builder->add('codigoAsignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);

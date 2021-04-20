@@ -3,11 +3,16 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Util\Texto;
-use FICH\APIInfofich\Query\Docentes\QueryDocentes;
+use PlanificacionesBundle\Controller\PlanificacionTrait;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
+use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
+use PlanificacionesBundle\Form\PlanificacionDocentesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+
+
 
 class DocentesController extends Controller {
 
@@ -28,11 +33,12 @@ class DocentesController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\DocentesType", $planificacion);
+        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion);
 
         $form->handleRequest($request);
+       // dump($form->get('docenteResponsable')->getData());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-
+          //  dump($form->getData());exit;
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
@@ -51,7 +57,7 @@ class DocentesController extends Controller {
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        $page_title = strtoupper($asignatura->getNombreMateria());
 
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Equipo docente', $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
@@ -78,7 +84,7 @@ class DocentesController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         //Buscar los temarios de la base de datos
-        $docentes_colaboradores = $em->getRepository('PlanificacionesBundle:DocenteColaboradorPlanificacion')
+        $docentes_colaboradores = $em->getRepository(PlanificacionDocenteColaborador::class)
                 ->findBy(array('planificacion' => $planificacion));
 
         foreach ($docentes_colaboradores as $docente) {
@@ -91,7 +97,7 @@ class DocentesController extends Controller {
 
         // =======================================================================
         //Buscar los temarios de la base de datos
-        $docentes_adscriptos = $em->getRepository('PlanificacionesBundle:DocenteAdscriptoPlanificacion')
+        $docentes_adscriptos = $em->getRepository(PlanificacionDocenteAdscripto::class)
                 ->findBy(array('planificacion' => $planificacion));
 
         foreach ($docentes_adscriptos as $docente) {

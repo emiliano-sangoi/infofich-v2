@@ -2,42 +2,50 @@
 {{ form_errors(form) }}
 <div class="mb-5">
     <div class="row">
-        <div class="col-md-2">
-            <span class="font-weight-bold">Responsable <span class='text-danger'>*</span></span>
+        <div class="col-12 col-md-3">
+            <span class="font-weight-bold">
+                {{ form_label(form.docenteResponsable) }}                    
+            </span>
         </div>
-        <div class="col-md-10" id="docente_responsable">
-            {% form_theme form.docenteResponsable 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
+        <div class="col-12 col-md-9" id="docente_responsable">
             {{ form_widget(form.docenteResponsable) }}
+            {{ form_errors(form.docenteResponsable) }}
+            <small id="docentes_docenteResponsable_help" class="form-text text-muted">Apellido y Nombre / Legajo / Nro. documento</small>
         </div>
+             <hr/>
     </div>
 
 </div>
 
 <div class="mb-5">
     <div class="row">
-        <div class="col-md-2">
-            <span class="font-weight-bold">Colaborador/a</span>
+        <div class="col-12 col-md-3">
+            <span class="font-weight-bold">
+                Colaboradores
+            </span>
         </div>
-        <div class="col-md-10">
+        <div class="col-12 col-md-9">
             {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
             {{ form_row(form.docentesColaboradores) }}
         </div>
     </div>
-
 </div>
+        
+        
 
 
 <div class="mb-5">
     <div class="row">
-        <div class="col-md-2">
-            <span class="font-weight-bold">Adscripto/a</span>
+        <div class="col-12 col-md-3">
+            <span class="font-weight-bold">
+                Adscriptos/as
+            </span>
         </div>
-        <div class="col-md-10">
+        <div class="col-12 col-md-9">
             {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
             {{ form_row(form.docentesAdscriptos) }}
         </div>
     </div>
-
 </div>
 
 

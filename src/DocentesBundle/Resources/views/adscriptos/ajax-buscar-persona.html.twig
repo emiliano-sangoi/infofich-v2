@@ -1,0 +1,107 @@
+
+
+<script>
+    $(document).ready(function () {
+
+        var prefix = '#docentesbundle_docenteadscripto_';
+        var prefix_persona = prefix + 'persona_';
+personaOk = null;
+
+        fields = {};
+        fields.id = $(prefix_persona + 'id');
+        fields.apellidos = $(prefix_persona + 'apellidos');
+        fields.nombres = $(prefix_persona + 'nombres');
+        fields.email = $(prefix_persona + 'email');
+        fields.telefono = $(prefix_persona + 'telefono');
+        fields.genero = $(prefix_persona + 'genero');
+        fields.fechaNacimiento = $(prefix_persona + 'fechaNacimiento');
+        fields.resolucion = $(prefix + 'resolucion');
+
+
+
+        $(prefix_persona + 'documento').on('input', function (e) {
+
+            var input = $(this);
+            var documento = input.val();
+
+            if (documento.length < 7 || documento.length > 8) {
+                return;
+            }
+
+            var tipo_doc = $(prefix_persona + 'tipoDocumento').val();
+
+            var url = "{{ path('app_personas_get_por_documento', {tipo_doc: '-TIPO_DOC-', documento: '-DOC-'}) }}";
+            url = url.replace('-TIPO_DOC-', tipo_doc);
+            url = url.replace('-DOC-', documento);
+
+            toggleFields(true);
+
+            var jqxhr = $.getJSON(url, loadPersona);
+
+            jqxhr.fail(function (response) {                
+                if (response.status == 404) {
+                    toggleFields(false);
+                } else {
+                    bootbox.alert({
+                        title: '<b>Error</b>',
+                        message: 'Ocurrió un error al buscar la persona. Comuniquese con el area de desarrollo del sistema.',
+                        centerVertical: true,
+                        backdrop: true
+                    });
+                }
+
+            });
+
+            jqxhr.done(function (response) {
+                toggleFields(false);
+            });
+
+
+
+        });
+
+        function toggleFields(val) {
+
+            fields.apellidos.attr('disabled', val);
+            fields.nombres.attr('disabled', val);
+            fields.email.attr('disabled', val);
+            fields.telefono.attr('disabled', val);
+            fields.genero.attr('disabled', val);
+            fields.fechaNacimiento.attr('disabled', val);
+            fields.resolucion.attr('disabled', val);
+        }
+
+
+        function loadPersona(persona) {
+            personaOk = persona;
+            console.log(persona);
+            
+            fields.id.val(persona.id);
+
+            fields.apellidos.val(persona.apellidos);
+
+            fields.nombres.val(persona.nombres);
+
+            fields.email.val(persona.email);
+
+            fields.telefono.val(persona.telefono);
+
+            fields.genero.val(persona.genero);
+            
+            console.log("lalsas");
+            fields.fechaNacimiento.val(persona.fechaNacimiento);
+
+            if (typeof persona.fechaNacimiento == 'string') {                
+              // var fecha = new Date(persona.fechaNacimiento * 1000);
+               console.log(persona.fechaNacimiento);
+                //fields.fechaNacimiento.datepicker('update', fecha);
+                fields.fechaNacimiento.val(persona.fechaNacimiento);
+            }else{
+                fields.fechaNacimiento.val('');
+            }
+
+        }
+
+    });
+
+</script>

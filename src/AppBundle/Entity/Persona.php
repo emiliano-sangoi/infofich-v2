@@ -5,20 +5,29 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+// * @UniqueEntity(fields={"tipoDocumento", "documento"},
+// *     message="Ya existe una persona registrada con el tipo y numero de documento ingresado."
+// * )
+
 /**
  * Persona
  *
- * @ORM\Table(name="app_personas")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
- * @UniqueEntity(fields={"tipoDocumento", "documento"},
- *     message="Ya existe una persona registrada con el tipo y numero de documento ingresado."
+ *
+ * @ORM\Table(name="app_personas", 
+ *    uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="persona_unique1", columns={"tipo_documento", "documento"}),
+ *        @ORM\UniqueConstraint(name="persona_unique2", columns={"cuil"}),
+ *    }
  * )
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
  * 
  * @ORM\HasLifecycleCallbacks()
  */
-class Persona
-{
- 
+class Persona implements \JsonSerializable {
+    
+    const GENERO_MASC = 1;
+    const GENERO_FEM = 2;
+
     /**
      * @var int
      *
@@ -48,15 +57,14 @@ class Persona
      * @ORM\Column(name="tipo_documento", type="smallint", nullable=true)
      */
     protected $tipoDocumento;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="documento", type="string", length=12, unique=true)
      */
     protected $documento;
-    
-    
+
     /**
      * @var string
      *
@@ -77,8 +85,7 @@ class Persona
      * @ORM\Column(name="telefono", type="string", length=32, nullable=true)
      */
     protected $telefono;
-    
-    
+
     /**
      *
      * @var DateTime 
@@ -87,33 +94,42 @@ class Persona
      */
     protected $fechaNacimiento;
 
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="genero", type="smallint", nullable=true)
+     */
+    protected $genero;
 
-    public function __construct() {        
+    public function __construct() {
         ;
     }
-    
+
     public function __toString() {
         return $this->apellidos . ', ' . $this->nombres;
     }
-
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
     
-     /**
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+    
+    /**
      * Get apellido y nombre
      *
      * @return string
      */
-    public function getApeNom($apellido_uppercase = false)
-    {
+    public function getApeNom($apellido_uppercase = false) {
         $s = $apellido_uppercase ? strtoupper($this->apellidos) : $this->apellidos;
         return $s . ', ' . $this->nombres;
     }
@@ -125,8 +141,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setApellidos($apellidos)
-    {
+    public function setApellidos($apellidos) {
         $this->apellidos = $apellidos;
 
         return $this;
@@ -137,8 +152,7 @@ class Persona
      *
      * @return string
      */
-    public function getApellidos()
-    {
+    public function getApellidos() {
         return $this->apellidos;
     }
 
@@ -149,8 +163,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setNombres($nombres)
-    {
+    public function setNombres($nombres) {
         $this->nombres = $nombres;
 
         return $this;
@@ -161,8 +174,7 @@ class Persona
      *
      * @return string
      */
-    public function getNombres()
-    {
+    public function getNombres() {
         return $this->nombres;
     }
 
@@ -173,8 +185,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setDocumento($documento)
-    {
+    public function setDocumento($documento) {
         $this->documento = $documento;
 
         return $this;
@@ -185,11 +196,10 @@ class Persona
      *
      * @return string
      */
-    public function getDocumento()
-    {
+    public function getDocumento() {
         return $this->documento;
     }
-    
+
     /**
      * Get tipo documento
      *
@@ -209,17 +219,15 @@ class Persona
         $this->tipoDocumento = $tipoDocumento;
         return $this;
     }
-    
-    function getTipoYNroDocumento(){
+
+    function getTipoYNroDocumento() {
         $tipo = \FICH\APIRectorado\Config\WSHelper::getDescTipoDoc($this->tipoDocumento);
-        if(isset($tipo[0])){
-            return strtoupper($tipo[0]) . ' - ' . $this->documento;            
+        if (isset($tipo[0])) {
+            return strtoupper($tipo[0]) . ' - ' . $this->documento;
         }
         return $this->documento;
-        
     }
 
-    
     /**
      * Set email
      *
@@ -227,8 +235,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -239,8 +246,7 @@ class Persona
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -251,8 +257,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setTelefono($telefono)
-    {
+    public function setTelefono($telefono) {
         $this->telefono = $telefono;
 
         return $this;
@@ -263,8 +268,7 @@ class Persona
      *
      * @return string
      */
-    public function getTelefono()
-    {
+    public function getTelefono() {
         return $this->telefono;
     }
 
@@ -275,8 +279,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setCuil($cuil)
-    {
+    public function setCuil($cuil) {
         $this->cuil = $cuil;
 
         return $this;
@@ -287,8 +290,7 @@ class Persona
      *
      * @return string
      */
-    public function getCuil()
-    {
+    public function getCuil() {
         return $this->cuil;
     }
 
@@ -299,8 +301,7 @@ class Persona
      *
      * @return Persona
      */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
+    public function setFechaNacimiento($fechaNacimiento) {
         $this->fechaNacimiento = $fechaNacimiento;
 
         return $this;
@@ -311,8 +312,47 @@ class Persona
      *
      * @return \DateTime
      */
-    public function getFechaNacimiento()
-    {
+    public function getFechaNacimiento() {
         return $this->fechaNacimiento;
+    }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'tipoDocumento' => $this->tipoDocumento,
+            'documento' => $this->documento,
+            'apellidos' => $this->apellidos,
+            'nombres' => $this->nombres,
+            'genero' => $this->genero,
+            'telefono' => $this->telefono,
+            'cuil' => $this->cuil,
+            'email' => $this->email,
+            'fechaNacimiento' => $this->fechaNacimiento ? $this->fechaNacimiento->format('d/m/Y') : null,
+        );
+    }
+
+
+    /**
+     * Set genero
+     *
+     * @param integer $genero
+     *
+     * @return Persona
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return integer
+     */
+    public function getGenero()
+    {
+        return $this->genero;
     }
 }

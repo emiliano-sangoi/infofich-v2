@@ -1,0 +1,67 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}  
+            <a href="{{ path('docentes_adscriptos') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                 <i class="fa fa-plus"></i>
+                 Nuevo docente
+             </a>  #}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+
+        {% include 'DocentesBundle:adscriptos:form.html.twig' %}
+
+        {% embed '::botonera.html.twig' %}
+
+            {% block left %}
+                <button id="guardarCambios" class="btn btn-primary">
+                    Guardar cambios
+                </button>
+            {% endblock %}
+
+            {% block right %}
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar el docente <b>{{ docenteAdscripto.persona }}</b>?'/>
+                {{ form_end(delete_form) }}
+            {% endblock %}
+
+        {% endembed %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include 'DocentesBundle:adscriptos:ajax-buscar-persona.html.twig' %}
+
+    <script>
+        $(document).ready(function () {
+            $('#guardarCambios').click(function (e) {
+                e.preventDefault();
+                $("form[name='docentesbundle_docenteadscripto']").submit();
+            });
+        });
+    </script>
+
+
+{% endblock %}

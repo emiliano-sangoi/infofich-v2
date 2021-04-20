@@ -2,13 +2,19 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use AppBundle\Security\PlanificacionVoter;
 use AppBundle\Util\Texto;
+use Doctrine\ORM\QueryBuilder;
 use FICH\APIInfofich\Model\Carrera;
 use FICH\APIInfofich\Model\Materia;
 use PlanificacionesBundle\Entity\Estado;
+use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
+use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
+use PlanificacionesBundle\Form\BuscadorType;
+use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 class PlanificacionController extends Controller {
@@ -17,14 +23,15 @@ class PlanificacionController extends Controller {
     private $infofichService;
 
     public function indexAction(Request $request) {
-//dump($this->isGranted(Planificacion::PERMISO_LISTAR, array('data' => null)));exit;
+        
         $this->denyAccessUnlessGranted(Planificacion::PERMISO_LISTAR, array('data' => null));
 
-        $dql = "SELECT p FROM PlanificacionesBundle:Planificacion p";
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery($dql);
+        $form_filtros = $this->createForm(BuscadorType::class, null);
+        $form_filtros->handleRequest($request);
 
-        $form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
+        $query = $this->buildQuery($form_filtros);
+
+        // $form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
 
         $paginator = $this->get('knp_paginator');
         $paginado = $paginator->paginate(
@@ -39,10 +46,38 @@ class PlanificacionController extends Controller {
 
         return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
                     'page_title' => 'Planificaciones de grado',
-                    'form' => $form->createView(),
+                    'form' => $form_filtros->createView(),
                     'paginado' => $paginado,
                     'puede_crear' => $this->isGranted(Planificacion::PERMISO_CREAR, array('data' => null))
         ));
+    }
+
+    private function buildQuery(Form $form_filtros) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        /* @var $qb QueryBuilder */
+        $qb = $em->getRepository(Planificacion::class)->createQueryBuilder('p');
+
+        $anioAcad = $form_filtros->get('anioAcad')->getData();
+        if ($anioAcad) {
+            $qb->andWhere($qb->expr()->eq('p.anioAcad', ':anioAcad'));
+            $qb->setParameter(':anioAcad', $anioAcad);
+        }
+
+        $carrera = $form_filtros->get('carrera')->getData();
+        if ($carrera) {
+            $qb->andWhere($qb->expr()->eq('p.carrera', ':carrera'));
+            $qb->setParameter(':carrera', $carrera);
+        }
+
+        $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
+        if ($codigoAsignatura) {
+            $qb->andWhere($qb->expr()->eq('p.codigoAsignatura', ':codigoAsignatura'));
+            $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
+        }
+
+        return $qb->getQuery();
     }
 
     /**
@@ -55,7 +90,7 @@ class PlanificacionController extends Controller {
         $this->denyAccessUnlessGranted(Planificacion::PERMISO_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
-        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
+        $form = $this->createForm(PlanificacionType::class, $planificacion, array(
             'api_infofich_service' => $this->get('api_infofich_service')
         ));
 
@@ -73,7 +108,7 @@ class PlanificacionController extends Controller {
             $em->flush();
 
             //asignar estado:
-            $repoHistorico = $em->getRepository('\PlanificacionesBundle\Entity\HistoricoEstados');
+            $repoHistorico = $em->getRepository(HistoricoEstados::class);
             $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION);
 
             $this->addFlash('success', 'La planificacion fué creada correctamente.');
@@ -202,13 +237,14 @@ class PlanificacionController extends Controller {
         $this->resumen['docente_resp'] = null;
 
         if ($planificacion->getDocenteResponsable()) {
-            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getDocente()->getCodApeNom(true);
+            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getCodApeNom(true);
         }
 
         $this->resumen['docentes_colab'] = null;
         $i = 0;
+        /* @var $docente PlanificacionDocenteColaborador */
         foreach ($planificacion->getDocentesColaboradores() as $docente) {
-            $this->resumen['docentes_colab'][] = $docente->getDocente()->getCodApeNom(true);
+            $this->resumen['docentes_colab'][] = $docente->getDocenteGrado()->getCodApeNom(true);
             $i++;
         }
         $this->resumen['docentes_colab_count'] = $i;
@@ -216,11 +252,11 @@ class PlanificacionController extends Controller {
 
         $this->resumen['docentes_adscriptos'] = null;
         $i = 0;
-        //dump($planificacion->getDocentesAdscriptos()->toArray());exit;
+        /* @var $docente PlanificacionDocenteAdscripto */
         foreach ($planificacion->getDocentesAdscriptos() as $docente) {
-            $cod_ape_nom = $docente->getDocente()->getCodApeNom(true);
+            $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();
             // dump($cod_ape_nom, $docente->getDocente());exit;
-            $cod_ape_nom .= ' (Resolución N° ' . $docente->getResolucion() . ')';
+            $cod_ape_nom .= ' (Resolución N° ' . $docente->getDocenteAdscripto()->getResolucion() . ')';
             $this->resumen['docentes_adscriptos'][] = $cod_ape_nom;
             $i++;
         }

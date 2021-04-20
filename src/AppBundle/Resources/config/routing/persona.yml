@@ -1,0 +1,4 @@
+app_personas_get_por_documento:
+    path: /{tipo_doc}/{documento}
+    defaults: { _controller: "AppBundle:Persona:getPorDocumento" }
+    methods:  GET

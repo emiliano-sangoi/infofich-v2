@@ -9,6 +9,10 @@ app_roles:
 app_permisos:
     resource: "@AppBundle/Resources/config/routing/permiso.yml"
     prefix:   /permisos
+    
+app_personas:
+    resource: "@AppBundle/Resources/config/routing/persona.yml"
+    prefix:   /personas
 
     
 homepage:
