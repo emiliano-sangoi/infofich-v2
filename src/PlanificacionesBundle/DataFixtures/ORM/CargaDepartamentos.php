@@ -13,7 +13,10 @@ class CargaDepartamentos extends AbstractFixture implements FixtureInterface, Or
         'Medio Ambiente',
         'Informática',
         'Formación Complementaria',
-        'Estructuras'
+        'Estructuras',
+        'Hidrología',
+        'Hidráulica',
+        'Agrimensura y cartografia'
     );
 
     public function load(ObjectManager $manager) {

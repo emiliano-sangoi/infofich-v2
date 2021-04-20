@@ -17,7 +17,7 @@ class RequisitosAprobacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder->add('porcentajeAsistencia', 'AppBundle\Form\DatalistType', array(
-            'label' => 'Asistencia',   
+            'label' => 'Asistencia %',   
             'required' => true,
             'choices' => array(70, 75, 80, 85, 90, 95, 100),
             'attr' => array('class' => 'form-control')
