@@ -68,55 +68,9 @@ class PlanificacionDocentesType extends AbstractType {
                     ),                    
         ));
 
-//dump($this->getDocentes());exit;
-//        $builder
-//                ->add('docentesColaboradores', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
-//                    // each entry in the array will be an "email" field
-//                    'entry_type' => 'PlanificacionesBundle\Form\DocenteColaboradorPlanificacionType',
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'prototype' => true,
-//                    // para que se pueda persistir en cascada:
-//                    'by_reference' => false,
-//                    // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
-//                    'attr' => array(
-//                        'class' => 'docentes-colaboradores-selector',
-//                    ),
-//                    'entry_options' => array(
-//                        'label' => false,
-//                        'attr' => array('class' => 'bg-primary')
-//                    ),
-//                    'label' => false,
-//                    'label_attr' => array(
-//                        'class' => 'font-weight-bold',
-//                    ),
-//        ));
-//        $builder
-//                ->add('docentesAdscriptos', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
-//                    // each entry in the array will be an "email" field
-//                    'entry_type' => 'PlanificacionesBundle\Form\DocenteAdscriptoPlanificacionType',
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'prototype' => true,
-//                    // para que se pueda persistir en cascada:
-//                    'by_reference' => false,
-//                    // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
-//                    'attr' => array(
-//                        'class' => 'docentes-adscriptos-selector',
-//                    ),
-//                    'entry_options' => array(
-//                        'label' => false
-//                    ),
-//                    'label' => false,
-//                    'label_attr' => array(
-//                        'class' => 'font-weight-bold',
-//                    ),
-//        ));
-
         $submit_opt = array(
             'attr' => array(
                 'class' => 'btn btn-success text-color-white',
-            // 'onclick' => 'onGuardarCambiosDocentesClick(event);'
             ),
             'label' => 'Guardar'
         );
@@ -130,11 +84,11 @@ class PlanificacionDocentesType extends AbstractType {
                 ->add('docenteResponsable', EntityType::class, array(
                     'label' => 'Responsable',
                     'class' => DocenteGrado::class,
-                    'property' => 'descripcion',
+                    //'property' => 'descripcion',
                     //  'property' => 'descripcion',
                     'attr' => array(
                         'class' => 'form-control js-select2',
-                        'placeholder' => 'Apellido y Nombre / Nro. Legajo / Numero documento',
+                        'placeholder' => 'Apellido y Nombre',
 //                        'data-toggle' => "tooltip",
 //                        'data-placement' => "left",
 //                        'title' => "Tooltip on left"

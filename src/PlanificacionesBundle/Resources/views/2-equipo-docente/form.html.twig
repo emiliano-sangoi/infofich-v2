@@ -1,5 +1,6 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
+
 <div class="mb-5">
     <div class="row">
         <div class="col-12 col-md-3">
@@ -8,13 +9,15 @@
             </span>
         </div>
         <div class="col-12 col-md-9" id="docente_responsable">
-            {{ form_widget(form.docenteResponsable) }}
-            {{ form_errors(form.docenteResponsable) }}
-            <small id="docentes_docenteResponsable_help" class="form-text text-muted">Apellido y Nombre / Legajo / Nro. documento</small>
+            <div class="row">
+                <div class="col-7">
+                    {{ form_widget(form.docenteResponsable) }}
+                    {{ form_errors(form.docenteResponsable) }}            
+                </div>
+            </div>
         </div>
-             <hr/>
+        {#             <hr/>#}
     </div>
-
 </div>
 
 <div class="mb-5">
@@ -30,8 +33,8 @@
         </div>
     </div>
 </div>
-        
-        
+
+
 
 
 <div class="mb-5">

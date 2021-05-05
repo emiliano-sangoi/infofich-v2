@@ -54,7 +54,7 @@ class ResultadosAprendizajeController extends Controller {
         $this->setBreadcrumb($planificacion, 'Resultados de Aprendizaje', 
                 $this->get("router")->generate('planif_resultados_editar', array('id' => $planificacion->getId())));
 
-        return $this->render('PlanificacionesBundle:11-resultados-asignatura:edit.html.twig', array(
+        return $this->render('PlanificacionesBundle:4b-resultados-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $page_title,
                     'planificacion' => $planificacion
