@@ -112,7 +112,9 @@ class InfofichImportarUsuariosCommand extends ContainerAwareCommand {
 
     private function getUsuariosPrueba() {
         $usuarios = array();
-        
+                
+        // ================================================================
+        // Juan Jose Perez - Rol: DOCENTE DE GRADO
         $persona = new Persona();
         $persona->setApellidos('Perez');
         $persona->setNombres('Juan Jose');
@@ -129,6 +131,24 @@ class InfofichImportarUsuariosCommand extends ContainerAwareCommand {
         );
        
         $usuarios[] = $u1;
+        
+        // ================================================================
+        // Juan Jose Perez - Rol: SECRETARIA ACADEMICA
+        $persona2 = new Persona();
+        $persona2->setApellidos('Sanchez');
+        $persona2->setNombres('Maria');
+        $persona2->setDocumento(2111111112);
+        $persona2->setTipoDocumento(WSHelper::TIPO_DOC_DNI);
+        $persona2->setEmail('msanchez@mail.com');
+
+        $u2 = array(
+            'username' => 'sec_academica',
+            'persona' => $persona2,
+            'roles' => array(
+                Rol::ROLE_SEC_ACADEMICA
+            ),
+        );
+        $usuarios[] = $u2;
 
         return $usuarios;
     }
