@@ -3,9 +3,10 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Util\Texto;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\ResultadosAprendizajes;
+use PlanificacionesBundle\Form\ResultadosAprendizajeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class ResultadosAprendizajeController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\ResultadosAprendizajeType", $planificacion);
+        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -36,7 +37,7 @@ class ResultadosAprendizajeController extends Controller {
                 $em->flush();
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
                 //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+            } catch (ForeignKeyConstraintViolationException $ex) {
                 $msg = 'Los resultados definidos no pueden ser borrados porque estan siendo utilizados en otra sección.';
                 $this->addFlash('error', $msg);
                 //$form->addError(new \Symfony\Component\Form\FormError($msg));
@@ -75,7 +76,7 @@ class ResultadosAprendizajeController extends Controller {
         // VER:
         // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
         //Buscar los temarios de la base de datos
-        $resultadosOriginal = $em->getRepository('PlanificacionesBundle:ResultadosAprendizajes')
+        $resultadosOriginal = $em->getRepository(ResultadosAprendizajes::class)
                 ->findBy(array('planificacion' => $planificacion));
 
         foreach ($resultadosOriginal as $resultados) {

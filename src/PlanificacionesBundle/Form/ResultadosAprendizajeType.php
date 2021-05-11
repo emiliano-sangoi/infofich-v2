@@ -2,7 +2,10 @@
 
 namespace PlanificacionesBundle\Form;
 
+use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +16,9 @@ class ResultadosAprendizajeType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('resultados', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+        $builder->add('resultados', CollectionType::class, array(
             // each entry in the array will be an "email" field
-            'entry_type' => 'PlanificacionesBundle\Form\ResultadoType',
+            'entry_type' => ResultadoType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
@@ -40,7 +43,7 @@ class ResultadosAprendizajeType extends AbstractType {
         );
 
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
+        $builder->add('submit', SubmitType::class, $submit_opt);
 
 //        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
 //            'label' => 'Limpiar campos',
@@ -53,7 +56,7 @@ class ResultadosAprendizajeType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => Planificacion::class
         ));
     }
 
