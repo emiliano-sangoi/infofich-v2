@@ -4,6 +4,7 @@ namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\ResultadosAprendizajeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,8 @@ class ResultadosController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\ResultadosType", $planificacion);
+//        $form = $this->createForm("PlanificacionesBundle\Form\ResultadosType", $planificacion);
+        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
