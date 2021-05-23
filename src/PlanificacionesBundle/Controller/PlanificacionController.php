@@ -149,6 +149,7 @@ class PlanificacionController extends Controller {
 
         $this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
+        $this->addObjetivos($planificacion);
 
 
         // Breadcrumbs
@@ -263,6 +264,22 @@ class PlanificacionController extends Controller {
         $this->resumen['docentes_adscriptos_count'] = $i;
 
         //  dump($this->resumen);exit;
+    }
+
+    /**
+     * Funcion auxiliar que busca y valida los campos a mostrar en el resumen.
+     * Se encarga de asugar que los campos necesarios esten seteados, con valores o null en su defecto.
+     * Tambien les da el formato final a utilizar en la twig.
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addObjetivos(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['objetivosGral'] = null;
+        $this->resumen['objetivosEspecificos'] = null; 
+        
+        $this->resumen['objetivosGral'] = $planificacion->getObjetivosGral();
+        $this->resumen['objetivosEspecificos'] = $planificacion->getObjetivosEspecificos();
     }
 
 }
