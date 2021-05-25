@@ -151,6 +151,7 @@ class PlanificacionController extends Controller {
         $this->addDocentes($planificacion);
         $this->addRequisitos($planificacion);
         $this->addObjetivos($planificacion);
+        $this->addResultados($planificacion);
 
 
         // Breadcrumbs
@@ -284,10 +285,6 @@ class PlanificacionController extends Controller {
         $this->resumen['fechaRecupPrimerParcial'] =  $requisitos->getFechaRecupPrimerParcial();
         $this->resumen['fechaRecupSegundoParcial'] =  $requisitos->getFechaRecupSegundoParcial();
 
-
-        
-        
-
         if ($requisitos->getPrevePromParcialTeoria()){
             $this->resumen['prevePromParcialTeoria'] =  'Sí promociona la teoría';
         } else {
@@ -305,16 +302,12 @@ class PlanificacionController extends Controller {
         } else {
             $this->resumen['preveCfi'] =  'No';
         }
-        
-
-
         $this->resumen['modalidadCfi'] =  $requisitos->getModalidadCfi();
         $this->resumen['fechaParcailCfi'] =  $requisitos->getFechaParcailCfi();
         $this->resumen['fechaRecupCfi'] =  $requisitos->getFechaRecupCfi();
 
         $this->resumen['examenFinalModalidadRegulares'] =  $requisitos->getExamenFinalModalidadRegulares();
         $this->resumen['examenFinalModalidadLibres'] =  $requisitos->getExamenFinalModalidadLibres();
-
     }
 
     /**
@@ -328,6 +321,17 @@ class PlanificacionController extends Controller {
         
         $this->resumen['objetivosGral'] = $planificacion->getObjetivosGral();
         $this->resumen['objetivosEspecificos'] = $planificacion->getObjetivosEspecificos();
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addResultados(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['resultados'] = null;
+        $resultados =  $planificacion->getResultados();
+        $this->resumen['resultados'] = $resultados; 
     }
 
 }

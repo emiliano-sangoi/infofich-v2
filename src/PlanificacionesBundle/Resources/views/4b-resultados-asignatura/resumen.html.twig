@@ -1,0 +1,32 @@
+{# Utilizado en la sección revisar #}
+<div>
+    <div class="mb-4">        
+        <h4 class="font-weight-bold" id="resumen-resultados-asignatura">Resultados de la asignatura</h4>                    
+    </div>
+
+    <div class="row">        
+        <div class="col-sm-10">
+            <label class="font-weight-bold">Resultados</label>
+            {% if resumen.resultados is null %}
+                    <div class="text-danger">{{ global_sd }}</div>
+                {% else %}
+                    {% for r in resumen.resultados %}
+                        <p>                        
+                            {{ r }}
+                        </p>
+                    {% endfor %}
+                {% endif %}              
+        </div>       
+    </div>
+
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+            <a class="btn btn-outline-primary" href="{{ path('planif_resultados_editar', {id : planificacion.id}) }}">Modificar</a>
+            <hr class="mb-5 mt-4"/>
+        </div>
+    </div>
+
+
+    {#{{ dump(planificacion) }}#}
+</div>
