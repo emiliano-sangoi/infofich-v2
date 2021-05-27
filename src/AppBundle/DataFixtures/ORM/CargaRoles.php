@@ -3,6 +3,8 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Rol;
+use AppBundle\Repository\PermisoRepository;
+use AppBundle\Seguridad\Permisos;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -28,10 +30,37 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
         
         $manager->flush();
         
+        
+        //Cargar permisos ...
+
+        /* @var $repoPermiso PermisoRepository */
+        $repoPermiso = $manager->getRepository('AppBundle:Permiso');
+
+        $permisos = array(
+            Permisos::USUARIO_LISTAR,
+            Permisos::USUARIO_VER,
+            Permisos::USUARIO_CREAR,
+            Permisos::USUARIO_EDITAR,
+            Permisos::USUARIO_BORRAR,
+            Permisos::PLANIF_LISTAR,
+            Permisos::PLANIF_VER,
+            Permisos::PLANIF_CREAR,
+            Permisos::PLANIF_EDITAR,
+            Permisos::PLANIF_BORRAR,
+        );
+
+        foreach ($permisos as $codigo) {
+            $permiso = $repoPermiso->findOneByCodigo($codigo);
+            $rol->addPermiso($permiso);
+        }
+
+
+        $manager->flush();
+        
     }
 
     public function getOrder() {
-        return 1;
+        return 2;
     }
 
 }

@@ -23,19 +23,21 @@
             <div class="card-columns mt-4 mt-lg-5 mb-3">
 
                 {#  PLANIFICACIONES  ======================================================================================== #}
-                {% 
+                {% if app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::PLANIF_LISTAR')) %}
+                    {% 
                     set attrs = {
                         'title' : 'Planificaciones',
                         'descripcion' : 'Alta, bajas, modificaciones y busquedas de usuarios.',
                         'button_href' : path('planificaciones_homepage')
                     }
-                %}
-                {% embed 'AppBundle::modulo.html.twig' with attrs %}
-                    {% block icono %}
-                        <i class="fa fa-list fa-5x"></i>
-                    {% endblock %}
-                {% endembed %}
-                
+                    %}
+                    {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                        {% block icono %}
+                            <i class="fa fa-list fa-5x"></i>
+                        {% endblock %}
+                    {% endembed %}
+                {% endif %}
+
                 {#  DOCENTES ================================================================================================ #}
                 {% 
                     set attrs = {
@@ -52,26 +54,28 @@
 
 
                 {#  USUARIOS  ======================================================================================== #}
-                {% 
+                {% if app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::USUARIO_LISTAR')) %}
+                    {% 
                     set attrs = {
                         'title' : 'Usuarios',
                         'descripcion' : 'Alta, bajas, modificaciones y busquedas de usuarios.',
                         'button_href' : path('usuarios_index')
                     }
-                %}
-                {% embed 'AppBundle::modulo.html.twig' with attrs %}
-                    {% block icono %}
-                        <i class="fa fa-users fa-5x"></i>
-                    {% endblock %}
-                {% endembed %}  
+                    %}
+                    {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                        {% block icono %}
+                            <i class="fa fa-users fa-5x"></i>
+                        {% endblock %}
+                    {% endembed %}  
+                {% endif %}
 
+
+                {#
+                            </div>
                 
-
-            </div>
-
-
-            <div class="card-columns mb-3">
                 
+                            <div class="card-columns mb-3">#}
+
                 {#  ROLES Y PERMISOS ================================================================================= #}
                 {% 
                     set attrs = {
@@ -85,8 +89,8 @@
                         <i class="fa fa-key fa-5x"></i>
                     {% endblock %}
                 {% endembed %}   
-                
-                
+
+
             </div>
 
 

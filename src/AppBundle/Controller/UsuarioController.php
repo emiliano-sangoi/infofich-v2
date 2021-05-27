@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use AppBundle\Seguridad\Permisos;
+use DateTime;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -20,9 +22,10 @@ class UsuarioController extends Controller {
      *
      */
     public function indexAction(Request $request) {
-        //$em = $this->getDoctrine()->getManager();
-        // $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
 
+        if (!$this->getUser()->tienePermiso(Permisos::USUARIO_LISTAR)) {
+            throw $this->createAccessDeniedException("Acceso denegado");
+        }
 
         $dql = "SELECT u FROM AppBundle:Usuario u";
         $em = $this->getDoctrine()->getManager();
@@ -51,6 +54,11 @@ class UsuarioController extends Controller {
      *
      */
     public function newAction(Request $request) {
+
+        if (!$this->getUser()->tienePermiso(Permisos::USUARIO_CREAR)) {
+            throw $this->createAccessDeniedException("Acceso denegado");
+        }
+
         $usuario = new Usuario();
 
         $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
@@ -99,6 +107,10 @@ class UsuarioController extends Controller {
      *
      */
     public function showAction(Usuario $usuario) {
+        if (!$this->getUser()->tienePermiso(Permisos::USUARIO_VER)) {
+            throw $this->createAccessDeniedException("Acceso denegado");
+        }
+
         $deleteForm = $this->createDeleteForm($usuario);
 
         // Breadcrumbs
@@ -120,6 +132,10 @@ class UsuarioController extends Controller {
      *
      */
     public function editAction(Request $request, Usuario $usuario) {
+
+        if (!$this->getUser()->tienePermiso(Permisos::USUARIO_EDITAR)) {
+            throw $this->createAccessDeniedException("Acceso denegado");
+        }
 
         $deleteForm = $this->createDeleteForm($usuario);
         $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
@@ -173,6 +189,11 @@ class UsuarioController extends Controller {
      *
      */
     public function deleteAction(Request $request, Usuario $usuario) {
+
+        if (!$this->getUser()->tienePermiso(Permisos::USUARIO_BORRAR)) {
+            throw $this->createAccessDeniedException("Acceso denegado");
+        }
+
         $form = $this->createDeleteForm($usuario);
         $form->handleRequest($request);
 
@@ -183,18 +204,16 @@ class UsuarioController extends Controller {
             try {
                 $em->remove($usuario);
                 $em->flush();
-                              
+
                 $this->addFlash('success', 'El usuario fue dado de baja correctamente.');
-                
             } catch (UniqueConstraintViolationException $ex) {
 
                 //Si el usuario esta siendo utilizado por otra tabla, se lo da de baja logicamente:
-                $usuario->setFechaBaja(new \DateTime());
+                $usuario->setFechaBaja(new DateTime());
                 $em->flush();
-                
+
                 $this->addFlash('warning', 'El usuario fue dado de baja correctamente (baja lógica).');
             }
-                        
         }
 
         return $this->redirectToRoute('usuarios_index');

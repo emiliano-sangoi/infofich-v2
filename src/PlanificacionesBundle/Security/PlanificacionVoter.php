@@ -5,6 +5,7 @@
 namespace PlanificacionesBundle\Security;
 
 use AppBundle\Entity\Usuario;
+use AppBundle\Seguridad\Permisos;
 use LogicException;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -22,11 +23,11 @@ class PlanificacionVoter extends Voter {
     protected function supports($attribute, $subject) {
         
         $permisos_soportados = array(
-            Planificacion::PERMISO_LISTAR,
-            Planificacion::PERMISO_CREAR,
-            Planificacion::PERMISO_EDITAR,
-            Planificacion::PERMISO_BORRAR,
-            Planificacion::PERMISO_VER
+            Permisos::PLANIF_LISTAR,
+            Permisos::PLANIF_CREAR,
+            Permisos::PLANIF_EDITAR,
+            Permisos::PLANIF_BORRAR,
+            Permisos::PLANIF_VER
         );
        
         // if the attribute isn't one we support, return false
@@ -57,15 +58,15 @@ class PlanificacionVoter extends Voter {
         $planif = $subject['data'];
 
         switch ($attribute) {
-            case Planificacion::PERMISO_VER:
+            case Permisos::PLANIF_VER:
                 return $this->puedeVer($planif, $user);
-            case Planificacion::PERMISO_EDITAR:
+            case Permisos::PLANIF_EDITAR:
                 return $this->puedeEditar($planif, $user);
-            case Planificacion::PERMISO_CREAR:
+            case Permisos::PLANIF_CREAR:
                 return $this->puedeCrear($user);
-            case Planificacion::PERMISO_LISTAR:
+            case Permisos::PLANIF_LISTAR:
                 return $this->puedeListar($user);
-            case Planificacion::PERMISO_BORRAR:
+            case Permisos::PLANIF_BORRAR:
                 return $this->puedeBorrar($planif, $user);
         }
 
