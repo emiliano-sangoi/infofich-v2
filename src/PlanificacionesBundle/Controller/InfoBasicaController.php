@@ -4,10 +4,9 @@ namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InfoBasicaController extends Controller {
 
@@ -16,8 +15,8 @@ class InfoBasicaController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $api_infofich_service = $this->get('api_infofich_service');
-
-        $form = $this->createForm("PlanificacionesBundle\Form\PlanificacionType", $planificacion, array(
+        
+        $form = $this->createForm(PlanificacionType::class, $planificacion, array(
             'api_infofich_service' => $api_infofich_service,
         ));
 

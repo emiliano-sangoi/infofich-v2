@@ -386,6 +386,23 @@ class Planificacion {
         }
         return $res;
     }
+    
+    /**
+     * Devuelve el dueño de la planificacion o usuario que lo creo.
+     * 
+     * 
+     * @return \AppBundle\Entity\Usuario|null
+     */
+    public function getUsuarioCreador(){
+        $res = null;
+        foreach ($this->historicosEstado as $historico) {
+            if ($historico->getEstado()->getCodigo() == Estado::CREADA) {
+                $res = $historico->getUsuario();
+                break;
+            }
+        }
+        return $res;
+    }
 
     /**
      * Devuelve un texto indicando el estado actual
