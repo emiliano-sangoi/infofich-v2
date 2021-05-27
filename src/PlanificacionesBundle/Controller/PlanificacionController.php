@@ -157,6 +157,9 @@ class PlanificacionController extends Controller {
 
         $this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
+        $this->addRequisitos($planificacion);
+        $this->addObjetivos($planificacion);
+        $this->addResultados($planificacion);
 
 
         // Breadcrumbs
@@ -271,6 +274,72 @@ class PlanificacionController extends Controller {
         $this->resumen['docentes_adscriptos_count'] = $i;
 
         //  dump($this->resumen);exit;
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addRequisitos(Planificacion $planificacion) {
+        //ver esto con Emi
+        $requisitos = $planificacion->getRequisitosAprobacion();
+        //porcentaje de asistencia
+        $this->resumen['porcentajeAsistencia'] = null;
+        $this->resumen['porcentajeAsistencia'] = $requisitos->getPorcentajeAsistencia();
+        //parciales y recuperatorios
+        $this->resumen['fechaPrimerParcial'] =  $requisitos->getFechaPrimerParcial();
+        $this->resumen['fechaSegundoParcial'] =  $requisitos->getFechaSegundoParcial();
+
+        $this->resumen['fechaRecupPrimerParcial'] =  $requisitos->getFechaRecupPrimerParcial();
+        $this->resumen['fechaRecupSegundoParcial'] =  $requisitos->getFechaRecupSegundoParcial();
+
+        if ($requisitos->getPrevePromParcialTeoria()){
+            $this->resumen['prevePromParcialTeoria'] =  'Sí promociona la teoría';
+        } else {
+            $this->resumen['prevePromParcialTeoria'] =  'No promociona la teoría';
+        }
+
+        if ($requisitos->getPrevePromParcialPractica()){
+            $this->resumen['prevePromParcialPractica'] =  'Sí promociona la práctica';
+        } else {
+            $this->resumen['prevePromParcialPractica'] =  'No promociona la práctica';
+        }
+
+        if ($requisitos->getPreveCfi()){
+            $this->resumen['preveCfi'] =  'Sí';
+        } else {
+            $this->resumen['preveCfi'] =  'No';
+        }
+        $this->resumen['modalidadCfi'] =  $requisitos->getModalidadCfi();
+        $this->resumen['fechaParcailCfi'] =  $requisitos->getFechaParcailCfi();
+        $this->resumen['fechaRecupCfi'] =  $requisitos->getFechaRecupCfi();
+
+        $this->resumen['examenFinalModalidadRegulares'] =  $requisitos->getExamenFinalModalidadRegulares();
+        $this->resumen['examenFinalModalidadLibres'] =  $requisitos->getExamenFinalModalidadLibres();
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addObjetivos(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['objetivosGral'] = null;
+        $this->resumen['objetivosEspecificos'] = null; 
+        
+        $this->resumen['objetivosGral'] = $planificacion->getObjetivosGral();
+        $this->resumen['objetivosEspecificos'] = $planificacion->getObjetivosEspecificos();
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addResultados(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['resultados'] = null;
+        $resultados =  $planificacion->getResultados();
+        $this->resumen['resultados'] = $resultados; 
     }
 
 }

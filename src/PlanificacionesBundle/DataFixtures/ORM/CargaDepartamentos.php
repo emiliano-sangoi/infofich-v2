@@ -9,14 +9,14 @@ use PlanificacionesBundle\Entity\Docente;
 class CargaDepartamentos extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface {
 
     private $departamentos = array(
-        'Formación Básica',
-        'Medio Ambiente',
-        'Informática',
-        'Formación Complementaria',
+        'Agrimensura y cartografia',
         'Estructuras',
-        'Hidrología',
+        'Formación Básica',
+        'Formación Complementaria',
         'Hidráulica',
-        'Agrimensura y cartografia'
+        'Hidrología',
+        'Informática',
+        'Medio Ambiente',
     );
 
     public function load(ObjectManager $manager) {

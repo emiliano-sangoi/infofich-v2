@@ -4,17 +4,18 @@
     <h4>Requisitos para la aprobaci&oacute;n de la asignatura</h4>
 </div>
 
-
-<div class="form-row">
-    <div class="form-group offset-2 col-xs-12 col-sm-3">
-        {{ form_label(form.porcentajeAsistencia) }}
+<div class="row">
+    <div class="form-group col-sm-2 col-xs-12">
+        <label for="responsable">{{ form_label(form.porcentajeAsistencia) }}</label>
+    </div>
+    <div class="form-group col-sm-3 col-xs-12 ">     <!--form-group offset-2 col-xs-12 col-sm-3-->
         {{ form_widget(form.porcentajeAsistencia) }}
         {{ form_errors(form.porcentajeAsistencia) }}      
     </div>
 </div>
 
 <!-- Parciales -->
-<div class="form-row">
+<div class="row">
     <div class="form-group col-sm-2 col-xs-12">
         <label for="responsable">Parciales</label>
     </div>
@@ -31,7 +32,7 @@
 </div>
 
 <!-- Recuperatorios -->
-<div class="form-row">
+<div class="row">
     <div class="form-group col-sm-2 col-xs-12">
         <label for="responsable">Recupetarios</label>
     </div>
@@ -46,11 +47,11 @@
 
 </div>
 
-<div class="mb-4 mt-4">
+<div class="mb-2 mt-2">
     <h4>Requisitos para la promoción de la asignatura</h4>
 </div>
 
-<div class="form-row">
+<div class="row mb-2">
     <div class="form-group mb-0 offset-2 col-sm-3 col-xs-12">
         <label>¿Prevé promoción?</label>
         <div id="preveeProm" class="formato-inputs-groups">
@@ -70,7 +71,7 @@
 
 </div>
 
-<div class="form-row">
+<div class="row">
     <div class="offset-2 col-sm-4 col-xs-12 formato-inputs-groups ">
         {{ form_label(form.preveCfi) }}
         {{ form_widget(form.preveCfi) }}
@@ -79,7 +80,7 @@
 </div>
 
 <div class="preveCfiDiv {{  (planificacion.requisitosAprobacion is not null and planificacion.requisitosAprobacion.preveCfi) ? '' : 'd-none' }}">
-    <div class="form-row">
+    <div class="row mb-2">
         <div class="offset-2 col-sm-3 col-xs-12">
             {% from '::macros.html.twig' import input_datetime_picker %}     
             {{  input_datetime_picker(form.fechaParcailCfi, 'fecha_cfi_picker', true ) }}
@@ -89,7 +90,7 @@
             {{  input_datetime_picker(form.fechaRecupCfi, 'fecha_recup_cfi_picker', true ) }}
         </div>
     </div>
-    <div class="form-row">
+    <div class="row">
         <div class="offset-2 col-md-6 col-sm-6 col-xs-12">
             {{ form_label(form.modalidadCfi) }}
             {{ form_widget(form.modalidadCfi) }}
@@ -98,21 +99,21 @@
     </div>
 </div>
 
-<div class="mb-4">
+<div class="mb-2">
     <h4> Exámen final</h4>
 </div>
 
-<div class="form-row">
-    <div class="form-group offset-2 col-sm-6 col-xs-12">
+<div class="row">
+    <div class="form-group offset-2 col-sm-6 col-xs-12">   
         {{ form_label(form.examenFinalModalidadRegulares) }}
         {{ form_widget(form.examenFinalModalidadRegulares) }}
         {{ form_errors(form.examenFinalModalidadRegulares) }}  
     </div>
 </div>    
 
-<div class="form-row">
-    <div class="form-group  offset-2 col-sm-6 col-xs-12">
-        {{ form_label(form.examenFinalModalidadLibres) }}
+<div class="row">
+ <div class="form-group offset-2 col-sm-6 col-xs-12">
+        {{ form_label(form.examenFinalModalidadLibres) }}      
         {{ form_widget(form.examenFinalModalidadLibres) }}
         {{ form_errors(form.examenFinalModalidadLibres) }}  
     </div>
@@ -123,7 +124,7 @@
     <div class="col-xs-12 col-sm-4">
         {{ form_widget(form.submit) }}
     </div>
-    <div class="col-xs-12 offset-4 col-sm-4 text-right">
+    <div class="col-xs-12  col-sm-4 text-right">
         {{ form_widget(form.reset) }}
     </div>
 </div>
