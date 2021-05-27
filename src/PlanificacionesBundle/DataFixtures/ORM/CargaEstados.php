@@ -15,6 +15,12 @@ class CargaEstados extends AbstractFixture implements FixtureInterface, OrderedF
         // cargar estados de la planificacion ...
         
         $e = new Estado();
+        $e->setCodigo(Estado::CREADA);
+        $e->setNombre(Estado::getNombrePorCod(Estado::CREADA));
+        $e->setDescripcion(null);
+        $manager->persist($e);
+        
+        $e = new Estado();
         $e->setCodigo(Estado::PREPARACION);
         $e->setNombre(Estado::getNombrePorCod(Estado::PREPARACION));
         $e->setDescripcion(null);

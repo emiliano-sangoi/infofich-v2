@@ -64,7 +64,7 @@ class HistoricoEstados
      * @var AppBundle\Entity\Usuario
      * 
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=true)
      */
     private $usuario;
     

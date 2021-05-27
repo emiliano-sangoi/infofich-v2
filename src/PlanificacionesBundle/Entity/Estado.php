@@ -12,10 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Estado {
 
-    const PREPARACION = 1;
-    const REVISION = 2;
-    const CORRECCION = 3;
-    const PUBLICADA = 4;
+    const CREADA = 1;
+    const PREPARACION = 2;
+    const REVISION = 3;
+    const CORRECCION = 4;
+    const PUBLICADA = 5;
 
     /**
      * @var int
@@ -64,6 +65,7 @@ class Estado {
      */
     public static function isValido($cod) {
         return in_array($cod, array(
+            self::CREADA,
             self::PREPARACION,
             self::REVISION,
             self::CORRECCION,
@@ -73,6 +75,8 @@ class Estado {
 
     public static function getNombrePorCod($cod) {
         switch ($cod) {
+            case self::CREADA:
+                return 'Creada';
             case self::PREPARACION:
                 return 'En preparación';
             case self::REVISION:

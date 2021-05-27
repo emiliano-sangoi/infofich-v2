@@ -43,6 +43,7 @@ twig:
     globals:
         global_sd: 'Sin definir'
         full_width: false
+        vacio: '-'
 
 # Doctrine Configuration
 doctrine:

@@ -24,7 +24,13 @@
                             {% endif %}                                                                                                       
                             {{ hist.estado.nombre }}
                         </td>
-                        <td class="text-muted"> (Usuario que asigno el estado) </td>                            
+                        <td class="text-muted">
+                            {% if hist.usuario %}
+                                {{ hist.usuario.username }} / {{ hist.usuario.persona.getApeNom() }}
+                            {% else %}
+                                {{ vacio }}
+                            {% endif %}
+                        </td>                            
                     </tr>
                 {% endfor %}
             </tbody>

@@ -13,6 +13,7 @@ use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
 use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Form\BuscadorType;
 use PlanificacionesBundle\Form\PlanificacionType;
+use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,6 +83,7 @@ class PlanificacionController extends Controller {
 
     /**
      * 
+     * 
      * @param Request $request
      * @return type
      */
@@ -107,9 +109,15 @@ class PlanificacionController extends Controller {
             $em->persist($planificacion);
             $em->flush();
 
-            //asignar estado:
+            //asignar estado: creada + en preparacion
+            //---------------------------------------------------------------------------
+            /*@var $repoHistorico HistoricoEstadosRepository*/
             $repoHistorico = $em->getRepository(HistoricoEstados::class);
-            $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION);
+                        
+            $usuario = $this->getUser();
+            $repoHistorico->setEstadoCreada($planificacion, $usuario);
+            $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION, null);
+            //---------------------------------------------------------------------------
 
             $this->addFlash('success', 'La planificacion fué creada correctamente.');
 
