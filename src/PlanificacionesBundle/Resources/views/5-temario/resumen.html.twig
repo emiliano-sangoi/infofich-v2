@@ -1,16 +1,16 @@
 {# Utilizado en la sección revisar #}
 <div>
     <div class="mb-4">        
-        <h4 class="font-weight-bold" id="resumen-resultados-asignatura">Resultados de la asignatura</h4>                    
+        <h4 class="font-weight-bold" id="resumen-temario">Temario</h4>                    
     </div>
 
     <div class="row">        
         <div class="col-sm-10">
-            {#<label class="font-weight-bold">Resultados</label>#}
-            {% if resumen.resultados is null %}
+             {#<label class="font-weight-bold">Temario</label>#}
+            {% if resumen.temario is null %}
                     <div class="text-danger">{{ global_sd }}</div>
                 {% else %}
-                    {% for r in resumen.resultados %}
+                    {% for r in resumen.temario %}
                         <p>                        
                             {{ r }}
                         </p>
@@ -26,4 +26,5 @@
             <hr class="mb-5 mt-4"/>
         </div>
     </div>
+
 </div>

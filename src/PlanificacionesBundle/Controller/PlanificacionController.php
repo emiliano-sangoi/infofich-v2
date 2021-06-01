@@ -160,6 +160,8 @@ class PlanificacionController extends Controller {
         $this->addRequisitos($planificacion);
         $this->addObjetivos($planificacion);
         $this->addResultados($planificacion);
+        $this->addTemario($planificacion);
+        
 
 
         // Breadcrumbs
@@ -340,6 +342,17 @@ class PlanificacionController extends Controller {
         $this->resumen['resultados'] = null;
         $resultados =  $planificacion->getResultados();
         $this->resumen['resultados'] = $resultados; 
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addTemario(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['temario'] = null;
+        $temario =  $planificacion->getTemario();
+        $this->resumen['temario'] = $temario; 
     }
 
 }
