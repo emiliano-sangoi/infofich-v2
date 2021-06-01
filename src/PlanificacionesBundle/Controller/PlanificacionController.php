@@ -25,7 +25,7 @@ class PlanificacionController extends Controller {
 
     public function indexAction(Request $request) {
         
-        $this->denyAccessUnlessGranted(Planificacion::PERMISO_LISTAR, array('data' => null));
+        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_LISTAR , array('data' => null));
 
         $form_filtros = $this->createForm(BuscadorType::class, null);
         $form_filtros->handleRequest($request);
@@ -49,7 +49,7 @@ class PlanificacionController extends Controller {
                     'page_title' => 'Planificaciones de grado',
                     'form' => $form_filtros->createView(),
                     'paginado' => $paginado,
-                    'puede_crear' => $this->isGranted(Planificacion::PERMISO_CREAR, array('data' => null))
+                    'puede_crear' => $this->isGranted(\AppBundle\Seguridad\Permisos::PLANIF_CREAR, array('data' => null))
         ));
     }
 
@@ -89,7 +89,7 @@ class PlanificacionController extends Controller {
      */
     public function newAction(Request $request) {
 
-        $this->denyAccessUnlessGranted(Planificacion::PERMISO_CREAR, array('data' => null));
+        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
         $form = $this->createForm(PlanificacionType::class, $planificacion, array(
