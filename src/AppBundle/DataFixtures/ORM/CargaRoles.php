@@ -47,6 +47,16 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
             Permisos::PLANIF_CREAR,
             Permisos::PLANIF_EDITAR,
             Permisos::PLANIF_BORRAR,
+            Permisos::ROL_LISTAR,
+            Permisos::ROL_BORRAR,
+            Permisos::ROL_CREAR,
+            Permisos::ROL_EDITAR,
+            Permisos::ROL_VER,
+            Permisos::PERMISO_LISTAR,
+            Permisos::PERMISO_VER,
+            Permisos::PERMISO_CREAR,
+            Permisos::PERMISO_EDITAR,
+            Permisos::PERMISO_BORRAR,
         );
 
         foreach ($permisos as $codigo) {

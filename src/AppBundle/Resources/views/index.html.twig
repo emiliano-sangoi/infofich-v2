@@ -19,11 +19,24 @@
         {#            {% include '::sidebar.html.twig' %}#}
 
 
-        <div class="">
-            <div class="card-columns mt-4 mt-lg-5 mb-3">
+        <div class="mt-2 mt-lg-3">
+
+            <div class="input-group input-group-lg shadow">
+                <input type="text" id="inputBuscarModulo" class="form-control" placeholder="Ingrese el nombre del módulo o alguna palabra clave" aria-label="Nombre del modulo" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="btnReset" class="btn btn-secondary" type="button">
+                        Reiniciar
+                    </button>
+                </div>
+            </div>
+
+
+
+
+            <div class="card-columns mt-3 mt-lg-4 mb-3 modulos">
 
                 {#  PLANIFICACIONES  ======================================================================================== #}
-                {% if app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::PLANIF_LISTAR')) %}
+                {% if perm_planif_listar %}
                     {% 
                     set attrs = {
                         'title' : 'Planificaciones',
@@ -54,7 +67,7 @@
 
 
                 {#  USUARIOS  ======================================================================================== #}
-                {% if app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::USUARIO_LISTAR')) %}
+                {% if perm_usuario_listar %}
                     {% 
                     set attrs = {
                         'title' : 'Usuarios',
@@ -69,27 +82,37 @@
                     {% endembed %}  
                 {% endif %}
 
-
-                {#
-                            </div>
-                
-                
-                            <div class="card-columns mb-3">#}
-
-                {#  ROLES Y PERMISOS ================================================================================= #}
-                {% 
+                {#  ROLES ================================================================================= #}
+                {% if perm_rol_listar %}
+                    {% 
                     set attrs = {
-                        'title' : 'Roles y permisos',
-                        'descripcion' : 'Alta, bajas, modificaciones y busquedas roles y permisos.',
+                        'title' : 'Roles',
+                        'descripcion' : 'Alta, bajas, modificaciones y busquedas roles.',
                         'button_href' : null
                     }
-                %}
-                {% embed 'AppBundle::modulo.html.twig' with attrs %}
-                    {% block icono %}
-                        <i class="fa fa-key fa-5x"></i>
-                    {% endblock %}
-                {% endembed %}   
+                    %}
+                    {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                        {% block icono %}
+                            <i class="fa fa-user-shield fa-5x"></i>
+                        {% endblock %}
+                    {% endembed %}   
+                {% endif %}
 
+                {#  PERMISOS ================================================================================= #}
+                {% if perm_permiso_listar %}
+                    {% 
+                    set attrs = {
+                        'title' : 'Permisos',
+                        'descripcion' : 'Alta, bajas, modificaciones y busquedas permisos.',
+                        'button_href' : path('permisos_index')
+                    }
+                    %}
+                    {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                        {% block icono %}
+                            <i class="fa fa-key fa-5x"></i>
+                        {% endblock %}
+                    {% endembed %}   
+                {% endif %}
 
             </div>
 
@@ -119,4 +142,33 @@
 
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+            var inputBuscar = $("#inputBuscarModulo");
+
+            inputBuscar.on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $(".modulos .card").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            $("#btnReset").click(function (e) {
+                e.preventDefault();
+                inputBuscar.val('');
+                inputBuscar.trigger("keyup");
+            });
+
+
+        });
+    </script>
+
+
 {% endblock %}

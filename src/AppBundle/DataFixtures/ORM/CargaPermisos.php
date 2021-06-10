@@ -33,6 +33,8 @@ class CargaPermisos extends AbstractFixture implements FixtureInterface, Ordered
 
     private function cargarPermisos(ObjectManager $manager) {
         
+        // LISTAR =========================================================================
+        
         $this->permisos[Permisos::PLANIF_LISTAR ] = array(
             'titulo' => 'Permite listar las planificaciones.',
             'desc' => 'Dependeniendo del ROL, se listaran todas las planificaciones o solo algunas.',
@@ -58,6 +60,7 @@ class CargaPermisos extends AbstractFixture implements FixtureInterface, Ordered
             'desc' => null,
         );
         
+        // USUARIOS =========================================================================
         
         $this->permisos[ Permisos::USUARIO_LISTAR ] = array(
             'titulo' => 'Permite ver todos los usuarios existentes.',
@@ -83,7 +86,60 @@ class CargaPermisos extends AbstractFixture implements FixtureInterface, Ordered
             'titulo' => 'Borrar o baja logica del usuario.',
             'desc' => null,
         );
+        
+        // ROLES =========================================================================
+        
+        $this->permisos[ Permisos::ROL_BORRAR ] = array(
+            'titulo' => 'Baja de rol.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::ROL_LISTAR ] = array(
+            'titulo' => 'Consultar y/o buscar roles existentes.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::ROL_EDITAR ] = array(
+            'titulo' => 'Modificar datos de un rol.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::ROL_CREAR ] = array(
+            'titulo' => 'Alta de nuevo rol.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::ROL_VER ] = array(
+            'titulo' => 'Consultar informacion de un rol.',
+            'desc' => null,
+        );
+        
+        // PERMISOS =========================================================================
 
+        $this->permisos[ Permisos::PERMISO_BORRAR ] = array(
+            'titulo' => 'Baja de permiso.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::PERMISO_LISTAR ] = array(
+            'titulo' => 'Consultar y/o buscar permisos existentes.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::PERMISO_EDITAR ] = array(
+            'titulo' => 'Modificar datos de un permiso.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::PERMISO_CREAR ] = array(
+            'titulo' => 'Alta de nuevo permiso.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::PERMISO_VER ] = array(
+            'titulo' => 'Consultar informacion de un permiso.',
+            'desc' => null,
+        );
 
         // Agregar aca todos los permisos existentes ...
     }

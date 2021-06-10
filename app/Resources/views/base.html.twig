@@ -1,3 +1,10 @@
+{% if app.user %}
+    {% set perm_usuario_listar = app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::USUARIO_LISTAR')) %}
+    {% set perm_planif_listar = app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::PLANIF_LISTAR')) %}
+    {% set perm_rol_listar = app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::ROL_LISTAR')) %}
+    {% set perm_permiso_listar = app.user.tienePermiso(constant('\\AppBundle\\Seguridad\\Permisos::PERMISO_LISTAR')) %}
+{% endif %}
+
 <!doctype html>
 <html lang="es">
     <head>
@@ -16,7 +23,7 @@
 
             {#Estilo personalizado#}
             <link href="{{ asset('bundles/app/css/styles.css') }}" rel="stylesheet" type="text/css">
-            
+
             <!-- Select 2 -->
             <link href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet"/>
             {# Tema para bootstrap 4
@@ -48,10 +55,13 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
+
     <body id="page-top">
 
         {% block navbar %}
-            {% include 'navbar.html.twig' %}         
+            {% if app.user %}
+                {% include 'navbar.html.twig' %} 
+            {% endif %}
         {% endblock %}   
 
         {% block navbar2 %}            
@@ -255,7 +265,7 @@
         $('.confirmar-borrado').click(function (event) {
             event.preventDefault();
             var element = $(event.target);
-            
+
             var msg = element.data('msg');
             if (typeof msg === 'undefined') {
                 msg = '¿Esta seguro que desea borrar este registro?';
@@ -274,12 +284,12 @@
                         className: 'btn-danger'
                     }
                 },
-                callback: function (result) {                    
-                    if(result){                        
+                callback: function (result) {
+                    if (result) {
                         var form = element.closest('form');
                         form.submit();
                     }
-                                              
+
                 }
             });
 
@@ -302,17 +312,17 @@
             format: 'L'
         });
 
-        {#$('.confirmar-borrado').on('click', function (event) {
-            var x = confirm("¿Esta seguro que desea borrar este registro?");
-            if (x)
-                return true;
-            else
-                return false;
-        });#}
+            {#$('.confirmar-borrado').on('click', function (event) {
+                var x = confirm("¿Esta seguro que desea borrar este registro?");
+                if (x)
+                    return true;
+                else
+                    return false;
+            });#}
 
 
 
-    });
+                });
 
 
 

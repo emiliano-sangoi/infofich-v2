@@ -58,22 +58,32 @@
 
                 <a class="dropdown-item" href="{{ path('docentes_index') }}">                    
                     Docentes
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('usuarios_index') }}">
-                    {#                    <i class="fas fa-users fa-sm fa-fw text-gray-400"></i>#}
-                    Usuarios
-                </a>
+                </a>                
 
-                <a class="dropdown-item" href="{{ path('rol_index') }}">
-                    {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
-                    Roles
-                </a>
+                {% if perm_usuario_listar or perm_rol_listar or perm_permiso_listar  %}
+                    <div class="dropdown-divider"></div>
+                {% endif %}
 
-                <a class="dropdown-item" href="{{ path('permisos_index') }}">
-                    {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
-                    Permisos
-                </a>
+                {% if perm_usuario_listar %}
+                    <a class="dropdown-item" href="{{ path('usuarios_index') }}">
+                        {#                    <i class="fas fa-users fa-sm fa-fw text-gray-400"></i>#}
+                        Usuarios
+                    </a>
+                {% endif %}
+
+                {% if perm_rol_listar %}
+                    <a class="dropdown-item" href="{{ path('rol_index') }}">
+                        {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
+                        Roles
+                    </a>
+                {% endif %}
+
+                {% if perm_permiso_listar %}
+                    <a class="dropdown-item" href="{{ path('permisos_index') }}">
+                        {#                    <i class="fas fa-key fa-sm fa-fw text-gray-400"></i>#}
+                        Permisos
+                    </a>
+                {% endif %}
             </div>
         </li>
     </ul>
