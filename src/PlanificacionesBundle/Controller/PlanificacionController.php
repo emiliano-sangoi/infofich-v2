@@ -161,6 +161,9 @@ class PlanificacionController extends Controller {
         $this->addObjetivos($planificacion);
         $this->addResultados($planificacion);
         $this->addTemario($planificacion);
+        $this->addBibliografia($planificacion);
+        $this->addCronograma($planificacion);
+        $this->addDistribucion($planificacion);
         
 
 
@@ -353,6 +356,39 @@ class PlanificacionController extends Controller {
         $this->resumen['temario'] = null;
         $temario =  $planificacion->getTemario();
         $this->resumen['temario'] = $temario; 
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addBibliografia(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['bibliografia'] = null;
+        $bibliografia =  $planificacion->getBibliografiasPlanificacion();
+        $this->resumen['bibliografia'] = $bibliografia; 
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addCronograma(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['cronograma'] = null;
+        $cronograma =  $planificacion->getActividadCurricular();
+        $this->resumen['cronograma'] = $cronograma; 
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addDistribucion(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['distribucion'] = null;
+        $distribucion =  $planificacion->getCargaHoraria();
+        $this->resumen['distribucion'] = $distribucion; 
     }
 
 }

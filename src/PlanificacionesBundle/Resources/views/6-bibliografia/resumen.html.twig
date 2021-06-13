@@ -10,9 +10,11 @@
             {% if resumen.temario is null %}
                     <div class="text-danger">{{ global_sd }}</div>
                 {% else %}
-                    {% for r in resumen.temario %}
-                        <p>                        
-                            {{ r }}
+                    {% for b in resumen.bibliografia %}
+                        <p> 
+                            {{ b.bibliografia}} -                       
+                            {{ b.tipoBibliografia}} - 
+                            {#{ b.autores}#} -
                         </p>
                     {% endfor %}
                 {% endif %}              
