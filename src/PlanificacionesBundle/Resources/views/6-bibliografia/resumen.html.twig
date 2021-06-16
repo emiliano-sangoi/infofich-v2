@@ -14,7 +14,15 @@
                         <p> 
                             {{ b.bibliografia}} -                       
                             {{ b.tipoBibliografia}} - 
-                            {#{ b.autores}#} -
+                            {{ b.bibliografia.autores}} -
+                            {{ b.bibliografia.editorial}} 
+                            {{ b.bibliografia.anioEdicion}} -
+                            {{ b.bibliografia.nroEdicion}} -
+                            {{ b.bibliografia.issnIsbn}} -
+                            {{ b.bibliografia.disponibleBiblioteca}} -
+                            {{ b.bibliografia.disponibleOnline}} -
+                            {{ b.bibliografia.fechaConsultaOnline}} -
+                            {{ b.bibliografia.enlaceOnline}} 
                         </p>
                     {% endfor %}
                 {% endif %}              

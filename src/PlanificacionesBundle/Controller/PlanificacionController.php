@@ -157,9 +157,17 @@ class PlanificacionController extends Controller {
 
         $this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
-        $this->addRequisitos($planificacion);
+        // validación datos cargados
+        $requisitos = $planificacion->getRequisitosAprobacion();
+        
+        if (isset($requisitos)){
+            $this->addRequisitos($planificacion);
+        }else {
+            $this->resumen['ver_requisitos'] = 0;
+        }
         $this->addObjetivos($planificacion);
         $this->addResultados($planificacion);
+       
         $this->addTemario($planificacion);
         $this->addBibliografia($planificacion);
         $this->addCronograma($planificacion);
@@ -288,6 +296,7 @@ class PlanificacionController extends Controller {
     private function addRequisitos(Planificacion $planificacion) {
         //ver esto con Emi
         $requisitos = $planificacion->getRequisitosAprobacion();
+        dump($requisitos); exit;
         //porcentaje de asistencia
         $this->resumen['porcentajeAsistencia'] = null;
         $this->resumen['porcentajeAsistencia'] = $requisitos->getPorcentajeAsistencia();
@@ -366,6 +375,7 @@ class PlanificacionController extends Controller {
         //ver esto con Emi
         $this->resumen['bibliografia'] = null;
         $bibliografia =  $planificacion->getBibliografiasPlanificacion();
+        //dump($bibliografia);
         $this->resumen['bibliografia'] = $bibliografia; 
     }
 
