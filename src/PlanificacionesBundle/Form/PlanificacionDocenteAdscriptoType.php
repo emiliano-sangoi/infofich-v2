@@ -27,6 +27,9 @@ class PlanificacionDocenteAdscriptoType extends AbstractType {
             ),
             'label_attr' => array(
                 'class' => 'font-weight-bold',
+            ),
+            'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
             )
         ));
 

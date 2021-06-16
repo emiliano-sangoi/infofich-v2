@@ -24,8 +24,8 @@ class PlanificacionController extends Controller {
     private $infofichService;
 
     public function indexAction(Request $request) {
-        
-        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_LISTAR , array('data' => null));
+
+        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_LISTAR, array('data' => null));
 
         $form_filtros = $this->createForm(BuscadorType::class, null);
         $form_filtros->handleRequest($request);
@@ -111,9 +111,9 @@ class PlanificacionController extends Controller {
 
             //asignar estado: creada + en preparacion
             //---------------------------------------------------------------------------
-            /*@var $repoHistorico HistoricoEstadosRepository*/
+            /* @var $repoHistorico HistoricoEstadosRepository */
             $repoHistorico = $em->getRepository(HistoricoEstados::class);
-                        
+
             $usuario = $this->getUser();
             $repoHistorico->setEstadoCreada($planificacion, $usuario);
             $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION, null);
@@ -159,20 +159,20 @@ class PlanificacionController extends Controller {
         $this->addDocentes($planificacion);
         // validación datos cargados
         $requisitos = $planificacion->getRequisitosAprobacion();
-        
-        if (isset($requisitos)){
+
+        if (isset($requisitos)) {
             $this->addRequisitos($planificacion);
-        }else {
+        } else {
             $this->resumen['ver_requisitos'] = 0;
         }
         $this->addObjetivos($planificacion);
         $this->addResultados($planificacion);
-       
+
         $this->addTemario($planificacion);
         $this->addBibliografia($planificacion);
         $this->addCronograma($planificacion);
         $this->addDistribucion($planificacion);
-        
+
 
 
         // Breadcrumbs
@@ -294,42 +294,57 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addRequisitos(Planificacion $planificacion) {
-        //ver esto con Emi
+
         $requisitos = $planificacion->getRequisitosAprobacion();
-        dump($requisitos); exit;
-        //porcentaje de asistencia
+
         $this->resumen['porcentajeAsistencia'] = null;
-        $this->resumen['porcentajeAsistencia'] = $requisitos->getPorcentajeAsistencia();
-        //parciales y recuperatorios
-        $this->resumen['fechaPrimerParcial'] =  $requisitos->getFechaPrimerParcial();
-        $this->resumen['fechaSegundoParcial'] =  $requisitos->getFechaSegundoParcial();
+        $this->resumen['fechaPrimerParcial'] = null;
+        $this->resumen['fechaSegundoParcial'] = null;
+        $this->resumen['fechaRecupPrimerParcial'] = null;
+        $this->resumen['fechaRecupSegundoParcial'] = null;
+        $this->resumen['prevePromParcialTeoria'] = null;
+        $this->resumen['prevePromParcialPractica'] = null;
+        $this->resumen['preveCfi'] = null;
+        $this->resumen['modalidadCfi'] = null;
+        $this->resumen['fechaParcialCfi'] = null;
+        $this->resumen['fechaRecupCfi'] = null;
+        $this->resumen['examenFinalModalidadRegulares'] = null;
+        $this->resumen['examenFinalModalidadLibres'] = null;
 
-        $this->resumen['fechaRecupPrimerParcial'] =  $requisitos->getFechaRecupPrimerParcial();
-        $this->resumen['fechaRecupSegundoParcial'] =  $requisitos->getFechaRecupSegundoParcial();
+        if ($requisitos) {
+            $this->resumen['porcentajeAsistencia'] = $requisitos->getPorcentajeAsistencia();
+            //parciales y recuperatorios
+            $this->resumen['fechaPrimerParcial'] = $requisitos->getFechaPrimerParcial();
+            $this->resumen['fechaSegundoParcial'] = $requisitos->getFechaSegundoParcial();
 
-        if ($requisitos->getPrevePromParcialTeoria()){
-            $this->resumen['prevePromParcialTeoria'] =  'Sí promociona la teoría';
-        } else {
-            $this->resumen['prevePromParcialTeoria'] =  'No promociona la teoría';
+            $this->resumen['fechaRecupPrimerParcial'] = $requisitos->getFechaRecupPrimerParcial();
+            $this->resumen['fechaRecupSegundoParcial'] = $requisitos->getFechaRecupSegundoParcial();
+
+            if ($requisitos->getPrevePromParcialTeoria()) {
+                $this->resumen['prevePromParcialTeoria'] = 'Sí promociona la teoría';
+            } else {
+                $this->resumen['prevePromParcialTeoria'] = 'No promociona la teoría';
+            }
+
+            if ($requisitos->getPrevePromParcialPractica()) {
+                $this->resumen['prevePromParcialPractica'] = 'Sí promociona la práctica';
+            } else {
+                $this->resumen['prevePromParcialPractica'] = 'No promociona la práctica';
+            }
+
+            if ($requisitos->getPreveCfi()) {
+                $this->resumen['preveCfi'] = 'Sí';
+            } else {
+                $this->resumen['preveCfi'] = 'No';
+            }
+
+            $this->resumen['modalidadCfi'] = $requisitos->getModalidadCfi();
+            $this->resumen['fechaParcialCfi'] = $requisitos->getFechaParcailCfi();
+            $this->resumen['fechaRecupCfi'] = $requisitos->getFechaRecupCfi();
+
+            $this->resumen['examenFinalModalidadRegulares'] = $requisitos->getExamenFinalModalidadRegulares();
+            $this->resumen['examenFinalModalidadLibres'] = $requisitos->getExamenFinalModalidadLibres();
         }
-
-        if ($requisitos->getPrevePromParcialPractica()){
-            $this->resumen['prevePromParcialPractica'] =  'Sí promociona la práctica';
-        } else {
-            $this->resumen['prevePromParcialPractica'] =  'No promociona la práctica';
-        }
-
-        if ($requisitos->getPreveCfi()){
-            $this->resumen['preveCfi'] =  'Sí';
-        } else {
-            $this->resumen['preveCfi'] =  'No';
-        }
-        $this->resumen['modalidadCfi'] =  $requisitos->getModalidadCfi();
-        $this->resumen['fechaParcailCfi'] =  $requisitos->getFechaParcailCfi();
-        $this->resumen['fechaRecupCfi'] =  $requisitos->getFechaRecupCfi();
-
-        $this->resumen['examenFinalModalidadRegulares'] =  $requisitos->getExamenFinalModalidadRegulares();
-        $this->resumen['examenFinalModalidadLibres'] =  $requisitos->getExamenFinalModalidadLibres();
     }
 
     /**
@@ -339,8 +354,8 @@ class PlanificacionController extends Controller {
     private function addObjetivos(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['objetivosGral'] = null;
-        $this->resumen['objetivosEspecificos'] = null; 
-        
+        $this->resumen['objetivosEspecificos'] = null;
+
         $this->resumen['objetivosGral'] = $planificacion->getObjetivosGral();
         $this->resumen['objetivosEspecificos'] = $planificacion->getObjetivosEspecificos();
     }
@@ -352,8 +367,8 @@ class PlanificacionController extends Controller {
     private function addResultados(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['resultados'] = null;
-        $resultados =  $planificacion->getResultados();
-        $this->resumen['resultados'] = $resultados; 
+        $resultados = $planificacion->getResultados();
+        $this->resumen['resultados'] = $resultados;
     }
 
     /**
@@ -363,8 +378,8 @@ class PlanificacionController extends Controller {
     private function addTemario(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['temario'] = null;
-        $temario =  $planificacion->getTemario();
-        $this->resumen['temario'] = $temario; 
+        $temario = $planificacion->getTemario();
+        $this->resumen['temario'] = $temario;
     }
 
     /**
@@ -374,9 +389,9 @@ class PlanificacionController extends Controller {
     private function addBibliografia(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['bibliografia'] = null;
-        $bibliografia =  $planificacion->getBibliografiasPlanificacion();
+        $bibliografia = $planificacion->getBibliografiasPlanificacion();
         //dump($bibliografia);
-        $this->resumen['bibliografia'] = $bibliografia; 
+        $this->resumen['bibliografia'] = $bibliografia;
     }
 
     /**
@@ -386,8 +401,8 @@ class PlanificacionController extends Controller {
     private function addCronograma(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['cronograma'] = null;
-        $cronograma =  $planificacion->getActividadCurricular();
-        $this->resumen['cronograma'] = $cronograma; 
+        $cronograma = $planificacion->getActividadCurricular();
+        $this->resumen['cronograma'] = $cronograma;
     }
 
     /**
@@ -397,8 +412,8 @@ class PlanificacionController extends Controller {
     private function addDistribucion(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['distribucion'] = null;
-        $distribucion =  $planificacion->getCargaHoraria();
-        $this->resumen['distribucion'] = $distribucion; 
+        $distribucion = $planificacion->getCargaHoraria();
+        $this->resumen['distribucion'] = $distribucion;
     }
 
 }

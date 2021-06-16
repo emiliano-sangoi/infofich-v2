@@ -35,7 +35,7 @@ class PlanificacionDocenteAdscripto {
      * @var DocentesBundle\Entity\DocenteAdscripto
      * 
      * @ORM\ManyToOne(targetEntity="DocentesBundle\Entity\DocenteAdscripto", inversedBy="planificacionesColaborador")
-     * @ORM\JoinColumn(name="docente_adscripto_id",referencedColumnName="id")
+     * @ORM\JoinColumn(name="docente_adscripto_id",referencedColumnName="id", nullable=false)
      */
     private $docenteAdscripto;
     
