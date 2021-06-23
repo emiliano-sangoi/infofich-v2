@@ -166,7 +166,14 @@ class PlanificacionController extends Controller {
             $this->resumen['ver_requisitos'] = 0;
         }
         $this->addObjetivos($planificacion);
-        $this->addResultados($planificacion);
+        //Resultados
+        $resultados = $planificacion->getResultados();
+        if (isset($resultados)) {
+            $this->resumen['ver_resultados'] = 1;
+            $this->addResultados($planificacion);
+        } else {
+            $this->resumen['ver_resultados'] = 0;
+        }
 
         $this->addTemario($planificacion);
         $this->addBibliografia($planificacion);
@@ -352,7 +359,6 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addObjetivos(Planificacion $planificacion) {
-        //ver esto con Emi
         $this->resumen['objetivosGral'] = null;
         $this->resumen['objetivosEspecificos'] = null;
 

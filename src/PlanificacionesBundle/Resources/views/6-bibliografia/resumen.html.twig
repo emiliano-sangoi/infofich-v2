@@ -10,21 +10,25 @@
             {% if resumen.temario is null %}
                     <div class="text-danger">{{ global_sd }}</div>
                 {% else %}
+                    <ul>
                     {% for b in resumen.bibliografia %}
+                        <li>
                         <p> 
-                            {{ b.bibliografia}} -                       
-                            {{ b.tipoBibliografia}} - 
-                            {{ b.bibliografia.autores}} -
-                            {{ b.bibliografia.editorial}} 
-                            {{ b.bibliografia.anioEdicion}} -
-                            {{ b.bibliografia.nroEdicion}} -
-                            {{ b.bibliografia.issnIsbn}} -
-                            {{ b.bibliografia.disponibleBiblioteca}} -
-                            {{ b.bibliografia.disponibleOnline}} -
-                            {{ b.bibliografia.fechaConsultaOnline}} -
-                            {{ b.bibliografia.enlaceOnline}} 
+                            <strong>Título </strong> {{ b.bibliografia|default(global_sd) }} -                       
+                            <strong>Tipo de Bibliografía </strong>{{ b.tipoBibliografia|default(global_sd) }} - 
+                            <strong>Autores </strong>{{ b.bibliografia.autores|default(global_sd) }} -
+                            <strong>Editorial </strong>{{ b.bibliografia.editorial|default(global_sd) }} -
+                            <strong>Año de edición </strong>{{ b.bibliografia.anioEdicion|default(global_sd) }} -
+                            <strong>N° de edición </strong>{{ b.bibliografia.nroEdicion|default(global_sd) }} -
+                            <strong>ISSN o ISBN </strong>{{ b.bibliografia.issnIsbn|default(global_sd) }} -
+                            <strong>Disponible en biblioteca </strong>{{ b.bibliografia.disponibleBiblioteca|default(global_sd) }} -
+                            <strong>Disponible online </strong>{{ b.bibliografia.disponibleOnline|default(global_sd) }} -
+                            <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|default(global_sd) }} -
+                            <strong>Enlace </strong>{{ b.bibliografia.enlaceOnline|default(global_sd) }} 
                         </p>
+                        </li>
                     {% endfor %}
+                    </ul> 
                 {% endif %}              
         </div>       
     </div>

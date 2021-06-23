@@ -4,11 +4,12 @@
         <h4 class="font-weight-bold" id="resumen-resultados-asignatura">Resultados de la asignatura</h4>                    
     </div>
 
+    {#{ dump(resumen.resultados)}#}
+
     <div class="row">        
         <div class="col-sm-10">
-            {#<label class="font-weight-bold">Resultados</label>#}
             {% if resumen.resultados is null %}
-                    <div class="text-danger">{{ global_sd }}</div>
+                    <div class="text-danger">{{ "Sin definir"  }}</div>
                 {% else %}
                     {% for r in resumen.resultados %}
                         <p>                        
