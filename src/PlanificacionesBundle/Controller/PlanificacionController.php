@@ -159,7 +159,6 @@ class PlanificacionController extends Controller {
         $this->addDocentes($planificacion);
         // validación datos cargados
         $requisitos = $planificacion->getRequisitosAprobacion();
-
         if (isset($requisitos)) {
             $this->addRequisitos($planificacion);
         } else {
@@ -179,6 +178,7 @@ class PlanificacionController extends Controller {
         $this->addBibliografia($planificacion);
         $this->addCronograma($planificacion);
         $this->addDistribucion($planificacion);
+        $this->addViaje($planificacion);
 
 
 
@@ -385,7 +385,6 @@ class PlanificacionController extends Controller {
         //ver esto con Emi
         $this->resumen['temario'] = null;
         $temario = $planificacion->getTemario();
-        dump($temario);
         $this->resumen['temario'] = $temario;
     }
 
@@ -420,6 +419,18 @@ class PlanificacionController extends Controller {
         $this->resumen['distribucion'] = null;
         $distribucion = $planificacion->getCargaHoraria();
         $this->resumen['distribucion'] = $distribucion;
+    }
+
+    /**
+     * 
+     * @param Planificacion $planificacion
+     */
+    private function addViaje(Planificacion $planificacion) {
+        //ver esto con Emi
+        $this->resumen['viajes'] = null;
+        $viajes = $planificacion->getViajesAcademicos();
+        dump($viajes);
+        $this->resumen['viajes'] = $viajes;
     }
 
 }
