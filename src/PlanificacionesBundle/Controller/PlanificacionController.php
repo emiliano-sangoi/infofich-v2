@@ -385,6 +385,7 @@ class PlanificacionController extends Controller {
         //ver esto con Emi
         $this->resumen['temario'] = null;
         $temario = $planificacion->getTemario();
+        dump($temario);
         $this->resumen['temario'] = $temario;
     }
 
@@ -395,8 +396,7 @@ class PlanificacionController extends Controller {
     private function addBibliografia(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['bibliografia'] = null;
-        $bibliografia = $planificacion->getBibliografiasPlanificacion();
-        //dump($bibliografia);
+        $bibliografia = $planificacion->getBibliografiasPlanificacion();      
         $this->resumen['bibliografia'] = $bibliografia;
     }
 
