@@ -909,6 +909,7 @@ class Planificacion {
      */
     public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
     {
+        $actividadCurricular->setPlanificacion($this);
         $this->actividadCurricular[] = $actividadCurricular;
 
         return $this;
