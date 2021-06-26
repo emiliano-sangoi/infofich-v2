@@ -80,9 +80,10 @@ class ActividadCurricular {
      * @var Planificacion
      * 
      * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="actividadesCurriculares")
-     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="planif_planificaciones_id", referencedColumnName="id", nullable=false)) 
      */
     private $planificacion;
+    
 
     /**
      *
@@ -344,11 +345,14 @@ class ActividadCurricular {
      *
      * @return ActividadCurricular
      */
-    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null) {
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion) {
         $this->planificacion = $planificacion;
+
 
         return $this;
     }
+
+    
 
     /**
      * Get planificacion

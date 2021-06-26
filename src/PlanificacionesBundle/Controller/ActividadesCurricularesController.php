@@ -28,10 +28,23 @@ class ActividadesCurricularesController extends Controller {
             $this->actualizarActividadCurricular($planificacion);
             
             $em = $this->getDoctrine()->getManager();
+            /*
             $em->flush();
 
             $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
 
+            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            */
+
+            try {
+                $em->flush();
+                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+                //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+                $msg = 'Las actividades curriculares definidos no pueden ser borrados porque estan siendo utilizados en otra sección.';
+                $this->addFlash('error', $msg);
+                //$form->addError(new \Symfony\Component\Form\FormError($msg));
+            }
             return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
         }
 
@@ -67,6 +80,7 @@ class ActividadesCurricularesController extends Controller {
         // obtener los registros de la base de datos:
         $actCurricularOriginal = $em->getRepository('PlanificacionesBundle:ActividadCurricular')
                 ->findBy(array('planificacion' => $planificacion));
+        //dump($$planificacion);exit;
 
 
         foreach ($actCurricularOriginal as $actCurricular) {
