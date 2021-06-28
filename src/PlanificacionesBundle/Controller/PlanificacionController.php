@@ -408,6 +408,7 @@ class PlanificacionController extends Controller {
         $this->resumen['cronograma'] = null;
         $cronograma = $planificacion->getActividadCurricular();
         $this->resumen['cronograma'] = $cronograma;
+        //dump($cronograma);
     }
 
     /**
@@ -419,6 +420,7 @@ class PlanificacionController extends Controller {
         $this->resumen['distribucion'] = null;
         $distribucion = $planificacion->getCargaHoraria();
         $this->resumen['distribucion'] = $distribucion;
+        //dump($distribucion);
     }
 
     /**
@@ -429,7 +431,6 @@ class PlanificacionController extends Controller {
         //ver esto con Emi
         $this->resumen['viajes'] = null;
         $viajes = $planificacion->getViajesAcademicos();
-        dump($viajes);
         $this->resumen['viajes'] = $viajes;
     }
 
