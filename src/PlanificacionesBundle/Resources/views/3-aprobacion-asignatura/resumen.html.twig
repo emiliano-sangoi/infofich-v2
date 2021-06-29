@@ -3,7 +3,8 @@
     <div class="mb-4">        
         <h4 class="font-weight-bold" id="resumen-aprobacion-asignatura">Aprobaci&oacute;n de la asignatura</h4>                    
     </div>
-
+{# Solo mostrar si han cargado algo#}
+{% if resumen.ver_requisitos %}
     <div class="row">        
         <div class="col-sm-3">
             <label class="font-weight-bold">Aprobaci&oacute;n</label>
@@ -82,7 +83,7 @@
                 <div class="col-sm-3" >    
                     <label class="font-weight-bold">Fecha integrador</label>
                     <div class="" >                        
-                        {{ resumen.fechaParcailCfi|date("d/m/Y") }}
+                        {{ resumen.fechaParcialCfi|date("d/m/Y") }}
                     </div> 
                 </div> 
                 <div class="col-sm-3" >    
@@ -121,7 +122,7 @@
 
         </div>
     </div>
-
+{% endif %}
 
 
 

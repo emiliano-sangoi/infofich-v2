@@ -5,10 +5,8 @@
 {% block tab_content %}
 
     {% include 'PlanificacionesBundle:1-info-basica:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %}
-    {% if resumen.ver_requisitos %}
-        {% include 'PlanificacionesBundle:3-aprobacion-asignatura:resumen.html.twig' %}
-    {% endif %}    
+    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %} 
+    {% include 'PlanificacionesBundle:3-aprobacion-asignatura:resumen.html.twig' %}
     {% include 'PlanificacionesBundle:4-objetivos-asignatura:resumen.html.twig' %}
     {% if resumen.ver_resultados %}
         {% include 'PlanificacionesBundle:4b-resultados-asignatura:resumen.html.twig' %}

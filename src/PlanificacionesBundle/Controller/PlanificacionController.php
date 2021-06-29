@@ -161,6 +161,7 @@ class PlanificacionController extends Controller {
         $requisitos = $planificacion->getRequisitosAprobacion();
         if (isset($requisitos)) {
             $this->addRequisitos($planificacion);
+            $this->resumen['ver_requisitos'] = 1;
         } else {
             $this->resumen['ver_requisitos'] = 0;
         }
