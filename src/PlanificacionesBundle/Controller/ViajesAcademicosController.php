@@ -2,7 +2,9 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\ViajesAcademicosType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,9 @@ class ViajesAcademicosController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\ViajesAcademicosType", $planificacion);
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        $form = $this->createForm(ViajesAcademicosType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 

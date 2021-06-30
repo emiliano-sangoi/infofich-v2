@@ -38,9 +38,7 @@ class CargaRolSecAcademica extends AbstractFixture implements FixtureInterface, 
             Permisos::PLANIF_VER,
             Permisos::PLANIF_CREAR,
             Permisos::PLANIF_EDITAR,
-            Permisos::PLANIF_BORRAR,
-            Permisos::USUARIO_LISTAR,
-            Permisos::USUARIO_VER,
+            Permisos::PLANIF_BORRAR
         );
 
         foreach ($permisos as $codigo) {

@@ -1,8 +1,6 @@
 <?php
 
-namespace PlanificacionesBundle\Controller;
-
-use AppBundle\Util\Texto;
+use AppBundle\Seguridad\Permisos;
 use PlanificacionesBundle\Controller\PlanificacionTrait;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
@@ -11,6 +9,8 @@ use PlanificacionesBundle\Form\PlanificacionDocentesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+
+namespace PlanificacionesBundle\Controller;
 
 
 
@@ -32,6 +32,8 @@ class DocentesController extends Controller {
      * @return type
      */
     public function editAction(Request $request, Planificacion $planificacion) {
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->createForm(PlanificacionDocentesType::class, $planificacion);
 

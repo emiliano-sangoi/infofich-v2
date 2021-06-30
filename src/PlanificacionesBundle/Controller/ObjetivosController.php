@@ -2,8 +2,10 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\ObjetivosType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +26,9 @@ class ObjetivosController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\ObjetivosType", $planificacion);
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        $form = $this->createForm(ObjetivosType::class, $planificacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

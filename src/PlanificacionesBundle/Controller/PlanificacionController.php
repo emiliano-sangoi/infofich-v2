@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\ORM\QueryBuilder;
 use FICH\APIInfofich\Model\Carrera;
@@ -17,6 +18,7 @@ use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use function dump;
 
 class PlanificacionController extends Controller {
 
@@ -25,7 +27,7 @@ class PlanificacionController extends Controller {
 
     public function indexAction(Request $request) {
 
-        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_LISTAR, array('data' => null));
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_LISTAR, array('data' => null));
 
         $form_filtros = $this->createForm(BuscadorType::class, null);
         $form_filtros->handleRequest($request);
@@ -49,7 +51,7 @@ class PlanificacionController extends Controller {
                     'page_title' => 'Planificaciones de grado',
                     'form' => $form_filtros->createView(),
                     'paginado' => $paginado,
-                    'puede_crear' => $this->isGranted(\AppBundle\Seguridad\Permisos::PLANIF_CREAR, array('data' => null))
+                    'puede_crear' => $this->isGranted(Permisos::PLANIF_CREAR, array('data' => null))
         ));
     }
 
@@ -89,7 +91,7 @@ class PlanificacionController extends Controller {
      */
     public function newAction(Request $request) {
 
-        $this->denyAccessUnlessGranted(\AppBundle\Seguridad\Permisos::PLANIF_CREAR, array('data' => null));
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
         $form = $this->createForm(PlanificacionType::class, $planificacion, array(

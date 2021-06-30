@@ -2,9 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
+use PlanificacionesBundle\Form\RequisitosAprobacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +24,15 @@ class AprobacionController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
         
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
         $requisitosAprob = $planificacion->getRequisitosAprobacion();
 
         if (!$requisitosAprob) {
             $requisitosAprob = new RequisitosAprobacion();
         }
 
-        $form = $this->createForm("PlanificacionesBundle\Form\RequisitosAprobacionType", $requisitosAprob);
+        $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             

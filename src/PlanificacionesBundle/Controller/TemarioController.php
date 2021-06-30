@@ -2,10 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
-use PlanificacionesBundle\Entity\Temario;
+use PlanificacionesBundle\Form\TemarioType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,9 @@ class TemarioController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\TemarioType", $planificacion);
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        $form = $this->createForm(TemarioType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -31,12 +34,11 @@ class TemarioController extends Controller {
 
             $em = $this->getDoctrine()->getManager();
 
-
             try {
                 $em->flush();
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
                 //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+            } catch (ForeignKeyConstraintViolationException $ex) {
                 $msg = 'Los temas definidos no pueden ser borrados porque estan siendo utilizados en la sección Cronograma de actividades.';
                 $this->addFlash('error', $msg);
                 //$form->addError(new \Symfony\Component\Form\FormError($msg));

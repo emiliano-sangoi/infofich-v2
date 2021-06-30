@@ -11,7 +11,8 @@ namespace DocentesBundle\Repository;
 class DocenteAdscriptoRepository extends \Doctrine\ORM\EntityRepository
 {
     
-    //public function buscarPorDocumento()
+    use DocentesTrait;
+    
     
     
 }

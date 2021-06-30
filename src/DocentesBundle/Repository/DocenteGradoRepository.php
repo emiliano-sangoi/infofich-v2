@@ -10,4 +10,6 @@ namespace DocentesBundle\Repository;
  */
 class DocenteGradoRepository extends \Doctrine\ORM\EntityRepository
 {
+    use DocentesTrait;
+    
 }

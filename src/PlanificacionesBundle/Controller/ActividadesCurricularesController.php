@@ -2,8 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\ActividadesCurricularesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +24,9 @@ class ActividadesCurricularesController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\ActividadesCurricularesType", $planificacion);
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        $form = $this->createForm(ActividadesCurricularesType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -40,7 +45,7 @@ class ActividadesCurricularesController extends Controller {
                 $em->flush();
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
                 //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+            } catch (ForeignKeyConstraintViolationException $ex) {
                 $msg = 'Las actividades curriculares definidos no pueden ser borrados porque estan siendo utilizados en otra sección.';
                 $this->addFlash('error', $msg);
                 //$form->addError(new \Symfony\Component\Form\FormError($msg));

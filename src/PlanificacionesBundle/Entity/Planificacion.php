@@ -387,7 +387,7 @@ class Planificacion {
      * 
      * @return \AppBundle\Entity\Usuario|null
      */
-    public function getUsuarioCreador(){
+    public function getOwner(){
         $res = null;
         foreach ($this->historicosEstado as $historico) {
             if ($historico->getEstado()->getCodigo() == Estado::CREADA) {
@@ -909,6 +909,8 @@ class Planificacion {
      */
     public function addActividadCurricular(\PlanificacionesBundle\Entity\ActividadCurricular $actividadCurricular)
     {
+        $actividadCurricular->setPlanificacion($this);
+        
         $this->actividadCurricular[] = $actividadCurricular;
 
         return $this;

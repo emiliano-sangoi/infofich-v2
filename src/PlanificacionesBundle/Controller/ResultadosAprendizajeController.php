@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
@@ -23,6 +24,8 @@ class ResultadosAprendizajeController extends Controller {
      * @return Response
      */
     public function editAction(Request $request, Planificacion $planificacion) {
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);
         $form->handleRequest($request);

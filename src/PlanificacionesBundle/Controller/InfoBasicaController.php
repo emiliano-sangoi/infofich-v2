@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\PlanificacionType;
@@ -13,6 +14,8 @@ class InfoBasicaController extends Controller {
     use PlanificacionTrait;
 
     public function editAction(Request $request, Planificacion $planificacion) {
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $api_infofich_service = $this->get('api_infofich_service');
         

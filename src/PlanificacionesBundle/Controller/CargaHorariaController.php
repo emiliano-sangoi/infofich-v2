@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use PlanificacionesBundle\Entity\CargaHoraria;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,8 @@ class CargaHorariaController extends Controller {
      * @return Response
      */
     public function editAction(Request $request, Planificacion $planificacion) {
-        //var_dump($planificacion);exit;
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $cargaHoraria = $planificacion->getCargaHoraria();
 

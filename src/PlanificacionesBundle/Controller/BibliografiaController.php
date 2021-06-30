@@ -2,8 +2,10 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\BibliografiasType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,9 @@ class BibliografiaController extends Controller {
      */
     public function editAction(Request $request, Planificacion $planificacion) {
 
-        $form = $this->createForm("PlanificacionesBundle\Form\BibliografiasType", $planificacion);
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        $form = $this->createForm(BibliografiasType::class, $planificacion);
         $form->handleRequest($request);
 
 
