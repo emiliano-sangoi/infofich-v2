@@ -1,7 +1,8 @@
 <?php
 
+namespace PlanificacionesBundle\Controller;
+
 use AppBundle\Seguridad\Permisos;
-use PlanificacionesBundle\Controller\PlanificacionTrait;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
 use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
@@ -9,8 +10,6 @@ use PlanificacionesBundle\Form\PlanificacionDocentesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-namespace PlanificacionesBundle\Controller;
 
 
 
