@@ -169,6 +169,16 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface{
         }
         return $res;
     }
+    
+    /**
+     * Chequea si el usuario tiene asignado el rol pasado como parametro.
+     * 
+     * @param type $rol
+     * @return type
+     */
+    public function tieneRol($rol){                
+        return in_array($rol, $this->getRolesAsStr());                
+    }
        
 
     /**
