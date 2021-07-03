@@ -25,7 +25,6 @@ class CargaHorariaController extends Controller {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $cargaHoraria = $planificacion->getCargaHoraria();
-        //dump($cargaHoraria);
 
         if (!$cargaHoraria) {
             $cargaHoraria = new CargaHoraria();

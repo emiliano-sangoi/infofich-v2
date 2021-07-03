@@ -11,11 +11,15 @@
             {% if resumen.resultados is null %}
                     <div class="text-danger">{{ "Sin definir"  }}</div>
                 {% else %}
+                 <ul>
                     {% for r in resumen.resultados %}
+                    <li>
                         <p>                        
-                            {{ r }}
+                            {{ r.resultado }}
                         </p>
+                    </li>
                     {% endfor %}
+                </ul>
                 {% endif %}              
         </div>       
     </div>
