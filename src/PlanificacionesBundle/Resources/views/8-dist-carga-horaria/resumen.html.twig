@@ -1,28 +1,74 @@
 {# Utilizado en la sección revisar #}
-<div>
+<div class="mb-4">
     <div class="mb-4">        
         <h4 class="font-weight-bold" id="resumen-distribucion">Distribuición de Carga Horaria</h4>                    
     </div>
 
-    <div class="row">        
-        <div class="col-sm-10">
-
-        {#{ dump(resumen.cronograma)}}
-            {#<label class="font-weight-bold">Resultados</label>#}
-            {#% if resumen.cronograma is null %}
-                    <div class="text-danger">{{ global_sd }}</div>
-                {% else %}
-                    {% for d in resumen.cronograma %}
-                        <p>                        
-                            {{ d }}
-                        </p>
-                    {% endfor %}
-                {% endif %#}              
-        </div>       
+    <div class="row"> 
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Total </label>
+            <div class="{{ resumen.totalCargaHorariaAula ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalCargaHorariaAula|default(global_sd) }}            
+            </div> 
+        </div>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Estudio autónomo</label>
+            <div class="{{ resumen.totalCargaHorariaAutonomo ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalCargaHorariaAutonomo|default(global_sd) }}            
+            </div> 
+        </div>  
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Teoría </label>
+            <div class="{{ resumen.totalTeoria ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalTeoria|default(global_sd) }}            
+            </div> 
+        </div>         
     </div>
 
-{# Esta sección no se puede editar
-    <div class="row mt-4">  
+    <div class="row"> 
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Coloquio </label>
+            <div class="{{ resumen.totalColoquio ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalColoquio|default(global_sd) }}            
+            </div> 
+        </div>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Clase Teórico-Práctica</label>
+            <div class="{{ resumen.totalTeoricoPractica ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalTeoricoPractica|default(global_sd) }}            
+            </div> 
+        </div>  
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Clase Práctica</label>
+            <div class="{{ resumen.totalFormacionPractica ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalFormacionPractica|default(global_sd) }}            
+            </div> 
+        </div>         
+    </div>
+
+    <div class="row"> 
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Consulta </label>
+            <div class="{{ resumen.totalConsulta ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalConsulta|default(global_sd) }}            
+            </div> 
+        </div>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Evaluación</label>
+            <div class="{{ resumen.totalEvaluacion ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalEvaluacion|default(global_sd) }}            
+            </div> 
+        </div>
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Otras actividades</label>
+            <div class="{{ resumen.totalOtrasAct ? 'text-primary font-weight-bold' : 'text-danger' }}" >                        
+                {{ resumen.totalOtrasAct|default(global_sd) }}            
+            </div> 
+        </div>
+    </div>  
+
+{# Esta sección no se puede editar porque es una sumatoria de las act cargadas en la planificación#}
+    {#<div class="row mt-4">  
         <div class="col-sm-10 text-right">
             <a class="btn btn-outline-primary" href="{{ path('planif_act_curriculares_editar', {id : planificacion.id}) }}">Modificar</a>
             <hr class="mb-5 mt-4"/>

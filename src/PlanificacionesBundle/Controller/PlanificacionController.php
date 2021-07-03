@@ -419,11 +419,15 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addDistribucion(Planificacion $planificacion) {
-        //ver esto con Emi
-        $this->resumen['distribucion'] = null;
-        $distribucion = $planificacion->getCargaHoraria();
-        $this->resumen['distribucion'] = $distribucion;
-        //dump($distribucion);
+        $this->resumen['totalCargaHorariaAula'] = $planificacion->getTotalCargaHorariaAula();
+        $this->resumen['totalCargaHorariaAutonomo'] = $planificacion->getTotalCargaHorariaAutonomo();
+        $this->resumen['totalTeoria'] = $planificacion->getTotalTeoria();
+        $this->resumen['totalColoquio'] = $planificacion->getTotalColoquio();
+        $this->resumen['totalTeoricoPractica'] = $planificacion->getTotalTeoricoPractica();
+        $this->resumen['totalFormacionPractica'] = $planificacion->getTotalFormacionPractica(); 
+        $this->resumen['totalConsulta'] = $planificacion->getTotalConsulta();
+        $this->resumen['totalEvaluacion'] = $planificacion->getTotalEvaluacion();
+        $this->resumen['totalOtrasAct'] = $planificacion->getTotalOtrasAct();
     }
 
     /**
