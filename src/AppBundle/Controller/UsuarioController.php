@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use AppBundle\Form\BuscadorUsuarioType;
 use AppBundle\Seguridad\Permisos;
 use DateTime;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -27,26 +29,64 @@ class UsuarioController extends Controller {
             throw $this->createAccessDeniedException("Acceso denegado");
         }
 
-        $dql = "SELECT u FROM AppBundle:Usuario u";
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery($dql);
+
 
         //$form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("USUARIOS");
+
+        $form = $this->createForm(BuscadorUsuarioType::class);
+        $form->handleRequest($request);
+        $query = $this->buildQueryUsuarios($form);
 
         $paginator = $this->get('knp_paginator');
         $paginado = $paginator->paginate(
                 $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 15 /* limit per page */
         );
 
-        // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("USUARIOS");
 
         return $this->render('AppBundle:usuario:index.html.twig', array(
                     'usuarios' => $paginado,
-                    'page_title' => 'Usuarios'
+                    'page_title' => 'Usuarios',
+                    'form' => $form->createView()
         ));
+    }
+
+    private function buildQueryUsuarios(Form $form) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        /* @var $qb QueryBuilder */
+        $qb = $em->getRepository(Usuario::class)->createQueryBuilder('u');
+        $qb->innerJoin('u.persona', 'p');
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();            
+
+            if (isset($data['username'])) {
+                $val = '%' . strtolower($data['username']) . '%';
+                $qb->andWhere($qb->expr()->like('LOWER(u.username)', ':username'));
+                $qb->setParameter(':username', $val);
+                
+            }
+            
+            if (isset($data['apellidos'])) {
+                $val = '%' . strtolower($data['apellidos']) . '%';
+                $qb->andWhere($qb->expr()->like('LOWER(p.apellidos)', ':apellidos'));
+                $qb->setParameter(':apellidos', $val);                
+            }
+            
+            if (isset($data['nombres'])) {
+                $val = '%' . strtolower($data['nombres']) . '%';
+                $qb->andWhere($qb->expr()->like('LOWER(p.nombres)', ':nombres'));
+                $qb->setParameter(':nombres', $val);                
+            }
+        }
+
+        return $qb->getQuery();
     }
 
     /**

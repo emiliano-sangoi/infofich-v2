@@ -46,8 +46,8 @@
                                     <div class="card mb-1">
                                         <div class="card-header card-header-azul" id="heading{{ loop.index }}">
                                             <h6 class="mb-0 acordeon-header">
-                                                <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}">
-                                                    {{ p.getTitulo() }}
+                                                <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">
+                                                    {{ p.getTitulo()|upper }}
                                                     <i class="fa fa-1x fa-caret-down"></i>
                                                 </button>
                                             </h6>

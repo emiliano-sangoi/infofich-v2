@@ -1,28 +1,28 @@
-<div class="p-5 bg-light">
+<div class="p-5 bg-light shadow">
 
     {{ form_start(form) }}
 
     <div class="form-row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-4">
             {{ form_label(form.username) }}
             {{ form_widget(form.username) }}
             {{ form_errors(form.username) }}      
         </div>   
-        <div class="col-12 col-md-6">
-            {{ form_label(form.apellido) }}
-            {{ form_widget(form.apellido) }}
-            {{ form_errors(form.apellido) }}      
+        <div class="col-12 col-md-4">
+            {{ form_label(form.apellidos) }}
+            {{ form_widget(form.apellidos) }}
+            {{ form_errors(form.apellidos) }}      
         </div>
-        <div class="col-12 col-md-3">
-            {{ form_label(form.nroDoc) }}
-            {{ form_widget(form.nroDoc) }}
-            {{ form_errors(form.nroDoc) }}                              
+        <div class="col-12 col-md-4">
+            {{ form_label(form.nombres) }}
+            {{ form_widget(form.nombres) }}
+            {{ form_errors(form.nombres) }}                              
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12 col-sm-4">
-            {{ form_widget(form.submit) }}
+            <input type="submit" value="Buscar" class="btn btn-success">
         </div>
         <div class="col-xs-12 offset-4 col-sm-4 text-right">
             <a href="{{ path('usuarios_index') }}" class="btn btn-secondary">

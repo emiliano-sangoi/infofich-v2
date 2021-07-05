@@ -17,15 +17,25 @@
 
     <div class="px-lg-5">
 
-        <div class="my-3">
+        <div class="">
             {% include '::notificaciones.html.twig' %}
         </div>
 
-        <div class="bg-light shadow">
+        <div class="">
+
+            <div class="mb-3">
+                {% include '@App/usuario/form-buscador.html.twig' %}                    
+            </div>
 
             {% if usuarios[0] is defined %}
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover mb-0">
+
+                <div class="bg-white mb-3 p-3 text-muted">
+                    Se encontraron: <b>{{ usuarios.getTotalItemCount }}</b> usuario(s)
+                </div>
+
+
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed table-hover mb-0 bg-white">
                         <thead class="bg-secondary text-white">
                             <tr>
                                 <th>#</th>
@@ -63,7 +73,7 @@
 
     {% else %}
         <div class="bg-white p-3 text-muted">
-            No existen usuarios cargados.
+            No se encontró ningún usuario.
         </div>
     {% endif %}
 
