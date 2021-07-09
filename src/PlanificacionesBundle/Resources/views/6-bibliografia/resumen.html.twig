@@ -23,7 +23,7 @@
                             <strong>ISSN o ISBN </strong>{{ b.bibliografia.issnIsbn|default(global_sd) }} -
                             <strong>Disponible en biblioteca </strong>{{ b.bibliografia.disponibleBiblioteca|default(global_sd) }} -
                             <strong>Disponible online </strong>{{ b.bibliografia.disponibleOnline|default(global_sd) }} -
-                            <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|default(global_sd) }} -
+                            <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|date("d/m/Y") }} -
                             <strong>Enlace </strong>{{ b.bibliografia.enlaceOnline|default(global_sd) }} 
                         </p>
                         </li>
