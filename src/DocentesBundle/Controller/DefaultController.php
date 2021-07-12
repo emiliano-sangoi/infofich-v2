@@ -30,7 +30,7 @@ class DefaultController extends Controller {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Docentes grado", $this->get("router")->generate("docentes_grado"));
-
+        
         $queryDocentes = new QueryDocentes();
         $docentes = $queryDocentes
                 ->setWsEnv(WSHelper::ENV_PROD)
@@ -38,12 +38,18 @@ class DefaultController extends Controller {
                 ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
                 ->setEstado('activo')
                 ->getDocentes();
-
+        
 
         $paginator = $this->get('knp_paginator');
+        
+        
         $docentes_paginado = $paginator->paginate(
-                $docentes, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ $this->getParameter('knp_items_por_pagina')/* limit per page */
+                $docentes, /* query NOT result */ 
+                $request->query->getInt('page', 1), /* page number */ 
+                15 /* $this->getParameter('knp_items_por_pagina')/* limit per page */
         );
+   
+        //dump($docentes_paginado);exit;
 
 
         //   dump($docentes);exit;

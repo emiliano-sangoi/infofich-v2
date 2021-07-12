@@ -21,7 +21,7 @@ class BibliografiaType extends AbstractType {
                     'label' => 'Editorial',
                     'required' => true,
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
                     )
         ));
 
@@ -31,7 +31,8 @@ class BibliografiaType extends AbstractType {
                     'label' => 'Año de edición',
                     'required' => true,
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'min' => 1,
                     )
         ));
 
@@ -41,7 +42,8 @@ class BibliografiaType extends AbstractType {
                     'label' => 'N° de edición',
                     'required' => true,
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'min' => 1
                     )
         ));
 
