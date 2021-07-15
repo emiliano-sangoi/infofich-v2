@@ -13,8 +13,8 @@
                 <ul>
                     {% for r in resumen.temario %}
                     <li>
-                        <p>                       
-                            {{ r }}  <strong>Contenido </strong>{{ r.contenido|default(global_sd)}}  
+                        <p>                      
+                            <strong>Unidad </strong>{{ r.unidad }} <strong>Título </strong>{{ r.titulo }}  <strong>Contenido </strong>{{ r.contenido|default(global_sd)}}  
                         </p>
                     </li>
                     {% endfor %}

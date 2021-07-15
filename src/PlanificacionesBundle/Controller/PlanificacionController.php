@@ -348,7 +348,13 @@ class PlanificacionController extends Controller {
                 $this->resumen['preveCfi'] = 'No';
             }
 
-            $this->resumen['modalidadCfi'] = $requisitos->getModalidadCfi();
+            //$this->resumen['modalidadCfi'] = $requisitos->getModalidadCfi();
+            if ($requisitos->getModalidadCfi()) {
+                $this->resumen['modalidadCfi'] = 'Sí';
+            } else {
+                $this->resumen['modalidadCfi'] = 'No';
+            }
+
             $this->resumen['fechaParcialCfi'] = $requisitos->getFechaParcailCfi();
             $this->resumen['fechaRecupCfi'] = $requisitos->getFechaRecupCfi();
 
