@@ -32,9 +32,11 @@
                                 No
                             {% else %}
                                 Sí
+                                {# fix de esto, guarda siempre la fecha#}
+                                <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|date("d/m/Y") }} -
+                                <strong>Enlace </strong>{{ b.bibliografia.enlaceOnline|default(global_sd) }} 
                             {% endif %}
-                            <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|date("d/m/Y") }} -
-                            <strong>Enlace </strong>{{ b.bibliografia.enlaceOnline|default(global_sd) }} 
+                            
                         </p>
                         </li>
                     {% endfor %}
