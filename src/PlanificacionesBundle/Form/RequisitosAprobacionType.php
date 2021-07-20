@@ -99,7 +99,7 @@ class RequisitosAprobacionType extends AbstractType {
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
             'required' => false,
-            'label' => 'Recuperatorio',
+            'label' => 'Fecha recuperatorio',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 

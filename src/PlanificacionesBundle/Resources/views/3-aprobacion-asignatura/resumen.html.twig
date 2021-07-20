@@ -89,7 +89,7 @@
                     </div> 
                 </div> 
                 <div class="col-sm-3" >    
-                    <label class="font-weight-bold">Recuperatorio</label>
+                    <label class="font-weight-bold">Fecha recuperatorio</label>
                     <div class="" >                        
                         {{ resumen.fechaRecupCfi|date("d/m/Y") }}
                     </div> 
@@ -104,7 +104,15 @@
                     </div> 
                 </div> 
             </div>
-            <div class="row mt-4">
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-sm-3">
+            <label class="font-weight-bold">Examen Final</label>
+        </div>
+        <div class="col-sm-8" >    
+            <div class="row">   
                 <div class="col-sm-9" >    
                     <label class="font-weight-bold">Modalidad Regulares</label>
                     <div class="" >
@@ -120,8 +128,7 @@
                     {{ resumen.examenFinalModalidadLibres|default(global_sd) }}                        
                     </div> 
                 </div> 
-            </div>             
-
+            </div> 
         </div>
     </div>
 {% endif %}
