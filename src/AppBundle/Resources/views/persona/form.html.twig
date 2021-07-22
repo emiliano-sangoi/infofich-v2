@@ -1,15 +1,19 @@
 <div class="form-row">
-    <div class="col-6">
+    <div class="col-4">
         {{ form_label(form.tipoDocumento) }}
         {{ form_widget(form.tipoDocumento) }}
         {{ form_errors(form.tipoDocumento) }}      
     </div>
-    <div class="col-6">
+    <div class="col-4">
         {{ form_label(form.documento) }}
         {{ form_widget(form.documento) }}
         {{ form_errors(form.documento) }}
     </div>
-
+    <div class="col-4">
+        {{ form_label(form.genero) }}
+        {{ form_widget(form.genero) }}
+        {{ form_errors(form.genero) }}
+    </div>
 </div>
 
 

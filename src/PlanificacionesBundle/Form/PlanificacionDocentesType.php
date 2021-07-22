@@ -84,11 +84,12 @@ class PlanificacionDocentesType extends AbstractType {
                 ->add('docenteResponsable', EntityType::class, array(
                     'label' => 'Responsable',
                     'class' => DocenteGrado::class,
+                    'required' => false,
                     //'property' => 'descripcion',
                     //  'property' => 'descripcion',
                     'attr' => array(
-                        'class' => 'form-control js-select2',
-                        'placeholder' => 'Apellido y Nombre',
+                        'class' => 'form-control js-select2-docentes',
+                     //   'placeholder' => 'Apellido y Nombre',
 //                        'data-toggle' => "tooltip",
 //                        'data-placement' => "left",
 //                        'title' => "Tooltip on left"

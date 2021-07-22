@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\BuscadorUsuarioType;
+use AppBundle\Form\PersonaType;
+use AppBundle\Form\UsuarioType;
 use AppBundle\Seguridad\Permisos;
 use DateTime;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -29,9 +31,6 @@ class UsuarioController extends Controller {
             throw $this->createAccessDeniedException("Acceso denegado");
         }
 
-
-
-        //$form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -101,8 +100,8 @@ class UsuarioController extends Controller {
 
         $usuario = new Usuario();
 
-        $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-        $form->add('persona', 'AppBundle\Form\PersonaType');
+        $form = $this->createForm(UsuarioType::class, $usuario);
+        $form->add('persona', PersonaType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //dump($usuario);exit;
@@ -159,10 +158,18 @@ class UsuarioController extends Controller {
         $breadcrumbs->addItem("Usuarios", $this->get("router")->generate("usuarios_index"));
         $breadcrumbs->addItem($usuario);
         //$breadcrumbs->addItem($usuario);
+        
+        $form = $this->createForm(UsuarioType::class, $usuario, array(
+            'disabled' => true
+        ));
+        $form->add('persona', PersonaType::class, array(
+            'label' => false
+        ));
 
         return $this->render('AppBundle:usuario:show.html.twig', array(
                     'usuario' => $usuario,
                     'delete_form' => $deleteForm->createView(),
+                    'form' => $form->createView(),
                     'page_title' => $usuario->__toString() . ' - Ver',
         ));
     }

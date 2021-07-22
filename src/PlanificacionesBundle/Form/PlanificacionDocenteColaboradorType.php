@@ -20,10 +20,11 @@ class PlanificacionDocenteColaboradorType extends AbstractType {
         $builder->add('docenteGrado', EntityType::class, array(
             'class' => DocenteGrado::class,
             'label' => false,
+            'required' => false,
             //'property' => 'apeNom',
             'attr' => array(
-                'class' => 'form-control js-select2',
-                'placeholder' => 'Apellido y Nombre',
+                'class' => 'form-control js-select2-docentes',
+               // 'placeholder' => 'Apellido y Nombre',
             ),
             'label_attr' => array(
                 'class' => 'font-weight-bold',

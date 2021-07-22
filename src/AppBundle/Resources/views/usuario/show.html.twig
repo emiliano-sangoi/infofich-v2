@@ -14,135 +14,25 @@
     <div class="">
         <div class="px-lg-5">
 
-            <div class="my-3">
+            <div class="">
                 {% include '::notificaciones.html.twig' %}
             </div>
 
-            <div class="bg-light p-5">
+            <div class="bg-light shadow">
 
-                <div class="row mb-5">        
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Nombre de usuario</label>
-                        <div class="" >                        
-                            {{ usuario.username }}
-                        </div> 
-                    </div>
+                <div class="">
+                    {% embed 'AppBundle:usuario:form.html.twig' %}
 
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Apellido y nombre</label>
-                        <div class="" >                        
-                            {{ usuario.persona }}
-                        </div> 
-                    </div>
+                        {% block botones_left %}                            
+                        {%endblock %}
 
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Tipo y Nro. Documento</label>
-                        <div class="" >                                                    
-                            {{ usuario.persona.getTipoYNroDocumento() }}                       
-                        </div> 
-                    </div>
-                </div>
+                        {% block botones_right %}
+                            <a href="{{ path('usuarios_index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                        {%endblock %}
 
-                <div class="row mb-5">        
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Bloqueado</label>
-                        <div class="" >                        
-                            {% if usuario.bloqueado %}
-                                <span class="font-weight-bold text-danger">Si</span>
-                            {% else %}
-                                No
-                            {% endif %}
-                        </div> 
-                    </div>                    
+                    {% endembed %}
 
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Fecha creaci&oacute;n</label>
-                        <div class="" >                        
-                            {% if usuario.fechaCreacion %}
-                                {{ usuario.fechaCreacion|date('d/m/Y H:i') }}&nbsp;Hs.
-                            {% endif %}
-                        </div> 
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Fecha &uacute;ltimo ingreso</label>
-                        <div class="" >                        
-                            {% if usuario.ultimoIngreso %}
-                                {{ usuario.ultimoIngreso|date('d/m/Y H:i') }}&nbsp;Hs.
-                            {% else %}
-                                -
-                            {% endif %}
-                        </div> 
-                    </div>
-
-                </div>
-
-                <div class="row mb-5">        
-
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Correo electr&oacute;nico</label>
-                        <div class="" >                        
-                            {{ usuario.persona.email|default('-') }}
-                        </div> 
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Tel&eacute;fono</label>
-                        <div class="" >                        
-                            {{ usuario.persona.telefono|default('-') }}
-                        </div> 
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label class="font-weight-bold">Fecha nacimiento</label>
-                        <div class="" >                        
-                            {% if usuario.persona.fechaNacimiento %}
-                                {{ usuario.persona.fechaNacimiento|date('d/m/Y') }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </div> 
-                    </div>
-                </div>
-
-                <div class="row">   
-                    <div class="col-sm-12">
-                        <label class="font-weight-bold">Roles</label>
-                        <div class="" >  
-                            {% embed 'AppBundle:rol:tabla-roles.html.twig' with {'rols': usuario.roles, 'tabla_sm': true} %}
-
-                                {% block navigation %}
-                                {% endblock %}
-
-
-                            {% endembed %}
-
-                            {#{% if roles[0] is defined %}
-                                <table class="table table-sm">
-                                    <thead class="bg-gray-500">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombre</th>
-                                            <th>T&iacute;tulo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for rol in usuario.roles %}
-                                            <tr>
-                                                <td>{{ loop.index }}</td>
-                                                <td>{{ rol.nombre }}</td>
-                                                <td>{{ rol.titulo }}</td>                                    
-                                            </tr>
-                                        {% endfor %}
-                                    <tbody>
-                                </table>
-                            {% else %}
-                                <span class="text-muted">El usuario no posee ning&uacute;n rol asignado.</span>
-                            {% endif %}#}
-                        </div> 
-                    </div>
-
-                </div>
+                </div>                
 
             </div>
 

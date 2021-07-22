@@ -20,10 +20,11 @@ class PlanificacionDocenteAdscriptoType extends AbstractType {
         $builder->add('docenteAdscripto', EntityType::class, array(
             'class' => DocenteAdscripto::class,
             'label' => false,
+            'required' => false,
             //'property' => 'apeNom',
             'attr' => array(
-                'class' => 'form-control js-select2',
-                'placeholder' => 'Apellido y Nombre',
+                'class' => 'form-control js-select2-docentes',
+                'placeholder' => 'Seleccione un docente',
             ),
             'label_attr' => array(
                 'class' => 'font-weight-bold',

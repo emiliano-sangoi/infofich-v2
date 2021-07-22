@@ -8,19 +8,18 @@
     </div>
 
 
-    <div class="form-row">
-        <div class="col-6">
+    <div class="form-row">        
+        <div class="col-3">
+            {{ form_label(form.persona.documento) }}
+            {{ form_widget(form.persona.documento) }}
+            {{ form_errors(form.persona.documento) }}
+        </div>
+        <div class="col-5">
             {{ form_label(form.persona.tipoDocumento) }}
             {{ form_widget(form.persona.tipoDocumento) }}
             {{ form_errors(form.persona.tipoDocumento) }}      
         </div>
         <div class="col-4">
-            {{ form_label(form.persona.documento) }}
-            {{ form_widget(form.persona.documento) }}
-            {{ form_errors(form.persona.documento) }}
-        </div>
-
-        <div class="col-2">
             {{ form_label(form.persona.genero) }}
             {{ form_widget(form.persona.genero) }}
             {{ form_errors(form.persona.genero) }}
@@ -70,8 +69,8 @@
         </div>
     </div>
 
-{#    {% block form_actions %}        
-    {% endblock %}#}
+    {#    {% block form_actions %}        
+        {% endblock %}#}
 
 
 </div>

@@ -2,6 +2,9 @@ $(document).ready(function () {
 
     var msg = "<p class='lead'>Para cargar los datos de esta sección debe completar los datos requeridos en la sección <em class='text-primary'>Informaci&oacute;n b&aacute;sica.</em></p>";
 
+    $('.js-select2-docentes').select2({
+        placeholder: 'Seleccione un docente'
+    });
 
 }
 );
@@ -52,8 +55,10 @@ function getDocente(legajo, item) {
  * @returns {undefined}
  */
 function afterAddDocente(collection, item) {
-    var target = item.find('.js-select2');
-    target.select2({});
+    var target = item.find('.js-select2-docentes');
+    target.select2({
+        placeholder: 'Seleccione un docente'
+    });
 
     // console.log(item);
 //    target.change(function (event) {
@@ -65,4 +70,5 @@ function afterAddDocente(collection, item) {
 //
 //
 //    });
-};
+}
+;

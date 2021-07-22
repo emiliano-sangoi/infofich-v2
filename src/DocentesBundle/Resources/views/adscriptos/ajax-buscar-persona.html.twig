@@ -76,6 +76,8 @@ personaOk = null;
             personaOk = persona;
             console.log(persona);
             
+            $('.field-error').fadeOut();
+            
             fields.id.val(persona.id);
 
             fields.apellidos.val(persona.apellidos);
@@ -86,7 +88,7 @@ personaOk = null;
 
             fields.telefono.val(persona.telefono);
 
-            fields.genero.val(persona.genero);
+            fields.genero.val(persona.genero ? persona.genero : 1);
             
             console.log("lalsas");
             fields.fechaNacimiento.val(persona.fechaNacimiento);

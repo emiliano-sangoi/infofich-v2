@@ -113,7 +113,7 @@ class PlanificacionVoter extends Voter {
     }
 
     private function puedeVer(Planificacion $planif, Usuario $user) {
-        // if they can edit, they can view
+        // si puede editar, puede ver
         if ($this->puedeEditar($planif, $user)) {
             return true;
         }
@@ -178,6 +178,12 @@ class PlanificacionVoter extends Voter {
     }
 
     private function puedeBorrar(Planificacion $planif, Usuario $user) {
+        
+        // si puede editar, puede borrar
+        if ($this->puedeEditar($planif, $user)) {
+            return true;
+        }
+        
         // this assumes that the data object has a getOwner() method
         // to get the entity of the user who owns this data object
         //return $user === $post->getOwner();

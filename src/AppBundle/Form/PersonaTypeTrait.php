@@ -16,7 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * PersonaTypeTrait
@@ -26,30 +29,48 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 trait PersonaTypeTrait {
 
     public function addTipoDocumento(FormBuilderInterface $builder, array $options, $required = true, $disabled = false, $contraints = array()) {
+
+        if ($required) {
+            $contraints[] = new NotBlank(array(
+                'message' => 'Este campo es obligatorio'
+            ));
+        }
+        
+        $conf = array(
+            'choices' => WSHelper::getTiposDocumentos(),
+            'label_attr' => array(
+                'class' => 'font-weight-bold'
+            ),
+            'disabled' => $disabled,
+            'required' => $required,
+            'attr' => array('class' => 'form-control'),
+            'constraints' => $contraints
+        );
+
+
         $builder
-                ->add('tipoDocumento', ChoiceType::class, array(
-                    'choices' => WSHelper::getTiposDocumentos(),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'disabled' => $disabled,
-                    'required' => $required,
-                    'attr' => array('class' => 'form-control'),
-                    'constraints' => $contraints
-        ));
+                ->add('tipoDocumento', ChoiceType::class, $conf);
     }
 
-    public function addDocumento(FormBuilderInterface $builder, array $options, $required = true, $contraints = array()) {
-        $builder
-                ->add('documento', IntegerType::class, array(
-                    'attr' => array('class' => 'form-control'),
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'required' => $required,
-                    'label' => 'Numero de documento',
-                    'constraints' => $contraints
-        ));
+    public function addDocumento(FormBuilderInterface $builder, array $options, $required = true, $contraints = array()) {        
+
+        if ($required) {
+            $contraints[] = new NotBlank(array(
+                'message' => 'Este campo es obligatorio'
+            ));
+        }
+        
+        $conf = array(
+            'attr' => array('class' => 'form-control'),
+            'label_attr' => array(
+                'class' => 'font-weight-bold'
+            ),
+            'required' => $required,
+            'label' => 'Numero de documento',
+            'constraints' => $contraints
+        );
+
+        $builder->add('documento', IntegerType::class, $conf);
     }
 
     private function addFechaNacimiento(FormBuilderInterface $builder, array $options, $required = false, $disabled = false, $contraints = array()) {
@@ -67,17 +88,23 @@ trait PersonaTypeTrait {
 
     private function addGenero(FormBuilderInterface $builder, array $options, $required = false, $disabled = false, $contraints = array()) {
 
-        $choices = array(
-            null => 'Sin información',
-            Persona::GENERO_MASC => 'Masculino',
-            Persona::GENERO_FEM => 'Femenino'
+        $choices = array(            
+            'Masculino' => Persona::GENERO_MASC,
+            'Femenino' => Persona::GENERO_FEM,            
         );
-        
-        if($required){
+
+        if ($required) {
             $contraints[] = new NotBlank(array(
                 'message' => 'Este campo no puede quedar vacio'
             ));
+        }else{
+            $choices['Sin información'] = null;
         }
+
+        $contraints[] = new Choice(array(
+            'choices' => $choices,
+            'message' => 'Genero incorrecto.'
+        ));
 
         $builder->add('genero', ChoiceType::class, array(
             'choices' => $choices,
@@ -86,13 +113,15 @@ trait PersonaTypeTrait {
             ),
             'disabled' => $disabled,
             'required' => $required,
+            'choices_as_values' => true,
             'attr' => array('class' => 'form-control'),
             'constraints' => $contraints,
         ));
     }
 
     private function addApellidos(FormBuilderInterface $builder, array $options, $required = true, $disabled = false, $contraints = array()) {
-        $builder->add('apellidos', TextType::class, array(
+
+        $conf = array(
             'label_attr' => array(
                 'class' => 'font-weight-bold'
             ),
@@ -100,11 +129,20 @@ trait PersonaTypeTrait {
             'required' => $required,
             'attr' => array('class' => 'form-control'),
             'constraints' => $contraints,
-        ));
+        );
+
+        if ($required) {
+            $conf['constraints'][] = new NotBlank(array(
+                'message' => 'Este campo es obligatorio.'
+            ));
+        }
+
+        $builder->add('apellidos', TextType::class, $conf);
     }
 
     private function addNombres(FormBuilderInterface $builder, array $options, $required = true, $disabled = false, $contraints = array()) {
-        $builder->add('nombres', TextType::class, array(
+
+        $conf = array(
             'label_attr' => array(
                 'class' => 'font-weight-bold'
             ),
@@ -112,33 +150,60 @@ trait PersonaTypeTrait {
             'required' => $required,
             'attr' => array('class' => 'form-control'),
             'constraints' => $contraints,
-        ));
+        );
+
+        if ($required) {
+            $conf['constraints'][] = new NotBlank(array(
+                'message' => 'Este campo es obligatorio.'
+            ));
+        }
+
+        $builder->add('nombres', TextType::class, $conf);
     }
 
     private function addEmail(FormBuilderInterface $builder, array $options, $required = false, $disabled = false, $contraints = array()) {
-        $builder
-                ->add('email', EmailType::class, array(
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'disabled' => $disabled,
-                    'required' => $required,
-                    'attr' => array('class' => 'form-control'),
-                    'constraints' => $contraints,
+
+        $conf = array(
+            'label_attr' => array(
+                'class' => 'font-weight-bold'
+            ),
+            'disabled' => $disabled,
+            'required' => $required,
+            'attr' => array('class' => 'form-control'),
+            'constraints' => $contraints,
+        );
+
+        $conf['constraints'][] = new Email(array(
+            'message' => 'Formato incorrecto'
         ));
+
+        if ($required) {
+            $conf['constraints'][] = new NotBlank(array(
+                'message' => 'Este campo es obligatorio.'
+            ));
+        }
+
+        $builder->add('email', EmailType::class, $conf);
     }
 
     private function addTelefono(FormBuilderInterface $builder, array $options, $required = false, $disabled = false, $contraints = array()) {
-        $builder
-                ->add('telefono', TextType::class, array(
-                    'label_attr' => array(
-                        'class' => 'font-weight-bold'
-                    ),
-                    'disabled' => $disabled,
-                    'required' => $required,
-                    'attr' => array('class' => 'form-control'),
-                    'constraints' => $contraints,
+
+        $conf = array(
+            'label_attr' => array(
+                'class' => 'font-weight-bold'
+            ),
+            'disabled' => $disabled,
+            'required' => $required,
+            'attr' => array('class' => 'form-control'),
+            'constraints' => $contraints,
+        );
+
+        $conf['constraints'][] = new Type(array(
+            'type' => 'numeric',
+            'message' => 'Este campo debe ser numérico'
         ));
+
+        $builder->add('telefono', TextType::class, $conf);
     }
 
 }

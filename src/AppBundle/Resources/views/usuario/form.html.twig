@@ -28,19 +28,22 @@
     </div>
 
     <div class="form-row">
-        <div class="col-6">
+        <div class="col-4">
             {{ form_label(form.persona.tipoDocumento) }}
             {{ form_widget(form.persona.tipoDocumento) }}
             {{ form_errors(form.persona.tipoDocumento) }}      
         </div>
-        <div class="col-6">
+        <div class="col-4">
             {{ form_label(form.persona.documento) }}
             {{ form_widget(form.persona.documento) }}
             {{ form_errors(form.persona.documento) }}
         </div>
-
+        <div class="col-4">
+            {{ form_label(form.persona.genero) }}
+            {{ form_widget(form.persona.genero) }}
+            {{ form_errors(form.persona.genero) }}
+        </div>
     </div>
-
 
 
     <div class="form-row">
@@ -62,12 +65,12 @@
 
 
     <div class="form-row">    
-        <div class="col-6">
+        <div class="col-8">
             {{ form_label(form.persona.email) }}
             {{ form_widget(form.persona.email) }}
             {{ form_errors(form.persona.email) }}      
         </div>
-        <div class="col-3">
+        <div class="col-4">
             {{ form_label(form.persona.telefono) }}
             {{ form_widget(form.persona.telefono) }}
             {{ form_errors(form.persona.telefono) }}
@@ -79,22 +82,34 @@
         <div class="col-12">
             {{ form_label(form.roles) }}
             <div>
-                <table class="table table-sm">
-                    <thead class="bg-gray-400">
+                <table class="table table-sm bg-white border border-secondary">
+                    <thead class="bg-secondary text-white">
                         <tr>                                 
-                            <th class="">T&iacute;tulo</th>
-                            <th class=" text-center">¿Asignar rol?</th>               
-                            <th class="">Acciones</th>
+                            <th class="">
+                                T&iacute;tulo
+                            </th>
+                            <th class=" text-center">
+                                ¿Asignar rol?
+                            </th> 
+                            {% if not form.vars.disabled %}
+                                <th class="">
+                                    Acciones
+                                </th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for child in form.roles %}
-                            <tr>
-                                <td>{{ form_label(child, null) }}</td>
-                                <td class=" text-center">{{ form_widget(child) }}</td>                            
-                                <td class="">                                
-                                    <button class="btn btn-sm btn-outline-secondary consultar-permisos" data-id-rol="{{ child.vars.value }}">Ver permisos</button>
-                                </td>                            
+                            <tr>                                
+                                <td>
+                                    {{ form_label(child, null, { 'label_attr' : {'class' : 'mb-0'} } ) }}
+                                </td>
+                                <td class=" text-center">{{ form_widget(child) }}</td>  
+                                {% if not form.vars.disabled %}
+                                    <td class="">                                      
+                                        <button class="btn btn-sm btn-outline-secondary consultar-permisos" data-id-rol="{{ child.vars.value }}">Ver permisos</button>                                    
+                                    </td>   
+                                {% endif %}
                             </tr>                       
                         {% endfor %}
                     </tbody>
