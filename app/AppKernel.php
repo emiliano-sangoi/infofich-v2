@@ -51,9 +51,9 @@ class AppKernel extends Kernel
     
     public function getCacheDir()
     {
-        if($this->environment == 'prod'){
+     /*   if($this->environment == 'prod'){
             return '/tmp/infofich2/cache/' . $this->environment;
-        }
+        }*/
         
         return parent::getCacheDir();
     }
