@@ -21,6 +21,8 @@ use Symfony\Component\HttpFoundation\Request;
 use function dump;
 
 class PlanificacionController extends Controller {
+    
+    use PlanificacionTrait;
 
     private $resumen;
     private $infofichService;
@@ -94,9 +96,7 @@ class PlanificacionController extends Controller {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
-        $form = $this->createForm(PlanificacionType::class, $planificacion, array(
-            'api_infofich_service' => $this->get('api_infofich_service')
-        ));
+        $form = $this->crearForm($planificacion);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

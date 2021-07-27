@@ -3,17 +3,23 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
-use FICH\APIInfofich\Model\Materia;
+use Exception;
 use FICH\APIRectorado\Config\WSHelper;
+use PlanificacionesBundle\Entity\Departamento;
 use PlanificacionesBundle\Entity\Planificacion;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PlanificacionType extends AbstractType {
 
@@ -30,11 +36,7 @@ class PlanificacionType extends AbstractType {
      */
     private $options;
 
-//    public function __construct(APIInfofichService $apiInfofichService) {
     public function __construct() {
-//        dump($apiInfofichService);exit;
-//        $this->apiInfofichService = $apiInfofichService;
-
         $this->planes = array();
     }
 
@@ -47,7 +49,7 @@ class PlanificacionType extends AbstractType {
 
         $this->apiInfofichService = $options['api_infofich_service'];
         if (!$this->apiInfofichService instanceof APIInfofichService) {
-            throw new \Exception('El parametro: api_infofich_service debe ser instancia de AppBundle\Service\APIInfofichService');
+            throw new Exception('El parametro: api_infofich_service debe ser instancia de AppBundle\Service\APIInfofichService');
         }
 
         //Bandera que indica si se esta creando(id es null) o editando la planificacion:
@@ -57,34 +59,34 @@ class PlanificacionType extends AbstractType {
         $this->addAniAcad($builder, $options);
         $this->addCodigoSIU($builder);                
 
-        $builder->add('plan', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('plan', TextType::class, array(
             'label' => 'Plan de estudio',
             'disabled' => true,
             'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('caracter', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('caracter', TextType::class, array(
             'label' => 'Caracter',
             'mapped' => false,
             'required' => false,
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
         ));
 
-        $builder->add('cargaHoraria', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('cargaHoraria', TextType::class, array(
             'label' => 'Carga horaria total',
             'mapped' => false,
             'required' => false,
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
         ));
         
-        $builder->add('periodoCursada', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('periodoCursada', TextType::class, array(
             'label' => 'Periodo',
             'mapped' => false,
             'required' => false,
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
         ));
         
-        $builder->add('anioCursada', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('anioCursada', TextType::class, array(
             'label' => 'Año cursada',
             'mapped' => false,
             'required' => false,
@@ -102,22 +104,22 @@ class PlanificacionType extends AbstractType {
             )
         );
 
-        $builder->add('contenidosMinimos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $contenidos_min_config);
+        $builder->add('contenidosMinimos', TextareaType::class, $contenidos_min_config);
 
-        $builder->add('departamento', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+        $builder->add('departamento', EntityType::class, array(
             'label' => 'Departamento',
-            'class' => 'PlanificacionesBundle\Entity\Departamento',
+            'class' => Departamento::class,
+            'required' => false,
+            'disabled' => in_array('departamento', $options['deshabilitados']),
             'choice_label' => function ($dpto) {
-                //$nom = str_replace(array('á', 'é', 'í', 'ó', 'ú'), array('Á', 'É', 'Í', 'Ó', 'Ú'), $dpto->getNombre());
-//                return strtoupper( $nom );
                 return $dpto->getNombre();
             },
             'attr' => array(
-                'class' => 'form-control js-select2',
+                'class' => 'form-control',                
             )
         ));
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+        $builder->add('reset', ResetType::class, array(
             'label' => 'Limpiar campos',
             'attr' => array('class' => 'btn btn-secondary')
         ));
@@ -128,10 +130,8 @@ class PlanificacionType extends AbstractType {
 
         if ($builder->getData()->getId()) {
             $submit_opt['label'] = 'Guardar';
-//            $submit_opt['attr']['onclick'] = 'onModificarInfoBasicaClick(event);';
         } else {
             $submit_opt['label'] = 'Crear';
-//            $submit_opt['attr']['onclick'] = 'onGuardarInfoBasicaClick(event);';
         }
 
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
@@ -188,7 +188,7 @@ class PlanificacionType extends AbstractType {
         
         $p = $builder->getData();
         $codigoSiu = $p instanceof Planificacion ? $p->getCodigoAsignatura() : null;
-        $builder->add('codigoSiu', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('codigoSiu', TextType::class, array(
             'label' => 'Código SIU',
             'mapped' => false,
             'required' => false,
@@ -214,7 +214,7 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control select-carrera js-select2',                
                 'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
             'constraints' => array(
-                new \Symfony\Component\Validator\Constraints\NotBlank( array('message' => "El campo Carrera es obligatorio.") )
+                new NotBlank( array('message' => "El campo Carrera es obligatorio.") )
             )
         );
 
@@ -223,7 +223,7 @@ class PlanificacionType extends AbstractType {
         }
 
 
-        $builder->add('carrera', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('carrera', ChoiceType::class, $config);
     }
 
     /**
@@ -239,7 +239,7 @@ class PlanificacionType extends AbstractType {
             'choices' => $asignaturas,
             'attr' => array('class' => 'form-control select-asignatura js-select2'),
             'constraints' => array(
-                new \Symfony\Component\Validator\Constraints\NotBlank( array('message' => 'El campo Asignatura es obligatorio.') )
+                new NotBlank( array('message' => 'El campo Asignatura es obligatorio.') )
             )
         );
 
@@ -290,6 +290,7 @@ class PlanificacionType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
             'carrera_default' => WSHelper::CARRERA_II,
+            'deshabilitados' => array(),
             'api_infofich_service' => null
         ));
     }

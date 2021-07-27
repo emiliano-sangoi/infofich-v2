@@ -13,7 +13,7 @@
     {{ parent() }}
     <script>
 
-        $(document).ready(function () {
+        $(document).ready(function () {            
 
             resetInfoAsignatura();
             
@@ -33,6 +33,11 @@
 
             //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
             select_carreras.trigger('change');
+            
+            $('#planificacionesbundle_planificacion_departamento').select2({
+                placeholder: "Campo completado por Sec. Académica.",
+                allowClear: true
+            });
 
         });
 

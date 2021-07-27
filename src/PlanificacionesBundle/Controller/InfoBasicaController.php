@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Entity\Rol;
 use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
@@ -17,11 +18,7 @@ class InfoBasicaController extends Controller {
         
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $api_infofich_service = $this->get('api_infofich_service');
-        
-        $form = $this->createForm(PlanificacionType::class, $planificacion, array(
-            'api_infofich_service' => $api_infofich_service,
-        ));
+        $form = $this->crearForm($planificacion);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -41,6 +38,7 @@ class InfoBasicaController extends Controller {
         }
 
         //titulo principal:
+        $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
@@ -55,5 +53,9 @@ class InfoBasicaController extends Controller {
                     'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));
     }
+    
+    
+    
+
 
 }
