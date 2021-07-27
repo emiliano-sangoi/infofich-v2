@@ -5,12 +5,18 @@ namespace PlanificacionesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Planificacion
  *
- * @ORM\Table(name="planif_planificaciones")
+ * @ORM\Table(name="planif_planificaciones", uniqueConstraints={@ORM\UniqueConstraint(name="planif_idx", columns={"carrera", "codigo_asignatura", "anio_acad"})})
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
+ * @UniqueEntity(
+ *     fields={"carrera", "codigoAsignatura", "anioAcad"},
+ *     errorPath="codigoAsignatura",
+ *     message="Esta asignatura ya tiene creada una planificación."
+ * )
  */
 class Planificacion {
 
