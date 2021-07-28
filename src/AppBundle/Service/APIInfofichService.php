@@ -57,6 +57,7 @@ class APIInfofichService {
 
         $query->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
+                ->setWsEnv(WSHelper::ENV_PROD)
                 ->setCacheEnabled(true);
 
         if (!$solo_carreras) {
@@ -64,7 +65,7 @@ class APIInfofichService {
         }
 
         $resultado = $query->setCarreras($solo_carreras)
-                ->setSoloVigentes(true)
+                ->setSoloVigentes(true)                
                 ->getResultado();
         
         if (is_array($resultado)) {
@@ -84,6 +85,10 @@ class APIInfofichService {
      */
     public function getCarrera($carrera) {
         $carreras_fich = $this->getCarreras(array($carrera));
+        
+        if(!is_array($carreras_fich)){
+            return false;
+        }
 
         if (count($carreras_fich) > 0) {
             $c = array_shift($carreras_fich);
@@ -104,6 +109,10 @@ class APIInfofichService {
 
         $carreras_fich = $this->getCarreras(array($carrera));
 
+        if(!is_array($carreras_fich)){
+            return false;
+        }
+        
         if (count($carreras_fich) > 0) {
 
             $c = array_shift($carreras_fich);

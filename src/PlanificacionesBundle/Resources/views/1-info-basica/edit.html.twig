@@ -15,7 +15,7 @@
 
         $(document).ready(function () {            
 
-            resetInfoAsignatura();
+            resetInfoAsignatura();                        
             
             // combo de carreras:
             var select_carreras = $('#planificacionesbundle_planificacion_carrera');
@@ -62,7 +62,10 @@
             
             var cargarAsignaturas = function (response) {
                 if (response.length > 0) {
-                    var aux = select_asignatura.val();
+                    
+                    var asignaturaActual = "{{ planificacion.codigoAsignatura }}";
+                    //console.log("asignaturaActual: " + asignaturaActual);
+                   
                     select_asignatura.html('');
                     response.forEach(function (val, index) {
                         var opt = $(document.createElement('option'));
@@ -70,7 +73,8 @@
                         opt.attr('value', val.codigoMateria);
                         opt.attr('data-json', JSON.stringify(val));
                         opt.text(val.nombreMateria);
-                        if(aux == val.codigoMateria){
+                       // console.log('Seleccionado: ' + aux, val.codigoMateria );
+                        if(asignaturaActual == val.codigoMateria){
                             opt.attr('selected', true);                                        
                         }
 
@@ -137,7 +141,6 @@
                 console.log("La asignatura debe ser un objeto con la informacion de la asignatura");
                 return;
             }                    
-console.log(asignatura);
 
             var VACIO = '-';
 

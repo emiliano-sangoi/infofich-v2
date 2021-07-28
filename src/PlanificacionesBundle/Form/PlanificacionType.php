@@ -186,8 +186,10 @@ class PlanificacionType extends AbstractType {
     
     private function addCodigoSIU(FormBuilderInterface $builder) {
         
+        
         $p = $builder->getData();
         $codigoSiu = $p instanceof Planificacion ? $p->getCodigoAsignatura() : null;
+        //dump($p->getCodigoAsignatura());exit;
         $builder->add('codigoSiu', TextType::class, array(
             'label' => 'Código SIU',
             'mapped' => false,
@@ -206,7 +208,6 @@ class PlanificacionType extends AbstractType {
      * @param FormBuilderInterface $builder
      */
     private function addCarrera(FormBuilderInterface $builder) {
-
         $config = array(
             'label' => 'Carrera',
             'choices' => $this->getCarreras(),
@@ -305,7 +306,7 @@ class PlanificacionType extends AbstractType {
     private function getCarreras() {
 
         //obtiene las carreras de grado de la fich:
-        $carreras_fich = $this->apiInfofichService->getCarreras();
+        $carreras_fich = $this->apiInfofichService->getCarreras();        
 
         //dump($carreras_fich);exit;
 
