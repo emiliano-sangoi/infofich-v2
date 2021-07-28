@@ -47,7 +47,7 @@ class ActividadCurricularType extends AbstractType {
     private function addTipoActividadCurricular(FormBuilderInterface $builder, array $options) {
 
         $config = array(
-            'label' => 'Tipo',
+            'label' => 'Tipo de Clase',
             'class' => 'PlanificacionesBundle\Entity\TipoActividadCurricular',
             'attr' => array(
                 'class' => 'form-control js-select2'
@@ -142,10 +142,7 @@ class ActividadCurricularType extends AbstractType {
                 'class' => 'form-control',
                 'autocomplete' => 'off'
             ),            
-            'required' => true,
-            'constraints' => array(
-                new NotBlank(array('message' => "Este campo no puede quedar vacio."))
-            )
+            'required' => false,
         );
 
 
@@ -155,11 +152,12 @@ class ActividadCurricularType extends AbstractType {
     private function addDescripcion(FormBuilderInterface $builder, array $options) {
         $config = array(
             'label' => 'Descripción',
-            'required' => false,
+            'required' => true,
             'attr' => array(
-                'rows' => 3,
+                'rows' => 5,
                 'class' => 'form-control',
-                'autocomplete' => 'off'
+                'autocomplete' => 'off',
+                'placeholder' => 'Describa brevemente la mediación pedagógica que utilizará en la clase.  Por ejemplo: seminario, taller, resolución de problemas, aprendizaje basado en problemas, aprendizaje basado en proyectos, cuestionario, foro, aula invertida, juego de roles, experimentos, ejercicios, salida de campo, manejo de instrumental, etc.  '
             )
         );
 
