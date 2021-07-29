@@ -60,7 +60,7 @@ class ActividadCurricularType extends AbstractType {
     private function addTemario(FormBuilderInterface $builder, array $options) {
 
         $config = array(
-            'label' => 'Unidad',
+            'label' => 'Seleccione la unidad',
             'attr' => array('class' => 'form-control js-select2'),
             'class' => 'PlanificacionesBundle:Temario',
             'query_builder' => function(TemarioRepository $tr) {
