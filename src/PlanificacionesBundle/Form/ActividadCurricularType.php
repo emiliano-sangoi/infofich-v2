@@ -157,7 +157,7 @@ class ActividadCurricularType extends AbstractType {
                 'rows' => 5,
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'placeholder' => 'Describa brevemente la mediación pedagógica que utilizará en la clase.  Por ejemplo: seminario, taller, resolución de problemas, aprendizaje basado en problemas, aprendizaje basado en proyectos, cuestionario, foro, aula invertida, juego de roles, experimentos, ejercicios, salida de campo, manejo de instrumental, etc.  '
+                'placeholder' => 'Describa brevemente la mediación pedagógica que utilizará en la clase.  Por ejemplo: seminario, taller, resolución de problemas, aprendizaje basado en problemas, aprendizaje basado en proyectos, cuestionario, foro, aula invertida, juego de roles, experimentos, ejercicios, salida de campo, manejo de instrumental, etc.'
             )
         );
 
