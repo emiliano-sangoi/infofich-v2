@@ -15,9 +15,14 @@
                     {% for c in resumen.cronograma %}
                     <li>
                         <p>                        
-                            Unidad : {{ c.temario}} - Fecha :{{ c.fecha|date("d/m/Y") }} -Tipo : {{ c.tipoActividadCurricular}}
-                            - Carga horaria en aula : {{ c.cargaHorariaAula}} - Horas de estudio autónomo : {{ c.cargaHorariaAutonomo}}
-                            - Contenidos : {{ c.contenido}} - Descripción : {{ c.descripcion|default(global_sd) }} 
+                            <strong>Unidad :</strong>  {{ c.temario}} 
+                            - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
+                            - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}}
+                        </p>
+                        <p>    
+                            <strong>Carga horaria en aula : </strong> {{ c.cargaHorariaAula}} 
+                            <strong>Horas de estudio autónomo : </strong> {{ c.cargaHorariaAutonomo}}
+                            <strong>Descripción :</strong>  {{ c.descripcion|default(global_sd) }} 
                         </p>
                     </li>    
                     {% endfor %}
