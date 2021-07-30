@@ -14,7 +14,7 @@
                     {% for r in resumen.temario %}
                     <li>
                         <p>                      
-                            <strong>Unidad </strong>{{ r.unidad }} <strong>Título </strong>{{ r.titulo }}  <strong>Contenido </strong>{{ r.contenido|default(global_sd)}}  
+                            <strong>Unidad </strong>{{ r.unidad }} <strong>{{ r.titulo }} </strong> {{ r.contenido|default(global_sd)}}  
                         </p>
                     </li>
                     {% endfor %}

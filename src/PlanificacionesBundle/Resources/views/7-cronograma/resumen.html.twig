@@ -15,8 +15,8 @@
                     {% for c in resumen.cronograma %}
                     <li>
                         <p>                        
-                            <strong>Unidad :</strong>  {{ c.temario}} 
-                            - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
+                            <strong>{{ c.temario}} </strong>  
+                            <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
                             - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}}
                         </p>
                         <p>    
