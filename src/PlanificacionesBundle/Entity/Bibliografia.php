@@ -54,6 +54,12 @@ class Bibliografia
      *     type="int",
      *     message="Este campo debe ser un número entero")
      * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 32000,
+     *      minMessage = "Mínimo valor permitido {{ limit }}",
+     *      maxMessage = "Máximo valor permitido {{ limit }}"
+     * )
      */
     private $anioEdicion;
 
@@ -65,6 +71,12 @@ class Bibliografia
      *     type="int",
      *     message="Este campo debe ser un número entero")    
      * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 32000,
+     *      minMessage = "Mínimo valor permitido {{ limit }}",
+     *      maxMessage = "Máximo valor permitido {{ limit }}"
+     * )
      */
     private $nroEdicion;
 
@@ -105,6 +117,10 @@ class Bibliografia
      * @var string
      *
      * @ORM\Column(name="enlace_online", type="string", length=512, nullable=true)
+     * @Assert\Url(
+     *    message = "La url debe ser una url válida: http://www.mipagina.com",
+     *    protocols = {"http", "https", "ftp"}
+     * )
      */
     private $enlaceOnline;
     

@@ -33,6 +33,7 @@ class BibliografiaType extends AbstractType {
                     'attr' => array(
                         'class' => 'form-control',
                         'min' => 1,
+                        'max' => 32000,
                     )
         ));
 
@@ -43,7 +44,8 @@ class BibliografiaType extends AbstractType {
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control',
-                        'min' => 1
+                        'min' => 1,
+                        'max' => 32000,
                     )
         ));
 
@@ -72,11 +74,12 @@ class BibliografiaType extends AbstractType {
 
 
         $builder
-                ->add('enlaceOnline', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+                ->add('enlaceOnline', 'Symfony\Component\Form\Extension\Core\Type\UrlType', array(
                     'label' => 'Enlace',
                     'required' => false,
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'placeholder' => 'http://www.mipagina.com'
                     )
         ));
 
