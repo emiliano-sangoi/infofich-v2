@@ -14,9 +14,9 @@
                     {% for b in resumen.bibliografia %}
                         <li>
                         <p> 
-                            <strong>Título </strong> {{ b.bibliografia|default(global_sd) }} -                       
-                            <strong>Tipo de Bibliografía </strong>{{ b.tipoBibliografia|default(global_sd) }} - 
-                            <strong>Autores </strong>{{ b.bibliografia.autores|default(global_sd) }} -
+                            {{ b.bibliografia|default(global_sd) }}.                        
+                            <strong>Tipo de Bibliografía: </strong>{{ b.tipoBibliografia|default(global_sd) }}. 
+                            {{ b.bibliografia.autores|default(global_sd) }} -
                             <strong>Editorial </strong>{{ b.bibliografia.editorial|default(global_sd) }} -
                             <strong>Año de edición </strong>{{ b.bibliografia.anioEdicion|default(global_sd) }} -
                             <strong>N° de edición </strong>{{ b.bibliografia.nroEdicion|default(global_sd) }} -
