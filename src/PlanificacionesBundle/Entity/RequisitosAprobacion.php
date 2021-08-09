@@ -80,7 +80,7 @@ class RequisitosAprobacion {
     /**
      * @var string
      *
-     * @ORM\Column(name="porcentaje_asistencia", type="decimal", precision=4, scale=1)
+     * @ORM\Column(name="porcentaje_asistencia", type="integer")
      * @Assert\Range(
      *      min = "70",
      *      max = "100",
