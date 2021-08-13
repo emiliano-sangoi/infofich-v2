@@ -13,17 +13,18 @@
     {{ parent() }}
     <script>
 
-        $(document).ready(function () {            
+        $(document).ready(function () {
 
-            resetInfoAsignatura();                        
-            
-            // combo de carreras:
-            var select_carreras = $('#planificacionesbundle_planificacion_carrera');
+            select_carreras = $('#planificacionesbundle_planificacion_carrera');
+            select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
+            ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
+
+            resetInfoAsignatura();
+
+            // combo de carreras:           
             select_carreras.change(actualizarAsignaturas);
 
             //combo de asignaturas:
-            //var select = $('#planificacionesbundle_planificacion_carrera');
-            var select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             select_asignatura.change(function (e) {
                 var option = $(this).children("option:selected");
                 var asignatura = JSON.parse(option.attr('data-json'));
@@ -33,7 +34,7 @@
 
             //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
             select_carreras.trigger('change');
-            
+
             $('#planificacionesbundle_planificacion_departamento').select2({
                 placeholder: "Este campo será completado por Secretaría Académica.",
                 allowClear: true
@@ -42,75 +43,12 @@
         });
 
 
-        /**
-         * Actualiza el listado de asignaturas al cambiar la carrera elegida.
-         *
-         * @param {type} select
-         * @returns {undefined}
-         */
-        function actualizarAsignaturas(event) {
-            
-            // limpiar los campos de la asignatura seleccionada
-            resetInfoAsignatura();
-            
-            var select_carreras = $('#planificacionesbundle_planificacion_carrera');
-            var select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
-            
-            // desactivar combo de asignaturas:
-            select_asignatura.prop("disabled", true);
-            
-            
-            var cargarAsignaturas = function (response) {
-                if (response.length > 0) {
-                    
-                    var asignaturaActual = "{{ planificacion.codigoAsignatura }}";
-                    //console.log("asignaturaActual: " + asignaturaActual);
-                   
-                    select_asignatura.html('');
-                    response.forEach(function (val, index) {
-                        var opt = $(document.createElement('option'));
 
-                        opt.attr('value', val.codigoMateria);
-                        opt.attr('data-json', JSON.stringify(val));
-                        opt.text(val.nombreMateria);
-                       // console.log('Seleccionado: ' + aux, val.codigoMateria );
-                        if(asignaturaActual == val.codigoMateria){
-                            opt.attr('selected', true);                                        
-                        }
 
-                        select_asignatura.append(opt);
-                    });
-
-                    //activar el select:
-                    select_asignatura.prop("disabled", false);
-
-                }
-            };
-
-            var carrera = $(select_carreras).val();
-
-            //setear la carrera en la url:
-            var url = SECCIONES.get_asignaturas;
-            url = url.replace('--CARRERA--', carrera);
-
-            $.ajax({
-                dataType: "json",
-                url: url,
-                data: null,
-                success: cargarAsignaturas,
-                complete: function (data) {
-                    //esto se ejecuta cuando se terminan de cargar las asignaturas
-                    // y provoca que se cargue la informacion de la materia.
-                    select_asignatura.trigger("change");
-                }
-            });
-                    
-        }
-                
         /**
          * Limpia los campos con la informacion de la asignatura.
          */
-        function resetInfoAsignatura(){
+        function resetInfoAsignatura() {
             $('#planificacionesbundle_planificacion_codigoSiu').val("");
             $('#planificacionesbundle_planificacion_plan').val("");
             $('#planificacionesbundle_planificacion_caracter').val("");
@@ -136,17 +74,17 @@
          * }
          * 
          */
-        function cargarInfoAsignatura(asignatura){
-            if(typeof asignatura !== 'object'){
+        function cargarInfoAsignatura(asignatura) {
+            if (typeof asignatura !== 'object') {
                 console.log("La asignatura debe ser un objeto con la informacion de la asignatura");
                 return;
-            }                    
+            }
 
             var VACIO = '-';
 
             $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
-            $('#planificacionesbundle_planificacion_plan').val( getPlanCarrera() );
-            $('#planificacionesbundle_planificacion_caracter').val(asignatura.obligatoria ? 'Obligatoria' : 'Optativa' );
+            $('#planificacionesbundle_planificacion_plan').val(getPlanCarrera());
+            $('#planificacionesbundle_planificacion_caracter').val(asignatura.obligatoria ? 'Obligatoria' : 'Optativa');
             $('#planificacionesbundle_planificacion_cargaHoraria').val(asignatura.cargaHoraria ? asignatura.cargaHoraria : VACIO);
             $('#planificacionesbundle_planificacion_periodoCursada').val(asignatura.periodoCursada ? asignatura.periodoCursada : VACIO);
             $('#planificacionesbundle_planificacion_anioCursada').val(asignatura.anioCursada ? asignatura.anioCursada : VACIO);
@@ -154,21 +92,21 @@
             // TODO: revisar cuando se haga la asociacion asignatura - departamento
             //$("#planificacionesbundle_planificacion_departamento").select2("val", "");
         }
-                
+
         /**
          * Devuelve el plan de la carrera seleccionada.
          */
-        function getPlanCarrera(){
+        function getPlanCarrera() {
             var select_carreras = $('#planificacionesbundle_planificacion_carrera');
             var carrera_planes = select_carreras.data('planes-carrera');
             var carrera = select_carreras.val();
             var plan = null;
-            if(typeof carrera_planes[ carrera ] !== 'undefined'){
+            if (typeof carrera_planes[ carrera ] !== 'undefined') {
                 plan = carrera_planes[ carrera ];
             }
             return plan;
         }
-                
+
 
 
     </script>

@@ -1,0 +1,53 @@
+{# Utilizado en la sección revisar #}
+<div>
+
+    <div class="row">        
+        <div class="col-12 col-lg-4">
+            <label class="font-weight-bold">Asignatura</label>
+            <div class="{{ resumen.nombreMateria ? 'text-primary font-weight-bold' : 'text-danger' }}">
+                {{ resumen.nombreMateria|default(global_sd) }}
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <label  class="font-weight-bold">Carrera</label>
+            <div class="{{ resumen.carrera ? '' : 'text-danger' }}">               
+                {{ resumen.carrera|default(global_sd) }}
+            </div>
+        </div>
+        <div class="col-12 col-lg-2" >
+            <label  class="font-weight-bold">
+                Año academico
+            </label>
+            <div class="">
+                {{ resumen.anioAcad|default(global_sd) }}
+            </div>
+        </div>        
+    </div>
+
+
+    <div class="row mt-4">                
+
+        <div class="col-12 col-lg-4">
+            <label  class="font-weight-bold">Plan de estudios</label>
+            <div class="{{ resumen.carrera_plan ? '' : 'text-danger' }}">
+                {{ resumen.carrera_plan|default(global_sd) }}
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <label  class="font-weight-bold">Contenidos m&iacute;nimos</label>
+            <div class="{{ resumen.contenidosMinimos ? '' : 'text-danger' }}">
+                {{ resumen.contenidosMinimos|default(global_sd) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+
+            
+        </div>
+    </div>
+
+
+    {#{{ dump(planificacion) }}#}
+</div>

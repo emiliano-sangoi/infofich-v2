@@ -1,0 +1,32 @@
+{# Utilizado en la sección revisar #}
+<div>
+
+    <div class="row">        
+        <div class="col-sm-10">
+            <label class="font-weight-bold">Objetivo General</label>
+            <div class="{{ resumen.objetivosGral ? '' : 'text-danger' }}">
+                {{ resumen.objetivosGral|default(global_sd) }}
+            </div>
+        </div>       
+    </div>
+
+
+    <div class="row mt-4">                
+        <div class="col-sm-10">
+            <label  class="font-weight-bold">Objetivos Específicos</label>
+            <div class="{{ resumen.objetivosEspecificos ? '' : 'text-danger' }}">               
+                {{ resumen.objetivosEspecificos|default(global_sd) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+            <a class="btn btn-outline-primary" href="{{ path('planif_objetivos_editar', {id : planificacion.id}) }}">Modificar</a>
+        </div>
+    </div>
+
+
+    {#{{ dump(planificacion) }}#}
+</div>

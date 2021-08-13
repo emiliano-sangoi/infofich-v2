@@ -131,6 +131,13 @@
                 $('.js-select2').select2();
 
 
+                SECCIONES = {
+                    get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'legajo' : '--LEGAJO--'}) }}",
+                    get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+                    get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
+                };
+
+
                 //Pantalla informacion Basica
             {#$('#asignatura').on('change', function () {
                 $('#codigo_siu').val('IF005');
@@ -304,12 +311,13 @@
 
     $(function () {
         $('.tempusdominus-datetimepicker').datetimepicker({
-            locale: 'es'
+            locale: 'es',
+            format: 'DD/MM/YYYY HH:mm'
         });
 
         $('.tempusdominus-datepicker').datetimepicker({
             locale: 'es',
-            format: 'L'
+            format: 'DD/MM/YYYY'
         });
 
             {#$('.confirmar-borrado').on('click', function (event) {

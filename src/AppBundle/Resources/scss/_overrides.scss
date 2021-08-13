@@ -68,7 +68,7 @@ a{
 
         &.active{
             i{
-               color: $white !important;
+                color: $white !important;
             }
         }
 
@@ -87,20 +87,40 @@ a{
 }
 
 
+.acordion{
 
-#accordion .card .card-header{
-    background-color: $primary !important; 
-    color: $white;
-    padding: .25rem .25rem;
+    .card .card-header{
+        background-color: $primary !important; 
+        color: $white;
+        padding: .25rem .25rem;
+    }
+    
+    .card-link{
+        display: block;
+        text-transform: uppercase;
+    }
+    
+    .acordeon-header, .card-link{
+        position: relative;
+
+        i.fa-caret-down{
+            position: absolute;
+            right: 1rem;
+            top: 25%;
+        }
+
+    }
+
+    .card .card-header .btn{
+        color: $white;
+    }
+
 }
 
-#accordion .card .card-header .btn{
-    color: $white;
-}
 
 .btn-link:focus, .btn-link:hover {
     text-decoration: none;
-    
+
 }
 
 .border-azul{

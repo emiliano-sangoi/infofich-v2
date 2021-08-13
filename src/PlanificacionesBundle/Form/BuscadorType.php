@@ -3,10 +3,12 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
-use FICH\APIRectorado\Config\WSHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BuscadorType extends AbstractType {
@@ -22,7 +24,7 @@ class BuscadorType extends AbstractType {
      * @var array
      */
     private $options;
-
+    
     public function __construct(APIInfofichService $apiInfofichService) {
 
         $this->apiInfofichService = $apiInfofichService;
@@ -69,7 +71,7 @@ class BuscadorType extends AbstractType {
 
 
         $builder->add('carrera', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
-    }
+        }
 
     /**
      * 
@@ -78,15 +80,20 @@ class BuscadorType extends AbstractType {
     private function addAsignaturas(FormBuilderInterface $builder, $cod_carrera = null) {
 
         $asignaturas = $this->getAsignaturas($cod_carrera);
-
+        
         $config = array(
             'label' => 'Asignatura',
             'choices' => $asignaturas,
-             'required' => false,
-            'attr' => array('class' => 'form-control select-asignatura js-select2')
+            'required' => false,
+            'attr' => array('class' => 'form-control select-asignatura')
         );
 
-        $builder->add('codigoAsignatura', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('codigoAsignatura', ChoiceType::class, $config);
+        
+        //Esto permite desactivar el error "Este valor no es valido" que surge cuando 
+        //se intenta setear la asignatura en un listado que todavia no se actualizo.x
+        $builder->get('codigoAsignatura')->resetViewTransformers();
+        // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
     }
 
     /**
@@ -112,7 +119,7 @@ class BuscadorType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => null,
-            'carrera_default' => WSHelper::CARRERA_II,
+            'carrera_default' => null,
             'method' => 'GET',
             'csrf_protection' => false
         ));

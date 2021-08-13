@@ -39,7 +39,7 @@ class Texto {
         $aux = str_replace(
                 array_keys(self::$reemplazos), 
                 array_values(self::$reemplazos), 
-                strtolower($frase));
+                mb_strtolower($frase));
 
         $partes = explode(' ', strtolower($aux));
         $end = end($partes);

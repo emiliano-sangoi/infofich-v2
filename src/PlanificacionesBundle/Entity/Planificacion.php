@@ -245,7 +245,7 @@ class Planificacion {
     }
 
     public function getTitulo() {
-        return strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
+        return mb_strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
 
     public function __toString() {

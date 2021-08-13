@@ -71,4 +71,67 @@ function afterAddDocente(collection, item) {
 //
 //    });
 }
-;
+
+
+/**
+ * Actualiza el listado de asignaturas al cambiar la carrera elegida.
+ *
+ * @param {type} select
+ * @returns {undefined}
+ */
+function actualizarAsignaturas(event) {    
+
+    // desactivar combo de asignaturas:
+    select_asignatura.prop("disabled", true);
+
+
+    var cargarAsignaturas = function (response) {
+        if (response.length > 0) {            
+
+            select_asignatura.html('');
+            response.forEach(function (val, index) {
+                var opt = $(document.createElement('option'));
+
+                opt.attr('value', val.codigoMateria);
+                opt.attr('data-json', JSON.stringify(val));
+                opt.text(val.nombreMateria);
+                // console.log('Seleccionado: ' + aux, val.codigoMateria );
+                if (typeof ASIGNATURA_ACTUAL !== 'undefined' && ASIGNATURA_ACTUAL == val.codigoMateria) {
+                    opt.attr('selected', true);
+                }
+
+                select_asignatura.append(opt);
+            });
+
+            //activar el select:
+            select_asignatura.prop("disabled", false);
+
+        }
+    };
+
+    var carrera = $(select_carreras).val();
+    console.log('carrera: ' + carrera);
+    
+    if(carrera != '01' && carrera != '02' && carrera != '03' && carrera != '08'){          
+        return;
+    }
+console.log('pase: ');
+
+    //setear la carrera en la url:
+    var url = SECCIONES.get_asignaturas;
+    url = url.replace('--CARRERA--', carrera);
+
+    $.ajax({
+        dataType: "json",
+        url: url,
+        data: null,
+        success: cargarAsignaturas,
+        complete: function (data) {
+            //esto se ejecuta cuando se terminan de cargar las asignaturas
+            // y provoca que se cargue la informacion de la materia.
+            select_asignatura.trigger("change");
+            select_asignatura.select2({});
+        }
+    });
+
+}

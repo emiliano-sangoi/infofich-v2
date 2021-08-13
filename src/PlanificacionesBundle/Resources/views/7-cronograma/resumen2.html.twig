@@ -1,0 +1,37 @@
+{# Utilizado en la sección revisar #}
+<div>
+
+    <div class="row">        
+        <div class="col-sm-10">
+            {#<label class="font-weight-bold">Resultados</label>#}
+             
+            {% if resumen.resultados is null %}
+                    <div class="text-danger">{{ global_sd }}</div>
+                {% else %}
+                <ul>
+                    {% for c in resumen.cronograma %}
+                    <li>
+                        <p>                        
+                            <strong>Unidad :</strong>  {{ c.temario}} 
+                            - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
+                            - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}}
+                        </p>
+                        <p>    
+                            <strong>Carga horaria en aula : </strong> {{ c.cargaHorariaAula}} 
+                            <strong>Horas de estudio autónomo : </strong> {{ c.cargaHorariaAutonomo}}
+                            <strong>Descripción :</strong>  {{ c.descripcion|default(global_sd) }} 
+                        </p>
+                    </li>    
+                    {% endfor %}
+                </ul>
+                {% endif %}              
+        </div>       
+    </div>
+
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+            <a class="btn btn-outline-primary" href="{{ path('planif_act_curriculares_editar', {id : planificacion.id}) }}">Modificar</a>
+        </div>
+    </div>
+</div>

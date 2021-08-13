@@ -174,12 +174,20 @@ a {
 .container .card {
   border: none !important; }
 
-#accordion .card .card-header {
+.acordion .card .card-header {
   background-color: #006CB7 !important;
   color: white;
   padding: .25rem .25rem; }
-
-#accordion .card .card-header .btn {
+.acordion .card-link {
+  display: block;
+  text-transform: uppercase; }
+.acordion .acordeon-header, .acordion .card-link {
+  position: relative; }
+  .acordion .acordeon-header i.fa-caret-down, .acordion .card-link i.fa-caret-down {
+    position: absolute;
+    right: 1rem;
+    top: 25%; }
+.acordion .card .card-header .btn {
   color: white; }
 
 .btn-link:focus, .btn-link:hover {
@@ -8329,13 +8337,6 @@ body {
     color: #17a2b8; }
   .notificacion-info .msg {
     color: #575756; }
-
-.acordeon-header {
-  position: relative; }
-  .acordeon-header i.fa {
-    position: absolute;
-    right: .50rem;
-    top: .750rem; }
 
 #temario .form-row:nth-of-type(odd),
 #equipo-doc-res .form-row:nth-of-type(odd),

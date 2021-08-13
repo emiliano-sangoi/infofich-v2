@@ -33,7 +33,7 @@ class PlanificacionController extends Controller {
 
         $form_filtros = $this->createForm(BuscadorType::class, null);
         $form_filtros->handleRequest($request);
-
+//dump($form_filtros->getData());exit;
         $query = $this->buildQuery($form_filtros);
 
         // $form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
@@ -195,7 +195,7 @@ class PlanificacionController extends Controller {
 
         //dump($planificacion->getDocenteResponsable()->getDocente()->getPersona()->getApellidos());exit;
         // replace this example code with whatever you need
-        return $this->render('PlanificacionesBundle:planificacion:revisar.html.twig', array(
+        return $this->render('PlanificacionesBundle:planificacion:revisar2.html.twig', array(
                     'planificacion' => $planificacion,
                     'asignatura' => $asignatura,
                     'page_title' => $page_title,

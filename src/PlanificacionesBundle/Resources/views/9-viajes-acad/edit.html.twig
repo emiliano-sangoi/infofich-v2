@@ -48,9 +48,9 @@
                     
                     item.find('.js-select2').select2({});
                     
-                    item.find('.tempusdominus-datepicker').datetimepicker({
-                        locale: 'es',
-                        format: 'L'
+                    item.find('.tempusdominus-datetimepicker').datetimepicker({
+                        locale: 'es',                        
+                        format: 'DD/MM/YYYY HH:mm'
                     });
 
                     item.find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);

@@ -65,8 +65,8 @@ body{
 }
 
 * {
-/*    margin: 0;
-    padding: 0;*/
+    /*    margin: 0;
+        padding: 0;*/
 }
 
 
@@ -186,16 +186,7 @@ $content-info-right-panel-h: 20.25vh;
 }
 
 
-.acordeon-header{
-    position: relative;
 
-    i.fa{
-        position: absolute;
-        right: .50rem;
-        top: .750rem;
-    }
-
-}
 
 
 #temario .form-row:nth-of-type(odd),
