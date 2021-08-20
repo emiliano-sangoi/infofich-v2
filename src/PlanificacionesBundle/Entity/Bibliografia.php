@@ -109,7 +109,6 @@ class Bibliografia
      *
      * @ORM\Column(name="fecha_consulta_online", type="datetime", nullable=true)
      * @Assert\Date()
-     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaConsultaOnline;
 

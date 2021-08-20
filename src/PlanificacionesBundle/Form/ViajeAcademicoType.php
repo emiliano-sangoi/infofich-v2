@@ -55,7 +55,7 @@ class ViajeAcademicoType extends AbstractType {
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control cant_estudiantes',
-                        'min' => 0
+                        'min' => 1
                         )
                 ));
         
@@ -64,13 +64,14 @@ class ViajeAcademicoType extends AbstractType {
                 ->add('cantDocentes', IntegerType::class, array(
                     'label' => 'Docentes',
                     'required' => true,
-                    'attr' => array('class' => 'form-control cant_docentes', 'min' => 0)
+                    'attr' => array('class' => 'form-control cant_docentes', 'min' => 1)
                 ));
         
         
         $builder
                 ->add('totalPasajeros', IntegerType::class, array(
                     'label' => 'Total',
+                    'mapped' => false,
                     'required' => false,
                     'attr' => array('class' => 'form-control total_pasajeros', 'min' => 0, 'readonly' => true)
                 ));
