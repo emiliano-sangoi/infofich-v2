@@ -16,7 +16,11 @@
 {% block content %}
     <div class="">
         <div class="">
-            <div class="shadow">
+            <div class="">
+                {% include '::notificaciones.html.twig' %}
+            </div>
+
+            <div class="shadow">                
 
                 {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig'%}
 
