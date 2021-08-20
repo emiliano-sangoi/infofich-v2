@@ -1,0 +1,87 @@
+{% extends '::base.html.twig' %}
+
+{% block navbar2 %}     
+    {% embed 'navbar2.html.twig' %}         
+        {% block navbar2_actions %}
+            <a href="{{ path('planificaciones_homepage') }}" class="">
+                <i class="fa fa-arrow-left"></i>
+                Ir a planificaciones
+            </a>     
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        
+        <div class="">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <div class="p-5 bg-light shadow">
+            <h3 class='font-weight-bold text-danger'>
+                Borrar planificación                                                       
+            </h3>
+            <p class="lead">
+                Esta a punto de borrar la planificación de la asignatura 
+                <span class="font-weight-bold text-uppercase">
+                    {{ planificacion.nombreAsignatura }} (Año {{ planificacion.anioAcad }})</span>
+                de la carrera
+                <span class="font-weight-bold text-uppercase">
+                    {{ nom_carrera(planificacion.carrera) ~ ' - Plan ' ~ planificacion.plan }} 
+                </span>
+                .
+            </p> 
+            <p class="lead">
+                ¿Esta seguro que desea borrar esta planificación?. 
+                <span class="text-danger text-uppercase font-weight-bold">
+                    Este cambio no puede deshacerse.
+                </span>
+            </p>
+
+            <div class="mt-5">
+                {% embed '::botonera.html.twig' %}
+
+                    {% block left %}
+                        <a href="{{ path('planificaciones_homepage') }}" class="btn btn-outline-primary">
+                            Cancelar
+                        </a>
+                        <a href="{{ path('planificaciones_revisar', {id : planificacion.id }) }}" class="btn btn-outline-secondary" title="Ver más datos de esta planificación">
+                            M&aacute;s datos
+                        </a>
+                    {% endblock %}
+
+                    {% block right %}
+                        {{ form_start(form) }}
+                        <button type="submit" role="button" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>&nbsp;
+                            Confirmar borrado
+                        </button>
+                        {{ form_end(form) }}                        
+                    {% endblock %}
+
+                {% endembed %}
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

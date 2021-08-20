@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use function dump;
 
 class PlanificacionController extends Controller {
-    
+
     use PlanificacionTrait;
 
     private $resumen;
@@ -404,7 +404,7 @@ class PlanificacionController extends Controller {
     private function addBibliografia(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['bibliografia'] = null;
-        $bibliografia = $planificacion->getBibliografiasPlanificacion();      
+        $bibliografia = $planificacion->getBibliografiasPlanificacion();
         $this->resumen['bibliografia'] = $bibliografia;
     }
 
@@ -430,7 +430,7 @@ class PlanificacionController extends Controller {
         $this->resumen['totalTeoria'] = $planificacion->getTotalTeoria();
         $this->resumen['totalColoquio'] = $planificacion->getTotalColoquio();
         $this->resumen['totalTeoricoPractica'] = $planificacion->getTotalTeoricoPractica();
-        $this->resumen['totalFormacionPractica'] = $planificacion->getTotalFormacionPractica(); 
+        $this->resumen['totalFormacionPractica'] = $planificacion->getTotalFormacionPractica();
         $this->resumen['totalConsulta'] = $planificacion->getTotalConsulta();
         $this->resumen['totalEvaluacion'] = $planificacion->getTotalEvaluacion();
         $this->resumen['totalOtrasAct'] = $planificacion->getTotalOtrasAct();
@@ -445,6 +445,78 @@ class PlanificacionController extends Controller {
         $this->resumen['viajes'] = null;
         $viajes = $planificacion->getViajesAcademicos();
         $this->resumen['viajes'] = $viajes;
+    }
+
+    public function borrarAction(Planificacion $planificacion, Request $request) {
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_BORRAR, array('data' => $planificacion));
+
+        $form = $this->crearFormBorrarPlanif($planificacion);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            try {
+                
+                //Borrar todos los estados
+                $estados = $em->getRepository(HistoricoEstados::class)->findBy(array('planificacion' => $planificacion));
+                foreach ($estados as $estado){
+                    $em->remove($estado);
+                }
+                
+                //Borrar la planificacion:                
+                $em->remove($planificacion);
+                
+                //Impactar cambios:
+                $em->flush();
+
+                $this->addFlash('success', 'La planificacion fué borrada correctamente.');
+
+                //Causar redireccion para evitar "re-submits" del form:
+                return $this->redirectToRoute('planificaciones_homepage');
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+                
+            } catch (Exception $ex) {
+                
+            }
+
+            $this->addFlash('warning', 'Ocurrió un error al intentar borrar la planificación.');
+
+            //Causar redireccion para evitar "re-submits" del form:
+            return $this->redirectToRoute('planificaciones_borrar', array('id' => $planificacion->getId()));
+        }
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem("BORRAR");
+
+        return $this->render('PlanificacionesBundle:planificacion:borrar.html.twig', array(
+                    'page_title' => 'Borrar planificación',
+                    'planificacion' => $planificacion,
+                    'form' => $form->createView(),
+                    // 'paginado' => $paginado,
+                    'puede_borrar' => $this->isGranted(Permisos::PLANIF_BORRAR, array('data' => null))
+        ));
+    }
+
+    /**
+     * Crear un formulario para borrar la planificacion
+     *
+     * @param Planificacion $planificacion Planificacion a borrar
+     *
+     * @return Form The form
+     */
+    private function crearFormBorrarPlanif(Planificacion $planificacion) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('planificaciones_borrar', array('id' => $planificacion->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
+        ;
     }
 
 }

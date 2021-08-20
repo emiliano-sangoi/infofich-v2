@@ -2,9 +2,13 @@
 
 namespace PlanificacionesBundle\Form;
 
+use Exception;
+use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class ActividadesCurricularesType extends AbstractType {
 
@@ -15,13 +19,13 @@ class ActividadesCurricularesType extends AbstractType {
         
         $planif = $builder->getData();
         
-        if(!$planif instanceof \PlanificacionesBundle\Entity\Planificacion){
-            throw new \Exception('Debe especificar una planificacion al utilizar este formulario.');
+        if(!$planif instanceof Planificacion){
+            throw new Exception('Debe especificar una planificacion al utilizar este formulario.');
         }
 
-        $builder->add('actividadCurricular', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+        $builder->add('actividadCurricular', CollectionType::class, array(
            // 'error_bubbling' => false,   
-            'entry_type' => 'PlanificacionesBundle\Form\ActividadCurricularType',
+            'entry_type' => ActividadCurricularType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
@@ -41,7 +45,7 @@ class ActividadesCurricularesType extends AbstractType {
             ),            
             'label' => false,   
             'constraints' => array(
-                new \Symfony\Component\Validator\Constraints\Valid()
+                new Valid()
             ),
             'error_bubbling' => false,                     
         ));                
@@ -64,7 +68,7 @@ class ActividadesCurricularesType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion',
+            'data_class' => Planificacion::class,
           //  'error_bubbling' => false,
              'error_bubbling' => false
         ));

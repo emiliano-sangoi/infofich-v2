@@ -70,7 +70,7 @@ class BuscadorType extends AbstractType {
         );
 
 
-        $builder->add('carrera', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('carrera', ChoiceType::class, $config);
         }
 
     /**

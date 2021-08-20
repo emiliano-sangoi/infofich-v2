@@ -115,7 +115,6 @@ function actualizarAsignaturas(event) {
     if(carrera != '01' && carrera != '02' && carrera != '03' && carrera != '08'){          
         return;
     }
-console.log('pase: ');
 
     //setear la carrera en la url:
     var url = SECCIONES.get_asignaturas;

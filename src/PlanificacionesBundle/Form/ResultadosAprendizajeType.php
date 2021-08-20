@@ -45,10 +45,6 @@ class ResultadosAprendizajeType extends AbstractType {
 
         $builder->add('submit', SubmitType::class, $submit_opt);
 
-//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-//            'label' => 'Limpiar campos',
-//            'attr' => array('class' => 'btn btn-secondary')
-//        ));
     }
 
     /**

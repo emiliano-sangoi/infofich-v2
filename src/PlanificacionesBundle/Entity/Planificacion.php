@@ -210,7 +210,7 @@ class Planificacion {
      *
      * @var RequisitosAprobacion
      * 
-     * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion")
+     * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion", cascade={"remove"})
      */
     private $requisitosAprobacion;
 
@@ -1028,5 +1028,5 @@ class Planificacion {
     public function getResultados()
     {
         return $this->resultados;
-    }    
+    }
 }

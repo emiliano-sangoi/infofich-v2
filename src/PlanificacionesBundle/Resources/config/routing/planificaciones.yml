@@ -12,6 +12,11 @@ planificaciones_nueva:
 #    defaults: { _controller: PlanificacionesBundle:Planificacion:new }
     defaults: { _controller: PlanificacionesBundle:Planificacion:new }
     methods: [GET, POST]
+    
+planificaciones_borrar:
+    path:     /{id}/borrar
+    defaults: { _controller: PlanificacionesBundle:Planificacion:borrar }
+    methods: [GET, DELETE]
 #
 #planificaciones_edit:
 #    path:     /{id}/editar
