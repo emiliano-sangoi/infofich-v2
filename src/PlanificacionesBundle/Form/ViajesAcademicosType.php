@@ -39,8 +39,7 @@ class ViajesAcademicosType extends AbstractType
        
         $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'attr' => array(
-                'class' => 'btn btn-success',
-                //'onclick' => 'onGuardarViajesAcademicosClick(event);'
+                'class' => 'btn btn-success'
             ),
             'label' => 'Guardar'
         ));

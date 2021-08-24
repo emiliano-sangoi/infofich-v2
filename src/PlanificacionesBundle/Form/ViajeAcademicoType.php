@@ -73,7 +73,8 @@ class ViajeAcademicoType extends AbstractType {
                     'label' => 'Total',
                     'mapped' => false,
                     'required' => false,
-                    'attr' => array('class' => 'form-control total_pasajeros', 'min' => 0, 'readonly' => true)
+                    'attr' => array('class' => 'form-control total_pasajeros', 
+                    'min' => 0, 'readonly' => true)
                 ));
         
         $builder
