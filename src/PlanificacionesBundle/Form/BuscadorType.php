@@ -41,15 +41,6 @@ class BuscadorType extends AbstractType {
         $this->addAsignaturas($builder);
         $this->addAniAcad($builder);
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-            'label' => 'Buscar',
-            'attr' => array('class' => 'btn btn-success text-color-white')
-        ));
-
-//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-//            'label' => 'Limpiar filtros',
-//            'attr' => array('class' => 'btn btn-secondary')
-//        ));
     }
 
     /**
@@ -64,9 +55,8 @@ class BuscadorType extends AbstractType {
         $config = array(
             'label' => 'Carrera',
             'choices' => $this->getCarreras(),
-            'required' => false,
-            'data' => $this->options['carrera_default'],
-            'attr' => array('class' => 'form-control select-carrera js-select2')
+            'required' => true,            
+            'attr' => array('class' => 'form-control select-carrera')
         );
 
 

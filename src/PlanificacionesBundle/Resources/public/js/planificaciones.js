@@ -79,14 +79,14 @@ function afterAddDocente(collection, item) {
  * @param {type} select
  * @returns {undefined}
  */
-function actualizarAsignaturas(event) {    
+function actualizarAsignaturas(event) {
 
     // desactivar combo de asignaturas:
     select_asignatura.prop("disabled", true);
 
 
     var cargarAsignaturas = function (response) {
-        if (response.length > 0) {            
+        if (response.length > 0) {
 
             select_asignatura.html('');
             response.forEach(function (val, index) {
@@ -110,9 +110,9 @@ function actualizarAsignaturas(event) {
     };
 
     var carrera = $(select_carreras).val();
-    console.log('carrera: ' + carrera);
-    
-    if(carrera != '01' && carrera != '02' && carrera != '03' && carrera != '08'){          
+    //console.log('carrera: ' + carrera);
+
+    if (carrera != '01' && carrera != '02' && carrera != '03' && carrera != '08') {
         return;
     }
 
@@ -127,9 +127,13 @@ function actualizarAsignaturas(event) {
         success: cargarAsignaturas,
         complete: function (data) {
             //esto se ejecuta cuando se terminan de cargar las asignaturas
-            // y provoca que se cargue la informacion de la materia.
+            // y provoca que se cargue la informacion de la materia.                
             select_asignatura.trigger("change");
-            select_asignatura.select2({});
+            
+            if(ASIGNATURA_ACTUAL == -1){
+                select_asignatura.val("");
+            }
+            
         }
     });
 
