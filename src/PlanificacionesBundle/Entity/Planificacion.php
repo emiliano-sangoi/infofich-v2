@@ -356,6 +356,15 @@ class Planificacion {
     public function isPublicada() {
         return $this->isEstado(Estado::PUBLICADA);
     }
+    
+    /**
+     * Funcion auxiliar que permite saber si una planificacion puede ser editada por el docente.
+     * 
+     * @return boolean
+     */
+    public function puedeEditarse(){
+        return $this->isEstado(Estado::PREPARACION) || $this->isEstado(Estado::CORRECCION);
+    }
 
     /**
      * Funcion auxiliar que compara el estado actual de la planificacion con el codigo pasado como argumento.
@@ -366,7 +375,7 @@ class Planificacion {
     private function isEstado($cod) {
         $hea = $this->getHistoricoEstadoActual();
         if ($hea instanceof HistoricoEstados) {
-            return $this->getEstado()->getCodigo() == $cod;
+            return $this->getEstadoActual()->getCodigo() == $cod;
         }
         return false;
     }
@@ -410,7 +419,7 @@ class Planificacion {
     public function getEstadoActual() {
         $hea = $this->getHistoricoEstadoActual();
         if ($hea) {
-            return $hea->getEstado()->getNombre();
+            return $hea->getEstado();
         }
 
         return null;

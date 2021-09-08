@@ -63,7 +63,8 @@ class PlanificacionVoter extends Voter {
             Permisos::PLANIF_CREAR,
             Permisos::PLANIF_EDITAR,
             Permisos::PLANIF_BORRAR,
-            Permisos::PLANIF_VER
+            Permisos::PLANIF_VER,
+            Permisos::PLANIF_DUPLICAR,
         );
 
         // if the attribute isn't one we support, return false
@@ -107,6 +108,8 @@ class PlanificacionVoter extends Voter {
                 return $this->puedeListar($user);
             case Permisos::PLANIF_BORRAR:
                 return $this->puedeBorrar($planif, $user);
+            case Permisos::PLANIF_DUPLICAR:
+                return $this->puedeDuplicar($planif, $user);
         }
 
         throw new LogicException('This code should not be reached!');
@@ -187,6 +190,16 @@ class PlanificacionVoter extends Voter {
         // this assumes that the data object has a getOwner() method
         // to get the entity of the user who owns this data object
         //return $user === $post->getOwner();
+        return false;
+    }
+    
+    private function puedeDuplicar(Planificacion $planif, Usuario $user) {
+        
+        // si puede editar, puede duplicar
+        if ($this->puedeEditar($planif, $user)) {
+            return true;
+        }
+
         return false;
     }
 

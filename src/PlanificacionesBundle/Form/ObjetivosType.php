@@ -2,9 +2,12 @@
 
 namespace PlanificacionesBundle\Form;
 
+use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ObjetivosType extends AbstractType {
 
@@ -16,18 +19,15 @@ class ObjetivosType extends AbstractType {
         $this->addObjetivosGenerales($builder, $options);
         $this->addObjetivosEspecificos($builder, $options);
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-            'attr' => array(
-                'class' => 'btn btn-success text-color-white',
-                'onclick' => 'onGuardarObjetivosClick(event);'
-            ),
-            'label' => 'Guardar'
-        ));
-
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Limpiar campos',
-            'attr' => array('class' => 'btn btn-secondary')
-        ));
+        $planif = $builder->getData();
+        if ($planif && $planif->puedeEditarse()) {
+            $builder->add('submit', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-success text-color-white',
+                ),
+                'label' => 'Guardar'
+            ));
+        }
     }
 
     /**
@@ -48,16 +48,15 @@ class ObjetivosType extends AbstractType {
             ),
             'constraints' => array()
         );
-        
+
         //el campo es requerido:
-        $config['constraints'][] = new \Symfony\Component\Validator\Constraints\NotBlank(array(
-           'message'  => 'Este campo no puede quedar vacio'
+        $config['constraints'][] = new NotBlank(array(
+            'message' => 'Este campo no puede quedar vacio'
         ));
 
         $builder->add('objetivosGral', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
     }
-    
-    
+
     /**
      * Agrega el campo objetivos generales en el formulario.
      *      
@@ -72,13 +71,13 @@ class ObjetivosType extends AbstractType {
             'attr' => array(
                 'rows' => 6,
                 'class' => 'form-control'
-            ),                
+            ),
             'constraints' => array()
         );
-        
+
         //el campo es requerido:
-        $config['constraints'][] = new \Symfony\Component\Validator\Constraints\NotBlank(array(
-           'message'  => 'Este campo no puede quedar vacio'
+        $config['constraints'][] = new NotBlank(array(
+            'message' => 'Este campo no puede quedar vacio'
         ));
 
         $builder->add('objetivosEspecificos', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
@@ -89,7 +88,7 @@ class ObjetivosType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => Planificacion::class
         ));
     }
 

@@ -12,13 +12,15 @@
     {{ form_errors(form.objetivosEspecificos) }}      
 </div>
 
-<div class="form-row">
-    <div class="col-xs-12 col-sm-4">
-        {{ form_widget(form.submit) }}
+{% if planificacion.puedeEditarse() %}
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-2">
+            {{ form_widget(form.submit) }}
+        </div>
+        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+            <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+        </div>
     </div>
-    <div class="col-xs-12 offset-4 col-sm-4 text-right">
-        {{ form_widget(form.reset) }}
-    </div>
-</div>
+{% endif %}
 
 {{ form_end(form) }}

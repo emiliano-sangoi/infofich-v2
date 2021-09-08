@@ -30,6 +30,7 @@ class AprobacionController extends Controller {
 
         if (!$requisitosAprob) {
             $requisitosAprob = new RequisitosAprobacion();
+            $requisitosAprob->setPlanificacion($planificacion);
         }
 
         $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob);

@@ -10,12 +10,14 @@
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}     
             {% if is_planificacion_definida and planificacion.getEstadoActual()  %}     
-                                
+
+                {% if planificacion.getEstadoActual() is not null %}
                     <a href="#" class="mostrar-historico">
-                        {{ planificacion.getEstadoActual()|upper }} 
+                        {{  planificacion.getEstadoActual().getNombre()|upper }} 
                         <i class="fa fa-history"></i>
                     </a>
-           
+                {% endif %}
+
             {% endif %}            
         {% endblock %}
     {% endembed %}
@@ -100,6 +102,17 @@
                         <div class="container" >
                             <div class="my-3">
                                 {% include '::notificaciones.html.twig' %}
+
+                                {% if planificacion.enRevision() %}
+                                    <div class="">
+                                        {% from '::macros.html.twig' import notificacion %} 
+                                        {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
+                                        {% set msg %}
+                                            La planificación fue enviada a revisión el {{ fDesde|date('d/m/Y') }} a las {{ fDesde|date('H:i') }} Hs.
+                                        {% endset %}
+                                        {{ notificacion('Planificación en revisión', msg, 'warning', '' ) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             {#                            <div class="mb-4 mt-4">#}
                             {#{% block titulo_principal %}
@@ -159,7 +172,7 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script>        
+    <script>
 
         $(document).ready(function () {
             $('.mostrar-historico').click(function (e) {

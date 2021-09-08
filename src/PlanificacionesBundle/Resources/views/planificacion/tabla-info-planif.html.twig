@@ -1,0 +1,44 @@
+<table class="table table-bordered shadow">
+    <tbody>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Asignatura:
+            </td>
+            <td class="bg-white text-primary font-weight-bolder">
+                {{ planificacion.nombreAsignatura|upper }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Carrera - Plan:
+            </td>
+            <td class="bg-white">
+                {{ nom_carrera(planificacion.carrera)|upper ~ ' (PLAN ' ~ planificacion.plan ~ ')' }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Año académico:
+            </td>
+            <td class="bg-white">
+                {{ planificacion.anioAcad|default('-') }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Docente responsable:
+            </td>
+            <td class="bg-white">
+                {{ planificacion.getDocenteResponsable()|default('-') }}
+            </td>
+        </tr>
+{#        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Dueño
+            </td>
+            <td class="bg-white">
+                {{ planificacion.getOwner()|default('-') }}
+            </td>
+        </tr>#}
+    </tbody>
+</table>

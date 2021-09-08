@@ -41,3 +41,7 @@ services:
             - { name: security.voter }
         # small performance boost
         public: false
+        
+    planificaciones_service:
+        class: PlanificacionesBundle\Service\PlanificacionService        
+        arguments: ["@doctrine.orm.entity_manager"]

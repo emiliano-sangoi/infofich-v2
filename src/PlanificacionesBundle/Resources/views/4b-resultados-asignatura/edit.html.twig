@@ -4,25 +4,22 @@
 
 {% block tab_content %}
 
-    
+
     {{ form_errors(form) }}
 
     {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:4b-resultados-asignatura:form_theme-resultado.html.twig'  %}
-    
+
     {{ form_start(form) }}  
 
     {{ form_row(form.resultados) }}
 
-    <div class="form-row mt-3">
-        <div class="col-xs-12 col-lg-4">
-
-            {{ form_widget(form.submit) }}
-
+    {% if planificacion.puedeEditarse() %}
+        <div class="form-row mt-3">
+            <div class="col-xs-12 col-lg-4">
+                {{ form_widget(form.submit) }}
+            </div>
         </div>
-        {#<div class="col-xs-12 col-lg-8 text-right">
-            {{ form_widget(form.reset) }}
-        </div>#}
-    </div>
+    {% endif %}
 
     {{ form_end(form) }}       
 
@@ -32,17 +29,18 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
+    {% if planificacion.puedeEditarse() %}
+        <script>
 
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('.resultado-selector').collection({
-                 position_field_selector: '.posicion',
-                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar Resultado</a>',
+                $('.resultado-selector').collection({
+                    position_field_selector: '.posicion',
+                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar Resultado</a>',
+                });
             });
-        });
-    </script>
-
+        </script>
+    {% endif %}
 
 
 

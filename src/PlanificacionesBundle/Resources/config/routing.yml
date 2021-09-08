@@ -61,7 +61,3 @@ planificaciones_dist_carga_horaria:
 planificaciones_viajes_acad:
     resource: "@PlanificacionesBundle/Resources/config/routing/viajes-acad.yml"
     prefix: /
-
-planificaciones_revisar:
-    path:     /{id}/revisar-borrador
-    defaults: { _controller: PlanificacionesBundle:Planificacion:revisar }

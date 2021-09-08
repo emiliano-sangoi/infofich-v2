@@ -57,6 +57,10 @@ class Estado {
         return $this->id;
     }
     
+    public function __toString() {
+        return $this->nombre;
+    }
+    
     /**
      * Verifica si el estado pasado como parametro es valido.
      * 

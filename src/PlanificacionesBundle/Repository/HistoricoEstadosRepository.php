@@ -51,7 +51,7 @@ class HistoricoEstadosRepository extends EntityRepository {
      * @param Planificacion $planificacion
      * @param int $cod_estado
      */
-    public function asignarEstado(Planificacion $planificacion, $cod_estado, Usuario $usuario = null) {
+    public function asignarEstado(Planificacion $planificacion, $cod_estado, Usuario $usuario = null, $comentario = null) {
 
         $em = $this->getEntityManager();
 
@@ -83,6 +83,8 @@ class HistoricoEstadosRepository extends EntityRepository {
             $hn->setPlanificacion($planificacion);
             $hn->setEstado($estado);
             $hn->setUsuario($usuario);
+            $hn->setComentario('Enviada a Sec. Académica para corrección.');
+            
 
             //guardar nuevo registro
             $em->persist($hn);

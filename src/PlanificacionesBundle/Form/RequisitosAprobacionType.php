@@ -17,11 +17,11 @@ class RequisitosAprobacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder->add('porcentajeAsistencia', 'AppBundle\Form\DatalistType', array(
-            'label' => 'Asistencia %',   
+            'label' => 'Asistencia %',
             'required' => true,
             'choices' => array(70, 75, 80, 85, 90, 95, 100),
             'attr' => array('class' => 'form-control')
-        ));        
+        ));
 
         $builder->add('fechaPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
@@ -31,7 +31,7 @@ class RequisitosAprobacionType extends AbstractType {
             'label' => 'Primer Parcial',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
-        
+
 
         $builder->add('fechaSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
@@ -64,24 +64,24 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Teoría',
             'required' => false,
-              //  'attr' => array('class' => 'form-control')
+                //  'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
             'label' => 'Práctica',
             'required' => false,
-        //    'attr' => array('class' => 'form-control')
+                //    'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(            
-            'label' => '¿Prevé coloquio final integrador?',            
-            'required' => true,            
-            'choices' => array('Sí' => true,'No'=> false),
+        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+            'label' => '¿Prevé coloquio final integrador?',
+            'required' => true,
+            'choices' => array('Sí' => true, 'No' => false),
             'choices_as_values' => true,
             'expanded' => true,
             'multiple' => false,
-            'attr' => array('class' => '', 
-                'onchange'=>"onChangePreveIntegrador(event);"
+            'attr' => array('class' => '',
+                'onchange' => "onChangePreveIntegrador(event);"
             )
         ));
 
@@ -126,31 +126,29 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-            'attr' => array(
-                'class' => 'btn btn-success text-color-white',
-                'onclick' => 'onGuardarReqAprobacionClick(event);'
-            ),
-            'label' => 'Guardar'
-        ));
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Limpiar campos',
-            'attr' => array('class' => 'btn btn-secondary')
-        ));
-        
-        
-        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event){
+        $requisitos = $builder->getData();
+        if ($requisitos && $requisitos->getPlanificacion()->puedeEditarse()) {
+            $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-success text-color-white'                    
+                ),
+                'label' => 'Guardar'
+            ));
+        }
+
+
+        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) {
             $requisitosAprobacion = $event->getForm()->getData();
-            if($requisitosAprobacion instanceof RequisitosAprobacion && false === $requisitosAprobacion->preveCfi()){
+            if ($requisitosAprobacion instanceof RequisitosAprobacion && false === $requisitosAprobacion->preveCfi()) {
                 //en caso de que la asignatura no prevea un CFI se debe poner en null los campos:
                 //  - fechaParcailCfi
                 //  - fechaRecupCfi
                 //  - modalidadCfi
                 $requisitosAprobacion->setFechaParcailCfi(null);
                 $requisitosAprobacion->setFechaRecupCfi(null);
-                $requisitosAprobacion->setModalidadCfi(null);                
-            }            
+                $requisitosAprobacion->setModalidadCfi(null);
+            }
         });
     }
 

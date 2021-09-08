@@ -68,6 +68,14 @@ class HistoricoEstados
      */
     private $usuario;
     
+    /**
+     * 
+     * @var string
+     *      
+     * @ORM\Column(name="comentario", type="string", nullable=true)
+     */
+    private $comentario;
+    
     
     public function __construct() {
         $this->fechaDesde = new \DateTime();
@@ -203,4 +211,15 @@ class HistoricoEstados
     {
         return $this->usuario;
     }
+    
+    public function getComentario() {
+        return $this->comentario;
+    }
+
+    public function setComentario($comentario) {
+        $this->comentario = $comentario;
+        return $this;
+    }
+
+
 }

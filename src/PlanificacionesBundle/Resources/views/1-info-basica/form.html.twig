@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-    
+
 <div class="form-row">
     <div class="col-xs-12 col-sm-8">
         {{ form_label(form.carrera) }}
@@ -38,28 +38,28 @@
 </div>
 
 <div class="form-row">
-    
+
     <div class="col-12 col-md-4">
         {{ form_label(form.cargaHoraria) }}
         {{ form_widget(form.cargaHoraria) }}                                   
     </div>
-   
+
     <div class="col-12 col-md-2">
         {{ form_label(form.caracter) }}
         {{ form_widget(form.caracter) }}                                   
     </div>
-    
-    
+
+
     <div class="col-12 col-md-2">
         {{ form_label(form.periodoCursada) }}
         {{ form_widget(form.periodoCursada) }}                                   
     </div>
-    
+
     <div class="col-12 col-md-2">
         {{ form_label(form.anioCursada) }}
         {{ form_widget(form.anioCursada) }}                                   
     </div>
-        
+
 </div>
 
 
@@ -71,14 +71,16 @@
     </div>
 </div>
 
-<div class="form-row">
-    <div class="col-xs-12 col-sm-2">
-        {{ form_widget(form.submit) }}
+{% if planificacion.puedeEditarse() %}
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-2">
+            {{ form_widget(form.submit) }}
+        </div>
+        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+            <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+        </div>
     </div>
-    <div class="col-xs-12 offset-6 col-sm-2 text-right">
-        {{ form_widget(form.reset) }}
-    </div>
-</div>
+{% endif %}
 
 
 {{ form_end(form) }}

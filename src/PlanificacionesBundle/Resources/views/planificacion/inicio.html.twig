@@ -89,11 +89,11 @@
 
                                                     <div class="row">
                                                         <div class="col-12 col-md-8">
-                                                            <a href='{{ path('planif_info_basica_editar', {id : p.id})}} ' class="btn btn-primary">
+                                                            <a href='{{ path('planif_info_basica_editar', {id : p.id})}}' class="btn btn-primary">
                                                                 <i class="fa fa-edit"></i>
                                                                 Editar
                                                             </a>
-                                                            <a href="#" class="btn btn-outline-secondary">
+                                                            <a href="{{ path('planificaciones_duplicar', {id : p.id})}}" class="btn btn-outline-secondary">
                                                                 <i class="fa fa-copy"></i>
                                                                 Duplicar
                                                             </a>
@@ -164,28 +164,28 @@
             });
 
 
-        {% set formData = app.request.get('buscador') %}
-        {% if formData['codigoAsignatura'] is defined %}
-                    ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
-                    //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
-        {% else %}
-                    ASIGNATURA_ACTUAL = -1;
-                    select_asignatura.val("");
-        {% endif %}
+            {% set formData = app.request.get('buscador') %}
+            {% if formData['codigoAsignatura'] is defined %}
+                        ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
+                        //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
+            {% else %}
+                        ASIGNATURA_ACTUAL = -1;
+                        select_asignatura.val("");
+            {% endif %}
 
 
-                    // combo de carreras:
-                    select_carreras.change(actualizarAsignaturas);
+            // combo de carreras:
+            select_carreras.change(actualizarAsignaturas);
 
-                    //combo de asignaturas:
-                    select_asignatura.change(function (e) {
-                        var option = $(this).children("option:selected");
-                    });
+            //combo de asignaturas:
+            select_asignatura.change(function (e) {
+                var option = $(this).children("option:selected");
+            });
 
-                    //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-                    select_carreras.trigger('change');
+            //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
+            select_carreras.trigger('change');
 
-                });
+        });
 
 
     </script>

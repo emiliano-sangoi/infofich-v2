@@ -33,7 +33,7 @@ class PlanificacionDocentesType extends AbstractType {
                     'attr' => array(
                         'class' => 'docentes-colaboradores-selector',
                     ),
-                    'entry_options' => array(     
+                    'entry_options' => array(
                         'label' => false,
                         'label_format' => 'form.persona.%id%',
 //                        'attr' => array('class' => 'bg-primary')
@@ -41,9 +41,9 @@ class PlanificacionDocentesType extends AbstractType {
                     'label' => false,
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
-                    ),                    
+                    ),
         ));
-        
+
         $builder
                 ->add('docentesAdscriptos', CollectionType::class, array(
                     // each entry in the array will be an "email" field
@@ -57,7 +57,7 @@ class PlanificacionDocentesType extends AbstractType {
                     'attr' => array(
                         'class' => 'docentes-adscriptos-selector',
                     ),
-                    'entry_options' => array(     
+                    'entry_options' => array(
                         'label' => false,
                         'label_format' => 'form.persona.%id%',
 //                        'attr' => array('class' => 'bg-primary')
@@ -65,17 +65,20 @@ class PlanificacionDocentesType extends AbstractType {
                     'label' => false,
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
-                    ),                    
+                    ),
         ));
 
-        $submit_opt = array(
-            'attr' => array(
-                'class' => 'btn btn-success text-color-white',
-            ),
-            'label' => 'Guardar'
-        );
+        $planif = $builder->getData();
+        if ($planif && $planif->puedeEditarse()) {
+            $submit_opt = array(
+                'attr' => array(
+                    'class' => 'btn btn-success text-color-white',
+                ),
+                'label' => 'Guardar'
+            );
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
+            $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, $submit_opt);
+        }
     }
 
     private function addDocenteResponsable(FormBuilderInterface $builder, array $options) {
@@ -89,7 +92,7 @@ class PlanificacionDocentesType extends AbstractType {
                     //  'property' => 'descripcion',
                     'attr' => array(
                         'class' => 'form-control js-select2-docentes',
-                     //   'placeholder' => 'Apellido y Nombre',
+                    //   'placeholder' => 'Apellido y Nombre',
 //                        'data-toggle' => "tooltip",
 //                        'data-placement' => "left",
 //                        'title' => "Tooltip on left"

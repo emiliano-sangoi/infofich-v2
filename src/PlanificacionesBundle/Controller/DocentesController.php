@@ -58,7 +58,7 @@ class DocentesController extends Controller {
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = strtoupper($asignatura->getNombreMateria());
+        $page_title = mb_strtoupper($asignatura->getNombreMateria());
 
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Equipo docente', $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));

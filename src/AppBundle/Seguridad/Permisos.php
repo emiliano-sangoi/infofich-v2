@@ -12,6 +12,8 @@ class Permisos {
     const PLANIF_LISTAR = 1;
     const PLANIF_CREAR = 2;
     const PLANIF_EDITAR = 3;
+    const PLANIF_DUPLICAR = 21;
+    const PLANIF_ENVIAR_REVISION = 22;
     const PLANIF_BORRAR = 4;
     const PLANIF_VER = 5;
     
