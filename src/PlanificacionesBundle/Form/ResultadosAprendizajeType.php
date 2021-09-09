@@ -34,18 +34,6 @@ class ResultadosAprendizajeType extends AbstractType {
             'label' => false,
         ));
 
-
-        $planif = $builder->getData();
-        if ($planif && $planif->puedeEditarse()) {
-            $submit_opt = array(
-                'attr' => array(
-                    'class' => 'btn btn-success text-color-white'
-                ),
-                'label' => 'Guardar'
-            );
-
-            $builder->add('submit', SubmitType::class, $submit_opt);
-        }
     }
 
     /**

@@ -15,9 +15,12 @@
 
     {% if planificacion.puedeEditarse() %}
         <div class="form-row mt-3">
-            <div class="col-xs-12 col-lg-4">
-                {{ form_widget(form.submit) }}
+            <div class="col-xs-12 col-sm-2">            
+                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
             </div>
+            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+                    </div>#}
         </div>
     {% endif %}
 

@@ -251,6 +251,34 @@ class Planificacion {
     public function __toString() {
         return $this->getTitulo();
     }
+    
+    /**
+     * Metodo que verifica si la persona pasada como parametro figura como 
+     * docente en la planificacion
+     * 
+     * @param \AppBundle\Entity\Persona $persona
+     * @return type
+     */
+    public function inEquipoDocente(\AppBundle\Entity\Persona $persona) {
+        
+        if($this->docenteResponsable && $this->docenteResponsable->getPersona() == $persona){
+            return true;
+        }
+        
+        foreach ($this->docentesColaboradores as $dc){
+            if($dc->getDocenteGrado()->getPersona() == $persona){
+                return true;
+            }
+        }
+        
+        foreach ($this->docentesAdscriptos as $da){
+            if($da->getPersona() == $persona){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     /**
      * Devuelve el total de horas de todas las actividades curriculares definidas.

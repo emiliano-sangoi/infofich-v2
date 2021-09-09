@@ -13,16 +13,16 @@
         {{ form_widget(form.bibliografiasPlanificacion) }} 
 
 
-        <div class="form-row mt-3">
-            <div class="col-xs-12 col-sm-4">
-
-                {{ form_widget(form.submit) }}        
-
+        {% if planificacion.puedeEditarse() %}
+            <div class="form-row mt-3">
+                <div class="col-xs-12 col-sm-2">            
+                    <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+                </div>
+                {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+                            <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+                        </div>#}
             </div>
-            {#<div class="col-xs-12 offset-4 col-sm-4 text-right">
-                {{ form_widget(form.reset) }}
-            </div>#}
-        </div>
+        {% endif %}
 
 
         {{ form_end(form) }}
@@ -33,27 +33,29 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
+    {% if planificacion.puedeEditarse() %}
+        <script>
 
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('.bibliografia-selector').collection({
-                position_field_selector: '.posicion',
-                add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar bibliografía</a>',
-                
-                after_add: function (collection, item) {
-                    item.find('.js-select2').select2({});
+                $('.bibliografia-selector').collection({
+                    position_field_selector: '.posicion',
+                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar bibliografía</a>',
 
-                    item.find('.tempusdominus-datepicker').datetimepicker({
-                        locale: 'es',
-                        format: 'DD/MM/YYYY'
-                    });
+                    after_add: function (collection, item) {
+                        item.find('.js-select2').select2({});
 
-                }
+                        item.find('.tempusdominus-datepicker').datetimepicker({
+                            locale: 'es',
+                            format: 'DD/MM/YYYY'
+                        });
+
+                    }
+                });
+
             });
-
-        });
-    </script>
+        </script>
+    {% endif %}
 
 
 

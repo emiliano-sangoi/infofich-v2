@@ -2,7 +2,9 @@
 
 namespace PlanificacionesBundle\Form;
 
+use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +15,9 @@ class ViajesAcademicosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-       $builder->add('viajesAcademicos', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+       $builder->add('viajesAcademicos', CollectionType::class, array(
             // each entry in the array will be an "email" field
-            'entry_type' => 'PlanificacionesBundle\Form\ViajeAcademicoType',
+            'entry_type' => ViajeAcademicoType::class,
             // Estos campo
             'allow_add' => true,
             'allow_delete' => true,
@@ -23,8 +25,7 @@ class ViajesAcademicosType extends AbstractType
             
             // para que se pueda persistir en cascada:
             'by_reference' => false, 
-            // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
-            
+            // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype            
             
             'attr' => array(
                 'class' => 'viajeAcademico-selector',
@@ -34,17 +35,7 @@ class ViajesAcademicosType extends AbstractType
             ),            
             'label' => false,
         ));                
-        
-        
-       
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-            'attr' => array(
-                'class' => 'btn btn-success'
-            ),
-            'label' => 'Guardar'
-        ));
-
-       
+                       
            
     }/**
      * {@inheritdoc}
@@ -52,7 +43,7 @@ class ViajesAcademicosType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Planificacion'
+            'data_class' => Planificacion::class
         ));
     }
 

@@ -4,7 +4,7 @@
 
 {% block tab_content %}
 
-    
+
     {{ form_errors(form) }}
 
     {% form_theme form.temario 'jquery.collection.html.twig' 'PlanificacionesBundle:5-temario:form_theme-tema.html.twig'  %}
@@ -12,16 +12,16 @@
 
     {{ form_row(form.temario) }}
 
-    <div class="form-row mt-3">
-        <div class="col-xs-12 col-lg-4">
-
-            {{ form_widget(form.submit) }}
-
+    {% if planificacion.puedeEditarse() %}
+        <div class="form-row mt-3">
+            <div class="col-xs-12 col-sm-2">            
+                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+            </div>
+            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+                    </div>#}
         </div>
-        {#<div class="col-xs-12 col-lg-8 text-right">
-            {{ form_widget(form.reset) }}
-        </div>#}
-    </div>
+    {% endif %}
 
     {{ form_end(form) }}  
 
@@ -31,16 +31,18 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
+    {% if planificacion.puedeEditarse() %}
+        <script>
 
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('.temario-selector').collection({
-                 position_field_selector: '.posicion',
-                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar tema</a>',
+                $('.temario-selector').collection({
+                    position_field_selector: '.posicion',
+                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar tema</a>',
+                });
             });
-        });
-    </script>
+        </script>
+    {% endif %}
 
 
 

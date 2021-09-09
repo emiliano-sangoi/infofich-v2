@@ -7,89 +7,100 @@
     {{ form_start(form) }}
     {{ form_widget(form.viajesAcademicos) }}
 
-    {% include 'PlanificacionesBundle::botonera.html.twig' %}
+    {% if planificacion.puedeEditarse() %}
+        <div class="form-row mt-3">
+            <div class="col-xs-12 col-sm-2">            
+                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+            </div>
+            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+                    </div>#}
+        </div>
+    {% endif %}
+    
     {{ form_end(form) }}
 {% endblock %} 
 
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
+    {% if planificacion.puedeEditarse() %}
+        <script>
+            $(document).ready(function () {
 
-        $(document).ready(function () {
+                //Esta funcion es llamada cuando se carga un pasajero alumno o docente en el input
+                // Responde a un keyup, mouseup de esos input.
+                var actualizar_total_pasajeros = function (e) {
 
-//Esta funcion es llamada cuando se carga un pasajero alumno o docente en el input
-            // Responde a un keyup, mouseup de esos input.
-            var actualizar_total_pasajeros = function (e) {     
-                      
-                var target = $(e.target).closest('.pasajeros');
-                var cant_estudiantes = target.find('.cant_estudiantes').val();
-                var cant_docentes = target.find('.cant_docentes').val();
-                
-                if(cant_estudiantes === ''){
-                    cant_estudiantes = 0;
-                }else{
-                    cant_estudiantes = parseInt(cant_estudiantes);
-                }
-                
-                if(cant_docentes === ''){
-                    cant_docentes = 0;
-                }else{
-                    cant_docentes = parseInt(cant_docentes);
-                }
-                
-                //console.log(cant_estudiantes, cant_docentes);
-                target.find('.total_pasajeros').val(cant_estudiantes + cant_docentes);
-            };
-            
+                    var target = $(e.target).closest('.pasajeros');
+                    var cant_estudiantes = target.find('.cant_estudiantes').val();
+                    var cant_docentes = target.find('.cant_docentes').val();
 
-var sum = 0;
-$('.pasajeros').each(function(){
-    $(this).find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);
-    $(this).find('.cant_docentes').on('keyup mouseup', actualizar_total_pasajeros);
+                    if (cant_estudiantes === '') {
+                        cant_estudiantes = 0;
+                    } else {
+                        cant_estudiantes = parseInt(cant_estudiantes);
+                    }
 
-    var cant_estudiantes = $(this).find('.cant_estudiantes').val();
-    var cant_docentes = $(this).find('.cant_docentes').val();
-    if(cant_estudiantes === ''){
-                    cant_estudiantes = 0;
-                }else{
-                    cant_estudiantes = parseInt(cant_estudiantes);
-                }
-                
-                if(cant_docentes === ''){
-                    cant_docentes = 0;
-                }else{
-                    cant_docentes = parseInt(cant_docentes);
-                }
-                
-                console.log(cant_estudiantes, cant_docentes);
-                 $(this).find('.total_pasajeros').val(cant_estudiantes + cant_docentes);    
-});
-            
+                    if (cant_docentes === '') {
+                        cant_docentes = 0;
+                    } else {
+                        cant_docentes = parseInt(cant_docentes);
+                    }
 
-            $('.viajeAcademico-selector').collection({
-                position_field_selector: '.posicion',
-                add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar viaje</a>',
+                    //console.log(cant_estudiantes, cant_docentes);
+                    target.find('.total_pasajeros').val(cant_estudiantes + cant_docentes);
+                };
 
-                after_add: function (collection, item) {
-                    
-                    item.find('.js-select2').select2({});
-                    
-                    item.find('.tempusdominus-datetimepicker').datetimepicker({
-                        locale: 'es',                        
-                        format: 'DD/MM/YYYY HH:mm'
-                    });
-                    
-                    item.find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);
-                    item.find('.cant_docentes').on('keyup mouseup', actualizar_total_pasajeros);
 
-                }
+                var sum = 0;
+                $('.pasajeros').each(function () {
+                    $(this).find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);
+                    $(this).find('.cant_docentes').on('keyup mouseup', actualizar_total_pasajeros);
+
+                    var cant_estudiantes = $(this).find('.cant_estudiantes').val();
+                    var cant_docentes = $(this).find('.cant_docentes').val();
+                    if (cant_estudiantes === '') {
+                        cant_estudiantes = 0;
+                    } else {
+                        cant_estudiantes = parseInt(cant_estudiantes);
+                    }
+
+                    if (cant_docentes === '') {
+                        cant_docentes = 0;
+                    } else {
+                        cant_docentes = parseInt(cant_docentes);
+                    }
+
+                    console.log(cant_estudiantes, cant_docentes);
+                    $(this).find('.total_pasajeros').val(cant_estudiantes + cant_docentes);
+                });
+
+
+                $('.viajeAcademico-selector').collection({
+                    position_field_selector: '.posicion',
+                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar viaje</a>',
+
+                    after_add: function (collection, item) {
+
+                        item.find('.js-select2').select2({});
+
+                        item.find('.tempusdominus-datetimepicker').datetimepicker({
+                            locale: 'es',
+                            format: 'DD/MM/YYYY HH:mm'
+                        });
+
+                        item.find('.cant_estudiantes').on('keyup mouseup', actualizar_total_pasajeros);
+                        item.find('.cant_docentes').on('keyup mouseup', actualizar_total_pasajeros);
+
+                    }
+                });
+
+
+
             });
-
-
-
-        });
-    </script>
+        </script>
+    {% endif %}
 
 
 {% endblock %} 

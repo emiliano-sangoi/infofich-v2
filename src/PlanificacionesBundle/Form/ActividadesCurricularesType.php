@@ -50,16 +50,6 @@ class ActividadesCurricularesType extends AbstractType {
             'error_bubbling' => false,                     
         ));                
         
-        $submit_opt = array(
-            'attr' => array(
-                'class' => 'btn btn-success text-color-white',
-                //'onclick' => 'onGuardarCronogramaClick(event);'
-             ),
-            'label' => 'Guardar'
-        );                
-        
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
-        
         
     }
 

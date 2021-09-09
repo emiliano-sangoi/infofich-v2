@@ -2,8 +2,13 @@
 
 namespace PlanificacionesBundle\Form;
 
+use AppBundle\Form\DatalistType;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -16,14 +21,14 @@ class RequisitosAprobacionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('porcentajeAsistencia', 'AppBundle\Form\DatalistType', array(
+        $builder->add('porcentajeAsistencia', DatalistType::class, array(
             'label' => 'Asistencia %',
             'required' => true,
             'choices' => array(70, 75, 80, 85, 90, 95, 100),
             'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('fechaPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaPrimerParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA', 'autocomplete' => 'off'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -33,7 +38,7 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
 
-        $builder->add('fechaSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaSegundoParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -43,7 +48,7 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
 
-        $builder->add('fechaRecupPrimerParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaRecupPrimerParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -52,7 +57,7 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupSegundoParcial', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaRecupSegundoParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -61,19 +66,19 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('prevePromParcialTeoria', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
+        $builder->add('prevePromParcialTeoria', CheckboxType::class, array(
             'label' => 'Teoría',
             'required' => false,
                 //  'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('prevePromParcialPractica', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
+        $builder->add('prevePromParcialPractica', CheckboxType::class, array(
             'label' => 'Práctica',
             'required' => false,
                 //    'attr' => array('class' => 'form-control')
         ));
 
-        $builder->add('preveCfi', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('preveCfi', ChoiceType::class, array(
             'label' => '¿Prevé coloquio final integrador?',
             'required' => true,
             'choices' => array('Sí' => true, 'No' => false),
@@ -85,7 +90,7 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
-        $builder->add('fechaParcailCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaParcailCfi', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -94,7 +99,7 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupCfi', "Symfony\Component\Form\Extension\Core\Type\DateType", array(
+        $builder->add('fechaRecupCfi', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
@@ -103,7 +108,7 @@ class RequisitosAprobacionType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('modalidadCfi', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('modalidadCfi', TextType::class, array(
             'label' => 'Modalidad CFI',
             'required' => false,
             'attr' => array(
@@ -111,31 +116,20 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
-        $builder->add('examenFinalModalidadRegulares', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('examenFinalModalidadRegulares', TextType::class, array(
             'label' => 'Modalidad estudiantes regulares',
             'required' => false,
             'attr' => array(
                 'class' => 'form-control'
             )
         ));
-        $builder->add('examenFinalModalidadLibres', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('examenFinalModalidadLibres', TextType::class, array(
             'label' => 'Modalidad estudiantes libres',
             'required' => false,
             'attr' => array(
                 'class' => 'form-control'
             )
         ));
-
-
-        $requisitos = $builder->getData();
-        if ($requisitos && $requisitos->getPlanificacion()->puedeEditarse()) {
-            $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-success text-color-white'                    
-                ),
-                'label' => 'Guardar'
-            ));
-        }
 
 
         $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) {

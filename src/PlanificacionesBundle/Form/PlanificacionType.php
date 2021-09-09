@@ -119,21 +119,6 @@ class PlanificacionType extends AbstractType {
             )
         ));
 
-        $submit_opt = array(
-            'attr' => array('class' => 'btn btn-success text-color-white')
-        );
-
-        $planif = $builder->getData();
-        if ($planif && $planif->puedeEditarse()) {
-            if ($builder->getData()->getId()) {
-                $submit_opt['label'] = 'Guardar';
-            } else {
-                $submit_opt['label'] = 'Crear';
-            }
-
-            $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', $submit_opt);
-        }
-
         $this->setEventosForm($builder);
     }
 

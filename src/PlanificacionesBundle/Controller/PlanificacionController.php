@@ -2,6 +2,7 @@
 
 namespace PlanificacionesBundle\Controller;
 
+use AppBundle\Entity\Rol;
 use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
@@ -28,14 +29,12 @@ class PlanificacionController extends Controller {
 
         $form_filtros = $this->createForm(BuscadorType::class, null);
         $form_filtros->handleRequest($request);
-//dump($form_filtros->getData());exit;
-        $query = $this->buildQuery($form_filtros);
-
-        // $form = $this->createForm('PlanificacionesBundle\Form\BuscadorType', null);
 
         $paginator = $this->get('knp_paginator');
         $paginado = $paginator->paginate(
-                $query, /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
+                $this->getPlanificacionesUsuario($form_filtros), /* query NOT result */ 
+                $request->query->getInt('page', 1), /* page number */ 
+                10 /* limit per page */
         );
 
         // Breadcrumbs
@@ -52,37 +51,26 @@ class PlanificacionController extends Controller {
         ));
     }
 
-    private function buildQuery(Form $form_filtros) {
+    /**
+     *
+     * @param Form $form_filtros
+     * @return Query|array
+     */
+    private function getPlanificacionesUsuario(Form $form_filtros) {       
+
+        $usuario = $this->getUser();
+        $carrera = $form_filtros->get('carrera')->getData();
+        $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
+        $anioAcad = $form_filtros->get('anioAcad')->getData();
 
         $em = $this->getDoctrine()->getManager();
-
-        /* @var $qb QueryBuilder */
-        $qb = $em->getRepository(Planificacion::class)->createQueryBuilder('p');
-
-        $anioAcad = $form_filtros->get('anioAcad')->getData();
-        if ($anioAcad) {
-            $qb->andWhere($qb->expr()->eq('p.anioAcad', ':anioAcad'));
-            $qb->setParameter(':anioAcad', $anioAcad);
-        }
-
-        $carrera = $form_filtros->get('carrera')->getData();
-        if ($carrera) {
-            $qb->andWhere($qb->expr()->eq('p.carrera', ':carrera'));
-            $qb->setParameter(':carrera', $carrera);
-        }
-
-        $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
-        if ($codigoAsignatura) {
-            $qb->andWhere($qb->expr()->eq('p.codigoAsignatura', ':codigoAsignatura'));
-            $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
-        }
-
-        return $qb->getQuery();
+        $repo = $em->getRepository(Planificacion::class);
+        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param Request $request
      * @return type
      */
@@ -96,7 +84,7 @@ class PlanificacionController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //nombre de la asignatura:      
+            //nombre de la asignatura:
             $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
@@ -132,10 +120,10 @@ class PlanificacionController extends Controller {
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
                     'info_basica_route' => $this->generateUrl('planificaciones_nueva'),
-                    'planificacion' => $planificacion,
+                    'planificacion' => $planificacion,            
                     'page_title' => 'Nueva planificación'
         ));
-    }    
+    }
 
     public function borrarAction(Planificacion $planificacion, Request $request) {
 
@@ -156,7 +144,7 @@ class PlanificacionController extends Controller {
                     $em->remove($estado);
                 }
 
-                //Borrar la planificacion:                
+                //Borrar la planificacion:
                 $em->remove($planificacion);
 
                 //Impactar cambios:
@@ -207,11 +195,11 @@ class PlanificacionController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
-    }    
+    }
 
     /**
      * Crea una copia de una planificacion
-     * 
+     *
      * @param Request $request
      * @return Response
      */
@@ -245,7 +233,5 @@ class PlanificacionController extends Controller {
                     'puede_borrar' => $this->isGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion))
         ));
     }
-
-    
 
 }

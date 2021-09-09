@@ -71,13 +71,17 @@
     </div>
 </div>
 
-{% if planificacion.puedeEditarse() %}
+{% if planificacion.id is null %}
+    {# Se esta creando la planificacion #}
     <div class="form-row">
         <div class="col-xs-12 col-sm-2">
-            {{ form_widget(form.submit) }}
+            <input type="submit" value="Crear planificación" class="btn btn-success"/>            
         </div>
-        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
-            <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+    </div>    
+{% elseif planificacion.puedeEditarse() %}
+    <div class="form-row">
+        <div class="col-xs-12 col-sm-2">
+            <input type="submit" value="Guardar cambios" class="btn btn-success"/>            
         </div>
     </div>
 {% endif %}

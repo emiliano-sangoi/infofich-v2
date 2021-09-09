@@ -68,17 +68,6 @@ class PlanificacionDocentesType extends AbstractType {
                     ),
         ));
 
-        $planif = $builder->getData();
-        if ($planif && $planif->puedeEditarse()) {
-            $submit_opt = array(
-                'attr' => array(
-                    'class' => 'btn btn-success text-color-white',
-                ),
-                'label' => 'Guardar'
-            );
-
-            $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, $submit_opt);
-        }
     }
 
     private function addDocenteResponsable(FormBuilderInterface $builder, array $options) {
@@ -89,13 +78,8 @@ class PlanificacionDocentesType extends AbstractType {
                     'class' => DocenteGrado::class,
                     'required' => false,
                     //'property' => 'descripcion',
-                    //  'property' => 'descripcion',
                     'attr' => array(
-                        'class' => 'form-control js-select2-docentes',
-                    //   'placeholder' => 'Apellido y Nombre',
-//                        'data-toggle' => "tooltip",
-//                        'data-placement' => "left",
-//                        'title' => "Tooltip on left"
+                        'class' => 'form-control js-select2-docentes',                    
                     ),
                     'label_attr' => array(
                         'class' => 'font-weight-bold',

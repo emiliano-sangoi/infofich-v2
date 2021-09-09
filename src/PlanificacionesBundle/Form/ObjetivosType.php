@@ -19,15 +19,6 @@ class ObjetivosType extends AbstractType {
         $this->addObjetivosGenerales($builder, $options);
         $this->addObjetivosEspecificos($builder, $options);
 
-        $planif = $builder->getData();
-        if ($planif && $planif->puedeEditarse()) {
-            $builder->add('submit', SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-success text-color-white',
-                ),
-                'label' => 'Guardar'
-            ));
-        }
     }
 
     /**

@@ -100,6 +100,14 @@ class InfofichImportarUsuariosCommand extends ContainerAwareCommand {
             }
 
             $em->persist($u);
+            
+            if($u_data['guardar_en_docente_grado']){
+                $dg = new \DocentesBundle\Entity\DocenteGrado();
+                $dg->setPersona($u_data['persona']);
+                $dg->setNroLegajo(12345678);
+                $dg->setEmail($u_data['persona']->getEmail() ?: null);
+                $em->persist($dg);
+            }
 
             $this->output->writeln('#' . $i . ' - ' . $u);
             $i++;
@@ -125,6 +133,7 @@ class InfofichImportarUsuariosCommand extends ContainerAwareCommand {
         $u1 = array(
             'username' => 'docente_grado',
             'persona' => $persona,
+            'guardar_en_docente_grado' => true,
             'roles' => array(
                 Rol::ROLE_DOCENTE_GRADO
             ),
@@ -144,6 +153,7 @@ class InfofichImportarUsuariosCommand extends ContainerAwareCommand {
         $u2 = array(
             'username' => 'sec_academica',
             'persona' => $persona2,
+            'guardar_en_docente_grado' => false,
             'roles' => array(
                 Rol::ROLE_SEC_ACADEMICA
             ),

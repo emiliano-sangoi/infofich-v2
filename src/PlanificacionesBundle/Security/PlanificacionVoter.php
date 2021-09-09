@@ -12,6 +12,7 @@ use DocentesBundle\Entity\DocenteGrado;
 use DocentesBundle\Repository\DocenteAdscriptoRepository;
 use DocentesBundle\Repository\DocenteGradoRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 use LogicException;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -128,12 +129,30 @@ class PlanificacionVoter extends Voter {
 
     private function puedeEditar(Planificacion $planif, Usuario $user) {
 
-        if ($planif->getOwner() == $user && $user->tienePermiso(Permisos::PLANIF_EDITAR)) {
-            //para editar el usuario debe ser el owner y tener el permiso
-            return true;
+        if ($planif->isPublicada()) {
+            return false;
         }
 
-        return false;
+        //Planificaciones del usuario $user:
+        $planificaciones = $this->em->getRepository(Planificacion::class)->getPlanificacionesUsuario($user);
+
+        if ($planificaciones instanceof Query) {
+            $planificaciones = $planificaciones->getResult();
+        }
+
+        $ok = false;
+        foreach ($planificaciones as $p) {
+            if ($planif == $p) {
+                $ok = true;
+                break;
+            }
+        }       
+        
+        //Si $ok es true es porque la planificacion es una en la que el usuario figura relacionado de alguna
+        //forma, o es responsable, colaborador o adscripto.
+        
+        //si tiene permiso de edicion entonces podrá modificar la planificacion:
+        return $ok && $user->tienePermiso(Permisos::PLANIF_EDITAR);        
     }
 
     private function puedeCrear(Usuario $user) {
@@ -144,6 +163,7 @@ class PlanificacionVoter extends Voter {
         }
 
         $docenteAdscripto = $this->repoDocenteAdscripto->findByPersona($user->getPersona());
+//        dump($docenteAdscripto);exit;
         if ($docenteAdscripto instanceof DocenteAdscripto) {
             //Docentes adscriptos no pueden dar de alta planificaciones
             return false;
@@ -181,20 +201,20 @@ class PlanificacionVoter extends Voter {
     }
 
     private function puedeBorrar(Planificacion $planif, Usuario $user) {
-        
+
         // si puede editar, puede borrar
         if ($this->puedeEditar($planif, $user)) {
             return true;
         }
-        
+
         // this assumes that the data object has a getOwner() method
         // to get the entity of the user who owns this data object
         //return $user === $post->getOwner();
         return false;
     }
-    
+
     private function puedeDuplicar(Planificacion $planif, Usuario $user) {
-        
+
         // si puede editar, puede duplicar
         if ($this->puedeEditar($planif, $user)) {
             return true;
