@@ -122,7 +122,8 @@ class InfofichViejoService {
      * @param boolean $truncar Si es true vacia la tabla app_usuarios antes de insertar.
      * @return boolean|array false o un array con los datos.
      */
-    public function importarUsuarios($truncar = false) {
+    public function 
+    ($truncar = false) {
 
         $this->conectar();
 
@@ -146,17 +147,20 @@ class InfofichViejoService {
         $rolUsuario = $this->repoRoles->findOneByNombre(Rol::ROLE_USUARIO);
         $rolSA = $this->repoRoles->findOneByNombre(Rol::ROLE_SEC_ACADEMICA);
         $admins = array(
-            '33496269',
+            '33496269', //Emiliano
             '31272619', //Romi
             '30786020', //Brisa   
             '24902580', //Ana
+            '28148023', //Mariana
+            '11415920', //Polo
+            '32185238', //Florencia
             // agregar aca los usuarios admins del viejo sistema
         );
         
         $sa = array(
-            '13190428', //Giorgetti
-            '14760883', //Marta
-            '31700769', // Gabi
+            '13190428', //Carlos Giorgetti
+            '14760883', //Marta Paris
+            '31700769', //Gabi Gesualdo
         );
 
         $sql = "SELECT * FROM sistema_usuarios";
