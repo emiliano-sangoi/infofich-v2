@@ -122,8 +122,7 @@ class InfofichViejoService {
      * @param boolean $truncar Si es true vacia la tabla app_usuarios antes de insertar.
      * @return boolean|array false o un array con los datos.
      */
-    public function 
-    ($truncar = false) {
+    public function importarUsuarios($truncar = false) {
 
         $this->conectar();
 
