@@ -1,0 +1,18 @@
+{% macro nav_link(html_id, path = '#', label = 'Enlace', modal_title, errores, class, show_icon = true) %}
+    <span class="nav-link {{ class|default('') }}" id="{{ html_id }}" >
+        <a href="{{ path|default('#') }}" class="text-secondary" style="text-decoration: none;">                        
+            {{ label }}                        
+        </a>        
+        {% if show_icon %}
+            <span class="estado float-right">                
+                {% if errores is defined and errores|length > 0 %}
+                    <a href="#" class="modal-show-errores" data-errores="{{ errores|json_encode() }}" data-titulo="{{ modal_title }}" >
+                        <i class="fa fa-exclamation-circle text-danger"></i>
+                    </a>
+                {% else %}
+                    <i class="fa fa-check-circle text-success"></i>
+                {% endif %}
+            </span>     
+        {% endif %}
+    </span>
+{% endmacro %}

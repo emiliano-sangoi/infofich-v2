@@ -64,14 +64,18 @@ a{
     .nav-link{
         line-height: 100%;
         padding: 1.3em 1.5em;
-        background-color: $gris-4;
+        background-color: $gris-4;        
 
         &.active{
+            background-color: white;
+            color: $primary;
             i{
-                color: $white !important;
+                /*color: $white !important;*/
+               
             }
+                        
         }
-
+        
 
     }
 

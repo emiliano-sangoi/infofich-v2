@@ -42,18 +42,14 @@ class ResultadosController extends Controller {
             return $this->redirectToRoute('planif_resultados_editar', array('id' => $planificacion->getId()));
         }
 
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Resultados de Aprendizajes', $this->get("router")->generate('planif_resultados_editar', array('id' => $planificacion->getId())));
 
         //return $this->render('PlanificacionesBundle:11-resultados-asignatura:edit.html.twig', array(
         return $this->render('PlanificacionesBundle:4b-resultados-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Resultados de aprendizajes',
                     'planificacion' => $planificacion
         ));
     }

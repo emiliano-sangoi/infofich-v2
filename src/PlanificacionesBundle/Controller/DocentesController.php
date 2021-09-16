@@ -11,8 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-
-
 class DocentesController extends Controller {
 
     use PlanificacionTrait;
@@ -31,15 +29,15 @@ class DocentesController extends Controller {
      * @return type
      */
     public function editAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->createForm(PlanificacionDocentesType::class, $planificacion);
 
         $form->handleRequest($request);
-       // dump($form->get('docenteResponsable')->getData());exit;
+        // dump($form->get('docenteResponsable')->getData());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-          //  dump($form->getData());exit;
+            //  dump($form->getData());exit;
             ////////////////////////////////////////////////////////////////////////////////
             // PARA QUE ANDE EL DELETE LEER:
             // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
@@ -54,18 +52,14 @@ class DocentesController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_equipo_docente_editar', array('id' => $planificacion->getId()));
         }
-
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = mb_strtoupper($asignatura->getNombreMateria());
-
+        
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Equipo docente', $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:2-equipo-docente:edit.html.twig', array(
                     'planificacion' => $planificacion,
-                    'page_title' => $page_title,
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Equipo docente',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'form' => $form->createView(),
                     'subtitulo' => 'Modificar equipo docente',
         ));
@@ -118,9 +112,9 @@ class DocentesController extends Controller {
      * @return JsonResponse
      */
     public function getDocenteAction($legajo) {
-        
+
         $service = $this->get('api_infofich_service');
-        $docentes = $service->getDocentesActivos();        
+        $docentes = $service->getDocentesActivos();
 
         if (!isset($docentes[$legajo])) {
             throw $this->createNotFoundException('No se encontro el docente especificado');

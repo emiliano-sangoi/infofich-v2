@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResultadosAprendizajeController extends Controller {
-    
+
     use PlanificacionTrait;
 
     /**
@@ -27,9 +27,9 @@ class ResultadosAprendizajeController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);        
+        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);
         //dump($planificacion, $request);exit;  
-        $form->handleRequest($request);        
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->actualizarResultados($planificacion);
@@ -46,22 +46,17 @@ class ResultadosAprendizajeController extends Controller {
                 $this->addFlash('error', $msg);
                 //$form->addError(new \Symfony\Component\Form\FormError($msg));
             }
-            
+
             return $this->redirectToRoute('planif_resultados_editar', array('id' => $planificacion->getId()));
         }
 
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Resultados de Aprendizaje', 
-                $this->get("router")->generate('planif_resultados_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Resultados de Aprendizaje', $this->get("router")->generate('planif_resultados_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:4b-resultados-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Resultados de aprendizajes',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
     }
@@ -84,7 +79,7 @@ class ResultadosAprendizajeController extends Controller {
                 ->findBy(array('planificacion' => $planificacion));
 
         foreach ($resultadosOriginal as $resultados) {
-            
+
             if (false === $planificacion->getResultados()->contains($resultados)) {
                 // remove the Task from the Tag
                 $planificacion->getResultados()->removeElement($resultados);

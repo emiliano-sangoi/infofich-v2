@@ -3,7 +3,6 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
-use AppBundle\Util\Texto;
 use FICH\APIInfofich\Model\Carrera;
 use FICH\APIInfofich\Model\Materia;
 use PlanificacionesBundle\Entity\Estado;
@@ -12,9 +11,9 @@ use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
 use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
+use PlanificacionesBundle\Service\PlanificacionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use function dump;
 
 /**
  * Acciones relacionadas a la revision de una planificacion
@@ -27,6 +26,8 @@ class RevisarController extends Controller {
     private $infofichService;
     private $errores;
 
+    use PlanificacionTrait;
+
     /**
      * Muestra el contenido cargado de la planificacion.
      *
@@ -35,19 +36,23 @@ class RevisarController extends Controller {
      */
     public function revisarAction(Request $request, Planificacion $planificacion) {
 
+        /* @var $planifService PlanificacionService */
+        $planifService = $this->get('planificaciones_service');
+
         $params = array(
             'planificacion' => $planificacion,
-            'errores' => null
+            'errores' => $planifService->getErrores($planificacion),
+            'page_title' => $this->getPageTitle($planificacion) . ' - Revisar planificación'
         );
 
         if ($planificacion->enPreparacion() || $planificacion->enCorreccion()) {
-            $planifService = $this->get('planificaciones_service');
+
             $form = $this->crearFormEnviarPlanif($planificacion);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
 
-                if ($planifService->validar($planificacion)) {
-                    
+                if (!$planifService->getHayErrores($planificacion)) {
+
                     /* @var $repoHistorico HistoricoEstadosRepository */
                     $repoHistorico = $this->getDoctrine()->getManager()->getRepository(HistoricoEstados::class);
 
@@ -56,10 +61,8 @@ class RevisarController extends Controller {
 
                     $this->addFlash('success', 'Planificación enviada a revisión.');
                     return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
-                    
                 } else {
-                    $this->addFlash('danger', 'Se encontraron errores en la planificación.');
-                    $params['errores'] = $planifService->getErrores();
+                    $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');                    
                 }
             }
 
@@ -73,7 +76,6 @@ class RevisarController extends Controller {
         $infofichService = $this->get('api_infofich_service');
         $asignatura = $infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $params['asignatura'] = $asignatura;
-        $params['page_title'] = Texto::ucWordsCustom($asignatura->getNombreMateria());
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");

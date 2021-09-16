@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ViajesAcademicosController extends Controller {
-    
+
     use PlanificacionTrait;
 
     /**
@@ -23,13 +23,13 @@ class ViajesAcademicosController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         $form = $this->createForm(ViajesAcademicosType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->actualizarViajes($planificacion);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -37,14 +37,14 @@ class ViajesAcademicosController extends Controller {
 
             return $this->redirectToRoute('planif_viajes_acad_editar', array('id' => $planificacion->getId()));
         }
-        
+
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Viajes académicos', 
-                $this->get("router")->generate('planif_viajes_acad_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Viajes académicos', $this->get("router")->generate('planif_viajes_acad_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => 'Viajes Académicos',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Viajes académicos',
                     'planificacion' => $planificacion
         ));
     }

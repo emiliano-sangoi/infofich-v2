@@ -15,7 +15,7 @@ class InfoBasicaController extends Controller {
     use PlanificacionTrait;
 
     public function editAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->crearForm($planificacion);
@@ -35,27 +35,18 @@ class InfoBasicaController extends Controller {
 
             //Redireccionar para evitar posibles "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
-        }
-
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        }        
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Información básica', 
-                $this->get("router")->generate('planif_info_basica_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Información básica', $this->get("router")->generate('planif_info_basica_editar', array('id' => $planificacion->getId())));        
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'page_title' => $this->getPageTitle($planificacion). ' - Información básica',
                     'planificacion' => $planificacion,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));
     }
-    
-    
-    
-
 
 }

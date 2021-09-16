@@ -1,0 +1,47 @@
+<script>
+
+    $(document).ready(function () {
+
+        $('.modal-show-errores').click(function (e) {
+            e.preventDefault();
+            //console.log('SDsdsdsd');
+            var element = $(this);
+            var errores = element.data('errores');
+
+            if (typeof errores === 'object') {
+
+                if (errores.length > 0) {
+
+                    var html = "<p class=''>Se encontraron " + errores.length + " errores.";
+
+                    $.each(errores, function (idx, error) {
+                        html += "<div class='alert alert-danger mt-2'>" + error + '</div>';
+                    });
+
+                    bootbox.alert({
+                        title: '<b>' + element.data('titulo') + '</b>',
+                        message: html,
+                        size: 'large',
+                        backdrop: true
+                    });
+
+                } else {
+                    element.find('.estado').append(getOkIcon());
+                }
+            }
+
+        });
+
+    });    
+
+    function getOkIcon() {
+        return $('<i class="fa fa-check-circle text-success float-right"></i>');
+    }
+
+    function getNotOkIcon() {
+        return $('<i class="fa fa-times-circle text-danger float-right"></i>');
+    }
+
+
+
+</script>

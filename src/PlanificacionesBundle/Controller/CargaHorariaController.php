@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CargaHorariaController extends Controller {
 
     use PlanificacionTrait;
-    
+
     /**
      * Metodo que maneja la edicion del formulario.
      * 
@@ -21,7 +21,7 @@ class CargaHorariaController extends Controller {
      * @return Response
      */
     public function editAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $cargaHoraria = $planificacion->getCargaHoraria();
@@ -33,7 +33,7 @@ class CargaHorariaController extends Controller {
         $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria, array(
             'planificacion' => $planificacion
         ));
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -52,15 +52,15 @@ class CargaHorariaController extends Controller {
                 $this->addFlash('error', 'Hay errores en el formulario.');
             }
         }
-        
+
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Distribución de carga horaria', 
-                $this->get("router")->generate('planif_dist_carga_horaria_editar', array('id' => $planificacion->getId())));
-        
+        $this->setBreadcrumb($planificacion, 'Distribución de carga horaria', $this->get("router")->generate('planif_dist_carga_horaria_editar', array('id' => $planificacion->getId())));
+
         return $this->render('PlanificacionesBundle:8-dist-carga-horaria:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion,
-                    'page_title' => 'Distribución de carga horaria'
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Distribución de carga horaria',
         ));
     }
 

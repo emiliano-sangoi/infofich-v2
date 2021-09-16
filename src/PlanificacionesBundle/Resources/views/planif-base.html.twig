@@ -8,16 +8,26 @@
 
 {% block navbar2 %}             
     {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}     
-            {% if is_planificacion_definida and planificacion.getEstadoActual()  %}     
+        {% block navbar2_actions %}   
 
-                {% if planificacion.getEstadoActual() is not null %}
-                    <a href="#" class="mostrar-historico">
-                        {{  planificacion.getEstadoActual().getNombre()|upper }} 
-                        <i class="fa fa-history"></i>
-                    </a>
-                {% endif %}
+            {% if is_planificacion_definida  %}     
 
+                {#<button class="btn btn-sm btn-outline-light py-1">
+                    <i class="fa fa-tasks"></i>
+                    Revisar
+                </button>#}
+
+                {% if planificacion.getEstadoActual()  %}     
+
+                    {% if planificacion.getEstadoActual() is not null %}
+                        <button class="mostrar-historico btn btn-sm btn-outline-light py-1">
+                            {{  planificacion.getEstadoActual().getNombre()|upper }} 
+                            <i class="fa fa-history"></i>
+                            {#                            <i class="bi-clock-history"></i>#}
+                        </button>
+                    {% endif %}
+
+                {% endif %}            
             {% endif %}            
         {% endblock %}
     {% endembed %}
@@ -45,50 +55,96 @@
         <div class="row no-gutters pt-0" id="menuLateral">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link {{ page_id == 1 ? 'active' : ''}}" id="tab-info-basica" href="{{ info_basica_route ?: '#'}}" >
-                        Información básica
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 2 ? 'active' : ''}} {{ disabled }}" id="tab-equipo-docente" href="{{ is_planificacion_definida ? path('planif_equipo_docente_editar', {id : planificacion.id}) : '#' }}" >
-                        {#                    <a class="nav-link " id="tab-equipo-docente" href="#" >#}
-                        Equipo docente
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 3 ? 'active' : ''}} {{ disabled }}" id="tab-aprobacion"  href="{{ is_planificacion_definida ? path('planif_aprobacion_editar', {id : planificacion.id}) : '#' }}">
-                        Aprobación de la asignatura
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 4 ? 'active' : ''}} {{ disabled }}" id="tab-objetivos"  href="{{ is_planificacion_definida ? path('planif_objetivos_editar', {id : planificacion.id}) : '#' }}">
-                        Objetivos de la asignatura
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 11 ? 'active' : ''}} {{ disabled }}" id="tab-resultados"  href="{{ is_planificacion_definida ? path('planif_resultados_editar', {id : planificacion.id}) : '#' }}">
-                        Resultados de Aprendizajes
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 5 ? 'active' : ''}} {{ disabled }} " id="tab-temario"  href="{{ is_planificacion_definida ? path('planif_temario_editar', {id : planificacion.id}) : '#' }}">
-                        Temario
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 6 ? 'active' : ''}} {{ disabled }} " id="tab-bibliografia"  href="{{ is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' }}">
-                        Bibliografia
-                        <i class="far float-right"></i>
-                    </a>
-
-                    <a class="nav-link {{ page_id == 7 ? 'active' : ''}}  {{ disabled }}" id="tab-cronograma"  href="{{ is_planificacion_definida ? path('planif_act_curriculares_editar', {id : planificacion.id}) : '#' }}">
-                        Cronograma de actividades
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 8 ? 'active' : ''}}  {{ disabled }}" id="tab-distribucion"  href="{{ is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' }}">
-                        Distribucion de carga horaria
-                        <i class="far float-right"></i>
-                    </a>
-                    <a class="nav-link {{ page_id == 9 ? 'active' : ''}}  {{ disabled }}" id="tab-viajes-academicos"  href="{{ is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' }}">
-                        Viajes académicos
-                        <i class="far float-right"></i>
-                    </a>
+                                                
+                    {% from 'PlanificacionesBundle::macros.html.twig' import nav_link %}
+                            
+                    {# Información básica #}
+                    {% set html_id = 'tab-info-basica' %}        
+                    {% set label = 'Información básica' %}        
+                    {% set modal_title = 'Errores en la información básica' %}        
+                    {% set class = (page_id == 1 ? 'active' : '') ~ ' ' ~ disabled %}           
+                    {% set path = info_basica_route ?: '#' %}                                                                          
+                    {{ nav_link(html_id, path, label, modal_title, errores.info_basica|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Equipo docente #}
+                    {% set html_id = 'tab-equipo-docente' %}        
+                    {% set label = 'Equipo docente' %}        
+                    {% set modal_title = 'Errores en el equipo docente' %}        
+                    {% set class = (page_id == 2 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_equipo_docente_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.eq_docente|default(null), class, is_planificacion_definida) }}
+                    
+                    
+                    {# Aprobación de la asignatura #}
+                    {% set html_id = 'tab-aprobacion' %}        
+                    {% set label = 'Aprobación de la asignatura' %}        
+                    {% set modal_title = 'Errores en requisitos de aprobación' %}        
+                    {% set class = (page_id == 3 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_aprobacion_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.aprobacion|default(null), class, is_planificacion_definida) }}
+                    
+                    
+                    {# Objetivos de la asignatura #}
+                    {% set html_id = 'tab-objetivos' %}        
+                    {% set label = 'Objetivos de la asignatura' %}        
+                    {% set modal_title = 'Errores en los objetivos de la asignatura' %}        
+                    {% set class = (page_id == 4 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_objetivos_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.objetivos|default(null), class, is_planificacion_definida) }}
+                    
+                    
+                    {# Resultados de Aprendizajes #}
+                    {% set html_id = 'tab-resultados' %}        
+                    {% set label = 'Resultados de aprendizajes' %}        
+                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}        
+                    {% set class = (page_id == 11 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_resultados_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.resultados|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Temario #}
+                    {% set html_id = 'tab-temario' %}        
+                    {% set label = 'Temario' %}        
+                    {% set modal_title = 'Errores en el temario' %}        
+                    {% set class = (page_id == 5 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_temario_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.temario|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Bibliografía #}
+                    {% set html_id = 'tab-bibliografia' %}        
+                    {% set label = 'Bibliografía' %}        
+                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}        
+                    {% set class = (page_id == 6 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.bibliografia|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Cronograma de actividades #}
+                    {% set html_id = 'tab-cronograma' %}        
+                    {% set label = 'Cronograma de actividades' %}        
+                    {% set modal_title = 'Errores en el cronograma' %}        
+                    {% set class = (page_id == 7 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_act_curriculares_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.cronograma|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Distribucion de carga horaria #}
+                    {% set html_id = 'tab-cronograma' %}        
+                    {% set label = 'Distribucion de carga horaria' %}        
+                    {% set modal_title = 'Errores en la distribución de la carga horaria' %}        
+                    {% set class = (page_id == 8 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) }}
+                    
+                    {# Viajes académicos #}
+                    {% set html_id = 'tab-viajes-academicos' %}        
+                    {% set label = 'Viajes académicos' %}        
+                    {% set modal_title = 'Errores en los viajes académicos' %}        
+                    {% set class = (page_id == 9 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set path = is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' %}                            
+                    {{ nav_link(html_id, path, label, modal_title, errores.viajes|default(null), class, is_planificacion_definida) }}
+                    
+                    
                     <a class="nav-link {{ page_id == 10 ? 'active' : ''}}  {{ disabled }}" id="tab-revisar"  href="{{ is_planificacion_definida ? path('planificaciones_revisar', {id : planificacion.id}) : '#' }}">
-                        Revisar borrador                        
+                        Revisar borrador  
+                        <i class="fa fa-tasks text-secondary float-right"></i>
                     </a>
 
                 </div>
@@ -201,10 +257,19 @@
 
                 dialog.find('.modal-body').addClass('p-0');
             });
+            
+            
+            
 
         });
 
     </script>
+
+    {% if is_planificacion_definida %}
+
+        {% include 'PlanificacionesBundle::modal-errores.js.twig' %}
+
+    {% endif %}
 
 
     <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>

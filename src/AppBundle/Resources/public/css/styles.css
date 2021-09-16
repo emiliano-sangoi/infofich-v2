@@ -162,8 +162,11 @@ a {
   line-height: 100%;
   padding: 1.3em 1.5em;
   background-color: #eeeeee; }
-  #menuLateral .nav-link.active i {
-    color: white !important; }
+  #menuLateral .nav-link.active {
+    background-color: white;
+    color: #006CB7; }
+    #menuLateral .nav-link.active i {
+      /*color: $white !important;*/ }
 
 .light-font .breadcrumb-item + .breadcrumb-item::before {
   color: white !important; }
@@ -334,10 +337,13 @@ and open the template in the editor.
 #planificaciones, .tab-pane {
   min-height: 100vh; }
 
-#v-pills-tab a.active {
-  background-color: white;
-  color: #006CB7; }
-
+/*#v-pills-tab a.active{
+    background-color: white;
+    a{
+        color: $primary; 
+    }
+       
+}*/
 .tab-pane {
   /*margin: 0;*/
   /*padding: 0;*/

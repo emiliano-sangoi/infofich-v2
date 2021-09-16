@@ -69,7 +69,7 @@ class PlanificacionRepository extends EntityRepository {
             foreach ($it as $row) {
 
                 $planif = $row[0];
-                if ($planif->inEquipoDocente($usuario->getPersona())) {
+                if ($planif->inEquipoDocente($usuario->getPersona()) || $planif->getOwner() == $usuario) {
                     $result[] = $planif;
                 }
             }

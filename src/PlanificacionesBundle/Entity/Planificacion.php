@@ -271,8 +271,8 @@ class Planificacion {
             }
         }
         
-        foreach ($this->docentesAdscriptos as $da){
-            if($da->getPersona() == $persona){
+        foreach ($this->docentesAdscriptos as $planifDocAds){            
+            if($planifDocAds->getDocenteAdscripto()->getPersona() == $persona){
                 return true;
             }
         }

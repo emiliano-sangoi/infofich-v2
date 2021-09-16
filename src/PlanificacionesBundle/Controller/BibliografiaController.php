@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BibliografiaController extends Controller {
-    
+
     use PlanificacionTrait;
 
     /**
@@ -24,7 +24,7 @@ class BibliografiaController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         $form = $this->createForm(BibliografiasType::class, $planificacion);
         $form->handleRequest($request);
 
@@ -32,7 +32,7 @@ class BibliografiaController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->actualizarBibliografias($planificacion);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -41,18 +41,13 @@ class BibliografiaController extends Controller {
             return $this->redirectToRoute('planif_bibliografia_editar', array('id' => $planificacion->getId()));
         }
 
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Bibliografía', 
-                $this->get("router")->generate('planif_bibliografia_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Bibliografía', $this->get("router")->generate('planif_bibliografia_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:6-bibliografia:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Bibliografía',
                     'planificacion' => $planificacion
         ));
     }
@@ -83,8 +78,6 @@ class BibliografiaController extends Controller {
                 $em->remove($bp);
             }
         }
-        
-        
     }
 
 }

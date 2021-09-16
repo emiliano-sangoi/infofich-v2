@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AprobacionController extends Controller {
-    
+
     use PlanificacionTrait;
 
     /**
@@ -23,9 +23,9 @@ class AprobacionController extends Controller {
      * @return Response
      */
     public function editAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         $requisitosAprob = $planificacion->getRequisitosAprobacion();
 
         if (!$requisitosAprob) {
@@ -36,9 +36,9 @@ class AprobacionController extends Controller {
         $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $em = $this->getDoctrine()->getManager();
-            
+
             $em->persist($requisitosAprob);
             $planificacion->setRequisitosAprobacion($requisitosAprob);
             $em->flush();
@@ -48,19 +48,19 @@ class AprobacionController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $planificacion->getId()));
         }
-        
+
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
+
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', 
-                $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Aprobación de la asignatura',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
     }

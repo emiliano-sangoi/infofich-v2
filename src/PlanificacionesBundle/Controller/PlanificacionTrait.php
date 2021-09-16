@@ -9,9 +9,11 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Entity\Rol;
+use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Component\Form\Form;
+use function mb_strtoupper;
 
 /**
  *
@@ -55,5 +57,14 @@ trait PlanificacionTrait {
         }
         
         return $this->createForm(PlanificacionType::class, $planificacion, $form_opt);                
+    }
+    
+    private function getPageTitle(Planificacion $planificacion){
+        //titulo principal:
+        $api_infofich_service = $this->get('api_infofich_service');
+        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        
+        return mb_strtoupper($page_title);
     }
 }

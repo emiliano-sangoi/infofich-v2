@@ -132,6 +132,10 @@ class PlanificacionVoter extends Voter {
         if ($planif->isPublicada()) {
             return false;
         }
+        
+        if($planif->getOwner() == $user){
+            return true;
+        }
 
         //Planificaciones del usuario $user:
         $planificaciones = $this->em->getRepository(Planificacion::class)->getPlanificacionesUsuario($user);

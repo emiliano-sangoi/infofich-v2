@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TemarioController extends Controller {
-    
+
     use PlanificacionTrait;
 
     /**
@@ -25,7 +25,7 @@ class TemarioController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         $form = $this->createForm(TemarioType::class, $planificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,22 +43,17 @@ class TemarioController extends Controller {
                 $this->addFlash('error', $msg);
                 //$form->addError(new \Symfony\Component\Form\FormError($msg));
             }
-            
+
             return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
         }
 
-        //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Temario', 
-                $this->get("router")->generate('planif_temario_editar', array('id' => $planificacion->getId())));
+        $this->setBreadcrumb($planificacion, 'Temario', $this->get("router")->generate('planif_temario_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:5-temario:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'page_title' => $page_title,
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Temario',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
     }
