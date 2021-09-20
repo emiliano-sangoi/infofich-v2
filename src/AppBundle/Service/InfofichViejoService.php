@@ -122,8 +122,7 @@ class InfofichViejoService {
      * @param boolean $truncar Si es true vacia la tabla app_usuarios antes de insertar.
      * @return boolean|array false o un array con los datos.
      */
-    public function 
-    ($truncar = false) {
+    public function importarUsuarios($truncar = false) {
 
         $this->conectar();
 
@@ -146,6 +145,8 @@ class InfofichViejoService {
         $rolAdmin = $this->repoRoles->findOneByNombre(Rol::ROLE_ADMIN);
         $rolUsuario = $this->repoRoles->findOneByNombre(Rol::ROLE_USUARIO);
         $rolSA = $this->repoRoles->findOneByNombre(Rol::ROLE_SEC_ACADEMICA);
+        $rolDocente = $this->repoRoles->findOneByNombre(Rol::ROLE_DOCENTE_GRADO);
+
         $admins = array(
             '33496269', //Emiliano
             '31272619', //Romi
@@ -162,6 +163,19 @@ class InfofichViejoService {
             '14760883', //Marta Paris
             '31700769', //Gabi Gesualdo
         );
+
+        $docentes = array();
+        $sql_docentes = "SELECT su.numero_documento FROM `sistema_roles_usuarios` AS sru 
+                            INNER JOIN `sistema_usuarios` AS su ON sru.id_usuario = su.id_usuario 
+                            WHERE sru.`id_rol` = 4 ORDER BY su.numero_documento DESC ";
+
+        $stmt = $this->pdoLink->query($sql_docentes);
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $doc = $row['numero_documento'];
+            if(is_numeric($doc)){
+                $docentes[] = $doc; 
+            }
+        }
 
         $sql = "SELECT * FROM sistema_usuarios";
 
@@ -212,7 +226,9 @@ class InfofichViejoService {
             if(in_array($usuario->getUsername(), $admins)){
                 $usuario->addRole($rolAdmin);
             }else if(in_array($usuario->getUsername(), $sa)){
-                $usuario->addRole($rolSA);            
+                $usuario->addRole($rolSA); 
+            }else if(in_array($usuario->getUsername(), $docentes)){
+                $usuario->addRole($rolDocente);               
             }else{
                 $usuario->addRole($rolUsuario);
             }           
