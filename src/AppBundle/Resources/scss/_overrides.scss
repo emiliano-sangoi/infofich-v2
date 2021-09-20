@@ -95,7 +95,6 @@ a{
 
     .card .card-header{
         background-color: $primary !important; 
-        color: $white;
         padding: .25rem .25rem;
     }
     
@@ -107,16 +106,22 @@ a{
     .acordeon-header, .card-link{
         position: relative;
 
-        i.fa-caret-down{
+        /*i.fa-caret-down{*/
+        span.right{
             position: absolute;
             right: 1rem;
-            top: 25%;
+            /*top: 35%;*/
+            /*bottom: 35%;*/
         }
 
     }
 
     .card .card-header .btn{
         color: $white;
+    }
+    
+    .badge{
+        width: 8rem; 
     }
 
 }

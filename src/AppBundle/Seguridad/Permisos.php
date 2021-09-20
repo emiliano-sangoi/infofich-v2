@@ -16,6 +16,7 @@ class Permisos {
     const PLANIF_ENVIAR_REVISION = 22;
     const PLANIF_BORRAR = 4;
     const PLANIF_VER = 5;
+    const PLANIF_CORRECCIONES = 23;
     
     //Usuarios
     const USUARIO_LISTAR = 6;

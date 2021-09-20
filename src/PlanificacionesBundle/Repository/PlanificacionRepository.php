@@ -56,7 +56,7 @@ class PlanificacionRepository extends EntityRepository {
             $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
         }
         
-        if (!$usuario->tieneRol(Rol::ROLE_ADMIN) || $usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)) {
+        if (!$usuario->tieneRol(Rol::ROLE_ADMIN) && !$usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)) {
             $result = array();
             //============================================================================
             //FILTRAR PLANIFICACIONES PROPIAS

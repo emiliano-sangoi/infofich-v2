@@ -24,20 +24,6 @@
 
                 {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig'%}
 
-
-
-                {#   {% from '::macros.html.twig' import notificacion %}
-
-                   {{ notificacion('Aviso', 'Tiene revisiones pendientes', 'warning') }}
-
-                   <div class="mt-3"></div>
-
-                   {{ notificacion('Importante!', 'Error en datos de contacto', 'error') }}
-
-                   <div class="mt-3"></div>
-
-                   {{ notificacion('Ok!', 'Parece que anduvo todo', 'success') }}#}
-
             </div>
 
             {% if paginado[0] is defined %}
@@ -56,9 +42,26 @@
                                 <div class="card mb-1">
                                     <div class="card-header card-header-azul" id="heading{{ loop.index }}">
                                         <h6 class="mb-0 acordeon-header">
-                                            <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">
-                                                {{ p.getTitulo()|upper }}
-                                                <i class="fa fa-1x fa-caret-down"></i>
+                                            <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">                                                
+
+                                                <span class="text-white font-weight-bold">
+                                                    {{ p.getTitulo()|upper }}
+                                                </span>
+                                                <span class="right centrate-y">
+                                                    {% set eActual = p.getEstadoActual() %} 
+                                                    {% set class = 'success' %}
+                                                    {% if eActual.codigo == 2 or eActual.codigo == 4 %}                                                            
+                                                        {% set class = 'light' %}
+                                                    {% elseif eActual.codigo == 3 %}                                                            
+                                                        {% set class = 'warning' %}
+                                                    {% endif %}
+
+                                                    {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
+                                                    <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                                                        {{ eActual.nombre }}
+                                                    </span>
+                                                    <i class="fa fa-1x fa-caret-down"></i>
+                                                </span>
                                             </button>
                                         </h6>
                                     </div>
@@ -164,28 +167,34 @@
             });
 
 
-            {% set formData = app.request.get('buscador') %}
-            {% if formData['codigoAsignatura'] is defined %}
-                        ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
-                        //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
-            {% else %}
-                        ASIGNATURA_ACTUAL = -1;
-                        select_asignatura.val("");
-            {% endif %}
+        {% set formData = app.request.get('buscador') %}
+        {% if formData['codigoAsignatura'] is defined %}
+                ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
+                //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
+        {% else %}
+                ASIGNATURA_ACTUAL = -1;
+                select_asignatura.val("");
+        {% endif %}
 
 
-            // combo de carreras:
-            select_carreras.change(actualizarAsignaturas);
+                // combo de carreras:
+                select_carreras.change(actualizarAsignaturas);
 
-            //combo de asignaturas:
-            select_asignatura.change(function (e) {
-                var option = $(this).children("option:selected");
-            });
+                //combo de asignaturas:
+                select_asignatura.change(function (e) {
+                    var option = $(this).children("option:selected");
+                });
 
-            //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-            select_carreras.trigger('change');
+                //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
+                select_carreras.trigger('change');
 
-        });
+
+        {#$('.modal-historico').click(function(e){
+            e.prevenDefault();
+            alert('aca se va a mostrar el hitorico');
+        })#}
+
+                    });
 
 
     </script>

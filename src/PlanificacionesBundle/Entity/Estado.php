@@ -61,6 +61,21 @@ class Estado {
         return $this->nombre;
     }
     
+    public function getCssClass() {
+        switch ($this->codigo){
+            case self::PREPARACION:
+                return 'light';
+            case self::REVISION:
+                return 'warning';
+            case self::CORRECCION:
+                return 'warning';
+            case self::PUBLICADA:
+                return 'success';
+        }
+        
+        return '';
+    }
+    
     /**
      * Verifica si el estado pasado como parametro es valido.
      * 

@@ -114,7 +114,23 @@ class PlanificacionService {
             $errores[] = 'No ha definido el docente responsable de la asignatura.';
             $this->hayErrores = true;
         }
-        $errores[] = 'Lo lolo.';
+        
+        $dr = $planificacion->getDocenteResponsable();
+        $aux = array();$c = 0;
+        foreach ($planificacion->getDocentesColaboradores() as $dc){
+            if($dr == $dc->getDocenteGrado()){
+                $errores[] = 'El docente responsable de la planificacion (' .
+                        ($dr) . ') no puede figurar en la lista de docentes colaboradores.';
+                break;
+            }
+            $c++;
+            $aux[$dc->getDocenteGrado()->getId()] = null;
+        }
+        
+        if(count($aux) < $c){
+            $errores[] = 'Existen docentes duplicados entre los colaboradores.';
+        }        
+        
 
         return $errores;
     }
@@ -123,7 +139,7 @@ class PlanificacionService {
         $errores = array();
 
         if (!$planificacion->getRequisitosAprobacion()) {
-            $errores[] = 'No han definido los requisitos de aprobación.';
+            $errores[] = 'No han definido los requisitos de aprobación (asistencia, fecha de parciales, etcétera).';
             $this->hayErrores = true;
             return $errores;
         }
