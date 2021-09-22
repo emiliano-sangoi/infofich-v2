@@ -45,7 +45,7 @@ class PlanificacionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $this->options = $options;
+        $this->options = $options;       
 
         $this->apiInfofichService = $options['api_infofich_service'];
         if (!$this->apiInfofichService instanceof APIInfofichService) {
@@ -100,7 +100,7 @@ class PlanificacionType extends AbstractType {
                 'rows' => 8,
                 'placeholder' => 'Este campo será completado por Secretaría Académica.',
                 'class' => 'form-control disabled',
-                'disabled' => 'disabled'
+                'disabled' => in_array('contenidos_minimos', $options['deshabilitados']),
             )
         );
 

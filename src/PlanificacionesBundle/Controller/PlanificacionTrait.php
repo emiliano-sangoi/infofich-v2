@@ -51,9 +51,14 @@ trait PlanificacionTrait {
         // El campo "Departamento" solo debe habilitarse si el rol del usuario es admin o de secretaria academica.
         $user = $this->getUser();        
         $habilitar_dpto = $user->tieneRol(Rol::ROLE_ADMIN) || $user->tieneRol(Rol::ROLE_SEC_ACADEMICA);
-        //dump($habilitar_dpto);exit;
         if(!$habilitar_dpto){
             $form_opt['deshabilitados'] = array('departamento');
+        }
+
+        // El campo "Contenidos mínimos" solo debe habilitarse si el rol del usuario es admin o de secretaria academica.
+        $habilitar_contenidos_minimos = $user->tieneRol(Rol::ROLE_ADMIN) || $user->tieneRol(Rol::ROLE_SEC_ACADEMICA);
+        if(!$habilitar_contenidos_minimos){
+            $form_opt['deshabilitados'] = array('contenidos_minimos');
         }
         
         return $this->createForm(PlanificacionType::class, $planificacion, $form_opt);                
