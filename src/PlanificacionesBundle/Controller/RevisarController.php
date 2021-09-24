@@ -13,7 +13,9 @@ use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use PlanificacionesBundle\Service\PlanificacionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Acciones relacionadas a la revision de una planificacion
@@ -62,7 +64,7 @@ class RevisarController extends Controller {
                     $this->addFlash('success', 'Planificación enviada a revisión.');
                     return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
                 } else {
-                    $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');                    
+                    $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');
                 }
             }
 
@@ -103,6 +105,54 @@ class RevisarController extends Controller {
                         ->setMethod('POST')
                         ->getForm()
         ;
+    }
+
+    /**
+     * Metodo que permite actualizar las correcciones o comentarios de una planificacion
+     * 
+     * @param Planificacion $planificacion
+     * @param Request $request
+     * @return \PlanificacionesBundle\Controller\JsonResponse
+     */
+    public function actualizarComentariosAction(Planificacion $planificacion, Request $request) {
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+
+//        if (!$request->isXmlHttpRequest()) {
+//            return new JsonResponse(array(
+//                'mensaje' => 'Esta accion solo se puede utilizar via AJAX.'
+//                    ), Response::HTTP_BAD_REQUEST);
+//        }
+
+        $histEstadoActual = $planificacion->getHistoricoEstadoActual();
+        $eActual = $histEstadoActual->getEstado();
+        if ($eActual && !in_array($eActual->getCodigo(), array(Estado::REVISION, Estado::CORRECCION))) {
+            return new JsonResponse(array(
+                'mensaje' => 'Solo se puede actualizar comentarios de planificaciones en revision.'
+                    ), Response::HTTP_BAD_REQUEST);
+        }
+
+        $data = json_decode($request->getContent());
+        
+        if (!$data) {            
+            return new JsonResponse(array(
+                'mensaje' => 'No se pudo extraer el contenido a actualizar. El formato de los datos debe ser JSON.'
+                    ), Response::HTTP_BAD_REQUEST);
+        }
+
+//dump($data);exit;   
+        $comentarios = filter_var($data->comentarios, FILTER_SANITIZE_STRING);
+
+        $histEstadoActual->setComentario($data->comentarios);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+
+        return new JsonResponse(array(
+            'data' => $planificacion
+                ), Response::HTTP_OK);
+
+        // dump($comentarios);exit;
     }
 
     /**

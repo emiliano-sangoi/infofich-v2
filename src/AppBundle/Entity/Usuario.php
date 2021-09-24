@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="El nombre de usuario ingresado ya se encuentra en uso."
  * )
  */
-class Usuario implements \Symfony\Component\Security\Core\User\UserInterface{
+class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \JsonSerializable{
     
     const PLAIN_PWD_MIN_LENGTH = 8;    
     const PLAIN_PWD_MAX_LENGTH = 24;
@@ -423,4 +423,12 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface{
     {
         return $this->fechaBaja;
     }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'username' => $this->username,            
+        );
+    }
+
 }

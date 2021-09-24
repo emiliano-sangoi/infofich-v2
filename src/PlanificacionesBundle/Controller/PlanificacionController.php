@@ -2,12 +2,11 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use AppBundle\Entity\Rol;
 use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use Doctrine\ORM\QueryBuilder;
 use Exception;
+use FICH\APIInfofich\Query\Query;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
@@ -16,6 +15,7 @@ use PlanificacionesBundle\Form\DuplicarPlanificacionType;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -232,6 +232,20 @@ class PlanificacionController extends Controller {
                     // 'paginado' => $paginado,
                     'puede_borrar' => $this->isGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion))
         ));
+    }
+
+    /**
+     * Devuelve el contenido de una planificacion como JSON 
+     * 
+     * @param Planificacion $planificacion
+     * @return JsonResponse
+     */
+    public function getAsJsonAction(Planificacion $planificacion){
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_VER, array('data' => $planificacion));
+        
+        return new JsonResponse($planificacion, Response::HTTP_OK);        
+        
     }
 
 }
