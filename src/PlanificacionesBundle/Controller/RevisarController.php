@@ -118,11 +118,11 @@ class RevisarController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-//        if (!$request->isXmlHttpRequest()) {
-//            return new JsonResponse(array(
-//                'mensaje' => 'Esta accion solo se puede utilizar via AJAX.'
-//                    ), Response::HTTP_BAD_REQUEST);
-//        }
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'mensaje' => 'Esta accion solo se puede utilizar via AJAX.'
+                    ), Response::HTTP_BAD_REQUEST);
+        }
 
         $histEstadoActual = $planificacion->getHistoricoEstadoActual();
         $eActual = $histEstadoActual->getEstado();
@@ -139,20 +139,17 @@ class RevisarController extends Controller {
                 'mensaje' => 'No se pudo extraer el contenido a actualizar. El formato de los datos debe ser JSON.'
                     ), Response::HTTP_BAD_REQUEST);
         }
-
-//dump($data);exit;   
+  
         $comentarios = filter_var($data->comentarios, FILTER_SANITIZE_STRING);
 
-        $histEstadoActual->setComentario($data->comentarios);
+        $histEstadoActual->setComentario($comentarios);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
-
 
         return new JsonResponse(array(
             'data' => $planificacion
                 ), Response::HTTP_OK);
-
-        // dump($comentarios);exit;
+        
     }
 
     /**
