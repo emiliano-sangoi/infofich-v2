@@ -21,7 +21,7 @@
 
                 {% if eActual  %}     
 
-                    {% if  eActual.codigo == 3 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
+                    {% if  eActual.codigo == 3 or eActual.codigo == 4 %}  
                         {#  En revision ... #}
 
                         <button class="modal-comentarios btn btn-sm btn-outline-light py-1 mr-2" title="Comentarios realizados por Sectrataría Académica">                            
@@ -266,100 +266,17 @@
                 dialog.find('.modal-body').addClass('p-0');
             });
 
-        {% if  eActual.codigo == 3 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
-
-            $('.modal-comentarios').click(function (e) {
 
 
-                var urlBase = "{{ path('planificaciones_actualizar_comentarios', { id : '--ID--'}) }}";
-                var urlGetAsJson = "{{ path('planificaciones_get_as_json', { id : planificacion.id }) }}";
-
-
-
-                $.getJSON(urlGetAsJson, function (planifJson) {
-
-                    var input = $('<div><textarea name="comentarios" class="form-control" rows="10" placeholder="Ingrese las correcciones a realizar por el docente."></textarea></div>');
-                    if (typeof planifJson.historicoEstadoActual.comentario !== 'string') {
-                        console.log('No existe el campo comentario');
-                        return;
-                    }
-
-                    input.find('textarea').text(planifJson.historicoEstadoActual.comentario);
-
-                    var fGuardarComentario = function () {
-
-                        //mostrar spinner:
-                        var modal = $(this);
-                        var modalFooter = modal.find('.modal-footer');
-                        var spinner = $('<span class="text-muted spinner"><i class="fa fa-spin fa-spinner"></i>&nbsp;Guardando ...</span>&nbsp;&nbsp;');
-                        modalFooter.prepend(spinner);
-
-                        var textArea = modal.find('textarea');
-                        input.attr('disabled', 'disabled');                        
-
-                        var idPlanif = "{{ planificacion.id }}";
-                        var url = urlBase.replace('--ID--', idPlanif);
-                        
-                        var data = { id: idPlanif, comentarios: textArea.val() };
-
-                        //console.log(data, JSON.stringify(data));
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            data: JSON.stringify(data),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function(jsonData){
-                                spinner.remove();
-                                //input.find('textarea').text(jsonData.historicoEstadoActual.comentario)
-                                console.log(jsonData);
-                            }
-                        });
-
-                        //console.log('Guardando ...', $(this));
-
-                        return false;
-                    };
-
-
-                    console.log(planifJson);
-
-
-                    var title = "<b>{{ planificacion }} - Comentarios</b>";
-
-                    var modalComentarios = bootbox.dialog({
-                        title: title,
-                        message: input.html(),
-                        size: 'large',
-                        backdrop: true,
-                        onEscape: true,
-                        centerVertical: true,
-                        closeButton: true,
-                        buttons: {
-                            guardar: {
-                                label: 'Guardar',
-                                className: 'btn-success',
-                                callback: fGuardarComentario
-                            }
-                        },
-
-                    });
-
-
-                });
-
-
-
-
-
-
-            });
-
-        {% endif %}
-
-            });
+        });
 
     </script>
+
+    {% if  eActual.codigo == 3 or eActual.codigo == 4 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
+
+        {% include 'PlanificacionesBundle::modal-comentarios.js.twig' %}
+
+    {% endif %}
 
     {% if is_planificacion_definida %}
 
