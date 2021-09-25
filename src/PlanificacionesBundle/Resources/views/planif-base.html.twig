@@ -5,6 +5,7 @@
 {% if info_basica_route is not defined %}
     {% set info_basica_route =  path('planif_info_basica_editar', {id : planificacion.id}) %}
 {% endif %}
+{% set eActual = planificacion.getEstadoActual() %}
 
 {% block navbar2 %}             
     {% embed 'navbar2.html.twig' %}         
@@ -15,16 +16,15 @@
                 {#<button class="btn btn-sm btn-outline-light py-1">
                     <i class="fa fa-tasks"></i>
                     Revisar
-                </button>#}
-                {% set eActual = planificacion.getEstadoActual() %}
+                </button>#}                
 
 
                 {% if eActual  %}     
 
-                    {% if  eActual.codigo == 3 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
+                    {% if  eActual.codigo == 3 or eActual.codigo == 4 %}  
                         {#  En revision ... #}
 
-                        <button class="mostrar-historico btn btn-sm btn-outline-light py-1 mr-2" title="Comentarios realizados por Sectrataría Académica">                            
+                        <button class="modal-comentarios btn btn-sm btn-outline-light py-1 mr-2" title="Comentarios realizados por Sectrataría Académica">                            
                             <i class="fa fa-comment-alt"></i>&nbsp;COMENTARIOS
                         </button>
 
@@ -268,10 +268,15 @@
 
 
 
-
         });
 
     </script>
+
+    {% if  eActual.codigo == 3 or eActual.codigo == 4 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
+
+        {% include 'PlanificacionesBundle::modal-comentarios.js.twig' %}
+
+    {% endif %}
 
     {% if is_planificacion_definida %}
 

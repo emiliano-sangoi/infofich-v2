@@ -234,41 +234,4 @@ class PlanificacionController extends Controller {
         ));
     }
 
-        /**
-     * imprime una planificacion
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function imprimirAction(Request $request, Planificacion $planificacion) {
-
-        $this->denyAccessUnlessGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion));
-
-        //dump($planificacion);exit;
-        $form = $this->createForm(DuplicarPlanificacionType::class, $planificacion);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            dump($planificacion);
-            exit;
-        }
-
-
-        // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
-        $breadcrumbs->addItem($planificacion);
-        $breadcrumbs->addItem("DUPLICAR");
-
-
-        return $this->render('PlanificacionesBundle:planificacion:duplicar.html.twig', array(
-                    'page_title' => 'Duplicar planificación',
-                    'planificacion' => $planificacion,
-                    'form' => $form->createView(),
-                    // 'paginado' => $paginado,
-                    'puede_borrar' => $this->isGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion))
-        ));
-    }
-
 }

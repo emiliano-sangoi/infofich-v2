@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="Esta asignatura ya tiene creada una planificación."
  * )
  */
-class Planificacion {
+class Planificacion implements \JsonSerializable{
 
     /**
      * @var int
@@ -1066,4 +1066,15 @@ class Planificacion {
     {
         return $this->resultados;
     }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'anioAcad' => $this->anioAcad,
+            'codigoAsignatura' => $this->codigoAsignatura,
+            'carrera' => $this->carrera,
+            'historicoEstadoActual' => $this->getHistoricoEstadoActual(),
+        );
+    }
+
 }

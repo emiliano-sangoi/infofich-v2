@@ -28,6 +28,16 @@ planificaciones_revisar:
     defaults: { _controller: PlanificacionesBundle:Revisar:revisar }
     methods: [GET, POST]
     
+planificaciones_get_as_json:
+    path:     /{id}/get-as-json
+    defaults: { _controller: PlanificacionesBundle:Planificacion:getAsJson }
+    methods: [GET]
+    
+planificaciones_actualizar_comentarios:
+    path:     /{id}/actualizar-comentarios
+    defaults: { _controller: PlanificacionesBundle:Revisar:actualizarComentarios }
+    methods: [GET, POST]
+    
 #
 #planificaciones_edit:
 #    path:     /{id}/editar

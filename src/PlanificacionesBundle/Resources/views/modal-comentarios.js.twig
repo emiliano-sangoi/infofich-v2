@@ -1,0 +1,92 @@
+<script>
+    $(document).ready(function () {
+
+
+        $('.modal-comentarios').click(function (e) {
+
+                {% set tiene_perm_correcciones = app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}
+                
+                var urlGetAsJson = "{{ path('planificaciones_get_as_json', { id : planificacion.id }) }}";
+
+                $.getJSON(urlGetAsJson, function (planifJson) {
+
+                    var input = $('<div><textarea name="comentarios" {{ tiene_perm_correcciones ? '' : 'disabled="disabled"' }} class="form-control" rows="14" placeholder="Ingrese las correcciones a realizar por el docente."></textarea></div>');
+                    if (typeof planifJson.historicoEstadoActual.comentario !== 'string') {
+                        console.log('No existe el campo comentario');
+                        return;
+                    }
+
+                    input.find('textarea').text(planifJson.historicoEstadoActual.comentario);
+
+                    var title = "<b>{{ planificacion }} - Comentarios</b>";
+
+                    var modalConfig = {
+                        title: title,
+                        message: input.html(),
+                        size: 'xl',
+                        backdrop: true,
+                        onEscape: true,
+                        centerVertical: true,
+                        closeButton: true,
+                        buttons: {}
+                    };
+
+                {% if tiene_perm_correcciones %}
+                    
+                    var urlBase = "{{ path('planificaciones_actualizar_comentarios', { id : '--ID--'}) }}";
+
+                    var fGuardarComentario = function () {
+
+                        //mostrar spinner:
+                        var modal = $(this);
+                        var modalFooter = modal.find('.modal-footer');
+                        var spinner = $('<span class="text-muted spinner"><i class="fa fa-spin fa-spinner"></i>&nbsp;Guardando ...</span>&nbsp;&nbsp;');
+                        modalFooter.prepend(spinner);
+
+                        var textArea = modal.find('textarea');
+                        textArea.attr('disabled', 'disabled');
+
+                        var idPlanif = "{{ planificacion.id }}";
+                        var url = urlBase.replace('--ID--', idPlanif);
+
+                        var data = {id: idPlanif, comentarios: textArea.val()};
+
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (jsonData) {
+                                spinner.fadeOut().remove();
+                                textArea.removeAttr('disabled');
+                            }
+                        });
+
+                        return false;
+                    };
+
+                    modalConfig.buttons.guardar = {
+                        label: 'Guardar',
+                        className: 'btn-success',
+                        callback: fGuardarComentario
+                    };
+
+                {% else %}           
+                    modalConfig.buttons.guardar = {
+                        label: 'Cerrar',
+                        className: 'btn-outline-secondary'
+                    };
+                {% endif %}
+
+                    var modalComentarios = bootbox.dialog(modalConfig);
+
+
+                });
+
+            });
+
+        });
+
+
+</script>

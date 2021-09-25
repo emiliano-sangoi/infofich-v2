@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *    })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\HistoricoEstadosRepository")
  */
-class HistoricoEstados
+class HistoricoEstados implements \JsonSerializable
 {
     /**
      * @var int
@@ -221,5 +221,15 @@ class HistoricoEstados
         return $this;
     }
 
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'fechaDesde' => $this->fechaDesde->getTimestamp(),
+            'fechaHasta' => $this->fechaHasta ? $this->fechaHasta->getTimestamp() : null,
+            'estado' => $this->estado,
+            'comentario' => $this->comentario,
+            'usuario' => $this->usuario
+        );
+    }
 
 }

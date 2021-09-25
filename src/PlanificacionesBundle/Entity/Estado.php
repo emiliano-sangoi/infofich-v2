@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="planif_estados")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\EstadoRepository")
  */
-class Estado {
+class Estado implements \JsonSerializable{
 
     const CREADA = 1;
     const PREPARACION = 2;
@@ -177,4 +177,14 @@ class Estado {
     {
         return $this->codigo;
     }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'codigo' => $this->codigo,
+            'nombre' => $this->nombre,
+            'descripcion' => $this->descripcion,
+        );
+    }
+
 }
