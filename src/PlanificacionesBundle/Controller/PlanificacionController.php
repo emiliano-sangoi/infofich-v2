@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\PDF\PlanificacionesPDF;
 
 class PlanificacionController extends Controller {
 
@@ -232,6 +233,61 @@ class PlanificacionController extends Controller {
                     // 'paginado' => $paginado,
                     'puede_borrar' => $this->isGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion))
         ));
+    }
+
+    /**
+     * Exporta la información de la planificacion a un archivo PDF
+     * 
+     * @param Request $request
+     * @param Planificacion $planificacion
+     */
+    public function imprimirAction(Request $request, Planificacion $planificacion) {
+        
+
+        // buscamos la historia laboral detallada
+      //  $filtros = array();detalleItems
+        //$detalleItems = array();
+       /* foreach ($resultado as $item) {
+            $arrayItem = array();
+            array_push($arrayItem, $item['codigo']);
+            array_push($arrayItem, $item['mes'] . '/' . $item['anio']);
+            array_push($arrayItem, $item['tipoLiquidacion']);
+            array_push($arrayItem, (strlen($item['nombre']) > 25) ? substr($item['nombre'], 0, 25) . '...' : $item['nombre']);
+            array_push($arrayItem, (strlen($item['revista']) > 12) ? substr($item['revista'], 0, 12) . '.' : $item['revista']);
+            array_push($arrayItem, number_format($item['remunerativo'], 2, ',', '.'));
+            array_push($arrayItem, number_format($item['aportePersonal'], 2, ',', '.'));
+            array_push($arrayItem, number_format($item['contribucionPatronal'], 2, ',', '.'));
+            array_push($arrayItem, number_format($item['otrosConceptos'], 2, ',', '.'));
+
+            array_push($detalleItems, $arrayItem);
+        }*/
+
+        $tabla_cab = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');
+        $tabla_det = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');//$detalleItems;
+
+        $parametros = array(
+            'titulo' =>  'Planificaciones 2021',
+            'id' => 1,// $persona->getId(),
+            'apellidoynombre' => 'romina', //$persona->getApeNom(),
+            'apellidos' => 'romina', //$persona->getApellidos(),
+            'nombre' => 'romina', // $persona->getNombres(),
+            'cuil' => 4444,
+            'tipoDocumento' => 'romina', 
+            'nroDocumento' => 'romina' 
+            //'tabla_cab' => $tabla_cab,
+            //'tabla_det' => $tabla_det,
+        );
+
+        $em = $this->getDoctrine()->getManager();
+
+        
+        $parametros['usuario'] = 'romina';//$this->getUser()->getUsername();
+        $pdf = new PlanificacionesPDF($parametros);
+        $pdf->render();
+
+        $nombreArch = 'PLANIFICACION.pdf';
+
+        $pdf->Output($nombreArch, 'I');
     }
 
 }

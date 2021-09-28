@@ -37,6 +37,11 @@ planificaciones_actualizar_comentarios:
     path:     /{id}/actualizar-comentarios
     defaults: { _controller: PlanificacionesBundle:Revisar:actualizarComentarios }
     methods: [GET, POST]
+
+planificaciones_imprimir:
+    path:     /{id}/imprimir
+    defaults: { _controller: PlanificacionesBundle:Planificacion:imprimir }
+    methods: [GET, POST]
     
 #
 #planificaciones_edit:
