@@ -19,7 +19,7 @@
                 </button>#}                
 
 
-                {% if eActual  %}     
+                {% if eActual is not null  %}     
 
                     {% if  eActual.codigo == 3 or eActual.codigo == 4 %}  
                         {#  En revision ... #}
@@ -272,7 +272,7 @@
 
     </script>
 
-    {% if  eActual.codigo == 3 or eActual.codigo == 4 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}  
+    {% if  eActual is not null and (eActual.codigo == 3 or eActual.codigo == 4 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES'))) %}  
 
         {% include 'PlanificacionesBundle::modal-comentarios.js.twig' %}
 

@@ -32,9 +32,7 @@ class PlanificacionController extends Controller {
 
         $paginator = $this->get('knp_paginator');
         $paginado = $paginator->paginate(
-                $this->getPlanificacionesUsuario($form_filtros), /* query NOT result */ 
-                $request->query->getInt('page', 1), /* page number */ 
-                10 /* limit per page */
+                $this->getPlanificacionesUsuario($form_filtros), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
         );
 
         // Breadcrumbs
@@ -56,7 +54,7 @@ class PlanificacionController extends Controller {
      * @param Form $form_filtros
      * @return Query|array
      */
-    private function getPlanificacionesUsuario(Form $form_filtros) {       
+    private function getPlanificacionesUsuario(Form $form_filtros) {
 
         $usuario = $this->getUser();
         $carrera = $form_filtros->get('carrera')->getData();
@@ -101,7 +99,7 @@ class PlanificacionController extends Controller {
 
             $usuario = $this->getUser();
             $repoHistorico->setEstadoCreada($planificacion, $usuario);
-            $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION, null);
+            $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION, $usuario);
             //---------------------------------------------------------------------------
 
             $this->addFlash('success', 'La planificacion fué creada correctamente.');
@@ -120,7 +118,7 @@ class PlanificacionController extends Controller {
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
                     'info_basica_route' => $this->generateUrl('planificaciones_nueva'),
-                    'planificacion' => $planificacion,            
+                    'planificacion' => $planificacion,
                     'page_title' => 'Nueva planificación'
         ));
     }
@@ -240,12 +238,42 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      * @return JsonResponse
      */
-    public function getAsJsonAction(Planificacion $planificacion){
-        
+    public function getAsJsonAction(Planificacion $planificacion) {
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_VER, array('data' => $planificacion));
-        
-        return new JsonResponse($planificacion, Response::HTTP_OK);        
-        
+
+        return new JsonResponse($planificacion, Response::HTTP_OK);
     }
+
+    public function enviarACorreccionAction(Request $request, Planificacion $planificacion) {
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_ENVIAR_CORRECCION, array('data' => $planificacion));
+
+        if (!$planificacion->enRevision()) {
+            $this->addFlash('warning', 'No se puede enviar a corrección esta planificación. Estado actual incorrecto.');
+
+            return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
+        }
+
+        $form = $this->crearFormEnviarACorreccion($planificacion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            /* @var $repoHistorico HistoricoEstadosRepository */
+            $repoHistorico = $em->getRepository(HistoricoEstados::class);
+
+            $usuario = $this->getUser();
+            $repoHistorico->asignarEstado($planificacion, Estado::CORRECCION, $usuario);
+
+            $this->addFlash('success', 'Planificación enviada a corrección.');
+            return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
+        }
+
+
+        $this->addFlash('danger', 'Ocurrieron errores al enviar la planificación a corrección.');
+        return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
+    }    
 
 }

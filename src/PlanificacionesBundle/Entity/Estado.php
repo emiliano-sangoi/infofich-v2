@@ -68,7 +68,7 @@ class Estado implements \JsonSerializable{
             case self::REVISION:
                 return 'warning';
             case self::CORRECCION:
-                return 'warning';
+                return 'danger';
             case self::PUBLICADA:
                 return 'success';
         }

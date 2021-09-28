@@ -69,6 +69,10 @@ class RevisarController extends Controller {
             }
 
             $params['form_enviar_revision'] = $form->createView();
+        } elseif( $planificacion->enRevision() ) {
+            
+            $params['form_enviar_correccion'] = $this->crearFormEnviarACorreccion($planificacion)->createView();
+            
         } else {
             $this->addFlash('danger', 'Solo puede enviar planificaciones que se encuentren en revisión o corrección');
             //return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));

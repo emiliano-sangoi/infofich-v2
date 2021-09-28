@@ -49,18 +49,20 @@
                                                 </span>
                                                 <span class="right centrate-y">
                                                     {% set eActual = p.getEstadoActual() %} 
-                                                    {% set class = 'success' %}
-                                                    {% if eActual.codigo == 2 or eActual.codigo == 4 %}                                                            
-                                                        {% set class = 'light' %}
-                                                    {% elseif eActual.codigo == 3 %}                                                            
-                                                        {% set class = 'warning' %}
-                                                    {% endif %}
+                                                    {% if eActual %}
+                                                        {% set class = 'success' %}
+                                                        {% if eActual.codigo == 2 or eActual.codigo == 4 %}                                                            
+                                                            {% set class = 'light' %}
+                                                        {% elseif eActual.codigo == 3 %}                                                            
+                                                            {% set class = 'warning' %}
+                                                        {% endif %}
 
-                                                    {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
-                                                    <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
-                                                        {{ eActual.nombre }}
-                                                    </span>
-                                                    <i class="fa fa-1x fa-caret-down"></i>
+                                                        {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
+                                                        <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                                                            {{ eActual.nombre }}
+                                                        </span>
+                                                        <i class="fa fa-1x fa-caret-down"></i>
+                                                    {% endif %}
                                                 </span>
                                             </button>
                                         </h6>
@@ -194,7 +196,7 @@
             alert('aca se va a mostrar el hitorico');
         })#}
 
-                    });
+            });
 
 
     </script>

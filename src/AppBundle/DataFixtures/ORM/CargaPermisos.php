@@ -60,6 +60,16 @@ class CargaPermisos extends AbstractFixture implements FixtureInterface, Ordered
             'desc' => null,
         );
         
+        $this->permisos[ Permisos::PLANIF_ENVIAR_REVISION ] = array(
+            'titulo' => 'Permite enviar la planificacion a revisión.',
+            'desc' => null,
+        );
+        
+        $this->permisos[ Permisos::PLANIF_ENVIAR_CORRECCION ] = array(
+            'titulo' => 'Permite enviar la planificacion a corrección.',
+            'desc' => null,
+        );
+        
         $this->permisos[ Permisos::PLANIF_CORRECCIONES ] = array(
             'titulo' => 'Permite gestionar las correcciones de una planificación',
             'desc' => 'Permite gestionar las correcciones sugeridas por SA en una planificación.',            

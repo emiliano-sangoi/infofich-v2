@@ -13,7 +13,6 @@ use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Component\Form\Form;
-use function mb_strtoupper;
 
 /**
  *
@@ -71,5 +70,19 @@ trait PlanificacionTrait {
         $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
         
         return mb_strtoupper($page_title);
+    }
+    
+    /**
+     * Crea el formulario para enviar a corrección una planificación
+     * 
+     * @param Planificacion $planificacion
+     * @return Form
+     */
+    private function crearFormEnviarACorreccion(Planificacion $planificacion) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('planificaciones_enviar_a_correccion', array('id' => $planificacion->getId())))
+                        ->setMethod('POST')
+                        ->getForm()
+        ;
     }
 }

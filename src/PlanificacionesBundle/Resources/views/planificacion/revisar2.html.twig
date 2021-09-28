@@ -160,11 +160,40 @@
         {% if planificacion.enPreparacion() or planificacion.enCorreccion() %}
             {#            {% if puede_enviar_a_revision %}#}
             {{ form_start(form_enviar_revision) }}
-            <button role="submit" class="btn btn-lg btn-success">
+            <button role="submit" class="btn btn-lg btn-primary">
                 <i class="fa fa-check"></i>&nbsp;Enviar a revisi&oacute;n
             </button>
             {{ form_end(form_enviar_revision) }}
             {#            {% endif %}#}
+        {% endif %}
+
+        {% if planificacion.enRevision() %}
+
+            {% embed '::botonera.html.twig' %}
+
+                {% block left %}
+                    <button role="submit" class="btn btn-lg btn-success">
+                        <i class="fa fa-check"></i>&nbsp;Aprobar planificación
+                    </button>
+                {% endblock %}
+
+                {% block right %}
+                    {% if form_enviar_correccion is defined %}
+                        {% set attr = { data: planificacion } %}                                           
+                        {% if is_granted(constant('AppBundle\\Seguridad\\Permisos::PLANIF_ENVIAR_CORRECCION'), attr) %}
+                            {{ form_start(form_enviar_correccion) }}
+                            <button role="submit" class="btn btn-lg btn-outline-danger">
+                                <i class="fa fa-times"></i>&nbsp;Enviar a corrección
+                            </button>   
+                            {{ form_end(form_enviar_correccion) }}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+
+            {% endembed %}
+
+            {#            {% tiene_perm_publicar = app.user.tienePermiso() %}#}
+
         {% endif %}
     </div>
 

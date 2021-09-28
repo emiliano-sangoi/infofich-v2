@@ -11,7 +11,7 @@
                 $.getJSON(urlGetAsJson, function (planifJson) {
 
                     var input = $('<div><textarea name="comentarios" {{ tiene_perm_correcciones ? '' : 'disabled="disabled"' }} class="form-control" rows="14" placeholder="Ingrese las correcciones a realizar por el docente."></textarea></div>');
-                    if (typeof planifJson.historicoEstadoActual.comentario !== 'string') {
+                    if (typeof planifJson.historicoEstadoActual['comentario'] === 'undefined') {
                         console.log('No existe el campo comentario');
                         return;
                     }
