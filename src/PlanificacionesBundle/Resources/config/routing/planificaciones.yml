@@ -28,6 +28,11 @@ planificaciones_revisar:
     defaults: { _controller: PlanificacionesBundle:Revisar:revisar }
     methods: [GET, POST]
     
+planificaciones_enviar_a_correccion:
+    path:     /{id}/enviar-a-correccion
+    defaults: { _controller: PlanificacionesBundle:Planificacion:enviarACorreccion }
+    methods: [GET, POST]
+    
 planificaciones_get_as_json:
     path:     /{id}/get-as-json
     defaults: { _controller: PlanificacionesBundle:Planificacion:getAsJson }

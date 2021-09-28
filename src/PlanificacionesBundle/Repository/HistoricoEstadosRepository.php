@@ -49,9 +49,13 @@ class HistoricoEstadosRepository extends EntityRepository {
      * Se encarga de especificar un estado a una planificacion existente.
      * 
      * @param Planificacion $planificacion
-     * @param int $cod_estado
+     * @param integer $cod_estado
+     * @param Usuario $usuario
+     * @param string|null $comentario
+     * @return boolean
+     * @throws Exception
      */
-    public function asignarEstado(Planificacion $planificacion, $cod_estado, Usuario $usuario = null, $comentario = null) {
+    public function asignarEstado(Planificacion $planificacion, $cod_estado, Usuario $usuario, $comentario = null) {
 
         $em = $this->getEntityManager();
 
@@ -83,7 +87,7 @@ class HistoricoEstadosRepository extends EntityRepository {
             $hn->setPlanificacion($planificacion);
             $hn->setEstado($estado);
             $hn->setUsuario($usuario);
-            $hn->setComentario('Enviada a Sec. Académica para corrección.');
+            $hn->setComentario($comentario);
             
 
             //guardar nuevo registro

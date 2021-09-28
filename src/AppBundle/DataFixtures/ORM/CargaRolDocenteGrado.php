@@ -39,6 +39,7 @@ class CargaRolDocenteGrado extends AbstractFixture implements FixtureInterface, 
             Permisos::PLANIF_CREAR,
             Permisos::PLANIF_EDITAR,
             Permisos::PLANIF_BORRAR,
+            Permisos::PLANIF_ENVIAR_REVISION,
         );
 
         foreach ($permisos as $codigo) {

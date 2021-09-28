@@ -46,6 +46,8 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
             Permisos::PLANIF_VER,
             Permisos::PLANIF_CREAR,
             Permisos::PLANIF_EDITAR,
+            Permisos::PLANIF_ENVIAR_REVISION,
+            Permisos::PLANIF_ENVIAR_CORRECCION,
             Permisos::PLANIF_BORRAR,
             Permisos::ROL_LISTAR,
             Permisos::ROL_BORRAR,

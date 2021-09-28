@@ -66,6 +66,7 @@ class PlanificacionVoter extends Voter {
             Permisos::PLANIF_BORRAR,
             Permisos::PLANIF_VER,
             Permisos::PLANIF_DUPLICAR,
+            Permisos::PLANIF_ENVIAR_CORRECCION
         );
 
         // if the attribute isn't one we support, return false
@@ -111,6 +112,8 @@ class PlanificacionVoter extends Voter {
                 return $this->puedeBorrar($planif, $user);
             case Permisos::PLANIF_DUPLICAR:
                 return $this->puedeDuplicar($planif, $user);
+            case Permisos::PLANIF_ENVIAR_CORRECCION:
+                return $this->puedeEnviarACorreccion($planif, $user);
         }
 
         throw new LogicException('This code should not be reached!');
@@ -225,6 +228,17 @@ class PlanificacionVoter extends Voter {
         }
 
         return false;
+    }
+    
+    private function puedeEnviarACorreccion(Planificacion $planif, Usuario $user) {
+        
+        $eActual = $planif->getEstadoActual();
+        if($eActual && $eActual->getCodigo() == \PlanificacionesBundle\Entity\Estado::REVISION){
+            return false;
+        }
+
+        return $user->tienePermiso(Permisos::PLANIF_ENVIAR_CORRECCION);
+        
     }
 
 }
