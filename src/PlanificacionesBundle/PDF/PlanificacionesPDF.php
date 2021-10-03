@@ -41,9 +41,14 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         // Carrera
         $this->CreateTextBox('Carrera: ' . $this->parametros['nombreCarrera'], $x0 + 5, 60, 180, 0, $fontSize, '', 'L');
-        // Carrera
-        $this->CreateTextBox('Departamento: ' . $this->parametros['nombreCarrera'], $x0 + 5, 65, 180, 0, $fontSize, '', 'L');
+        
+        // Departamento
+        $this->CreateTextBox('Departamento: ' . $this->parametros['departamento'], $x0 + 5, 65, 180, 0, $fontSize, '', 'L');
 
+        // Plan estudios
+        $this->CreateTextBox('Plan Estudios: ' . $this->parametros['planEstudio'], $x0 + 5, 70, 180, 0, $fontSize, '', 'L');
+
+        
         // Dibuja las cabeceras de la tabla
         $this->SetXY($x0, 62);
         $header = isset($this->parametros['tabla_cab']) ? $this->parametros['tabla_cab'] : array();
