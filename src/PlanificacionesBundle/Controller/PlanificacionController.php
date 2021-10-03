@@ -241,10 +241,31 @@ class PlanificacionController extends Controller {
      */
     public function imprimirAction(Request $request, Planificacion $planificacion) {
         
+    //Datos que precisa 
+    $detalleItems = array();
+
+    //nombre de la asignatura:      
+    $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+    $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+    $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
+    $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
+    $planEstudio =  TexTo::ucWordsCustom($carrera->getPlanCarrera());
+    
+    //$docente_a_cargo = planificaciones_obtener_datos_docente_responsable($id_planificacion);
+
+	//$plan = planificaciones_obtener_plan_estudio($planificacion['id_plan']);
+
+	//$materia = planificaciones_obtener_materia($planificacion['id_asignatura']);
+
+	//$departamento = planificaciones_obtener_departamento($materia['id_departamento']);
+
+
+	//$docentes = planificaciones_obtener_docentes($id_planificacion);
+
 
         // buscamos la historia laboral detallada
-      //  $filtros = array();detalleItems
-        //$detalleItems = array();
+      //  $filtros = array();
+        
        /* foreach ($resultado as $item) {
             $arrayItem = array();
             array_push($arrayItem, $item['codigo']);
@@ -261,19 +282,22 @@ class PlanificacionController extends Controller {
         }*/
 
         $tabla_cab = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');
-        $tabla_det = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');//$detalleItems;
+        $tabla_det = $detalleItems;
 
         $parametros = array(
             'titulo' =>  'Planificaciones 2021',
+            'anio' => '2021',
             'id' => 1,// $persona->getId(),
-            'apellidoynombre' => 'romina', //$persona->getApeNom(),
-            'apellidos' => 'romina', //$persona->getApellidos(),
+            'nombreAsignatura' => $nombreAsignatura, //$persona->getApeNom(),
+            'nombreCarrera' => $nombreCarrera,
+            'departamento' => $planificacion->getDepartamento(),
+            'planEstudio' => $planEstudio,
             'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
-            'nroDocumento' => 'romina' 
+            'nroDocumento' => 'romina',
             //'tabla_cab' => $tabla_cab,
-            //'tabla_det' => $tabla_det,
+            'tabla_det' => $tabla_det
         );
 
         $em = $this->getDoctrine()->getManager();
