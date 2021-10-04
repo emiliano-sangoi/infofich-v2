@@ -48,12 +48,20 @@ class PlanificacionesPDF extends ImprimirPDF {
         // Plan estudios
         $this->CreateTextBox('Plan Estudios: ' . $this->parametros['planEstudio'], $x0 + 5, 70, 180, 0, $fontSize, '', 'L');
 
-        
+        // Periodo
+        $this->CreateTextBox('Periodo: ' . $this->parametros['periodoLectivo'], $x0 + 5, 75, 180, 0, $fontSize, '', 'L');
+
+        // Anio Cursada
+        $this->CreateTextBox('Añio Cursada: ' . $this->parametros['anioCursada'], $x0 + 5, 80, 180, 0, $fontSize, '', 'L');
+
+        // Caracter
+        $this->CreateTextBox('Caracter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
+
         // Dibuja las cabeceras de la tabla
-        $this->SetXY($x0, 62);
+        /*$this->SetXY($x0, 62);
         $header = isset($this->parametros['tabla_cab']) ? $this->parametros['tabla_cab'] : array();
         $widthColumn = array(17, 12, 23, 44, 18, 19, 19, 19, 19);
-        $this->createHeaderTable($header, $widthColumn);
+        $this->createHeaderTable($header, $widthColumn);*/
     }
 
     public function render() {
@@ -65,7 +73,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $x0 = PDF_MARGIN_LEFT;
 
         // Dibuja el detalle de la tabla
-        $this->SetXY($x0, 69);
+        /*$this->SetXY($x0, 69);
         $data = isset($this->parametros['tabla_det']) ? $this->parametros['tabla_det'] : array();
         $widthColumn = array(array(17,'L'), array(12,'L'), array(23,'L'), array(44,'L'), array(18,'L'), array(19,'R'), array(19,'R'), array(19,'R'), array(19,'R'));
         $this->createDataTable($data, $widthColumn);
@@ -78,7 +86,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         // Título (texto)
         $this->CreateTextBox('Cantidad de registros informados: 2' , $x0, $y + 7, 180, 0, 9, 'B', 'L', 1);
-//        $this->CreateTextBox(count($this->parametros['tabla_det']), $x0+160, $y + 7, 20, 0, 9, 'B', 'R', 1);
+//        $this->CreateTextBox(count($this->parametros['tabla_det']), $x0+160, $y + 7, 20, 0, 9, 'B', 'R', 1);*/
     }
 
 }

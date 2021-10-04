@@ -247,6 +247,9 @@ class PlanificacionController extends Controller {
     //nombre de la asignatura:      
     $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
     $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+    $periodoLectivo = $asignatura->getPeriodoCursada();
+    $anioCursada = $asignatura->getAnioCursada();
+    $caracter  = $asignatura->getTipoCursada();
     $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
     $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
     $planEstudio =  TexTo::ucWordsCustom($carrera->getPlanCarrera());
@@ -292,11 +295,14 @@ class PlanificacionController extends Controller {
             'nombreCarrera' => $nombreCarrera,
             'departamento' => $planificacion->getDepartamento(),
             'planEstudio' => $planEstudio,
-            'nombre' => 'romina', // $persona->getNombres(),
+            'periodoLectivo' => $periodoLectivo,
+            'anioCursada' => $anioCursada,
+            'caracter' => $caracter,
+            /*'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
             'nroDocumento' => 'romina',
-            //'tabla_cab' => $tabla_cab,
+            //'tabla_cab' => $tabla_cab,*/
             'tabla_det' => $tabla_det
         );
 
