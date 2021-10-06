@@ -253,6 +253,12 @@ class PlanificacionController extends Controller {
     $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
     $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
     $planEstudio =  TexTo::ucWordsCustom($carrera->getPlanCarrera());
+
+    //Equipo Docente
+    $docenteResponsable = $planificacion->getDocenteResponsable();
+    $docentesColaboradores = $planificacion->getDocentesColaboradores();
+    $docentesAdscriptos = $planificacion->getDocentesAdscriptos();
+
     
     //$docente_a_cargo = planificaciones_obtener_datos_docente_responsable($id_planificacion);
 
@@ -298,12 +304,15 @@ class PlanificacionController extends Controller {
             'periodoLectivo' => $periodoLectivo,
             'anioCursada' => $anioCursada,
             'caracter' => $caracter,
+            'docenteResponsable' => $docenteResponsable,
+            'docentesColaboradores' => $docentesColaboradores,
+            'docentesAdscriptos' => $docentesAdscriptos,
             /*'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
             'nroDocumento' => 'romina',
             //'tabla_cab' => $tabla_cab,*/
-            'tabla_det' => $tabla_det
+            //'tabla_det' => $tabla_det
         );
 
         $em = $this->getDoctrine()->getManager();

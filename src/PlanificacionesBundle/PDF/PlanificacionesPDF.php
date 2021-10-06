@@ -36,12 +36,30 @@ class PlanificacionesPDF extends ImprimirPDF {
         // Título (texto)
         $this->CreateTextBox('PLANIFICACIÓN ' . $this->parametros['anio'], $x0, 45, 180, 0, 10, 'B', 'C');
 
+        
+        // Dibuja las cabeceras de la tabla
+        /*$this->SetXY($x0, 62);
+        $header = isset($this->parametros['tabla_cab']) ? $this->parametros['tabla_cab'] : array();
+        $widthColumn = array(17, 12, 23, 44, 18, 19, 19, 19, 19);
+        $this->createHeaderTable($header, $widthColumn);*/
+    }
+
+    public function render() {
+        $border = 0;
+        $this->SetFontSize(6);
+
+        $this->addPage();
+
+        $x0 = PDF_MARGIN_LEFT;
+
+        $fontSize = 9;
+        $this->CreateTextBox('INFORMACIÒN BÀSICA', $x0, 50, 180, 0, 10, 'B', 'C');
         // Nombre Asignatura
         $this->CreateTextBox($this->parametros['nombreAsignatura'], $x0 + 5, 55, 180, 0, $fontSize, '', 'L');
 
         // Carrera
         $this->CreateTextBox('Carrera: ' . $this->parametros['nombreCarrera'], $x0 + 5, 60, 180, 0, $fontSize, '', 'L');
-        
+
         // Departamento
         $this->CreateTextBox('Departamento: ' . $this->parametros['departamento'], $x0 + 5, 65, 180, 0, $fontSize, '', 'L');
 
@@ -57,20 +75,24 @@ class PlanificacionesPDF extends ImprimirPDF {
         // Caracter
         $this->CreateTextBox('Caracter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
 
-        // Dibuja las cabeceras de la tabla
-        /*$this->SetXY($x0, 62);
-        $header = isset($this->parametros['tabla_cab']) ? $this->parametros['tabla_cab'] : array();
-        $widthColumn = array(17, 12, 23, 44, 18, 19, 19, 19, 19);
-        $this->createHeaderTable($header, $widthColumn);*/
-    }
+        // Equipo Docente:
+        $this->CreateTextBox('EQUIPO DOCENTE', $x0, 100, 180, 0, 10, 'B', 'C');
+        $this->CreateTextBox('Docente Responsable: ' . $this->parametros['docenteResponsable'], $x0 + 5, 105, 180, 0, $fontSize, '', 'L');
 
-    public function render() {
-        $border = 0;
-        $this->SetFontSize(6);
+        $docentesColaboradores = $this->parametros['docentesColaboradores'];
 
-        $this->addPage();
+        $x1 = 110;
+        foreach ($docentesColaboradores as $docentesColaborador){
+            $this->CreateTextBox('Docente Colaborador: ' . $docentesColaborador, $x0 + 5, $x1+5, 180, 0, $fontSize, '', 'L');
+            $x1 += 5;
+        }
 
-        $x0 = PDF_MARGIN_LEFT;
+        $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
+
+        foreach ($docentesAdscriptos as $docentesAdscripto){
+            $this->CreateTextBox('Docente Adscripto: ' . $docentesAdscripto, $x0 + 5, $x1+5, 180, 0, $fontSize, '', 'L');
+            $x1 += 5;
+        }
 
         // Dibuja el detalle de la tabla
         /*$this->SetXY($x0, 69);
