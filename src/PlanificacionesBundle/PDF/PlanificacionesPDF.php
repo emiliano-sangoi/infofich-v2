@@ -34,7 +34,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $this->RoundedRect($x0, 43, 190, 8, 4, $round_corner = '0000', $style = 'F', $est1, $c1);
 
         // Título (texto)
-        $this->CreateTextBox('PLANIFICACIÓN ' . $this->parametros['anio'], $x0, 45, 180, 0, 10, 'B', 'C');
+        $this->CreateTextBox('PLANIFICACIÓN '. $this->parametros['anio'], $x0, 45, 180, 0, 10, 'B', 'C');
 
         
         // Dibuja las cabeceras de la tabla
@@ -53,7 +53,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $x0 = PDF_MARGIN_LEFT;
 
         $fontSize = 9;
-        $this->CreateTextBox('INFORMACIÒN BÀSICA', $x0, 50, 180, 0, 10, 'B', 'C');
+        $this->CreateTextBox('INFORMACIÓN BÁSICA', $x0, 50, 180, 0, 10, 'B', 'C');
         // Nombre Asignatura
         $this->CreateTextBox($this->parametros['nombreAsignatura'], $x0 + 5, 55, 180, 0, $fontSize, '', 'L');
 
@@ -67,13 +67,13 @@ class PlanificacionesPDF extends ImprimirPDF {
         $this->CreateTextBox('Plan Estudios: ' . $this->parametros['planEstudio'], $x0 + 5, 70, 180, 0, $fontSize, '', 'L');
 
         // Periodo
-        $this->CreateTextBox('Periodo: ' . $this->parametros['periodoLectivo'], $x0 + 5, 75, 180, 0, $fontSize, '', 'L');
+        $this->CreateTextBox('Período: ' . $this->parametros['periodoLectivo'], $x0 + 5, 75, 180, 0, $fontSize, '', 'L');
 
         // Anio Cursada
-        $this->CreateTextBox('Añio Cursada: ' . $this->parametros['anioCursada'], $x0 + 5, 80, 180, 0, $fontSize, '', 'L');
+        $this->CreateTextBox('Año Cursada: ' . $this->parametros['anioCursada'], $x0 + 5, 80, 180, 0, $fontSize, '', 'L');
 
         // Caracter
-        $this->CreateTextBox('Caracter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
+        $this->CreateTextBox('Carácter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
 
         // Equipo Docente:
         $this->CreateTextBox('EQUIPO DOCENTE', $x0, 100, 180, 0, 10, 'B', 'C');

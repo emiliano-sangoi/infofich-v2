@@ -321,8 +321,8 @@ class PlanificacionController extends Controller {
         $parametros['usuario'] = 'romina';//$this->getUser()->getUsername();
         $pdf = new PlanificacionesPDF($parametros);
         $pdf->render();
-
-        $nombreArch = 'PLANIFICACION.pdf';
+//ver que sale mal el nombre cuando tiene acentos
+        $nombreArch = 'PLANIFICACION_'.utf8_encode($parametros['nombreAsignatura']).'.pdf';
 
         $pdf->Output($nombreArch, 'I');
     }
