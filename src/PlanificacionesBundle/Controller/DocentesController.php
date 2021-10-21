@@ -32,7 +32,9 @@ class DocentesController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion);
+        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion, array(
+            'disabled' => $planificacion->isPublicada()
+        ));        
 
         $form->handleRequest($request);
         // dump($form->get('docenteResponsable')->getData());exit;

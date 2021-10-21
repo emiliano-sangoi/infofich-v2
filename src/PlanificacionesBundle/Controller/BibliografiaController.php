@@ -25,7 +25,9 @@ class BibliografiaController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(BibliografiasType::class, $planificacion);
+        $form = $this->createForm(BibliografiasType::class, $planificacion, array(
+            'disabled' => $planificacion->isPublicada()
+        ));
         $form->handleRequest($request);
 
 

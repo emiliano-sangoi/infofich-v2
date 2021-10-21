@@ -33,7 +33,9 @@ class AprobacionController extends Controller {
             $requisitosAprob->setPlanificacion($planificacion);
         }
 
-        $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob);
+        $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob, array(
+            'disabled' => $planificacion->isPublicada()
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 

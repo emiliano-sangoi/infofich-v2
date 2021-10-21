@@ -2,23 +2,23 @@
 
 namespace PlanificacionesBundle\Controller;
 
-use AppBundle\Entity\Rol;
 use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use Doctrine\ORM\QueryBuilder;
 use Exception;
+use FICH\APIInfofich\Query\Query;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\BuscadorType;
 use PlanificacionesBundle\Form\DuplicarPlanificacionType;
+use PlanificacionesBundle\PDF\PlanificacionesPDF;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use PlanificacionesBundle\PDF\PlanificacionesPDF;
 
 class PlanificacionController extends Controller {
 
@@ -181,20 +181,6 @@ class PlanificacionController extends Controller {
         ));
     }
 
-    /**
-     * Crear un formulario para borrar la planificacion
-     *
-     * @param Planificacion $planificacion Planificacion a borrar
-     *
-     * @return Form The form
-     */
-    private function crearFormBorrarPlanif(Planificacion $planificacion) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('planificaciones_borrar', array('id' => $planificacion->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
-    }
 
     /**
      * Crea una copia de una planificacion
@@ -353,9 +339,12 @@ class PlanificacionController extends Controller {
 
             /* @var $repoHistorico HistoricoEstadosRepository */
             $repoHistorico = $em->getRepository(HistoricoEstados::class);
+            
+            $histEstadoActual = $planificacion->getHistoricoEstadoActual();
+            $comentario = $histEstadoActual->getComentario();
 
             $usuario = $this->getUser();
-            $repoHistorico->asignarEstado($planificacion, Estado::CORRECCION, $usuario);
+            $repoHistorico->asignarEstado($planificacion, Estado::CORRECCION, $usuario, $comentario);
 
             $this->addFlash('success', 'Planificación enviada a corrección.');
             return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));

@@ -28,7 +28,9 @@ class ResultadosController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion);
+        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion, array(
+            'disabled' => $planificacion->isPublicada()
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

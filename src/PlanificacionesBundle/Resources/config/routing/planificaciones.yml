@@ -33,6 +33,11 @@ planificaciones_enviar_a_correccion:
     defaults: { _controller: PlanificacionesBundle:Planificacion:enviarACorreccion }
     methods: [GET, POST]
     
+planificaciones_publicar:
+    path:     /{id}/publicar
+    defaults: { _controller: PlanificacionesBundle:Revisar:publicar }
+    methods: [GET, POST]
+    
 planificaciones_get_as_json:
     path:     /{id}/get-as-json
     defaults: { _controller: PlanificacionesBundle:Planificacion:getAsJson }

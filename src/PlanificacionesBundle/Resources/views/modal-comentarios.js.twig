@@ -3,14 +3,16 @@
 
 
         $('.modal-comentarios').click(function (e) {
+            
+            console.log("SDSdsdsd");
 
-                {% set tiene_perm_correcciones = app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}
+{#                {% set tiene_perm_correcciones = app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES')) %}#}
                 
                 var urlGetAsJson = "{{ path('planificaciones_get_as_json', { id : planificacion.id }) }}";
 
                 $.getJSON(urlGetAsJson, function (planifJson) {
 
-                    var input = $('<div><textarea name="comentarios" {{ tiene_perm_correcciones ? '' : 'disabled="disabled"' }} class="form-control" rows="14" placeholder="Ingrese las correcciones a realizar por el docente."></textarea></div>');
+                    var input = $('<div><textarea name="comentarios" {{ mostrar_comentarios|default(false) ? '' : 'disabled="disabled"' }} class="form-control" rows="14" placeholder="Ingrese las correcciones a realizar por el docente."></textarea></div>');
                     if (typeof planifJson.historicoEstadoActual['comentario'] === 'undefined') {
                         console.log('No existe el campo comentario');
                         return;
@@ -31,7 +33,7 @@
                         buttons: {}
                     };
 
-                {% if tiene_perm_correcciones %}
+{#                {% if tiene_perm_correcciones %}#}
                     
                     var urlBase = "{{ path('planificaciones_actualizar_comentarios', { id : '--ID--'}) }}";
 
@@ -72,12 +74,12 @@
                         callback: fGuardarComentario
                     };
 
-                {% else %}           
-                    modalConfig.buttons.guardar = {
+{#                {% else %}           #}
+           {#         modalConfig.buttons.guardar = {
                         label: 'Cerrar',
                         className: 'btn-outline-secondary'
-                    };
-                {% endif %}
+                    };#}
+{#                {% endif %}#}
 
                     var modalComentarios = bootbox.dialog(modalConfig);
 

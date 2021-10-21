@@ -169,17 +169,23 @@
 
         {% if planificacion.enRevision() %}
 
+            {% set attr = { data: planificacion } %} 
+
             {% embed '::botonera.html.twig' %}
 
-                {% block left %}
-                    <button role="submit" class="btn btn-lg btn-success">
-                        <i class="fa fa-check"></i>&nbsp;Aprobar planificación
-                    </button>
+                {% block left %}                                                             
+                    {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_PUBLICAR') %}
+                    {% if is_granted(cod_perm, attr) %}
+                        {{ form_start(form_publicar) }}
+                            <button role="submit" class="btn btn-lg btn-success">
+                                <i class="fa fa-check"></i>&nbsp;Aprobar planificación
+                            </button>
+                        {{ form_end(form_publicar) }}
+                    {% endif %}
                 {% endblock %}
 
                 {% block right %}
-                    {% if form_enviar_correccion is defined %}
-                        {% set attr = { data: planificacion } %}                                           
+                    {% if form_enviar_correccion is defined %}                                                              
                         {% if is_granted(constant('AppBundle\\Seguridad\\Permisos::PLANIF_ENVIAR_CORRECCION'), attr) %}
                             {{ form_start(form_enviar_correccion) }}
                             <button role="submit" class="btn btn-lg btn-outline-danger">

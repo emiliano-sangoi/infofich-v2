@@ -44,7 +44,8 @@ class RevisarController extends Controller {
         $params = array(
             'planificacion' => $planificacion,
             'errores' => $planifService->getErrores($planificacion),
-            'page_title' => $this->getPageTitle($planificacion) . ' - Revisar planificación'
+            'page_title' => $this->getPageTitle($planificacion) . ' - Revisar planificación',
+            'form_publicar' => $this->crearFormPublicarPlanif($planificacion)->createView()
         );
 
         if ($planificacion->enPreparacion() || $planificacion->enCorreccion()) {
@@ -68,7 +69,8 @@ class RevisarController extends Controller {
                 }
             }
 
-            $params['form_enviar_revision'] = $form->createView();
+            $params['form_enviar_revision'] = $form->createView();                                               
+            
         } elseif( $planificacion->enRevision() ) {
             
             $params['form_enviar_correccion'] = $this->crearFormEnviarACorreccion($planificacion)->createView();
@@ -103,12 +105,36 @@ class RevisarController extends Controller {
         return $this->render('PlanificacionesBundle:planificacion:revisar2.html.twig', $params);
     }
 
-    private function crearFormEnviarPlanif(Planificacion $planificacion) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('planificaciones_revisar', array('id' => $planificacion->getId())))
-                        ->setMethod('POST')
-                        ->getForm()
-        ;
+
+    public function publicarAction(Request $request, Planificacion $planificacion) {
+        
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
+        
+        $form = $this->crearFormPublicarPlanif($planificacion);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            
+            /* @var $planifService PlanificacionService */
+            $planifService = $this->get('planificaciones_service');
+            
+            if (!$planifService->getHayErrores($planificacion)) {
+
+                    /* @var $repoHistorico HistoricoEstadosRepository */
+                    $repoHistorico = $this->getDoctrine()->getManager()->getRepository(HistoricoEstados::class);
+
+                    $usuario = $this->getUser();
+                    $repoHistorico->asignarEstado($planificacion, Estado::PUBLICADA, $usuario);
+
+                    $this->addFlash('success', 'La planificación fue publicada correctamente.');                    
+                } else {
+                    $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');
+                }
+            
+            
+        }
+        
+        return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));        
+        
     }
 
     /**

@@ -50,12 +50,7 @@
                                                 <span class="right centrate-y">
                                                     {% set eActual = p.getEstadoActual() %} 
                                                     {% if eActual %}
-                                                        {% set class = 'success' %}
-                                                        {% if eActual.codigo == 2 or eActual.codigo == 4 %}                                                            
-                                                            {% set class = 'light' %}
-                                                        {% elseif eActual.codigo == 3 %}                                                            
-                                                            {% set class = 'warning' %}
-                                                        {% endif %}
+                                                        {% set class = eActual.getCssClass() %}                                                        
 
                                                         {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
                                                         <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>

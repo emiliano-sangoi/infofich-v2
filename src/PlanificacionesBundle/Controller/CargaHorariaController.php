@@ -31,7 +31,8 @@ class CargaHorariaController extends Controller {
         }
 
         $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria, array(
-            'planificacion' => $planificacion
+            'planificacion' => $planificacion,
+            'disabled' => $planificacion->isPublicada()
         ));
 
         $form->handleRequest($request);

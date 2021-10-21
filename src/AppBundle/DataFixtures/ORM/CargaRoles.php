@@ -2,6 +2,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Permiso;
 use AppBundle\Entity\Rol;
 use AppBundle\Repository\PermisoRepository;
 use AppBundle\Seguridad\Permisos;
@@ -34,7 +35,7 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
         //Cargar permisos ...
 
         /* @var $repoPermiso PermisoRepository */
-        $repoPermiso = $manager->getRepository('AppBundle:Permiso');
+        $repoPermiso = $manager->getRepository(Permiso::class);
 
         $permisos = array(
             Permisos::USUARIO_LISTAR,
@@ -49,6 +50,7 @@ class CargaRoles extends AbstractFixture implements FixtureInterface, OrderedFix
             Permisos::PLANIF_ENVIAR_REVISION,
             Permisos::PLANIF_ENVIAR_CORRECCION,
             Permisos::PLANIF_BORRAR,
+            Permisos::PLANIF_PUBLICAR,
             Permisos::ROL_LISTAR,
             Permisos::ROL_BORRAR,
             Permisos::ROL_CREAR,

@@ -39,12 +39,13 @@ trait PlanificacionTrait {
      * @param Planificacion $planificacion
      * @return Form
      */
-    private function crearForm(Planificacion $planificacion){
+    private function crearForm(Planificacion $planificacion, $disabled = false){
         
         $api_infofich_service = $this->get('api_infofich_service');
         
         $form_opt = array(
             'api_infofich_service' => $api_infofich_service,
+            'disabled' => $disabled,
         );
         
         // El campo "Departamento" solo debe habilitarse si el rol del usuario es admin o de secretaria academica.
@@ -81,6 +82,47 @@ trait PlanificacionTrait {
     private function crearFormEnviarACorreccion(Planificacion $planificacion) {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('planificaciones_enviar_a_correccion', array('id' => $planificacion->getId())))
+                        ->setMethod('POST')
+                        ->getForm()
+        ;
+    }
+    
+    /**
+     * Crea el formulario para enviar a corrección una planificación
+     * 
+     * @param Planificacion $planificacion
+     * @return Form
+     */
+    private function crearFormPublicarPlanif(Planificacion $planificacion) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('planificaciones_publicar', array('id' => $planificacion->getId())))
+                        ->setMethod('POST')
+                        ->getForm();
+    }
+    
+    /**
+     * Crear un formulario para borrar la planificacion
+     *
+     * @param Planificacion $planificacion Planificacion a borrar
+     *
+     * @return Form The form
+     */
+    private function crearFormBorrarPlanif(Planificacion $planificacion) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('planificaciones_borrar', array('id' => $planificacion->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
+        ;
+    }
+    
+    /**
+     * 
+     * @param Planificacion $planificacion
+     * @return type
+     */
+    private function crearFormEnviarPlanif(Planificacion $planificacion) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('planificaciones_revisar', array('id' => $planificacion->getId())))
                         ->setMethod('POST')
                         ->getForm()
         ;

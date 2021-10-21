@@ -24,7 +24,9 @@ class ViajesAcademicosController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(ViajesAcademicosType::class, $planificacion);
+        $form = $this->createForm(ViajesAcademicosType::class, $planificacion, array(
+            'disabled' => $planificacion->isPublicada()
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 

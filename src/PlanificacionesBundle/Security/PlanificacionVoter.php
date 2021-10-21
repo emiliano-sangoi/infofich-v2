@@ -14,6 +14,7 @@ use DocentesBundle\Repository\DocenteGradoRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use LogicException;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -66,7 +67,8 @@ class PlanificacionVoter extends Voter {
             Permisos::PLANIF_BORRAR,
             Permisos::PLANIF_VER,
             Permisos::PLANIF_DUPLICAR,
-            Permisos::PLANIF_ENVIAR_CORRECCION
+            Permisos::PLANIF_ENVIAR_CORRECCION,
+            Permisos::PLANIF_PUBLICAR
         );
 
         // if the attribute isn't one we support, return false
@@ -114,6 +116,8 @@ class PlanificacionVoter extends Voter {
                 return $this->puedeDuplicar($planif, $user);
             case Permisos::PLANIF_ENVIAR_CORRECCION:
                 return $this->puedeEnviarACorreccion($planif, $user);
+            case Permisos::PLANIF_PUBLICAR:
+                return $this->puedePublicar($planif, $user);
         }
 
         throw new LogicException('This code should not be reached!');
@@ -130,11 +134,7 @@ class PlanificacionVoter extends Voter {
         return false;
     }
 
-    private function puedeEditar(Planificacion $planif, Usuario $user) {
-
-        if ($planif->isPublicada()) {
-            return false;
-        }
+    private function puedeEditar(Planificacion $planif, Usuario $user) {        
         
         if($planif->getOwner() == $user){
             return true;
@@ -160,6 +160,21 @@ class PlanificacionVoter extends Voter {
         
         //si tiene permiso de edicion entonces podrá modificar la planificacion:
         return $ok && $user->tienePermiso(Permisos::PLANIF_EDITAR);        
+    }
+    
+    private function puedeAprobar(Planificacion $planificacion, Usuario $user) {
+        
+        $hea = $planificacion->getHistoricoEstadoActual();
+        if(!$hea){
+            return false;
+        }
+        
+        $ea = $hea->getEstado();
+        if(in_array($ea->getCodigo(), array(Estado::PUBLICADA, Estado::PREPARACION))){
+           return false; 
+        }
+        
+        return $user->tienePermiso(Permisos::PLANIF_PUBLICAR);
     }
 
     private function puedeCrear(Usuario $user) {
@@ -233,7 +248,7 @@ class PlanificacionVoter extends Voter {
     private function puedeEnviarACorreccion(Planificacion $planif, Usuario $user) {
         
         $eActual = $planif->getEstadoActual();
-        if($eActual && $eActual->getCodigo() == \PlanificacionesBundle\Entity\Estado::REVISION){
+        if($eActual && $eActual->getCodigo() == Estado::REVISION){
             return false;
         }
 

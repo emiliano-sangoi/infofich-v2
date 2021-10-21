@@ -7,6 +7,17 @@
 {% endif %}
 {% set eActual = planificacion.getEstadoActual() %}
 
+{% if eActual is not null %}
+    {% set ROL_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+    {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+
+    {% set mostrar_comentarios = eActual.codigo == 4 
+           or (eActual.codigo == 3 and (app.user.tieneRol(ROL_ADMIN) or app.user.tieneRol(ROL_SA)) )
+    %}
+{% endif %}
+
+{#{% from _self import mostrar_comentarios %}#}
+
 {% block navbar2 %}             
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}   
@@ -19,9 +30,9 @@
                 </button>#}                
 
 
-                {% if eActual is not null  %}     
+                {% if eActual is not null  %}                                           
 
-                    {% if  eActual.codigo == 3 or eActual.codigo == 4 %}  
+                    {% if mostrar_comentarios|default(false) %}  
                         {#  En revision ... #}
 
                         <button class="modal-comentarios btn btn-sm btn-outline-light py-1 mr-2" title="Comentarios realizados por Sectrataría Académica">                            
@@ -45,7 +56,7 @@
 {% set full_width = true %}
 
 {% block content %}
-    <div id="planificaciones" class="bg-white">
+    <div id="planificaciones" class="bg-white">        
 
         {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
 
@@ -272,10 +283,8 @@
 
     </script>
 
-    {% if  eActual is not null and (eActual.codigo == 3 or eActual.codigo == 4 and app.user.tienePermiso(constant('AppBundle\\Seguridad\\Permisos::PLANIF_CORRECCIONES'))) %}  
-
+    {% if mostrar_comentarios|default(false) %}  
         {% include 'PlanificacionesBundle::modal-comentarios.js.twig' %}
-
     {% endif %}
 
     {% if is_planificacion_definida %}

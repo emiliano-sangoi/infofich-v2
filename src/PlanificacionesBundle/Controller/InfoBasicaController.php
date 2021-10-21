@@ -18,7 +18,7 @@ class InfoBasicaController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->crearForm($planificacion);
+        $form = $this->crearForm($planificacion, $planificacion->isPublicada());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
