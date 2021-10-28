@@ -75,11 +75,16 @@ class PlanificacionesPDF extends ImprimirPDF {
         // Caracter
         $this->CreateTextBox('Carácter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
 
+        //Contenidos Minimos
+        $this->CreateTextBox('Contenidos Mínimos: ' . $this->parametros['contenidosMinimos'], $x0 + 5, 90, 180, 0, $fontSize, '', 'L');
+
         // Equipo Docente:
         $this->CreateTextBox('EQUIPO DOCENTE', $x0, 100, 180, 0, 10, 'B', 'C');
         $this->CreateTextBox('Docente Responsable: ' . $this->parametros['docenteResponsable'], $x0 + 5, 105, 180, 0, $fontSize, '', 'L');
 
         $docentesColaboradores = $this->parametros['docentesColaboradores'];
+
+        
 
         $x1 = 110;
         foreach ($docentesColaboradores as $docentesColaborador){
@@ -93,6 +98,23 @@ class PlanificacionesPDF extends ImprimirPDF {
             $this->CreateTextBox('Docente Adscripto: ' . $docentesAdscripto, $x0 + 5, $x1+5, 180, 0, $fontSize, '', 'L');
             $x1 += 5;
         }
+
+        //Aprobacion Asignatura
+        $this->CreateTextBox('APROBACION ASIGNATURA', $x0, $x1 + 5, 180, 0, 10, 'B', 'C');
+
+        $this->CreateTextBox('Porcentaje Asistencia: ' . $this->parametros['porcentajeAsistencia'], $x0 + 5, $x1 + 10, 180, 0, $fontSize, '', 'L');
+        $this->CreateTextBox('Modalidad CFI: '. $this->parametros['modalidadCfi'], $x0 + 5, $x1 + 25, 180,  0, $fontSize, '', 'L');
+
+        //Objetivos Asignatura
+        
+        
+
+        $this->CreateTextBox('OBJETIVOS ASIGNATURA', $x0, $x1 + 35, 180, 0, 10, 'B', 'C');
+
+        $this->CreateTextBox('Objetivos Específicos: ' . $this->parametros['objetivosEspe'], $x0 + 5, $x1 + 40, 180, 0, $fontSize, '', 'L');
+        $this->CreateTextBox('Objetivos Generales: '. $this->parametros['objetivosGral'], $x0 + 5, $x1 + 45, 180,  0, $fontSize, '', 'L');
+
+
 
         // Dibuja el detalle de la tabla
         /*$this->SetXY($x0, 69);
