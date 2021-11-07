@@ -250,11 +250,24 @@ class PlanificacionController extends Controller {
     $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
     $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
     $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
-
+    
     //Objetivos de la asignatura
     $objetivosEspe = $planificacion->getObjetivosEspecificos();
     $objetivosGral = $planificacion->getObjetivosGral();
+
+    //Resultados
+    $resultados = $planificacion->getResultados();
     
+    //Temario
+    $temario = $planificacion->getTemario();
+    
+    //Bibliografia
+    $bibliografiaPlanificacion = $planificacion->getBibliografiasPlanificacion();
+    //$bibliografia = $bibliografiaPlanificacion->getBibliografia();
+
+
+    //Actividades
+    $actividades = $planificacion->getActividadCurricular(); 
 
         // buscamos la historia laboral detallada
       //  $filtros = array();
@@ -295,7 +308,11 @@ class PlanificacionController extends Controller {
             'porcentajeAsistencia' => $porcentajeAsistencia,
             'modalidadCfi' => $modalidadCfi,
             'objetivosEspe' => $objetivosEspe,
-            'objetivosGral' => $objetivosGral
+            'objetivosGral' => $objetivosGral,
+            'resultados' => $resultados,
+            'temario'=> $temario,
+            //'bibliografia' => $bibliografia,
+            'actividades' => $actividades
             /*'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
