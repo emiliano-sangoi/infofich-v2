@@ -136,7 +136,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             $x3 += 5;
         }
 
-        $x4 = $x3 + 20;
+        $x4 = $x3;
         
         //TODO: Bibliografia
         /*$this->CreateTextBox('BIBLIOGRAFIA', $x0, $x4 + 20, 180, 0, 10, 'B', 'C');
@@ -155,21 +155,41 @@ class PlanificacionesPDF extends ImprimirPDF {
         }*/
 
         //Actividades
-        $x5 = $x4 + 20;
+        $x5 = $x4 + 10;
         $actividades = $this->parametros['actividades'];
         $this->CreateTextBox('ACTIVIDADES CURRICULARES', $x0, $x5 + 20, 180, 0, 10, 'B', 'C');
         foreach ($actividades as $actividad){
-            //$this->CreateTextBox('Fecha: ' . $actividad->getFecha(), $x0 + 5, $x5 + 15, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Descripcion: ' . $actividad->getDescripcion(), $x0 + 5, $x5 + 25, 180, 0, $fontSize, '', 'L');
-            /*$this->CreateTextBox('Editorial: ' . $biblio->getEditorial(), $x0 + 5, $x4 + 20, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getAnioEdicion(), $x0 + 5, $x4 + 25, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getNroEdicion(), $x0 + 5, $x4 + 30, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Unidad: ' . $actividad->getTemario(), $x0 + 5, $x5 + 25, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Tipo de Clase: ' . $actividad->getTipoActividadCurricular(), $x0 + 5, $x5 + 30, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Fecha: $actividad->getFecha()', $x0 + 5, $x5 + 35, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Descripcion: ' . $actividad->getDescripcion(), $x0 + 5, $x5 + 40, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Carga Horaria Aula: ' . $actividad->getCargaHorariaAula(), $x0 + 5, $x5 + 45, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Carga Horaria Autonomo: ' . $actividad->getCargaHorariaAutonomo(), $x0 + 5, $x5 + 50, 180, 0, $fontSize, '', 'L');
+            /*$this->CreateTextBox('Añio de Edición: ' . $actividad->getNroEdicion(), $x0 + 5, $x4 + 30, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Añio de Edición: ' . $actividad->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
             */
             
-            $x4 += 5;
+            $x5 += 5;
         }
 
+        //Viajes Academicos
+        $x6 = $x5 + 10;
+        $viajesAcademicos = $this->parametros['viajesAcademicos'];
+        $this->CreateTextBox('VIAJES ACADEMICOS', $x0, $x6 + 20, 180, 0, 10, 'B', 'C');
+        foreach ($viajesAcademicos as $viaje){
+            $this->CreateTextBox('Descricion: ' . $viaje->getDescripcion(), $x0 + 5, $x6 + 25, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Objetivos: ' . $viaje->getObjetivos(), $x0 + 5, $x6 + 30, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Recorrido:' . $viaje->getRecorrido(), $x0 + 5, $x6 + 35, 180, 0, $fontSize, '', 'L');
+            
+            $this->CreateTextBox('Cantidad Estudiantes: ' . $viaje->getCantEstudiantes(), $x0 + 5, $x6 + 40, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Cantidad Docentes: ' . $viaje->getCantDocentes(), $x0 + 5, $x6 + 45, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('fecha Tentativa:  $viaje->getFechaTentativa()', $x0 + 5, $x6 + 50, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('fecha Tentativa Regreso: $actividad->getFechaTentativaRegreso()', $x0 + 5, $x6 + 55, 180, 0, $fontSize, '', 'L');
+            /*$this->CreateTextBox('Añio de Edición: ' . $actividad->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
+            */
+            
+            $x6 += 5;
+        }
 
 
 

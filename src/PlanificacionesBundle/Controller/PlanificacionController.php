@@ -269,6 +269,10 @@ class PlanificacionController extends Controller {
     //Actividades
     $actividades = $planificacion->getActividadCurricular(); 
 
+
+    //Viajes Academicos
+    $viajesAcademicos = $planificacion->getViajesAcademicos(); 
+
         // buscamos la historia laboral detallada
       //  $filtros = array();
         
@@ -312,7 +316,8 @@ class PlanificacionController extends Controller {
             'resultados' => $resultados,
             'temario'=> $temario,
             //'bibliografia' => $bibliografia,
-            'actividades' => $actividades
+            'actividades' => $actividades,
+            'viajesAcademicos' => $viajesAcademicos
             /*'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
