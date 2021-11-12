@@ -239,24 +239,39 @@ class PlanificacionController extends Controller {
     $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
     $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
     $planEstudio =  TexTo::ucWordsCustom($carrera->getPlanCarrera());
+    $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
 
     //Equipo Docente
     $docenteResponsable = $planificacion->getDocenteResponsable();
     $docentesColaboradores = $planificacion->getDocentesColaboradores();
     $docentesAdscriptos = $planificacion->getDocentesAdscriptos();
 
+    //Aprobacion de la asignatura
+    $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
+    $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
+    $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
     
-    //$docente_a_cargo = planificaciones_obtener_datos_docente_responsable($id_planificacion);
+    //Objetivos de la asignatura
+    $objetivosEspe = $planificacion->getObjetivosEspecificos();
+    $objetivosGral = $planificacion->getObjetivosGral();
 
-	//$plan = planificaciones_obtener_plan_estudio($planificacion['id_plan']);
+    //Resultados
+    $resultados = $planificacion->getResultados();
+    
+    //Temario
+    $temario = $planificacion->getTemario();
+    
+    //Bibliografia
+    $bibliografiaPlanificacion = $planificacion->getBibliografiasPlanificacion();
+    //$bibliografia = $bibliografiaPlanificacion->getBibliografia();
 
-	//$materia = planificaciones_obtener_materia($planificacion['id_asignatura']);
 
-	//$departamento = planificaciones_obtener_departamento($materia['id_departamento']);
+    //Actividades
+    $actividades = $planificacion->getActividadCurricular(); 
 
 
-	//$docentes = planificaciones_obtener_docentes($id_planificacion);
-
+    //Viajes Academicos
+    $viajesAcademicos = $planificacion->getViajesAcademicos(); 
 
         // buscamos la historia laboral detallada
       //  $filtros = array();
@@ -290,9 +305,19 @@ class PlanificacionController extends Controller {
             'periodoLectivo' => $periodoLectivo,
             'anioCursada' => $anioCursada,
             'caracter' => $caracter,
+            'contenidosMinimos' => $contenidosMinimos,
             'docenteResponsable' => $docenteResponsable,
             'docentesColaboradores' => $docentesColaboradores,
             'docentesAdscriptos' => $docentesAdscriptos,
+            'porcentajeAsistencia' => $porcentajeAsistencia,
+            'modalidadCfi' => $modalidadCfi,
+            'objetivosEspe' => $objetivosEspe,
+            'objetivosGral' => $objetivosGral,
+            'resultados' => $resultados,
+            'temario'=> $temario,
+            //'bibliografia' => $bibliografia,
+            'actividades' => $actividades,
+            'viajesAcademicos' => $viajesAcademicos
             /*'nombre' => 'romina', // $persona->getNombres(),
             'cuil' => 4444,
             'tipoDocumento' => 'romina', 
