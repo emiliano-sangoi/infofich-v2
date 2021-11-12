@@ -117,7 +117,7 @@ class PlanificacionVoter extends Voter {
             case Permisos::PLANIF_ENVIAR_CORRECCION:
                 return $this->puedeEnviarACorreccion($planif, $user);
             case Permisos::PLANIF_PUBLICAR:
-                return $this->puedePublicar($planif, $user);
+                return $this->puedeAprobar($planif, $user);
         }
 
         throw new LogicException('This code should not be reached!');
@@ -132,7 +132,7 @@ class PlanificacionVoter extends Voter {
         // the Post object could have, for example, a method isPrivate()
         // that checks a boolean $private property
         return false;
-    }
+    }    
 
     private function puedeEditar(Planificacion $planif, Usuario $user) {        
         

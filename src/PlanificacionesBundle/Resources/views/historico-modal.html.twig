@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for hist in planificacion.historicosEstado %}
+                {% for hist in planificacion.getHistoricosEstadoOrd() %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ hist.fechaDesde|date('d/m/Y H:i') ~ ' Hs.' }}</td>

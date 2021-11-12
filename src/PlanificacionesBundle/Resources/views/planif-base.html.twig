@@ -178,16 +178,31 @@
                             <div class="my-3">
                                 {% include '::notificaciones.html.twig' %}
 
-                                {#{% if planificacion.enRevision() %}
+                                {% if planificacion.enRevision() %}
                                     <div class="">
                                         {% from '::macros.html.twig' import notificacion %} 
                                         {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
                                         {% set msg %}
-                                            La planificación fue enviada a revisión el {{ fDesde|date('d/m/Y') }} a las {{ fDesde|date('H:i') }} Hs.
+                                            <p class='mb-1'>Esta planificación fue enviada a revisión el <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b> Hs.</p>
+                                            <p>Secretaría académica revisará la planificación e indicará correcciones o aprobará la misma.</p>
                                         {% endset %}
                                         {{ notificacion('Planificación en revisión', msg, 'warning', '' ) }}
+                                    </div>                                
+                                {% elseif planificacion.enCorreccion() %}
+                                    <div class="">
+                                        {% from '::macros.html.twig' import notificacion %} 
+                                        {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
+                                        {% set msg %}
+                                            <p class='mb-10'>
+                                                Esta planificación require algunas correcciones. Puede ver las mismas presionando el botón <b>"Comentarios"</b> ubicado en la parte superior derecha.
+                                            </p>
+                                            <p>
+                                                Una vez que realize todas las correcciones sugeridas, presione el botón <b>"Enviar a revisión"</b> ubicado en la parte inferior de la sección <b>"Revisar borrador"</b>.
+                                            </p>
+                                        {% endset %}
+                                        {{ notificacion('Planificación pendiente de correcciones', msg, 'error', '' ) }}
                                     </div>
-                                {% endif %}#}
+                                {% endif %}
                             </div>
                             {#                            <div class="mb-4 mt-4">#}
                             {#{% block titulo_principal %}
@@ -263,7 +278,7 @@
                     backdrop: true,
                     onEscape: true,
                     centerVertical: true,
-                    className: 'lala',
+                    className: '',
                     closeButton: true,
                     buttons: {
                         cancel: {

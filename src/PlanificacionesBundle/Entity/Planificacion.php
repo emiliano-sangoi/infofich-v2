@@ -615,6 +615,22 @@ class Planificacion implements \JsonSerializable{
     public function getHistoricosEstado() {
         return $this->historicosEstado;
     }
+    
+    /**
+     * Devuelve un arreglo con los historicos de cambios de estados ordenados de forma descendente
+     * en función del campo fechaDesde.
+     *
+     * @return array
+     */
+    public function getHistoricosEstadoOrd() {
+        
+        $tmp = $this->historicosEstado->toArray();
+        uasort($tmp, function($v1, $v2){
+            return $v2->getFechaDesde()->getTimestamp() > $v1->getFechaDesde()->getTimestamp();
+        });
+        
+        return $tmp;
+    }
 
     /**
      * Add bibliografiasPlanificacion
