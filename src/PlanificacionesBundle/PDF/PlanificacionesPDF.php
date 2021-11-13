@@ -168,17 +168,18 @@ class PlanificacionesPDF extends ImprimirPDF {
             /*$this->CreateTextBox('Añio de Edición: ' . $actividad->getNroEdicion(), $x0 + 5, $x4 + 30, 180, 0, $fontSize, '', 'L');
             $this->CreateTextBox('Añio de Edición: ' . $actividad->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
             */
-            
+        
             $x5 += 5;
         }
-
+    
         //Viajes Academicos
-        $x6 = $x5 + 10;
+        $x6 = $x5 + 5;
         $viajesAcademicos = $this->parametros['viajesAcademicos'];
-        $this->CreateTextBox('VIAJES ACADEMICOS', $x0, $x6 + 20, 180, 0, 10, 'B', 'C');
+        
+        $this->CreateTextBox('VIAJES ACADEMICOS', $x0, $x6 + 5, 180, 0, 10, 'B', 'C');
         foreach ($viajesAcademicos as $viaje){
-            $this->CreateTextBox('Descricion: ' . $viaje->getDescripcion(), $x0 + 5, $x6 + 25, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Objetivos: ' . $viaje->getObjetivos(), $x0 + 5, $x6 + 30, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Descricion: ' . $viaje->getDescripcion(), $x0 + 5, $x6 + 20, 180, 0, $fontSize, '', 'L');
+            $this->CreateTextBox('Objetivos: ' . $viaje->getObjetivos(), $x0 + 5, $x6 + 25, 180, 0, $fontSize, '', 'L');
             $this->CreateTextBox('Recorrido:' . $viaje->getRecorrido(), $x0 + 5, $x6 + 35, 180, 0, $fontSize, '', 'L');
             
             $this->CreateTextBox('Cantidad Estudiantes: ' . $viaje->getCantEstudiantes(), $x0 + 5, $x6 + 40, 180, 0, $fontSize, '', 'L');
