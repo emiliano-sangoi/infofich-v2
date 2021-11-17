@@ -18,6 +18,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $this->setPrintHeader(true);
         
         $this->SetMargins(PDF_MARGIN_LEFT, 69, PDF_MARGIN_RIGHT);
+
     }
 
     public function Header() {
@@ -50,147 +51,140 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $this->addPage();
 
-        $x0 = PDF_MARGIN_LEFT;
 
-        $fontSize = 9;
-        $this->CreateTextBox('INFORMACIÓN BÁSICA', $x0, 50, 180, 0, 10, 'B', 'C');
-        // Nombre Asignatura
-        $this->CreateTextBox($this->parametros['nombreAsignatura'], $x0 + 5, 55, 180, 0, $fontSize, '', 'L');
-
-        // Carrera
-        $this->CreateTextBox('Carrera: ' . $this->parametros['nombreCarrera'], $x0 + 5, 60, 180, 0, $fontSize, '', 'L');
-
-        // Departamento
-        $this->CreateTextBox('Departamento: ' . $this->parametros['departamento'], $x0 + 5, 65, 180, 0, $fontSize, '', 'L');
-
-        // Plan estudios
-        $this->CreateTextBox('Plan Estudios: ' . $this->parametros['planEstudio'], $x0 + 5, 70, 180, 0, $fontSize, '', 'L');
-
-        // Periodo
-        $this->CreateTextBox('Período: ' . $this->parametros['periodoLectivo'], $x0 + 5, 75, 180, 0, $fontSize, '', 'L');
-
-        // Anio Cursada
-        $this->CreateTextBox('Año Cursada: ' . $this->parametros['anioCursada'], $x0 + 5, 80, 180, 0, $fontSize, '', 'L');
-
-        // Caracter
-        $this->CreateTextBox('Carácter: ' . $this->parametros['caracter'], $x0 + 5, 85, 180, 0, $fontSize, '', 'L');
-
-        //Contenidos Minimos
-        $this->CreateTextBox('Contenidos Mínimos: ' . $this->parametros['contenidosMinimos'], $x0 + 5, 90, 180, 0, $fontSize, '', 'L');
-
-        // Equipo Docente:
-        $this->CreateTextBox('EQUIPO DOCENTE', $x0, 100, 180, 0, 10, 'B', 'C');
-        $this->CreateTextBox('Docente Responsable: ' . $this->parametros['docenteResponsable'], $x0 + 5, 105, 180, 0, $fontSize, '', 'L');
-
-        $docentesColaboradores = $this->parametros['docentesColaboradores'];
-
-        
-
-        $x1 = 110;
-        foreach ($docentesColaboradores as $docentesColaborador){
-            $this->CreateTextBox('Docente Colaborador: ' . $docentesColaborador, $x0 + 5, $x1+5, 180, 0, $fontSize, '', 'L');
-            $x1 += 5;
-        }
-
-        $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
-
-        foreach ($docentesAdscriptos as $docentesAdscripto){
-            $this->CreateTextBox('Docente Adscripto: ' . $docentesAdscripto, $x0 + 5, $x1+5, 180, 0, $fontSize, '', 'L');
-            $x1 += 5;
-        }
-
-        //Aprobacion Asignatura
-        $this->CreateTextBox('APROBACION ASIGNATURA', $x0, $x1 + 5, 180, 0, 10, 'B', 'C');
-
-        $this->CreateTextBox('Porcentaje Asistencia: ' . $this->parametros['porcentajeAsistencia'], $x0 + 5, $x1 + 10, 180, 0, $fontSize, '', 'L');
-        $this->CreateTextBox('Modalidad CFI: '. $this->parametros['modalidadCfi'], $x0 + 5, $x1 + 25, 180,  0, $fontSize, '', 'L');
-
-        //Objetivos Asignatura
-        
-        
-
-        $this->CreateTextBox('OBJETIVOS ASIGNATURA', $x0, $x1 + 35, 180, 0, 10, 'B', 'C');
-
-        $this->CreateTextBox('Objetivos Específicos: ' . $this->parametros['objetivosEspe'], $x0 + 5, $x1 + 40, 180, 0, $fontSize, '', 'L');
-        $this->CreateTextBox('Objetivos Generales: '. $this->parametros['objetivosGral'], $x0 + 5, $x1 + 45, 180,  0, $fontSize, '', 'L');
-
-        //Resultados de  Aprendizaje
-        $this->CreateTextBox('RESULTADOS APRENDIZAJE', $x0, $x1 + 55, 180, 0, 10, 'B', 'C');
-
-        $x2 = $x1 + 60;
-        $resultados = $this->parametros['resultados'];
-
-        foreach ($resultados as $resultado){
-            $this->CreateTextBox('Resultado: ' . $resultado, $x0 + 5, $x2+5, 180, 0, $fontSize, '', 'L');
-            $x2 += 5;
-        }
-
-        $x3 = $x2 + 20;
-        //Temario
-        $this->CreateTextBox('TEMARIO', $x0, $x3 + 5, 180, 0, 10, 'B', 'C');
-        $temario = $this->parametros['temario'];
-        foreach ($temario as $tema){
-            $this->CreateTextBox('Nro Unidad: ' . $tema->getUnidad(), $x0 + 5, $x3 + 10, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Titulo: ' . $tema->getTitulo(), $x0 + 5, $x3 + 20, 180, 0, $fontSize, '', 'L');            
-            $this->CreateTextBox('Contenido: ' . $tema->getContenido(), $x0 + 5, $x3 + 30, 180, 0, $fontSize, '', 'L');
-            $x3 += 5;
-        }
-
-        $x4 = $x3;
-        
-        //TODO: Bibliografia
-        /*$this->CreateTextBox('BIBLIOGRAFIA', $x0, $x4 + 20, 180, 0, 10, 'B', 'C');
-        $bibliografia = $this->parametros['bibliografia'];
-        foreach ($bibliografia as $biblio){
-            //$this->CreateTextBox($bibliografia->, $x0 + 5, $x4 + 10, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Título: ' . $biblio->getTitulo(), $x0 + 5, $x4 + 15, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Autores: ' . $biblio->getAutores(), $x0 + 5, $x4 + 20, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Editorial: ' . $biblio->getEditorial(), $x0 + 5, $x4 + 20, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getAnioEdicion(), $x0 + 5, $x4 + 25, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getNroEdicion(), $x0 + 5, $x4 + 30, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $biblio->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
-            
-            
-            $x4 += 5;
-        }*/
-
-        //Actividades
-        $x5 = $x4 + 10;
-        $actividades = $this->parametros['actividades'];
-        $this->CreateTextBox('ACTIVIDADES CURRICULARES', $x0, $x5 + 20, 180, 0, 10, 'B', 'C');
-        foreach ($actividades as $actividad){
-            $this->CreateTextBox('Unidad: ' . $actividad->getTemario(), $x0 + 5, $x5 + 25, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Tipo de Clase: ' . $actividad->getTipoActividadCurricular(), $x0 + 5, $x5 + 30, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Fecha: $actividad->getFecha()', $x0 + 5, $x5 + 35, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Descripcion: ' . $actividad->getDescripcion(), $x0 + 5, $x5 + 40, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Carga Horaria Aula: ' . $actividad->getCargaHorariaAula(), $x0 + 5, $x5 + 45, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Carga Horaria Autonomo: ' . $actividad->getCargaHorariaAutonomo(), $x0 + 5, $x5 + 50, 180, 0, $fontSize, '', 'L');
-            /*$this->CreateTextBox('Añio de Edición: ' . $actividad->getNroEdicion(), $x0 + 5, $x4 + 30, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Añio de Edición: ' . $actividad->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
-            */
-        
-            $x5 += 5;
-        }
+        // print a line of text
+    /*    $text = 'This is a <b color="#FF0000">digitally signed document</b> using the default (example) <b>tcpdf.crt</b> certificate.<br />To validate this signature you have to load the <b color="#006600">tcpdf.fdf</b> on the Arobat Reader to add the certificate to <i>List of Trusted Identities</i>.<br /><br />For more information check the source code of this example and the source code documentation for the <i>setSignature()</i> method.<br /><br /><a href="http://www.tcpdf.org">www.tcpdf.org</a>';
+    $this->writeHTML($text, true, 0, true, 0);*/
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // *** set signature appearance ***
+    // create content for signature (image and/or text)
+    $this->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
+    // define active area for signature appearance
+    $this->setSignatureAppearance(180, 60, 15, 15);
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // *** set an empty signature appearance ***
+    $this->addEmptySignatureAppearance(180, 80, 15, 15);
     
-        //Viajes Academicos
-        $x6 = $x5 + 5;
-        $viajesAcademicos = $this->parametros['viajesAcademicos'];
+
+    $fontSize = 9;
+    $html = '<h1>INFORMACIÓN BÁSICA</h1>';
         
-        $this->CreateTextBox('VIAJES ACADEMICOS', $x0, $x6 + 5, 180, 0, 10, 'B', 'C');
-        foreach ($viajesAcademicos as $viaje){
-            $this->CreateTextBox('Descricion: ' . $viaje->getDescripcion(), $x0 + 5, $x6 + 20, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Objetivos: ' . $viaje->getObjetivos(), $x0 + 5, $x6 + 25, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Recorrido:' . $viaje->getRecorrido(), $x0 + 5, $x6 + 35, 180, 0, $fontSize, '', 'L');
-            
-            $this->CreateTextBox('Cantidad Estudiantes: ' . $viaje->getCantEstudiantes(), $x0 + 5, $x6 + 40, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('Cantidad Docentes: ' . $viaje->getCantDocentes(), $x0 + 5, $x6 + 45, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('fecha Tentativa:  $viaje->getFechaTentativa()', $x0 + 5, $x6 + 50, 180, 0, $fontSize, '', 'L');
-            $this->CreateTextBox('fecha Tentativa Regreso: $actividad->getFechaTentativaRegreso()', $x0 + 5, $x6 + 55, 180, 0, $fontSize, '', 'L');
-            /*$this->CreateTextBox('Añio de Edición: ' . $actividad->getIssnIsbn(), $x0 + 5, $x4 + 35, 180, 0, $fontSize, '', 'L');
-            */
-            
-            $x6 += 5;
+    // INFORMACION BASICA
+    $html .= '<p><b>Asignatura: </b>'.$this->parametros['nombreAsignatura'] .'</p>';
+    $html .= '<p><b>Carrera:  </b>' . $this->parametros['nombreCarrera'].'</p>';
+    $html .= '<p><b>Año Cursada:  </b>' . $this->parametros['anioCursada'].'</p>';
+    $html .= '<p><b>Plan Estudios:  </b>'. $this->parametros['planEstudio'].'</p>';
+    $html .= '<p><b>Departamento:  </b>' . $this->parametros['departamento'].'</p>';
+    $html .= '<p><b>Período:  </b>'. $this->parametros['periodoLectivo'].'</p>';
+    $html .= '<p><b>Carácter: </b>' .$this->parametros['caracter'].'</p>';
+    $html .= '<p><b>Contenidos Mínimos: </b>' . $this->parametros['contenidosMinimos'].'</p>';
+
+    // Equipo Docente:
+    $html .= '<h1>EQUIPO DOCENTE</h1>';
+      
+    $html .= '<p><b>Docente Responsable: </b>' . $this->parametros['docenteResponsable'] .'</p>';
+    $html .= '<p><b>Docentes Colaboradores: </b>';
+
+    $docentesColaboradores = $this->parametros['docentesColaboradores'];
+    if($docentesColaboradores){
+        foreach ($docentesColaboradores as $docentesColaborador){
+            $html .= '<p>' . $docentesColaborador . '</p>';        
         }
+    }
+    $html .='</p>';
+    $html .= '<p><b>Docentes Adscriptos: </b>';
+    $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
+    if($docentesAdscriptos){
+        foreach ($docentesAdscriptos as $docentesAdscripto){
+            $html .= '<p>' . $docentesAdscripto . '</p>';
+         
+        }
+    }
+    $html .='</p>';
+
+    $html .= '<h1>APROBACION ASIGNATURA </h1>';
+    $html .= '<p><b>Porcentaje Asistencia:: </b>' . $this->parametros['porcentajeAsistencia']. '</p>';
+    $html .= '<p><b>Modalidad CFI:  </b> '. $this->parametros['modalidadCfi'] . '</p>';
+        
+    $html .= '<h1>OBJETIVOS ASIGNATURA </h1>'; 
+
+    $html .= '<p><b>Objetivos Específicos: </b> ' . $this->parametros['objetivosEspe']. '</p>';
+    $html .= '<p><b>Objetivos Generales: : </b> '. $this->parametros['objetivosGral']. '</p>';
+
+    //Resultados de  Aprendizaje
+    $html .= '<h1>RESULTADOS APRENDIZAJE </h1>'; 
+    
+    $resultados = $this->parametros['resultados'];
+    if($resultados){
+        foreach ($resultados as $resultado){
+            $html .= '<p><b>Resultado : </b> '. $resultado. '</p>';
+    
+        }
+    }
+    
+    //Temario
+    $html .= '<h1>TEMARIO </h1>'; 
+    $temario = $this->parametros['temario'];
+    if($temario){
+        foreach ($temario as $tema){
+            $html .= '<p><b>Nro Unidad:  : </b> '. $tema->getUnidad(). '</p>';
+            $html .= '<p><b>Titulo:  : </b> '. $tema->getTitulo(). '</p>';
+            $html .= '<p><b>Contenido:  : </b> '. $tema->getContenido(). '</p>';
+        }
+    }
+
+    //TODO: Bibliografia
+    $html .= '<h1>BIBLIOGRAFIA </h1>'; 
+    /*$bibliografia = $this->parametros['bibliografia'];
+    if($bibliografia){
+                foreach ($bibliografia as $biblio){
+                    $html .= '<p><b>Título: </b> '. $biblio->getTitulo(). '</p>';
+                    $html .= '<p><b>Autores: </b> '. $biblio->getAutores(). '</p>';
+                    $html .= '<p><b>Editorial: </b> '. $biblio->getEditorial(). '</p>';
+                    $html .= '<p><b>Añio de Edición: </b> '. $biblio->getAnioEdicion(). '</p>';
+                    $html .= '<p><b>Nro de Edicion: </b> '. $biblio->getNroEdicion(). '</p>';
+                    $html .= '<p><b>ISSN-ISBN: </b> '. $biblio->getIssnIsbn(). '</p>';                  
+                
+                }
+            }
+        
+*/
+        //Actividades
+        $actividades = $this->parametros['actividades'];
+        $html .= '<h1>ACTIVIDADES CURRICULARES </h1>'; 
+        if($actividades){
+            foreach ($actividades as $actividad){
+                $html .= '<p><b>Unidad: </b> '. $actividad->getTemario(). '</p>';
+                $html .= '<p><b>Tipo de Clase: </b> '. $actividad->getTipoActividadCurricular(). '</p>';
+                $html .= '<p><b>Fecha: $actividad->getFecha() </b></p>';
+                $html .= '<p><b>Descripcion: </b> '. $actividad->getDescripcion(). '</p>';
+                $html .= '<p><b>Carga Horaria Aula: </b> '. $actividad->getCargaHorariaAula(). '</p>';
+                $html .= '<p><b>Carga Horaria Autonomo:: </b> '. $actividad->getCargaHorariaAutonomo(). '</p>';
+            }
+        }
+
+        //Viajes Academicos
+        $viajesAcademicos = $this->parametros['viajesAcademicos'];
+        $html .= '<h1>VIAJES ACADEMICOS </h1>'; 
+        if($viajesAcademicos){
+            foreach ($viajesAcademicos as $viaje){
+                $html .= '<p><b>Descripcion: </b> '. $viaje->getDescripcion(). '</p>';
+                $html .= '<p><b>Objetivos: </b> '. $viaje->getObjetivos(). '</p>';
+                $html .= '<p><b>Recorrido: </b> '. $viaje->getRecorrido(). '</p>';
+                $html .= '<p><b>Cantidad Estudiantes: </b> '. $viaje->getCantEstudiantes(). '</p>';
+                $html .= '<p><b>Cantidad Docentes: </b> '. $viaje->getCantDocentes(). '</p>';
+                $html .= '<p><b>Fecha Tentativa: </b> . $viaje->getFechaTentativa(). </p>';
+                $html .= '<p><b>fecha Tentativa Regreso: $actividad->getFechaTentativaRegreso(): </b></p>';
+             
+            }
+        }
+        
+        
+    $this->writeHTML($html, true, 0, true, 0);
+
+/*
+
+    
 
 
 
