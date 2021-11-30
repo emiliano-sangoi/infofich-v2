@@ -329,7 +329,7 @@ class PlanificacionController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         
-        $parametros['usuario'] = 'romina';//$this->getUser()->getUsername();
+        $parametros['usuario'] = 'FICH';//$this->getUser()->getUsername();
         $pdf = new PlanificacionesPDF($parametros);
         $pdf->render();
 //ver que sale mal el nombre cuando tiene acentos
