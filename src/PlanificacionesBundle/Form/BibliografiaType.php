@@ -32,8 +32,8 @@ class BibliografiaType extends AbstractType {
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control',
-                        'min' => 1,
-                        'max' => 32000,
+                        'min' => 1800,
+                        'max' => date("Y"),
                     )
         ));
 
