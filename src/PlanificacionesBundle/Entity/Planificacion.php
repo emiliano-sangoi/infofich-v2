@@ -82,16 +82,16 @@ class Planificacion implements \JsonSerializable{
      *
      * @var string
      * 
-     * @ORM\Column(name="carrera", type="string", length=4)     
+     * @ORM\Column(name="carrera", type="string", length=8)     
      */
     private $carrera;
 
     /**
      * Plan al que pertenece la carrera.
      *      
-     * @var int
+     * @var string
      * 
-     * @ORM\Column(name="plan", type="integer")
+     * @ORM\Column(name="plan", type="string", length=6)
      */
     private $plan;
 
@@ -109,7 +109,7 @@ class Planificacion implements \JsonSerializable{
      * 
      * @var Asignatura
      * 
-     * @ORM\Column(name="codigo_asignatura", type="string", length=12)     
+     * @ORM\Column(name="codigo_asignatura", type="string", length=24)     
      */
     private $codigoAsignatura;
 
@@ -774,7 +774,7 @@ class Planificacion implements \JsonSerializable{
     /**
      * Set plan
      *
-     * @param integer $plan
+     * @param string $plan
      *
      * @return Planificacion
      */
@@ -787,7 +787,7 @@ class Planificacion implements \JsonSerializable{
     /**
      * Get plan
      *
-     * @return integer
+     * @return string
      */
     public function getPlan() {
         return $this->plan;
@@ -1087,6 +1087,7 @@ class Planificacion implements \JsonSerializable{
         return array(
             'id' => $this->id,
             'anioAcad' => $this->anioAcad,
+            'plan' => $this->plan,
             'codigoAsignatura' => $this->codigoAsignatura,
             'carrera' => $this->carrera,
             'historicoEstadoActual' => $this->getHistoricoEstadoActual(),

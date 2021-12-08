@@ -112,7 +112,7 @@ function actualizarAsignaturas(event) {
     var carrera = $(select_carreras).val();
     //console.log('carrera: ' + carrera);
 
-    if (carrera != '01' && carrera != '02' && carrera != '03' && carrera != '08') {
+    if (carrera != '1069' && carrera != '1071' && carrera != '1073' && carrera != '1077') {
         return;
     }
 

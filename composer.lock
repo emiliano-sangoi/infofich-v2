@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b4130632db1b3c0eb93a7c31b7c50fb",
+    "content-hash": "6a836e2b4934468f3ac3acc251e76775",
     "packages": [
         {
             "name": "composer/ca-bundle",
-            "version": "1.2.9",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "78a0e288fdcebf92aa2318a8d3656168da6ac1a5"
+                "reference": "4c679186f2aca4ab6a0f1b0b9cf9252decb44d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/78a0e288fdcebf92aa2318a8d3656168da6ac1a5",
-                "reference": "78a0e288fdcebf92aa2318a8d3656168da6ac1a5",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/4c679186f2aca4ab6a0f1b0b9cf9252decb44d0b",
+                "reference": "4c679186f2aca4ab6a0f1b0b9cf9252decb44d0b",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,7 @@
                 "phpstan/phpstan": "^0.12.55",
                 "psr/log": "^1.0",
                 "symfony/phpunit-bridge": "^4.2 || ^5",
-                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0"
+                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
             },
             "type": "library",
             "extra": {
@@ -64,7 +64,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.2.9"
+                "source": "https://github.com/composer/ca-bundle/tree/1.3.1"
             },
             "funding": [
                 {
@@ -80,7 +80,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-12T12:10:35+00:00"
+            "time": "2021-10-28T20:44:15+00:00"
         },
         {
             "name": "deviservi/nusoap",
@@ -962,7 +962,7 @@
             "source": {
                 "type": "git",
                 "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-infofich",
-                "reference": "95419275affe84c000128b8666c9571040de12b3"
+                "reference": "32af92ded078d559cbaaf933cb9dad8e589fea65"
             },
             "require": {
                 "fich/api-rectorado": "dev-master",
@@ -1022,7 +1022,7 @@
                 "api-infofich",
                 "fich"
             ],
-            "time": "2021-06-03T22:54:09+00:00"
+            "time": "2021-12-08T01:30:23+00:00"
         },
         {
             "name": "fich/api-rectorado",
@@ -1030,7 +1030,7 @@
             "source": {
                 "type": "git",
                 "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-rectorado",
-                "reference": "4fd86b715a9e693b5e02796de5917c3d3712fe9d"
+                "reference": "f692d65a9eb51542fba5b46483c6edb74b546c1e"
             },
             "require": {
                 "deviservi/nusoap": "v1.123",
@@ -1081,7 +1081,7 @@
                 "api-rectorado",
                 "fich"
             ],
-            "time": "2020-12-01T00:16:21+00:00"
+            "time": "2021-12-08T01:04:00+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -1490,16 +1490,16 @@
         },
         {
             "name": "michelf/php-markdown",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "c83178d49e372ca967d1a8c77ae4e051b3a3c75c"
+                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/c83178d49e372ca967d1a8c77ae4e051b3a3c75c",
-                "reference": "c83178d49e372ca967d1a8c77ae4e051b3a3c75c",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
+                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
                 "shasum": ""
             },
             "require": {
@@ -1537,9 +1537,9 @@
             ],
             "support": {
                 "issues": "https://github.com/michelf/php-markdown/issues",
-                "source": "https://github.com/michelf/php-markdown/tree/1.9.0"
+                "source": "https://github.com/michelf/php-markdown/tree/1.9.1"
             },
-            "time": "2019-12-02T02:32:27+00:00"
+            "time": "2021-11-24T02:52:38+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2095,6 +2095,7 @@
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
                 "source": "https://github.com/swiftmailer/swiftmailer/tree/v5.4.12"
             },
+            "abandoned": "symfony/mailer",
             "time": "2018-07-31T09:26:32+00:00"
         },
         {
@@ -3401,6 +3402,55 @@
             },
             "abandoned": "mhujer/breadcrumbs-bundle",
             "time": "2019-10-18T12:03:08+00:00"
+        },
+        {
+            "name": "whiteoctober/tcpdf-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sampart/WhiteOctoberTCPDFBundle.git",
+                "reference": "7cb0efb09119b9e279344ccedbcad160cc53bf65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sampart/WhiteOctoberTCPDFBundle/zipball/7cb0efb09119b9e279344ccedbcad160cc53bf65",
+                "reference": "7cb0efb09119b9e279344ccedbcad160cc53bf65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0",
+                "tecnickcom/tcpdf": "*"
+            },
+            "default-branch": true,
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "WhiteOctober\\TCPDFBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rich Sage",
+                    "email": "rich.sage@gmail.com"
+                }
+            ],
+            "description": "A bundle to easily integrate TCPDF into Symfony2",
+            "homepage": "https://github.com/whiteoctober/WhiteOctoberTCPDFBundle",
+            "keywords": [
+                "TCPDF",
+                "pdf"
+            ],
+            "support": {
+                "issues": "https://github.com/sampart/WhiteOctoberTCPDFBundle/issues",
+                "source": "https://github.com/sampart/WhiteOctoberTCPDFBundle/tree/master"
+            },
+            "abandoned": "qipsius/tcpdf-bundle",
+            "time": "2020-11-15T19:30:06+00:00"
         }
     ],
     "packages-dev": [
@@ -3653,7 +3703,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "fich/api-rectorado": 20,
-        "fich/api-infofich": 20
+        "fich/api-infofich": 20,
+        "whiteoctober/tcpdf-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -58,7 +58,7 @@ class APIInfofichService {
         $query->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
                 ->setWsEnv(WSHelper::ENV_PROD)
-                ->setCacheEnabled(true);
+                ->setCacheEnabled(false);
 
         if (!$solo_carreras) {
             $solo_carreras = $this->carreras_permitidas;

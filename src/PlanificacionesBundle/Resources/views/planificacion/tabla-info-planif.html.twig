@@ -26,19 +26,35 @@
         </tr>
         <tr>
             <td class="font-weight-bold bg-secondary text-white text-right">
+                Estado actual:
+            </td>
+            <td class="bg-white">
+                {% set eActual = planificacion.getEstadoActual() %} 
+                {% if eActual %}
+                    {% set class = eActual.getCssClass() %}                                                        
+
+                    {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
+                    <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                        {{ eActual.nombre }}
+                    </span>                                                        
+                {% endif %}                
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
                 Docente responsable:
             </td>
             <td class="bg-white">
                 {{ planificacion.getDocenteResponsable()|default('-') }}
             </td>
         </tr>
-{#        <tr>
-            <td class="font-weight-bold bg-secondary text-white text-right">
-                Dueño
-            </td>
-            <td class="bg-white">
-                {{ planificacion.getOwner()|default('-') }}
-            </td>
-        </tr>#}
+        {#        <tr>
+                    <td class="font-weight-bold bg-secondary text-white text-right">
+                        Dueño
+                    </td>
+                    <td class="bg-white">
+                        {{ planificacion.getOwner()|default('-') }}
+                    </td>
+                </tr>#}
     </tbody>
 </table>
