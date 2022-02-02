@@ -10,7 +10,8 @@
                     {% for b in resumen.bibliografia %}
                         <li>
                         <p> 
-                            <strong>Título </strong> {{ b.bibliografia|default(global_sd) }} -                       
+			    <strong>Referencia bibliográfica </strong> {{ b.bibliografia.infoCompleta|default(global_sd) }}
+                            {#<strong>Título </strong> {{ b.bibliografia|default(global_sd) }} -                       
                             <strong>Tipo de Bibliografía </strong>{{ b.tipoBibliografia|default(global_sd) }} - 
                             <strong>Autores </strong>{{ b.bibliografia.autores|default(global_sd) }} -
                             <strong>Editorial </strong>{{ b.bibliografia.editorial|default(global_sd) }} -
@@ -32,7 +33,7 @@
                                 <strong>Fecha consulta online </strong>{{ b.bibliografia.fechaConsultaOnline|date("d/m/Y") }} -
                                 <strong>Enlace </strong>{{ b.bibliografia.enlaceOnline|default(global_sd) }} 
                             {% endif %}
-                            
+                            #}
                         </p>
                         </li>
                     {% endfor %}

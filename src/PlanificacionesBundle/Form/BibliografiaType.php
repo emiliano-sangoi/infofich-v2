@@ -13,7 +13,7 @@ class BibliografiaType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $this->addTitulo($builder, $options);
+        /*$this->addTitulo($builder, $options);
         $this->addAutores($builder, $options);
 
         $builder
@@ -80,6 +80,15 @@ class BibliografiaType extends AbstractType {
                     'attr' => array(
                         'class' => 'form-control',
                         'placeholder' => 'http://www.mipagina.com'
+                    )
+        ));*/
+
+        $builder
+                ->add('infoCompleta', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+                    'label' => 'Referencia bibliográfica',
+                    'required' => true,
+                    'attr' => array(
+                        'class' => 'form-control'
                     )
         ));
 

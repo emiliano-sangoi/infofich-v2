@@ -59,17 +59,23 @@ class ImprimirPDF extends \TCPDF {
      * Dibuja el encabezado de todas las páginas de los archivos PDF
      */
     public function Header() {
+        //die(getcwd());
         // Set font
         $this->SetFont('helvetica', 'B', 10);
         $border = 0;
+        
+        $logoDir = K_PATH_IMAGES;
+        $filenameLogo = 'logo_fich.png';
+    
 
         // Logo de la Provincia
-//        $file = 'https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png';
-//        $this->Image($file, $x = PDF_MARGIN_LEFT, $y = PDF_MARGIN_TOP - 15, $w = '', $h = '', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = false);
+       $file = 'assets/images/logo_infofich.png';
+       $image_file = "../Resources/public/images/tcpdf/" . $filenameLogo;
+       $this->Image($image_file, $x = PDF_MARGIN_LEFT, $y = PDF_MARGIN_TOP - 15, $w = '', $h = '', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = false);
 
-        // Logo de la Caja
-       // $file = 'assets/imagenes/logocaja_2.jpg';
-        //$this->Image($file, $x = PDF_MARGIN_LEFT+58, $y = PDF_MARGIN_TOP - 15, $w = '65', $h = '28', $type = 'JPG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);
+        // Logo de la INFOFICH
+        $file = 'assets/images/logo_fich.png';
+        $this->Image($file, $x = PDF_MARGIN_LEFT+58, $y = PDF_MARGIN_TOP - 15, $w = '65', $h = '28', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);
 
 //        $file = 'assets/imagenes/logocaja_2.jpg';
 //        $this->Image($file, $x = 130, $y = PDF_MARGIN_TOP - 15, $w = '190', $h = '80', $type = 'JPG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismaskInformePDF = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);

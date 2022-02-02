@@ -8,8 +8,17 @@
     </div>
 
     <div class="mb-5">
-
         <div class="form-row">
+                <div class="col-md-10">
+                    {{ form_label(form.bibliografia.infoCompleta) }}
+                    {{ form_widget(form.bibliografia.infoCompleta) }}
+                    {{ form_errors(form.bibliografia.infoCompleta) }}
+                </div>
+        </div>
+    </div>
+       
+
+       {# <div class="form-row">
             <div class="col-md-10">
                 {{ form_label(form.bibliografia.titulo) }}
                 {{ form_widget(form.bibliografia.titulo) }}
@@ -69,7 +78,7 @@
                 {{ form_widget(form.bibliografia.enlaceOnline) }}
                 {{ form_errors(form.bibliografia.enlaceOnline) }} 
             </div>
-        </div>
+        </div> #}
         {{ form_row(form.posicion) }}
 
 
@@ -99,10 +108,10 @@
                 {#<div class="col-md-1">
                     <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
                 </div>#}
-            </div>
-        </div>  
+          </div>
+        </div> 
 
 
 
-    </div>
+    </div> 
 {% endblock %}

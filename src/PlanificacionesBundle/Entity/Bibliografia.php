@@ -25,58 +25,35 @@ class Bibliografia
     /**
      * @var string
      *
-     * @ORM\Column(name="titulo", type="string", length=512)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @ORM\Column(name="titulo", type="string", length=512, nullable=true)
      */
     private $titulo;    
 
     /**
      * @var string
      *
-     * @ORM\Column(name="autores", type="string", length=512)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @ORM\Column(name="autores", type="string", length=512, nullable=true)
      */
     private $autores;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="editorial", type="string", length=512)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @ORM\Column(name="editorial", type="string", length=512, nullable=true)
      */
     private $editorial;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="anio_edicion", type="smallint")
-     * @Assert\Type(
-     *     type="int",
-     *     message="Este campo debe ser un número entero")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 32000,
-     *      minMessage = "Mínimo valor permitido {{ limit }}",
-     *      maxMessage = "Máximo valor permitido {{ limit }}"
-     * )
+     * @ORM\Column(name="anio_edicion", type="smallint", nullable=true)
      */
     private $anioEdicion;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nro_edicion", type="smallint")     
-     * @Assert\Type(
-     *     type="int",
-     *     message="Este campo debe ser un número entero")    
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 32000,
-     *      minMessage = "Mínimo valor permitido {{ limit }}",
-     *      maxMessage = "Máximo valor permitido {{ limit }}"
-     * )
+     * @ORM\Column(name="nro_edicion", type="smallint", nullable=true)     
      */
     private $nroEdicion;
 
@@ -91,16 +68,14 @@ class Bibliografia
     /**
      * @var bool
      *
-     * @ORM\Column(name="disponible_biblioteca", type="boolean")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @ORM\Column(name="disponible_biblioteca", type="boolean", nullable=true)
      */
     private $disponibleBiblioteca;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="disponible_online", type="boolean")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
+     * @ORM\Column(name="disponible_online", type="boolean", nullable=true)
      */
     private $disponibleOnline;
 
@@ -108,7 +83,6 @@ class Bibliografia
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_consulta_online", type="datetime", nullable=true)
-     * @Assert\Date()
      */
     private $fechaConsultaOnline;
 
@@ -116,12 +90,16 @@ class Bibliografia
      * @var string
      *
      * @ORM\Column(name="enlace_online", type="string", length=512, nullable=true)
-     * @Assert\Url(
-     *    message = "La url debe ser una url válida: http://www.mipagina.com",
-     *    protocols = {"http", "https", "ftp"}
-     * )
      */
     private $enlaceOnline;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info_completa", type="text")
+     */
+    private $infoCompleta;
     
     public function __construct() {
         $this->fechaConsultaOnline = new \DateTime();
@@ -382,6 +360,30 @@ class Bibliografia
     public function getEnlaceOnline()
     {
         return $this->enlaceOnline;
+    }
+
+        /**
+     * Set infoCompleta
+     *
+     * @param string $infoCompleta
+     *
+     * @return Bibliografia
+     */
+    public function setInfoCompleta($infoCompleta)
+    {
+        $this->infoCompleta = $infoCompleta;
+
+        return $this;
+    }
+
+    /**
+     * Get infoCompleta
+     *
+     * @return string
+     */
+    public function getInfoCompleta()
+    {
+        return $this->infoCompleta;
     }
     
 }

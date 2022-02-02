@@ -31,9 +31,13 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $est1 = array('width' => 0.1, 'join' => 'round', 'dash' => 0, 'color' => array(0, 0, 0));
         $c1 = array(204, 204, 204); //color gris de relleno definido con 3 valores es interpretado como RGB
+        // set image scale factor
+        $this->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        
         // Título (Relleno)
         $this->RoundedRect($x0, 43, 190, 8, 4, $round_corner = '0000', $style = 'F', $est1, $c1);
 
+        
         // Título (texto)
         $this->CreateTextBox('PLANIFICACIÓN '. $this->parametros['anio'], $x0, 45, 180, 0, 10, 'B', 'C');
 
@@ -53,22 +57,10 @@ class PlanificacionesPDF extends ImprimirPDF {
 
 
         // print a line of text
-    /*    $text = 'This is a <b color="#FF0000">digitally signed document</b> using the default (example) <b>tcpdf.crt</b> certificate.<br />To validate this signature you have to load the <b color="#006600">tcpdf.fdf</b> on the Arobat Reader to add the certificate to <i>List of Trusted Identities</i>.<br /><br />For more information check the source code of this example and the source code documentation for the <i>setSignature()</i> method.<br /><br /><a href="http://www.tcpdf.org">www.tcpdf.org</a>';
-    $this->writeHTML($text, true, 0, true, 0);*/
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // *** set signature appearance ***
-    // create content for signature (image and/or text)
-    $this->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
-    // define active area for signature appearance
-    $this->setSignatureAppearance(180, 60, 15, 15);
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // *** set an empty signature appearance ***
-    $this->addEmptySignatureAppearance(180, 80, 15, 15);
     
-
     $fontSize = 9;
+    
     $html = '<h1>INFORMACIÓN BÁSICA</h1>';
-        
     // INFORMACION BASICA
     $html .= '<p><b>Asignatura: </b>'.$this->parametros['nombreAsignatura'] .'</p>';
     $html .= '<p><b>Carrera:  </b>' . $this->parametros['nombreCarrera'].'</p>';
