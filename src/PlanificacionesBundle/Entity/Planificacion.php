@@ -267,7 +267,6 @@ class Planificacion implements \JsonSerializable{
         
         if($this->docentesColaboradores){
             foreach ($this->docentesColaboradores as $dc){
-                var_dump($dc);exit;
                 if($dc->getDocenteGrado()->getPersona() == $persona){
                     return true;
                 }
