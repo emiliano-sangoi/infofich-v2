@@ -265,18 +265,20 @@ class Planificacion implements \JsonSerializable{
             return true;
         }
         
-        foreach ($this->docentesColaboradores as $dc){
-            if($dc->getDocenteGrado()->getPersona() == $persona){
-                return true;
+        if($this->docentesColaboradores){
+            foreach ($this->docentesColaboradores as $dc){
+                if($dc->getDocenteGrado()->getPersona() == $persona){
+                    return true;
+                }
             }
         }
-        
-        foreach ($this->docentesAdscriptos as $planifDocAds){            
-            if($planifDocAds->getDocenteAdscripto()->getPersona() == $persona){
-                return true;
+        if($this->docentesColaboradores){
+            foreach ($this->docentesAdscriptos as $planifDocAds){            
+                if($planifDocAds->getDocenteAdscripto()->getPersona() == $persona){
+                    return true;
+                }
             }
         }
-        
         return false;
     }
 
