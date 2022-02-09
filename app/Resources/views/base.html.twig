@@ -70,275 +70,277 @@
 
 
         <div class="{{ full_width ? 'container-fluid p-0' : 'container px-5 pb-5 pt-3' }}">
-        {% block content %}{% endblock %}
-    </div>
+            {% block content %}{% endblock %}
+        </div>
 
 
-    <!-- <div id="btn-to-top">
-        <a href="#" class="page-scroll">
-            <i class="fa fa-chevron-up fa-4x color-gray11"></i>
-        </a>
-    </div>                 -->
+        <!-- <div id="btn-to-top">
+            <a href="#" class="page-scroll">
+                <i class="fa fa-chevron-up fa-4x color-gray11"></i>
+            </a>
+        </div>                 -->
 
-    {# Javascript:#}
-
-
-
-    {% block javascripts %}
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
-
-        {# Popper JS #}
-        <script src="{{ asset('node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
-
-        <!-- Bootstrap 4 JS -->
-        <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
-
-        <!-- jquery-easing -->
-        <script src="{{ asset('node_modules/jquery-easing/dist/jquery.easing.1.3.umd.min.js') }}" ></script>
-
-        <!-- Select 2 -->
-        <script src="{{ asset('node_modules/select2/dist/js/select2.full.min.js') }}" ></script>
-
-        {#Custom JS#}
-        <script src="{{ asset('bundles/app/js/custom.js') }}" ></script>
-
-        <!--  ScrollReveal: -->
-        {# <script src="{{ asset('bundles/app/js/btn-to-top.js') }}" ></script> #}
-
-        <!-- To top button: -->
-        {#        <script src="{{ asset('bundles/sitio/js/to-top.js') }}"></script>#}
-
-        <!-- Magnific Popup core JS file -->
-        <script src="{{ asset('node_modules/magnific-popup/dist/jquery.magnific-popup.min.js') }}" ></script>
-
-        <!-- https://tempusdominus.github.io/bootstrap-4/Usage/  -->
-        <script src="{{ asset('node_modules/moment/min/moment-with-locales.min.js') }}" ></script>
-        <script src="{{ asset('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}" ></script>
-
-        <script src="{{ asset('bundles/app/js/custom.js') }}"></script>
-        <script src="{{ asset('bundles/app/js/validacion.js') }}"></script>
-
-        <script src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
-        <script src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
-
-        <script>
-
-            $(document).ready(function () {
-
-                // https://github.com/select2/select2-bootstrap-theme
-                $.fn.select2.defaults.set("theme", "bootstrap4");
-                $('.js-select2').select2();
-
-
-                SECCIONES = {
-                    get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'legajo' : '--LEGAJO--'}) }}",
-                    get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
-                    get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
-                };
-
-
-                //Pantalla informacion Basica
-            {#$('#asignatura').on('change', function () {
-                $('#codigo_siu').val('IF005');
-                $('#plan_estudio').val('2015');
-                $('#caracter').val('Cuatrimestral');
-                $('#carga_horaria').val('20');
-
-                //alert('You selected - ' + $(this).val())
-            });#}
-            {#
-                                //Pantalla equipo-docente
-                                $('#nombre_docente_res').on('change', function () {
-                                    $('#dni_docente_res').val('31222555');
-                                    $('#tel_docente_res').val('342512345678');
-                                    $('#email_docente_res').val('docente@gmail.com');
-                                });
-
-                                $('#nombre_docente_col').on('change', function () {
-                                    $('#dni_docente_col').val('12345679');
-                                    $('#tel_docente_col').val('3421114445');
-                                    $('#email_docente_col').val('colaborador@gmail.com');
-                                });
-
-                                $('#nombre_docente_ads').on('change', function () {
-                                    $('#dni_docente_ads').val('12345679');
-                                    $('#tel_docente_ads').val('3421114445');
-                                    $('#email_docente_ads').val('adscripto@gmail.com');
-                                });#}
-
-            {#       function completar_datos_asignatura(elemento) {
-                       alert('sfdsfdfs');
-                       var id = $("#" + elemento.id).val();
-                       alert(id);
-                       //$('#curso_planificacion').selectpicker('destroy');
-
-                       $('#codigo_siu').val('IF005');
-                       $('#plan_estudio').val('2015');
-                       $('#caracter').val('Cuatrimestral');
-                       $('#carga_horaria').val('20');
-
-
-                       /* $.getJSON('../ajax-completa-cursos.php',
-                        "idCarreraCompletarCombo=" + id + "&rand=" + Math.random(),
-                        function (data) {
-                        if ((data.length) > 0) {
-                        var optionSelect = "";
-                        for (var indice = 0; indice < data.length; indice++) {
-                        optionSelect += "<option value='" + data[indice]['id_curso'] + "'>" + data[indice]['nombre'] + "</option>"
-                        }
-                        $('#curso_planificacion').html(optionSelect);
-                        //alert(optionSelect);
-                        $('#curso_planificacion').selectpicker();
-                        } else {
-                        $('#curso_planificacion').html("<option value='0'>No existen cursos cargados</option>");
-                        $('#curso_planificacion').selectpicker();
-                        }
-                        });
-                        //$('#curso_planificacion').selectpicker('refresh');
-                        //$('#curso_planificacion').val('Mustard');*/
-                   }
-#}
-
-
-        // Boton para imprimir pagina:
-        $('.print-page').click(function () {
-            window.print();
-        });
-
-
-        // Ventana para redes sociales:
-        $('.btn-social-icon').click(function (event) {
-            javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
-            return false;
-            /*event.preventDefault();
-             
-             var e = $(this);
-             console.log(e.data('url'));
-             
-             FB.ui({
-             method: 'share',
-             href: e.data('url'),
-             }, function (response) {});*/
+        {# Javascript:#}
 
 
 
-        });
+        {% block javascripts %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
 
-        $('.mp-image').magnificPopup({
-            type: 'image',
-            fixedContentPos: false,
-            closeOnBgClick: true,
-            callbacks: {
-                open: function () {
-                    jQuery('body').addClass('noscroll');
-                },
-                close: function () {
-                    jQuery('body').removeClass('noscroll');
-                }
-            }
-        });
+            {# Popper JS #}
+            <script src="{{ asset('node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+
+            <!-- Bootstrap 4 JS -->
+            <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
+
+            <!-- jquery-easing -->
+            <script src="{{ asset('node_modules/jquery-easing/dist/jquery.easing.1.3.umd.min.js') }}" ></script>
+
+            <!-- Select 2 -->
+            <script src="{{ asset('node_modules/select2/dist/js/select2.full.min.js') }}" ></script>
+
+            {#Custom JS#}
+            <script src="{{ asset('bundles/app/js/custom.js') }}" ></script>
+
+            <!--  ScrollReveal: -->
+            {# <script src="{{ asset('bundles/app/js/btn-to-top.js') }}" ></script> #}
+
+            <!-- To top button: -->
+            {#        <script src="{{ asset('bundles/sitio/js/to-top.js') }}"></script>#}
+
+            <!-- Magnific Popup core JS file -->
+            <script src="{{ asset('node_modules/magnific-popup/dist/jquery.magnific-popup.min.js') }}" ></script>
+
+            <!-- https://tempusdominus.github.io/bootstrap-4/Usage/  -->
+            <script src="{{ asset('node_modules/moment/min/moment-with-locales.min.js') }}" ></script>
+            <script src="{{ asset('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}" ></script>
+
+            <script src="{{ asset('bundles/app/js/custom.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/validacion.js') }}"></script>
+
+            <script src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
+            <script src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
+
+            <script>
+
+                $(document).ready(function () {
+
+                    // https://github.com/select2/select2-bootstrap-theme
+                    $.fn.select2.defaults.set("theme", "bootstrap4");
+                    $('.js-select2').select2();
+
+
+                    SECCIONES = {
+                        get_docente: "{{ path('planificaciones_ajax_equipo_docente_get_docente', {'legajo' : '--LEGAJO--'}) }}",
+                        get_asignaturas: "{{ path('ajax_get_asignaturas', {'carrera': '--CARRERA--'}) }}",
+                        get_asignatura: "{{ path('ajax_get_asignatura', {'carrera': '--CARRERA--', 'codigo': '--CODIGO--'}) }}",
+                    };
+
+
+                    //Pantalla informacion Basica
+                {#$('#asignatura').on('change', function () {
+                    $('#codigo_siu').val('IF005');
+                    $('#plan_estudio').val('2015');
+                    $('#caracter').val('Cuatrimestral');
+                    $('#carga_horaria').val('20');
+
+                    //alert('You selected - ' + $(this).val())
+                });#}
+                {#
+                                    //Pantalla equipo-docente
+                                    $('#nombre_docente_res').on('change', function () {
+                                        $('#dni_docente_res').val('31222555');
+                                        $('#tel_docente_res').val('342512345678');
+                                        $('#email_docente_res').val('docente@gmail.com');
+                                    });
+
+                                    $('#nombre_docente_col').on('change', function () {
+                                        $('#dni_docente_col').val('12345679');
+                                        $('#tel_docente_col').val('3421114445');
+                                        $('#email_docente_col').val('colaborador@gmail.com');
+                                    });
+
+                                    $('#nombre_docente_ads').on('change', function () {
+                                        $('#dni_docente_ads').val('12345679');
+                                        $('#tel_docente_ads').val('3421114445');
+                                        $('#email_docente_ads').val('adscripto@gmail.com');
+                                    });#}
+
+                {#       function completar_datos_asignatura(elemento) {
+                           alert('sfdsfdfs');
+                           var id = $("#" + elemento.id).val();
+                           alert(id);
+                           //$('#curso_planificacion').selectpicker('destroy');
+
+                           $('#codigo_siu').val('IF005');
+                           $('#plan_estudio').val('2015');
+                           $('#caracter').val('Cuatrimestral');
+                           $('#carga_horaria').val('20');
+
+
+                           /* $.getJSON('../ajax-completa-cursos.php',
+                            "idCarreraCompletarCombo=" + id + "&rand=" + Math.random(),
+                            function (data) {
+                            if ((data.length) > 0) {
+                            var optionSelect = "";
+                            for (var indice = 0; indice < data.length; indice++) {
+                            optionSelect += "<option value='" + data[indice]['id_curso'] + "'>" + data[indice]['nombre'] + "</option>"
+                            }
+                            $('#curso_planificacion').html(optionSelect);
+                            //alert(optionSelect);
+                            $('#curso_planificacion').selectpicker();
+                            } else {
+                            $('#curso_planificacion').html("<option value='0'>No existen cursos cargados</option>");
+                            $('#curso_planificacion').selectpicker();
+                            }
+                            });
+                            //$('#curso_planificacion').selectpicker('refresh');
+                            //$('#curso_planificacion').val('Mustard');*/
+                       }
+    #}
+
+
+            // Boton para imprimir pagina:
+            $('.print-page').click(function () {
+                window.print();
+            });
+
+
+            // Ventana para redes sociales:
+            $('.btn-social-icon').click(function (event) {
+                javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+                return false;
+                /*event.preventDefault();
+                 
+                 var e = $(this);
+                 console.log(e.data('url'));
+                 
+                 FB.ui({
+                 method: 'share',
+                 href: e.data('url'),
+                 }, function (response) {});*/
 
 
 
-        $('.log-out').click(function (event) {
-            event.preventDefault();
-            var element = $(event.target);
-            var href = element.attr('href');
+            });
 
-            bootbox.confirm({
-                message: "¿Esta seguro que desea salir de del sistema?",
-                title: 'Cerrar sesión',
-                buttons: {
-                    confirm: {
-                        label: 'Si',
-                        className: 'btn-primary'
+            $('.mp-image').magnificPopup({
+                type: 'image',
+                fixedContentPos: false,
+                closeOnBgClick: true,
+                callbacks: {
+                    open: function () {
+                        jQuery('body').addClass('noscroll');
                     },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn-danger'
+                    close: function () {
+                        jQuery('body').removeClass('noscroll');
                     }
-                },
-                callback: function (result) {
-                    console.log(href);
-                    window.location.pathname = href;
-                    //console.log('This was logged in the callback: ' + result);
                 }
             });
 
-        });
 
 
-        $('.confirmar-borrado').click(function (event) {
-            event.preventDefault();
-            var element = $(event.target);
+            $('.log-out').click(function (event) {
+                event.preventDefault();
+                var element = $(event.target);
+                var href = element.attr('href');
 
-            var msg = element.data('msg');
-            if (typeof msg === 'undefined') {
-                msg = '¿Esta seguro que desea borrar este registro?';
-            }
-
-            bootbox.confirm({
-                message: msg,
-                title: 'Borrar registro',
-                buttons: {
-                    confirm: {
-                        label: 'Si',
-                        className: 'btn-primary'
+                bootbox.confirm({
+                    message: "¿Esta seguro que desea salir de del sistema?",
+                    title: 'Cerrar sesión',
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-primary'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
                     },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn-danger'
+                    callback: function (result) {
+                        console.log(href);
+                        window.location.pathname = href;
+                        //console.log('This was logged in the callback: ' + result);
                     }
-                },
-                callback: function (result) {
-                    if (result) {
-                        var form = element.closest('form');
-                        form.submit();
-                    }
-
-                }
-            });
-
-        });
-
-
-
-
-
-
-    });
-
-    $(function () {
-        $('.tempusdominus-datetimepicker').datetimepicker({
-            locale: 'es',
-            format: 'DD/MM/YYYY HH:mm'
-        });
-
-        $('.tempusdominus-datepicker').datetimepicker({
-            locale: 'es',
-            format: 'DD/MM/YYYY'
-        });
-
-            {#$('.confirmar-borrado').on('click', function (event) {
-                var x = confirm("¿Esta seguro que desea borrar este registro?");
-                if (x)
-                    return true;
-                else
-                    return false;
-            });#}
-
-
-
                 });
 
+            });
 
 
-        </script>
+            $('.confirmar-borrado').click(function (event) {
+                event.preventDefault();
+                var element = $(event.target);
+
+                var msg = element.data('msg');
+                if (typeof msg === 'undefined') {
+                    msg = '¿Esta seguro que desea borrar este registro?';
+                }
+
+                bootbox.confirm({
+                    message: msg,
+                    title: 'Borrar registro',
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-primary'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            var form = element.closest('form');
+                            form.submit();
+                        }
+
+                    }
+                });
+
+            });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
 
 
 
-    {% endblock %}
 
-</body>
+        });
+
+        $(function () {
+            $('.tempusdominus-datetimepicker').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY HH:mm'
+            });
+
+            $('.tempusdominus-datepicker').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY'
+            });
+
+                {#$('.confirmar-borrado').on('click', function (event) {
+                    var x = confirm("¿Esta seguro que desea borrar este registro?");
+                    if (x)
+                        return true;
+                    else
+                        return false;
+                });#}
+
+
+
+                    });
+
+
+
+            </script>
+
+
+
+        {% endblock %}
+
+    </body>
 </html>
