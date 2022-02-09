@@ -287,14 +287,14 @@ class RevisarController extends Controller {
         $this->resumen['docente_resp'] = null;
 
         if ($planificacion->getDocenteResponsable()) {
-            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getCodApeNom(true);
+            $this->resumen['docente_resp'] = $planificacion->getDocenteResponsable()->getPersona()->getApeNom(true);
         }
 
         $this->resumen['docentes_colab'] = null;
         $i = 0;
         /* @var $docente PlanificacionDocenteColaborador */
         foreach ($planificacion->getDocentesColaboradores() as $docente) {
-            $this->resumen['docentes_colab'][] = $docente->getDocenteGrado()->getCodApeNom(true);
+            $this->resumen['docentes_colab'][] = $docente->getDocenteGrado()->getPersona()->getApeNom(true);
             $i++;
         }
         $this->resumen['docentes_colab_count'] = $i;
