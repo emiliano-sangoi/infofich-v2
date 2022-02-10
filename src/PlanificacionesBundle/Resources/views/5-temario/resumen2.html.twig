@@ -5,15 +5,25 @@
         <div class="col-sm-10">
             {#<label class="font-weight-bold">Temario</label>#}           
             {% if resumen.temario[0] is not defined %}
-                <p class="text-muted">
-                    No se han definido ninguna item en el temario.
+                <p class="text-danger">
+                    Sin definir.
                 </p>
             {% else %}
                 <ul>
                     {% for r in resumen.temario %}
                         <li>
-                            <p>                      
-                                <strong>Unidad </strong>{{ r.unidad }} <strong>Título </strong>{{ r.titulo }}  <strong>Contenido </strong>{{ r.contenido|default(global_sd)}}  
+                            <label class="font-weight-bold text-uppercase">                      
+                                Unidad {{ r.unidad }}
+                            </label>
+                            <br/>
+                            <label class="font-weight-bold">Título:</label>
+                            <span>{{ r.titulo }}</span>
+                            <br/>
+                            <label class="font-weight-bold">
+                                Contenido:
+                            </label>
+                            <p>
+                                {{ r.contenido|nl2br}}
                             </p>
                         </li>
                     {% endfor %}

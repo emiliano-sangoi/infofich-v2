@@ -347,15 +347,15 @@ class RevisarController extends Controller {
             $this->resumen['fechaRecupSegundoParcial'] = $requisitos->getFechaRecupSegundoParcial();
 
             if ($requisitos->getPrevePromParcialTeoria()) {
-                $this->resumen['prevePromParcialTeoria'] = 'Sí promociona la teoría';
+                $this->resumen['prevePromParcialTeoria'] = 'Sí';
             } else {
-                $this->resumen['prevePromParcialTeoria'] = 'No promociona la teoría';
+                $this->resumen['prevePromParcialTeoria'] = 'No';
             }
 
             if ($requisitos->getPrevePromParcialPractica()) {
-                $this->resumen['prevePromParcialPractica'] = 'Sí promociona la práctica';
+                $this->resumen['prevePromParcialPractica'] = 'Sí';
             } else {
-                $this->resumen['prevePromParcialPractica'] = 'No promociona la práctica';
+                $this->resumen['prevePromParcialPractica'] = 'No';
             }
 
             if ($requisitos->getPreveCfi()) {
