@@ -34,6 +34,12 @@ services:
         tags:
             - { name: form.type }
             
+    planificaciones.form.duplicar.type:
+        class: PlanificacionesBundle\Form\DuplicarPlanificacionType
+        arguments: ['@api_infofich_service']
+        tags:
+            - { name: form.type }
+            
     planificaciones.planificacion_voter:
         class:  PlanificacionesBundle\Security\PlanificacionVoter
         arguments: ['@doctrine.orm.entity_manager']

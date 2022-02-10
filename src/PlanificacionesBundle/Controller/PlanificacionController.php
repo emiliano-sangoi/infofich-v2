@@ -200,7 +200,7 @@ class PlanificacionController extends Controller {
             dump($planificacion);
             exit;
         }
-
+//dump($form);exit;
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
