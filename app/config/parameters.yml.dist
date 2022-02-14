@@ -20,6 +20,10 @@ parameters:
 
     knp_items_por_pagina: 10
 
+    # Determina si se va a usar la libreria con la cache o sin ella
+    api_infofich_cache_enabled: false
+    api_infofich_env: prod
+
     # Desde esta conexion se exportaran los usuarios:
     db_infofich_viejo:
         host:

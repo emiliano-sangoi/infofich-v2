@@ -13,7 +13,7 @@ services:
 
     api_infofich_service:
         class: AppBundle\Service\APIInfofichService        
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "%api_infofich_cache_enabled%", "%api_infofich_env%"]
         
     app.twig_extension:
         class: AppBundle\Twig\AppExtension

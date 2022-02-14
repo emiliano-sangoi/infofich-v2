@@ -158,7 +158,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         //Viajes Academicos
         $viajesAcademicos = $this->parametros['viajesAcademicos'];
-        $html .= '<h1>VIAJES ACADEMICOS </h1>'; 
+        $html .= '<h1>VIAJES ACADEMICOS </h1>';
         if($viajesAcademicos){
             foreach ($viajesAcademicos as $viaje){
                 $fecha = $viaje->getFechaTentativa();
@@ -168,8 +168,8 @@ class PlanificacionesPDF extends ImprimirPDF {
                 $html .= '<p><b>Recorrido: </b> '. $viaje->getRecorrido(). '</p>';
                 $html .= '<p><b>Cantidad Estudiantes: </b> '. $viaje->getCantEstudiantes(). '</p>';
                 $html .= '<p><b>Cantidad Docentes: </b> '. $viaje->getCantDocentes(). '</p>';
-                $html .= '<p><b>Fecha Tentativa: </b>' . $fecha->format('d/m/Y') . '</p>';
-                $html .= '<p><b>fecha Tentativa Regreso: </b>'.$fechaR->format('d/m/Y') .'</p>';
+		        $html .= '<p><b>Fecha Tentativa: </b>' . $fecha->format('d/m/Y') . '</p>';
+		        $html .= '<p><b>fecha Tentativa Regreso: </b>'.$fechaR->format('d/m/Y') .'</p>';
              
             }
         }
