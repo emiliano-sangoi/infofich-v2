@@ -31,8 +31,20 @@ class APIInfofichService {
      * @var array
      */
     private $carreras_permitidas;
+    
+    /**
+     * 
+     * @var boolean
+     */
+    private $wsCacheEnabled;
+    
+    /**
+     * 
+     * @var string
+     */
+    private $wsEnv;
 
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager, $apiInfofichCacheEnabled, $apiInfofichEnv) {
 
         $this->em = $entityManager;
 
@@ -42,6 +54,9 @@ class APIInfofichService {
             WSHelper::CARRERA_IAMB,
             WSHelper::CARRERA_IAGR
         );
+        
+        $this->wsCacheEnabled = $apiInfofichCacheEnabled;
+        $this->wsEnv = $apiInfofichEnv;
     }
 
     /**
@@ -57,8 +72,8 @@ class APIInfofichService {
 
         $query->setUnidadAcademica(WSHelper::UA_FICH)
                 ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
-                ->setWsEnv(WSHelper::ENV_PROD)
-                ->setCacheEnabled(false);
+                ->setWsEnv($this->wsEnv)
+                ->setCacheEnabled($this->wsCacheEnabled);
 
         if (!$solo_carreras) {
             $solo_carreras = $this->carreras_permitidas;
@@ -124,8 +139,8 @@ class APIInfofichService {
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
                     ->setRaw($raw)
-                    ->setWsEnv(WSHelper::ENV_PROD)
-                    ->setCacheEnabled(true);
+                    ->setWsEnv($this->wsEnv)
+                    ->setCacheEnabled($this->wsCacheEnabled);
 
             $asignaturas = $query->getResultado();
 
@@ -163,8 +178,8 @@ class APIInfofichService {
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
                     ->soloMaterias(array($codigo))       
-                    ->setWsEnv(WSHelper::ENV_PROD)
-                    ->setCacheEnabled(true);
+                    ->setWsEnv($this->wsEnv)
+                    ->setCacheEnabled($this->wsCacheEnabled);
 
             $asignaturas = $query->getResultado();
 
@@ -194,8 +209,8 @@ class APIInfofichService {
     public function getDocentesActivos() {
 
         $q = new QueryDocentes();
-        $docentes = $q->setCacheEnabled(true)
-                ->setWsEnv(WSHelper::ENV_PROD)
+        $docentes = $q->setCacheEnabled($this->wsCacheEnabled)
+                ->setWsEnv($this->wsEnv)
                 ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
                 ->setEstado('activo')
                 ->getDocentes();
