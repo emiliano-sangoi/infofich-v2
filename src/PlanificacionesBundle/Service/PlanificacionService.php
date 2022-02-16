@@ -66,7 +66,7 @@ class PlanificacionService {
         $this->errores['bibliografia'] = $this->validarBibliografia($planificacion);
         $this->errores['cronograma'] = $this->validarCronograma($planificacion);
         $this->errores['dist_horaria'] = $this->validarDistribucionHoraria($planificacion);
-        $this->errores['viajes'] = $this->validarViajesAcademicos($planificacion);
+        $this->errores['viajes'] = array();
 
         return $this->errores;
     }
@@ -85,7 +85,7 @@ class PlanificacionService {
             'validarBibliografia',
             'validarCronograma',
             'validarDistribucionHoraria',
-            'validarViajesAcademicos',
+            //'validarViajesAcademicos',
         );
         
         foreach ($funciones as $f){
@@ -215,6 +215,12 @@ class PlanificacionService {
         return $errores;
     }
     
+    /**
+     * Viajes academicos es opcional, no se usa por ahora esta validacion.
+     * 
+     * @param Planificacion $planificacion
+     * @return string
+     */
     public function validarViajesAcademicos(Planificacion $planificacion) {
         $errores = array();
 
