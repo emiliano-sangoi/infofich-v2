@@ -4,6 +4,7 @@ namespace PlanificacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Temario
@@ -61,9 +62,16 @@ class Temario {
      * @ORM\Column(name="posicion", type="integer")
      */
     private $posicion;
+    
+    /**
+     * Un temario tiene muchas actividades.
+     * 
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="temario")
+     */
+    private $actividades;
 
     public function __construct() {
-        ;
+        $this->actividades = new ArrayCollection();
     }
 
     public function __toString() {
@@ -190,5 +198,39 @@ class Temario {
     public function getPosicion()
     {
         return $this->posicion;
+    }
+
+    /**
+     * Add actividade
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
+     *
+     * @return Temario
+     */
+    public function addActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
+    {
+        $this->actividades[] = $actividade;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividade
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
+     */
+    public function removeActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
+    {
+        $this->actividades->removeElement($actividade);
+    }
+
+    /**
+     * Get actividades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActividades()
+    {
+        return $this->actividades;
     }
 }

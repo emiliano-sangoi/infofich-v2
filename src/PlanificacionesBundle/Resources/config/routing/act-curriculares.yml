@@ -1,3 +1,7 @@
 planif_act_curriculares_editar:
     path:     /{id}/cronograma/editar
     defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:edit }
+    
+planif_act_curriculares_nueva:
+    path:     /{id}/cronograma/nueva
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:new }

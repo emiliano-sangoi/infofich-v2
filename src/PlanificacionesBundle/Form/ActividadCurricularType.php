@@ -30,11 +30,11 @@ class ActividadCurricularType extends AbstractType {
         $this->addTemario($builder, $options);
         $this->addTipoActividadCurricular($builder, $options);
         $this->addFecha($builder, $options);
-        $this->addOtras($builder, $options);
+        //$this->addOtras($builder, $options);
         $this->addCargaHorariaAula($builder, $options);
         $this->addCargaHorariaAutonomo($builder, $options);
         $this->addDescripcion($builder, $options);
-        $this->addContenido($builder, $options);
+        //$this->addContenido($builder, $options);
         
         $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
             'attr' => array(

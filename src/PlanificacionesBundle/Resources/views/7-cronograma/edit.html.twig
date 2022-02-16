@@ -4,24 +4,105 @@
 
 {% block tab_content %}
 
-    {% form_theme form.actividadCurricular 'jquery.collection.html.twig' 'PlanificacionesBundle:7-cronograma:form_theme-cronograma.html.twig' %}
+    {% if planificacion.temario[0] is not defined %}
+        {% from '::macros.html.twig' import notificacion %}         
+        {% set msg %}
+            <p class='mb-1'>Para cargar las actividades debe definir primero las unidades en la secci&oacute;n "Temario"</p>            
+        {% endset %}
+        {{ notificacion('Mensaje', msg, 'info', '' ) }}
+    {% else %}
 
-    {{ form_start(form) }}  
+        <div>
+            <a href="{{ path('planif_act_curriculares_nueva', { id: planificacion.id }) }}" class="btn btn-success mb-4">
+                Nueva actividad
+            </a>
 
-    {{ form_row(form.actividadCurricular) }}
-
-    {% if planificacion.puedeEditarse() %}
-        <div class="form-row mt-3">
-            <div class="col-xs-12 col-sm-2">            
-                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
-            </div>
-            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
-                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
-                    </div>#}
         </div>
+
+        <div id="accordion" class="acordion-cronograma-actividades shadow">
+
+            {% for t in planificacion.temario %}
+
+                <div class="card">
+                    <div class="card-header bg-light pl-3 py-2">                
+                        <a class="card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapse{{ loop.index }}">                    
+                            {{ t }}                                
+                            <i class="fa fa-1x fa-caret-down align-middle"></i>                    
+                        </a>                
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" data-parent="#accordion">
+                        <div class="card-body border border-light p-0">
+                            {% set actividades = t.getActividades() %}
+                            {% if actividades[0] is not defined %}
+                                <p class="text-muted mb-0">
+                                    No existen actividades definidas en esta unidad.
+                                </p>
+                            {% else %}   
+
+
+
+                                <table class="table table-condensed table-borderless table-hover mb-0 border-0">
+                                    <thead>
+                                    <th class="text-center">#</th>
+                                    <th>Actividad</th>
+                                    <th class="text-center">Acciones</th>
+                                    </thead>
+                                    </tbody>
+
+                                    {% for a in actividades %}
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                {{ loop.index }}
+                                            </td>
+                                            <td>
+                                                <h6 class="font-weight-bold">
+                                                    {{ a.fecha|date('d/m/Y') }} - <span class="text-secondary">{{ a.tipoActividadCurricular|upper }}</span>
+                                                </h6>
+                                                <div class="small text-muted">
+                                                    {{ a.descripcion }}
+                                                </div>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="#" class="link mr-2 text-decoration-none">Ver</a>
+                                                <a href="#" class="link ml-1 mr-3 text-decoration-none">Editar</a>
+                                                <a href="#" class="link mr-3 text-decoration-none">Duplicar</a>
+                                                <a href="#" class="link text-danger text-decoration-none">Borrar</a>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+
     {% endif %}
 
-    {{ form_end(form) }}  
+
+    {#    {% form_theme form.actividadCurricular 'jquery.collection.html.twig' 'PlanificacionesBundle:7-cronograma:form_theme-cronograma.html.twig' %}
+    
+        {{ form_start(form) }}  
+    
+        {{ form_row(form.actividadCurricular) }}
+    
+        {% if planificacion.puedeEditarse() %}
+            <div class="form-row mt-3">
+                <div class="col-xs-12 col-sm-2">            
+                    <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+                </div>
+            </div>
+        {% endif %}
+    
+        {{ form_end(form) }}#}  
 
 
 {% endblock %} 

@@ -81,8 +81,6 @@ class ActividadesCurricularesController extends Controller {
         // obtener los registros de la base de datos:
         $actCurricularOriginal = $em->getRepository('PlanificacionesBundle:ActividadCurricular')
                 ->findBy(array('planificacion' => $planificacion));
-        //dump($$planificacion);exit;
-
 
         foreach ($actCurricularOriginal as $actCurricular) {
             if (false === $planificacion->getActividadCurricular()->contains($actCurricular)) {
@@ -91,6 +89,35 @@ class ActividadesCurricularesController extends Controller {
                 $em->remove($actCurricular);
             }
         }
+    }
+
+    public function newAction(Planificacion $planificacion, Request $request) {
+
+        $ac = new \PlanificacionesBundle\Entity\ActividadCurricular();
+        $ac->setPlanificacion($planificacion);
+        $form = $this->createForm(\PlanificacionesBundle\Form\ActividadCurricularType::class, $ac, array(
+            'planificacion' => $planificacion
+        ));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ac);
+            $em->flush();
+            $this->addFlash('success', 'Nueva actividad creada correctamente.');
+            
+            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        }
+
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+
+        return $this->render('PlanificacionesBundle:7-cronograma:new.html.twig', array(
+                    'form' => $form->createView(),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'planificacion' => $planificacion
+        ));
     }
 
 }

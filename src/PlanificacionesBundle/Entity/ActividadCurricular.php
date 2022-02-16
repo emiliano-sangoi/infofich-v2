@@ -93,24 +93,28 @@ class ActividadCurricular {
      * @ORM\JoinColumn(name="planif_tipos_actividad_curricular_id", referencedColumnName="id") 
      */
     private $tipoActividadCurricular;
-
+    
     /**
      *
      * @var Temario
      * 
-     * @ORM\ManyToOne(targetEntity="Temario")
+     * @ORM\ManyToOne(targetEntity="Temario", inversedBy="actividades")
      * @ORM\JoinColumn(name="planif_temarios_id", referencedColumnName="id") 
      */
     private $temario;
 
     /**
-     * @ORM\Column(name="posicion", type="integer")
+     * @ORM\Column(name="posicion", type="integer", nullable=true)
      */
     private $posicion;
 
     public function __construct() {
 
         //$this->posicion = 1;
+    }
+    
+    public function __toString() {
+        return $this->descripcion;
     }
 
     /**
