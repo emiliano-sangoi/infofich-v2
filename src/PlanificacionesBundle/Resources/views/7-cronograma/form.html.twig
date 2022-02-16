@@ -44,9 +44,9 @@
                 </div>
             </div> #}
 
-{#            <div class="form-row">
-                
-            </div>#}
+            {#            <div class="form-row">
+                            
+                        </div>#}
             {#
             <div class="form-row mt-4">
                 <div class="form-group col-md-8">
@@ -66,28 +66,8 @@
 
             {{ form_row(form.posicion) }}     
 
-
-            <div class="form-row mt-5">
-                <div class="form-group col-md-10">
-                    {% embed '::botonera.html.twig' %}
-
-                        {% block left %}
-
-                            <button type="submit" role="button" class="btn btn-success">
-                                <i class="fa fa-check"></i>&nbsp;
-                                Crear actividad
-                            </button>  
-                        {% endblock %}
-
-                        {% block right %}
-                            <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
-                                Cancelar
-                            </a>               
-                        {% endblock %}
-
-                    {% endembed %}
-                </div>
-            </div>
+            {% block form_actions %}                
+            {% endblock %}
 
 
         </div>      

@@ -5,3 +5,15 @@ planif_act_curriculares_editar:
 planif_act_curriculares_nueva:
     path:     /{id}/cronograma/nueva
     defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:new }
+    
+planif_act_curriculares_ver:
+    path:     /{id}/cronograma/ver
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:show }
+    
+planif_act_curriculares_borrar:
+    path:     /{id}/cronograma/borrar
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:borrar }
+    
+planif_act_curriculares_editar:
+    path:     /{id}/cronograma/editar
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:editar }

@@ -138,6 +138,22 @@
                     };
 
 
+                    {# Esto se utiliza para reducir texto y agregarle el ver mas/ver menos para achicar o ampliar un bloque de texto. #}
+                    $('.ver-mas').click(function (e) {
+                        e.preventDefault();
+                        var parent = $(this).closest('.texto-container');
+                        parent.find('.txt-full').removeClass('d-none');
+                        parent.find('.txt-breve').addClass('d-none');
+                    });
+
+                    $('.ver-menos').click(function (e) {
+                        e.preventDefault();
+                        var parent = $(this).closest('.texto-container');
+                        parent.find('.txt-breve').removeClass('d-none');
+                        parent.find('.txt-full').addClass('d-none');
+                    });
+
+
                     //Pantalla informacion Basica
                 {#$('#asignatura').on('change', function () {
                     $('#codigo_siu').val('IF005');

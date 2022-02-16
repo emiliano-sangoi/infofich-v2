@@ -34,7 +34,7 @@
                         <div class="card-body border border-light p-0">
                             {% set actividades = t.getActividades() %}
                             {% if actividades[0] is not defined %}
-                                <p class="text-muted mb-0">
+                                <p class="text-muted mb-0 p-3">
                                     No existen actividades definidas en esta unidad.
                                 </p>
                             {% else %}   
@@ -42,11 +42,11 @@
 
 
                                 <table class="table table-condensed table-borderless table-hover mb-0 border-0">
-                                    <thead>
+                             {#       <thead>
                                     <th class="text-center">#</th>
                                     <th>Actividad</th>
                                     <th class="text-center">Acciones</th>
-                                    </thead>
+                                    </thead>#}
                                     </tbody>
 
                                     {% for a in actividades %}
@@ -54,19 +54,26 @@
                                             <td class="text-center align-middle">
                                                 {{ loop.index }}
                                             </td>
-                                            <td>
+                                            <td class="w-50">
                                                 <h6 class="font-weight-bold">
                                                     {{ a.fecha|date('d/m/Y') }} - <span class="text-secondary">{{ a.tipoActividadCurricular|upper }}</span>
                                                 </h6>
-                                                <div class="small text-muted">
-                                                    {{ a.descripcion }}
+                                                <div class="small text-muted texto-container">
+                                                    {% if a.descripcion|length > 100 %}
+                                                        <div class="txt-breve">
+                                                            {{ a.descripcion|slice(0, 100) }}... <a href="#" class="ver-mas">Ver m&aacute;s...</a>                                                        
+                                                        </div>
+                                                        <div class="d-none txt-full">
+                                                            {{ a.descripcion }} <a href="#" class="ver-menos">Ver menos</a>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a href="#" class="link mr-2 text-decoration-none">Ver</a>
-                                                <a href="#" class="link ml-1 mr-3 text-decoration-none">Editar</a>
-                                                <a href="#" class="link mr-3 text-decoration-none">Duplicar</a>
-                                                <a href="#" class="link text-danger text-decoration-none">Borrar</a>
+                                                <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" class="link mr-2 text-decoration-none small">Ver</a>
+                                                <a href="#" class="link ml-1 mr-3 text-decoration-none small">Editar</a>
+                                                <a href="#" class="link mr-3 text-decoration-none small">Duplicar</a>
+                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a>
                                             </td>
                                         </tr>
 
@@ -115,33 +122,33 @@
         <script>
             $(document).ready(function () {
 
-                $('.cronograma-selector').collection({
+            {# $('.cronograma-selector').collection({
 
-                    position_field_selector: '.posicion',
-                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar actividad</a>',
-                    min: 0,
-                    max: 20,
+                 position_field_selector: '.posicion',
+                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar actividad</a>',
+                 min: 0,
+                 max: 20,
 
-                    after_add: function (collection, item) {
-                        item.find('.js-select2').select2({});
+                 after_add: function (collection, item) {
+                     item.find('.js-select2').select2({});
 
-                        item.find('.tempusdominus-datepicker').datetimepicker({
-                            locale: 'es',
-                            format: 'DD/MM/YYYY'
-                        });
+                     item.find('.tempusdominus-datepicker').datetimepicker({
+                         locale: 'es',
+                         format: 'DD/MM/YYYY'
+                     });
 
-                    }
-                });
+                 }
+             });
+#}
+        /*           function actualizarPosicion(){
+         $('.sumar1').each(function (i, obj) {
+         var pos = parseInt( $(obj).text() );
+         $(obj).text(pos + 1)
+         console.log( pos + 1);
+         });
+         }*/
 
-                /*           function actualizarPosicion(){
-                 $('.sumar1').each(function (i, obj) {
-                 var pos = parseInt( $(obj).text() );
-                 $(obj).text(pos + 1)
-                 console.log( pos + 1);
-                 });
-                 }*/
-
-            });
+    });
 
         </script>
     {% endif %}

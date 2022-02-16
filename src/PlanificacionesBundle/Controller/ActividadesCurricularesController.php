@@ -4,7 +4,9 @@ namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Form\ActividadCurricularType;
 use PlanificacionesBundle\Form\ActividadesCurricularesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,9 +95,9 @@ class ActividadesCurricularesController extends Controller {
 
     public function newAction(Planificacion $planificacion, Request $request) {
 
-        $ac = new \PlanificacionesBundle\Entity\ActividadCurricular();
+        $ac = new ActividadCurricular();
         $ac->setPlanificacion($planificacion);
-        $form = $this->createForm(\PlanificacionesBundle\Form\ActividadCurricularType::class, $ac, array(
+        $form = $this->createForm(ActividadCurricularType::class, $ac, array(
             'planificacion' => $planificacion
         ));
         $form->handleRequest($request);
@@ -105,7 +107,7 @@ class ActividadesCurricularesController extends Controller {
             $em->persist($ac);
             $em->flush();
             $this->addFlash('success', 'Nueva actividad creada correctamente.');
-            
+
             return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
         }
 
@@ -115,9 +117,97 @@ class ActividadesCurricularesController extends Controller {
         return $this->render('PlanificacionesBundle:7-cronograma:new.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
-                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
+    }
+
+    public function showAction(ActividadCurricular $actividadCurricular, Request $request) {
+
+        $planificacion = $actividadCurricular->getPlanificacion();
+
+        $form = $this->createForm(ActividadCurricularType::class, $actividadCurricular, array(
+            'planificacion' => $planificacion,
+            'disabled' => true
+        ));
+
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+
+        $deleteForm = $this->crearDeleteForm($actividadCurricular);
+
+        return $this->render('PlanificacionesBundle:7-cronograma:show.html.twig', array(
+                    'form' => $form->createView(),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'planificacion' => $planificacion,
+                    'delete_form' => $deleteForm->createView()
+        ));
+    }
+    
+    public function editarAction(ActividadCurricular $actividadCurricular, Request $request) {
+
+        $planificacion = $actividadCurricular->getPlanificacion();
+
+        $form = $this->createForm(ActividadCurricularType::class, $actividadCurricular, array(
+            'planificacion' => $planificacion
+        ));
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success', 'Actividad modificada correctamente.');
+
+            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        }
+
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+
+        $deleteForm = $this->crearDeleteForm($actividadCurricular);
+
+        return $this->render('PlanificacionesBundle:7-cronograma:edit-act.html.twig', array(
+                    'form' => $form->createView(),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'planificacion' => $planificacion,
+                    'delete_form' => $deleteForm->createView()
+        ));
+    }
+
+    public function borrarAction(Request $request, ActividadCurricular $ac) {
+        $form = $this->crearDeleteForm($ac);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($ac);
+            $em->flush();
+
+            $this->addFlash('success', 'La actividad fue borrada correctamente.');
+        }
+
+        return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $ac->getPlanificacion()->getId()));                
+    }
+
+    /**
+     * Crea un formulario para borrar una actividad curricular.
+     * 
+     * @param ActividadCurricular $actividadCurricular
+     * 
+     * @return Form The form
+     */
+    private function crearDeleteForm(ActividadCurricular $actividadCurricular) {
+        
+        $options = array(
+            'attr' => array(
+                'class' => 'd-inline'
+            ));
+        
+        return $this->createFormBuilder(null, $options)
+                        ->setAction($this->generateUrl('planif_act_curriculares_borrar', array('id' => $actividadCurricular->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm();
     }
 
 }
