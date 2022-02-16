@@ -146,7 +146,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $html .= '<h1>ACTIVIDADES CURRICULARES </h1>'; 
         if($actividades){
             foreach ($actividades as $actividad){
-		$fecha = $actividad->getFecha();
+                $fecha = $actividad->getFecha();
                 $html .= '<p><b>Unidad: </b> '. $actividad->getTemario(). '</p>';
                 $html .= '<p><b>Tipo de Clase: </b> '. $actividad->getTipoActividadCurricular(). '</p>';
                 $html .= '<p><b>Fecha: </b>'. $fecha->format("d/m/Y") . '</p>';
@@ -161,15 +161,15 @@ class PlanificacionesPDF extends ImprimirPDF {
         $html .= '<h1>VIAJES ACADEMICOS </h1>';
         if($viajesAcademicos){
             foreach ($viajesAcademicos as $viaje){
-		$fecha = $viaje->getFechaTentativa();
-		$fechaR = $viaje->getFechaTentativaRegreso();
+                $fecha = $viaje->getFechaTentativa();
+                $fechaR = $viaje->getFechaTentativaRegreso();
                 $html .= '<p><b>Descripcion: </b> '. $viaje->getDescripcion(). '</p>';
                 $html .= '<p><b>Objetivos: </b> '. $viaje->getObjetivos(). '</p>';
                 $html .= '<p><b>Recorrido: </b> '. $viaje->getRecorrido(). '</p>';
                 $html .= '<p><b>Cantidad Estudiantes: </b> '. $viaje->getCantEstudiantes(). '</p>';
                 $html .= '<p><b>Cantidad Docentes: </b> '. $viaje->getCantDocentes(). '</p>';
-		$html .= '<p><b>Fecha Tentativa: </b>' . $fecha->format('d/m/Y') . '</p>';
-		$html .= '<p><b>fecha Tentativa Regreso: </b>'.$fechaR->format('d/m/Y') .'</p>';
+		        $html .= '<p><b>Fecha Tentativa: </b>' . $fecha->format('d/m/Y') . '</p>';
+		        $html .= '<p><b>fecha Tentativa Regreso: </b>'.$fechaR->format('d/m/Y') .'</p>';
              
             }
         }
