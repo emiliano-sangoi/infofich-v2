@@ -62,7 +62,7 @@ class Temario {
      * @ORM\Column(name="posicion", type="integer")
      */
     private $posicion;
-    
+
     /**
      * Un temario tiene muchas actividades.
      * 
@@ -175,7 +175,6 @@ class Temario {
         return $this->planificacion;
     }
 
-
     /**
      * Set posicion
      *
@@ -183,8 +182,7 @@ class Temario {
      *
      * @return Temario
      */
-    public function setPosicion($posicion)
-    {
+    public function setPosicion($posicion) {
         $this->posicion = $posicion;
 
         return $this;
@@ -195,8 +193,7 @@ class Temario {
      *
      * @return integer
      */
-    public function getPosicion()
-    {
+    public function getPosicion() {
         return $this->posicion;
     }
 
@@ -207,8 +204,7 @@ class Temario {
      *
      * @return Temario
      */
-    public function addActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
-    {
+    public function addActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade) {
         $this->actividades[] = $actividade;
 
         return $this;
@@ -219,8 +215,7 @@ class Temario {
      *
      * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
      */
-    public function removeActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
-    {
+    public function removeActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade) {
         $this->actividades->removeElement($actividade);
     }
 
@@ -229,8 +224,18 @@ class Temario {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getActividades()
-    {
+    public function getActividades() {
         return $this->actividades;
     }
+
+    public function getActividadesOrdPorFecha() {
+
+        $actividades = $this->actividades->toArray();
+        usort($actividades, function ($a1, $a2) {
+            return $a1->getFecha()->getTimestamp() > $a2->getFecha()->getTimestamp();
+        });
+
+        return $actividades;
+    }
+
 }

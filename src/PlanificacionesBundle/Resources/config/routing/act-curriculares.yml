@@ -7,13 +7,17 @@ planif_act_curriculares_nueva:
     defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:new }
     
 planif_act_curriculares_ver:
-    path:     /{id}/cronograma/ver
+    path:     /cronograma/actividades/{id}/ver
     defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:show }
     
 planif_act_curriculares_borrar:
-    path:     /{id}/cronograma/borrar
+    path:     /cronograma/actividades/{id}/borrar
     defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:borrar }
     
-planif_act_curriculares_editar:
-    path:     /{id}/cronograma/editar
-    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:editar }
+planif_act_curriculares_editar_act:
+    path:     /cronograma/actividades/{id}/editar
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:editActividad }
+    
+planif_act_curriculares_duplicar_act:
+    path:     /cronograma/actividades/{id}/duplicar
+    defaults: { _controller: PlanificacionesBundle:ActividadesCurriculares:duplicar }

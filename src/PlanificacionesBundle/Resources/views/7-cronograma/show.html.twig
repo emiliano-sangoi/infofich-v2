@@ -11,11 +11,11 @@
                     {% embed '::botonera.html.twig' %}
 
                         {% block left %}
-                            <a href="#" class="btn btn-primary">
+                            <a href="{{ path('planif_act_curriculares_editar_act', { id : actividad.id }) }}" class="btn btn-primary">
                                 <i class="fa fa-edit"></i>&nbsp;
                                 Editar
                             </a>
-                            <a href="#" class="btn btn-outline-primary">
+                            <a href="{{ path('planif_act_curriculares_duplicar_act', { id : actividad.id }) }}" class="btn btn-outline-primary">
                                 <i class="fa fa-copy"></i>&nbsp;
                                 Duplicar
                             </a>

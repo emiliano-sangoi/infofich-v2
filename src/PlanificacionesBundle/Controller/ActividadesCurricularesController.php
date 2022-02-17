@@ -139,18 +139,19 @@ class ActividadesCurricularesController extends Controller {
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
+                    'actividad' => $actividadCurricular,
                     'delete_form' => $deleteForm->createView()
         ));
     }
-    
-    public function editarAction(ActividadCurricular $actividadCurricular, Request $request) {
+
+    public function editActividadAction(ActividadCurricular $actividadCurricular, Request $request) {
 
         $planificacion = $actividadCurricular->getPlanificacion();
 
         $form = $this->createForm(ActividadCurricularType::class, $actividadCurricular, array(
             'planificacion' => $planificacion
         ));
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -158,7 +159,7 @@ class ActividadesCurricularesController extends Controller {
             $em->flush();
             $this->addFlash('success', 'Actividad modificada correctamente.');
 
-            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $actividadCurricular->getId()));
         }
 
         // Breadcrumbs
@@ -170,8 +171,21 @@ class ActividadesCurricularesController extends Controller {
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
+                    'actividad' => $actividadCurricular,
                     'delete_form' => $deleteForm->createView()
         ));
+    }
+
+    public function duplicarAction(ActividadCurricular $actividadCurricular, Request $request) {
+
+        $copia = clone $actividadCurricular;
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($copia);
+        $em->flush();
+        $this->addFlash('success', 'Copia creada correctamente. A continuación se muestran las copia realizada para modificar los campos que desee.');
+
+        return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $copia->getId()));
     }
 
     public function borrarAction(Request $request, ActividadCurricular $ac) {
@@ -187,7 +201,7 @@ class ActividadesCurricularesController extends Controller {
             $this->addFlash('success', 'La actividad fue borrada correctamente.');
         }
 
-        return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $ac->getPlanificacion()->getId()));                
+        return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $ac->getPlanificacion()->getId()));
     }
 
     /**
@@ -198,12 +212,12 @@ class ActividadesCurricularesController extends Controller {
      * @return Form The form
      */
     private function crearDeleteForm(ActividadCurricular $actividadCurricular) {
-        
+
         $options = array(
             'attr' => array(
                 'class' => 'd-inline'
-            ));
-        
+        ));
+
         return $this->createFormBuilder(null, $options)
                         ->setAction($this->generateUrl('planif_act_curriculares_borrar', array('id' => $actividadCurricular->getId())))
                         ->setMethod('DELETE')

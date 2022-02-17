@@ -1,0 +1,53 @@
+{% set page_id = 7 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+
+    {% include 'PlanificacionesBundle:7-cronograma:form.html.twig' %}
+
+    <div class="form-row mt-5">
+        <div class="form-group col-md-10">
+            {% embed '::botonera-2col.html.twig' %}
+
+                {% block left %}
+                    <button id="btnGuardarCambios" type="submit" role="button" class="btn btn-primary d-inline">
+                        <i class="fa fa-check"></i>&nbsp;
+                        Guardar cambios
+                    </button>        
+                    <a href="{{ path('planif_act_curriculares_duplicar_act', { id : actividad.id }) }}" class="btn btn-outline-primary">
+                        <i class="fa fa-copy"></i>&nbsp;
+                        Duplicar
+                    </a>
+                {% endblock %}
+
+                {% block right %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" form="form" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta actividad?'>
+                    {{ form_end(delete_form) }}
+
+                    <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
+                        Ir a actividades
+                    </a>               
+                {% endblock %}
+
+            {% endembed %}
+        </div>
+    </div>
+
+{% endblock %} 
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('#btnGuardarCambios').click(function (e) {
+                e.preventDefault();
+                $("form[name='planificacionesbundle_actividadcurricular']").submit();
+            });
+        });
+
+    </script>
+
+{% endblock %} 

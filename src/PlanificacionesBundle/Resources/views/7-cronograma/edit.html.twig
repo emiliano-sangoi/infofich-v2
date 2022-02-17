@@ -32,7 +32,7 @@
                     </div>
                     <div id="collapse{{ loop.index }}" class="collapse" data-parent="#accordion">
                         <div class="card-body border border-light p-0">
-                            {% set actividades = t.getActividades() %}
+                            {% set actividades = t.getActividadesOrdPorFecha() %}
                             {% if actividades[0] is not defined %}
                                 <p class="text-muted mb-0 p-3">
                                     No existen actividades definidas en esta unidad.
@@ -54,26 +54,30 @@
                                             <td class="text-center align-middle">
                                                 {{ loop.index }}
                                             </td>
-                                            <td class="w-50">
-                                                <h6 class="font-weight-bold">
+                                            <td class="w-50 align-middle">                                                
+                                                <h6 class="font-weight-bold mb-0">
                                                     {{ a.fecha|date('d/m/Y') }} - <span class="text-secondary">{{ a.tipoActividadCurricular|upper }}</span>
                                                 </h6>
                                                 <div class="small text-muted texto-container">
                                                     {% if a.descripcion|length > 100 %}
-                                                        <div class="txt-breve">
+                                                        <div class="txt-breve mt-1">
                                                             {{ a.descripcion|slice(0, 100) }}... <a href="#" class="ver-mas">Ver m&aacute;s...</a>                                                        
                                                         </div>
-                                                        <div class="d-none txt-full">
+                                                        <div class="d-none txt-full mt-1">
                                                             {{ a.descripcion }} <a href="#" class="ver-menos">Ver menos</a>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="mt-1">
+                                                        {{ a.descripcion }}
                                                         </div>
                                                     {% endif %}
                                                 </div>
                                             </td>
                                             <td class="text-center align-middle">
                                                 <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" class="link mr-2 text-decoration-none small">Ver</a>
-                                                <a href="#" class="link ml-1 mr-3 text-decoration-none small">Editar</a>
-                                                <a href="#" class="link mr-3 text-decoration-none small">Duplicar</a>
-                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a>
+                                                <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}" class="link ml-1 mr-3 text-decoration-none small">Editar</a>
+                                                <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}" class="link mr-3 text-decoration-none small">Duplicar</a>
+{#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a>#}
                                             </td>
                                         </tr>
 
