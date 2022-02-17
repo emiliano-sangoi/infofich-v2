@@ -138,7 +138,7 @@ class RequisitosAprobacion {
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
      *     "this.getFechaRecupSegundoParcial() >= this.getFechaRecupPrimerParcial()",
-     *     message="Este campo debe ser mayor a la fecha del recuperatorio del primer parcial."
+     *     message="Este campo debe ser igual o mayor a la fecha del recuperatorio del primer parcial."
      * )
      */
     private $fechaRecupSegundoParcial;
