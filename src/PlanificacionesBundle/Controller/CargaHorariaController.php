@@ -30,7 +30,7 @@ class CargaHorariaController extends Controller {
             $cargaHoraria = new CargaHoraria();
         }
 
-        $form = $this->createForm("PlanificacionesBundle\Form\CargaHorariaType", $cargaHoraria, array(
+        $form = $this->createForm(\PlanificacionesBundle\Form\CargaHorariaType::class, $cargaHoraria, array(
             'planificacion' => $planificacion,
             'disabled' => $planificacion->isPublicada()
         ));
@@ -60,6 +60,7 @@ class CargaHorariaController extends Controller {
         return $this->render('PlanificacionesBundle:8-dist-carga-horaria:edit.html.twig', array(
                     'form' => $form->createView(),
                     'planificacion' => $planificacion,
+                    'cargaHoraria' => $cargaHoraria,
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Distribución de carga horaria',
         ));

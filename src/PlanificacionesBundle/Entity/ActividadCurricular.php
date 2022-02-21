@@ -66,7 +66,6 @@ class ActividadCurricular {
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
-     * @Assert\GreaterThan(value="0" , message="Este campo debe ser mayor a 0.")
      */
     private $cargaHorariaAutonomo;
 

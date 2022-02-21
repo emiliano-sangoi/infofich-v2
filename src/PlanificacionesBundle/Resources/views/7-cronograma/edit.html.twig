@@ -12,11 +12,20 @@
         {{ notificacion('Mensaje', msg, 'info', '' ) }}
     {% else %}
 
-        <div>
-            <a href="{{ path('planif_act_curriculares_nueva', { id: planificacion.id }) }}" class="btn btn-success mb-4">
-                Nueva actividad
-            </a>
+        <div class=" mb-4">
+            {% embed "::botonera-2col.html.twig" %}
+                {% block left %}
+                    <a href="{{ path('planif_act_curriculares_nueva', { id: planificacion.id }) }}" class="btn btn-success">
+                        Nueva actividad
+                    </a>
+                {% endblock %}
 
+                {% block right %}
+                    <button role="button" class="btn btn-outline-primary" id="btnDistHorariaModal">
+                        <i class="fa fa-list"></i> Distribución horaria
+                    </button>
+                {% endblock %}
+            {% endembed %}
         </div>
 
         <div id="accordion" class="acordion-cronograma-actividades shadow">
@@ -42,11 +51,11 @@
 
 
                                 <table class="table table-condensed table-borderless table-hover mb-0 border-0">
-                             {#       <thead>
-                                    <th class="text-center">#</th>
-                                    <th>Actividad</th>
-                                    <th class="text-center">Acciones</th>
-                                    </thead>#}
+                                    {#       <thead>
+                                           <th class="text-center">#</th>
+                                           <th>Actividad</th>
+                                           <th class="text-center">Acciones</th>
+                                           </thead>#}
                                     </tbody>
 
                                     {% for a in actividades %}
@@ -68,7 +77,7 @@
                                                         </div>
                                                     {% else %}
                                                         <div class="mt-1">
-                                                        {{ a.descripcion }}
+                                                            {{ a.descripcion }}
                                                         </div>
                                                     {% endif %}
                                                 </div>
@@ -77,7 +86,7 @@
                                                 <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" class="link mr-2 text-decoration-none small">Ver</a>
                                                 <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}" class="link ml-1 mr-3 text-decoration-none small">Editar</a>
                                                 <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}" class="link mr-3 text-decoration-none small">Duplicar</a>
-{#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a>#}
+                                                {#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a>#}
                                             </td>
                                         </tr>
 
@@ -93,7 +102,9 @@
 
         </div>
 
-
+        <div class="d-none" id="distrubucion-horaria">
+            {% include 'PlanificacionesBundle:7-cronograma:distribucion-carga-horaria.html.twig' %}
+        </div>
 
 
     {% endif %}
@@ -125,6 +136,23 @@
     {% if planificacion.puedeEditarse() %}
         <script>
             $(document).ready(function () {
+
+                $('#btnDistHorariaModal').click(function (e) {
+                    e.preventDefault();
+
+                    var html = $('#distrubucion-horaria').clone();
+                    html.removeClass('d-none');
+
+                    var modal = bootbox.alert({
+                        title: '<b>Distribución de carga horaria</b>',
+                        message: html,
+                        size: 'large',
+                        backdrop: true
+                    });
+
+                    modal.find('.modal-body').addClass('p-0');
+
+                });
 
             {# $('.cronograma-selector').collection({
 
