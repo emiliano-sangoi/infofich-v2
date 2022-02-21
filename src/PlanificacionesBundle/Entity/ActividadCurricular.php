@@ -55,6 +55,7 @@ class ActividadCurricular {
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
+     * @Assert\GreaterThan(value="0" , message="Este campo debe ser mayor a 0.")
      */
     private $cargaHorariaAula;
 
@@ -65,6 +66,7 @@ class ActividadCurricular {
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
+     * @Assert\GreaterThan(value="0" , message="Este campo debe ser mayor a 0.")
      */
     private $cargaHorariaAutonomo;
 
@@ -115,7 +117,7 @@ class ActividadCurricular {
     
     public function __toString() {
         return $this->descripcion;
-    }
+    }   
 
     /**
      * Devuelve true si la actividad es considerada como practica

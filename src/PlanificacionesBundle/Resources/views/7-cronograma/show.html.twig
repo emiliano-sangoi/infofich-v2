@@ -5,34 +5,34 @@
 {% block tab_content %}
 
     {% include 'PlanificacionesBundle:7-cronograma:form.html.twig' %}
-    
-     <div class="form-row mt-5">
-                <div class="form-group col-md-10">
-                    {% embed '::botonera.html.twig' %}
 
-                        {% block left %}
-                            <a href="{{ path('planif_act_curriculares_editar_act', { id : actividad.id }) }}" class="btn btn-primary">
-                                <i class="fa fa-edit"></i>&nbsp;
-                                Editar
-                            </a>
-                            <a href="{{ path('planif_act_curriculares_duplicar_act', { id : actividad.id }) }}" class="btn btn-outline-primary">
-                                <i class="fa fa-copy"></i>&nbsp;
-                                Duplicar
-                            </a>
-                        {% endblock %}
+    <div class="form-row mt-5">
+        <div class="form-group col-md-10">
+            {% embed '::botonera.html.twig' %}
 
-                        {% block right %}
-                            {{ form_start(delete_form) }}
-                                <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta actividad?'>
-                            {{ form_end(delete_form) }}
+                {% block left %}
+                    <a href="{{ path('planif_act_curriculares_editar_act', { id : actividad.id }) }}" class="btn btn-primary">
+                        <i class="fa fa-edit"></i>&nbsp;
+                        Editar
+                    </a>
+                    <a href="{{ path('planif_act_curriculares_duplicar_act', { id : actividad.id }) }}" class="btn btn-outline-primary">
+                        <i class="fa fa-copy"></i>&nbsp;
+                        Duplicar
+                    </a>
+                {% endblock %}
 
-                            <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
-                                Cancelar
-                            </a>               
-                        {% endblock %}
+                {% block right %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta actividad?'>
+                    {{ form_end(delete_form) }}
 
-                    {% endembed %}
-                </div>
-            </div>
+                    <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
+                        Ir a actividades
+                    </a>             
+                {% endblock %}
+
+            {% endembed %}
+        </div>
+    </div>
 
 {% endblock %} 

@@ -178,14 +178,36 @@ class ActividadesCurricularesController extends Controller {
 
     public function duplicarAction(ActividadCurricular $actividadCurricular, Request $request) {
 
+        $planificacion = $actividadCurricular->getPlanificacion();
         $copia = clone $actividadCurricular;
+        
+        $form = $this->createForm(ActividadCurricularType::class, $copia, array(
+            'planificacion' => $planificacion
+        ));
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($copia);
-        $em->flush();
-        $this->addFlash('success', 'Copia creada correctamente. A continuación se muestran las copia realizada para modificar los campos que desee.');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $copia->getId()));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($copia);
+            $em->flush();
+            $this->addFlash('success', 'Copia creada correctamente.');
+
+            return $this->redirectToRoute('planif_act_curriculares_ver', array('id' => $actividadCurricular->getId()));
+        }        
+
+       // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+
+        return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
+                    'form' => $form->createView(),
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'planificacion' => $planificacion,
+                    'actividad' => $copia,                    
+                    'actividadOriginal' => $actividadCurricular,                    
+        ));
+        
+        
     }
 
     public function borrarAction(Request $request, ActividadCurricular $ac) {
