@@ -248,9 +248,12 @@ class PlanificacionController extends Controller {
 
     //Aprobacion de la asignatura
     $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
-    $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
-    $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
-    
+    $porcentajeAsistencia = '';
+    $modalidadCfi = '';
+    if($aprobacionAsignatura){
+        $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
+        $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
+    }
     //Objetivos de la asignatura
     $objetivosEspe = $planificacion->getObjetivosEspecificos();
     $objetivosGral = $planificacion->getObjetivosGral();
@@ -262,8 +265,10 @@ class PlanificacionController extends Controller {
     $temario = $planificacion->getTemario();
     
     //Bibliografia
-    $bibliografiaPlanificacion = $planificacion->getBibliografiasPlanificacion();
-    //$bibliografia = $bibliografiaPlanificacion->getBibliografia();
+    //$bibliografia = null;
+    $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
+ 
+    //$bibliografia = $bibliografiaP->getBibliografia();
 
 
     //Actividades
@@ -295,8 +300,8 @@ class PlanificacionController extends Controller {
         $tabla_det = $detalleItems;
 
         $parametros = array(
-            'titulo' =>  'Planificaciones 2021',
-            'anio' => '2021',
+            'titulo' =>  'Planificaciones 2022',
+            'anio' => '2022',
             'id' => 1,// $persona->getId(),
             'nombreAsignatura' => $nombreAsignatura, //$persona->getApeNom(),
             'nombreCarrera' => $nombreCarrera,
@@ -315,7 +320,7 @@ class PlanificacionController extends Controller {
             'objetivosGral' => $objetivosGral,
             'resultados' => $resultados,
             'temario'=> $temario,
-            //'bibliografia' => $bibliografia,
+            'bibliografia' => $bibliografia,
             'actividades' => $actividades,
             'viajesAcademicos' => $viajesAcademicos
             /*'nombre' => 'romina', // $persona->getNombres(),
