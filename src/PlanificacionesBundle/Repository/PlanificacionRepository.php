@@ -43,7 +43,7 @@ class PlanificacionRepository extends EntityRepository {
         
         if ($anioAcad) {
             $qb->andWhere($qb->expr()->eq('p.anioAcad', ':anioAcad'));
-            $qb->setParameter(':anioAcad', $anioAcad);
+            $qb->setParameter(':anioAcad', $anioAcad);            
         }
 
         if ($carrera) {
@@ -55,6 +55,9 @@ class PlanificacionRepository extends EntityRepository {
             $qb->andWhere($qb->expr()->eq('p.codigoAsignatura', ':codigoAsignatura'));
             $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
         }
+        
+        $qb->orderBy('p.fechaCreacion', 'DESC');
+        $qb->orderBy('p.ultimaModif', 'DESC');
         
         if (!$usuario->tieneRol(Rol::ROLE_ADMIN) && !$usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)) {
             $result = array();

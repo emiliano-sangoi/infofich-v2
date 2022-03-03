@@ -15,7 +15,7 @@ class InfoBasicaController extends Controller {
     use PlanificacionTrait;
 
     public function editAction(Request $request, Planificacion $planificacion) {
-
+        //dump($planificacion->getEstadoActual());exit;
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->crearForm($planificacion, $planificacion->isPublicada());

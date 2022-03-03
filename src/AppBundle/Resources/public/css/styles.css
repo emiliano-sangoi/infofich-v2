@@ -193,7 +193,9 @@ a {
     /*bottom: 35%;*/ }
 .acordion .card .card-header .btn {
   color: white; }
-.acordion .badge {
+.acordion .badge-carrera {
+  width: 3rem; }
+.acordion .badge-estado {
   width: 8rem; }
 
 .btn-link:focus, .btn-link:hover {

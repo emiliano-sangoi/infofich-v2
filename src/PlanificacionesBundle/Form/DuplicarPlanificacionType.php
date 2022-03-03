@@ -29,6 +29,12 @@ class DuplicarPlanificacionType extends AbstractType {
      */
     private $options;
     
+    /**
+     * 
+     * @var Planificacion
+     */
+    private $planificacion;
+    
     public function __construct(APIInfofichService $apiInfofichService) {
 
         $this->apiInfofichService = $apiInfofichService;
@@ -40,6 +46,7 @@ class DuplicarPlanificacionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
         $this->options = $options;
+        $this->planificacion = $options['planificacion_original'];
 
         $this->addCarrera($builder);
         $this->addAsignaturas($builder);
@@ -58,6 +65,7 @@ class DuplicarPlanificacionType extends AbstractType {
         $config = array(
             'label' => 'Carrera',
             'choices' => $this->getCarreras(),
+            'data' => $this->planificacion->getCarrera(),
             'required' => true,
             'attr' => array('class' => 'form-control select-carrera'),
             'label_attr' => array('class' => 'font-weight-bold')
@@ -103,11 +111,11 @@ class DuplicarPlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control js-select2'),
         );
 
-        if ($builder->getData() && $builder->getData()->getId() == null) {
+        if ($this->planificacion && $this->planificacion->getId() == null) {
             //En modo edicion solo puede elegir entre el año actual y el siguiente
             $y = date('Y');
         } else {
-            $y = $builder->getData()->getAnioAcad();
+            $y = $this->planificacion->getAnioAcad();
         }
 
         $choices = array(
@@ -176,7 +184,8 @@ class DuplicarPlanificacionType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => Planificacion::class,
+            'data_class' => null,
+            'planificacion_original' => null,
             'carrera_default' => null,
             'attr' => array('class' => '')
         ));

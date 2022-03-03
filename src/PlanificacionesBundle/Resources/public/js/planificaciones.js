@@ -86,6 +86,7 @@ function actualizarAsignaturas(event) {
 
 
     var cargarAsignaturas = function (response) {
+        
         if (response.length > 0) {
 
             select_asignatura.html('');

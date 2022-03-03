@@ -89,6 +89,8 @@ class HistoricoEstadosRepository extends EntityRepository {
             $hn->setUsuario($usuario);
             $hn->setComentario($comentario);
             
+            //modificar fecha de actualizacion:
+            $planificacion->setUltimaModif(new \DateTime());
 
             //guardar nuevo registro
             $em->persist($hn);

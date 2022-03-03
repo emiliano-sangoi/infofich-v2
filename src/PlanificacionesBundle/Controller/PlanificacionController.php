@@ -16,6 +16,7 @@ use PlanificacionesBundle\PDF\PlanificacionesPDF;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,6 @@ class PlanificacionController extends Controller {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("PLANIFICACIONES");
-
 
         return $this->render('PlanificacionesBundle:planificacion:inicio.html.twig', array(
                     'page_title' => 'Planificaciones de grado',
@@ -88,7 +88,6 @@ class PlanificacionController extends Controller {
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($planificacion);
             $em->flush();
@@ -114,7 +113,6 @@ class PlanificacionController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem("NUEVA");
-
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(
                     'form' => $form->createView(),
@@ -181,7 +179,6 @@ class PlanificacionController extends Controller {
         ));
     }
 
-
     /**
      * Crea una copia de una planificacion
      *
@@ -193,22 +190,65 @@ class PlanificacionController extends Controller {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_DUPLICAR, array('data' => $planificacion));
 
         //dump($planificacion);exit;
-        $form = $this->createForm(DuplicarPlanificacionType::class, $planificacion);
+        $form = $this->createForm(DuplicarPlanificacionType::class, null, array(
+            'planificacion_original' => $planificacion
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($planificacion);
-            exit;
+            $data = $form->getData();
+
+            /* @var $planificacionCopia Planificacion */
+            $planificacionCopia = clone $planificacion;
+            
+            $planificacionCopia->setCarrera($data['carrera']);
+            $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
+            $planificacionCopia->setAnioAcad($data['anioAcad']);
+            $planificacionCopia->setHistoricosEstado(new \Doctrine\Common\Collections\ArrayCollection());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $repoPlanif = $em->getRepository(Planificacion::class);
+            $result = $repoPlanif->findOneBy(array(
+                'carrera' => $data['carrera'],
+                'codigoAsignatura' => $data['codigoAsignatura'],
+                'anioAcad' => $data['anioAcad'],
+            ));
+
+            if (!$result) {
+                
+                $planificacionCopia->setFechaCreacion(new \DateTime);
+                
+                //Crear la copia:
+                $em->persist($planificacionCopia);
+                $em->flush();
+
+                //Crear el historico:
+                //---------------------------------------------------------------------------
+                /* @var $repoHistorico HistoricoEstadosRepository */
+                $repoHistorico = $em->getRepository(HistoricoEstados::class);
+
+                $usuario = $this->getUser();
+                $repoHistorico->setEstadoCreada($planificacion, $usuario);
+                $repoHistorico->asignarEstado($planificacionCopia, Estado::PREPARACION, $usuario, 'Creada por copia por el usuario ' . $usuario->getUsername());
+                //---------------------------------------------------------------------------                
+                
+                $this->addFlash('success', 'Copia creada correctamente.');
+
+                return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
+            }
+
+
+            $msg = 'Ya existe una planificación creada para la carrera, asignatura y año académico elegido.';
+            $form->addError(new FormError($msg));
         }
 //dump($form);exit;
-
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem($planificacion);
         $breadcrumbs->addItem("DUPLICAR");
-
 
         return $this->render('PlanificacionesBundle:planificacion:duplicar.html.twig', array(
                     'page_title' => 'Duplicar planificación',
@@ -226,83 +266,80 @@ class PlanificacionController extends Controller {
      * @param Planificacion $planificacion
      */
     public function imprimirAction(Request $request, Planificacion $planificacion) {
-        
-    //Datos que precisa 
-    $detalleItems = array();
 
-    //nombre de la asignatura:      
-    $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-    $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
-    $periodoLectivo = $asignatura->getPeriodoCursada();
-    $anioCursada = $asignatura->getAnioCursada();
-    $caracter  = $asignatura->getTipoCursada();
-    $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
-    $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
-    $planEstudio =  TexTo::ucWordsCustom($carrera->getPlanCarrera());
-    $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
+        //Datos que precisa 
+        $detalleItems = array();
 
-    //Equipo Docente
-    $docenteResponsable = $planificacion->getDocenteResponsable();
-    $docentesColaboradores = $planificacion->getDocentesColaboradores();
-    $docentesAdscriptos = $planificacion->getDocentesAdscriptos();
+        //nombre de la asignatura:      
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        $periodoLectivo = $asignatura->getPeriodoCursada();
+        $anioCursada = $asignatura->getAnioCursada();
+        $caracter = $asignatura->getTipoCursada();
+        $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
+        $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
+        $planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
+        $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
 
-    //Aprobacion de la asignatura
-    $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
-    $porcentajeAsistencia = '';
-    $modalidadCfi = '';
-    if($aprobacionAsignatura){
-        $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
-        $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
-    }
-    //Objetivos de la asignatura
-    $objetivosEspe = $planificacion->getObjetivosEspecificos();
-    $objetivosGral = $planificacion->getObjetivosGral();
+        //Equipo Docente
+        $docenteResponsable = $planificacion->getDocenteResponsable();
+        $docentesColaboradores = $planificacion->getDocentesColaboradores();
+        $docentesAdscriptos = $planificacion->getDocentesAdscriptos();
 
-    //Resultados
-    $resultados = $planificacion->getResultados();
-    
-    //Temario
-    $temario = $planificacion->getTemario();
-    
-    //Bibliografia
-    //$bibliografia = null;
-    $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
- 
-    //$bibliografia = $bibliografiaP->getBibliografia();
+        //Aprobacion de la asignatura
+        $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
+        $porcentajeAsistencia = '';
+        $modalidadCfi = '';
+        if ($aprobacionAsignatura) {
+            $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
+            $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
+        }
+        //Objetivos de la asignatura
+        $objetivosEspe = $planificacion->getObjetivosEspecificos();
+        $objetivosGral = $planificacion->getObjetivosGral();
 
+        //Resultados
+        $resultados = $planificacion->getResultados();
 
-    //Actividades
-    $actividades = $planificacion->getActividadCurricular(); 
+        //Temario
+        $temario = $planificacion->getTemario();
 
+        //Bibliografia
+        //$bibliografia = null;
+        $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
 
-    //Viajes Academicos
-    $viajesAcademicos = $planificacion->getViajesAcademicos(); 
+        //$bibliografia = $bibliografiaP->getBibliografia();
+        //Actividades
+        $actividades = $planificacion->getActividadCurricular();
+
+        //Viajes Academicos
+        $viajesAcademicos = $planificacion->getViajesAcademicos();
 
         // buscamos la historia laboral detallada
-      //  $filtros = array();
-        
-       /* foreach ($resultado as $item) {
-            $arrayItem = array();
-            array_push($arrayItem, $item['codigo']);
-            array_push($arrayItem, $item['mes'] . '/' . $item['anio']);
-            array_push($arrayItem, $item['tipoLiquidacion']);
-            array_push($arrayItem, (strlen($item['nombre']) > 25) ? substr($item['nombre'], 0, 25) . '...' : $item['nombre']);
-            array_push($arrayItem, (strlen($item['revista']) > 12) ? substr($item['revista'], 0, 12) . '.' : $item['revista']);
-            array_push($arrayItem, number_format($item['remunerativo'], 2, ',', '.'));
-            array_push($arrayItem, number_format($item['aportePersonal'], 2, ',', '.'));
-            array_push($arrayItem, number_format($item['contribucionPatronal'], 2, ',', '.'));
-            array_push($arrayItem, number_format($item['otrosConceptos'], 2, ',', '.'));
+        //  $filtros = array();
 
-            array_push($detalleItems, $arrayItem);
-        }*/
+        /* foreach ($resultado as $item) {
+          $arrayItem = array();
+          array_push($arrayItem, $item['codigo']);
+          array_push($arrayItem, $item['mes'] . '/' . $item['anio']);
+          array_push($arrayItem, $item['tipoLiquidacion']);
+          array_push($arrayItem, (strlen($item['nombre']) > 25) ? substr($item['nombre'], 0, 25) . '...' : $item['nombre']);
+          array_push($arrayItem, (strlen($item['revista']) > 12) ? substr($item['revista'], 0, 12) . '.' : $item['revista']);
+          array_push($arrayItem, number_format($item['remunerativo'], 2, ',', '.'));
+          array_push($arrayItem, number_format($item['aportePersonal'], 2, ',', '.'));
+          array_push($arrayItem, number_format($item['contribucionPatronal'], 2, ',', '.'));
+          array_push($arrayItem, number_format($item['otrosConceptos'], 2, ',', '.'));
+
+          array_push($detalleItems, $arrayItem);
+          } */
 
         $tabla_cab = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');
         $tabla_det = $detalleItems;
 
         $parametros = array(
-            'titulo' =>  'Planificaciones 2022',
+            'titulo' => 'Planificaciones 2022',
             'anio' => '2022',
-            'id' => 1,// $persona->getId(),
+            'id' => 1, // $persona->getId(),
             'nombreAsignatura' => $nombreAsignatura, //$persona->getApeNom(),
             'nombreCarrera' => $nombreCarrera,
             'departamento' => $planificacion->getDepartamento(),
@@ -319,30 +356,28 @@ class PlanificacionController extends Controller {
             'objetivosEspe' => $objetivosEspe,
             'objetivosGral' => $objetivosGral,
             'resultados' => $resultados,
-            'temario'=> $temario,
+            'temario' => $temario,
             'bibliografia' => $bibliografia,
             'actividades' => $actividades,
             'viajesAcademicos' => $viajesAcademicos
-            /*'nombre' => 'romina', // $persona->getNombres(),
-            'cuil' => 4444,
-            'tipoDocumento' => 'romina', 
-            'nroDocumento' => 'romina',
-            //'tabla_cab' => $tabla_cab,*/
-            //'tabla_det' => $tabla_det
+                /* 'nombre' => 'romina', // $persona->getNombres(),
+                  'cuil' => 4444,
+                  'tipoDocumento' => 'romina',
+                  'nroDocumento' => 'romina',
+                  //'tabla_cab' => $tabla_cab, */
+                //'tabla_det' => $tabla_det
         );
 
         $em = $this->getDoctrine()->getManager();
 
-        
-        $parametros['usuario'] = 'FICH';//$this->getUser()->getUsername();
+        $parametros['usuario'] = 'FICH'; //$this->getUser()->getUsername();
         $pdf = new PlanificacionesPDF($parametros);
         $pdf->render();
 //ver que sale mal el nombre cuando tiene acentos
-        $nombreArch = 'PLANIFICACION_'.utf8_encode($parametros['nombreAsignatura']).'.pdf';
+        $nombreArch = 'PLANIFICACION_' . utf8_encode($parametros['nombreAsignatura']) . '.pdf';
 
         $pdf->Output($nombreArch, 'I');
     }
-
 
     public function getAsJsonAction(Planificacion $planificacion) {
 
@@ -352,7 +387,7 @@ class PlanificacionController extends Controller {
     }
 
     public function enviarACorreccionAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_ENVIAR_CORRECCION, array('data' => $planificacion));
 
         if (!$planificacion->enRevision()) {
@@ -369,7 +404,7 @@ class PlanificacionController extends Controller {
 
             /* @var $repoHistorico HistoricoEstadosRepository */
             $repoHistorico = $em->getRepository(HistoricoEstados::class);
-            
+
             $histEstadoActual = $planificacion->getHistoricoEstadoActual();
             $comentario = $histEstadoActual->getComentario();
 
@@ -383,6 +418,6 @@ class PlanificacionController extends Controller {
 
         $this->addFlash('danger', 'Ocurrieron errores al enviar la planificación a corrección.');
         return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
-    }    
+    }
 
 }

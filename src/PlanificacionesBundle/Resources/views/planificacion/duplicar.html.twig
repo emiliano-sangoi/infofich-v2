@@ -107,30 +107,26 @@
 
             $(document).ready(function () {
 
-        {#   select_carreras = $('#planificacionesbundle_planificacion_carrera');
-           select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
+           select_carreras = $('#duplicar_planificacion_carrera');
+           select_asignatura = $('#duplicar_planificacion_codigoAsignatura');
            ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
 
-           resetInfoAsignatura();
+           //resetInfoAsignatura();
 
            // combo de carreras:           
            select_carreras.change(actualizarAsignaturas);
 
-           //combo de asignaturas:
+{#           //combo de asignaturas:
            select_asignatura.change(function (e) {
                var option = $(this).children("option:selected");
                var asignatura = JSON.parse(option.attr('data-json'));
 
                cargarInfoAsignatura(asignatura);
-           });
+           });#}
 
            //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
            select_carreras.trigger('change');
 
-           $('#planificacionesbundle_planificacion_departamento').select2({
-               placeholder: "Este campo será completado por Secretaría Académica.",
-               allowClear: true
-           });#}
 
                    });
 

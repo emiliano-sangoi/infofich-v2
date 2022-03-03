@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \FICH\APIRectorado\Config\WSHelper;
 
 /**
  * Planificacion
@@ -619,6 +620,18 @@ class Planificacion implements \JsonSerializable{
     }
     
     /**
+     * Set historicosEstado
+     * 
+     * @param ArrayCollection $historicosEstado
+     * @return $this
+     */
+    public function setHistoricosEstado(ArrayCollection $historicosEstado) {
+        $this->historicosEstado = $historicosEstado;
+        return $this;
+    }
+
+        
+    /**
      * Devuelve un arreglo con los historicos de cambios de estados ordenados de forma descendente
      * en función del campo fechaDesde.
      *
@@ -772,6 +785,23 @@ class Planificacion implements \JsonSerializable{
     public function getCarrera() {
         return $this->carrera;
     }
+    
+    public function getCarreraAbrev() {
+        switch ($this->carrera){
+            case WSHelper::CARRERA_II:
+                return 'II';
+            case WSHelper::CARRERA_IRH:
+                return 'IRH';
+            case WSHelper::CARRERA_IAGR:
+                return 'IAGR';
+            case WSHelper::CARRERA_IAMB:
+                return 'IAMB';
+        }
+        
+        return null;
+    }
+    
+    
 
     /**
      * Set plan
@@ -890,7 +920,7 @@ class Planificacion implements \JsonSerializable{
      */
     public function getCodigoAsignatura() {
         return $this->codigoAsignatura;
-    }
+    }    
 
     /**
      * Set nombreAsignatura

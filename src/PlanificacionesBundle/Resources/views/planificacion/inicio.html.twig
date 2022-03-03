@@ -44,16 +44,21 @@
                                         <h6 class="mb-0 acordeon-header">
                                             <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">                                                
 
+
+
                                                 <span class="text-white font-weight-bold">
                                                     {{ p.getTitulo()|upper }}
                                                 </span>
                                                 <span class="right centrate-y">
+                                                    <span class="badge bg-azul border border-white badge-carrera mr-2">
+                                                        {{ p.getCarreraAbrev() }}
+                                                    </span>
                                                     {% set eActual = p.getEstadoActual() %} 
                                                     {% if eActual %}
                                                         {% set class = eActual.getCssClass() %}                                                        
 
                                                         {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
-                                                        <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                                                        <span class='mr-2 small text-uppercase badge badge-estado badge-{{ class }}' style='cursor:default;'>
                                                             {{ eActual.nombre }}
                                                         </span>
                                                         <i class="fa fa-1x fa-caret-down"></i>
