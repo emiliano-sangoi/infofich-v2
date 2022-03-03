@@ -119,9 +119,10 @@ class DuplicarPlanificacionType extends AbstractType {
         }
 
         $choices = array(
+            $y => $y,
             $y + 1 => $y + 1,
             $y + 2 => $y + 2,
-            $y + 3 => $y + 3,
+            //$y + 3 => $y + 3,
         );
 
         $config['choices'] = $choices;
