@@ -43,7 +43,13 @@
                 </p>
                 <div class="mt-3"> 
                     {{ form_start(form) }}
+
+
+
                     <div class="bg-white p-4 shadow">
+                        <div>
+                            {{ form_errors(form) }}
+                        </div>
                         <div class="form-row">
                             <div class="col-12">
                                 {{ form_label(form.carrera) }}
@@ -107,32 +113,32 @@
 
             $(document).ready(function () {
 
-           select_carreras = $('#duplicar_planificacion_carrera');
-           select_asignatura = $('#duplicar_planificacion_codigoAsignatura');
-           ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
+                select_carreras = $('#duplicar_planificacion_carrera');
+                select_asignatura = $('#duplicar_planificacion_codigoAsignatura');
+                ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
 
-           //resetInfoAsignatura();
+                //resetInfoAsignatura();
 
-           // combo de carreras:           
-           select_carreras.change(actualizarAsignaturas);
+                // combo de carreras:           
+                select_carreras.change(actualizarAsignaturas);
 
-{#           //combo de asignaturas:
-           select_asignatura.change(function (e) {
-               var option = $(this).children("option:selected");
-               var asignatura = JSON.parse(option.attr('data-json'));
+        {#           //combo de asignaturas:
+                   select_asignatura.change(function (e) {
+                       var option = $(this).children("option:selected");
+                       var asignatura = JSON.parse(option.attr('data-json'));
 
-               cargarInfoAsignatura(asignatura);
-           });#}
+                       cargarInfoAsignatura(asignatura);
+                   });#}
 
-           //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-           select_carreras.trigger('change');
-
-
-                   });
+                //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
+                select_carreras.trigger('change');
 
 
+            });
 
-               });
+
+
+        });
 
 
     </script>

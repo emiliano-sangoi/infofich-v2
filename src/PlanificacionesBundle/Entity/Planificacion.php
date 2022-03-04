@@ -244,7 +244,13 @@ class Planificacion implements \JsonSerializable{
     public function getId() {
         return $this->id;
     }
+    
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
 
+    
     public function getTitulo() {
         return mb_strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
@@ -252,6 +258,32 @@ class Planificacion implements \JsonSerializable{
     public function __toString() {
         return $this->getTitulo();
     }
+    
+    /**
+     * https://stackoverflow.com/questions/14158111/deep-clone-doctrine-entity-with-related-entities
+     */
+    public function __clone() {
+        if ($this->id) {
+            
+            $this->setId(null);
+            
+            $dc = new ArrayCollection();
+            foreach ($this->docentesColaboradores as $item){
+                
+                /* @var $itemCopia PlanificacionDocenteColaborador */
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $dc->add($itemCopia);
+                
+            }
+            
+            $this->docentesColaboradores = $dc;
+            
+            
+            
+        }
+    }
+    
     
     /**
      * Metodo que verifica si la persona pasada como parametro figura como 
@@ -1043,7 +1075,18 @@ class Planificacion implements \JsonSerializable{
     {
         return $this->docentesColaboradores;
     }
+    
+    /**
+     * 
+     * @param ArrayCollection $docentesColaboradores
+     * @return $this
+     */
+    public function setDocentesColaboradores(ArrayCollection $docentesColaboradores) {
+        $this->docentesColaboradores = $docentesColaboradores;
+        return $this;
+    }
 
+    
     /**
      * Add docentesAdscripto
      *
