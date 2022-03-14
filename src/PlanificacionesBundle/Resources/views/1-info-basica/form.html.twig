@@ -78,27 +78,21 @@
             <input type="submit" value="Crear planificación" class="btn btn-success"/>            
         </div>
     </div>    
-    {#La funcion puedeEditarse() devuelve true si el estado de la planificacion es PREPARACION o CORRECCION#}
-{% elseif planificacion.puedeEditarse() %}
+
+
+    {#
+        La funcion puedeEditarse() devuelve true si el estado de la planificacion es PREPARACION o CORRECCION
+        En el caso de que la planificacion este en revision, SA debe poder editar los contenidos minimos y el departamento.
+    #}
+
+    {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+
+{% elseif planificacion.puedeEditarse() or (planificacion.enRevision() and app.user.tieneRol(ROL_SA)) %}
     <div class="form-row">
         <div class="col-xs-12 col-sm-2">
             <input type="submit" value="Guardar cambios" class="btn btn-success"/>            
         </div>
     </div>
-{% endif %}
-
- {% if planificacion.enRevision() %}
-
-        {% set attr = { data: planificacion } %} 
-
-        {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_EDITAR') %}
-        {% if is_granted(cod_perm, attr) %}
-            <div class="form-row">
-                <div class="col-xs-12 col-sm-2">
-                <input type="submit" value="Guardar cambios" class="btn btn-success"/>            
-                </div>
-            </div>
-    {% endif %}
 {% endif %}
 
 {{ form_end(form) }}
