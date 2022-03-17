@@ -4,27 +4,36 @@
 
 {% block tab_content %}
 
+    {% if planificacion.resultados[0] is defined %}
 
-    {{ form_errors(form) }}
+        {{ form_errors(form) }}
 
-    {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:4b-resultados-asignatura:form_theme-resultado.html.twig'  %}
+        {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:4b-resultados-asignatura:form_theme-resultado.html.twig'  %}
 
-    {{ form_start(form) }}  
+        {{ form_start(form) }}  
 
-    {{ form_row(form.resultados) }}
+        {{ form_row(form.resultados) }}
 
-    {% if planificacion.puedeEditarse() %}
-        <div class="form-row mt-3">
-            <div class="col-xs-12 col-sm-2">            
-                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+        {% if planificacion.puedeEditarse() %}
+            <div class="form-row mt-3">
+                <div class="col-xs-12 col-sm-2">            
+                    <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+                </div>
+                {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+                            <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
+                        </div>#}
             </div>
-            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
-                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
-                    </div>#}
-        </div>
-    {% endif %}
+        {% endif %}
 
-    {{ form_end(form) }}       
+        {{ form_end(form) }}  
+
+    {% else %}
+        {% from '::macros.html.twig' import notificacion %}         
+        {% set msg %}
+            <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
+        {% endset %}
+        {{ notificacion(null, msg, 'secondary', '' ) }}
+    {% endif %}
 
 {% endblock %} 
 

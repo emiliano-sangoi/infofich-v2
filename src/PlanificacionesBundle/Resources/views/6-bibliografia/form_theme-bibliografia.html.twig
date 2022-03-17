@@ -9,79 +9,80 @@
 
     <div class="mb-5">
         <div class="form-row">
-                <div class="col-md-10">
-                    {{ form_label(form.bibliografia.infoCompleta) }}
-                    {{ form_widget(form.bibliografia.infoCompleta) }}
-                    {{ form_errors(form.bibliografia.infoCompleta) }}
-                </div>
+            <div class="col-md-10">
+                {{ form_label(form.bibliografia.infoCompleta) }}
+                {{ form_widget(form.bibliografia.infoCompleta) }}
+                {{ form_errors(form.bibliografia.infoCompleta) }}
+            </div>
         </div>
     </div>
-       
-
-       {# <div class="form-row">
-            <div class="col-md-10">
-                {{ form_label(form.bibliografia.titulo) }}
-                {{ form_widget(form.bibliografia.titulo) }}
-                {{ form_errors(form.bibliografia.titulo) }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-5">
-                {{ form_label(form.bibliografia.autores) }}            
-                {{ form_widget(form.bibliografia.autores) }}     
-                {{ form_errors(form.bibliografia.autores) }}
-            </div>
-            <div class="col-md-5">
-                {{ form_label(form.bibliografia.editorial) }}            
-                {{ form_widget(form.bibliografia.editorial) }}
-                {{ form_errors(form.bibliografia.editorial) }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-sm-3 col-xs-12">
-                {{ form_label(form.bibliografia.anioEdicion) }}
-                {{ form_widget(form.bibliografia.anioEdicion) }}
-                {{ form_errors(form.bibliografia.anioEdicion) }} 
-            </div>
-            <div class="form-group col-sm-2 col-xs-12">
-                {{ form_label(form.bibliografia.nroEdicion) }}
-                {{ form_widget(form.bibliografia.nroEdicion) }}
-                {{ form_errors(form.bibliografia.nroEdicion) }} 
-            </div>
-            <div class="form-group col-sm-3 col-xs-12">
-                {{ form_label(form.bibliografia.issnIsbn) }}
-                {{ form_widget(form.bibliografia.issnIsbn) }}
-                {{ form_errors(form.bibliografia.issnIsbn) }} 
-            </div>
-        </div>
-
-        <div class="form-row formato-inputs-groups">
-            <div class="form-group col-sm-6 col-xs-12">
-                {{ form_label(form.bibliografia.disponibleBiblioteca) }}
-                {{ form_widget(form.bibliografia.disponibleBiblioteca) }}                
-                {{ form_errors(form.bibliografia.disponibleBiblioteca) }} 
-            </div>
-
-        </div>
-        <div class="form-row formato-inputs-groups">
-            <div class="form-group col-sm-3 col-xs-12">                
-                {{ form_label(form.bibliografia.disponibleOnline) }} 
-                {{ form_widget(form.bibliografia.disponibleOnline) }}                                       
-                {{ form_errors(form.bibliografia.disponibleOnline) }} 
-            </div>
-            <div class="form-group col-sm-3 col-xs-12">
-                {% from '::macros.html.twig' import input_datetime_picker %}     
-                {{  input_datetime_picker(form.bibliografia.fechaConsultaOnline, form.vars.id ~ '_picker', true ) }} 
-            </div>
-            <div class="form-group col-sm-4 col-xs-12">
-                {{ form_label(form.bibliografia.enlaceOnline) }}
-                {{ form_widget(form.bibliografia.enlaceOnline) }}
-                {{ form_errors(form.bibliografia.enlaceOnline) }} 
-            </div>
-        </div> #}
-        {{ form_row(form.posicion) }}
 
 
+    {# <div class="form-row">
+         <div class="col-md-10">
+             {{ form_label(form.bibliografia.titulo) }}
+             {{ form_widget(form.bibliografia.titulo) }}
+             {{ form_errors(form.bibliografia.titulo) }}
+         </div>
+     </div>
+     <div class="form-row">
+         <div class="col-md-5">
+             {{ form_label(form.bibliografia.autores) }}            
+             {{ form_widget(form.bibliografia.autores) }}     
+             {{ form_errors(form.bibliografia.autores) }}
+         </div>
+         <div class="col-md-5">
+             {{ form_label(form.bibliografia.editorial) }}            
+             {{ form_widget(form.bibliografia.editorial) }}
+             {{ form_errors(form.bibliografia.editorial) }}
+         </div>
+     </div>
+     <div class="form-row">
+         <div class="form-group col-sm-3 col-xs-12">
+             {{ form_label(form.bibliografia.anioEdicion) }}
+             {{ form_widget(form.bibliografia.anioEdicion) }}
+             {{ form_errors(form.bibliografia.anioEdicion) }} 
+         </div>
+         <div class="form-group col-sm-2 col-xs-12">
+             {{ form_label(form.bibliografia.nroEdicion) }}
+             {{ form_widget(form.bibliografia.nroEdicion) }}
+             {{ form_errors(form.bibliografia.nroEdicion) }} 
+         </div>
+         <div class="form-group col-sm-3 col-xs-12">
+             {{ form_label(form.bibliografia.issnIsbn) }}
+             {{ form_widget(form.bibliografia.issnIsbn) }}
+             {{ form_errors(form.bibliografia.issnIsbn) }} 
+         </div>
+     </div>
+
+     <div class="form-row formato-inputs-groups">
+         <div class="form-group col-sm-6 col-xs-12">
+             {{ form_label(form.bibliografia.disponibleBiblioteca) }}
+             {{ form_widget(form.bibliografia.disponibleBiblioteca) }}                
+             {{ form_errors(form.bibliografia.disponibleBiblioteca) }} 
+         </div>
+
+     </div>
+     <div class="form-row formato-inputs-groups">
+         <div class="form-group col-sm-3 col-xs-12">                
+             {{ form_label(form.bibliografia.disponibleOnline) }} 
+             {{ form_widget(form.bibliografia.disponibleOnline) }}                                       
+             {{ form_errors(form.bibliografia.disponibleOnline) }} 
+         </div>
+         <div class="form-group col-sm-3 col-xs-12">
+             {% from '::macros.html.twig' import input_datetime_picker %}     
+             {{  input_datetime_picker(form.bibliografia.fechaConsultaOnline, form.vars.id ~ '_picker', true ) }} 
+         </div>
+         <div class="form-group col-sm-4 col-xs-12">
+             {{ form_label(form.bibliografia.enlaceOnline) }}
+             {{ form_widget(form.bibliografia.enlaceOnline) }}
+             {{ form_errors(form.bibliografia.enlaceOnline) }} 
+         </div>
+     </div> #}
+    {{ form_row(form.posicion) }}
+
+
+    {% if not form.vars.disabled %}
         <div class="form-row">
             <div class="form-group col-md-3 pl-0">
                 <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
@@ -108,7 +109,8 @@
                 {#<div class="col-md-1">
                     <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
                 </div>#}
-          </div>
+            </div>
         </div> 
- 
+    {% endif %}
+
 {% endblock %}

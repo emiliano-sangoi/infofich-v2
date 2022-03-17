@@ -186,7 +186,7 @@
                                             <p class='mb-1'>Esta planificación fue enviada a revisión el <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b> Hs.</p>
                                             <p>Secretaría académica revisará la planificación e indicará correcciones o aprobará la misma.</p>
                                         {% endset %}
-                                        {{ notificacion('Planificación en revisión', msg, 'warning', '' ) }}
+                                        {{ notificacion('Planificación en revisión', msg, 'warning', '', 'fa-exclamation-circle', 'fa-3x' ) }}
                                     </div>                                
                                 {% elseif planificacion.enCorreccion() %}
                                     <div class="">

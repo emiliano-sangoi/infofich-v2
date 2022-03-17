@@ -3,7 +3,7 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
-use AppBundle\Util\Texto;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\ObjetivosType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,10 +27,15 @@ class ObjetivosController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        //Deshabilitar el campo cuando la planificación este en revision o publicada
+        $config = array();
+        $ea = $planificacion->getEstadoActual();
+        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+            $config = array('disabled' => true);
+        }
 
-        $form = $this->createForm(ObjetivosType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
+        $form = $this->createForm(ObjetivosType::class, $planificacion, $config);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

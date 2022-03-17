@@ -6,6 +6,7 @@ use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\ResultadosAprendizajes;
 use PlanificacionesBundle\Form\ResultadosAprendizajeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,11 +27,19 @@ class ResultadosAprendizajeController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        //Deshabilitar el campo cuando la planificación este en revision o publicada
+        $config = array();
+        $ea = $planificacion->getEstadoActual();
+        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+            $config = array('disabled' => true);
+        }
+        
+        //dump($planificacion->getResultados()->toArray());exit;
 
-        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
+        $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion, $config);
         //dump($planificacion, $request);exit;  
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 

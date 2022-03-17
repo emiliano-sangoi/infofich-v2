@@ -1,14 +1,16 @@
-{% macro notificacion(titulo, msg, tipo = 'success', class = '', fa_icon = 'fa-exclamation-circle' ) %}        
-    <div class="alert notificacion notificacion-{{ tipo }} {{ class }} alert-dismissible fade show bg-light py-2" role="alert">
+{% macro notificacion(titulo, msg, tipo = 'success', class = '', fa_icon = 'fa-exclamation-circle', icon_size = 'fa-2x' ) %}        
+    <div class="alert notificacion notificacion-{{ tipo }} {{ class }} alert-dismissible fade show bg-light py-2 border border-{{ tipo }}" role="alert">
 
         <div class="row">
-            <div class="col-lg-1 py-2">
-                <i class="fas fa-1x {{ fa_icon }} text-{{ tipo }}"></i>
+            <div class="col-lg-1 py-2 text-center">
+                <i class="fas {{ icon_size }} {{ fa_icon }} text-{{ tipo }} centrate"></i>
             </div>
-            <div class="col-lg-11">
-                <h6 class="font-weight-bold text-{{ tipo }}">
-                    {{ titulo }}
-                </h6>
+            <div class="col-lg-11 py-2">
+                {% if titulo != null %}
+                    <h6 class="font-weight-bold text-{{ tipo }}">
+                        {{ titulo }}
+                    </h6>
+                {% endif %}
                 <p class="mb-0 text-color-gris-3 msg">
                     {{ msg }}
                 </p>

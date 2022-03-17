@@ -9,6 +9,7 @@ use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Form\PlanificacionDocentesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use PlanificacionesBundle\Entity\Estado;
 use Symfony\Component\HttpFoundation\Request;
 
 class DocentesController extends Controller {
@@ -31,10 +32,15 @@ class DocentesController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        
+        //Deshabilitar el campo cuando la planificación este en revision o publicada
+        $config = array();
+        $ea = $planificacion->getEstadoActual();
+        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+            $config = array('disabled' => true);
+        }
 
-        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));        
+        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion, $config);        
 
         $form->handleRequest($request);
         // dump($form->get('docenteResponsable')->getData());exit;

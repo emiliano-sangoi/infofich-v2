@@ -28,8 +28,16 @@
             </span>
         </div>
         <div class="col-12 col-md-9">
-            {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
-            {{ form_row(form.docentesColaboradores) }}
+
+            {% if planificacion.docentesColaboradores[0] is defined %}
+                {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
+                {{ form_row(form.docentesColaboradores) }}
+            {% else %}
+                <p class="text-muted">
+                    No se ha definido ning&uacute;n docente colaborador.
+                </p>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -45,11 +53,21 @@
                 <i class="fa fa-info-circle text-secondary ml-2" aria-hidden="true" data-toggle="tooltip" data-html="true" 
                    title="Los docentes adscriptos son gestionados por <em><b>Secretaría Académica</b></em>, contactese con dicha área para algún cambio en el listado o alta de un nuevo docente."></i>           
             </span>
-            
+
         </div>
         <div class="col-12 col-md-9">
-            {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
-            {{ form_row(form.docentesAdscriptos) }}
+
+            {% if planificacion.docentesAdscriptos[0] is defined %}
+
+                {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
+                {{ form_row(form.docentesAdscriptos) }}
+
+            {% else %}
+                <p class="text-muted">
+                    No se ha definido ning&uacute;n docente adscripto.
+                </p>
+
+            {% endif %}
         </div>
     </div>
 </div>        

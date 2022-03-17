@@ -80,11 +80,12 @@ function afterAddDocente(collection, item) {
  * @returns {undefined}
  */
 function actualizarAsignaturas(event) {
+    
+    var disabled = select_asignatura.attr('disabled') == 'disabled';
 
     // desactivar combo de asignaturas:
     select_asignatura.prop("disabled", true);
-
-
+    
     var cargarAsignaturas = function (response) {
         
         if (response.length > 0) {
@@ -104,8 +105,8 @@ function actualizarAsignaturas(event) {
                 select_asignatura.append(opt);
             });
 
-            //activar el select:
-            select_asignatura.prop("disabled", false);
+            //activar el select o dejar desactivado:
+            select_asignatura.prop("disabled", disabled)
 
         }
     };

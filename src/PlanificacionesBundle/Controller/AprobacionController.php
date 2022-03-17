@@ -5,6 +5,7 @@ namespace PlanificacionesBundle\Controller;
 use AppBundle\Seguridad\Permisos;
 use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Form\RequisitosAprobacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,10 +33,15 @@ class AprobacionController extends Controller {
             $requisitosAprob = new RequisitosAprobacion();
             $requisitosAprob->setPlanificacion($planificacion);
         }
+        
+        //Deshabilitar el campo cuando la planificación este en revision o publicada
+        $config = array();
+        $ea = $planificacion->getEstadoActual();
+        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+            $config = array('disabled' => true);
+        }
 
-        $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
+        $form = $this->createForm(RequisitosAprobacionType::class, $requisitosAprob, $config);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 

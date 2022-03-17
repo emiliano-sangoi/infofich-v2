@@ -3,8 +3,8 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
-use AppBundle\Util\Texto;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Form\BibliografiasType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +25,14 @@ class BibliografiaController extends Controller {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(BibliografiasType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
+        //Deshabilitar el campo cuando la planificación este en revision o publicada
+        $config = array();
+        $ea = $planificacion->getEstadoActual();
+        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+            $config = array('disabled' => true);
+        }
+        
+        $form = $this->createForm(BibliografiasType::class, $planificacion, $config);
         $form->handleRequest($request);
 
 
