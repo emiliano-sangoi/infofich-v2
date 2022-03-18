@@ -60,38 +60,81 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $fontSize = 9;
 
+        
         $html = '<h1>INFORMACIÓN BÁSICA</h1>';
         // INFORMACION BASICA
-        $html .= '<p><b>Asignatura: </b>' . $this->parametros['nombreAsignatura'] . '</p>';
-        $html .= '<p><b>Carrera:  </b>' . $this->parametros['nombreCarrera'] . '</p>';
-        $html .= '<p><b>Año Cursada:  </b>' . $this->parametros['anioCursada'] . '</p>';
-        $html .= '<p><b>Plan Estudios:  </b>' . $this->parametros['planEstudio'] . '</p>';
-        $html .= '<p><b>Departamento:  </b>' . $this->parametros['departamento'] . '</p>';
-        $html .= '<p><b>Período:  </b>' . $this->parametros['periodoLectivo'] . '</p>';
-        $html .= '<p><b>Carácter: </b>' . $this->parametros['caracter'] . '</p>';
-        $html .= '<p><b>Contenidos Mínimos: </b>' . $this->parametros['contenidosMinimos'] . '</p>';
+
+$html .= '<table cellspacing="0" cellpadding="1">
+<tr>
+    <td>Asignatura</td>
+    <td>Carrera </td>
+    <td>Año academico </td>
+    <td>Plan de Estudios </td>
+
+</tr>
+<tr>
+    <td >' . $this->parametros['nombreAsignatura'] . '</td>
+    <td> ' . $this->parametros['nombreCarrera'] .  '</td>
+    <td> ' . $this->parametros['anio'] .  '</td>
+    <td> ' . $this->parametros['planEstudio'] .  '</td>
+</tr>
+
+<tr>
+    <td>Departamento</td>
+    <td>Periodo Lectivo </td>
+    <td>Caracter </td>
+    <td>Año Cursada</td>
+
+</tr>
+<tr>
+    <td >' . $this->parametros['departamento'] . '</td>
+    <td> ' . $this->parametros['periodoLectivo'] .  '</td>
+    <td> ' . $this->parametros['caracter'] .  '</td>
+    <td> ' . $this->parametros['anioCursada'] .  '</td>
+</tr>
+<tr>
+    <td>Contenidos Minimos</td>
+</tr>
+<tr>
+    <td>' . $this->parametros['contenidosMinimos'] . '</td>
+</tr>
+
+</table>';
 
         // Equipo Docente:
         $html .= '<h1>EQUIPO DOCENTE</h1>';
 
-        $html .= '<p><b>Docente Responsable: </b>' . $this->parametros['docenteResponsable'] . '</p>';
-        $html .= '<p><b>Docentes Colaboradores: </b>';
+        $html .= '<table cellspacing="0" cellpadding="1">
+<tr>
+    <td>Docente Responsable</td>
+</tr>
+<tr><td>' . $this->parametros['docenteResponsable'] . '</td></tr>
 
+<tr><td>Docentes Colaboradores</td></tr>
+
+<tr><td>';
         $docentesColaboradores = $this->parametros['docentesColaboradores'];
         if ($docentesColaboradores) {
             foreach ($docentesColaboradores as $docentesColaborador) {
-                $html .= '<p>' . $docentesColaborador . '</p>';
+                $html .= $docentesColaborador . '<br>';
             }
         }
-        $html .= '</p>';
-        $html .= '<p><b>Docentes Adscriptos: </b>';
+
+        $html .=  '</td></tr>
+
+        <tr><td>Docentes Adscriptos</td></tr>
+
+        <tr><td>';
         $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
         if ($docentesAdscriptos) {
             foreach ($docentesAdscriptos as $docentesAdscripto) {
-                $html .= '<p>' . $docentesAdscripto . '</p>';
+                $html .= $docentesAdscripto . '<br>';
             }
         }
-        $html .= '</p>';
+                $html .=  '</td></tr>
+
+</table>';
+
 
         $html .= '<h1>APROBACION ASIGNATURA </h1>';
         $html .= '<p><b>Porcentaje Asistencia: </b>' . $this->parametros['porcentajeAsistencia'] . '</p>';
@@ -176,7 +219,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             }
         }
 
-
+        $html .= '</body>';
         $this->writeHTML($html, true, 0, true, 0);
 
         /*

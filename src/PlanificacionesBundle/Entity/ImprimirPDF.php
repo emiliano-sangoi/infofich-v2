@@ -60,12 +60,22 @@ class ImprimirPDF extends \TCPDF {
      */
     public function Header() {
         //die(getcwd());
+
+        $filenameLogo = 'logo_fich.png';
+
+        $PDF_HEADER_TITLE="PLANICACIONES";
+        $PDF_HEADER_STRING="ASIGNATURA";
+        $PDF_HEADER_LOGO="../Resources/public/images/tcpdf/" . $filenameLogo; //Solo me funciona si esta dentro de la carpeta images de la libreria
+
+        $this->SetHeaderData($PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $PDF_HEADER_TITLE, $PDF_HEADER_STRING);
+
+        
         // Set font
         $this->SetFont('helvetica', 'B', 10);
         $border = 0;
         
         $logoDir = K_PATH_IMAGES;
-        $filenameLogo = 'logo_fich.png';
+
     
 
         // Logo de la Provincia
