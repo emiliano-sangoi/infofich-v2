@@ -133,9 +133,10 @@ class PlanificacionType extends AbstractType {
             )
         );
 
+        //$usuario = $this->options['usuario'];
         //Deshabilitar el campo cuando la planificación este publicada
         //En revision SA puede editarla
-        if (in_array($this->codEstadoActual, [Estado::PUBLICADA])) {
+        if (in_array($this->codEstadoActual, [Estado::PUBLICADA])) {// && !$usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)
             $config['disabled'] = true;
         }
 
