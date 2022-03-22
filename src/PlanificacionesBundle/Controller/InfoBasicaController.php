@@ -46,7 +46,7 @@ class InfoBasicaController extends Controller {
                     'page_title' => $this->getPageTitle($planificacion). ' - Información básica',
                     'planificacion' => $planificacion,
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
-                    'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId()))
+                    'info_basica_route' => $this->generateUrl('planif_info_basica_editar', array('id' => $planificacion->getId())),
         ));
     }
 
