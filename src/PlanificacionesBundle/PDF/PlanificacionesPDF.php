@@ -133,17 +133,35 @@ $html .= '<p><b>Contenidos Minimos</b></p>
 </table>';
 
 
-        $html .= '<h1>APROBACION ASIGNATURA </h1>';
-        '<table cellspacing="0" cellpadding="1">
+        $html .= '<h1>APROBACION ASIGNATURA </h1>
+        <table cellspacing="0" cellpadding="1">
         <tr>
-            <td><b>Porcentaje Asistencia </b></td>
-            <td><b>Modalidad CFI </b></td>        
+            <td><b>Aprobacion</b></td>
+            <td><b>Asistencia</b></td>        
+            <td><b>Primer Parcial </b></td> 
+            <td><b>Segundo Parcial </b></td>
+
         </tr>
         <tr>
-            <td>' . $this->parametros['porcentajeAsistencia'] . '/td>
-            <td>' . $this->parametros['modalidadCfi'] . '</td>
+            <td></td>
+            <td>' . $this->parametros['porcentajeAsistencia'] . '%</td>
+            <td>'. $this->parametros['fechaPrimerParcial']->format("d/m/Y") . '</td>
+            <td>'. $this->parametros['fechaSegundoParcial']->format("d/m/Y") . '</td>            
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><b>Recuperatorio 1er. parcial</b></td>
+            <td><b>Recuperatorio 2do. parcial</b></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>'. $this->parametros['fechaRecupPrimerParcial']->format("d/m/Y") . '</td>
+            <td>'. $this->parametros['fechaRecupSegundoParcial']->format("d/m/Y") . '</td>
         </tr>
         </table>';
+        //<td>' . $this->parametros['modalidadCfi'] . '</td>
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
         $html .= '<p><b>Objetivos Generales </b> <br>' . $this->parametros['objetivosGral'] . '</p>';
         $html .= '<p><b>Objetivos Específicos</b> <br>' . $this->parametros['objetivosEspe'] . '</p>';

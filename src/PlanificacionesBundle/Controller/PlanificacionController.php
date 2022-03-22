@@ -293,6 +293,17 @@ class PlanificacionController extends Controller {
         if ($aprobacionAsignatura) {
             $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
             $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
+            $fechaPrimerParcial = $aprobacionAsignatura->getFechaPrimerParcial();
+            $fechaSegundoParcial = $aprobacionAsignatura->getFechaSegundoParcial();
+            $fechaRecupPrimerParcial = $aprobacionAsignatura->getFechaRecupPrimerParcial();
+            $fechaRecupSegundoParcial = $aprobacionAsignatura->getFechaRecupSegundoParcial();
+            $fechaParcailCfi = $aprobacionAsignatura->getFechaParcailCfi();
+            $fechaRecupCfi = $aprobacionAsignatura->getFechaRecupCfi();
+            $examenFinalLibre = $aprobacionAsignatura->getExamenFinalModalidadLibres();
+            $examenFinalReg = $aprobacionAsignatura->getExamenFinalModalidadRegulares();
+            $prevePromParcialTeo = $aprobacionAsignatura->getPrevePromParcialTeoria();
+            $prevePromParcialPractica = $aprobacionAsignatura->getPrevePromParcialPractica();
+            $preveCfi = $aprobacionAsignatura->getPreveCfi();   
         }
         //Objetivos de la asignatura
         $objetivosEspe = $planificacion->getObjetivosEspecificos();
@@ -353,6 +364,17 @@ class PlanificacionController extends Controller {
             'docentesAdscriptos' => $docentesAdscriptos,
             'porcentajeAsistencia' => $porcentajeAsistencia,
             'modalidadCfi' => $modalidadCfi,
+            'fechaPrimerParcial' =>$fechaPrimerParcial,
+            'fechaSegundoParcial' => $fechaSegundoParcial,
+            'fechaRecupPrimerParcial' => $fechaRecupPrimerParcial,
+            'fechaRecupSegundoParcial' => $fechaRecupSegundoParcial,
+            'fechaParcailCfi' => $fechaParcailCfi ,
+            'fechaRecupCfi' => $fechaRecupCfi,
+            'examenFinalLibre' => $examenFinalLibre,
+            'examenFinalReg' => $examenFinalReg,
+            'prevePromParcialTeo' => $prevePromParcialTeo,
+            'prevePromParcialPractica' => $prevePromParcialPractica,
+            'preveCfi' => $preveCfi,
             'objetivosEspe' => $objetivosEspe,
             'objetivosGral' => $objetivosGral,
             'resultados' => $resultados,
@@ -360,6 +382,7 @@ class PlanificacionController extends Controller {
             'bibliografia' => $bibliografia,
             'actividades' => $actividades,
             'viajesAcademicos' => $viajesAcademicos
+
                 /* 'nombre' => 'romina', // $persona->getNombres(),
                   'cuil' => 4444,
                   'tipoDocumento' => 'romina',
