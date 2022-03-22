@@ -329,7 +329,8 @@ class PlanificacionType extends AbstractType {
             'data_class' => Planificacion::class,
             'carrera_default' => WSHelper::CARRERA_II,
             'deshabilitados' => array(),
-            'api_infofich_service' => null
+            'api_infofich_service' => null,
+            'usuario' =>null
         ));
     }
 
