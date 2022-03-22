@@ -66,10 +66,10 @@ class PlanificacionesPDF extends ImprimirPDF {
 
 $html .= '<table cellspacing="0" cellpadding="1">
 <tr>
-    <td>Asignatura</td>
-    <td>Carrera </td>
-    <td>Año academico </td>
-    <td>Plan de Estudios </td>
+    <td><b>Asignatura</b></td>
+    <td><b>Carrera </b></td>
+    <td><b>Año academico </b></td>
+    <td><b>Plan de Estudios </b></td>
 
 </tr>
 <tr>
@@ -78,12 +78,12 @@ $html .= '<table cellspacing="0" cellpadding="1">
     <td> ' . $this->parametros['anio'] .  '</td>
     <td> ' . $this->parametros['planEstudio'] .  '</td>
 </tr>
-
+<tr><td></td></tr>
 <tr>
-    <td>Departamento</td>
-    <td>Periodo Lectivo </td>
-    <td>Caracter </td>
-    <td>Año Cursada</td>
+    <td><b>Departamento</b></td>
+    <td><b>Periodo Lectivo </b></td>
+    <td><b>Caracter</b> </td>
+    <td><b>Año Cursada</b></td>
 
 </tr>
 <tr>
@@ -92,25 +92,22 @@ $html .= '<table cellspacing="0" cellpadding="1">
     <td> ' . $this->parametros['caracter'] .  '</td>
     <td> ' . $this->parametros['anioCursada'] .  '</td>
 </tr>
-<tr>
-    <td>Contenidos Minimos</td>
-</tr>
-<tr>
-    <td>' . $this->parametros['contenidosMinimos'] . '</td>
-</tr>
 
 </table>';
 
-        // Equipo Docente:
+$html .= '<p><b>Contenidos Minimos</b></p>
+          <p>' . $this->parametros['contenidosMinimos'] . '</p>';
+
+          // Equipo Docente:
         $html .= '<h1>EQUIPO DOCENTE</h1>';
 
         $html .= '<table cellspacing="0" cellpadding="1">
 <tr>
-    <td>Docente Responsable</td>
+    <td><b>Docente Responsable</b></td>
 </tr>
 <tr><td>' . $this->parametros['docenteResponsable'] . '</td></tr>
 
-<tr><td>Docentes Colaboradores</td></tr>
+<tr><td><b>Docentes Colaboradores</b></td></tr>
 
 <tr><td>';
         $docentesColaboradores = $this->parametros['docentesColaboradores'];
@@ -122,7 +119,7 @@ $html .= '<table cellspacing="0" cellpadding="1">
 
         $html .=  '</td></tr>
 
-        <tr><td>Docentes Adscriptos</td></tr>
+        <tr><td><b>Docentes Adscriptos</b></td></tr>
 
         <tr><td>';
         $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
@@ -137,13 +134,20 @@ $html .= '<table cellspacing="0" cellpadding="1">
 
 
         $html .= '<h1>APROBACION ASIGNATURA </h1>';
-        $html .= '<p><b>Porcentaje Asistencia: </b>' . $this->parametros['porcentajeAsistencia'] . '</p>';
-        $html .= '<p><b>Modalidad CFI:  </b> ' . $this->parametros['modalidadCfi'] . '</p>';
-
+        '<table cellspacing="0" cellpadding="1">
+        <tr>
+            <td><b>Porcentaje Asistencia </b></td>
+            <td><b>Modalidad CFI </b></td>        
+        </tr>
+        <tr>
+            <td>' . $this->parametros['porcentajeAsistencia'] . '/td>
+            <td>' . $this->parametros['modalidadCfi'] . '</td>
+        </tr>
+        </table>';
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
-
-        $html .= '<p><b>Objetivos Específicos: </b> ' . $this->parametros['objetivosEspe'] . '</p>';
-        $html .= '<p><b>Objetivos Generales: </b> ' . $this->parametros['objetivosGral'] . '</p>';
+        $html .= '<p><b>Objetivos Generales </b> <br>' . $this->parametros['objetivosGral'] . '</p>';
+        $html .= '<p><b>Objetivos Específicos</b> <br>' . $this->parametros['objetivosEspe'] . '</p>';
+        
 
         //Resultados de  Aprendizaje
         $html .= '<h1>RESULTADOS APRENDIZAJE </h1>';
@@ -151,7 +155,7 @@ $html .= '<table cellspacing="0" cellpadding="1">
         $resultados = $this->parametros['resultados'];
         if ($resultados) {
             foreach ($resultados as $resultado) {
-                $html .= '<p><b>Resultado : </b> ' . $resultado . '</p>';
+                $html .= '<p>' . $resultado . '</p>';
             }
         }
 
@@ -175,7 +179,7 @@ $html .= '<table cellspacing="0" cellpadding="1">
                
                $bibliografiaInfo = $biblio->getBibliografia()->getInfoCompleta();
                
-               $html .= '<p><b>Info Completa: </b>' . $bibliografiaInfo  . '</p>';
+               $html .= '<p>' . $bibliografiaInfo  . '</p>';
                 
                 /*$html .= '<p><b>Título: </b> ' . $biblio->getTitulo() . '</p>';
                 $html .= '<p><b>Autores: </b> ' . $biblio->getAutores() . '</p>';
@@ -191,15 +195,26 @@ $html .= '<table cellspacing="0" cellpadding="1">
         $actividades = $this->parametros['actividades'];
         $html .= '<h1>ACTIVIDADES CURRICULARES </h1>';
         if ($actividades) {
+            $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($actividades as $actividad) {
                 $fecha = $actividad->getFecha();
-                $html .= '<p><b>Unidad: </b> ' . $actividad->getTemario() . '</p>';
-                $html .= '<p><b>Tipo de Clase: </b> ' . $actividad->getTipoActividadCurricular() . '</p>';
-                $html .= '<p><b>Fecha: </b>' . $fecha->format("d/m/Y") . '</p>';
-                $html .= '<p><b>Descripcion: </b> ' . $actividad->getDescripcion() . '</p>';
-                $html .= '<p><b>Carga Horaria Aula: </b> ' . $actividad->getCargaHorariaAula() . '</p>';
-                $html .= '<p><b>Carga Horaria Autonomo: </b> ' . $actividad->getCargaHorariaAutonomo() . '</p>';
+                $html .= '<tr><td><b>Unidad</b> </td>
+                            <td><b>Tipo de Clase</b></td>
+                            <td><b>Fecha</b></td></tr>';
+                $html .= '<tr><td>'. $actividad->getTemario() . '</td>
+                            <td>' . $actividad->getTipoActividadCurricular() . '</td>
+                            <td> ' . $fecha->format("d/m/Y") . '</td></tr>';
+                
+               $html .= '<tr><td><b>Descripcion</b> </td>
+                            <td><b>Carga Horaria Aula</b></td>
+                            <td><b>Carga Horaria Autonomo</b></td></tr>';
+                $html .= '<tr><td>'. $actividad->getDescripcion() . '</td>
+                            <td>' . $actividad->getCargaHorariaAula() . '</td>
+                            <td> ' . $actividad->getCargaHorariaAutonomo() . '</td></tr>
+                            <tr><td></td></tr>';
+            
             }
+            $html .= '</table>';
         }
 
         //Viajes Academicos
