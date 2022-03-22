@@ -132,11 +132,9 @@ class PlanificacionType extends AbstractType {
                 'class' => 'form-control',
             )
         );
-
-        //$usuario = $this->options['usuario'];
         //Deshabilitar el campo cuando la planificación este publicada
         //En revision SA puede editarla
-        if (in_array($this->codEstadoActual, [Estado::PUBLICADA])) {// && !$usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)
+        if (in_array($this->codEstadoActual, [Estado::PUBLICADA])) {
             $config['disabled'] = true;
         }
 
@@ -330,8 +328,7 @@ class PlanificacionType extends AbstractType {
             'data_class' => Planificacion::class,
             'carrera_default' => WSHelper::CARRERA_II,
             'deshabilitados' => array(),
-            'api_infofich_service' => null,
-            'usuario' =>null
+            'api_infofich_service' => null
         ));
     }
 
