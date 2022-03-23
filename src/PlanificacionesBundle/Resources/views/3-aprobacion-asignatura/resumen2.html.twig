@@ -20,7 +20,11 @@
 
                         <label class="font-weight-bold">Primer parcial</label>
                         <div class="" >                        
-                            {{ resumen.fechaPrimerParcial|date("d/m/Y") }}
+                            {% if resumen.fechaPrimerParcial is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+                                {{ resumen.fechaPrimerParcial|date("d/m/Y") }}
+                            {% endif %}  
                         </div> 
 
                     </div> 
@@ -28,23 +32,38 @@
                     <div class="col-12 col-md-4" >    
                         <label class="font-weight-bold">Segundo parcial</label>
                         <div class="" >                        
-                            {{ resumen.fechaSegundoParcial|date("d/m/Y") }}
+                            {% if resumen.fechaSegundoParcial is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+                                {{ resumen.fechaSegundoParcial|date("d/m/Y") }}
+                            {% endif %}                              
                         </div> 
                     </div> 
                 </div>
                 <div class="row mt-4">
                     <div class="col-12 offset-md-4 col-md-4" >    
-                        <label class="font-weight-bold">Recuperatorio 1er. parcial</label>
-                        <div class="" >                        
-                            {{ resumen.fechaRecupPrimerParcial|date("d/m/Y") }}
-                        </div> 
+                        <label class="font-weight-bold">Recuperatorio 1er. parcial</label>                       
+
+                        <div class="" >   
+                            {% if resumen.fechaRecupPrimerParcial is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+
+                                {{ resumen.fechaRecupPrimerParcial|date("d/m/Y") }}
+
+                            {% endif %}     
+                        </div>
 
                     </div> 
                     <div class="col-12 col-md-4" >    
                         <label class="font-weight-bold">Recuperatorio 2do. parcial</label>
-                        <div class="" >                        
-                            {{ resumen.fechaRecupSegundoParcial|date("d/m/Y") }}
-                        </div> 
+                        <div class="" >   
+                            {% if resumen.fechaRecupSegundoParcial is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+                                {{ resumen.fechaRecupSegundoParcial|date("d/m/Y") }}
+                            {% endif %}                         
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -88,13 +107,22 @@
                     <div class="col-12 col-md-4" >    
                         <label class="font-weight-bold">Fecha integrador</label>
                         <div class="" >                        
-                            {{ resumen.fechaParcialCfi|date("d/m/Y") }}
+                            {% if resumen.fechaParcialCfi is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+                                {{ resumen.fechaParcialCfi|date("d/m/Y") }}
+                            {% endif %}  
                         </div> 
                     </div> 
                     <div class="col-12 col-md-4" >    
                         <label class="font-weight-bold">Fecha recuperatorio</label>
-                        <div class="" >                        
-                            {{ resumen.fechaRecupCfi|date("d/m/Y") }}
+                        <div class="" >     
+                            {% if resumen.fechaRecupCfi is null %}                               
+                                <span class="text-muted">Sin definir.</span>                               
+                            {% else %}
+                                {{ resumen.fechaRecupCfi|date("d/m/Y") }}
+                            {% endif %}  
+
                         </div> 
                     </div> 
                     <div class="col-12 col-md-4 mt-md-4" >    

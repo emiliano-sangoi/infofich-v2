@@ -288,22 +288,21 @@ class PlanificacionController extends Controller {
 
         //Aprobacion de la asignatura
         $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
-        $porcentajeAsistencia = '';
-        $modalidadCfi = '';
+        $requisitosAprobacion = array();
         if ($aprobacionAsignatura) {
-            $porcentajeAsistencia = $aprobacionAsignatura->getPorcentajeAsistencia();
-            $modalidadCfi = $aprobacionAsignatura->getModalidadCfi();
-            $fechaPrimerParcial = $aprobacionAsignatura->getFechaPrimerParcial();
-            $fechaSegundoParcial = $aprobacionAsignatura->getFechaSegundoParcial();
-            $fechaRecupPrimerParcial = $aprobacionAsignatura->getFechaRecupPrimerParcial();
-            $fechaRecupSegundoParcial = $aprobacionAsignatura->getFechaRecupSegundoParcial();
-            $fechaParcailCfi = $aprobacionAsignatura->getFechaParcailCfi();
-            $fechaRecupCfi = $aprobacionAsignatura->getFechaRecupCfi();
-            $examenFinalLibre = $aprobacionAsignatura->getExamenFinalModalidadLibres();
-            $examenFinalReg = $aprobacionAsignatura->getExamenFinalModalidadRegulares();
-            $prevePromParcialTeo = $aprobacionAsignatura->getPrevePromParcialTeoria();
-            $prevePromParcialPractica = $aprobacionAsignatura->getPrevePromParcialPractica();
-            $preveCfi = $aprobacionAsignatura->getPreveCfi();   
+            $requisitosAprobacion['porcentajeAsistencia'] = $aprobacionAsignatura->getPorcentajeAsistencia();
+            $requisitosAprobacion['modalidadCfi'] = $aprobacionAsignatura->getModalidadCfi();
+            $requisitosAprobacion['fechaPrimerParcial'] = $aprobacionAsignatura->getFechaPrimerParcial();
+            $requisitosAprobacion['fechaSegundoParcial'] = $aprobacionAsignatura->getFechaSegundoParcial();
+            $requisitosAprobacion['fechaRecupPrimerParcial'] = $aprobacionAsignatura->getFechaRecupPrimerParcial();
+            $requisitosAprobacion['fechaRecupSegundoParcial'] = $aprobacionAsignatura->getFechaRecupSegundoParcial();
+            $requisitosAprobacion['fechaParcailCfi'] = $aprobacionAsignatura->getFechaParcailCfi();
+            $requisitosAprobacion['fechaRecupCfi'] = $aprobacionAsignatura->getFechaRecupCfi();
+            $requisitosAprobacion['examenFinalLibre'] = $aprobacionAsignatura->getExamenFinalModalidadLibres();
+            $requisitosAprobacion['examenFinalReg'] = $aprobacionAsignatura->getExamenFinalModalidadRegulares();
+            $requisitosAprobacion['prevePromParcialTeo'] = $aprobacionAsignatura->getPrevePromParcialTeoria();
+            $requisitosAprobacion['prevePromParcialPractica'] = $aprobacionAsignatura->getPrevePromParcialPractica();
+            $requisitosAprobacion['preveCfi'] = $aprobacionAsignatura->getPreveCfi();   
         }
         //Objetivos de la asignatura
         $objetivosEspe = $planificacion->getObjetivosEspecificos();
@@ -362,19 +361,7 @@ class PlanificacionController extends Controller {
             'docenteResponsable' => $docenteResponsable,
             'docentesColaboradores' => $docentesColaboradores,
             'docentesAdscriptos' => $docentesAdscriptos,
-            'porcentajeAsistencia' => $porcentajeAsistencia,
-            'modalidadCfi' => $modalidadCfi,
-            'fechaPrimerParcial' =>$fechaPrimerParcial,
-            'fechaSegundoParcial' => $fechaSegundoParcial,
-            'fechaRecupPrimerParcial' => $fechaRecupPrimerParcial,
-            'fechaRecupSegundoParcial' => $fechaRecupSegundoParcial,
-            'fechaParcailCfi' => $fechaParcailCfi ,
-            'fechaRecupCfi' => $fechaRecupCfi,
-            'examenFinalLibre' => $examenFinalLibre,
-            'examenFinalReg' => $examenFinalReg,
-            'prevePromParcialTeo' => $prevePromParcialTeo,
-            'prevePromParcialPractica' => $prevePromParcialPractica,
-            'preveCfi' => $preveCfi,
+            'requisitosAprobacion' => $requisitosAprobacion,
             'objetivosEspe' => $objetivosEspe,
             'objetivosGral' => $objetivosGral,
             'resultados' => $resultados,

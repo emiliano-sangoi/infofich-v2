@@ -79,13 +79,13 @@ class ImprimirPDF extends \TCPDF {
     
 
         // Logo de la Provincia
-       $file = 'assets/images/logo_infofich.png';
-       $image_file = "../Resources/public/images/tcpdf/" . $filenameLogo;
-       $this->Image($image_file, $x = PDF_MARGIN_LEFT, $y = PDF_MARGIN_TOP - 15, $w = '', $h = '', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = false);
+       $file2 = 'assets/images/logo_fich.png';
+    
+       $this->Image($file2, $x = PDF_MARGIN_LEFT+120, $y = PDF_MARGIN_TOP - 15, $w = '61', $h = '21', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = false);
 
         // Logo de la INFOFICH
-        $file = 'assets/images/logo_fich.png';
-        $this->Image($file, $x = PDF_MARGIN_LEFT+58, $y = PDF_MARGIN_TOP - 15, $w = '65', $h = '28', $type = 'PNG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);
+        $file = 'assets/images/logo_infofich.png';
+        $this->Image($file, $x = PDF_MARGIN_LEFT, $y = PDF_MARGIN_TOP - 15, $w = '26', $h = '10', $type = 'PNG', $link = 'www.infofich.unl.edu.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);
 
 //        $file = 'assets/imagenes/logocaja_2.jpg';
 //        $this->Image($file, $x = 130, $y = PDF_MARGIN_TOP - 15, $w = '190', $h = '80', $type = 'JPG', $link = 'www.santafe.gov.ar', $align = '', $resize = false, $dpi = 150, $palign = '', $ismaskInformePDF = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = true);

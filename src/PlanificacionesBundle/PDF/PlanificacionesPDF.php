@@ -60,11 +60,11 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $fontSize = 9;
 
-        
+
         $html = '<h1>INFORMACIÓN BÁSICA</h1>';
         // INFORMACION BASICA
 
-$html .= '<table cellspacing="0" cellpadding="1">
+        $html .= '<table cellspacing="0" cellpadding="1">
 <tr>
     <td><b>Asignatura</b></td>
     <td><b>Carrera </b></td>
@@ -74,9 +74,9 @@ $html .= '<table cellspacing="0" cellpadding="1">
 </tr>
 <tr>
     <td >' . $this->parametros['nombreAsignatura'] . '</td>
-    <td> ' . $this->parametros['nombreCarrera'] .  '</td>
-    <td> ' . $this->parametros['anio'] .  '</td>
-    <td> ' . $this->parametros['planEstudio'] .  '</td>
+    <td> ' . $this->parametros['nombreCarrera'] . '</td>
+    <td> ' . $this->parametros['anio'] . '</td>
+    <td> ' . $this->parametros['planEstudio'] . '</td>
 </tr>
 <tr><td></td></tr>
 <tr>
@@ -88,28 +88,27 @@ $html .= '<table cellspacing="0" cellpadding="1">
 </tr>
 <tr>
     <td >' . $this->parametros['departamento'] . '</td>
-    <td> ' . $this->parametros['periodoLectivo'] .  '</td>
-    <td> ' . $this->parametros['caracter'] .  '</td>
-    <td> ' . $this->parametros['anioCursada'] .  '</td>
+    <td> ' . $this->parametros['periodoLectivo'] . '</td>
+    <td> ' . $this->parametros['caracter'] . '</td>
+    <td> ' . $this->parametros['anioCursada'] . '</td>
 </tr>
 
 </table>';
 
-$html .= '<p><b>Contenidos Minimos</b></p>
+        $html .= '<p><b>Contenidos Minimos</b></p>
           <p>' . $this->parametros['contenidosMinimos'] . '</p>';
 
-          // Equipo Docente:
+        // Equipo Docente:
         $html .= '<h1>EQUIPO DOCENTE</h1>';
 
         $html .= '<table cellspacing="0" cellpadding="1">
 <tr>
     <td><b>Docente Responsable</b></td>
+    <td><b>Docentes Colaboradores</b></td>
+    <td><b>Docentes Adscriptos</b></td>
 </tr>
-<tr><td>' . $this->parametros['docenteResponsable'] . '</td></tr>
-
-<tr><td><b>Docentes Colaboradores</b></td></tr>
-
-<tr><td>';
+<tr><td>' . $this->parametros['docenteResponsable'] . '</td>
+    <td>';
         $docentesColaboradores = $this->parametros['docentesColaboradores'];
         if ($docentesColaboradores) {
             foreach ($docentesColaboradores as $docentesColaborador) {
@@ -117,55 +116,124 @@ $html .= '<p><b>Contenidos Minimos</b></p>
             }
         }
 
-        $html .=  '</td></tr>
+        $html .= '</td>       
 
-        <tr><td><b>Docentes Adscriptos</b></td></tr>
-
-        <tr><td>';
+        <td>';
         $docentesAdscriptos = $this->parametros['docentesAdscriptos'];
         if ($docentesAdscriptos) {
             foreach ($docentesAdscriptos as $docentesAdscripto) {
-                $html .= $docentesAdscripto . '<br>';
+                if ($docentesAdscripto) {
+                    $html .= $docentesAdscripto . '<br>';
+                } else {
+                    $html .= 'Sin definir';
+                }
             }
         }
-                $html .=  '</td></tr>
+        $html .= '</td></tr>
 
 </table>';
 
+//Requisitos de Aprobacion    
+        $html .= '<h1>APROBACION ASIGNATURA </h1>';
+        if ($this->parametros['requisitosAprobacion']) {
+            $prevePromTeo = ($this->parametros['requisitosAprobacion']['prevePromParcialTeo']) ? 'Sí' : 'No';
+            $prevePromPra = ($this->parametros['requisitosAprobacion']['prevePromParcialPractica']) ? 'Sí' : 'No';
+            $preveCfi = ($this->parametros['requisitosAprobacion']['preveCfi']) ? 'Sí' : 'No';
+            $modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? 'Sí' : 'No';
+            $fechaPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaPrimerParcial']->format("d/m/Y") : 'Sin Definir';
+            $fechaSegundoParcial = ($this->parametros['requisitosAprobacion']['fechaSegundoParcial']) ? $this->parametros['requisitosAprobacion']['fechaSegundoParcial']->format("d/m/Y") : 'Sin Definir';
+            $fechaRecupPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']->format("d/m/Y") : 'Sin Definir';
+            $fechaRecupSegundoParcial = ($this->parametros['requisitosAprobacion']['fechaRecupSegundoParcial']) ? $this->parametros['requisitosAprobacion']['fechaRecupSegundoParcial']->format("d/m/Y") : 'Sin Definir';
+            $fechaParcailCfi = ($this->parametros['requisitosAprobacion']['fechaParcailCfi']) ? $this->parametros['requisitosAprobacion']['fechaParcailCfi']->format("d/m/Y") : 'Sin Definir';
+            $fechaRecupCfi = ($this->parametros['requisitosAprobacion']['fechaRecupCfi']) ? $this->parametros['requisitosAprobacion']['fechaRecupCfi']->format("d/m/Y") : 'Sin Definir';
 
-        $html .= '<h1>APROBACION ASIGNATURA </h1>
-        <table cellspacing="0" cellpadding="1">
-        <tr>
-            <td><b>Aprobacion</b></td>
-            <td><b>Asistencia</b></td>        
-            <td><b>Primer Parcial </b></td> 
-            <td><b>Segundo Parcial </b></td>
 
-        </tr>
-        <tr>
-            <td></td>
-            <td>' . $this->parametros['porcentajeAsistencia'] . '%</td>
-            <td>'. $this->parametros['fechaPrimerParcial']->format("d/m/Y") . '</td>
-            <td>'. $this->parametros['fechaSegundoParcial']->format("d/m/Y") . '</td>            
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td><b>Recuperatorio 1er. parcial</b></td>
-            <td><b>Recuperatorio 2do. parcial</b></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>'. $this->parametros['fechaRecupPrimerParcial']->format("d/m/Y") . '</td>
-            <td>'. $this->parametros['fechaRecupSegundoParcial']->format("d/m/Y") . '</td>
-        </tr>
-        </table>';
-        //<td>' . $this->parametros['modalidadCfi'] . '</td>
+            $html .= '<table cellspacing="0" cellpadding="1">
+            <tr>
+                <td><b>Aprobacion</b></td>
+                <td><b>Asistencia</b></td>        
+                <td><b>Primer Parcial </b></td> 
+                <td><b>Segundo Parcial </b></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>' . $this->parametros['requisitosAprobacion']['porcentajeAsistencia'] . '%</td>
+                <td>' . $fechaPrimerParcial . '</td>
+                <td>' . $fechaSegundoParcial . '</td>            
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><b>Recuperatorio 1er. parcial</b></td>
+                <td><b>Recuperatorio 2do. parcial</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>' . $fechaRecupPrimerParcial . '</td>
+                <td>' . $fechaRecupSegundoParcial . '</td>
+            </tr>
+            <tr><td></td></tr>
+            <tr>         
+                <td><b>Promoción</b></td>
+                <td><b>¿Prevé promoción teoría?</b></td>        
+                <td><b>¿Prevé promoción práctica? </b></td> 
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>            
+                <td>' . $prevePromTeo . '</td>
+                <td>' . $prevePromPra . '</td>
+                <td></td>
+            </tr>
+
+            <tr><td></td></tr>
+            <tr>         
+                <td><b>Coloquio final integrador (CFI)</b></td>
+                <td><b>¿Prevé CFI?</b></td>        
+                <td><b>Fecha integrador </b></td> 
+                <td><b>Fecha recuperatorio</b></td>
+            </tr>
+            <tr>
+                <td></td>            
+                <td>' . $preveCfi . '</td>
+                <td>' . $fechaParcailCfi . '</td>
+                <td>' . $fechaRecupCfi . '</td>
+            </tr>
+            <tr><td></td></tr>
+            <tr>         
+                <td></td>
+                <td><b>Modalidad CFI </b></td>        
+                <td></td> 
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>            
+                <td>' . $modalidadCfi . '</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr><td></td></tr>
+            <tr>         
+                <td><b>Modalidad exámen final </b></td>
+                <td><b>Regulares </b></td>        
+                <td><b>Libres</b></td> 
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>                       
+                <td>' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>
+                <td>' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
+                <td></td>
+            </tr>
+            </table>';
+        }
+
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
         $html .= '<p><b>Objetivos Generales </b> <br>' . $this->parametros['objetivosGral'] . '</p>';
         $html .= '<p><b>Objetivos Específicos</b> <br>' . $this->parametros['objetivosEspe'] . '</p>';
-        
+
 
         //Resultados de  Aprendizaje
         $html .= '<h1>RESULTADOS APRENDIZAJE </h1>';
@@ -180,31 +248,42 @@ $html .= '<p><b>Contenidos Minimos</b></p>
         //Temario
         $html .= '<h1>TEMARIO </h1>';
         $temario = $this->parametros['temario'];
+        $html .= '<table cellspacing="0" cellpadding="1">';
+
         if ($temario) {
             foreach ($temario as $tema) {
-                $html .= '<p><b>Nro Unidad: </b> ' . $tema->getUnidad() . '</p>';
-                $html .= '<p><b>Titulo:  </b> ' . $tema->getTitulo() . '</p>';
-                $html .= '<p><b>Contenido: </b> ' . $tema->getContenido() . '</p>';
+                $html .= '<tr>
+                            <td><b>Nro Unidad</b></td>
+                            <td><b>Titulo</b></td>
+                          </tr>';
+                $html .= '<tr>
+                          <td>' . $tema->getUnidad() . '</td>';
+                $html .= '<td>' . $tema->getTitulo() . '</td>'
+                        . '</tr>';
+                $html .= '<tr>
+                          <td><b>Contenido: </b></td></tr>'
+                        . '<tr><td colspan="2">' . $tema->getContenido() . '</td></tr>';
+                $html .= '<tr><td></td></tr>';
             }
         }
+        $html .= '</table>';
 
-        //TODO: Bibliografia
         $html .= '<h1>BIBLIOGRAFIA </h1>';
         $bibliografia = $this->parametros['bibliografia'];
         if ($bibliografia) {
             foreach ($bibliografia as $biblio) {
-               $html .= '<p><b>Tipo: </b>' . $biblio->getTipoBibliografia()  . '</p>';
-               
-               $bibliografiaInfo = $biblio->getBibliografia()->getInfoCompleta();
-               
-               $html .= '<p>' . $bibliografiaInfo  . '</p>';
-                
-                /*$html .= '<p><b>Título: </b> ' . $biblio->getTitulo() . '</p>';
-                $html .= '<p><b>Autores: </b> ' . $biblio->getAutores() . '</p>';
-                $html .= '<p><b>Editorial: </b> ' . $biblio->getEditorial() . '</p>';
-                $html .= '<p><b>Añio de Edición: </b> ' . $biblio->getAnioEdicion() . '</p>';
-                $html .= '<p><b>Nro de Edicion: </b> ' . $biblio->getNroEdicion() . '</p>';
-                $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>';*/
+                $html .= '<p><b>Tipo: </b>' . $biblio->getTipoBibliografia() . '</p>';
+
+                $bibliografiaInfo = $biblio->getBibliografia()->getInfoCompleta();
+
+                $html .= '<p>' . $bibliografiaInfo . '</p>';
+
+                /* $html .= '<p><b>Título: </b> ' . $biblio->getTitulo() . '</p>';
+                  $html .= '<p><b>Autores: </b> ' . $biblio->getAutores() . '</p>';
+                  $html .= '<p><b>Editorial: </b> ' . $biblio->getEditorial() . '</p>';
+                  $html .= '<p><b>Añio de Edición: </b> ' . $biblio->getAnioEdicion() . '</p>';
+                  $html .= '<p><b>Nro de Edicion: </b> ' . $biblio->getNroEdicion() . '</p>';
+                  $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>'; */
             }
         }
 
@@ -219,18 +298,17 @@ $html .= '<p><b>Contenidos Minimos</b></p>
                 $html .= '<tr><td><b>Unidad</b> </td>
                             <td><b>Tipo de Clase</b></td>
                             <td><b>Fecha</b></td></tr>';
-                $html .= '<tr><td>'. $actividad->getTemario() . '</td>
+                $html .= '<tr><td>' . $actividad->getTemario() . '</td>
                             <td>' . $actividad->getTipoActividadCurricular() . '</td>
                             <td> ' . $fecha->format("d/m/Y") . '</td></tr>';
-                
-               $html .= '<tr><td><b>Descripcion</b> </td>
+
+                $html .= '<tr><td><b>Descripcion</b> </td>
                             <td><b>Carga Horaria Aula</b></td>
                             <td><b>Carga Horaria Autonomo</b></td></tr>';
-                $html .= '<tr><td>'. $actividad->getDescripcion() . '</td>
+                $html .= '<tr><td>' . $actividad->getDescripcion() . '</td>
                             <td>' . $actividad->getCargaHorariaAula() . '</td>
                             <td> ' . $actividad->getCargaHorariaAutonomo() . '</td></tr>
                             <tr><td></td></tr>';
-            
             }
             $html .= '</table>';
         }
@@ -238,18 +316,35 @@ $html .= '<p><b>Contenidos Minimos</b></p>
         //Viajes Academicos
         $viajesAcademicos = $this->parametros['viajesAcademicos'];
         $html .= '<h1>VIAJES ACADEMICOS </h1>';
+
         if ($viajesAcademicos) {
+            $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($viajesAcademicos as $viaje) {
                 $fecha = $viaje->getFechaTentativa();
                 $fechaR = $viaje->getFechaTentativaRegreso();
-                $html .= '<p><b>Descripcion: </b> ' . $viaje->getDescripcion() . '</p>';
-                $html .= '<p><b>Objetivos: </b> ' . $viaje->getObjetivos() . '</p>';
-                $html .= '<p><b>Recorrido: </b> ' . $viaje->getRecorrido() . '</p>';
-                $html .= '<p><b>Cantidad Estudiantes: </b> ' . $viaje->getCantEstudiantes() . '</p>';
-                $html .= '<p><b>Cantidad Docentes: </b> ' . $viaje->getCantDocentes() . '</p>';
-                $html .= '<p><b>Fecha Tentativa: </b>' . $fecha->format('d/m/Y') . '</p>';
-                $html .= '<p><b>fecha Tentativa Regreso: </b>' . $fechaR->format('d/m/Y') . '</p>';
+
+                $html .= '<tr><td><b>Descripcion </b> </td><td></td></tr>';
+                $html .= '<tr><td>' . $viaje->getDescripcion() . '</td><td></td></tr>';
+
+                $html .= '<tr><td><b>Objetivos </b></td>';
+                $html .= '<td><b>Recorrido </b></td></tr>';
+                $html .= '<tr><td>' . $viaje->getObjetivos() . '</td>';
+                $html .= '<td>' . $viaje->getRecorrido() . '</td></tr>';
+
+
+                $html .= '<tr><td><b>Cantidad Estudiantes </b></td>';
+                $html .= '<td><b>Cantidad Docentes </b></td></tr>';
+                $html .= '<tr><td>' . $viaje->getCantEstudiantes() . '</td>';
+                $html .= '<td>' . $viaje->getCantDocentes() . '</td></tr>';
+
+                $html .= '<tr><td><b>Fecha Tentativa </b></td>';
+                $html .= '<td><b>Fecha Tentativa Regreso </b></td></tr>';
+                $html .= '<tr><td>' . $fecha->format('d/m/Y') . '</td>';
+                $html .= '<td>' . $fechaR->format('d/m/Y') . '</td></tr>';
             }
+            $html .= '</table>';
+        } else {
+            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
         }
 
         $html .= '</body>';
