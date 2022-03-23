@@ -90,10 +90,10 @@
                                                 <span class=''>{{ p.getUltimaModif()|date('d/m/Y H:i') ~ ' Hs.' }}</span>
                                             </p>
                                             <div class="mt-5 row">
-                                                <div class="col-12 col-md-7 offset-md-5">
+                                                <div class="col-12 col-md-10 offset-md-2">
 
                                                     <div class="row">
-                                                        <div class="col-12 col-md-8">
+                                                        <div class="col-12 col-md-10">
                                                             <a href='{{ path('planif_info_basica_editar', {id : p.id})}}' class="btn btn-primary">
                                                                 <i class="fa fa-edit"></i>
                                                                 Ver/Editar
@@ -106,8 +106,12 @@
                                                                 <i class="fa fa-print"></i>
                                                                 Imprimir
                                                             </a>
+                                                            <a href="" class="btn btn-outline-secondary">
+                                                                <i class="fa fa-print"></i>
+                                                                Cambiar Estado
+                                                            </a>
                                                         </div>
-                                                        <div class="col-12 col-md-4 text-right">
+                                                        <div class="col-12 col-md-2 text-right">
                                                             <a href="{{ path('planificaciones_borrar', {id : p.id}) }}" class="btn btn-outline-danger">
                                                                 <i class="fa fa-trash"></i>
                                                                 Eliminar
