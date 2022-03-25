@@ -69,62 +69,86 @@
                                     </div>
 
                                     <div id="{{ id }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
-                                        <div class="card-body bg-light">
-                                            <h4 class='font-weight-bold text-uppercase h6'>
+                                        <div class="card-body bg-light p-5">
+                                            {#<h4 class='font-weight-bold text-uppercase h6'>
                                                 {{ nom_carrera(p.carrera) ~ ' - Plan ' ~ p.plan }}
-                                            </h4>
-                                            <p class='mb-0 mt-4'>
-                                                <span class='font-weight-bold'> Docente responsable: </span>
-                                                {% if p.getDocenteResponsable() %}
-                                                    {{ p.getDocenteResponsable.getPersona().getApeNom() }}
-                                                {% else %}
-                                                    <span class='text-muted'>Sin definir</span>
-                                                {% endif %}
-                                            </p>
-                                            <p class='mb-0'>
-                                                <span class='font-weight-bold'>Estado actual: </span>
-                                                <span class=''>{{ p.getEstadoActual() }}</span>
-                                            </p>
-                                            <p class='mb-0'>
-                                                <span class='font-weight-bold'>Ultima modificaci&oacute;n: </span>
-                                                <span class=''>{{ p.getUltimaModif()|date('d/m/Y H:i') ~ ' Hs.' }}</span>
-                                            </p>
-                                            <div class="mt-5 row">
-                                                <div class="col-12 col-md-10 offset-md-2">
+                                            </h4>#}
 
-                                                    <div class="row">
-                                                        <div class="col-12 col-md-10">
-                                                            <a href='{{ path('planif_info_basica_editar', {id : p.id})}}' class="btn btn-primary">
-                                                                <i class="fa fa-edit"></i>
-                                                                Ver/Editar
-                                                            </a>
-                                                            <a href="{{ path('planificaciones_duplicar', {id : p.id})}}" class="btn btn-outline-secondary">
-                                                                <i class="fa fa-copy"></i>
-                                                                Duplicar
-                                                            </a>
-                                                            <a href="{{ path('planificaciones_imprimir', {id : p.id})}}" class="btn btn-outline-secondary">
-                                                                <i class="fa fa-print"></i>
-                                                                Imprimir
-                                                            </a>
-                                                            <a href="" class="btn btn-outline-secondary">
-                                                                <i class="fa fa-print"></i>
-                                                                Cambiar Estado
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-12 col-md-2 text-right">
-                                                            <a href="{{ path('planificaciones_borrar', {id : p.id}) }}" class="btn btn-outline-danger">
-                                                                <i class="fa fa-trash"></i>
-                                                                Eliminar
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h5 class="font-weight-bold text-uppercase text-primary">                                                        
+                                                        {{  nom_carrera(p.carrera) }}                                                        
+                                                    </h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-12 col-sm-6">                                                    
+                                                    <p class="mb-1">
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Plan: </span>
+                                                        <span class=''>
+                                                            {{  p.plan }}
+                                                        </span>
+                                                    </p>
+                                                    <p class="mb-1">
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Docente responsable: </span>
+                                                        {% if p.getDocenteResponsable() %}
+                                                            {{ p.getDocenteResponsable.getPersona().getApeNom() }}
+                                                        {% else %}
+                                                            <span class='text-muted'>Sin definir</span>
+                                                        {% endif %}
+                                                    </p>
+                                                    <p>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Fecha creaci&oacute;n: </span>
+                                                        <span class=''>
+                                                            {{ p.fechaCreacion()|date('d/m/Y H:i') ~ ' Hs.' }}
+                                                        </span>  
+                                                    </p>
 
                                                 </div>
-
-
-
+                                                <div class="col-12 col-sm-6">
+                                                    <p class="mb-1">
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Estado actual: </span>
+                                                        <span class=''>{{ p.getEstadoActual() }}</span>              
+                                                    </p>
+                                                    <p>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold' title="Fecha última modificación">Fecha ultima modif.: </span>
+                                                        <span class=''>
+                                                            {{ p.getUltimaModif()|date('d/m/Y H:i') ~ ' Hs.' }}
+                                                        </span>              
+                                                    </p>                                                    
+                                                </div>
                                             </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-12 col-md-10">
+                                                    <a href='{{ path('planif_info_basica_editar', {id : p.id})}}' class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-edit"></i>
+                                                        Ver/Editar
+                                                    </a>
+                                                    <a href="{{ path('planificaciones_duplicar', {id : p.id})}}" class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fa fa-copy"></i>
+                                                        Duplicar
+                                                    </a>
+                                                    <a href="{{ path('planificaciones_imprimir', {id : p.id})}}" class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fa fa-print"></i>
+                                                        Imprimir
+                                                    </a>
+                                                    <a href="#" class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fa fa-clock-o"></i>
+                                                        Cambiar estado
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 col-md-2 text-right">
+                                                    <a href="{{ path('planificaciones_borrar', {id : p.id}) }}" class="btn btn-sm btn-outline-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                        Eliminar
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
 
