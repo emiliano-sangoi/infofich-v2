@@ -95,8 +95,13 @@ class PlanificacionesPDF extends ImprimirPDF {
 
 </table>';
 
-        $html .= '<p><b>Contenidos Minimos</b></p>
-          <p>' . $this->parametros['contenidosMinimos'] . '</p>';
+        $html .= '<p><b>Contenidos Minimos</b></p>';
+        if($this->parametros['contenidosMinimos']){
+            $html .=   '<p>' . $this->parametros['contenidosMinimos'] . '</p>';
+        } else {
+            $html .= 'Sin definir';
+        }
+        
 
         // Equipo Docente:
         $html .= '<h1>EQUIPO DOCENTE</h1>';
@@ -124,11 +129,12 @@ class PlanificacionesPDF extends ImprimirPDF {
             foreach ($docentesAdscriptos as $docentesAdscripto) {
                 if ($docentesAdscripto) {
                     $html .= $docentesAdscripto . '<br>';
-                } else {
-                    $html .= 'Sin definir';
                 }
             }
+        } else {
+            $html .= 'Sin definir';
         }
+
         $html .= '</td></tr>
 
 </table>';
@@ -231,26 +237,40 @@ class PlanificacionesPDF extends ImprimirPDF {
         }
 
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
-        $html .= '<p><b>Objetivos Generales </b> <br>' . $this->parametros['objetivosGral'] . '</p>';
-        $html .= '<p><b>Objetivos Específicos</b> <br>' . $this->parametros['objetivosEspe'] . '</p>';
+        $html .= '<p><b>Objetivos Generales </b> <br>';
+        if($this->parametros['objetivosGral']){
+            $html .= $this->parametros['objetivosGral'] .'</p>';
+        }else{
+            $html .= 'Sin definir</p>';
+        }
+                 
+        $html .= '<p><b>Objetivos Específicos</b> <br>';
+        if($this->parametros['objetivosEspe']){
+            $html .= $this->parametros['objetivosEspe'] .'</p>';
+        }else{
+            $html .= 'Sin definir</p>';
+        }
 
 
         //Resultados de  Aprendizaje
         $html .= '<h1>RESULTADOS APRENDIZAJE </h1>';
 
         $resultados = $this->parametros['resultados'];
-        if ($resultados) {
+        if ($resultados[0]) {
             foreach ($resultados as $resultado) {
                 $html .= '<p>' . $resultado . '</p>';
             }
+        } else {
+            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
         }
 
         //Temario
         $html .= '<h1>TEMARIO </h1>';
         $temario = $this->parametros['temario'];
-        $html .= '<table cellspacing="0" cellpadding="1">';
 
-        if ($temario) {
+
+        if ($temario[0]) {
+            $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($temario as $tema) {
                 $html .= '<tr>
                             <td><b>Nro Unidad</b></td>
@@ -265,8 +285,11 @@ class PlanificacionesPDF extends ImprimirPDF {
                         . '<tr><td colspan="2">' . $tema->getContenido() . '</td></tr>';
                 $html .= '<tr><td></td></tr>';
             }
+            $html .= '</table>';
+        } else {
+            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
         }
-        $html .= '</table>';
+
 
         $html .= '<h1>BIBLIOGRAFIA </h1>';
         $bibliografia = $this->parametros['bibliografia'];
@@ -285,13 +308,15 @@ class PlanificacionesPDF extends ImprimirPDF {
                   $html .= '<p><b>Nro de Edicion: </b> ' . $biblio->getNroEdicion() . '</p>';
                   $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>'; */
             }
+        } else {
+            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
         }
 
 
         //Actividades
         $actividades = $this->parametros['actividades'];
         $html .= '<h1>ACTIVIDADES CURRICULARES </h1>';
-        if ($actividades) {
+        if ($actividades[0]) {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($actividades as $actividad) {
                 $fecha = $actividad->getFecha();
@@ -311,13 +336,15 @@ class PlanificacionesPDF extends ImprimirPDF {
                             <tr><td></td></tr>';
             }
             $html .= '</table>';
+        } else {
+            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
         }
 
         //Viajes Academicos
         $viajesAcademicos = $this->parametros['viajesAcademicos'];
         $html .= '<h1>VIAJES ACADEMICOS </h1>';
 
-        if ($viajesAcademicos) {
+        if ($viajesAcademicos[0]) {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($viajesAcademicos as $viaje) {
                 $fecha = $viaje->getFechaTentativa();

@@ -283,8 +283,20 @@ class PlanificacionController extends Controller {
 
         //Equipo Docente
         $docenteResponsable = $planificacion->getDocenteResponsable();
-        $docentesColaboradores = $planificacion->getDocentesColaboradores();
-        $docentesAdscriptos = $planificacion->getDocentesAdscriptos();
+        
+        $docentesColaboradores = null;
+        foreach ($planificacion->getDocentesColaboradores() as $docente) {
+            $docentesColaboradores[] = $docente->getDocenteGrado()->getPersona()->getApeNom(true);            
+        }
+
+        $docentesAdscriptos = null;
+        foreach ($planificacion->getDocentesAdscriptos() as $docente) {
+            $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();        
+            $docentesAdscriptos[] = $cod_ape_nom;            
+        }
+        //$this->resumen['docentes_adscriptos_count'] = $i;   
+              
+        //$docentesAdscriptos = $planificacion->getDocentesAdscriptos();
 
         //Aprobacion de la asignatura
         $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
@@ -315,7 +327,7 @@ class PlanificacionController extends Controller {
         $temario = $planificacion->getTemario();
 
         //Bibliografia
-        //$bibliografia = null;
+        $bibliografia = null;
         $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
 
         //$bibliografia = $bibliografiaP->getBibliografia();
@@ -323,6 +335,7 @@ class PlanificacionController extends Controller {
         $actividades = $planificacion->getActividadCurricular();
 
         //Viajes Academicos
+        $viajesAcademicos = null;
         $viajesAcademicos = $planificacion->getViajesAcademicos();
 
         // buscamos la historia laboral detallada
