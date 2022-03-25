@@ -119,7 +119,10 @@ class PlanificacionesPDF extends ImprimirPDF {
             foreach ($docentesColaboradores as $docentesColaborador) {
                 $html .= $docentesColaborador . '<br>';
             }
+        } else {
+            $html .= 'Sin definir';
         }
+
 
         $html .= '</td>       
 
