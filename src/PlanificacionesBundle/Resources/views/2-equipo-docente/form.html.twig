@@ -28,15 +28,16 @@
             </span>
         </div>
         <div class="col-12 col-md-9">
-
-            {% if planificacion.docentesColaboradores[0] is defined %}
+            {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
+            {{ form_row(form.docentesColaboradores) }}
+            {#% if planificacion.docentesColaboradores[0] is defined %}
                 {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
                 {{ form_row(form.docentesColaboradores) }}
             {% else %}
                 <p class="text-muted">
                     No se ha definido ning&uacute;n docente colaborador.
                 </p>
-            {% endif %}
+            {% endif %#}
 
         </div>
     </div>
@@ -56,8 +57,9 @@
 
         </div>
         <div class="col-12 col-md-9">
-
-            {% if planificacion.docentesAdscriptos[0] is defined %}
+            {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
+            {{ form_row(form.docentesAdscriptos) }}
+            {#% if planificacion.docentesAdscriptos[0] is defined %}
 
                 {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
                 {{ form_row(form.docentesAdscriptos) }}
@@ -67,7 +69,7 @@
                     No se ha definido ning&uacute;n docente adscripto.
                 </p>
 
-            {% endif %}
+            {% endif %#}
         </div>
     </div>
 </div>        
