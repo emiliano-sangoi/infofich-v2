@@ -50,7 +50,7 @@
         </tr>
         
         {#Si nos pasan como parametro estado Nuevo - es porque nos llaman desde el boton cambiar estado #}
-        {% if bandera == 'cambiarEstado' %}
+        {% if bandera is defined and bandera == 'cambiarEstado' %}
         <tr>
             <td class="font-weight-bold bg-secondary text-white text-right">
                 Nuevo Estado:
