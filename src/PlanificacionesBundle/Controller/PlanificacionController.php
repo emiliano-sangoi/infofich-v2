@@ -12,6 +12,7 @@ use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\BuscadorType;
 use PlanificacionesBundle\Form\DuplicarPlanificacionType;
+use PlanificacionesBundle\Form\CambiarEstadoPlanificacionType;
 use PlanificacionesBundle\PDF\PlanificacionesPDF;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -442,5 +443,87 @@ class PlanificacionController extends Controller {
         $this->addFlash('danger', 'Ocurrieron errores al enviar la planificación a corrección.');
         return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
     }
+
+
+    /**
+     * Cambia el estado de una planificacion
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function cambiarEstadoAction(Request $request, Planificacion $planificacion) {
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
+
+        //dump($planificacion);exit;
+        $form = $this->createForm(CambiarEstadoPlanificacionType::class, null, array(
+            'planificacion_original' => $planificacion
+        ));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+
+            /* @var $planificacionCopia Planificacion */
+            $planificacionCopia = clone $planificacion;
+            
+            $planificacionCopia->setCarrera($data['carrera']);
+            $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
+            $planificacionCopia->setAnioAcad($data['anioAcad']);
+            $planificacionCopia->setHistoricosEstado(new \Doctrine\Common\Collections\ArrayCollection());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $repoPlanif = $em->getRepository(Planificacion::class);
+            $result = $repoPlanif->findOneBy(array(
+                'carrera' => $data['carrera'],
+                'codigoAsignatura' => $data['codigoAsignatura'],
+                'anioAcad' => $data['anioAcad'],
+            ));
+
+            if (!$result) {
+                
+                $planificacionCopia->setFechaCreacion(new \DateTime);
+                
+                //Crear la copia:
+                $em->persist($planificacionCopia);
+                $em->flush();
+
+                //Crear el historico:
+                //---------------------------------------------------------------------------
+                /* @var $repoHistorico HistoricoEstadosRepository */
+                $repoHistorico = $em->getRepository(HistoricoEstados::class);
+
+                $usuario = $this->getUser();
+                $repoHistorico->setEstadoCreada($planificacion, $usuario);
+                $repoHistorico->asignarEstado($planificacionCopia, Estado::PREPARACION, $usuario, 'Creada por copia por el usuario ' . $usuario->getUsername());
+                //---------------------------------------------------------------------------                
+                
+                $this->addFlash('success', 'Copia creada correctamente.');
+
+                return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
+            }
+
+
+            $msg = 'Ya existe una planificación creada para la carrera, asignatura y año académico elegido.';
+            $form->addError(new FormError($msg));
+        }
+//dump($form);exit;
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem("CAMBIAR ESTADO");
+
+        return $this->render('PlanificacionesBundle:planificacion:cambiar-estado.html.twig', array(
+                    'page_title' => 'Cambiar estado planificación',
+                    'planificacion' => $planificacion,
+                    'form' => $form->createView(),
+                    // 'paginado' => $paginado,
+                    'puede_borrar' => $this->isGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion))
+        ));
+    }
+
 
 }

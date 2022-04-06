@@ -52,6 +52,11 @@ planificaciones_imprimir:
     path:     /{id}/imprimir
     defaults: { _controller: PlanificacionesBundle:Planificacion:imprimir }
     methods: [GET, POST]
+
+planificaciones_cambiar_estado:
+    path:     /{id}/cambiar_estado
+    defaults: { _controller: PlanificacionesBundle:Planificacion:cambiarEstado }
+    methods: [GET, POST]
     
 #
 #planificaciones_edit:

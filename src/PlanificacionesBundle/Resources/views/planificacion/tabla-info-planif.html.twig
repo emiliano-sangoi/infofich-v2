@@ -48,6 +48,15 @@
                 {{ planificacion.getDocenteResponsable()|default('-') }}
             </td>
         </tr>
+        {#Si nos pasan como parametro estado Nuevo - es porque nos llaman desde el boton cambiar estado #}
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Nuevo Estado:
+            </td>
+            <td class="bg-white">
+               EN REVISIÓN
+            </td>
+        </tr>
         {#        <tr>
                     <td class="font-weight-bold bg-secondary text-white text-right">
                         Dueño
