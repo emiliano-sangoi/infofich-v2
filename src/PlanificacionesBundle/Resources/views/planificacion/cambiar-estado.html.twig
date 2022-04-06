@@ -27,7 +27,7 @@
                     Datos Planificación :
                 </h4>
                 <div class="table-responsive mt-3">
-                    {% include 'PlanificacionesBundle:planificacion:tabla-info-planif.html.twig' %}
+                    {% include 'PlanificacionesBundle:planificacion:tabla-info-planif.html.twig' with {'bandera':'cambiarEstado'} %}
                 </div>
                 <div class="text-right">
                     <a href="{{ path('planificaciones_revisar', {id : planificacion.id }) }}" target="_blank" class="" title="Ver más datos de esta planificación">

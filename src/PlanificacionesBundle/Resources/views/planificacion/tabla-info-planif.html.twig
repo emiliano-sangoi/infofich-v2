@@ -24,6 +24,14 @@
                 {{ planificacion.anioAcad|default('-') }}
             </td>
         </tr>
+           <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Docente responsable:
+            </td>
+            <td class="bg-white">
+                {{ planificacion.getDocenteResponsable()|default('-') }}
+            </td>
+        </tr>
         <tr>
             <td class="font-weight-bold bg-secondary text-white text-right">
                 Estado actual:
@@ -40,23 +48,22 @@
                 {% endif %}                
             </td>
         </tr>
-        <tr>
-            <td class="font-weight-bold bg-secondary text-white text-right">
-                Docente responsable:
-            </td>
-            <td class="bg-white">
-                {{ planificacion.getDocenteResponsable()|default('-') }}
-            </td>
-        </tr>
+        
         {#Si nos pasan como parametro estado Nuevo - es porque nos llaman desde el boton cambiar estado #}
+        {% if bandera == 'cambiarEstado' %}
         <tr>
             <td class="font-weight-bold bg-secondary text-white text-right">
                 Nuevo Estado:
             </td>
             <td class="bg-white">
-               EN REVISIÓN
+                <span class='mr-2 small text-uppercase badge badge-warning' style='cursor:default;'>
+                     EN REVISIÓN
+                </span>
             </td>
         </tr>
+        {% endif %}
+
+
         {#        <tr>
                     <td class="font-weight-bold bg-secondary text-white text-right">
                         Dueño
