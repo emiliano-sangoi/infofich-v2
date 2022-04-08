@@ -21,8 +21,6 @@
         </div>
 
         {{ form_row(form.posicion) }}
-
-        {% if planificacion.temario[0] is defined %}
             <div class="form-row">
                 <div class="form-group col-md-2 pl-0">
                     <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
@@ -51,8 +49,5 @@
                     </div>#}
                 </div>
             </div>  
-        {% endif %}
-
-
     </div>         
 {% endblock %}

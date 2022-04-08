@@ -211,7 +211,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var RequisitosAprobacion
      * 
-     * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion", cascade={"remove", "persist"})
      */
     private $requisitosAprobacion;
 
@@ -267,17 +267,90 @@ class Planificacion implements \JsonSerializable{
             
             $this->setId(null);
             
+            
+            //------------------------------------------------------------------------------------
+            // Copia de docentes colaboradores
             $dc = new ArrayCollection();
             foreach ($this->docentesColaboradores as $item){
-                
-                /* @var $itemCopia PlanificacionDocenteColaborador */
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $dc->add($itemCopia);
-                
+                $dc->add($itemCopia);                
             }
             
             $this->docentesColaboradores = $dc;
+            
+            //------------------------------------------------------------------------------------
+            // Copia de docentes adscriptos
+            $d_adsc = new ArrayCollection();
+            foreach ($this->docentesAdscriptos as $item){
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $d_adsc->add($itemCopia);                
+            }
+            
+            $this->docentesAdscriptos = $d_adsc;
+            
+            //------------------------------------------------------------------------------------
+            // Requisitos de aprobación
+            $r_aprob = clone $this->requisitosAprobacion;
+            $r_aprob->setPlanificacion($this);
+            $this->requisitosAprobacion = $r_aprob;
+            
+            //------------------------------------------------------------------------------------
+            // Resultados de aprendizaje
+            $r_apren = new ArrayCollection();
+            foreach ($this->resultados as $item){
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $r_apren->add($itemCopia);                
+            }
+            
+            $this->resultados = $r_apren;
+            
+            //------------------------------------------------------------------------------------
+            // Temario
+            $temarios = new ArrayCollection();
+            foreach ($this->temario as $item){
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $temarios->add($itemCopia);                
+            }
+            
+            $this->temario = $temarios;
+            
+            //------------------------------------------------------------------------------------
+            // Bibliografía
+            $b_planif = new ArrayCollection();
+            foreach ($this->bibliografiasPlanificacion as $item){                                
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $b_planif->add($itemCopia);                
+            }
+            
+            $this->bibliografiasPlanificacion = $b_planif;
+            
+            
+            //------------------------------------------------------------------------------------
+            // Actividades curriculares
+            $a_curriculares = new ArrayCollection();
+            foreach ($this->actividadCurricular as $item){                                
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $a_curriculares->add($itemCopia);                
+            }
+            
+            $this->actividadCurricular = $a_curriculares;
+            
+            //------------------------------------------------------------------------------------
+            // Viajes academicos
+            $viajes = new ArrayCollection();
+            foreach ($this->viajesAcademicos as $item){                                
+                $itemCopia = clone $item;
+                $itemCopia->setPlanificacion($this);
+                $viajes->add($itemCopia);                
+            }
+            
+            $this->viajesAcademicos = $viajes;
             
             
             

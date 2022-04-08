@@ -88,14 +88,11 @@ class BibliografiaType extends AbstractType {
                     'label' => 'Referencia bibliográfica',
                     'required' => true,
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'rows' => 5
                     )
         ));
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Descartar cambios',
-            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
-        ));
     }
 
     public function addTitulo(FormBuilderInterface $builder, array $options) {

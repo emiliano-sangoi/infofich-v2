@@ -1,19 +1,19 @@
 {% block planificacionesbundle_bibliografiaplanificacion_widget %}
-    <div class="form-row">
-        <div class="col-md-8 formato-inputs-groups">
+    <div class="row mb-3">
+        <div class="col-md-3 formato-inputs-groups">
             {{ form_label(form.tipoBibliografia) }}
-            {{ form_widget(form.tipoBibliografia) }}
+            {% for child in form.tipoBibliografia %}
+                <div>
+                    {{ form_widget(child) }}
+                    {{ form_label(child, null, { label_attr: { 'class': 'font-weight-normal' } }) }}
+                </div>
+            {% endfor %}
             {{ form_errors(form.tipoBibliografia) }}
         </div>
-    </div>
-
-    <div class="mb-5">
-        <div class="form-row">
-            <div class="col-md-10">
-                {{ form_label(form.bibliografia.infoCompleta) }}
-                {{ form_widget(form.bibliografia.infoCompleta) }}
-                {{ form_errors(form.bibliografia.infoCompleta) }}
-            </div>
+        <div class="col-md-7">
+            {{ form_label(form.bibliografia.infoCompleta) }}
+            {{ form_widget(form.bibliografia.infoCompleta) }}
+            {{ form_errors(form.bibliografia.infoCompleta) }}
         </div>
     </div>
 
@@ -102,8 +102,6 @@
                 <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
                     <i class="fa fa-trash"></i> Borrar
                 </a>
-
-                {{ form_widget(form.bibliografia.reset) }}
 
 
                 {#<div class="col-md-1">

@@ -181,6 +181,10 @@ class RequisitosAprobacion {
         $this->prevePromParcialTeoria = true;
         $this->prevePromParcialPractica = true;        
     }
+    
+    public function __toString() {
+        return 'Requisitos aprobación planificación: ' . $this->planificacion->getId();
+    }
 
     /**
      * Get id

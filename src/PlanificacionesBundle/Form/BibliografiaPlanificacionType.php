@@ -53,7 +53,7 @@ class BibliografiaPlanificacionType extends AbstractType {
     public function addTipo(FormBuilderInterface $builder, array $options) {
 
         $config = array(
-            'label' => false,
+            'label' => 'Tipo bibliografía',
             'class' => 'PlanificacionesBundle:TipoBibliografia',
             'choice_label' => 'nombre',
             'expanded' => true,            
