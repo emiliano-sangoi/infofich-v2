@@ -201,7 +201,7 @@ class PlanificacionController extends Controller {
 
             /* @var $planificacionCopia Planificacion */
             $planificacionCopia = clone $planificacion;
-            
+
             $planificacionCopia->setCarrera($data['carrera']);
             $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
             $planificacionCopia->setAnioAcad($data['anioAcad']);
@@ -217,9 +217,9 @@ class PlanificacionController extends Controller {
             ));
 
             if (!$result) {
-                
+
                 $planificacionCopia->setFechaCreacion(new \DateTime);
-                
+
                 //Crear la copia:
                 $em->persist($planificacionCopia);
                 $em->flush();
@@ -233,7 +233,7 @@ class PlanificacionController extends Controller {
                 $repoHistorico->setEstadoCreada($planificacion, $usuario);
                 $repoHistorico->asignarEstado($planificacionCopia, Estado::PREPARACION, $usuario, 'Creada por copia por el usuario ' . $usuario->getUsername());
                 //---------------------------------------------------------------------------                
-                
+
                 $this->addFlash('success', 'Copia creada correctamente.');
 
                 return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
@@ -284,21 +284,19 @@ class PlanificacionController extends Controller {
 
         //Equipo Docente
         $docenteResponsable = $planificacion->getDocenteResponsable();
-        
+
         $docentesColaboradores = null;
         foreach ($planificacion->getDocentesColaboradores() as $docente) {
-            $docentesColaboradores[] = $docente->getDocenteGrado()->getPersona()->getApeNom(true);            
+            $docentesColaboradores[] = $docente->getDocenteGrado()->getPersona()->getApeNom(true);
         }
 
         $docentesAdscriptos = null;
         foreach ($planificacion->getDocentesAdscriptos() as $docente) {
-            $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();        
-            $docentesAdscriptos[] = $cod_ape_nom;            
+            $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();
+            $docentesAdscriptos[] = $cod_ape_nom;
         }
         //$this->resumen['docentes_adscriptos_count'] = $i;   
-              
         //$docentesAdscriptos = $planificacion->getDocentesAdscriptos();
-
         //Aprobacion de la asignatura
         $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
         $requisitosAprobacion = array();
@@ -315,7 +313,7 @@ class PlanificacionController extends Controller {
             $requisitosAprobacion['examenFinalReg'] = $aprobacionAsignatura->getExamenFinalModalidadRegulares();
             $requisitosAprobacion['prevePromParcialTeo'] = $aprobacionAsignatura->getPrevePromParcialTeoria();
             $requisitosAprobacion['prevePromParcialPractica'] = $aprobacionAsignatura->getPrevePromParcialPractica();
-            $requisitosAprobacion['preveCfi'] = $aprobacionAsignatura->getPreveCfi();   
+            $requisitosAprobacion['preveCfi'] = $aprobacionAsignatura->getPreveCfi();
         }
         //Objetivos de la asignatura
         $objetivosEspe = $planificacion->getObjetivosEspecificos();
@@ -444,7 +442,6 @@ class PlanificacionController extends Controller {
         return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
     }
 
-
     /**
      * Cambia el estado de una planificacion
      *
@@ -462,51 +459,19 @@ class PlanificacionController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
+            //Crear un registro en el historico de estados
+            //---------------------------------------------------------------------------
+            /* @var $repoHistorico HistoricoEstadosRepository */
+            $repoHistorico = $em->getRepository(HistoricoEstados::class);
 
-            /* @var $planificacionCopia Planificacion */
-            $planificacionCopia = clone $planificacion;
-            
-            $planificacionCopia->setCarrera($data['carrera']);
-            $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
-            $planificacionCopia->setAnioAcad($data['anioAcad']);
-            $planificacionCopia->setHistoricosEstado(new \Doctrine\Common\Collections\ArrayCollection());
+            $usuario = $this->getUser();
+            $repoHistorico->setEstadoCreada($planificacion, $usuario);
+            $repoHistorico->asignarEstado($planificacion, Estado::REVISION, $usuario, 'Cambio de estado por SA ' . $usuario->getUsername());
+            //---------------------------------------------------------------------------                
 
-            $em = $this->getDoctrine()->getManager();
+            $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
-            $repoPlanif = $em->getRepository(Planificacion::class);
-            $result = $repoPlanif->findOneBy(array(
-                'carrera' => $data['carrera'],
-                'codigoAsignatura' => $data['codigoAsignatura'],
-                'anioAcad' => $data['anioAcad'],
-            ));
-
-            if (!$result) {
-                
-                $planificacionCopia->setFechaCreacion(new \DateTime);
-                
-                //Crear la copia:
-                $em->persist($planificacionCopia);
-                $em->flush();
-
-                //Crear el historico:
-                //---------------------------------------------------------------------------
-                /* @var $repoHistorico HistoricoEstadosRepository */
-                $repoHistorico = $em->getRepository(HistoricoEstados::class);
-
-                $usuario = $this->getUser();
-                $repoHistorico->setEstadoCreada($planificacion, $usuario);
-                $repoHistorico->asignarEstado($planificacionCopia, Estado::PREPARACION, $usuario, 'Creada por copia por el usuario ' . $usuario->getUsername());
-                //---------------------------------------------------------------------------                
-                
-                $this->addFlash('success', 'Copia creada correctamente.');
-
-                return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
-            }
-
-
-            $msg = 'Ya existe una planificación creada para la carrera, asignatura y año académico elegido.';
-            $form->addError(new FormError($msg));
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
         }
 //dump($form);exit;
         // Breadcrumbs
@@ -524,6 +489,5 @@ class PlanificacionController extends Controller {
                     'puede_borrar' => $this->isGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion))
         ));
     }
-
 
 }
