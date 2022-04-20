@@ -451,14 +451,16 @@ class PlanificacionController extends Controller {
     public function cambiarEstadoAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
-
+        
         //dump($planificacion);exit;
         $form = $this->createForm(CambiarEstadoPlanificacionType::class, null, array(
             'planificacion_original' => $planificacion
         ));
         $form->handleRequest($request);
+        //var_dump($form->isSubmitted());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
+            $em = $this->getDoctrine()->getManager();
             //Crear un registro en el historico de estados
             //---------------------------------------------------------------------------
             /* @var $repoHistorico HistoricoEstadosRepository */
