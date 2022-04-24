@@ -472,7 +472,7 @@ class PlanificacionController extends Controller {
             //---------------------------------------------------------------------------                
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
-            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
         }
 
         // Breadcrumbs
