@@ -470,12 +470,11 @@ class PlanificacionController extends Controller {
             $repoHistorico->setEstadoCreada($planificacion, $usuario);
             $repoHistorico->asignarEstado($planificacion, Estado::REVISION, $usuario, 'Cambio de estado por SA ' . $usuario->getUsername());
             //---------------------------------------------------------------------------                
-
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacionCopia->getId()));
         }
-//dump($form);exit;
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));

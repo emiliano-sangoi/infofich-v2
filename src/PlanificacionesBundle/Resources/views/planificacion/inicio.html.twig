@@ -135,12 +135,19 @@
                                                     </a>
                                                     <a href="{{ path('planificaciones_imprimir', {id : p.id})}}" class="btn btn-sm btn-outline-secondary">
                                                         <i class="fa fa-print"></i>
-                                                        Imprimir
+                                                        Imprimir                                                    
                                                     </a>
-                                                    <a href="{{ path('planificaciones_cambiar_estado', {id : p.id}) }}" class="btn btn-sm btn-outline-secondary">
-                                                        <i class="fa fa-clock-o"></i>
-                                                        Cambiar estado
-                                                    </a>
+                                                    {# El boton Cambiar Estado es para las planificaciones publicadas que 
+                                                    pueden cambiar al estado en Revision, solo tiene permiso SEC ACADeMICA. #}
+                                                    {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+
+                                                    {% if (p.isPublicada() and app.user.tieneRol(ROL_SA))%}
+   
+                                                        <a href="{{ path('planificaciones_cambiar_estado', {id : p.id}) }}" class="btn btn-sm btn-outline-secondary">
+                                                            <i class="fa fa-clock-o"></i>
+                                                            Cambiar estado
+                                                        </a>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="col-12 col-md-2 text-right">
                                                     <a href="{{ path('planificaciones_borrar', {id : p.id}) }}" class="btn btn-sm btn-outline-danger">
