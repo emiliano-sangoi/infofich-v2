@@ -16,11 +16,11 @@
 
 {% block content %}
     <div class="" id="login">
-        
-{#        Imagen de fondo:#}
+
+        {#        Imagen de fondo:#}
         <img class="bg" src="{{ asset('bundles/app/images/fichgris.png') }}" />
-        
-        
+
+
         <div class="">
             <div class="row">
                 <div class="col-sm-12 col-md-6 pl-lg-5 pl-sm-3">
@@ -49,7 +49,7 @@
                                     Sistema de información institucional
                                 </h4>
 
-                                <div class="mt-4 py-lg-4 py-sm-2">
+                                <div class="mt-4 pt-lg-4">
 
                                     {{ form_start(form_login) }}
 
@@ -63,12 +63,22 @@
                                         {{ form_widget(form_login.password) }}
                                     </div>                                  
 
-                                    <div class="form-group text-right mt-4">
-                                        {{ form_widget(form_login.submit) }}                             
-                                    </div>
-                                    
-                                     {% if form_login.vars.errors|length > 0 %}
-                                        <div class="form-group mt-5 errores">
+                                    <div class="form-group mt-5 mb-0">
+                                        <div class="row">
+                                            <div class="col-5 pl-0">
+                                                <input type="submit" value="Ingresar" class="btn px-lg-3 btn-primary" role="button"/>
+                                            </div>
+                                            <div class="col-7 text-right align-self-center">
+                                                <a href="{{ path('app_recuperar_password') }}" class="btn-link">
+                                                    Olvide mi contraseña
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>                                                                        
+
+                                    {% if form_login.vars.errors|length > 0 %}
+                                        <div class="form-group mt-4 errores">
                                             {% for error in form_login.vars.errors %}
                                                 <div class="alert alert-danger">
                                                     {{ error.message }}
@@ -76,7 +86,7 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %}
-                                    
+
                                     {{ form_end(form_login) }}
 
                                 </div>

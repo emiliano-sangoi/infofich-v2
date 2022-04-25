@@ -32,7 +32,10 @@ app_login:
 app_logout:
     path:     /logout
     defaults: { _controller: AppBundle:Security:logout }
-    
+
+app_recuperar_password:
+    path:     /recuperar-password
+    defaults: { _controller: AppBundle:Security:recuperarPassword }
     
 ajax_get_asignaturas:
     path:     /asignaturas-por-carrera/{carrera}

@@ -168,8 +168,11 @@ trait PersonaTypeTrait {
                 'class' => 'font-weight-bold'
             ),
             'disabled' => $disabled,
-            'required' => $required,
-            'attr' => array('class' => 'form-control'),
+            'required' => $required,            
+            'attr' => array(
+                'class' => 'form-control', 
+                'placeholder' => 'Correo electrónico'
+                ),
             'constraints' => $contraints,
         );
 

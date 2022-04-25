@@ -15,14 +15,16 @@
     <!-- Nav Item - User Information -->
     <ul class="list-unstyled text-right mb-0">
         <li class="nav-item dropdown no-arrow d-inline-block align-middle">
-            <a class="nav-link dropdown-toggle text-secondary" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-circle fa-sm fa-fw fa-2x align-middle"></i>
-                <span class="mr-2 ">
-                    {{  app.user }}
-                </span>
-                {# <img class="img-thumbnail" style="width:5%" src="{{ asset('bundles/app/images/perfil.png') }}"> #}
+            {% if app.user %}
+                <a class="nav-link dropdown-toggle text-secondary" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-sm fa-fw fa-2x align-middle"></i>
+                    <span class="mr-2 ">
+                        {{  app.user }}
+                    </span>
+                    {# <img class="img-thumbnail" style="width:5%" src="{{ asset('bundles/app/images/perfil.png') }}"> #}
 
-            </a>
+                </a>
+            {% endif %}
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">

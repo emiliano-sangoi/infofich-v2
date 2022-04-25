@@ -59,6 +59,7 @@ security:
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/recuperar-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         
         #- { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios, roles: [ROLE_ADMIN] }

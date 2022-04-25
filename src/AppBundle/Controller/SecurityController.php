@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use AppBundle\Form\RecuperarPasswordType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +43,7 @@ class SecurityController extends Controller {
             if ($ok) {
                 
                 //actualizar fecha de ultimo ingreso:
-                $usuario->setUltimoIngreso(new \DateTime);
+                $usuario->setUltimoIngreso(new DateTime);
                 $em->flush();
 
                 return $this->redirectToRoute('homepage');
@@ -91,6 +93,36 @@ class SecurityController extends Controller {
     }
 
     public function logoutAction() {
+        
+    }
+    
+    public function recuperarPasswordAction(Request $request) {
+        
+        
+        $form = $this->createForm(RecuperarPasswordType::class);
+        $form->handleRequest($request);
+        
+         if ($form->isSubmitted() && $form->isValid()) {
+
+            $email = $form['email']->getData();
+            
+         }
+        
+        
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio de sesión", $this->get("router")->generate("app_login"));
+        $breadcrumbs->addItem("Recuperar contraseña");
+        
+        
+        return $this->render('AppBundle:Security:recuperar-password.html.twig', array(
+                    'form' => $form->createView(),
+                    'page_title' => 'Recuperar contraseña',
+        ));
+        
+        
+        
+        
         
     }
 

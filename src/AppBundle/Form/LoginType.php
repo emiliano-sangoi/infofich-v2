@@ -26,7 +26,7 @@ class LoginType extends AbstractType {
             'maxMessage' => "El nombre de usuario puede tener a lo sumo {{ limit }} caracteres."
         );
         
-        $builder->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('username', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
             'label' => 'Usuario',
             'required' => false,
             'attr' => array('class' => 'form-control'),
@@ -45,7 +45,7 @@ class LoginType extends AbstractType {
             'maxMessage' => "La contraseña puede tener a lo sumo {{ limit }} caracteres."
         );
         
-        $builder->add('password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
+        $builder->add('password', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class, array(
             'label' => 'Contraseña',
             'required' => false,
             'error_bubbling' => true,
@@ -57,10 +57,6 @@ class LoginType extends AbstractType {
         ));
 
 
-        $builder->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-            'label' => 'Acceder',
-            'attr' => array('class' => 'btn btn-primary')
-        ));
     }
 
     /**
