@@ -104,7 +104,38 @@ class SecurityController extends Controller {
         
          if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = $form['email']->getData();
+            $username = $form['username']->getData();
+            //
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository(Usuario::class)->findOneBy(array(
+                'username' => $username,
+                'fechaBaja' => null
+            ));
+
+            if($user instanceof Usuario){
+
+                if(filter_var($user->getPersona()->getEmail(), FILTER_VALIDATE_EMAIL)) {
+                    $nuevaPwd = $this->crearRandomPwd();
+                    $encodedPwd = $this->container->get('security.password_encoder')
+                        ->encodePassword($user, $nuevaPwd);
+
+                    $user->setPassword($encodedPwd);
+                    $user->setResetPwd(true);
+                    $em->flush();//actualizar cambios
+
+                    //Enviar correo electrónico ...
+
+
+                }else{
+                    $form->get('username')->addError(new FormError('El usuario no posee una dirección de correo o la misma no posee un formato correcto.'));
+                }
+
+                //Enviar correo con contraseña nueva
+
+                dump($username);exit;
+            }else{
+                $form->get('username')->addError(new FormError('No se encontró ningún usuario con el nombre de usuario ingresado.'));
+            }
             
          }
         
@@ -119,11 +150,27 @@ class SecurityController extends Controller {
                     'form' => $form->createView(),
                     'page_title' => 'Recuperar contraseña',
         ));
+
+
+
         
         
-        
-        
-        
+    }
+
+    private function crearRandomPwd($longitud = 14)
+    {
+        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz023456789";
+        srand((double)microtime() * 1000000);
+        $i = 0;
+        $pass = '';
+        while ($i <= $longitud)
+        {
+            $num = rand() % 60;
+            $tmp = substr($chars, $num, 1);
+            $pass = $pass . $tmp;
+            $i++;
+        }
+        return $pass;
     }
 
 }

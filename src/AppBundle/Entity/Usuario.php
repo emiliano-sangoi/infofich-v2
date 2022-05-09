@@ -118,6 +118,30 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
      */
     protected $fechaBaja;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="string_recup_pwd", type="string", length=64, nullable=true)
+     */
+    protected $stringRecupPwd;
+
+    /**
+     * Hash de la nueva contraseña
+     *
+     * Campo utilizado durante la recuperacion de la contraseña. Normalmente se encuentra vacío este campo.
+     *
+     * @ORM\Column(name="nueva_password", type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    protected $nuevaPassword;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="reset_password", type="boolean", nullable=true)
+     */
+    protected $resetPwd;
 
 
     public function __construct() {
@@ -125,6 +149,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
         $this->roles = new ArrayCollection();
         $this->fechaCreacion = new DateTime();
         $this->bloqueado = false;
+        $this->resetPwd = false;
     }
         
 
@@ -431,4 +456,76 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
         );
     }
 
+
+    /**
+     * Set stringRecupPwd
+     *
+     * @param string $stringRecupPwd
+     *
+     * @return Usuario
+     */
+    public function setStringRecupPwd($stringRecupPwd)
+    {
+        $this->stringRecupPwd = $stringRecupPwd;
+
+        return $this;
+    }
+
+    /**
+     * Get stringRecupPwd
+     *
+     * @return string
+     */
+    public function getStringRecupPwd()
+    {
+        return $this->stringRecupPwd;
+    }
+
+    /**
+     * Set nuevaPassword
+     *
+     * @param string $nuevaPassword
+     *
+     * @return Usuario
+     */
+    public function setNuevaPassword($nuevaPassword)
+    {
+        $this->nuevaPassword = $nuevaPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get nuevaPassword
+     *
+     * @return string
+     */
+    public function getNuevaPassword()
+    {
+        return $this->nuevaPassword;
+    }
+
+    /**
+     * Set resetPwd
+     *
+     * @param boolean $resetPwd
+     *
+     * @return Usuario
+     */
+    public function setResetPwd($resetPwd)
+    {
+        $this->resetPwd = $resetPwd;
+
+        return $this;
+    }
+
+    /**
+     * Get resetPwd
+     *
+     * @return boolean
+     */
+    public function getResetPwd()
+    {
+        return $this->resetPwd;
+    }
 }
