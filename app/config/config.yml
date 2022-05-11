@@ -43,6 +43,7 @@ twig:
     globals:
         global_sd: 'Sin definir'
         full_width: false
+        gidis_email: '%gidis_email%'
         vacio: '-'
 
 # Doctrine Configuration

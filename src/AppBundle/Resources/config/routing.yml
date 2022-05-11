@@ -13,7 +13,6 @@ app_permisos:
 app_personas:
     resource: "@AppBundle/Resources/config/routing/persona.yml"
     prefix:   /personas
-
     
 homepage:
     path: /
@@ -36,6 +35,10 @@ app_logout:
 app_recuperar_password:
     path:     /recuperar-password
     defaults: { _controller: AppBundle:Security:recuperarPassword }
+
+app_recuperar_password_msg:
+    path:     /recuperar-password/{id}/mensaje
+    defaults: { _controller: AppBundle:Security:recuperarPasswordMsg }
     
 ajax_get_asignaturas:
     path:     /asignaturas-por-carrera/{carrera}

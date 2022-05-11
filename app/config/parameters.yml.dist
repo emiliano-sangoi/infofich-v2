@@ -24,6 +24,8 @@ parameters:
     api_infofich_cache_enabled: false
     api_infofich_env: prod
 
+    gidis_email: gidis@fich.unl.edu.ar
+
     # Desde esta conexion se exportaran los usuarios:
     db_infofich_viejo:
         host:

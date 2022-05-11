@@ -115,15 +115,18 @@ class SecurityController extends Controller {
             if($user instanceof Usuario){
 
                 if(filter_var($user->getPersona()->getEmail(), FILTER_VALIDATE_EMAIL)) {
-                    $nuevaPwd = $this->crearRandomPwd();
-                    $encodedPwd = $this->container->get('security.password_encoder')
-                        ->encodePassword($user, $nuevaPwd);
+                    $hash = $this->generarRandomStr();
+//                    $encodedPwd = $this->container->get('security.password_encoder')
+//                        ->encodePassword($user, $nuevaPwd);
 
-                    $user->setPassword($encodedPwd);
+                    $user->setStringRecupPwd($hash);
                     $user->setResetPwd(true);
                     $em->flush();//actualizar cambios
 
                     //Enviar correo electrónico ...
+                    $this->enviarMail('emiliano.sangoi@gmail.com', 'Recuperar contraseña');
+
+                    return $this->redirectToRoute('app_recuperar_password_msg', array('id' => $user->getId()));
 
 
                 }else{
@@ -150,14 +153,55 @@ class SecurityController extends Controller {
                     'form' => $form->createView(),
                     'page_title' => 'Recuperar contraseña',
         ));
-
-
-
-        
-        
     }
 
-    private function crearRandomPwd($longitud = 14)
+    private function enviarMail($to, $contenido, $from = null){
+
+        if($from != null && !filter_var($from,FILTER_VALIDATE_EMAIL)){
+            return false;
+        }
+
+        if($from == null){
+            $from = $this->getParameter('gidis_email');
+        }
+
+        $titulo = 'Infofich - Recuperar contraseña';
+
+        //Crear msg:
+        $message = new \Swift_Message($titulo);
+
+        $message
+            ->setFrom($from)
+            ->setTo($to)
+            ->setBody($contenido, 'text/html');
+
+        $fallas = null;
+        $this->get('mailer')->send($message, $fallas);
+
+        if ($fallas) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public function recuperarPasswordMsgAction(Request $request, Usuario $usuario) {
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio de sesión", $this->get("router")->generate("app_login"));
+        $breadcrumbs->addItem("Recuperar contraseña");
+
+
+        return $this->render('AppBundle:Security:recuperar-password-msg.html.twig', array(
+            'usuario' => $usuario,
+            'page_title' => 'Recuperar contraseña',
+        ));
+
+    }
+
+    private function generarRandomStr($longitud = 14)
     {
         $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz023456789";
         srand((double)microtime() * 1000000);
