@@ -69,12 +69,23 @@ doctrine:
         auto_mapping: true
 
 # Swiftmailer Configuration
+# IMPORTANTE!!!!!!!!:
+# Si se usa GMAIL para probar se debe habilitar la opción "Allow less secure apps" en https://myaccount.google.com/security#connectedapps
+# Ver mas info en: https://stackoverflow.com/questions/33939393/failed-to-authenticate-on-smtp-server-error-using-gmail
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    transport: "%mailer_transport%"  # gmail, smtp
+    host:      "%mailer_host%"       # smtp.gmail.com
+    username:  "%mailer_user%"       # email de gmail
+    password:  "%mailer_password%"   # pwd de gmail
+    port:  "%mailer_port%"           # 465
+    encryption: "%mailer_encryption%" # ssl
+
+    # Sobre el SPOOL
+    # ------------------------------------------------------------------
+    # OJO !!!
+    # Si el spool esta habilitado los correos NO se enviaban desde los controladores.
+    # Mantenerlo deshabilitado para desarrollo (no definir ninguno).
+    # spool:     { type: memory }
 
 # VichUploaderBundle
 vich_uploader:
