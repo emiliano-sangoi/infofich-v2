@@ -115,16 +115,22 @@ class SecurityController extends Controller {
             if($user instanceof Usuario){
 
                 if(filter_var($user->getPersona()->getEmail(), FILTER_VALIDATE_EMAIL)) {
-                    $hash = $this->generarRandomStr();
-//                    $encodedPwd = $this->container->get('security.password_encoder')
-//                        ->encodePassword($user, $nuevaPwd);
 
+                    $hash = $this->generarRandomStr(64);
                     $user->setStringRecupPwd($hash);
-                    $user->setResetPwd(true);
+                    $user->setFechaGenStringRecup(new \DateTime());
                     $em->flush();//actualizar cambios
 
+                    $url_recup = $request->getSchemeAndHttpHost() .
+                        $this->generateUrl('app_recuperar_password_finalizar', array('string_verif' => $hash, 'username' => $username));
+
+                    $contenido = $this->renderView('AppBundle:Security:recuperar-mail.html.twig', array(
+                        'usuario' => $user,
+                        'url_recup' => $url_recup
+                    ));
+
                     //Enviar correo electrónico ...
-                    $this->enviarMail('emiliano.sangoi@gmail.com', 'Recuperar contraseña');
+                    $this->enviarMail('emiliano.sangoi@gmail.com', $contenido);
 
                     return $this->redirectToRoute('app_recuperar_password_msg', array('id' => $user->getId()));
 
@@ -132,16 +138,11 @@ class SecurityController extends Controller {
                 }else{
                     $form->get('username')->addError(new FormError('El usuario no posee una dirección de correo o la misma no posee un formato correcto.'));
                 }
-
-                //Enviar correo con contraseña nueva
-
-                dump($username);exit;
             }else{
                 $form->get('username')->addError(new FormError('No se encontró ningún usuario con el nombre de usuario ingresado.'));
             }
             
          }
-        
         
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -153,6 +154,80 @@ class SecurityController extends Controller {
                     'form' => $form->createView(),
                     'page_title' => 'Recuperar contraseña',
         ));
+    }
+
+    public function finalizarRecuperacionAction(Request $request, $username, $string_verif){
+
+//        $string_verif = $request->query->get('string_verif');
+//        $username = $request->query->get('username');
+
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository(Usuario::class)->findOneByUsername($username);
+        if(!$usuario instanceof Usuario){
+            $this->addFlash('No se ha encontrado ningún usuario con el nombre de usuario: ' . $username);
+            return $this->redirectToRoute('homepage');
+        }
+
+        if(is_null($usuario->getStringRecupPwd()) || is_null($usuario->getFechaGenStringRecup())){
+            $this->addFlash('El usuario no ha solicitado un blanqueo de contraseño o esta accediendo a un enlace que ha expirado.');
+            return $this->redirectToRoute('homepage');
+        }
+
+        $now = new \DateTime();
+        $ini = $usuario->getFechaGenStringRecup();
+        $diff = $now->diff($ini);
+
+        if($diff->format('%s') > 3600){
+            //El enlace expiro.
+            $this->addFlash('El enlace para recuperar la contraseña ha expirado.');
+            return $this->redirectToRoute('homepage');
+        }
+
+        if($usuario->getStringRecupPwd() != $string_verif){
+            $this->addFlash('danger', 'El código de verificación no corresponde al definido para el usuario.');
+            return $this->redirectToRoute('homepage');
+        }
+
+        $form = $this->createForm(ModificarPasswordType::class, null);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $pwd1 = $form->get('password')->getData();
+            $pwd2 = $form->get('password2')->getData();
+
+            if($pwd1 == $pwd2){
+
+                   $encodedPwd = $this->container->get('security.password_encoder')
+                        ->encodePassword($usuario, $pwd1);
+
+                   //Actualizar contraseña
+                   $usuario->setPassword($encodedPwd);
+                   $usuario->setStringRecupPwd(null);
+                   $usuario->setFechaGenStringRecup(null);
+                   $em->flush();
+
+                $this->addFlash('danger', 'La contraseña ha sido actualizada correctamente.');
+                return $this->redirectToRoute('homepage');
+
+            }else{
+                $form->addError(new FormError('Las contraseñas no coinciden'));
+            }
+
+        }
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio de sesión", $this->get("router")->generate("app_login"));
+        $breadcrumbs->addItem("Recuperar contraseña");
+        $breadcrumbs->addItem("Finalizar");
+
+
+        return $this->render('AppBundle:Security:recuperar-password-finalizar.html.twig', array(
+            'usuario' => $usuario,
+            'page_title' => 'Recuperar contraseña',
+            'form' => $form->createView()
+        ));
+
     }
 
     private function enviarMail($to, $contenido, $from = null){
@@ -183,7 +258,6 @@ class SecurityController extends Controller {
         }
 
         return true;
-
     }
 
     public function recuperarPasswordMsgAction(Request $request, Usuario $usuario) {

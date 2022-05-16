@@ -1,0 +1,30 @@
+<h3 class="font-weight-bold">Estimado/a {{ usuario.persona ? usuario.persona.apeNom : '' }},</h3>
+<p>
+    Usted ha solicitado un cambio de contraseña para el usuario <b>{{ usuario.username }}</b> en el sistema
+    Infofich.
+</p>
+<p>
+    Para completar el proceso de recuperaci&oacute;n ingrese a la siguiente direccci&oacute;n: <a
+            href="{{ url_recup }}">enlace</a>.
+</p>
+<p>
+    Si este enlace no funciona, por favor copie la direcci&oacute;n indicada al pie de este correo y péguela en el
+    navegador.
+</p>
+<p>
+    Si usted no ha solicitado este cambio, simplemente desestime o elimine este correo.
+</p>
+<p>
+    Le dejamos un saludo cordial,
+</p>
+<div>Equipo de Infofich</div>
+<div>
+    <i>{{ gidis_email }}</i>
+</div>
+<br/>
+<div>
+    <p>
+        Direcci&oacute;n para acceder al blanqueo:
+    </p>
+    <a href="{{ url_recup }}">{{ url_recup }}</a>
+</div>

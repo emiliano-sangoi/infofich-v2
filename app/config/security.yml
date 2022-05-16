@@ -13,6 +13,15 @@ security:
         
         
     firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        public:
+            pattern: ^/recuperar-password/
+            security: false
+
         # IMPORTANTE
         #SI SE LE CAMBIA EL NOMBRE ACTUALIZAR AppBundle\Controller\SecurityController
         firewall_admin:
@@ -24,10 +33,10 @@ security:
             form_login:
                 login_path:           app_login
                 remember_me:          false
-                check_path:           /login_check                
+                check_path:           /login_check
 #                success_handler:      ~
 #                failure_handler:      ~
-#                
+#
 #                use_forward:          false
 #                require_previous_session: true
 #                username_parameter:   _username
@@ -37,7 +46,7 @@ security:
 #                post_only:            true
 #                always_use_default_target_path: false
 #                default_target_path:  /
-#                
+#
 #                target_path_parameter: _target_path
 #                use_referer:          false
 #                failure_path:         null
@@ -46,7 +55,8 @@ security:
 #                csrf_token_generator: ~
 #            http_basic:
 #                provider: entity_provider
-#                realm: "Area protegida"                
+#                realm: "Area protegida"
+
 
 
     role_hierarchy:
@@ -59,14 +69,18 @@ security:
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/recuperar-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        
+#        - { path: ^/recuperar-password, roles: IS_AUTHENTICATED_ANONYMOUSLY, allow_if: "request.url.has('string_verif')" }
+#        - { path: ^/recuperar-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        -
         #- { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios, roles: [ROLE_ADMIN] }
         - { path: ^/roles, roles: [ROLE_ADMIN] }
         - { path: ^/permisos, roles: [ROLE_ADMIN] }
-        - { path: ^/, roles: [ROLE_USUARIO] }        
+        - { path: ^/, roles: [ROLE_USUARIO] }
         - { path: ^/planificaciones, roles: [ROLE_USUARIO] }
+
+
+
 
 
 
