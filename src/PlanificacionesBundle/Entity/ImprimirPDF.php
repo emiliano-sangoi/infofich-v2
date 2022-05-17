@@ -218,7 +218,7 @@ class ImprimirPDF extends \TCPDF {
         $this->Line(PDF_MARGIN_LEFT, 297 - $this->getFooterMargin(), 220 - PDF_MARGIN_RIGHT, 297 - $this->getFooterMargin());
 
         $this->CreateTextBox('Fecha generación: ' . date('d/m/Y H:i:s'), PDF_MARGIN_LEFT, 297 - $this->getFooterMargin(), 65, 10, 8, '', 'L');
-        $this->CreateTextBox('Usuario: ' . $this->parametros['usuario'], PDF_MARGIN_LEFT + 70, 297 - $this->getFooterMargin(), 65, 10, 8, '', 'L');       
+        //$this->CreateTextBox('Usuario: ' . $this->parametros['usuario'], PDF_MARGIN_LEFT + 70, 297 - $this->getFooterMargin(), 65, 10, 8, '', 'L');       
         $this->CreateTextBox('Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 39 - PDF_MARGIN_LEFT + 127, 297 - $this->getFooterMargin(), 63, 10, 8, '', 'R');
     }
 

@@ -25,7 +25,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         parent::Header();
 
-        $fontSize = 9;
+        $fontSize = 12;
 
         $x0 = PDF_MARGIN_LEFT;
 
@@ -51,14 +51,14 @@ class PlanificacionesPDF extends ImprimirPDF {
 
     public function render() {
         $border = 0;
-        $this->SetFontSize(6);
+        $this->SetFontSize(9);
 
         $this->addPage();
 
 
         // print a line of text
 
-        $fontSize = 9;
+        $fontSize = 12;
 
 
         $html = '<h1>INFORMACIÓN BÁSICA</h1>';
@@ -99,7 +99,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         if($this->parametros['contenidosMinimos']){
             $html .=   '<p>' . $this->parametros['contenidosMinimos'] . '</p>';
         } else {
-            $html .= 'Sin definir';
+            $html .= 'No presenta';
         }
         
 
@@ -120,7 +120,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                 $html .= $docentesColaborador . '<br>';
             }
         } else {
-            $html .= 'Sin definir';
+            $html .= 'No presenta';
         }
 
 
@@ -135,7 +135,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                 }
             }
         } else {
-            $html .= 'Sin definir';
+            $html .= 'No presenta';
         }
 
         $html .= '</td></tr>
@@ -244,14 +244,14 @@ class PlanificacionesPDF extends ImprimirPDF {
         if($this->parametros['objetivosGral']){
             $html .= $this->parametros['objetivosGral'] .'</p>';
         }else{
-            $html .= 'Sin definir</p>';
+            $html .= 'No presenta</p>';
         }
                  
         $html .= '<p><b>Objetivos Específicos</b> <br>';
         if($this->parametros['objetivosEspe']){
             $html .= $this->parametros['objetivosEspe'] .'</p>';
         }else{
-            $html .= 'Sin definir</p>';
+            $html .= 'No presenta</p>';
         }
 
 
@@ -264,7 +264,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                 $html .= '<p>' . $resultado . '</p>';
             }
         } else {
-            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
+            $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
         //Temario
@@ -290,7 +290,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             }
             $html .= '</table>';
         } else {
-            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
+            $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
 
@@ -312,7 +312,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                   $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>'; */
             }
         } else {
-            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
+            $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
 
@@ -340,7 +340,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             }
             $html .= '</table>';
         } else {
-            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
+            $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
         //Viajes Academicos
@@ -374,7 +374,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             }
             $html .= '</table>';
         } else {
-            $html .= '<p>Sin definir </p>'; //Siempre hay algo en el objeto
+            $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
         $html .= '</body>';
