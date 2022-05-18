@@ -41,9 +41,14 @@ app_recuperar_password_msg:
     defaults: { _controller: AppBundle:Security:recuperarPasswordMsg }
 
 app_recuperar_password_finalizar:
-    path:     /recuperar-password/{username}/{string_verif}/finalizar
+    path:     /recuperar-password/finalizar
+#    path:     /recuperar-password/finalizar/{username}/{string_verif}
     defaults: { _controller: AppBundle:Security:finalizarRecuperacion }
-    
+
+app_recuperar_password_finalizar_msg_ok:
+    path:     /recuperar-password/actualizacion-correcta
+    defaults: { _controller: AppBundle:Security:msgPwdActualizada }
+
 ajax_get_asignaturas:
     path:     /asignaturas-por-carrera/{carrera}
     defaults: { _controller: AppBundle:Ajax:getAsignaturas }

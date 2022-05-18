@@ -27,11 +27,12 @@ class ModificarPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
-        $builder->add('username', TextType::class, array(
-            'attr' => array('class' => 'form-control', 'autocomplete' => 'off'),
-            'label' => 'Nombre de usuario: ',
-            'disabled' => true,
+        $builder->add('stringRecupPwd', TextType::class, array(
+            'attr' => array(
+                'class' => 'form-control',
+                'autocomplete' => 'off',
+                'placeholder' => 'Código recibido por correo electrónico'),
+            'label' => 'Código de verificación: ',
             'label_attr' => array(
                 'class' => 'align-middle font-weight-bold'
             )
@@ -50,7 +51,10 @@ class ModificarPasswordType extends AbstractType
         );
 
         $builder->add('password', PasswordType::class, array(
-            'attr' => array('class' => 'form-control', 'autocomplete' => 'off'),
+            'attr' => array(
+                'class' => 'form-control',
+                'placeholder' => 'Nueva contraseña',
+            'autocomplete' => 'off'),
             'label' => 'Nueva contraseña: ',
             'label_attr' => array(
                 'class' => 'align-middle font-weight-bold'
@@ -59,7 +63,10 @@ class ModificarPasswordType extends AbstractType
         ));
 
         $builder->add('password2', PasswordType::class, array(
-            'attr' => array('class' => 'form-control', 'autocomplete' => 'off'),
+            'attr' => array(
+                'class' => 'form-control',
+                'placeholder' => 'Repetir nueva contraseña',
+                'autocomplete' => 'off'),
             'label' => 'Repetir nueva contraseña: ',
             'label_attr' => array(
                 'class' => 'align-middle font-weight-bold'
