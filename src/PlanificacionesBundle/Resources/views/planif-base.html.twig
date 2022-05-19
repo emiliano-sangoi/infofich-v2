@@ -145,12 +145,13 @@
                     {{ nav_link(html_id, path, label, modal_title, errores.cronograma|default(null), class, is_planificacion_definida) }}
 
                     {# Distribucion de carga horaria #}
-                    {% set html_id = 'tab-cronograma' %}        
+                    {# Ahora se muestra en popup #}                    
+                    {#% set html_id = 'tab-cronograma' %}        
                     {% set label = 'Distribucion de carga horaria' %}        
                     {% set modal_title = 'Errores en la distribución de la carga horaria' %}        
                     {% set class = (page_id == 8 ? 'active' : '') ~ ' ' ~ disabled %}             
                     {% set path = is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' %}                            
-                    {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) }}
+                    {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) }#}
 
                     {# Viajes académicos #}
                     {% set html_id = 'tab-viajes-academicos' %}        
