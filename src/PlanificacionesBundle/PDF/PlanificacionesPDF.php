@@ -330,12 +330,22 @@ class PlanificacionesPDF extends ImprimirPDF {
                             <td>' . $actividad->getTipoActividadCurricular() . '</td>
                             <td> ' . $fecha->format("d/m/Y") . '</td></tr>';
 
-                $html .= '<tr><td><b>Descripcion</b> </td>
+                $html .= '<tr>
                             <td><b>Carga Horaria Aula</b></td>
-                            <td><b>Carga Horaria Autonomo</b></td></tr>';
-                $html .= '<tr><td>' . $actividad->getDescripcion() . '</td>
+                            <td><b>Carga Horaria Autonomo</b></td>
+                            <td></td>
+                            </tr>';
+                $html .= '<tr>
                             <td>' . $actividad->getCargaHorariaAula() . '</td>
-                            <td> ' . $actividad->getCargaHorariaAutonomo() . '</td></tr>
+                            <td> ' . $actividad->getCargaHorariaAutonomo() . '</td>
+                            <td></td>
+                            </tr>';
+                $html .=  '<tr>
+                            <td><b>Descripcion</b> </td>
+                            </tr>
+                            <tr>
+                            <td  colspan="3">' . $actividad->getDescripcion() . '</td>
+                            </tr>
                             <tr><td></td></tr>';
             }
             $html .= '</table>';
