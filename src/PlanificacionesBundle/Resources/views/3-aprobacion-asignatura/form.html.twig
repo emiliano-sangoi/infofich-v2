@@ -104,7 +104,7 @@
 </div>
 
 <div class="row">
-    <div class="form-group offset-2 col-sm-6 col-xs-12">   
+    <div class="form-group offset-2 col-sm-8 col-xs-10">   
         {{ form_label(form.examenFinalModalidadRegulares) }}
         {{ form_widget(form.examenFinalModalidadRegulares) }}
         {{ form_errors(form.examenFinalModalidadRegulares) }}  
@@ -112,7 +112,7 @@
 </div>    
 
 <div class="row">
-    <div class="form-group offset-2 col-sm-6 col-xs-12">
+    <div class="form-group offset-2 col-sm-8 col-xs-10">
         {{ form_label(form.examenFinalModalidadLibres) }}      
         {{ form_widget(form.examenFinalModalidadLibres) }}
         {{ form_errors(form.examenFinalModalidadLibres) }}  
@@ -121,7 +121,7 @@
 
 {% if planificacion.puedeEditarse() %}
     <div class="form-row">
-        <div class="col-xs-12 col-sm-2">            
+        <div class="col-xs-10 col-sm-10 text-right">         
             <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
         </div>
 {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            

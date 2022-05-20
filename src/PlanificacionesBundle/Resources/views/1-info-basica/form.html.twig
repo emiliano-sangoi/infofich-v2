@@ -89,7 +89,7 @@
 
 {% elseif planificacion.puedeEditarse() or (planificacion.enRevision() and app.user.tieneRol(ROL_SA)) or (planificacion.isPublicada() and app.user.tieneRol(ROL_SA))%}
     <div class="form-row">
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-10 col-sm-10 text-right">
             <input type="submit" value="Guardar cambios" class="btn btn-success"/>            
         </div>
     </div>
