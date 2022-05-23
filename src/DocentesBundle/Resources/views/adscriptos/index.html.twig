@@ -49,7 +49,7 @@
 {% extends '::base.html.twig' %}
 
 {% set full_width = false %}
-
+{% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 {% block navbar2 %}
     {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
@@ -57,10 +57,15 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
-            <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
-                <i class="fa fa-plus"></i>
-                Nuevo docente
-            </a>
+
+            {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}    
+           
+            {% if app.user.tieneRol(ROL_SA)%}    
+                <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                    <i class="fa fa-plus"></i>
+                    Nuevo docente
+                </a>
+            {% endif %}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -106,9 +111,11 @@
                                         <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
                                             Ver
                                         </a>
-                                        <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
-                                            Editar
-                                        </a>
+                                        {% if app.user.tieneRol(ROL_SA)%}    
+                                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
+                                                Editar
+                                            </a>
+                                        {% endif %}
                                         {#                                    <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a>#}
                                     </td>
                                 </tr>
