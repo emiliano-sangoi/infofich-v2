@@ -34,7 +34,7 @@ class PlanificacionRepository extends EntityRepository {
      * @param type $anioAcad
      * @return Query|array
      */
-    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $codigoAsignatura = null, $anioAcad = null) {
+    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $codigoAsignatura = null, $anioAcad = null, $estadoActual = null) {
 
         $em = $this->getEntityManager();
 
@@ -54,6 +54,14 @@ class PlanificacionRepository extends EntityRepository {
         if ($codigoAsignatura) {
             $qb->andWhere($qb->expr()->eq('p.codigoAsignatura', ':codigoAsignatura'));
             $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
+        }
+
+        if ($estadoActual) {
+            $qb->join('p.historicosEstado', 'h');
+            $qb->join('h.estado', 'e');
+            $qb->andWhere($qb->expr()->eq('e.id', ':idEstadoActual'));
+            $qb->andWhere($qb->expr()->isNull('h.fechaHasta'));
+            $qb->setParameter(':idEstadoActual', $estadoActual);
         }
         
         $qb->orderBy('p.fechaCreacion', 'DESC');

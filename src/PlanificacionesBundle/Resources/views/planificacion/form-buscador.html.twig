@@ -1,33 +1,41 @@
-<div class="p-5 bg-light">
+<div class="py-4 px-5 bg-light">
 
     {{ form_start(form) }}
 
-    <div class="form-row">
-        <div class="col-xs-12 col-sm-8">
+    <div class="row mb-3 mb-lg-4">
+        <div class="col-12 col-lg-9">
             {{ form_label(form.carrera) }}
             {{ form_widget(form.carrera) }}
             {{ form_errors(form.carrera) }}      
-        </div>        
-    </div>
-
-    <div class="form-row">
-        <div class="col-xs-12 col-sm-8 select-asignaturas-container">
-            {{ form_label(form.codigoAsignatura) }}
-            {{ form_widget(form.codigoAsignatura) }}
-            {{ form_errors(form.codigoAsignatura) }}      
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0">
             {{ form_label(form.anioAcad) }}
             {{ form_widget(form.anioAcad) }}
-            {{ form_errors(form.anioAcad) }}                              
+            {{ form_errors(form.anioAcad) }}
+        </div>
+    </div>
+
+    <div class="row mb-3 mb-lg-4">
+        <div class="col-12 col-lg-9 select-asignaturas-container">
+            {{ form_label(form.codigoAsignatura) }}
+            {{ form_widget(form.codigoAsignatura) }}
+            {{ form_errors(form.codigoAsignatura) }}
+        </div>
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0">
+            {{ form_label(form.estadoActual) }}
+            {{ form_widget(form.estadoActual) }}
+            {{ form_errors(form.estadoActual) }}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-12 col-sm-6">
             <input type="submit" value="Filtrar" class="btn btn-success"/>
+            <span class="ml-3 text-success">
+                {{ paginado.getTotalItemCount }}&nbsp;registro(s) <span class="d-none d-lg-inline">encontrado(s).</span>
+            </span>
         </div>
-        <div class="col-xs-12 offset-4 col-sm-4 text-right">
+        <div class="col-12 col-sm-6 text-right">
             <a href="{{ path('planificaciones_homepage') }}" class="btn btn-secondary">
                 Limpiar filtros
             </a>

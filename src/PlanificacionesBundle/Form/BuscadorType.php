@@ -3,6 +3,8 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
+use PlanificacionesBundle\Entity\Estado;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,6 +41,7 @@ class BuscadorType extends AbstractType {
 
         $this->addCarrera($builder);
         $this->addAsignaturas($builder);
+        $this->addEstado($builder);
         $this->addAniAcad($builder);
 
     }
@@ -55,7 +58,8 @@ class BuscadorType extends AbstractType {
         $config = array(
             'label' => 'Carrera',
             'choices' => $this->getCarreras(),
-            'required' => true,            
+            'required' => false,
+            'placeholder' => 'Todas las carreras',
             'attr' => array('class' => 'form-control select-carrera')
         );
 
@@ -75,6 +79,7 @@ class BuscadorType extends AbstractType {
             'label' => 'Asignatura',
             'choices' => $asignaturas,
             'required' => false,
+            'placeholder' => 'Todas las asignaturas de la carrera',
             'attr' => array('class' => 'form-control select-asignatura')
         );
 
@@ -84,6 +89,21 @@ class BuscadorType extends AbstractType {
         //se intenta setear la asignatura en un listado que todavia no se actualizo.x
         $builder->get('codigoAsignatura')->resetViewTransformers();
         // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
+    }
+
+    private function addEstado(FormBuilderInterface $builder) {
+
+        $config = array(
+            'label' => 'Estado actual',
+            'class' => Estado::class,
+            'required' => false,
+            'placeholder' => 'Todos',
+            'attr' => array('class' => 'form-control select-carrera')
+        );
+
+
+        $builder->add('estadoActual', EntityType::class, $config);
+
     }
 
     /**

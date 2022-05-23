@@ -29,11 +29,11 @@
             {% if paginado[0] is defined %}
 
                 <div class="row mt-4">
-                    <div class="col-md-12">
+                    <div class="col-12">
 
-                        <div class="bg-light p-4 mb-3 shadow">
-                            Se encontraron <b>{{ paginado.getTotalItemCount }}</b> planificaciones.
-                        </div>
+{#                        <div class="bg-light p-4 mb-3 shadow">#}
+{#                            Se encontraron <b>{{ paginado.getTotalItemCount }}</b> planificaciones.#}
+{#                        </div>#}
 
 
                         <div id="accordion" class="acordion">
@@ -42,15 +42,13 @@
                                 <div class="card mb-1">
                                     <div class="card-header card-header-azul" id="heading{{ loop.index }}">
                                         <h6 class="mb-0 acordeon-header">
-                                            <button class="btn btn-link align-middle" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">                                                
-
-
+                                            <button class="btn btn-link align-middle py-1" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">
 
                                                 <span class="text-white font-weight-bold">
                                                     {{ p.getTitulo()|upper }}
                                                 </span>
                                                 <span class="right centrate-y">
-                                                    <span class="badge bg-azul border border-white badge-carrera mr-2">
+                                                    <span class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
                                                         {{ p.getCarreraAbrev() }}
                                                     </span>
                                                     {% set eActual = p.getEstadoActual() %} 
@@ -197,12 +195,12 @@
             select_asignatura = $('#buscador_codigoAsignatura');
 
             select_carreras.select2({
-                placeholder: 'Seleccione una carrera',
+                placeholder: 'Todas las carreras',
                 allowClear: true
             });
 
             select_asignatura.select2({
-                placeholder: 'Seleccione una asignatura',
+                'placeholder' : 'Todas las asignaturas de la carrera',
                 allowClear: true
             });
 

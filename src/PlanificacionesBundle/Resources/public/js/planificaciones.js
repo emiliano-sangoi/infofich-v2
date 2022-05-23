@@ -89,8 +89,19 @@ function actualizarAsignaturas(event) {
     var cargarAsignaturas = function (response) {
         
         if (response.length > 0) {
-
+            console.log(response);
             select_asignatura.html('');
+            select_asignatura.select2({
+                'placeholder' : 'Todas las asignaturas de la carrera',
+                allowClear: true
+            });
+
+            var opt = $(document.createElement('option'));
+            opt.attr('value', '');
+            //opt.attr('data-json', {});
+            select_asignatura.append(opt);
+            //opt.text(val.nombreMateria);
+
             response.forEach(function (val, index) {
                 var opt = $(document.createElement('option'));
 
@@ -106,15 +117,17 @@ function actualizarAsignaturas(event) {
             });
 
             //activar el select o dejar desactivado:
-            select_asignatura.prop("disabled", disabled)
+            select_asignatura.prop("disabled", false);
 
         }
     };
 
     var carrera = $(select_carreras).val();
-    //console.log('carrera: ' + carrera);
+    console.log('carrera: ' + carrera);
 
     if (carrera != '1069' && carrera != '1071' && carrera != '1073' && carrera != '1077') {
+        console.log('Ninguna carrera elegida');
+        select_asignatura.html('');
         return;
     }
 
@@ -131,7 +144,7 @@ function actualizarAsignaturas(event) {
             //esto se ejecuta cuando se terminan de cargar las asignaturas
             // y provoca que se cargue la informacion de la materia.                
             select_asignatura.trigger("change");
-            
+
             if(ASIGNATURA_ACTUAL == -1){
                 select_asignatura.val("");
             }

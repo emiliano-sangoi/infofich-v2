@@ -292,9 +292,11 @@ class Planificacion implements \JsonSerializable{
             
             //------------------------------------------------------------------------------------
             // Requisitos de aprobación
-            $r_aprob = clone $this->requisitosAprobacion;
-            $r_aprob->setPlanificacion($this);
-            $this->requisitosAprobacion = $r_aprob;
+            if($this->requisitosAprobacion) {
+                $r_aprob = clone $this->requisitosAprobacion;
+                $r_aprob->setPlanificacion($this);
+                $this->requisitosAprobacion = $r_aprob;
+            }
             
             //------------------------------------------------------------------------------------
             // Resultados de aprendizaje

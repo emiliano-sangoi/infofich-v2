@@ -62,10 +62,11 @@ class PlanificacionController extends Controller {
         $carrera = $form_filtros->get('carrera')->getData();
         $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
         $anioAcad = $form_filtros->get('anioAcad')->getData();
+        $estadoActual = $form_filtros->get('estadoActual')->getData();
 
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Planificacion::class);
-        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad);
+        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual);
     }
 
     /**
