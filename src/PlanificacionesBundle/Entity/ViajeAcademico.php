@@ -74,7 +74,7 @@ class ViajeAcademico {
      *
      * @ORM\Column(name="fecha_tentativa", type="datetime", nullable=false)     
      * @Assert\NotBlank(message="Campo obligatorio.")
-     * @Assert\GreaterThanOrEqual("now" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\GreaterThanOrEqual("today", message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaTentativa;
 
@@ -83,7 +83,7 @@ class ViajeAcademico {
      *
      * @ORM\Column(name="fecha_tentativa_regreso", type="datetime", nullable=false) 
      * @Assert\NotBlank(message="Campo obligatorio.")    
-     * @Assert\GreaterThanOrEqual("now" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\GreaterThanOrEqual("today", message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
      *     "this.getFechaTentativaRegreso() >= this.getFechaTentativa()",
      *     message="Este campo debe ser igual o mayor a la fecha tentativa de salida."

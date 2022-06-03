@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -116,18 +117,20 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
-        $builder->add('examenFinalModalidadRegulares', TextType::class, array(
+        $builder->add('examenFinalModalidadRegulares', TextareaType::class, array(
             'label' => 'Modalidad estudiantes regulares',
             'required' => false,
             'attr' => array(
-                'class' => 'form-control'
+                'class' => 'form-control',
+                'rows' => 4,
             )
         ));
-        $builder->add('examenFinalModalidadLibres', TextType::class, array(
+        $builder->add('examenFinalModalidadLibres', TextareaType::class, array(
             'label' => 'Modalidad estudiantes libres',
             'required' => false,
             'attr' => array(
-                'class' => 'form-control'
+                'class' => 'form-control',
+                'rows' => 4,
             )
         ));
 
