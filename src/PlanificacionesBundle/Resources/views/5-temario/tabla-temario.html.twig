@@ -1,0 +1,26 @@
+<div class="table-responsive shadow">
+    <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaTemario">
+        <thead>
+        <tr class="bg-secondary text-white">
+            <th scope="col" class="pl-1 pl-lg-3">Nro. unidad</th>
+            <th scope="col">Título</th>
+            <th scope="col">Contenido</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tema in planificacion.temario %}
+            <tr>
+                <td class="unidad pl-1 pl-lg-3">{{ tema.unidad }}</td>
+                <td class="w-25">{{ tema.titulo }}</td>
+                <td>{{ tema.contenido }}</td>
+                <td>
+                    <a href="" class="btn btn-sm btn-outline-secondary disabled">
+                        <i class="fa fa-edit"></i>&nbsp;Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

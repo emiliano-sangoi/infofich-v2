@@ -15,6 +15,8 @@ class TemaType extends AbstractType {
 
         $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
             'label' => 'Nro. Unidad',
+            'disabled' => true,
+            'required' => false,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
                 'class' => 'form-control',
@@ -32,7 +34,7 @@ class TemaType extends AbstractType {
             'label' => 'Contenido',
             'required' => false,
             'attr' => array(
-                'rows' => 4,
+                'rows' => 10,
                 'class' => 'form-control ')
                 )
         );
@@ -43,10 +45,10 @@ class TemaType extends AbstractType {
             )
         ));
 
-        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-            'label' => 'Descartar cambios',
-            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
-        ));
+//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
+//            'label' => 'Descartar cambios',
+//            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
+//        ));
     }
 
     /**

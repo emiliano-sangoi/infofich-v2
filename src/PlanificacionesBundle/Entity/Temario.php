@@ -30,7 +30,6 @@ class Temario {
      * @Assert\Type(
      *     type="int",
      *     message="La unidad del tema debe ser un número entero")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacío.")
      */
     private $unidad;
 

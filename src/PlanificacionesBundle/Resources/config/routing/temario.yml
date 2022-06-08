@@ -1,3 +1,11 @@
+planif_temario_index:
+    path:     /{id}/temario
+    defaults: { _controller: PlanificacionesBundle:Temario:index }
+
 planif_temario_editar:
     path:     /{id}/temario/editar
     defaults: { _controller: PlanificacionesBundle:Temario:edit }
+
+planif_temario_nuevo:
+    path:     /{id}/temario/nuevo
+    defaults: { _controller: PlanificacionesBundle:Temario:new }

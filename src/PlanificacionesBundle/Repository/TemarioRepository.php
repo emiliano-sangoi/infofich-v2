@@ -2,6 +2,10 @@
 
 namespace PlanificacionesBundle\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use PlanificacionesBundle\Entity\Planificacion;
+
 /**
  * TemarioRepository
  *
@@ -10,4 +14,31 @@ namespace PlanificacionesBundle\Repository;
  */
 class TemarioRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getProximoNroUnidad(Planificacion $planificacion){
+
+        $this->findBy( array(
+            'planificacion' => $planificacion
+        ));
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('t.unidad');
+        $qb->join('t.planificacion', 'p');
+        $qb->where($qb->expr()->eq('p.id', ':p_id'));
+        $qb->setParameter(':p_id', $planificacion->getId());
+        $qb->orderBy('t.unidad', 'DESC');
+        $qb->setMaxResults(1);
+
+        try {
+            $res = $qb->getQuery()->getSingleScalarResult();
+
+            return $res+1;
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+
+        }
+
+        return 1;
+    }
+
 }
