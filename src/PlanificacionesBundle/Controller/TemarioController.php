@@ -87,7 +87,8 @@ class TemarioController extends Controller
 
     }
 
-    private function crearFormNuevoTema(Temario $tema){
+    private function crearFormNuevoTema(Temario $tema)
+    {
 
         $form = $this->createForm(TemaType::class, $tema);
         $form->add('btnCrear', SubmitType::class, array(
@@ -102,14 +103,41 @@ class TemarioController extends Controller
         return $form;
     }
 
+    public function editAction(Request $request, Temario $tema)
+    {
+        $form = $this->createForm(TemaType::class, $tema);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('success', 'El tema con título: \'' . $tema->getTitulo() . '\' fúe editado correctamente.');
+            return $this->redirectToRoute('planif_temario_index', array('id' => $tema->getPlanificacion()->getId()));
+        }
+
+        // Breadcrumbs
+        $this->setBreadcrumb($tema->getPlanificacion(), 'Temario', $this->get("router")->generate('planif_temario_nuevo', array('id' => $tema->getPlanificacion()->getId())));
+
+        return $this->render('PlanificacionesBundle:5-temario:edit.html.twig', array(
+            'form' => $form->createView(),
+            'tema' => $tema,
+            'planificacion' => $tema->getPlanificacion(),
+            'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario',
+            'errores' => $this->get('planificaciones_service')->getErrores($tema->getPlanificacion()),
+        ));
+    }
+
     /**
      * Metodo que maneja la edicion del formulario.
      *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
+     * @deprecated
      */
-    public function editAction(Request $request, Planificacion $planificacion)
+    public function editOldAction(Request $request, Planificacion $planificacion)
     {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));

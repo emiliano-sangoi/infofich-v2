@@ -3,7 +3,7 @@ planif_temario_index:
     defaults: { _controller: PlanificacionesBundle:Temario:index }
 
 planif_temario_editar:
-    path:     /{id}/temario/editar
+    path:     /temario/{id}/editar
     defaults: { _controller: PlanificacionesBundle:Temario:edit }
 
 planif_temario_nuevo:

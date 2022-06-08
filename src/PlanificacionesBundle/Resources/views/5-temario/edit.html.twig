@@ -1,0 +1,31 @@
+{% set page_id = 5 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+    {% embed "PlanificacionesBundle:5-temario:form.html.twig" %}
+
+        {% block form_actions %}
+            {% if planificacion.puedeEditarse() %}
+                <div class="form-row mt-3">
+                    <div class="col-12 col-lg-8">
+                        <input type="submit" class="btn btn-success" value="Guardar cambios" />
+                    </div>
+
+                    <div class="col-12 col-lg-2 text-right">
+                        <a href="{{ path('planif_temario_index', { id: tema.planificacion.id }) }}" class="btn btn-outline-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

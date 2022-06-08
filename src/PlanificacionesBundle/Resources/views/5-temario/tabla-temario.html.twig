@@ -2,25 +2,50 @@
     <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaTemario">
         <thead>
         <tr class="bg-secondary text-white">
-            <th scope="col" class="pl-1 pl-lg-3">Nro. unidad</th>
+            <th scope="col" class="text-center">Unidad</th>
             <th scope="col">Título</th>
             <th scope="col">Contenido</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" class="text-center">Acciones</th>
         </tr>
         </thead>
         <tbody>
         {% for tema in planificacion.temario %}
             <tr>
-                <td class="unidad pl-1 pl-lg-3">{{ tema.unidad }}</td>
-                <td class="w-25">{{ tema.titulo }}</td>
-                <td>{{ tema.contenido }}</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-outline-secondary disabled">
-                        <i class="fa fa-edit"></i>&nbsp;Editar</a>
+                <td class="unidad align-middle text-center">{{ tema.unidad }}</td>
+                <td class="w-25 font-weight-bold align-middle">
+                    {{ tema.titulo }}
+                </td>
+                <td class="w-50 align-middle py-2">
+                    <div class="texto-container d-inline">
+                        {% if tema.contenido|length > 75 %}
+                            <div class="txt-breve">
+                                <span class="text-muted">{{ tema.contenido|slice(0, 75) }}...</span>
+                                <a href="#" class="ver-mas" style="text-decoration: none;" title="Ver m&aacute;s">
+                                    [+]
+                                </a>
+                            </div>
+                            <div class="d-none txt-full">
+                                <span class="text-muted">{{ tema.contenido|nl2br }}</span>
+                                <a href="#" class="ver-menos text-secondary" style="text-decoration: none;"
+                                   title="Ver menos">
+                                    [-]
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="mt-1">
+                                <span class="text-muted">{{ tema.contenido|nl2br }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
+                       class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-edit"></i>&nbsp;Editar
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
 </div>
