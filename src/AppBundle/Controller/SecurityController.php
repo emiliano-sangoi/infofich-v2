@@ -137,7 +137,12 @@ class SecurityController extends Controller
                     ));
 
                     //Enviar correo electrónico ...
-                    $this->enviarMail('emiliano.sangoi@gmail.com', $contenido);
+                    if($this->getParameter('kernel.environment') != 'prod'){
+                        //usado para desarrollo
+                        $this->enviarMail('emiliano.sangoi@gmail.com', $contenido);
+                    }else{
+                        $this->enviarMail($user->getPersona()->getEmail(), $contenido);
+                    }
 
                     return $this->redirectToRoute('app_recuperar_password_msg', array('id' => $user->getId()));
 
