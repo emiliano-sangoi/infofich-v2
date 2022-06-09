@@ -30,7 +30,11 @@ class TemarioController extends Controller
         ), array('unidad' => 'ASC'));
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Temario', $this->get("router")->generate('planif_temario_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem('Temario');
 
         return $this->render('PlanificacionesBundle:5-temario:index.html.twig', array(
             'page_title' => $this->getPageTitle($planificacion) . ' - Temario',
@@ -83,7 +87,12 @@ class TemarioController extends Controller
         }
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Temario', $this->get("router")->generate('planif_temario_nuevo', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem('Temario');
+        $breadcrumbs->addItem('NUEVO');
 
         return $this->render('PlanificacionesBundle:5-temario:new.html.twig', array(
             'form' => $form->createView(),
@@ -112,6 +121,8 @@ class TemarioController extends Controller
 
     public function editAction(Request $request, Temario $tema)
     {
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $tema->getPlanificacion()));
+
         $form = $this->createForm(TemaType::class, $tema);
         $form->handleRequest($request);
 
@@ -125,14 +136,19 @@ class TemarioController extends Controller
         }
 
         // Breadcrumbs
-        $this->setBreadcrumb($tema->getPlanificacion(), 'Temario', $this->get("router")->generate('planif_temario_nuevo', array('id' => $tema->getPlanificacion()->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($tema->getPlanificacion());
+        $current_route = $this->get("router")->generate('planif_temario_editar', array('id' => $tema->getPlanificacion()->getId()));
+        $breadcrumbs->addItem('Unidad ' . $tema->getUnidad(), $current_route);
+        $breadcrumbs->addItem('EDITAR');
 
         return $this->render('PlanificacionesBundle:5-temario:edit.html.twig', array(
             'form' => $form->createView(),
             'tema' => $tema,
             'planificacion' => $tema->getPlanificacion(),
             'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario',
-            'errores' => $this->get('planificaciones_service')->getErrores($tema->getPlanificacion()),
         ));
     }
 
@@ -143,7 +159,13 @@ class TemarioController extends Controller
         ));
 
         // Breadcrumbs
-        $this->setBreadcrumb($tema->getPlanificacion(), 'Temario', $this->get("router")->generate('planif_temario_nuevo', array('id' => $tema->getPlanificacion()->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($tema->getPlanificacion());
+        $current_route = $this->get("router")->generate('planif_temario_ver', array('id' => $tema->getPlanificacion()->getId()));
+        $breadcrumbs->addItem('Unidad ' . $tema->getUnidad(), $current_route);
+        $breadcrumbs->addItem('VER');
 
         $delete_form = $this->crearFormBorrado($tema);
 
@@ -152,8 +174,7 @@ class TemarioController extends Controller
             'delete_form' => $delete_form->createView(),
             'tema' => $tema,
             'planificacion' => $tema->getPlanificacion(),
-            'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario',
-            'errores' => $this->get('planificaciones_service')->getErrores($tema->getPlanificacion()),
+            'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario'
         ));
     }
 
@@ -173,6 +194,8 @@ class TemarioController extends Controller
 
     public function borrarAction(Request $request, Temario $tema)
     {
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $tema->getPlanificacion()));
+
         $form = $this->crearFormBorrado($tema);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -13,15 +13,17 @@
 
 {% block tab_content %}
 
-    <div class="mb-4">
-        {% embed "::botonera-2col.html.twig" %}
-            {% block left %}
-                <a href="{{ path('planif_temario_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
-                    Nuevo tema
-                </a>
-            {% endblock %}
-        {% endembed %}
-    </div>
+    {% if planificacion.puedeEditarse() %}
+        <div class="mb-4">
+            {% embed "::botonera-2col.html.twig" %}
+                {% block left %}
+                    <a href="{{ path('planif_temario_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
+                        Nuevo tema
+                    </a>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
 
     {% if planificacion.temario[0] is not defined %}
         {% from '::macros.html.twig' import notificacion %}

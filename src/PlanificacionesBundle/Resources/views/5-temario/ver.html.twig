@@ -11,18 +11,26 @@
             {% embed '::botonera.html.twig' %}
 
                 {% block left %}
-                    <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
-                       class="btn btn-outline-secondary">
-                        <i class="fa fa-edit"></i>&nbsp;Editar
-                    </a>
+                    {% if planificacion.puedeEditarse() %}
+                        <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
+                           class="btn btn-success">
+                            <i class="fa fa-edit"></i>&nbsp;Editar
+                        </a>
+                    {% endif %}
                 {% endblock %}
 
                 {% block right %}
-                    {{ form_start(delete_form) }}
-                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta tema?'>
-                    {{ form_end(delete_form) }}
+                    {% if planificacion.puedeEditarse() %}
+                        {{ form_start(delete_form) }}
+                        <button role="submit" class="btn btn-danger confirmar-borrado"
+                                data-msg='¿Esta seguro que desea borrar esta tema?'>
+                            <i class="fa fa-trash"></i>&nbsp;Borrar
+                        </button>
+                        {{ form_end(delete_form) }}
+                    {% endif %}
 
-                    <a href="{{ path('planif_temario_index', { id: tema.planificacion.id }) }}" class="btn btn-outline-secondary">
+                    <a href="{{ path('planif_temario_index', { id: tema.planificacion.id }) }}"
+                       class="btn btn-outline-secondary">
                         Ir a actividades
                     </a>
                 {% endblock %}

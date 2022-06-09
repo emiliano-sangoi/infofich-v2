@@ -5,7 +5,7 @@
             <th scope="col" class="text-center">Unidad</th>
             <th scope="col">Título</th>
             <th scope="col">Contenido</th>
-{#            <th scope="col" class="text-center">Actividades</th>#}
+            {#            <th scope="col" class="text-center">Actividades</th> #}
             <th scope="col" class="text-center">Acciones</th>
         </tr>
         </thead>
@@ -39,23 +39,25 @@
                         {% endif %}
                     </div>
                 </td>
-{#                <td class="align-middle text-center">#}
-{#                    {{ tema.actividades|length }}#}
-{#                </td>#}
+                {#                <td class="align-middle text-center"> #}
+                {#                    {{ tema.actividades|length }} #}
+                {#                </td> #}
                 <td class="align-middle text-center">
                     <a href="{{ path('planif_temario_ver', { id : tema.id }) }}"
                        class="btn btn-sm btn-outline-secondary" title="Ver registro">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
-                       class="btn btn-sm btn-outline-secondary" title="Editar registro">
-                        <i class="fa fa-edit"></i>
-                    </a>
+                    {% if planificacion.puedeEditarse() %}
+                        <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
+                           class="btn btn-sm btn-outline-secondary" title="Editar registro">
+                            <i class="fa fa-edit"></i>
+                        </a>
 
-                    {{ render(controller(
-                        'PlanificacionesBundle:Temario:renderBtnBorrar',
-                        { 'tema': tema, 'label' : null }
-                    )) }}
+                        {{ render(controller(
+                            'PlanificacionesBundle:Temario:renderBtnBorrar',
+                            { 'tema': tema, 'label' : null }
+                        )) }}
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
