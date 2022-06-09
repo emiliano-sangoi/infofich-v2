@@ -65,12 +65,17 @@ class Temario {
     /**
      * Un temario tiene muchas actividades.
      * 
-     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="temario")
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="temario", cascade={"persist","remove"})
      */
     private $actividades;
 
     public function __construct() {
         $this->actividades = new ArrayCollection();
+    }
+
+    public function incrementarUnidad(){
+        $this->unidad++;
+        return $this;
     }
 
     public function __toString() {

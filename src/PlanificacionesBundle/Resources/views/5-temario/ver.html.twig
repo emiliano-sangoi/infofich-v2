@@ -1,0 +1,40 @@
+{% set page_id = 5 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+
+    {% include "PlanificacionesBundle:5-temario:form.html.twig" %}
+
+    <div class="form-row mt-5">
+        <div class="form-group col-md-10">
+            {% embed '::botonera.html.twig' %}
+
+                {% block left %}
+                    <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
+                       class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-edit"></i>&nbsp;Editar
+                    </a>
+                {% endblock %}
+
+                {% block right %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta tema?'>
+                    {{ form_end(delete_form) }}
+
+                    <a href="{{ path('planif_temario_index', { id: tema.planificacion.id }) }}" class="btn btn-outline-secondary">
+                        Ir a actividades
+                    </a>
+                {% endblock %}
+
+            {% endembed %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

@@ -2,10 +2,23 @@ planif_temario_index:
     path:     /{id}/temario
     defaults: { _controller: PlanificacionesBundle:Temario:index }
 
+planif_temario_ver:
+    path:     /temario/{id}/ver
+    defaults: { _controller: PlanificacionesBundle:Temario:ver }
+
 planif_temario_editar:
     path:     /temario/{id}/editar
     defaults: { _controller: PlanificacionesBundle:Temario:edit }
 
+planif_temario_borrar:
+    path:     /temario/{id}/borrar
+    defaults: { _controller: PlanificacionesBundle:Temario:borrar }
+
 planif_temario_nuevo:
     path:     /{id}/temario/nuevo
     defaults: { _controller: PlanificacionesBundle:Temario:new }
+
+planif_temario_actualizar_unidad:
+    path: /temario/{id}/actualizar-unidad
+    defaults: { _controller: PlanificacionesBundle:Temario:actualizarUnidad }
+    methods: POST

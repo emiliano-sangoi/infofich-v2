@@ -10,6 +10,7 @@ use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Form\TemarioType;
 use PlanificacionesBundle\Form\TemaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,11 +24,17 @@ class TemarioController extends Controller
     {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
+        $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
+        $temas = $repo->findBy(array(
+            'planificacion' => $planificacion
+        ), array('unidad' => 'ASC'));
+
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Temario', $this->get("router")->generate('planif_temario_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:5-temario:index.html.twig', array(
             'page_title' => $this->getPageTitle($planificacion) . ' - Temario',
+            'temas' => $temas,
             'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
             'planificacion' => $planificacion
         ));
@@ -127,6 +134,92 @@ class TemarioController extends Controller
             'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario',
             'errores' => $this->get('planificaciones_service')->getErrores($tema->getPlanificacion()),
         ));
+    }
+
+    public function verAction(Request $request, Temario $tema)
+    {
+        $form = $this->createForm(TemaType::class, $tema, array(
+            'disabled' => true
+        ));
+
+        // Breadcrumbs
+        $this->setBreadcrumb($tema->getPlanificacion(), 'Temario', $this->get("router")->generate('planif_temario_nuevo', array('id' => $tema->getPlanificacion()->getId())));
+
+        $delete_form = $this->crearFormBorrado($tema);
+
+        return $this->render('PlanificacionesBundle:5-temario:ver.html.twig', array(
+            'form' => $form->createView(),
+            'delete_form' => $delete_form->createView(),
+            'tema' => $tema,
+            'planificacion' => $tema->getPlanificacion(),
+            'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Temario',
+            'errores' => $this->get('planificaciones_service')->getErrores($tema->getPlanificacion()),
+        ));
+    }
+
+    private function crearFormBorrado(Temario $tema){
+
+        $options = array(
+            'attr' => array(
+                'class' => 'd-inline'
+            ));
+
+        return $this->createFormBuilder(null, $options)
+            ->setAction($this->generateUrl('planif_temario_borrar', array('id' => $tema->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+
+    }
+
+    public function borrarAction(Request $request, Temario $tema)
+    {
+        $form = $this->crearFormBorrado($tema);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->getRepository(Temario::class)
+                ->borrarTema($tema);
+
+            $this->addFlash('success', 'El tema fúe borrado correctamente.');
+        }
+
+        return $this->redirectToRoute('planif_temario_index', array('id' => $tema->getPlanificacion()->getId()));
+    }
+
+    public function renderBtnBorrarAction(Temario $tema, $label){
+
+        $delete_form = $this->crearFormBorrado($tema);
+
+        return $this->render('PlanificacionesBundle:5-temario:btn-borrar.html.twig', array(
+            'delete_form' => $delete_form->createView(),
+            'label' => $label
+        ));
+
+    }
+
+    /**
+     * Actualiza la posicion de un tema
+     *
+     * Utilizado en el drag and drop de la tabla temario.
+     *
+     * @param Request $request
+     * @param Temario $tema
+     * @return JsonResponse
+     */
+    public function actualizarUnidadAction(Request $request, Temario $tema){
+
+        $nueva_unidad = $request->request->get('nueva_unidad');
+
+        if(!ctype_digit($nueva_unidad)){
+            return new JsonResponse(array('Solo se aceptan valores numericos para la nueva unidad.'), Response::HTTP_BAD_REQUEST);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository(Temario::class)
+            ->actualizarUnidad($tema, $nueva_unidad);
+
+        return new JsonResponse(array('Se actualizo la unidad del tema ' . $tema->getId()));
     }
 
     /**

@@ -5,8 +5,8 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        td:hover{
-            cursor:move;
+        td:hover {
+            cursor: move;
         }
     </style>
 {% endblock %}
@@ -47,23 +47,40 @@
 
             $(document).ready(function () {
 
+                var url = "{{ path('planif_temario_actualizar_unidad', { id: '-ID-' }) }}";
+
                 var fixHelperModified = function (e, tr) {
-                        var $originals = tr.children();
-                        var $helper = tr.clone();
-                        $helper.children().each(function (index) {
-                            $(this).width($originals.eq(index).width())
-                        });
-                        return $helper;
-                    },
-                    updateIndex = function (e, ui) {
-                        $('td.posicion', ui.item.parent()).each(function (i) {
-                            $(this).html(i + 1);
-                        });
-                        $('td.unidad', ui.item.parent()).each(function (i) {
-                            //$(this).val(i + 1);
-                            $(this).html(i + 1);
-                        });
+                    var $originals = tr.children();
+                    var $helper = tr.clone();
+                    $helper.children().each(function (index) {
+                        $(this).width($originals.eq(index).width())
+                    });
+                    return $helper;
+                };
+
+                var updateIndex = function (e, ui) {
+                    $('td.unidad', ui.item.parent()).each(function (i) {
+                        $(this).html(i + 1);
+                    });
+
+                    var idUnidad = ui.item.find('td.unidad').data('id-unidad');
+                    var udNueva = ui.item.find('td.unidad').text();
+                    console.log('Se movio la unidad con id ' + idUnidad + ' a la posicion ' + udNueva);
+
+                    url = url.replace('-ID-', idUnidad);
+                    var data = {
+                        nueva_unidad: udNueva
                     };
+
+                    var jqxhr = $.post(url, data);
+
+                    jqxhr.done(function (response) {
+                        console.log(response);
+                    }).fail(function (error) {
+                        console.log(error);
+                    });
+
+                };
 
                 $("#tablaTemario tbody").sortable({
                     helper: fixHelperModified,

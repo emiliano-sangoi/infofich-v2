@@ -5,6 +5,7 @@ namespace PlanificacionesBundle\Repository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Entity\Temario;
 
 /**
  * TemarioRepository
@@ -15,18 +16,26 @@ use PlanificacionesBundle\Entity\Planificacion;
 class TemarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    private function getQb(Planificacion $planificacion){
+        $qb = $this->createQueryBuilder('t');
+        $qb->join('t.planificacion', 'p');
+        $qb->where($qb->expr()->eq('p.id', ':p_id'));
+
+        $qb->setParameter(':p_id', $planificacion->getId());
+        $qb->orderBy('t.unidad', 'DESC');
+
+        return $qb;
+    }
+
     public function getProximoNroUnidad(Planificacion $planificacion){
 
         $this->findBy( array(
             'planificacion' => $planificacion
         ));
 
-        $qb = $this->createQueryBuilder('t');
+
+        $qb = $this->getQb($planificacion);
         $qb->select('t.unidad');
-        $qb->join('t.planificacion', 'p');
-        $qb->where($qb->expr()->eq('p.id', ':p_id'));
-        $qb->setParameter(':p_id', $planificacion->getId());
-        $qb->orderBy('t.unidad', 'DESC');
         $qb->setMaxResults(1);
 
         try {
@@ -39,6 +48,45 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return 1;
+    }
+
+    public function actualizarUnidad(Temario $tema, $nueva_unidad){
+        $qb = $this->getQb($tema->getPlanificacion());
+        $qb->select('t');
+
+        $qb->andWhere($qb->expr()->neq('t.id', ':t_id'));
+        $qb->setParameter(':t_id', $tema->getId());
+
+        $n = 1;
+        $it = $qb->getQuery()->iterate();
+        foreach ($it as $row){
+            if($n == $nueva_unidad){
+                $n++;
+            }
+
+            $row[0]->setUnidad($n++);
+        }
+
+        $tema->setUnidad($nueva_unidad);
+        $this->getEntityManager()->flush();
+    }
+
+    public function borrarTema(Temario $tema){
+
+        $em = $this->getEntityManager();
+        $em->remove($tema);
+        $em->flush();
+
+        $qb = $this->getQb($tema->getPlanificacion());
+        $qb->select('t');
+
+        $n = 1;
+        $it = $qb->getQuery()->iterate();
+        foreach ($it as $row){
+            $row[0]->setUnidad($n++);
+        }
+
+        $em->flush();
     }
 
 }
