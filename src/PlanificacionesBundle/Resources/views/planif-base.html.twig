@@ -46,6 +46,19 @@
                         <i class="fa fa-history"></i>&nbsp;
                         {{  planificacion.getEstadoActual().getNombre()|upper }}                         
                     </button>
+
+                    <div class="dropdown" style="display:inline">
+                        <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Imprimir</a>
+                            <a class="dropdown-item" href="#">Duplicar</a>
+                            <a class="dropdown-item" href="#">Eliminar</a>
+                            <a class="dropdown-item" href="#">Histórico estados</a>
+                        </div>
+
+                    </div>
                 {% endif %}            
             {% endif %}            
         {% endblock %}
