@@ -47,18 +47,22 @@
                         {{  planificacion.getEstadoActual().getNombre()|upper }}                         
                     </button>
 
+                    <!-- Dropdown - 3 puntito -->
                     <div class="dropdown" style="display:inline">
-                        <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Imprimir</a>
-                            <a class="dropdown-item" href="#">Duplicar</a>
-                            <a class="dropdown-item" href="#">Eliminar</a>
-                            <a class="dropdown-item" href="#">Histórico estados</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                            
+                            <a class="dropdown-item text-dark"  href="{{ path('planificaciones_imprimir', {id :  planificacion.getId()})}}" target="_blank">                               
+                                Imprimir                                                    
+                            </a>
+                            <a class="dropdown-item text-dark" href="{{ path('planificaciones_duplicar', {id : planificacion.getId()})}}">Duplicar</a>
+                            <a class="dropdown-item text-dark" href="{{ path('planificaciones_borrar', {id : planificacion.getId()}) }}">Eliminar</a>
+                            <a class="mostrar-historico dropdown-item text-dark" href="#">Histórico estados</a>
                         </div>
-
                     </div>
+
+
                 {% endif %}            
             {% endif %}            
         {% endblock %}
