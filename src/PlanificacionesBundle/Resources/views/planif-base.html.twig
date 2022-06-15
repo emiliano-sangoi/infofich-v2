@@ -11,67 +11,79 @@
     {% set ROL_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
     {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 
-    {% set mostrar_comentarios = eActual.codigo == 4 
-           or (eActual.codigo == 3 and (app.user.tieneRol(ROL_ADMIN) or app.user.tieneRol(ROL_SA)) )
-    %}
+    {% set mostrar_comentarios = eActual.codigo == 4
+        or (eActual.codigo == 3 and (app.user.tieneRol(ROL_ADMIN) or app.user.tieneRol(ROL_SA)) ) %}
 {% endif %}
 
-{#{% from _self import mostrar_comentarios %}#}
+{# {% from _self import mostrar_comentarios %} #}
 
-{% block navbar2 %}             
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}   
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
 
-            {% if is_planificacion_definida  %}     
+            {% if is_planificacion_definida %}
 
-                {#<button class="btn btn-sm btn-outline-light py-1">
+                {# <button class="btn btn-sm btn-outline-light py-1">
                     <i class="fa fa-tasks"></i>
                     Revisar
-                </button>#}                
+                </button> #}
 
 
-                {% if eActual is not null  %}                                           
+                {% if eActual is not null %}
 
-                    {% if mostrar_comentarios|default(false) %}  
+                    {% if mostrar_comentarios|default(false) %}
                         {#  En revision ... #}
 
-                        <button class="modal-comentarios btn btn-sm btn-outline-light py-1 mr-2" title="Comentarios realizados por Sectrataría Académica">                            
+                        <button class="modal-comentarios btn btn-sm btn-outline-light py-1 mr-2"
+                                title="Comentarios realizados por Sectrataría Académica">
                             <i class="fa fa-comment-alt"></i>&nbsp;COMENTARIOS
                         </button>
 
-                    {% endif %}   
+                    {% endif %}
 
 
                     <button class="mostrar-historico btn btn-sm btn-{{ eActual.getCssClass() }} py-1">
                         <i class="fa fa-history"></i>&nbsp;
-                        {{  planificacion.getEstadoActual().getNombre()|upper }}                         
+                        {{ planificacion.getEstadoActual().getNombre()|upper }}
                     </button>
 
                     <!-- Dropdown - 3 puntito -->
                     <div class="dropdown" style="display:inline">
-                        <button class="btn btn-transparent" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-transparent" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v text-white"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-dark"  href="{{ path('planificaciones_imprimir', {id :  planificacion.getId()})}}" target="_blank">                               
-                                Imprimir                                                    
+                            <a class="dropdown-item text-dark"
+                               href="{{ path('planificaciones_imprimir', {id :  planificacion.getId()}) }}"
+                               target="_blank">
+                                Imprimir
                             </a>
-                            <a class="dropdown-item text-dark" href="{{ path('planificaciones_duplicar', {id : planificacion.getId()})}}">
-                                Duplicar
-                            </a>
+                            {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_DUPLICAR') %}
+                            {% if is_granted(cod_perm, { data: planificacion }) %}
+                                <a class="dropdown-item text-dark"
+                                   href="{{ path('planificaciones_duplicar', {id : planificacion.getId()}) }}">
+                                    Duplicar
+                                </a>
+                            {% endif %}
                             <a class="mostrar-historico dropdown-item text-dark" href="#">
                                 Histórico estados
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="{{ path('planificaciones_borrar', {id : planificacion.getId()}) }}" title="Borrar planificaciòn">
-                                Eliminar
-                            </a>
+                            {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_BORRAR') %}
+                            {% if is_granted(cod_perm, { data: planificacion }) %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger"
+                                   href="{{ path('planificaciones_borrar', {id : planificacion.getId()}) }}"
+                                   title="Borrar planificaciòn">
+                                    Eliminar
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
 
 
-                {% endif %}            
-            {% endif %}            
+                {% endif %}
+            {% endif %}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -80,9 +92,9 @@
 {% set full_width = true %}
 
 {% block content %}
-    <div id="planificaciones" class="bg-white">        
+    <div id="planificaciones" class="bg-white">
 
-        {#% include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' %#}    
+        {# % include 'PlanificacionesBundle:Planificaciones:navbar.html.twig' % #}
 
         {#        <div class="light-font mb-0">
                     <nav aria-label="breadcrumb ">
@@ -102,92 +114,93 @@
                     {% from 'PlanificacionesBundle::macros.html.twig' import nav_link %}
 
                     {# Información básica #}
-                    {% set html_id = 'tab-info-basica' %}        
-                    {% set label = 'Información básica' %}        
-                    {% set modal_title = 'Errores en la información básica' %}        
-                    {% set class = (page_id == 1 ? 'active' : '') ~ ' ' ~ disabled %}           
-                    {% set path = info_basica_route ?: '#' %}                                                                          
+                    {% set html_id = 'tab-info-basica' %}
+                    {% set label = 'Información básica' %}
+                    {% set modal_title = 'Errores en la información básica' %}
+                    {% set class = (page_id == 1 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = info_basica_route ?: '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.info_basica|default(null), class, is_planificacion_definida) }}
 
                     {# Equipo docente #}
-                    {% set html_id = 'tab-equipo-docente' %}        
-                    {% set label = 'Equipo docente' %}        
-                    {% set modal_title = 'Errores en el equipo docente' %}        
-                    {% set class = (page_id == 2 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_equipo_docente_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-equipo-docente' %}
+                    {% set label = 'Equipo docente' %}
+                    {% set modal_title = 'Errores en el equipo docente' %}
+                    {% set class = (page_id == 2 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_equipo_docente_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.eq_docente|default(null), class, is_planificacion_definida) }}
 
 
                     {# Aprobación de la asignatura #}
-                    {% set html_id = 'tab-aprobacion' %}        
-                    {% set label = 'Aprobación de la asignatura' %}        
-                    {% set modal_title = 'Errores en requisitos de aprobación' %}        
-                    {% set class = (page_id == 3 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_aprobacion_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-aprobacion' %}
+                    {% set label = 'Aprobación de la asignatura' %}
+                    {% set modal_title = 'Errores en requisitos de aprobación' %}
+                    {% set class = (page_id == 3 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_aprobacion_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.aprobacion|default(null), class, is_planificacion_definida) }}
 
 
                     {# Objetivos de la asignatura #}
-                    {% set html_id = 'tab-objetivos' %}        
-                    {% set label = 'Objetivos de la asignatura' %}        
-                    {% set modal_title = 'Errores en los objetivos de la asignatura' %}        
-                    {% set class = (page_id == 4 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_objetivos_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-objetivos' %}
+                    {% set label = 'Objetivos de la asignatura' %}
+                    {% set modal_title = 'Errores en los objetivos de la asignatura' %}
+                    {% set class = (page_id == 4 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_objetivos_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.objetivos|default(null), class, is_planificacion_definida) }}
 
 
                     {# Resultados de Aprendizajes #}
-                    {% set html_id = 'tab-resultados' %}        
-                    {% set label = 'Resultados de aprendizajes' %}        
-                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}        
-                    {% set class = (page_id == 11 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_resultados_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-resultados' %}
+                    {% set label = 'Resultados de aprendizajes' %}
+                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}
+                    {% set class = (page_id == 11 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_resultados_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.resultados|default(null), class, is_planificacion_definida) }}
 
                     {# Temario #}
-                    {% set html_id = 'tab-temario' %}        
-                    {% set label = 'Temario' %}        
-                    {% set modal_title = 'Errores en el temario' %}        
-                    {% set class = (page_id == 5 ? 'active' : '') ~ ' ' ~ disabled %}             
+                    {% set html_id = 'tab-temario' %}
+                    {% set label = 'Temario' %}
+                    {% set modal_title = 'Errores en el temario' %}
+                    {% set class = (page_id == 5 ? 'active' : '') ~ ' ' ~ disabled %}
                     {% set path = is_planificacion_definida ? path('planif_temario_index', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.temario|default(null), class, is_planificacion_definida) }}
 
                     {# Bibliografía #}
-                    {% set html_id = 'tab-bibliografia' %}        
-                    {% set label = 'Bibliografía' %}        
-                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}        
-                    {% set class = (page_id == 6 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-bibliografia' %}
+                    {% set label = 'Bibliografía' %}
+                    {% set modal_title = 'Errores en los resultados de aprendizaje' %}
+                    {% set class = (page_id == 6 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.bibliografia|default(null), class, is_planificacion_definida) }}
 
                     {# Cronograma de actividades #}
-                    {% set html_id = 'tab-cronograma' %}        
-                    {% set label = 'Cronograma de actividades' %}        
-                    {% set modal_title = 'Errores en el cronograma' %}        
-                    {% set class = (page_id == 7 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_act_curriculares_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-cronograma' %}
+                    {% set label = 'Cronograma de actividades' %}
+                    {% set modal_title = 'Errores en el cronograma' %}
+                    {% set class = (page_id == 7 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_act_curriculares_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.cronograma|default(null), class, is_planificacion_definida) }}
 
                     {# Distribucion de carga horaria #}
-                    {# Ahora se muestra en popup #}                    
-                    {#% set html_id = 'tab-cronograma' %}        
+                    {# Ahora se muestra en popup #}
+                    {# % set html_id = 'tab-cronograma' %}
                     {% set label = 'Distribucion de carga horaria' %}        
                     {% set modal_title = 'Errores en la distribución de la carga horaria' %}        
                     {% set class = (page_id == 8 ? 'active' : '') ~ ' ' ~ disabled %}             
                     {% set path = is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' %}                            
-                    {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) }#}
+                    {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) } #}
 
                     {# Viajes académicos #}
-                    {% set html_id = 'tab-viajes-academicos' %}        
-                    {% set label = 'Viajes académicos' %}        
-                    {% set modal_title = 'Errores en los viajes académicos' %}        
-                    {% set class = (page_id == 9 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set html_id = 'tab-viajes-academicos' %}
+                    {% set label = 'Viajes académicos' %}
+                    {% set modal_title = 'Errores en los viajes académicos' %}
+                    {% set class = (page_id == 9 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.viajes|default(null), class, is_planificacion_definida) }}
 
 
-                    <a class="nav-link {{ page_id == 10 ? 'active' : ''}}  {{ disabled }}" id="tab-revisar"  href="{{ is_planificacion_definida ? path('planificaciones_revisar', {id : planificacion.id}) : '#' }}">
-                        Revisar borrador  
+                    <a class="nav-link {{ page_id == 10 ? 'active' : '' }}  {{ disabled }}" id="tab-revisar"
+                       href="{{ is_planificacion_definida ? path('planificaciones_revisar', {id : planificacion.id}) : '#' }}">
+                        Revisar borrador
                         <i class="fa fa-tasks text-secondary float-right"></i>
                     </a>
 
@@ -197,40 +210,47 @@
             </div>
 
             <div class="col-12 col-md-8 col-lg-9">
-                <div class="tab-content" id="tab-content">                    
+                <div class="tab-content" id="tab-content">
                     <div>
-                        <div class="container" >
+                        <div class="container">
                             <div class="my-3">
                                 {% include '::notificaciones.html.twig' %}
 
                                 {% if planificacion.enRevision() %}
                                     <div class="">
-                                        {% from '::macros.html.twig' import notificacion %} 
+                                        {% from '::macros.html.twig' import notificacion %}
                                         {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
                                         {% set msg %}
-                                            <p class='mb-1'>Esta planificación fue enviada a revisión el <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b> Hs.</p>
-                                            <p>Secretaría académica revisará la planificación e indicará correcciones o aprobará la misma.</p>
+                                            <p class='mb-1'>Esta planificación fue enviada a revisión el
+                                                <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b>
+                                                Hs.</p>
+                                            <p>Secretaría académica revisará la planificación e indicará correcciones o
+                                                aprobará la misma.</p>
                                         {% endset %}
                                         {{ notificacion('Planificación en revisión', msg, 'warning', '', 'fa-exclamation-circle', 'fa-3x' ) }}
-                                    </div>                                
+                                    </div>
                                 {% elseif planificacion.enCorreccion() %}
                                     <div class="">
-                                        {% from '::macros.html.twig' import notificacion %} 
+                                        {% from '::macros.html.twig' import notificacion %}
                                         {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
                                         {% set msg %}
                                             <p class='mb-10'>
-                                                Esta planificación require algunas correcciones. Puede ver las mismas presionando el botón <b>"Comentarios"</b> ubicado en la parte superior derecha.
+                                                Esta planificación require algunas correcciones. Puede ver las mismas
+                                                presionando el botón <b>"Comentarios"</b> ubicado en la parte superior
+                                                derecha.
                                             </p>
                                             <p>
-                                                Una vez que realize todas las correcciones sugeridas, presione el botón <b>"Enviar a revisión"</b> ubicado en la parte inferior de la sección <b>"Revisar borrador"</b>.
+                                                Una vez que realize todas las correcciones sugeridas, presione el botón
+                                                <b>"Enviar a revisión"</b> ubicado en la parte inferior de la sección
+                                                <b>"Revisar borrador"</b>.
                                             </p>
                                         {% endset %}
                                         {{ notificacion('Planificación pendiente de correcciones', msg, 'error', '' ) }}
                                     </div>
                                 {% endif %}
                             </div>
-                            {#                            <div class="mb-4 mt-4">#}
-                            {#{% block titulo_principal %}
+                            {#                            <div class="mb-4 mt-4"> #}
+                            {# {% block titulo_principal %}
                                 <div class="">
                                     <span class="h4 mr-2">
                                         {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
@@ -261,17 +281,17 @@
                                     {% endif %}
                                 </div>
                             {% endblock %} #}
-                            {#{% block subtitulo %}
+                            {# {% block subtitulo %}
                                 {% if subtitulo is defined %}
                                     <h4 class="font-weight-bold text-color-gray-600 mt-2">
                                         {{ subtitulo }}
                                     </h4>
                                 {% endif %}
                             {% endblock %} #}
-                            {#                            </div>#}
-                            <div class="py-4">                    
+                            {#                            </div> #}
+                            <div class="py-4">
                                 {% block tab_content %}
-                                {% endblock %}   
+                                {% endblock %}
                             </div>
                         </div>
                     </div>
@@ -318,12 +338,11 @@
             });
 
 
-
         });
 
     </script>
 
-    {% if mostrar_comentarios|default(false) %}  
+    {% if mostrar_comentarios|default(false) %}
         {% include 'PlanificacionesBundle::modal-comentarios.js.twig' %}
     {% endif %}
 

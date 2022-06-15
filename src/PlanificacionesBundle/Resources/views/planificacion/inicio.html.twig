@@ -22,7 +22,7 @@
 
             <div class="shadow">
 
-                {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig'%}
+                {% include 'PlanificacionesBundle:planificacion:form-buscador.html.twig' %}
 
             </div>
 
@@ -31,18 +31,20 @@
                 <div class="row mt-4">
                     <div class="col-12">
 
-{#                        <div class="bg-light p-4 mb-3 shadow">#}
-{#                            Se encontraron <b>{{ paginado.getTotalItemCount }}</b> planificaciones.#}
-{#                        </div>#}
+                        {#                        <div class="bg-light p-4 mb-3 shadow"> #}
+                        {#                            Se encontraron <b>{{ paginado.getTotalItemCount }}</b> planificaciones. #}
+                        {#                        </div> #}
 
 
                         <div id="accordion" class="acordion">
-                            {%for p in paginado %}
+                            {% for p in paginado %}
                                 {% set id = 'collapse' ~ loop.index %}
                                 <div class="card mb-1">
                                     <div class="card-header card-header-azul" id="heading{{ loop.index }}">
                                         <h6 class="mb-0 acordeon-header">
-                                            <button class="btn btn-link align-middle py-1" data-toggle="collapse" data-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" style="text-decoration: none;">
+                                            <button class="btn btn-link align-middle py-1" data-toggle="collapse"
+                                                    data-target="#{{ id }}" aria-expanded="false"
+                                                    aria-controls="{{ id }}" style="text-decoration: none;">
 
                                                 <span class="text-white font-weight-bold">
                                                     {{ p.getTitulo()|upper }}
@@ -51,12 +53,13 @@
                                                     <span class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
                                                         {{ p.getCarreraAbrev() }}
                                                     </span>
-                                                    {% set eActual = p.getEstadoActual() %} 
+                                                    {% set eActual = p.getEstadoActual() %}
                                                     {% if eActual %}
-                                                        {% set class = eActual.getCssClass() %}                                                        
+                                                        {% set class = eActual.getCssClass() %}
 
-                                                        {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
-                                                        <span class='mr-2 small text-uppercase badge badge-estado badge-{{ class }}' style='cursor:default;'>
+                                                        {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}"> #}
+                                                        <span class='mr-2 small text-uppercase badge badge-estado badge-{{ class }}'
+                                                              style='cursor:default;'>
                                                             {{ eActual.nombre }}
                                                         </span>
                                                         <i class="fa fa-1x fa-caret-down"></i>
@@ -66,33 +69,36 @@
                                         </h6>
                                     </div>
 
-                                    <div id="{{ id }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+                                    <div id="{{ id }}" class="collapse" aria-labelledby="heading{{ loop.index }}"
+                                         data-parent="#accordion">
                                         <div class="card-body bg-light p-5">
-                                            {#<h4 class='font-weight-bold text-uppercase h6'>
+                                            {# <h4 class='font-weight-bold text-uppercase h6'>
                                                 {{ nom_carrera(p.carrera) ~ ' - Plan ' ~ p.plan }}
-                                            </h4>#}
+                                            </h4> #}
 
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h5 class="font-weight-bold text-uppercase text-primary">                                                        
-                                                        {{ p.getTitulo()|upper }}                                                        
+                                                    <h5 class="font-weight-bold text-uppercase text-primary">
+                                                        {{ p.getTitulo()|upper }}
                                                     </h5>
-                                                    <h6 class="font-weight-bold text-uppercase text-secondary">                                                        
-                                                        {{  nom_carrera(p.carrera) }}                                                        
+                                                    <h6 class="font-weight-bold text-uppercase text-secondary">
+                                                        {{ nom_carrera(p.carrera) }}
                                                     </h6>
                                                 </div>
                                             </div>
 
                                             <div class="row mt-3">
-                                                <div class="col-12 col-sm-6">                                                    
+                                                <div class="col-12 col-sm-6">
                                                     <p class="mb-1">
-                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Plan: </span>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span
+                                                                class='font-weight-bold'>Plan: </span>
                                                         <span class=''>
-                                                            {{  p.plan }}
+                                                            {{ p.plan }}
                                                         </span>
                                                     </p>
                                                     <p class="mb-1">
-                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Docente responsable: </span>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span
+                                                                class='font-weight-bold'>Docente responsable: </span>
                                                         {% if p.getDocenteResponsable() %}
                                                             {{ p.getDocenteResponsable.getPersona().getApeNom() }}
                                                         {% else %}
@@ -100,59 +106,74 @@
                                                         {% endif %}
                                                     </p>
                                                     <p>
-                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Fecha creaci&oacute;n: </span>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span
+                                                                class='font-weight-bold'>Fecha creaci&oacute;n: </span>
                                                         <span class=''>
                                                             {{ p.fechaCreacion()|date('d/m/Y H:i') ~ ' Hs.' }}
-                                                        </span>  
+                                                        </span>
                                                     </p>
 
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <p class="mb-1">
-                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold'>Estado actual: </span>
-                                                        <span class=''>{{ p.getEstadoActual() }}</span>              
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span
+                                                                class='font-weight-bold'>Estado actual: </span>
+                                                        <span class=''>{{ p.getEstadoActual() }}</span>
                                                     </p>
                                                     <p>
-                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span class='font-weight-bold' title="Fecha última modificación">Fecha ultima modif.: </span>
+                                                        <i class="fa fa-caret-right text-success"></i>&nbsp;<span
+                                                                class='font-weight-bold'
+                                                                title="Fecha última modificación">Fecha ultima modif.: </span>
                                                         <span class=''>
                                                             {{ p.getUltimaModif()|date('d/m/Y H:i') ~ ' Hs.' }}
-                                                        </span>              
-                                                    </p>                                                    
+                                                        </span>
+                                                    </p>
                                                 </div>
                                             </div>
 
                                             <div class="row mt-4">
                                                 <div class="col-12 col-md-10">
-                                                    <a href='{{ path('planif_info_basica_editar', {id : p.id})}}' class="btn btn-sm btn-primary">
+                                                    <a href='{{ path('planif_info_basica_editar', {id : p.id}) }}'
+                                                       class="btn btn-sm btn-primary">
                                                         <i class="fa fa-edit"></i>
                                                         Ver/Editar
                                                     </a>
-                                                    <a href="{{ path('planificaciones_duplicar', {id : p.id})}}" class="btn btn-sm btn-outline-secondary">
-                                                        <i class="fa fa-copy"></i>
-                                                        Duplicar
-                                                    </a>
-                                                    <a href="{{ path('planificaciones_imprimir', {id : p.id})}}" class="btn btn-sm btn-outline-secondary">
+                                                    {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_DUPLICAR') %}
+                                                    {% if is_granted(cod_perm, { data: p }) %}
+                                                        <a href="{{ path('planificaciones_duplicar', {id : p.id}) }}"
+                                                           class="btn btn-sm btn-outline-secondary">
+                                                            <i class="fa fa-copy"></i>
+                                                            Duplicar
+                                                        </a>
+                                                    {% endif %}
+                                                    <a href="{{ path('planificaciones_imprimir', {id : p.id}) }}"
+                                                       class="btn btn-sm btn-outline-secondary">
                                                         <i class="fa fa-print"></i>
-                                                        Imprimir                                                    
+                                                        Imprimir
                                                     </a>
                                                     {# El boton Cambiar Estado es para las planificaciones publicadas que 
                                                     pueden cambiar al estado en Revision, solo tiene permiso SEC ACADeMICA. #}
                                                     {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 
-                                                    {% if (p.isPublicada() and app.user.tieneRol(ROL_SA))%}
-   
-                                                        <a href="{{ path('planificaciones_cambiar_estado', {id : p.id}) }}" class="btn btn-sm btn-outline-secondary">
+                                                    {% if (p.isPublicada() and app.user.tieneRol(ROL_SA)) %}
+
+                                                        <a href="{{ path('planificaciones_cambiar_estado', {id : p.id}) }}"
+                                                           class="btn btn-sm btn-outline-secondary">
                                                             <i class="fa fa-clock-o"></i>
                                                             Cambiar estado
                                                         </a>
                                                     {% endif %}
                                                 </div>
-                                                <div class="col-12 col-md-2 text-right">
-                                                    <a href="{{ path('planificaciones_borrar', {id : p.id}) }}" class="btn btn-sm btn-outline-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                        Eliminar
-                                                    </a>
-                                                </div>
+                                                {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_BORRAR') %}
+                                                {% if is_granted(cod_perm, { data: p }) %}
+                                                    <div class="col-12 col-md-2 text-right">
+                                                        <a href="{{ path('planificaciones_borrar', {id : p.id}) }}"
+                                                           class="btn btn-sm btn-outline-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                            Eliminar
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
                                             </div>
 
                                         </div>
@@ -200,39 +221,39 @@
             });
 
             select_asignatura.select2({
-                'placeholder' : 'Todas las asignaturas de la carrera',
+                'placeholder': 'Todas las asignaturas de la carrera',
                 allowClear: true
             });
 
 
-        {% set formData = app.request.get('buscador') %}
-        {% if formData['codigoAsignatura'] is defined %}
-                ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
-                //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
-        {% else %}
-                ASIGNATURA_ACTUAL = -1;
-                select_asignatura.val("");
-        {% endif %}
+            {% set formData = app.request.get('buscador') %}
+            {% if formData['codigoAsignatura'] is defined %}
+            ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
+            //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
+            {% else %}
+            ASIGNATURA_ACTUAL = -1;
+            select_asignatura.val("");
+            {% endif %}
 
 
-                // combo de carreras:
-                select_carreras.change(actualizarAsignaturas);
+            // combo de carreras:
+            select_carreras.change(actualizarAsignaturas);
 
-                //combo de asignaturas:
-                select_asignatura.change(function (e) {
-                    var option = $(this).children("option:selected");
-                });
+            //combo de asignaturas:
+            select_asignatura.change(function (e) {
+                var option = $(this).children("option:selected");
+            });
 
-                //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-                select_carreras.trigger('change');
+            //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
+            select_carreras.trigger('change');
 
 
-        {#$('.modal-historico').click(function(e){
+            {# $('.modal-historico').click(function(e){
             e.prevenDefault();
             alert('aca se va a mostrar el hitorico');
-        })#}
+        }) #}
 
-            });
+        });
 
 
     </script>
