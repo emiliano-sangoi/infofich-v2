@@ -1,0 +1,109 @@
+{% set page_id = 5 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        td:hover {
+            cursor: move;
+        }
+    </style>
+{% endblock %}
+
+{% block tab_content %}
+
+    {% if planificacion.puedeEditarse() %}
+        <div class="mb-4">
+            {% embed "::botonera-2col.html.twig" %}
+                {% block left %}
+                    <a href="{{ path('planif_bibliografia_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
+                        Nueva bibliografía
+                    </a>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+
+    {% if planificacion.bibliografiasPlanificacion[0] is not defined %}
+        {% from '::macros.html.twig' import notificacion %}
+        {% set msg %}
+            <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
+        {% endset %}
+        {{ notificacion(null, msg, 'secondary', '' ) }}
+    {% else %}
+        {% include "PlanificacionesBundle:6-bibliografia:tabla-bibliografia.html.twig" %}
+    {% endif %}
+
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+
+    {% if planificacion.puedeEditarse() %}
+        <script>
+
+            $(document).ready(function () {
+
+                var url = "{{ path('planif_temario_actualizar_unidad', { id: '-ID-' }) }}";
+
+                var fixHelperModified = function (e, tr) {
+                    var $originals = tr.children();
+                    var $helper = tr.clone();
+                    $helper.children().each(function (index) {
+                        $(this).width($originals.eq(index).width())
+                    });
+                    return $helper;
+                };
+
+                var updateIndex = function (e, ui) {
+                    $('td.unidad', ui.item.parent()).each(function (i) {
+                        $(this).html(i + 1);
+                    });
+
+                    var idUnidad = ui.item.find('td.unidad').data('id-unidad');
+                    var udNueva = ui.item.find('td.unidad').text();
+                    console.log('Se movio la unidad con id ' + idUnidad + ' a la posicion ' + udNueva);
+
+                    url = url.replace('-ID-', idUnidad);
+                    var data = {
+                        nueva_unidad: udNueva
+                    };
+
+                    var jqxhr = $.post(url, data);
+
+                    jqxhr.done(function (response) {
+                        console.log(response);
+                    }).fail(function (error) {
+                        console.log(error);
+                    });
+
+                };
+
+                $("#tablaTemario tbody").sortable({
+                    helper: fixHelperModified,
+                    stop: updateIndex
+                }).disableSelection();
+
+                $("tbody").sortable({
+                    distance: 5,
+                    delay: 100,
+                    opacity: 0.6,
+                    cursor: 'move',
+                    update: function () {
+                    }
+                });
+
+
+            });
+        </script>
+    {% endif %}
+
+
+
+
+{% endblock %} 

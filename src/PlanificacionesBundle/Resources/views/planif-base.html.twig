@@ -169,7 +169,7 @@
                     {% set label = 'Bibliografía' %}
                     {% set modal_title = 'Errores en los resultados de aprendizaje' %}
                     {% set class = (page_id == 6 ? 'active' : '') ~ ' ' ~ disabled %}
-                    {% set path = is_planificacion_definida ? path('planif_bibliografia_editar', {id : planificacion.id}) : '#' %}
+                    {% set path = is_planificacion_definida ? path('planif_bibliografia_index', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.bibliografia|default(null), class, is_planificacion_definida) }}
 
                     {# Cronograma de actividades #}

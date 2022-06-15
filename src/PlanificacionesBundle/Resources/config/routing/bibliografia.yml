@@ -1,3 +1,19 @@
+planif_bibliografia_index:
+    path:     /{id}/bibliografia
+    defaults: { _controller: PlanificacionesBundle:Bibliografia:index }
+
+planif_bibliografia_ver:
+    path:     /bibliografia/{id}/ver
+    defaults: { _controller: PlanificacionesBundle:Bibliografia:ver }
+
 planif_bibliografia_editar:
-    path:     /{id}/bibliografia/editar
+    path:     /bibliografia/{id}/editar
     defaults: { _controller: PlanificacionesBundle:Bibliografia:edit }
+
+planif_bibliografia_borrar:
+    path:     /bibliografia/{id}/borrar
+    defaults: { _controller: PlanificacionesBundle:Bibliografia:borrar }
+
+planif_bibliografia_nuevo:
+    path:     /{id}/bibliografia/nuevo
+    defaults: { _controller: PlanificacionesBundle:Bibliografia:new }

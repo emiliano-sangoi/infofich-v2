@@ -6,6 +6,8 @@ use AppBundle\Seguridad\Permisos;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Form\BibliografiasType;
+use PlanificacionesBundle\Entity\BibliografiaPlanificacion;
+use PlanificacionesBundle\Entity\Bibliografia;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,29 @@ use Symfony\Component\HttpFoundation\Response;
 class BibliografiaController extends Controller {
 
     use PlanificacionTrait;
+
+    public function indexAction(Request $request, Planificacion $planificacion) {
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+
+        $repo = $this->getDoctrine()->getManager()->getRepository(BibliografiaPlanificacion::class);
+        $bibliografiaPlanif = $repo->findBy(array(
+            'planificacion' => $planificacion
+        ));
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem('Bibliografía');
+
+        return $this->render('PlanificacionesBundle:6-bibliografia:index.html.twig', array(
+                    'page_title' => $this->getPageTitle($planificacion) . ' - Bibliografía',
+                    'bibliografias' => $bibliografiaPlanif,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'planificacion' => $planificacion
+        ));
+    }
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -28,10 +53,10 @@ class BibliografiaController extends Controller {
         //Deshabilitar el campo cuando la planificación este en revision o publicada
         $config = array();
         $ea = $planificacion->getEstadoActual();
-        if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
+        if ($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])) {
             $config = array('disabled' => true);
         }
-        
+
         $form = $this->createForm(BibliografiasType::class, $planificacion, $config);
         $form->handleRequest($request);
 
@@ -85,6 +110,16 @@ class BibliografiaController extends Controller {
                 $em->remove($bp);
             }
         }
+    }
+
+    public function renderBtnBorrarAction(BibliografiaPlanificacion $bibliografia, $label) {
+
+        $delete_form = $this->crearFormBorrado($bibliografia);
+
+        return $this->render('PlanificacionesBundle:6-bibliografia:btn-borrar.html.twig', array(
+                    'delete_form' => $delete_form->createView(),
+                    'label' => $label
+        ));
     }
 
 }

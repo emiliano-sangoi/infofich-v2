@@ -1,0 +1,63 @@
+<div class="table-responsive shadow">
+    <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaBibliografia">
+        <thead>
+        <tr class="bg-secondary text-white">
+            <th scope="col" class="text-center">Tipo bibliografía</th>
+            <th scope="col">Referencia bibliográfica</th>           
+            {#            <th scope="col" class="text-center">Actividades</th> #}
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bibliografia in bibliografias %}
+            <tr>
+                <td class="unidad align-middle text-center" data-id-unidad="{{ bibliografia.id }}">{{ bibliografia.tipoBibliografia }}</td>
+                
+                <td class="align-middle py-2 w-50">
+                    <div class="texto-container d-inline">
+                        {% if bibliografia.bibliografia.infoCompleta|length > 75 %}
+                            <div class="txt-breve">
+                                <span class="text-muted">{{ bibliografia.bibliografia.infoCompleta|slice(0, 75) }}...</span>
+                                <a href="#" class="ver-mas" style="text-decoration: none;" title="Ver m&aacute;s">
+                                    [+]
+                                </a>
+                            </div>
+                            <div class="d-none txt-full">
+                                <span class="text-muted">{{ bibliografia.bibliografia.infoCompleta|nl2br }}</span>
+                                <a href="#" class="ver-menos text-secondary" style="text-decoration: none;"
+                                   title="Ver menos">
+                                    [-]
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="mt-1">
+                                <span class="text-muted">{{ bibliografia.bibliografia.infoCompleta|nl2br }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+                {#                <td class="align-middle text-center"> #}
+                {#                    {{ tema.actividades|length }} #}
+                {#                </td> #}
+                <td class="align-middle text-center">
+                    <a href="{{ path('planif_bibliografia_ver', { id : bibliografia.id }) }}"
+                       class="btn btn-sm btn-outline-secondary" title="Ver registro">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    {% if planificacion.puedeEditarse() %}
+                        <a href="{{ path('planif_bibliografia_editar', { id : bibliografia.id }) }}"
+                           class="btn btn-sm btn-outline-secondary" title="Editar registro">
+                            <i class="fa fa-edit"></i>
+                        </a>
+
+                       {#{ render(controller(
+                            'PlanificacionesBundle:Bibliografia:renderBtnBorrar',
+                            { 'bibliografia': bibliografia.bibliografia, 'label' : null }
+                        )) }#}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
