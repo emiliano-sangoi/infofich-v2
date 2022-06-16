@@ -76,7 +76,7 @@ class TemarioController extends Controller
             $em->persist($tema);
             $em->flush();
 
-            $this->addFlash('success', 'El tema con título: \'' . $tema->getTitulo() . '\' fúe creado correctamente.');
+            $this->addFlash('success', 'El tema con título: \'' . $tema->getTitulo() . '\' fue creado correctamente.');
 
             if ($form->get('btnCrear')->isClicked()) {
                 return $this->redirectToRoute('planif_temario_index', array('id' => $planificacion->getId()));

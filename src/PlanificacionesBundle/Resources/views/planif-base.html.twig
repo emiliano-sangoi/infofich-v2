@@ -194,7 +194,7 @@
                     {% set label = 'Viajes académicos' %}
                     {% set modal_title = 'Errores en los viajes académicos' %}
                     {% set class = (page_id == 9 ? 'active' : '') ~ ' ' ~ disabled %}
-                    {% set path = is_planificacion_definida ? path('planif_viajes_acad_editar', {id : planificacion.id}) : '#' %}
+                    {% set path = is_planificacion_definida ? path('planif_viaje_index', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.viajes|default(null), class, is_planificacion_definida) }}
 
 

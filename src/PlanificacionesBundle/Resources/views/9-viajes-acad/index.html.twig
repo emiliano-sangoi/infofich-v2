@@ -1,0 +1,44 @@
+{% set page_id = 9 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        td:hover {
+            cursor: move;
+        }
+    </style>
+{% endblock %}
+
+{% block tab_content %}
+
+    {% if planificacion.puedeEditarse() %}
+        <div class="mb-4">
+            {% embed "::botonera-2col.html.twig" %}
+                {% block left %}
+                    <a href="{{ path('planif_viaje_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
+                        Nuevo viaje
+                    </a>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+
+    {% if planificacion.viajesAcademicos[0] is not defined %}
+        {% from '::macros.html.twig' import notificacion %}
+        {% set msg %}
+            <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
+        {% endset %}
+        {{ notificacion(null, msg, 'secondary', '' ) }}
+    {% else %}
+        {% include "PlanificacionesBundle:9-viajes-acad:tabla-viajes.html.twig" %}
+    {% endif %}
+
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+    
+{% endblock %} 

@@ -1,0 +1,84 @@
+{{ form_start(form) }}
+<div class="mb-5">
+    <div class="form-row">
+        <div class="form-group col-md-2 col-xs-12">
+            <label>Viaje</label>
+        </div>
+        <div class="col-md-8">
+            {{ form_label(form.descripcion) }}
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="offset-2 col-md-8">
+            {{ form_label(form.objetivos) }}            
+            {{ form_widget(form.objetivos) }}
+            {{ form_errors(form.objetivos) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group offset-2 col-md-8">
+            {{ form_label(form.recorrido) }}
+            {{ form_widget(form.recorrido) }}
+            {{ form_errors(form.recorrido) }}
+        </div>
+    </div>
+    <div class="form-row pasajeros">
+        <div class="form-group col-sm-2 col-xs-12">
+            <label>Pasajeros</label>
+        </div>
+        <div class="form-group col-sm-2 col-xs-12">
+            {{ form_label(form.cantEstudiantes) }}
+            {{ form_widget(form.cantEstudiantes) }}
+            {{ form_errors(form.cantEstudiantes) }}
+        </div>
+        <div class="form-group col-sm-2 col-xs-12">
+            {{ form_label(form.cantDocentes) }}
+            {{ form_widget(form.cantDocentes) }}
+            {{ form_errors(form.cantDocentes) }}
+
+        </div>
+        <div class="form-group col-sm-2 col-xs-12">
+            {{ form_label(form.totalPasajeros) }}
+            {{ form_widget(form.totalPasajeros) }}
+
+            {#      <label for="pasajeros_total">Total </label>
+                  <input type="number" class="form-control" 
+                         id="pasajeros_total" name="pasajeros_total" disabled/>#}
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group  col-md-4 offset-md-2">
+            {{ form_label(form.vehiculo) }}
+            {{ form_widget(form.vehiculo) }}
+            {{ form_errors(form.vehiculo) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4 offset-md-2">
+            {% from '::macros.html.twig' import input_datetime_picker %}     
+            {{  input_datetime_picker(form.fechaTentativa, form.fechaTentativa.vars.id ~ '_picker', false ) }} 
+        </div>
+        {# Nuevo campo #}
+        <div class="form-group col-md-4">
+            {% from '::macros.html.twig' import input_datetime_picker %}     
+            {{  input_datetime_picker(form.fechaTentativaRegreso, form.fechaTentativaRegreso.vars.id ~ '_picker', false ) }} 
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group offset-md-2 col-md-8">
+            {{ form_label(form.asignaturas) }}
+            {{ form_widget(form.asignaturas) }}
+            {{ form_errors(form.asignaturas) }}
+        </div>
+    </div>
+</div>
+
+{% block form_actions %}
+
+{% endblock %}
+
+{{ form_end(form) }}

@@ -1,3 +1,19 @@
-planif_viajes_acad_editar:
-    path:     /{id}/viajes-academicos/editar
+planif_viaje_index:
+    path:     /{id}/viajes
+    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:index }
+
+planif_viaje_ver:
+    path:     /viajes/{id}/ver
+    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:ver }
+
+planif_viaje_editar:
+    path:     /viajes/{id}/editar
     defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:edit }
+
+planif_viaje_borrar:
+    path:     /viajes/{id}/borrar
+    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:borrar }
+
+planif_viaje_nuevo:
+    path:     /{id}/viajes/nuevo
+    defaults: { _controller: PlanificacionesBundle:ViajesAcademicos:new }

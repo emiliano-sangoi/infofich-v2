@@ -1,0 +1,70 @@
+<div class="table-responsive shadow">
+    <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaViajes">
+        <thead>
+        <tr class="bg-secondary text-white">
+            <th scope="col">Fecha salida</th>
+            <th scope="col" class="text-center">Descripción</th>
+            <th scope="col">Objetivos</th>
+            <th scope="col">Recorrido</th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for viaje in viajes %}
+            <tr>
+                <td class="unidad align-middle text-center" data-id-unidad="{{ viaje.id }}">{{ viaje.fechaTentativa|date("d/m/Y") }}</td>
+                
+                <td class="align-middle py-2">
+                    <div class="texto-container d-inline">
+                        {% if viaje.descripcion|length > 75 %}
+                            <div class="txt-breve">
+                                <span class="text-muted">{{ viaje.descripcion|slice(0, 75) }}...</span>
+                                <a href="#" class="ver-mas" style="text-decoration: none;" title="Ver m&aacute;s">
+                                    [+]
+                                </a>
+                            </div>
+                            <div class="d-none txt-full">
+                                <span class="text-muted">{{ viaje.descripcion|nl2br }}</span>
+                                <a href="#" class="ver-menos text-secondary" style="text-decoration: none;"
+                                   title="Ver menos">
+                                    [-]
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="mt-1">
+                                <span class="text-muted">{{ viaje.descripcion|nl2br }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="align-middle">
+                    {{ viaje.objetivos }}
+                </td>
+                <td class=" align-middle">
+                    {{ viaje.recorrido }}
+                </td>
+                {#                <td class="align-middle text-center"> #}
+                {#                    {{ tema.actividades|length }} #}
+                {#                </td> #}
+                <td class="align-middle text-center">
+                    <a href="{{ path('planif_viaje_ver', { id : viaje.id }) }}"
+                       class="btn btn-sm btn-outline-secondary" title="Ver registro">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    {% if planificacion.puedeEditarse() %}
+                        <a href="{{ path('planif_viaje_editar', { id : viaje.id }) }}"
+                           class="btn btn-sm btn-outline-secondary" title="Editar registro">
+                            <i class="fa fa-edit"></i>
+                        </a>
+
+                        {#{ render(controller(
+                            'PlanificacionesBundle:Temario:renderBtnBorrar',
+                            { 'tema': tema, 'label' : null }
+                        )) }#}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
