@@ -1,25 +1,28 @@
-{% set page_id = 9 %}
+{% set page_id = 5 %}
 
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% form_theme form.viajesAcademicos 'jquery.collection.html.twig' 'PlanificacionesBundle:9-viajes-acad:form_theme-viajeAcademico.html.twig' %}
-    {{ form_start(form) }}
-    {{ form_widget(form.viajesAcademicos) }}
+    {% embed "PlanificacionesBundle:9-viajes-acad:form.html.twig" %}
 
-    {% if planificacion.puedeEditarse() %}
-        <div class="form-row mt-3">
-            <div class="col-xs-10 col-sm-10 text-right">           
-                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
-            </div>
-            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
-                        <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
-                    </div>#}
-        </div>
-    {% endif %}
-    
-    {{ form_end(form) }}
-{% endblock %} 
+        {% block form_actions %}
+            {% if planificacion.puedeEditarse() %}
+                <div class="form-row mt-3">
+                    <div class="col-12 col-lg-8">
+                        <input type="submit" class="btn btn-success" value="Guardar cambios" />
+                    </div>
+
+                    <div class="col-12 col-lg-2 text-right">
+                        <a href="{{ path('planif_viaje_index', { id: viaje.planificacion.id }) }}" class="btn btn-outline-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

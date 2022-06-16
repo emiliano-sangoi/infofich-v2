@@ -37,7 +37,7 @@ class ViajesAcademicosController extends Controller {
         $breadcrumbs->addItem('Viaje');
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:index.html.twig', array(
-            'page_title' => $this->getPageTitle($planificacion) . ' - Temario',
+            'page_title' => $this->getPageTitle($planificacion) . ' - Viaje Academico',
             'viajes' => $viajes,
             'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
             'planificacion' => $planificacion
@@ -120,6 +120,45 @@ class ViajesAcademicosController extends Controller {
         return $form;
     }
 
+     public function verAction(Request $request, ViajeAcademico $viaje)
+    {
+        $form = $this->createForm(ViajeAcademicoType::class, $viaje, array(
+            'disabled' => true
+        ));
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($viaje->getPlanificacion());
+        $current_route = $this->get("router")->generate('planif_viaje_ver', array('id' => $viaje->getPlanificacion()->getId()));
+        $breadcrumbs->addItem('Viajes academicos', $current_route);
+        $breadcrumbs->addItem('VER');
+
+        $delete_form = $this->crearFormBorrado($viaje);
+
+        return $this->render('PlanificacionesBundle:9-viajes-acad:ver.html.twig', array(
+            'form' => $form->createView(),
+            'delete_form' => $delete_form->createView(),
+            'viaje' => $viaje,
+            'planificacion' => $viaje->getPlanificacion(),
+            'page_title' => $this->getPageTitle($viaje->getPlanificacion()) . ' - Viaje Academico'
+        ));
+    }
+    
+    private function crearFormBorrado(ViajeAcademico $viaje){
+
+        $options = array(
+            'attr' => array(
+                'class' => 'd-inline'
+            ));
+
+        return $this->createFormBuilder(null, $options)
+            ->setAction($this->generateUrl('planif_viaje_borrar', array('id' => $viaje->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+
+    }
     /**
      * Metodo que maneja la edicion del formulario.
      * 

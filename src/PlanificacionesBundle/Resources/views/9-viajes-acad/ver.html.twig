@@ -4,7 +4,7 @@
 
 {% block tab_content %}
 
-    {% include "PlanificacionesBundle:5-temario:form.html.twig" %}
+    {% include "PlanificacionesBundle:9-viajes-acad:form.html.twig" %}
 
     <div class="form-row mt-5">
         <div class="form-group col-md-10">
@@ -12,7 +12,7 @@
 
                 {% block left %}
                     {% if planificacion.puedeEditarse() %}
-                        <a href="{{ path('planif_temario_editar', { id : tema.id }) }}"
+                        <a href="{{ path('planif_viaje_editar', { id : viaje.id }) }}"
                            class="btn btn-success">
                             <i class="fa fa-edit"></i>&nbsp;Editar
                         </a>
@@ -23,15 +23,15 @@
                     {% if planificacion.puedeEditarse() %}
                         {{ form_start(delete_form) }}
                         <button role="submit" class="btn btn-danger confirmar-borrado"
-                                data-msg='¿Esta seguro que desea borrar esta tema?'>
+                                data-msg='¿Esta seguro que desea borrar esta viaje?'>
                             <i class="fa fa-trash"></i>&nbsp;Borrar
                         </button>
                         {{ form_end(delete_form) }}
                     {% endif %}
 
-                    <a href="{{ path('planif_temario_index', { id: tema.planificacion.id }) }}"
+                    <a href="{{ path('planif_viaje_index', { id: viaje.planificacion.id }) }}"
                        class="btn btn-outline-secondary">
-                        Ir a temario
+                        Ir a viajes
                     </a>
                 {% endblock %}
 

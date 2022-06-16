@@ -122,11 +122,11 @@ class ViajeAcademicoType extends AbstractType {
             )
         ));
         
-        $builder->add('reset', ResetType::class, array(
+        /*$builder->add('reset', ResetType::class, array(
             'label' => 'Descartar cambios',
             'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
         ));
-        
+        */
     }
 
     /**
