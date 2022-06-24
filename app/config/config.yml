@@ -43,7 +43,7 @@ twig:
     globals:
         global_sd: 'Sin definir'
         full_width: false
-        gidis_email: '%gidis_email%'
+        gidis_email: 'gidis@fich.unl.edu.ar'
         vacio: '-'
 
 # Doctrine Configuration
@@ -73,12 +73,12 @@ doctrine:
 # Si se usa GMAIL para probar se debe habilitar la opción "Allow less secure apps" en https://myaccount.google.com/security#connectedapps
 # Ver mas info en: https://stackoverflow.com/questions/33939393/failed-to-authenticate-on-smtp-server-error-using-gmail
 swiftmailer:
-    transport: "%mailer_transport%"  # gmail, smtp
-    host:      "%mailer_host%"       # smtp.gmail.com
-    username:  "%mailer_user%"       # email de gmail
-    password:  "%mailer_password%"   # pwd de gmail
-    port:  "%mailer_port%"           # 465
-    encryption: "%mailer_encryption%" # ssl
+    transport: "smtp"  # gmail, smtp
+    host:      "smtp.gmail.com"       # smtp.gmail.com
+    username:  "gidis@fich.unl.edu.ar"       # email de gmail
+    password:  ""   # pwd de gmail
+    port:  "465"           # 465
+    encryption: "ssl" # ssl
 
     # Sobre el SPOOL
     # ------------------------------------------------------------------

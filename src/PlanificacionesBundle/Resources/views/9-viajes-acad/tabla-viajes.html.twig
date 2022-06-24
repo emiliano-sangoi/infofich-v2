@@ -57,10 +57,10 @@
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        {#{ render(controller(
-                            'PlanificacionesBundle:Temario:renderBtnBorrar',
-                            { 'tema': tema, 'label' : null }
-                        )) }#}
+                        {{ render(controller(
+                            'PlanificacionesBundle:ViajesAcademicos:renderBtnBorrar',
+                            { 'viaje': viaje, 'label' : null }
+                        )) }}
                     {% endif %}
                 </td>
             </tr>

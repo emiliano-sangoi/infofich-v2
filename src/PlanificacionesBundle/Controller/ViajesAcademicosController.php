@@ -163,46 +163,80 @@ class ViajesAcademicosController extends Controller {
      * Metodo que maneja la edicion del formulario.
      * 
      * @param Request $request
-     * @param Planificacion $planificacion
+     * @param ViajeAcademico $viaje
      * @return Response
      */
-    public function editAction(Request $request, Planificacion $planificacion) {
+    public function editAction(Request $request, ViajeAcademico $viaje) {
 
-        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $viaje->getPlanificacion()));
 
-        $form = $this->createForm(ViajesAcademicosType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
+        $form = $this->createForm(ViajeAcademicoType::class, $viaje);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->actualizarViajes($planificacion);
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-
-            return $this->redirectToRoute('planif_viajes_acad_editar', array('id' => $planificacion->getId()));
+            $this->addFlash('success', 'El viaje fue editado correctamente.');
+            return $this->redirectToRoute('planif_viaje_index', array('id' => $viaje->getPlanificacion()->getId()));
         }
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Viajes académicos', $this->get("router")->generate('planif_viajes_acad_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($viaje->getPlanificacion());
+        $current_route = $this->get("router")->generate('planif_viaje_editar', array('id' => $viaje->getPlanificacion()->getId()));
+        //$breadcrumbs->addItem('Unidad ' . $tema->getUnidad(), $current_route);
+        $breadcrumbs->addItem('EDITAR');
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:edit.html.twig', array(
-                    'form' => $form->createView(),
-                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
-                    'page_title' => $this->getPageTitle($planificacion) . ' - Viajes académicos',
-                    'planificacion' => $planificacion
+            'form' => $form->createView(),
+            'viaje' => $viaje,
+            'planificacion' => $viaje->getPlanificacion(),
+            'page_title' => $this->getPageTitle($viaje->getPlanificacion()) . ' - Viajes académicos',
         ));
     }
+
+    public function borrarAction(Request $request, ViajeAcademico $viaje)
+    {
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $viaje->getPlanificacion()));
+
+        $form = $this->crearFormBorrado($viaje);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($viaje);
+            $em->flush();
+
+            $this->addFlash('success', 'El viaje fue borrado correctamente.');
+        }
+
+        return $this->redirectToRoute('planif_viaje_index', array('id' => $viaje->getPlanificacion()->getId()));
+    }
+
+    public function renderBtnBorrarAction(ViajeAcademico $viaje, $label){
+
+        $delete_form = $this->crearFormBorrado($viaje);
+
+        return $this->render('PlanificacionesBundle:9-viajes-acad:btn-borrar.html.twig', array(
+            'delete_form' => $delete_form->createView(),
+            'label' => $label
+        ));
+
+    }
+
+
+
 
     /**
      * Funcion auxiliar para remover los items que fueron borrados por el formulario.
      * 
      * @param Planificacion $planificacion
      */
-    private function actualizarViajes(Planificacion $planificacion) {
+    /*private function actualizarViajes(Planificacion $planificacion) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -223,6 +257,6 @@ class ViajesAcademicosController extends Controller {
                 $em->remove($viajeAcad);
             }
         }
-    }
+    }*/
 
 }

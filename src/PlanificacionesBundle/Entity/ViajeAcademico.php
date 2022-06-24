@@ -122,7 +122,7 @@ class ViajeAcademico {
     private $posicion;
 
     public function __construct() {
-        $this->asignaturas = new ArrayCollection;
+        $this->asignaturas = null;
         $this->cantDocentes = 0;
         $this->cantEstudiantes = 0;
         //$this->vehiculos = new ArrayCollection;
