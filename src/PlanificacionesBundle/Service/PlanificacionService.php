@@ -188,7 +188,7 @@ class PlanificacionService {
     public function validarBibliografia(Planificacion $planificacion) {
         $errores = array();
 
-        if ($planificacion->getBibliografiasPlanificacion()->count() === 0) {
+        if ($planificacion->getBibliografias()->count() === 0) {
             $errores[] = 'No se ha definido ninguna bibliografía.';
             $this->hayErrores = true;
         }

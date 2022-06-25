@@ -2,6 +2,10 @@
 
 namespace PlanificacionesBundle\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use PlanificacionesBundle\Entity\Planificacion;
+
 /**
  * BibliografiaRepository
  *
@@ -10,4 +14,38 @@ namespace PlanificacionesBundle\Repository;
  */
 class BibliografiaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getQb(Planificacion $planificacion){
+        $qb = $this->createQueryBuilder('b');
+        $qb->join('b.planificacion', 'p');
+        $qb->join('b.tipoBibliografia', 'tb');
+        $qb->where($qb->expr()->eq('p.id', ':p_id'));
+
+        $qb->setParameter(':p_id', $planificacion->getId());
+        $qb->orderBy('b.posicion', 'ASC');
+
+        return $qb;
+    }
+
+    public function getProximaPosicion(Planificacion $planificacion){
+
+
+        $qb = $this->getQb($planificacion);
+        $qb->select('b.posicion');
+        $qb->setMaxResults(1);
+
+        $qb->orderBy('b.posicion', 'DESC');
+
+        try {
+            $res = $qb->getQuery()->getSingleScalarResult();
+
+            return $res+1;
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+
+        }
+
+        return 1;
+    }
+
 }

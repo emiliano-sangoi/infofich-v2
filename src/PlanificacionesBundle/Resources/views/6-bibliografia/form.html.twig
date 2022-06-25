@@ -1,20 +1,27 @@
 {{ form_start(form) }}
-<div class="row mb-3">
-    <div class="col-md-3 formato-inputs-groups">
+<div class="form-row mb-3">
+    <div class="col-12 col-md-10 formato-inputs-groups">
         {{ form_label(form.tipoBibliografia) }}
-        {% for child in form.tipoBibliografia %}
-            <div>
+        <div class="mt-2">
+            {% for child in form.tipoBibliografia %}
+                <span>
                 {{ form_widget(child) }}
-                {{ form_label(child, null, { label_attr: { 'class': 'font-weight-normal' } }) }}
-            </div>
-        {% endfor %}
+                    {{ form_label(child, null, { label_attr: { 'class': 'font-weight-normal' } }) }}
+            </span>
+            {% endfor %}
+        </div>
         {{ form_errors(form.tipoBibliografia) }}
     </div>
-    <div class="col-md-7">
-        {{ form_label(form.bibliografia.infoCompleta) }}
-        {{ form_widget(form.bibliografia.infoCompleta) }}
-        {{ form_errors(form.bibliografia.infoCompleta) }}
+</div>
+<div class="form-row mb-3">
+    <div class="col-12 col-md-10">
+        {{ form_label(form.infoCompleta) }}
+        <div class="mt-2">
+            {{ form_widget(form.infoCompleta) }}
+            {{ form_errors(form.infoCompleta) }}
+        </div>
     </div>
+</div>
 </div>
 
 {% block form_actions %}

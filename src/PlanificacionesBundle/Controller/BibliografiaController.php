@@ -5,9 +5,10 @@ namespace PlanificacionesBundle\Controller;
 use AppBundle\Seguridad\Permisos;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\Estado;
+use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Form\BibliografiasType;
-use PlanificacionesBundle\Entity\BibliografiaPlanificacion;
 use PlanificacionesBundle\Entity\Bibliografia;
+use PlanificacionesBundle\Form\BibliografiaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,14 @@ class BibliografiaController extends Controller {
     public function indexAction(Request $request, Planificacion $planificacion) {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $repo = $this->getDoctrine()->getManager()->getRepository(BibliografiaPlanificacion::class);
-        $bibliografiaPlanif = $repo->findBy(array(
-            'planificacion' => $planificacion
-        ));
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository(Bibliografia::class)->getQb($planificacion);
+        $qb->orderBy('tb.codigo', 'ASC');
+        $paginator = $this->get('knp_paginator');
+        $bibliografias = $paginator->paginate(
+            $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 15 /* limit per page */
+        );
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -34,7 +39,7 @@ class BibliografiaController extends Controller {
 
         return $this->render('PlanificacionesBundle:6-bibliografia:index.html.twig', array(
                     'page_title' => $this->getPageTitle($planificacion) . ' - Bibliografía',
-                    'bibliografias' => $bibliografiaPlanif,
+                    'bibliografias' => $bibliografias,
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
@@ -53,29 +58,38 @@ class BibliografiaController extends Controller {
         }
 
         $bibliografia = new Bibliografia();
+        $bibliografia->setPlanificacion($planificacion);
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $form = $this->crearFormNuevaBibliografia($planificacion);
-        
-        //$form = $this->createForm(BibliografiasType::class, $planificacion, $config);
+        $form = $this->crearFormBibliografia($bibliografia);
+
         $form->handleRequest($request);
-
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->actualizarBibliografias($planificacion);
+        if($form->isSubmitted() && $form->isValid()){
 
             $em = $this->getDoctrine()->getManager();
+
+            $pos = $em->getRepository(Bibliografia::class)->getProximaPosicion($planificacion);
+            $bibliografia->setPosicion($pos);
+
+            $em->persist($bibliografia);
             $em->flush();
 
-            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
+            $this->addFlash('success', 'La bibliografía fue creada correctamente.');
 
-            return $this->redirectToRoute('planif_bibliografia_editar', array('id' => $planificacion->getId()));
+            if ($form->get('btnCrear')->isClicked()) {
+                return $this->redirectToRoute('planif_bibliografia_index', array('id' => $planificacion->getId()));
+            } else {
+                return $this->redirectToRoute('planif_bibliografia_nuevo', array('id' => $planificacion->getId()));
+            }
+
         }
-*/
+
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Bibliografía', $this->get("router")->generate('planif_bibliografia_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $breadcrumbs->addItem('Bibliografía', $this->get("router")->generate("planif_bibliografia_index", ['id' => $planificacion->getId()]));
+        $breadcrumbs->addItem('Nueva');
 
         return $this->render('PlanificacionesBundle:6-bibliografia:new.html.twig', array(
                     'form' => $form->createView(),
@@ -86,10 +100,10 @@ class BibliografiaController extends Controller {
 
     }
     
-    private function crearFormNuevaBibliografia(Planificacion $planificacion)
+    private function crearFormBibliografia(Bibliografia $bibliografia)
     {
 
-        $form = $this->createForm(BibliografiaType::class, $planificacion);
+        $form = $this->createForm(BibliografiaType::class, $bibliografia);
         $form->add('btnCrear', SubmitType::class, array(
             'label' => 'Crear',
             'attr' => array('class' => 'btn btn-success'),
@@ -103,29 +117,34 @@ class BibliografiaController extends Controller {
     }
     
 
-    public function verAction(Request $request, BibliografiaPlanificacion $bibliografia)
+    public function verAction(Request $request, Bibliografia $bibliografia)
     {
-        $form = $this->createForm(BibliografiasType::class, $bibliografia, array(
+        $form = $this->createForm(BibliografiaType::class, $bibliografia, array(
             'disabled' => true
         ));
+
+        $planificacion = $bibliografia->getPlanificacion();
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
-        $breadcrumbs->addItem($bibliografia->getPlanificacion());
-        $current_route = $this->get("router")->generate('planif_bibliografia_ver', array('id' => $tema->getPlanificacion()->getId()));
-        //$breadcrumbs->addItem('Unidad ' . $tema->getUnidad(), $current_route);
-        $breadcrumbs->addItem('VER');
+        $breadcrumbs->addItem($planificacion);
+        $r1= $this->get("router")->generate("planif_bibliografia_index", array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Bibliografía', $r1);
+        $r2 = $this->get("router")->generate("planif_bibliografia_ver", array('id' => $bibliografia->getId()));
+        $label = '#' . $bibliografia->getPosicion() . ' - ' . $bibliografia->getTipoBibliografia();
+        $breadcrumbs->addItem($label, $r2);
+        $breadcrumbs->addItem('Ver');
 
-        $delete_form = $this->crearFormBorrado($tema);
+        $delete_form = $this->crearFormBorrado($bibliografia);
 
         return $this->render('PlanificacionesBundle:6-bibliografia:ver.html.twig', array(
             'form' => $form->createView(),
             'delete_form' => $delete_form->createView(),
             'bibliografia' => $bibliografia,
-            'planificacion' => $tema->getPlanificacion(),
-            'page_title' => $this->getPageTitle($tema->getPlanificacion()) . ' - Bibliografia'
+            'planificacion' => $planificacion,
+            'page_title' => $this->getPageTitle($planificacion) . ' - Bibliografia'
         ));
     }
 
@@ -133,79 +152,51 @@ class BibliografiaController extends Controller {
     
     
     /**
-     * Metodo que maneja la edicion del formulario.
-     * 
+     * Metodo que maneja la edicion de una bibliografia
+     *
      * @param Request $request
-     * @param Planificacion $planificacion
+     * @param Bibliografia $bibliografia
      * @return Response
      */
-    public function editAction(Request $request, Planificacion $planificacion) {
+    public function editAction(Request $request, Bibliografia $bibliografia)
+    {
+        $planificacion = $bibliografia->getPlanificacion();
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        //Deshabilitar el campo cuando la planificación este en revision o publicada
-        $config = array();
-        $ea = $planificacion->getEstadoActual();
-        if ($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])) {
-            $config = array('disabled' => true);
-        }
-
-        $form = $this->createForm(BibliografiasType::class, $planificacion, $config);
+        $form = $this->createForm(BibliografiaType::class, $bibliografia);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->actualizarBibliografias($planificacion);
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-
-            return $this->redirectToRoute('planif_bibliografia_editar', array('id' => $planificacion->getId()));
+            $this->addFlash('success', 'La bibliofrafía fue editada correctamente.');
+            return $this->redirectToRoute('planif_bibliografia_ver', array('id' => $bibliografia->getId()));
         }
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Bibliografía', $this->get("router")->generate('planif_bibliografia_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $r1= $this->get("router")->generate("planif_bibliografia_index", array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Bibliografía', $r1);
+        $r2 = $this->get("router")->generate("planif_bibliografia_ver", array('id' => $bibliografia->getId()));
+        $label = '#' . $bibliografia->getPosicion() . ' - ' . $bibliografia->getTipoBibliografia();
+        $breadcrumbs->addItem($label, $r2);
+        $breadcrumbs->addItem('Editar');
 
         return $this->render('PlanificacionesBundle:6-bibliografia:edit.html.twig', array(
-                    'form' => $form->createView(),
-                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
-                    'page_title' => $this->getPageTitle($planificacion) . ' - Bibliografía',
-                    'planificacion' => $planificacion
+            'form' => $form->createView(),
+            'bibliografia' => $bibliografia,
+            'planificacion' => $planificacion,
+            'page_title' => $this->getPageTitle($planificacion) . ' - Temario',
         ));
     }
 
-    /**
-     * Funcion auxiliar para remover los items que fueron borrados por el formulario.
-     * 
-     * @param Planificacion $planificacion
-     */
-    private function actualizarBibliografias(Planificacion $planificacion) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // ESTO ES NECESARIO PARA QUE ANDE EL DELETE EN LAS COLLECCIONES
-        // VER:
-        // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-        //Buscar los temarios de la base de datos
-
-        $bibliografiasPlanificacion = $em->getRepository('PlanificacionesBundle:BibliografiaPlanificacion')
-                ->findBy(array('planificacion' => $planificacion));
-
-
-        foreach ($bibliografiasPlanificacion as $bp) {
-            if (false === $planificacion->getBibliografiasPlanificacion()->contains($bp)) {
-                // remove the Task from the Tag
-                $planificacion->getBibliografiasPlanificacion()->removeElement($bp);
-                $em->remove($bp);
-            }
-        }
-    }
-
-    public function renderBtnBorrarAction(BibliografiaPlanificacion $bibliografia, $label) {
+    public function renderBtnBorrarAction(Bibliografia $bibliografia, $label) {
 
         $delete_form = $this->crearFormBorrado($bibliografia);
 
@@ -213,6 +204,37 @@ class BibliografiaController extends Controller {
                     'delete_form' => $delete_form->createView(),
                     'label' => $label
         ));
+    }
+
+    public function borrarAction(Request $request, Bibliografia $bibliografia)
+    {
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $bibliografia->getPlanificacion()));
+
+        $form = $this->crearFormBorrado($bibliografia);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($bibliografia);
+            $em->flush();
+
+            $this->addFlash('success', 'El tema fúe borrado correctamente.');
+        }
+
+        return $this->redirectToRoute('planif_bibliografia_index', array('id' => $bibliografia->getPlanificacion()->getId()));
+    }
+
+    private function crearFormBorrado(Bibliografia $bibliografia){
+
+        $options = array(
+            'attr' => array(
+                'class' => 'd-inline'
+            ));
+
+        return $this->createFormBuilder(null, $options)
+            ->setAction($this->generateUrl('planif_bibliografia_borrar', array('id' => $bibliografia->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 
 }

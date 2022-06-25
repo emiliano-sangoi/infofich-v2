@@ -32,6 +32,9 @@
         {% endset %}
         {{ notificacion(null, msg, 'secondary', '' ) }}
     {% else %}
+        <div class="bg-white mb-3 px-3 py-2 text-secondary shadow-sm">
+            Se han encontrado <b>{{ temas|length }}</b> registro(s) para esta planificaci&oacute;n.
+        </div>
         {% include "PlanificacionesBundle:5-temario:tabla-temario.html.twig" %}
     {% endif %}
 

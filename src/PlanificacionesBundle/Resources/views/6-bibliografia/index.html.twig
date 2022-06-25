@@ -25,13 +25,17 @@
         </div>
     {% endif %}
 
-    {% if planificacion.bibliografiasPlanificacion[0] is not defined %}
-        {% from '::macros.html.twig' import notificacion %}
+
+    {% if planificacion.bibliografias[0] is not defined %}
         {% set msg %}
             <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
         {% endset %}
+        {% from '::macros.html.twig' import notificacion %}
         {{ notificacion(null, msg, 'secondary', '' ) }}
     {% else %}
+        <div class="bg-white mb-3 px-3 py-2 text-secondary shadow-sm">
+            Se han encontrado <b>{{ bibliografias.getTotalItemCount() }}</b> registro(s) para esta planificaci&oacute;n.
+        </div>
         {% include "PlanificacionesBundle:6-bibliografia:tabla-bibliografia.html.twig" %}
     {% endif %}
 
@@ -48,7 +52,7 @@
         <script>
 
             $(document).ready(function () {
-               
+
 
                 var fixHelperModified = function (e, tr) {
                     var $originals = tr.children();
@@ -59,7 +63,7 @@
                     return $helper;
                 };
 
-                
+
                 $("#tablaBibliografia tbody").sortable({
                     helper: fixHelperModified,
                     stop: updateIndex

@@ -93,13 +93,35 @@ class Bibliografia
      */
     private $enlaceOnline;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="info_completa", type="text")
      */
     private $infoCompleta;
+
+    /**
+     *
+     * @var Planificacion
+     *
+     * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="bibliografiasPlanificacion")
+     * @ORM\JoinColumn(name="planificaciones_id", referencedColumnName="id", nullable=true)
+     */
+    private $planificacion;
+
+    /**
+     *
+     * @var TipoBibliografia
+     *
+     * @ORM\ManyToOne(targetEntity="TipoBibliografia")
+     * @ORM\JoinColumn(name="tipos_bibliografia_id", referencedColumnName="id", nullable=true)
+     */
+    private $tipoBibliografia;
+
+    /**
+     * @ORM\Column(name="posicion", type="integer", nullable=true)
+     */
+    private $posicion;
     
     public function __construct() {
         $this->fechaConsultaOnline = new \DateTime();
@@ -386,4 +408,76 @@ class Bibliografia
         return $this->infoCompleta;
     }
     
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return Bibliografia
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
+
+    /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return Bibliografia
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion = null)
+    {
+        $this->planificacion = $planificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion()
+    {
+        return $this->planificacion;
+    }
+
+    /**
+     * Set tipoBibliografia
+     *
+     * @param \PlanificacionesBundle\Entity\TipoBibliografia $tipoBibliografia
+     *
+     * @return Bibliografia
+     */
+    public function setTipoBibliografia(\PlanificacionesBundle\Entity\TipoBibliografia $tipoBibliografia = null)
+    {
+        $this->tipoBibliografia = $tipoBibliografia;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoBibliografia
+     *
+     * @return \PlanificacionesBundle\Entity\TipoBibliografia
+     */
+    public function getTipoBibliografia()
+    {
+        return $this->tipoBibliografia;
+    }
 }

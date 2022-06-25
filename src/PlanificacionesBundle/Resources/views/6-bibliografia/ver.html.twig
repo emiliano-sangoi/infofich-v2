@@ -11,11 +11,22 @@
                 <div class="form-row mt-3">
                     <div class="col-12 col-lg-6">
                         {% if planificacion.puedeEditarse() %}
-                            <input type="submit" class="btn btn-success" value="Guardar cambios" />
+                            <a href="{{ path('planif_bibliografia_editar', { id : bibliografia.id }) }}"
+                               class="btn btn-success" title="Editar registro">
+                                <i class="fa fa-edit"></i>&nbsp;Editar
+                            </a>
                         {% endif %}
                     </div>
 
                     <div class="col-12 col-lg-4 text-lg-right">
+                        {% if planificacion.puedeEditarse() %}
+                            {{ form_start(delete_form) }}
+                            <button role="submit" class="btn btn-danger confirmar-borrado"
+                                    data-msg='¿Esta seguro que desea borrar esta bibliografía?'>
+                                <i class="fa fa-trash"></i>&nbsp;Borrar
+                            </button>
+                            {{ form_end(delete_form) }}
+                        {% endif %}
 
                         <a href="{{ path('planif_bibliografia_index', { id: planificacion.id }) }}" class="btn btn-outline-secondary">
                             Ir al listado

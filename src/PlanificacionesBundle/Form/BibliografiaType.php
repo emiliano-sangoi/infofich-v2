@@ -2,9 +2,15 @@
 
 namespace PlanificacionesBundle\Form;
 
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use PlanificacionesBundle\Entity\Bibliografia;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BibliografiaType extends AbstractType {
 
@@ -84,7 +90,7 @@ class BibliografiaType extends AbstractType {
         ));*/
 
         $builder
-                ->add('infoCompleta', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+                ->add('infoCompleta', TextareaType::class, array(
                     'label' => 'Referencia bibliográfica',
                     'required' => true,
                     'attr' => array(
@@ -93,11 +99,42 @@ class BibliografiaType extends AbstractType {
                     )
         ));
 
+        $builder->add('posicion', HiddenType::class, array(
+            'attr' => array(
+                'class' => 'posicion',
+            )
+        ));
+
+        $this->addTipo($builder, $options);
+
+    }
+
+    public function addTipo(FormBuilderInterface $builder, array $options) {
+
+        $config = array(
+            'label' => 'Tipo bibliografía',
+            'class' => 'PlanificacionesBundle:TipoBibliografia',
+            'choice_label' => 'nombre',
+            'expanded' => true,
+            'required' => true,
+        );
+
+//        $bp = $builder->getData();
+//        dump($bp);exit;
+//        if ($bp instanceof BibliografiaPlanificacion && is_null($bp->getTipoBibliografia())) {
+//            $default = $this->repoTipos->findOneBy(array(
+//                'codigo' => TipoBibliografia::BASICA
+//            ));
+//
+//            $config['data'] = $default;
+//        }
+
+        $builder->add('tipoBibliografia', EntityType::class, $config);
     }
 
     public function addTitulo(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('titulo', TextType::class, array(
             'label' => 'Título',
             'required' => true,
             'attr' => array(
@@ -107,7 +144,7 @@ class BibliografiaType extends AbstractType {
     }
 
     public function addAutores(FormBuilderInterface $builder, array $options) {
-        $builder->add('autores', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('autores', TextType::class, array(
             'label' => 'Autores',
             'required' => true,
             'attr' => array(
@@ -130,7 +167,7 @@ class BibliografiaType extends AbstractType {
             'expanded' => true
         );
 
-        $builder->add('disponibleBiblioteca', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('disponibleBiblioteca', ChoiceType::class, $config);
     }
 
     public function addDisponibleOnline(FormBuilderInterface $builder, array $options) {
@@ -146,7 +183,7 @@ class BibliografiaType extends AbstractType {
             'expanded' => true
         );
 
-        $builder->add('disponibleOnline', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', $config);
+        $builder->add('disponibleOnline', ChoiceType::class, $config);
     }
 
     /**
@@ -154,7 +191,7 @@ class BibliografiaType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Bibliografia'
+            'data_class' => Bibliografia::class
         ));
     }
 

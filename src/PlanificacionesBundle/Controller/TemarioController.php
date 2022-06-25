@@ -132,7 +132,7 @@ class TemarioController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'El tema con título: \'' . $tema->getTitulo() . '\' fúe editado correctamente.');
-            return $this->redirectToRoute('planif_temario_index', array('id' => $tema->getPlanificacion()->getId()));
+            return $this->redirectToRoute('planif_temario_ver', array('id' => $tema->getId()));
         }
 
         // Breadcrumbs

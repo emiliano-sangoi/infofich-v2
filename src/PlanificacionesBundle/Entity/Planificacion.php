@@ -166,10 +166,10 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BibliografiaPlanificacion", mappedBy="planificacion", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Bibliografia", mappedBy="planificacion", cascade={"persist","remove"})
      * @Assert\Valid 
      */
-    private $bibliografiasPlanificacion;
+    private $bibliografias;
 
     /**
      *
@@ -755,40 +755,6 @@ class Planificacion implements \JsonSerializable{
     }
 
     /**
-     * Add bibliografiasPlanificacion
-     *
-     * @param \PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion
-     *
-     * @return Planificacion
-     */
-    public function addBibliografiasPlanificacion(\PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion) {
-
-        $bibliografiasPlanificacion->setPlanificacion($this);
-
-        $this->bibliografiasPlanificacion[] = $bibliografiasPlanificacion;
-
-        return $this;
-    }
-
-    /**
-     * Remove bibliografiasPlanificacion
-     *
-     * @param \PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion
-     */
-    public function removeBibliografiasPlanificacion(\PlanificacionesBundle\Entity\BibliografiaPlanificacion $bibliografiasPlanificacion) {
-        $this->bibliografiasPlanificacion->removeElement($bibliografiasPlanificacion);
-    }
-
-    /**
-     * Get bibliografiasPlanificacion
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBibliografiasPlanificacion() {
-        return $this->bibliografiasPlanificacion;
-    }
-
-    /**
      * Add viajesAcademico
      *
      * @param \PlanificacionesBundle\Entity\ViajeAcademico $viajesAcademico
@@ -1244,4 +1210,40 @@ class Planificacion implements \JsonSerializable{
         );
     }
 
+
+    /**
+     * Add bibliografia
+     *
+     * @param \PlanificacionesBundle\Entity\Bibliografia $bibliografia
+     *
+     * @return Planificacion
+     */
+    public function addBibliografia(\PlanificacionesBundle\Entity\Bibliografia $bibliografia)
+    {
+        $bibliografia->setPlanificacion($this);
+
+        $this->bibliografias[] = $bibliografia;
+
+        return $this;
+    }
+
+    /**
+     * Remove bibliografia
+     *
+     * @param \PlanificacionesBundle\Entity\Bibliografia $bibliografia
+     */
+    public function removeBibliografia(\PlanificacionesBundle\Entity\Bibliografia $bibliografia)
+    {
+        $this->bibliografias->removeElement($bibliografia);
+    }
+
+    /**
+     * Get bibliografias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBibliografias()
+    {
+        return $this->bibliografias;
+    }
 }
