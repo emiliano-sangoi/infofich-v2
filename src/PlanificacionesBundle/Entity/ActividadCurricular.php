@@ -109,6 +109,14 @@ class ActividadCurricular {
      */
     private $posicion;
 
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="dictado_varias_comisiones", type="boolean")
+     */
+    private $dictadoVariasComisiones;
+
     public function __construct() {
 
         //$this->posicion = 1;
@@ -432,6 +440,29 @@ class ActividadCurricular {
      */
     public function getPosicion() {
         return $this->posicion;
+    }
+
+
+    /**
+     * Set dictadoVariasComisiones
+     *
+     * @param boolean $dictadoVariasComisiones
+     *
+     * @return ActividadCurricular
+     */
+    public function setDictadoVariasComisiones($dictadoVariasComisiones) {
+        $this->dictadoVariasComisiones = $dictadoVariasComisiones;
+
+        return $this;
+    }
+
+    /**
+     * Get dictadoVariasComisiones
+     *
+     * @return bool
+     */
+    public function getDictadoVariasComisiones() {
+        return $this->dictadoVariasComisiones;
     }
 
 }

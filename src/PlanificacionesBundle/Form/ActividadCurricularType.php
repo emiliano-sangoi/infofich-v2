@@ -35,6 +35,8 @@ class ActividadCurricularType extends AbstractType {
         $this->addCargaHorariaAutonomo($builder, $options);
         $this->addDescripcion($builder, $options);
         //$this->addContenido($builder, $options);
+        $this->addDictadoVariasComisiones($builder, $options);
+    
         
         $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
             'attr' => array(
@@ -163,6 +165,16 @@ class ActividadCurricularType extends AbstractType {
 
 
         $builder->add('descripcion', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', $config);
+    }
+
+    private function addDictadoVariasComisiones(FormBuilderInterface $builder, array $options) {
+        $config = array(
+            'label' => 'Dictado en varias comisiones',
+            'required' => false           
+            
+        );
+
+        $builder->add('dictadoVariasComisiones', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', $config);
     }
 
     /**
