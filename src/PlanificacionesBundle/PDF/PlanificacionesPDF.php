@@ -300,7 +300,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             foreach ($bibliografia as $biblio) {
                 $html .= '<p><b>Tipo: </b>' . $biblio->getTipoBibliografia() . '</p>';
 
-                $bibliografiaInfo = $biblio->getBibliografia()->getInfoCompleta();
+                $bibliografiaInfo = $biblio->getInfoCompleta();
 
                 $html .= '<p>' . $bibliografiaInfo . '</p>';
 
