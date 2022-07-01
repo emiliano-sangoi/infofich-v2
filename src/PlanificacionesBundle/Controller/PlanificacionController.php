@@ -328,7 +328,7 @@ class PlanificacionController extends Controller {
 
         //Bibliografia
         $bibliografia = null;
-        $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
+        $bibliografia = $planificacion->getBibliografias()->toArray();
 
         //$bibliografia = $bibliografiaP->getBibliografia();
         //Actividades
