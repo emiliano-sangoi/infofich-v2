@@ -322,6 +322,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         if ($actividades[0]) {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($actividades as $actividad) {
+                $dictado = ($actividad->getDictadoVariasComisiones()) ? 'Sí' : 'No';
                 $fecha = $actividad->getFecha();
                 $html .= '<tr><td><b>Unidad</b> </td>
                             <td><b>Tipo de Clase</b></td>
@@ -333,12 +334,12 @@ class PlanificacionesPDF extends ImprimirPDF {
                 $html .= '<tr>
                             <td><b>Carga Horaria Aula</b></td>
                             <td><b>Carga Horaria Autonomo</b></td>
-                            <td></td>
+                            <td><b>Dictado en varias comisiones :</b></td>
                             </tr>';
                 $html .= '<tr>
                             <td>' . $actividad->getCargaHorariaAula() . '</td>
                             <td> ' . $actividad->getCargaHorariaAutonomo() . '</td>
-                            <td></td>
+                            <td> '. $dictado .'</td>
                             </tr>';
                 $html .=  '<tr>
                             <td><b>Descripcion</b> </td>
