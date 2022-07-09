@@ -1,51 +1,3 @@
-{#{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Docenteadscriptos list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Nrolegajo</th>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Fechainactivo</th>
-                <th>Fechaultimaactualizacion</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for docenteAdscripto in docenteAdscriptos %}
-            <tr>
-                <td><a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}">{{ docenteAdscripto.nroLegajo }}</a></td>
-                <td>{{ docenteAdscripto.id }}</td>
-                <td>{{ docenteAdscripto.email }}</td>
-                <td>{% if docenteAdscripto.fechaInactivo %}{{ docenteAdscripto.fechaInactivo|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if docenteAdscripto.fechaUltimaActualizacion %}{{ docenteAdscripto.fechaUltimaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('docentes_adscriptos_new') }}">Create a new docenteAdscripto</a>
-        </li>
-    </ul>
-{% endblock %}
-#}
-
-
 {% extends '::base.html.twig' %}
 
 {% set full_width = false %}
@@ -58,9 +10,9 @@
                 Volver
             </a>
 
-            {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}    
-           
-            {% if app.user.tieneRol(ROL_SA)%}    
+            {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}
+
+            {% if app.user.tieneRol(ROL_SA) %}
                 <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
                     Nuevo docente
@@ -79,47 +31,59 @@
             {% include '::notificaciones.html.twig' %}
         </div>
 
+        <h2 class="font-weight-bold text-primary">
+            Docentes adscriptos
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
         <div class="bg-light">
             {% if docentes[0] is defined %}
 
-                <div class="table-responsive bg-light">
-                    <table class="table table-condensed mb-0">
-                        <tr>
-                            <th>Apellido(s)</th>
-                            <th>Nombre(s)</th>
-                            <th>Tipo y número doc.</th>
-                            <th>Resolución</th>
-                            <th>Acciones</th>
-                        </tr>
+                <div class="bg-white mb-3 p-3 text-muted shadow">
+                    Se encontraron: <b>{{ docentes.getTotalItemCount }}</b> docente(s).
+                </div>
+
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed table-hover mb-0 bg-white">
+                        <thead class="bg-secondary text-white">
+                            <tr>
+                                <th>Apellido(s)</th>
+                                <th>Nombre(s)</th>
+                                <th>Tipo y número doc.</th>
+                                <th>Resolución</th>
+                                <th>Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            {% for docenteAdscripto in docentes %}
-                                <tr>
-                                    <td>
-                                        {{ docenteAdscripto.persona.apellidos }}
-                                    </td>
-                                    <td>
-                                        {{ docenteAdscripto.persona.nombres }}
-                                    </td>                                
-                                    <td>
-                                        {{ docenteAdscripto.persona.getTipoYNroDocumento() }}
-                                    </td>
-                                    <td>
-                                        {{ docenteAdscripto.resolucion }}
-                                    </td>                                
-                                    <td>
-                                        <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
-                                            Ver
+                        {% for docenteAdscripto in docentes %}
+                            <tr>
+                                <td>
+                                    {{ docenteAdscripto.persona.apellidos }}
+                                </td>
+                                <td>
+                                    {{ docenteAdscripto.persona.nombres }}
+                                </td>
+                                <td>
+                                    {{ docenteAdscripto.persona.getTipoYNroDocumento() }}
+                                </td>
+                                <td>
+                                    {{ docenteAdscripto.resolucion }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Editar
                                         </a>
-                                        {% if app.user.tieneRol(ROL_SA)%}    
-                                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}" class="btn btn-sm btn-outline-secondary">
-                                                Editar
-                                            </a>
-                                        {% endif %}
-                                        {#                                    <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a>#}
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                                    {% endif %}
+                                    {#                                    <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a> #}
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -135,7 +99,7 @@
                 </div>
             {% endif %}
         </div>
-    </div>        
+    </div>
 
 
 {% endblock %}

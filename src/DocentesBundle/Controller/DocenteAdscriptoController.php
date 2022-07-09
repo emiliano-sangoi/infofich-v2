@@ -6,6 +6,7 @@ use AppBundle\Entity\Persona;
 use DocentesBundle\Entity\DocenteAdscripto;
 use DocentesBundle\Form\BuscarAdscriptoType;
 use DocentesBundle\Form\DocenteAdscriptoType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class DocenteAdscriptoController extends Controller {
      *
      */
     public function indexAction(Request $request) {
-
+        $this->addFlash('success', 'Docente borrado correctamente.');
         $dql = "SELECT u FROM DocentesBundle:DocenteAdscripto u";
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
@@ -120,40 +121,17 @@ class DocenteAdscriptoController extends Controller {
         $breadcrumbs->addItem("Docentes adscriptos", $this->get("router")->generate("docentes_adscriptos"));
         $breadcrumbs->addItem($docenteAdscripto->__toString());
 
+        $em = $this->getDoctrine()->getManager();
+        $planificaciones = $em->getRepository(DocenteAdscripto::class)->getPlanificacionesDocente($docenteAdscripto);
+
         return $this->render('DocentesBundle:adscriptos:show.html.twig', array(
                     'docenteAdscripto' => $docenteAdscripto,
                     'delete_form' => $deleteForm->createView(),
                     'form' => $form->createView(),
+                    'planificaciones' => $planificaciones,
                     'page_title' => 'Docentes adscriptos - Ver docente',
         ));
     }
-
-    public function editActiodn(Request $request, DocenteAdscripto $docenteAdscripto) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $editForm = $form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto);
-
-
-        $data = $request->request->get('docentesbundle_docenteadscripto');
-        $id = isset($data['persona']['id']) ? $data['persona']['id'] : null;
-        $id_prev = $docenteAdscripto->getPersona()->getId();
-
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $id != $id_prev) {
-            //  dump($data['persona']['id'], $docenteAdscripto->getPersona()->getId());exit;
-            $persona = $em->getRepository(Persona::class)->findOneById($data['persona']['id']);
-            $docenteAdscripto->setPersona($persona);
-            $em->flush();
-        }
-
-        //  return $this->redirectToRoute('docentes_adscriptos_edit', array('id' => $docenteAdscripto->getId()));
-
-        return $this->edit($request, $docenteAdscripto);
-    }
-
-    //private function modificarPersonaAction()
 
     /**
      * Displays a form to edit an existing docenteAdscripto entity.
@@ -222,8 +200,19 @@ class DocenteAdscriptoController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($docenteAdscripto);
-            $em->flush();
+
+            $planificaciones = $em->getRepository(DocenteAdscripto::class)->getPlanificacionesDocente($docenteAdscripto);
+            $c = count($planificaciones);
+
+            if($c>0){
+                $this->addFlash('error', 'No se pudo borrar el docente porque esta siendo utilizado en ' . $c . ' planificacion(es).');
+                return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
+            }else{
+                $em->remove($docenteAdscripto);
+                $em->flush();
+                $this->addFlash('success', 'Docente borrado correctamente.');
+            }
+
         }
 
         return $this->redirectToRoute('docentes_adscriptos');
