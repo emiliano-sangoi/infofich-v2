@@ -46,8 +46,9 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         return 1;
     }
 
-    public function actualizarUnidad(Temario $tema, $nueva_unidad){
-        $qb = $this->getQb($tema->getPlanificacion());
+    public function cambiarPosicion(Temario $tema, $nueva_posicion){
+
+        /*$qb = $this->getQb($tema->getPlanificacion());
         $qb->select('t');
 
         $qb->andWhere($qb->expr()->neq('t.id', ':t_id'));
@@ -57,14 +58,15 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         $n = 1;
         $it = $qb->getQuery()->iterate();
         foreach ($it as $row){
-            if($row[0]->getUnidad() < $nueva_unidad){
+            if($row[0]->getUnidad() < $nueva_posicion){
                 break;
             }
 
             $row[0]->incrementarUnidad();
         }
 
-        $tema->setUnidad($nueva_unidad);
+        $tema->setUnidad($nueva_posicion);*/
+        $tema->setPosicion($nueva_posicion);
         $this->getEntityManager()->flush();
     }
 

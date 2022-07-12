@@ -76,6 +76,11 @@ class Temario {
      */
     private $actividades;
 
+    /**
+     * @ORM\Column(name="posicion", type="integer", nullable=true)
+     */
+    private $posicion;
+
     public function __construct() {
         $this->actividades = new ArrayCollection();
     }
@@ -225,6 +230,30 @@ class Temario {
         });
 
         return $actividades;
+    }
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return Bibliografia
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
     }
 
 }

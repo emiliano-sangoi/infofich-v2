@@ -27,7 +27,7 @@ class TemarioController extends Controller
         $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
         $temas = $repo->findBy(array(
             'planificacion' => $planificacion
-        ), array('unidad' => 'ASC'));
+        ), array('posicion' => 'ASC'));
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -240,7 +240,7 @@ class TemarioController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository(Temario::class)
-            ->actualizarUnidad($tema, $nueva_unidad);
+            ->cambiarPosicion($tema, $nueva_unidad);
 
         return new JsonResponse(array('Se actualizo la unidad del tema ' . $tema->getId()));
     }
