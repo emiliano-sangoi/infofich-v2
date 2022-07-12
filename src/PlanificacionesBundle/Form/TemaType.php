@@ -5,6 +5,7 @@ namespace PlanificacionesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use PlanificacionesBundle\Entity\Temario;
 
 class TemaType extends AbstractType {
 
@@ -15,7 +16,7 @@ class TemaType extends AbstractType {
 
         $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
             'label' => 'Nro. Unidad',
-            'disabled' => true,
+            //'disabled' => true,
             'required' => false,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
@@ -39,16 +40,6 @@ class TemaType extends AbstractType {
                 )
         );
 
-        $builder->add('posicion', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-            'attr' => array(
-                'class' => 'posicion',
-            )
-        ));
-
-//        $builder->add('reset', 'Symfony\Component\Form\Extension\Core\Type\ResetType', array(
-//            'label' => 'Descartar cambios',
-//            'attr' => array('class' => 'btn btn-sm btn-outline-secondary')
-//        ));
     }
 
     /**
@@ -56,7 +47,7 @@ class TemaType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\Temario'
+            'data_class' => Temario::class
         ));
     }
 

@@ -61,9 +61,9 @@ class TemarioController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $nroUnidad = $em->getRepository(Temario::class)->getProximoNroUnidad($planificacion);
+        //dump($nroUnidad);exit;
         $tema->setUnidad($nroUnidad);
         $tema->setTitulo('Unidad ' . $nroUnidad);
-        $tema->setPosicion($nroUnidad);
 
         $form = $this->crearFormNuevoTema($tema);
         $form->handleRequest($request);

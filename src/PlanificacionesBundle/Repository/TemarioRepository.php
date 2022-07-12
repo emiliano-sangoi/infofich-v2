@@ -29,18 +29,14 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
 
     public function getProximoNroUnidad(Planificacion $planificacion){
 
-        $this->findBy( array(
-            'planificacion' => $planificacion
-        ));
-
-
         $qb = $this->getQb($planificacion);
-        $qb->select('t.unidad');
+        $qb->select("MAX(t.unidad)");
+        //$qb->orderBy('t.unidad', 'DESC');
         $qb->setMaxResults(1);
 
         try {
             $res = $qb->getQuery()->getSingleScalarResult();
-
+//dump($res);exit;
             return $res+1;
         } catch (NoResultException $e) {
         } catch (NonUniqueResultException $e) {
@@ -56,15 +52,16 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->andWhere($qb->expr()->neq('t.id', ':t_id'));
         $qb->setParameter(':t_id', $tema->getId());
+        $qb->orderBy('t.unidad', 'DESC');
 
         $n = 1;
         $it = $qb->getQuery()->iterate();
         foreach ($it as $row){
-            if($n == $nueva_unidad){
-                $n++;
+            if($row[0]->getUnidad() < $nueva_unidad){
+                break;
             }
 
-            $row[0]->setUnidad($n++);
+            $row[0]->incrementarUnidad();
         }
 
         $tema->setUnidad($nueva_unidad);
