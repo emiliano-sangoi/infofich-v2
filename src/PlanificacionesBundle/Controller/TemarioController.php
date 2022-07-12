@@ -232,15 +232,15 @@ class TemarioController extends Controller
      */
     public function actualizarUnidadAction(Request $request, Temario $tema){
 
-        $nueva_unidad = $request->request->get('nueva_unidad');
+        $nueva_posicion = $request->request->get('nueva_posicion');
 
-        if(!ctype_digit($nueva_unidad)){
+        if(!ctype_digit($nueva_posicion)){
             return new JsonResponse(array('Solo se aceptan valores numericos para la nueva unidad.'), Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository(Temario::class)
-            ->cambiarPosicion($tema, $nueva_unidad);
+        $tema->setPosicion($nueva_posicion);
+        $em->flush();
 
         return new JsonResponse(array('Se actualizo la unidad del tema ' . $tema->getId()));
     }

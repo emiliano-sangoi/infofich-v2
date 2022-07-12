@@ -1,9 +1,8 @@
 
 {{ form_start(form) }}
 
-<div class="bg-light p-5">
+<div class="bg-light p-5 shadow-sm">
 
-    {#{{ dump(form) }}#}
     <div>
         {{ form_errors(form) }}
     </div>
@@ -122,9 +121,11 @@
 
 </div>
 
-{{ form_end(form, {'render_rest': false}) }}
+{% block form_actions %}
 
+{% endblock %}
 
+{{ form_end(form) }}
 
 <div class="table-responsive d-none" id="tabla-permisos">
     <table class="table table-sm table-condensed mb-0">

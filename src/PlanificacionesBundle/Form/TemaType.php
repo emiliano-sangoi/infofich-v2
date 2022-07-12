@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use PlanificacionesBundle\Entity\Temario;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TemaType extends AbstractType {
 
@@ -14,7 +17,7 @@ class TemaType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('unidad', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array(
+        $builder->add('unidad', IntegerType::class, array(
             'label' => 'Nro. Unidad',
             //'disabled' => true,
             'required' => false,
@@ -25,13 +28,13 @@ class TemaType extends AbstractType {
             )
         ));
 
-        $builder->add('titulo', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('titulo', TextType::class, array(
             'label' => 'Título',
             'required' => true, //esto es solo para probar, este campo es obligatorio
             'attr' => array('class' => 'form-control ')
         ));
 
-        $builder->add('contenido', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+        $builder->add('contenido', TextareaType::class, array(
             'label' => 'Contenido',
             'required' => false,
             'attr' => array(
