@@ -104,11 +104,24 @@ class ActividadesCurricularesController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ac);
-            $em->flush();
-            $this->addFlash('success', 'Nueva actividad creada correctamente.');
+            $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            //Buscamos la asignatura y sus datos con el web service
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+            $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+            if (($sumaCargaHoraria > $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
+                //Hay que controlar que no se pase de la carg horaria total
+                $msg = 'Se excedió la suma de la carga horaria total.';
+                $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
+            } else {
+
+                $em->persist($ac);
+                $em->flush();
+                $this->addFlash('success', 'Nueva actividad creada correctamente.');
+
+                return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            }
         }
 
         // Breadcrumbs
@@ -156,10 +169,22 @@ class ActividadesCurricularesController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            $this->addFlash('success', 'Actividad modificada correctamente.');
+            $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-            return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $actividadCurricular->getId()));
+            //Buscamos la asignatura y sus datos con el web service
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+            $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+            if (($sumaCargaHoraria > intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
+                //Hay que controlar que no se pase de la carg horaria total
+                $msg = 'Se excedió la suma de la carga horaria total.';
+                $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
+            } else {
+                $em->flush();
+                $this->addFlash('success', 'Actividad modificada correctamente.');
+
+                return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $actividadCurricular->getId()));
+            }
         }
 
         // Breadcrumbs
@@ -180,7 +205,7 @@ class ActividadesCurricularesController extends Controller {
 
         $planificacion = $actividadCurricular->getPlanificacion();
         $copia = clone $actividadCurricular;
-        
+
         $form = $this->createForm(ActividadCurricularType::class, $copia, array(
             'planificacion' => $planificacion
         ));
@@ -194,20 +219,18 @@ class ActividadesCurricularesController extends Controller {
             $this->addFlash('success', 'Copia creada correctamente.');
 
             return $this->redirectToRoute('planif_act_curriculares_ver', array('id' => $actividadCurricular->getId()));
-        }        
+        }
 
-       // Breadcrumbs
+        // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
 
         return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
-                    'actividad' => $copia,                    
-                    'actividadOriginal' => $actividadCurricular,                    
+                    'actividad' => $copia,
+                    'actividadOriginal' => $actividadCurricular,
         ));
-        
-        
     }
 
     public function borrarAction(Request $request, ActividadCurricular $ac) {
