@@ -19,7 +19,7 @@
                     {% if planificacion.puedeEditarse() %}
                         <a href="{{ path('planif_act_curriculares_nueva', { id: planificacion.id }) }}"
                            class="btn btn-success">
-                            Nueva actividad
+                            <i class="fa fa-plus"></i>&nbsp;Nueva actividad
                         </a>
                     {% endif %}
                 {% endblock %}
@@ -45,7 +45,7 @@
                         </a>
                     </div>
                     <div id="collapse{{ loop.index }}" class="collapse" data-parent="#accordion">
-                        <div class="card-body border border-light p-0">
+                        <div class="card-body border border-light">
                             {% set actividades = t.getActividadesOrdPorFecha() %}
                             {% if actividades[0] is not defined %}
                                 <p class="text-muted mb-0 p-3">
@@ -57,13 +57,13 @@
 
                                 <table class="table table-sm table-condensed table-borderless table-hover mb-0 border-0">
                                           <thead>
-                                          <tr class="text-muted bg-light">
+                                          <tr class="text-secondary bg-white">
                                            <th class="text-center">#</th>
                                            <th class="align-middle">Actividad</th>
                                            <th class="align-middle">Fecha</th>
-                                           <th class="align-middle" title="Carga horaria aula">Hs. aula</th>
-                                           <th class="align-middle" title="Carga horaria autónomo">Hs. autónomo</th>
-                                           <th class="align-middle" title="¿Dictada en varias comisiones?">Varias comisiones?</th>
+                                           <th class="align-middle text-center" title="Carga horaria aula">Hs. aula</th>
+                                           <th class="align-middle text-center" title="Carga horaria autónomo">Hs. autónomo</th>
+                                           <th class="align-middle text-center" title="¿Dictada en varias comisiones?">¿Varias comisiones?</th>
 {#                                           <th class="align-middle">Contenido</th>#}
                                            <th class="text-center">Acciones</th>
                                           </tr>
@@ -79,15 +79,15 @@
                                                 {{ a.tipoActividadCurricular|upper }}
                                             </td>
                                             <td class="align-middle">
-                                                {{ a.fecha|date('d/m/Y') }}
+                                                {{ a.fecha ? a.fecha|date('d/m/Y') : '-' }}
                                             </td>
-                                            <td class="align-middle">
-                                                {{ a.cargaHorariaAula }}
+                                            <td class="align-middle text-center">
+                                                {{ a.cargaHorariaAula|default('-') }}
                                             </td>
-                                            <td class="align-middle">
-                                                {{ a.cargaHorariaAutonomo }}
+                                            <td class="align-middle text-center">
+                                                {{ a.cargaHorariaAutonomo|default('-') }}
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle text-center">
                                                 {{ a.dictadoVariasComisiones ? 'Si' : 'No' }}
                                             </td>
 {#                                            <td>#}

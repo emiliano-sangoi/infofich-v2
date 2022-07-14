@@ -36,22 +36,13 @@ class ActividadesCurricularesController extends Controller {
             $this->actualizarActividadCurricular($planificacion);
 
             $em = $this->getDoctrine()->getManager();
-            /*
-              $em->flush();
-
-              $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-
-              return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
-             */
 
             try {
                 $em->flush();
                 $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-                //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
             } catch (ForeignKeyConstraintViolationException $ex) {
                 $msg = 'Las actividades curriculares definidos no pueden ser borrados porque estan siendo utilizados en otra sección.';
                 $this->addFlash('error', $msg);
-                //$form->addError(new \Symfony\Component\Form\FormError($msg));
             }
             return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
         }
@@ -59,10 +50,15 @@ class ActividadesCurricularesController extends Controller {
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
 
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
         return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
                     'planificacion' => $planificacion
         ));
     }

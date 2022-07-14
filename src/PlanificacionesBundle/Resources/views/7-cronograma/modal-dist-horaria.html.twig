@@ -16,11 +16,11 @@
                     {{ planificacion.getTotalCargaHorariaAula() }} Hs.
                 </span>
 
-{#                {% if cargaHorariaTotal is defined and cargaHorariaTotal is not null %}#}
-{#                <p class="mt-2 text-danger font-italic">#}
-{#                    (M&aacute;ximo: {{ cargaHorariaTotal }} Hs.)#}
-{#                </p>#}
-{#                {% endif %}#}
+                {% if cargaHorariaTotal is defined and cargaHorariaTotal is not null %}
+                <p class="mt-2 text-danger font-italic">
+                    (M&aacute;ximo: {{ cargaHorariaTotal }} Hs.)
+                </p>
+                {% endif %}
             </td>
         </tr>
         <tr>
