@@ -218,7 +218,7 @@ class PlanificacionService {
         
         //dump($sumaCargaHoraria, $cargaHorariaTotal);exit;
         if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {         
-            $errores[] = 'Se excedió la carga horaria total de la asignatura (' . $cargaHorariaTotal . ' Hs.).';         
+            $errores[] = 'La carga horaria definida en la planificacion ('.$sumaCargaHoraria.' Hs.) es distinta a la carga horaria total definida en la asignatura ('. $cargaHorariaTotal . ' hs.).';//no se usaa
             $this->hayErrores = true;
          
         }
