@@ -186,13 +186,13 @@ class ActividadesCurricularesController extends Controller {
             if (($sumaCargaHoraria > intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
                 $msg = 'Se excedió la suma de la carga horaria total.';
-                $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
-            } else {
-                $em->flush();
-                $this->addFlash('success', 'Actividad modificada correctamente.');
-
-                return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $actividadCurricular->getId()));
+                //$form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
+                $this->addFlash('warning', $msg);
             }
+            $em->flush();
+            $this->addFlash('success', 'Actividad modificada correctamente.');
+
+            return $this->redirectToRoute('planif_act_curriculares_editar_act', array('id' => $actividadCurricular->getId()));
         }
 
         // Breadcrumbs

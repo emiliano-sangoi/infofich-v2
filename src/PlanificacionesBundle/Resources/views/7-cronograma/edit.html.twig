@@ -9,10 +9,18 @@
         {% set msg %}
             <p class='mb-1'>Para cargar las actividades debe definir primero las unidades en la secci&oacute;n
                 "Temario"</p>
-        {% endset %}
-        {{ notificacion('Mensaje', msg, 'info', '' ) }}
-    {% else %}
-
+            {% endset %}
+            {{ notificacion('Mensaje', msg, 'info', '' ) }}
+        {% else %}
+        <div class ="">
+            {% if planificacion.temario[1] %}
+                {% from '::macros.html.twig' import notificacion %}
+                {% set msg %}
+                    <p class='mb-1'>La carga horaria definida en la planificacion ({{ cargaHorariaTotal }} Hs.) es distinta a la carga horaria definida en la asignatura  ({{ planificacion.getTotalCargaHorariaAula() }} hs.).</p>
+                {% endset %}
+                {{ notificacion('Mensaje', msg, 'danger', '' ) }}
+            {%endif%}
+        </div>
         <div class=" mb-4">
             {% embed "::botonera-2col.html.twig" %}
                 {% block left %}
@@ -56,18 +64,18 @@
 
 
                                 <table class="table table-sm table-condensed table-borderless table-hover mb-0 border-0">
-                                          <thead>
-                                          <tr class="text-secondary bg-white">
-                                           <th class="text-center">#</th>
-                                           <th class="align-middle">Actividad</th>
-                                           <th class="align-middle">Fecha</th>
-                                           <th class="align-middle text-center" title="Carga horaria aula">Hs. aula</th>
-                                           <th class="align-middle text-center" title="Carga horaria autónomo">Hs. autónomo</th>
-                                           <th class="align-middle text-center" title="¿Dictada en varias comisiones?">¿Varias comisiones?</th>
-{#                                           <th class="align-middle">Contenido</th>#}
-                                           <th class="text-center">Acciones</th>
-                                          </tr>
-                                           </thead>
+                                    <thead>
+                                        <tr class="text-secondary bg-white">
+                                            <th class="text-center">#</th>
+                                            <th class="align-middle">Actividad</th>
+                                            <th class="align-middle">Fecha</th>
+                                            <th class="align-middle text-center" title="Carga horaria aula">Hs. aula</th>
+                                            <th class="align-middle text-center" title="Carga horaria autónomo">Hs. autónomo</th>
+                                            <th class="align-middle text-center" title="¿Dictada en varias comisiones?">¿Varias comisiones?</th>
+                                                {#                                           <th class="align-middle">Contenido</th>#}
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
                                     </tbody>
 
                                     {% for a in actividades %}
@@ -90,23 +98,23 @@
                                             <td class="align-middle text-center">
                                                 {{ a.dictadoVariasComisiones ? 'Si' : 'No' }}
                                             </td>
-{#                                            <td>#}
-{#                                                <div class="texto-container">#}
-{#                                                    {% if a.descripcion|length > 100 %}#}
-{#                                                        <div class="txt-breve">#}
-{#                                                            {{ a.descripcion|slice(0, 100) }}... <a href="#" class="ver-mas">Ver m&aacute;s...</a>#}
-{#                                                        </div>#}
-{#                                                        <div class="d-none txt-full">#}
-{#                                                            {{ a.descripcion }} <a href="#" class="ver-menos">Ver#}
-{#                                                                menos</a>#}
-{#                                                        </div>#}
-{#                                                    {% else %}#}
-{#                                                        <div class="">#}
-{#                                                            {{ a.descripcion }}#}
-{#                                                        </div>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{#                                            </td>#}
+                                            {#                                            <td>#}
+                                            {#                                                <div class="texto-container">#}
+                                            {#                                                    {% if a.descripcion|length > 100 %}#}
+                                            {#                                                        <div class="txt-breve">#}
+                                            {#                                                            {{ a.descripcion|slice(0, 100) }}... <a href="#" class="ver-mas">Ver m&aacute;s...</a>#}
+                                            {#                                                        </div>#}
+                                            {#                                                        <div class="d-none txt-full">#}
+                                            {#                                                            {{ a.descripcion }} <a href="#" class="ver-menos">Ver#}
+                                            {#                                                                menos</a>#}
+                                            {#                                                        </div>#}
+                                            {#                                                    {% else %}#}
+                                            {#                                                        <div class="">#}
+                                            {#                                                            {{ a.descripcion }}#}
+                                            {#                                                        </div>#}
+                                            {#                                                    {% endif %}#}
+                                            {#                                                </div>#}
+                                            {#                                            </td>#}
                                             <td class="text-center align-middle">
                                                 <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" title="Ver"
                                                    class="btn btn-sm btn-primary">
@@ -136,9 +144,9 @@
 
         </div>
 
-{#        <div class="d-none" id="distrubucion-horaria">#}
-{#            {% include 'PlanificacionesBundle:7-cronograma:distribucion-carga-horaria.html.twig' %}#}
-{#        </div>#}
+        {#        <div class="d-none" id="distrubucion-horaria">#}
+        {#            {% include 'PlanificacionesBundle:7-cronograma:distribucion-carga-horaria.html.twig' %}#}
+        {#        </div>#}
 
 
     {% endif %}
@@ -151,7 +159,7 @@
     {{ parent() }}
 
     {% if planificacion.puedeEditarse() %}
-       {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
+        {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
     {% endif %}
 
 {% endblock %}    
