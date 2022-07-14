@@ -17,7 +17,7 @@
             {% if errores.cronograma %}
                 {% from '::macros.html.twig' import notificacion %}
                 {% set msg %}
-                    <p class='mb-1'>La carga horaria definida en la planificacion ({{ cargaHorariaTotal }} Hs.) es distinta a la carga horaria total definida en la asignatura  ({{ planificacion.getTotalCargaHorariaAula() }} hs.).</p>
+                    <p class='mb-1'>La carga horaria definida en la planificacion ({{ planificacion.getTotalCargaHorariaAula()  }} Hs.) es distinta a la carga horaria total definida en la asignatura  ({{cargaHorariaTotal }} hs.).</p>
                 {% endset %}
                 {{ notificacion('Mensaje', msg, 'danger', '' ) }}
             {%endif%}
