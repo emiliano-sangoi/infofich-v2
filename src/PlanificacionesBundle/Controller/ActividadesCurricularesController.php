@@ -189,7 +189,7 @@ class ActividadesCurricularesController extends Controller {
             //Se sumar o restar del total la diferencia de hs de la actividad que se esta editando:
             $sumaCargaHoraria = $sumaCargaHoraria - $aux + $actividadCurricular->getCargaHorariaAula();
 
-            if (($sumaCargaHoraria > intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
+            if (($sumaCargaHoraria != intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
                 $msg = 'La carga horaria definida en la planificacion (' . $sumaCargaHoraria . ') Hs. es distinta a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
                 //$form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
