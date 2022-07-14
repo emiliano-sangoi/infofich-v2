@@ -12,11 +12,12 @@
             {% endset %}
             {{ notificacion('Mensaje', msg, 'info', '' ) }}
         {% else %}
-        <div class ="">
-            {% if planificacion.temario[1] %}
+        <div class ="">            
+            {# Errores.cronograma sale del validarCronograma en PlanificacionService#}
+            {% if errores.cronograma %}
                 {% from '::macros.html.twig' import notificacion %}
                 {% set msg %}
-                    <p class='mb-1'>La carga horaria definida en la planificacion ({{ cargaHorariaTotal }} Hs.) es distinta a la carga horaria definida en la asignatura  ({{ planificacion.getTotalCargaHorariaAula() }} hs.).</p>
+                    <p class='mb-1'>La carga horaria definida en la planificacion ({{ cargaHorariaTotal }} Hs.) es distinta a la carga horaria total definida en la asignatura  ({{ planificacion.getTotalCargaHorariaAula() }} hs.).</p>
                 {% endset %}
                 {{ notificacion('Mensaje', msg, 'danger', '' ) }}
             {%endif%}

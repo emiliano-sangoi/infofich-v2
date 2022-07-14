@@ -54,6 +54,7 @@ class ActividadesCurricularesController extends Controller {
         $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 
+        //En la variable errores, Validamos si hay errrores en la planifacacion, incluido carga horaria de la asignatura.
         return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
@@ -110,9 +111,9 @@ class ActividadesCurricularesController extends Controller {
             $sumaCargaHoraria += $ac->getCargaHorariaAula();
 
             //dump($sumaCargaHoraria, $cargaHorariaTotal);exit;
-            if (($sumaCargaHoraria > $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
+            if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
-                $msg = 'Se excedió la carga horaria total de la asignatura (' . $cargaHorariaTotal . ' Hs.).';
+                $msg = 'La carga horaria definida en la planificacion (' . $sumaCargaHoraria . ') Hs. es distinta a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
                 $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
             } else {
 
@@ -149,11 +150,16 @@ class ActividadesCurricularesController extends Controller {
 
         $deleteForm = $this->crearDeleteForm($actividadCurricular);
 
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+        
         return $this->render('PlanificacionesBundle:7-cronograma:show.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
                     'actividad' => $actividadCurricular,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
                     'delete_form' => $deleteForm->createView()
         ));
     }
@@ -185,7 +191,7 @@ class ActividadesCurricularesController extends Controller {
 
             if (($sumaCargaHoraria > intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
-                $msg = 'Se excedió la suma de la carga horaria total.';
+                $msg = 'La carga horaria definida en la planificacion (' . $sumaCargaHoraria . ') Hs. es distinta a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
                 //$form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
                 $this->addFlash('warning', $msg);
             }
@@ -233,11 +239,17 @@ class ActividadesCurricularesController extends Controller {
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
 
+        
+         //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+        
         return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
                     'actividad' => $copia,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
                     'actividadOriginal' => $actividadCurricular,
         ));
     }
