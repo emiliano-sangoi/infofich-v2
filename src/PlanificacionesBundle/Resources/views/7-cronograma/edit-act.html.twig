@@ -2,6 +2,22 @@
 
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #planificacionesbundle_actividadcurricular_dictadoVariasComisiones label{
+            font-weight: normal !important;
+            margin-right: 1rem;
+        }
+
+        #planificacionesbundle_actividadcurricular_dictadoVariasComisiones label.required:after{
+            content: none;
+        }
+
+    </style>
+{% endblock %}
+
 {% block tab_content %}
 
     {% include 'PlanificacionesBundle:7-cronograma:form.html.twig' %}
@@ -49,5 +65,9 @@
         });
 
     </script>
+
+    {% if planificacion.puedeEditarse() %}
+        {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
+    {% endif %}
 
 {% endblock %} 

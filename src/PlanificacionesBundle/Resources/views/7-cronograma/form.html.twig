@@ -1,47 +1,57 @@
 <div class="">
     {{ form_start(form) }}
     {{ form_errors(form) }}
-    {#        <div class="col-md-2">  #}
-    {#            <h5 class="font-weight-bold">Actividad #<span class='posicion sumar1'></span></h5>#}
-    {#            <h5 class="font-weight-bold posicion">Actividad #{{ form.vars.name }}  </h5>#}
-    {#        </div>#}
-    <div class="">
         <div class="mb-5">                                
             <div class="form-row">
-                <div class="col-md-7">
+                <div class="col-12 col-md-7">
                     {{ form_label(form.temario) }}            
                     {{ form_widget(form.temario) }}     
                     {{ form_errors(form.temario) }}
                 </div>
-                <div class="col-md-3">
+                <div class="col-12 col-md-3">
                     {{ form_label(form.tipoActividadCurricular) }}
                     {{ form_widget(form.tipoActividadCurricular) }}
                     {{ form_errors(form.tipoActividadCurricular) }}
                 </div>
             </div>
             <div class="form-row">
-
-                <div class="col-md-4">
-                    {% from '::macros.html.twig' import input_datetime_picker %}     
-                    {{  input_datetime_picker(form.fecha, form.vars.id ~ '_picker', true ) }}                        
-                </div>  
-                <div class="form-group col-md-3">
-                    {{ form_label(form.cargaHorariaAula) }}
-                    {{ form_widget(form.cargaHorariaAula) }}
-                    {{ form_errors(form.cargaHorariaAula) }} 
+                <div class="col-12 col-md-4">
+                    {% from '::macros.html.twig' import input_datetime_picker %}
+                    {{  input_datetime_picker(form.fecha, form.vars.id ~ '_picker', true ) }}
                 </div>
-                <div class="form-group col-md-3">
+                <div class="col-12 col-md-3">
+                    {% set tooltip_msg %}
+                        La suma de la carga horaria en aula de todas las actividades no debe superar la carga horaria total de la asignatura ({{ cargaHorariaTotal ? cargaHorariaTotal ~ ' Hs.' : 'Sin definir' }})
+                    {% endset %}
+
+                    {{ form_label(form.cargaHorariaAula) }}
+                    <span class="small text-warning" data-toggle="tooltip" data-placement="bottom" title="{{ tooltip_msg }}  ">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    </span>
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.cargaHorariaAula) }}
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" title="Ver distribución horaria" id="btnDistHorariaModal">
+                                <i class="fa fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_errors(form.cargaHorariaAula) }}
+                </div>
+                <div class="col-12 col-md-3">
                     {{ form_label(form.cargaHorariaAutonomo) }}
                     {{ form_widget(form.cargaHorariaAutonomo) }}
-                    {{ form_errors(form.cargaHorariaAutonomo) }} 
+                    {{ form_errors(form.cargaHorariaAutonomo) }}
                 </div>
             </div>
+
             <div class="form-row">
-                <div class="form-group col-md-10">
+                <div class="col-12 col-md-4">
                     {{ form_label(form.dictadoVariasComisiones) }}
                     {{ form_widget(form.dictadoVariasComisiones) }}
-                    {{ form_errors(form.dictadoVariasComisiones) }} 
+                    {{ form_errors(form.dictadoVariasComisiones) }}
                 </div>
+
             </div>
             {# <div class="form-row">
                 <div class="col-md-8">
@@ -79,6 +89,5 @@
 
         </div>      
 
-    </div>
     {{ form_end(form) }}
 </div>

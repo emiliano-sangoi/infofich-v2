@@ -37,10 +37,10 @@
             {% for t in planificacion.temario %}
 
                 <div class="card">
-                    <div class="card-header bg-light pl-3 py-2">
-                        <a class="card-link text-dark font-weight-bold" data-toggle="collapse"
+                    <div class="card-header bg-secondary pl-3 py-2">
+                        <a class="card-link text-white font-weight-bold" data-toggle="collapse"
                            href="#collapse{{ loop.index }}">
-                            {{ t }}
+                            {{ t|upper }}&nbsp;
                             <i class="fa fa-1x fa-caret-down align-middle"></i>
                         </a>
                     </div>
@@ -55,12 +55,19 @@
 
 
 
-                                <table class="table table-condensed table-borderless table-hover mb-0 border-0">
-                                    {#       <thead>
+                                <table class="table table-sm table-condensed table-borderless table-hover mb-0 border-0">
+                                          <thead>
+                                          <tr class="text-muted bg-light">
                                            <th class="text-center">#</th>
-                                           <th>Actividad</th>
+                                           <th class="align-middle">Actividad</th>
+                                           <th class="align-middle">Fecha</th>
+                                           <th class="align-middle" title="Carga horaria aula">Hs. aula</th>
+                                           <th class="align-middle" title="Carga horaria autónomo">Hs. autónomo</th>
+                                           <th class="align-middle" title="¿Dictada en varias comisiones?">Varias comisiones?</th>
+{#                                           <th class="align-middle">Contenido</th>#}
                                            <th class="text-center">Acciones</th>
-                                           </thead> #}
+                                          </tr>
+                                           </thead>
                                     </tbody>
 
                                     {% for a in actividades %}
@@ -68,36 +75,51 @@
                                             <td class="text-center align-middle">
                                                 {{ loop.index }}
                                             </td>
-                                            <td class="w-50 align-middle">
-                                                <h6 class="font-weight-bold mb-0">
-                                                    {{ a.fecha|date('d/m/Y') }} - <span
-                                                            class="text-secondary">{{ a.tipoActividadCurricular|upper }}</span>
-                                                </h6>
-                                                <div class="small text-muted texto-container">
-                                                    {% if a.descripcion|length > 100 %}
-                                                        <div class="txt-breve mt-1">
-                                                            {{ a.descripcion|slice(0, 100) }}... <a href="#"
-                                                                                                    class="ver-mas">Ver
-                                                                m&aacute;s...</a>
-                                                        </div>
-                                                        <div class="d-none txt-full mt-1">
-                                                            {{ a.descripcion }} <a href="#" class="ver-menos">Ver
-                                                                menos</a>
-                                                        </div>
-                                                    {% else %}
-                                                        <div class="mt-1">
-                                                            {{ a.descripcion }}
-                                                        </div>
-                                                    {% endif %}
-                                                </div>
+                                            <td class="align-middle font-weight-bold">
+                                                {{ a.tipoActividadCurricular|upper }}
                                             </td>
+                                            <td class="align-middle">
+                                                {{ a.fecha|date('d/m/Y') }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {{ a.cargaHorariaAula }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {{ a.cargaHorariaAutonomo }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {{ a.dictadoVariasComisiones ? 'Si' : 'No' }}
+                                            </td>
+{#                                            <td>#}
+{#                                                <div class="texto-container">#}
+{#                                                    {% if a.descripcion|length > 100 %}#}
+{#                                                        <div class="txt-breve">#}
+{#                                                            {{ a.descripcion|slice(0, 100) }}... <a href="#" class="ver-mas">Ver m&aacute;s...</a>#}
+{#                                                        </div>#}
+{#                                                        <div class="d-none txt-full">#}
+{#                                                            {{ a.descripcion }} <a href="#" class="ver-menos">Ver#}
+{#                                                                menos</a>#}
+{#                                                        </div>#}
+{#                                                    {% else %}#}
+{#                                                        <div class="">#}
+{#                                                            {{ a.descripcion }}#}
+{#                                                        </div>#}
+{#                                                    {% endif %}#}
+{#                                                </div>#}
+{#                                            </td>#}
                                             <td class="text-center align-middle">
-                                                <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}"
-                                                   class="link mr-2 text-decoration-none small">Ver</a>
-                                                <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}"
-                                                   class="link ml-1 mr-3 text-decoration-none small">Editar</a>
-                                                <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}"
-                                                   class="link mr-3 text-decoration-none small">Duplicar</a>
+                                                <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" title="Ver"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}" title="Editar"
+                                                   class="btn btn-sm btn-outline-secondary">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}" title="Duplicar"
+                                                   class="btn btn-sm btn-outline-secondary">
+                                                    <i class="fa fa-copy"></i>
+                                                </a>
                                                 {#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a> #}
                                             </td>
                                         </tr>
@@ -114,29 +136,12 @@
 
         </div>
 
-        <div class="d-none" id="distrubucion-horaria">
-            {% include 'PlanificacionesBundle:7-cronograma:distribucion-carga-horaria.html.twig' %}
-        </div>
+{#        <div class="d-none" id="distrubucion-horaria">#}
+{#            {% include 'PlanificacionesBundle:7-cronograma:distribucion-carga-horaria.html.twig' %}#}
+{#        </div>#}
 
 
     {% endif %}
-
-
-    {#    {% form_theme form.actividadCurricular 'jquery.collection.html.twig' 'PlanificacionesBundle:7-cronograma:form_theme-cronograma.html.twig' %}
-    
-        {{ form_start(form) }}  
-    
-        {{ form_row(form.actividadCurricular) }}
-    
-        {% if planificacion.puedeEditarse() %}
-            <div class="form-row mt-3">
-                <div class="col-xs-12 col-sm-2">            
-                    <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
-                </div>
-            </div>
-        {% endif %}
-    
-        {{ form_end(form) }} #}
 
 
 {% endblock %} 
@@ -146,55 +151,7 @@
     {{ parent() }}
 
     {% if planificacion.puedeEditarse() %}
-        <script>
-            $(document).ready(function () {
-
-                $('#btnDistHorariaModal').click(function (e) {
-                    e.preventDefault();
-
-                    var html = $('#distrubucion-horaria').clone();
-                    html.removeClass('d-none');
-
-                    var modal = bootbox.alert({
-                        title: '<b>Distribución de carga horaria</b>',
-                        message: html,
-                        size: 'large',
-                        backdrop: true
-                    });
-
-                    modal.find('.modal-body').addClass('p-0');
-
-                });
-
-                {# $('.cronograma-selector').collection({
-
-                 position_field_selector: '.posicion',
-                 add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar actividad</a>',
-                 min: 0,
-                 max: 20,
-
-                 after_add: function (collection, item) {
-                     item.find('.js-select2').select2({});
-
-                     item.find('.tempusdominus-datepicker').datetimepicker({
-                         locale: 'es',
-                         format: 'DD/MM/YYYY'
-                     });
-
-                 }
-             });
-                #}
-                /*           function actualizarPosicion(){
-                 $('.sumar1').each(function (i, obj) {
-                 var pos = parseInt( $(obj).text() );
-                 $(obj).text(pos + 1)
-                 console.log( pos + 1);
-                 });
-                 }*/
-
-            });
-
-        </script>
+       {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
     {% endif %}
 
 {% endblock %}    

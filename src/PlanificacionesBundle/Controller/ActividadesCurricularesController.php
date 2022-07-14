@@ -95,6 +95,10 @@ class ActividadesCurricularesController extends Controller {
 
     public function newAction(Planificacion $planificacion, Request $request) {
 
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
         $ac = new ActividadCurricular();
         $ac->setPlanificacion($planificacion);
         $form = $this->createForm(ActividadCurricularType::class, $ac, array(
@@ -106,13 +110,13 @@ class ActividadesCurricularesController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-            //Buscamos la asignatura y sus datos con el web service
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-            $cargaHorariaTotal = $asignatura->getCargaHoraria();
+            //sumar al total la cant de hs de la actividad que se esta creando:
+            $sumaCargaHoraria += $ac->getCargaHorariaAula();
 
+            //dump($sumaCargaHoraria, $cargaHorariaTotal);exit;
             if (($sumaCargaHoraria > $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
-                $msg = 'Se excedió la suma de la carga horaria total.';
+                $msg = 'Se excedió la carga horaria total de la asignatura (' . $cargaHorariaTotal . ' Hs.).';
                 $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
             } else {
 
@@ -130,6 +134,7 @@ class ActividadesCurricularesController extends Controller {
         return $this->render('PlanificacionesBundle:7-cronograma:new.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
                     'planificacion' => $planificacion
         ));
     }
@@ -161,6 +166,13 @@ class ActividadesCurricularesController extends Controller {
 
         $planificacion = $actividadCurricular->getPlanificacion();
 
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+        //Guardar total de hs:
+        $aux = $actividadCurricular->getCargaHorariaAula();
+
         $form = $this->createForm(ActividadCurricularType::class, $actividadCurricular, array(
             'planificacion' => $planificacion
         ));
@@ -171,9 +183,9 @@ class ActividadesCurricularesController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-            //Buscamos la asignatura y sus datos con el web service
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-            $cargaHorariaTotal = $asignatura->getCargaHoraria();
+            //Corregir suma:
+            //Se sumar o restar del total la diferencia de hs de la actividad que se esta editando:
+            $sumaCargaHoraria = $sumaCargaHoraria - $aux + $actividadCurricular->getCargaHorariaAula();
 
             if (($sumaCargaHoraria > intval($cargaHorariaTotal)) && ($cargaHorariaTotal > 0)) {
                 //Hay que controlar que no se pase de la carg horaria total
@@ -197,6 +209,7 @@ class ActividadesCurricularesController extends Controller {
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
                     'actividad' => $actividadCurricular,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
                     'delete_form' => $deleteForm->createView()
         ));
     }
