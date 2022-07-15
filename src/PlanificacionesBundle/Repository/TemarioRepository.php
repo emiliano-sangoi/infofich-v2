@@ -16,7 +16,7 @@ use PlanificacionesBundle\Entity\Temario;
 class TemarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    private function getQb(Planificacion $planificacion){
+    public function getQb(Planificacion $planificacion){
         $qb = $this->createQueryBuilder('t');
         $qb->join('t.planificacion', 'p');
         $qb->where($qb->expr()->eq('p.id', ':p_id'));
@@ -31,12 +31,10 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->getQb($planificacion);
         $qb->select("MAX(t.unidad)");
-        //$qb->orderBy('t.unidad', 'DESC');
         $qb->setMaxResults(1);
 
         try {
             $res = $qb->getQuery()->getSingleScalarResult();
-//dump($res);exit;
             return $res+1;
         } catch (NoResultException $e) {
         } catch (NonUniqueResultException $e) {
@@ -44,30 +42,6 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return 1;
-    }
-
-    public function cambiarPosicion(Temario $tema, $nueva_posicion){
-
-        /*$qb = $this->getQb($tema->getPlanificacion());
-        $qb->select('t');
-
-        $qb->andWhere($qb->expr()->neq('t.id', ':t_id'));
-        $qb->setParameter(':t_id', $tema->getId());
-        $qb->orderBy('t.unidad', 'DESC');
-
-        $n = 1;
-        $it = $qb->getQuery()->iterate();
-        foreach ($it as $row){
-            if($row[0]->getUnidad() < $nueva_posicion){
-                break;
-            }
-
-            $row[0]->incrementarUnidad();
-        }
-
-        $tema->setUnidad($nueva_posicion);*/
-        $tema->setPosicion($nueva_posicion);
-        $this->getEntityManager()->flush();
     }
 
     public function borrarTema(Temario $tema){

@@ -22,13 +22,16 @@
                 {% endblock %}
 
                 {% block right %}
+                    <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-secondary">
+                        Ir a actividades
+                    </a>
                     {{ form_start(delete_form) }}
-                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta actividad?'>
+                    <button role="submit" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar esta actividad?'>
+                        <i class="fa fa-trash"></i>&nbsp;Borrar
+                    </button>
                     {{ form_end(delete_form) }}
 
-                    <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
-                        Ir a actividades
-                    </a>             
+
                 {% endblock %}
 
             {% endembed %}
