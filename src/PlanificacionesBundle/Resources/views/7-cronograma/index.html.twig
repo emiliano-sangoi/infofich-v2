@@ -9,20 +9,22 @@
         {% set msg %}
             <p class='mb-1'>Para cargar las actividades debe definir primero las unidades en la secci&oacute;n
                 "Temario"</p>
-            {% endset %}
-            {{ notificacion('Mensaje', msg, 'info', '' ) }}
-        {% else %}
-        <div class ="">            
-            {# Errores.cronograma sale del validarCronograma en PlanificacionService#}
+        {% endset %}
+        {{ notificacion('Mensaje', msg, 'info', '' ) }}
+    {% else %}
+        <div class="">
+            {# Errores.cronograma sale del validarCronograma en PlanificacionService #}
             {% if errores.cronograma %}
                 {% from '::macros.html.twig' import notificacion %}
                 {% set msg %}
-                    <p class='mb-1 text-danger'>La carga horaria definida en la planificacion ({{ planificacion.getTotalCargaHorariaAula()  }} Hs.) es distinta a la carga horaria total definida en la asignatura  ({{cargaHorariaTotal }} hs.).</p>
+                    <p class='mb-1 text-danger'>La carga horaria definida en la planificacion
+                        ({{ planificacion.getTotalCargaHorariaAula() }} Hs.) es distinta a la carga horaria total
+                        definida en la asignatura ({{ cargaHorariaTotal }} hs.).</p>
                 {% endset %}
                 {{ notificacion('Mensaje', msg, 'danger', '' ) }}
-            {%endif%}
+            {% endif %}
         </div>
-        <div class=" mb-4">
+        <div class="mb-4">
             {% embed "::botonera-2col.html.twig" %}
                 {% block left %}
                     {% if planificacion.puedeEditarse() %}
@@ -61,62 +63,78 @@
                                     No existen actividades definidas en esta unidad.
                                 </p>
                             {% else %}
-
-                                <table class="table table-sm table-condensed table-borderless table-hover mb-0 border-0">
-                                    <thead>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-condensed table-borderless table-hover mb-0 border-0">
+                                        <thead>
                                         <tr class="text-secondary bg-white">
                                             <th class="text-center">#</th>
                                             <th class="align-middle">Actividad</th>
                                             <th class="align-middle">Fecha</th>
-                                            <th class="align-middle text-center" title="Carga horaria aula">Hs. aula</th>
-                                            <th class="align-middle text-center" title="Carga horaria autónomo">Hs. autónomo</th>
-                                            <th class="align-middle text-center" title="¿Dictada en varias comisiones?">¿Varias comisiones?</th>
-                                                {#                                           <th class="align-middle">Contenido</th>#}
+                                            <th class="align-middle text-center" title="Carga horaria aula">Hs. aula
+                                            </th>
+                                            <th class="align-middle text-center" title="Carga horaria autónomo">Hs.
+                                                autónomo
+                                            </th>
+                                            <th class="align-middle text-center" title="¿Dictada en varias comisiones?">
+                                                ¿Varias comisiones?
+                                            </th>
+                                            {#                                           <th class="align-middle">Contenido</th> #}
                                             <th class="text-center">Acciones</th>
                                         </tr>
-                                    </thead>
-                                    </tbody>
+                                        </thead>
+                                        </tbody>
 
-                                    {% for a in actividades %}
-                                        <tr>
-                                            <td class="text-center align-middle">
-                                                {{ loop.index }}
-                                            </td>
-                                            <td class="align-middle font-weight-bold">
-                                                {{ a.tipoActividadCurricular|upper }}
-                                            </td>
-                                            <td class="align-middle">
-                                                {{ a.fecha ? a.fecha|date('d/m/Y') : '-' }}
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                {{ a.cargaHorariaAula|default('-') }}
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                {{ a.cargaHorariaAutonomo|default('-') }}
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                {{ a.dictadoVariasComisiones ? 'Si' : 'No' }}
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}" title="Ver"
-                                                   class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}" title="Editar"
-                                                   class="btn btn-sm btn-outline-secondary">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}" title="Duplicar"
-                                                   class="btn btn-sm btn-outline-secondary">
-                                                    <i class="fa fa-copy"></i>
-                                                </a>
-                                                {#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a> #}
-                                            </td>
-                                        </tr>
+                                        {% for a in actividades %}
+                                            <tr>
+                                                <td class="text-center align-middle">
+                                                    {{ loop.index }}
+                                                </td>
+                                                <td class="align-middle font-weight-bold">
+                                                    {{ a.tipoActividadCurricular|upper }}
+                                                </td>
+                                                <td class="align-middle">
+                                                    {{ a.fecha ? a.fecha|date('d/m/Y') : '-' }}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {% if not a.cargaHorariaAula %}
+                                                        <span class="small text-danger"
+                                                              title="Este campo es obligatorio">
+                                                    Sin definir
+                                                </span>
+                                                    {% else %}
+                                                        {{ a.cargaHorariaAula }}
+                                                    {% endif %}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {{ a.cargaHorariaAutonomo|default('-') }}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {{ a.dictadoVariasComisiones ? 'Si' : 'No' }}
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <a href="{{ path('planif_act_curriculares_ver', { id : a.id }) }}"
+                                                       title="Ver"
+                                                       class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a href="{{ path('planif_act_curriculares_editar_act', { id : a.id }) }}"
+                                                       title="Editar"
+                                                       class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="{{ path('planif_act_curriculares_duplicar_act', { id : a.id }) }}"
+                                                       title="Duplicar"
+                                                       class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fa fa-copy"></i>
+                                                    </a>
+                                                    {#                                                <a href="#" class="link text-danger text-decoration-none small">Borrar</a> #}
+                                                </td>
+                                            </tr>
 
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {% endif %}
                         </div>
                     </div>

@@ -52,6 +52,7 @@ class ActividadCurricular {
      * @var string
      *
      * @ORM\Column(name="carga_horaria_aula", type="decimal", precision=6, scale=1, nullable=true)
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
@@ -63,6 +64,7 @@ class ActividadCurricular {
      * @var string
      *
      * @ORM\Column(name="carga_horaria_autonomo", type="decimal", precision=6, scale=1, nullable=true)
+     * @Assert\GreaterThanOrEqual(value="0" , message="Este campo debe ser mayor a 0.")
      * @Assert\Type(
      *     type="double",
      *     message="La carga horaria debe ser un número decimal")
