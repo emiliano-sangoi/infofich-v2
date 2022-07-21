@@ -49,4 +49,4 @@ swiftmailer:
     port: '%dev_mailer_port%'
     username: '%dev_mailer_user%'
     password: '%dev_mailer_password%'
-    encryption: "dev_mailer_encryption" # ssl
+    encryption: "%dev_mailer_encryption%" # ssl
