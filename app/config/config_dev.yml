@@ -43,3 +43,10 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+swiftmailer:
+    transport: '%dev_mailer_transport%'
+    host: '%dev_mailer_host%'
+    port: '%dev_mailer_port%'
+    username: '%dev_mailer_user%'
+    password: '%dev_mailer_password%'
+    encryption: "dev_mailer_encryption" # ssl
