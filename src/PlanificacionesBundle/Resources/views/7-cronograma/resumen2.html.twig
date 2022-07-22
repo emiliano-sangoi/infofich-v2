@@ -4,27 +4,33 @@
     <div class="row">        
         <div class="col-sm-10">
             {#<label class="font-weight-bold">Resultados</label>#}
-             
+
             {% if resumen.resultados is null %}
-                    <div class="text-danger">{{ global_sd }}</div>
-                {% else %}
+                <div class="text-danger">{{ global_sd }}</div>
+            {% else %}
                 <ul>
                     {% for c in resumen.cronograma %}
-                    <li>
-                        <p>                        
-                            <strong>Unidad :</strong>  {{ c.temario}} 
-                            - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
-                            - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}}
-                        </p>
-                        <p>    
-                            <strong>Carga horaria en aula : </strong> {{ c.cargaHorariaAula}} 
-                            <strong>Horas de estudio autónomo : </strong> {{ c.cargaHorariaAutonomo}}
-                            <strong>Descripción :</strong>  {{ c.descripcion|default(global_sd) }} 
-                        </p>
-                    </li>    
+                        <li>
+                            <p>                        
+                                <strong>Unidad :</strong>  {{ c.temario}} 
+                                - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} 
+                                - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}}
+                            </p>
+                            <p>    
+                                <strong>Carga horaria en aula : </strong> {{ c.cargaHorariaAula}} 
+                                <strong>Horas de estudio autónomo : </strong> {{ c.cargaHorariaAutonomo}}
+                                <strong>Dictado en varias comisiones : </strong> 
+                                {% if not c.dictadoVariasComisiones %}
+                                    No
+                                {% else %}
+                                    Sí
+                                {% endif %}                                
+                                <strong>Descripción :</strong>  {{ c.descripcion|default(global_sd) }} 
+                            </p>
+                        </li>    
                     {% endfor %}
                 </ul>
-                {% endif %}              
+            {% endif %}              
         </div>       
     </div>
 

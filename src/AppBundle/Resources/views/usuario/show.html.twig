@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}     
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('usuarios_index') }}">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
             </a>
@@ -18,37 +18,34 @@
                 {% include '::notificaciones.html.twig' %}
             </div>
 
-            <div class="bg-light shadow">
+            <h2 class="font-weight-bold text-primary">
+                {{ usuario.persona.getApeNom() }}
+            </h2>
+            <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
-                <div class="">
-                    {% embed 'AppBundle:usuario:form.html.twig' %}
+            <div class="">
+                {% include 'AppBundle:usuario:form.html.twig' %}
 
-                        {% block botones_left %}                            
-                        {%endblock %}
+                {% embed '::botonera.html.twig' %}
 
-                        {% block botones_right %}
-                            <a href="{{ path('usuarios_index') }}" class="btn btn-outline-secondary">Cancelar</a>
-                        {%endblock %}
+                    {% block left %}
+                        <a class="btn btn-primary" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">
+                            <i class="fa fa-edit"></i>&nbsp;Editar
+                        </a>
+                    {% endblock %}
+                    {% block right %}
+                        <a href="{{ path('usuarios_index') }}" class="btn btn-secondary">Ir al listado</a>
+                        {{ form_start(delete_form) }}
+                        <button role="submit" class="btn btn-danger confirmar-borrado"
+                                data-msg='¿Esta seguro que desea borrar este usuario?'>
+                            <i class="fa fa-trash"></i>&nbsp;Borrar
+                        </button>
+                        {{ form_end(delete_form) }}
+                    {% endblock %}
 
-                    {% endembed %}
-
-                </div>                
+                {% endembed %}
 
             </div>
-
-            {% embed '::botonera.html.twig' %}
-
-                {% block left %}
-                    <a class="btn btn-primary" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Editar</a>                    
-                {% endblock %}                            
-                {% block right %}
-                    {{ form_start(delete_form) }}
-                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar el usuario?'>
-                    {{ form_end(delete_form) }}
-                {% endblock %}
-
-            {% endembed %}
-
 
         </div>
     </div>
@@ -61,11 +58,6 @@
 
     <script>
         $(document).ready(function () {
-
-
-
-
-
 
 
         });

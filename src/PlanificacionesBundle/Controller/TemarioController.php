@@ -27,7 +27,7 @@ class TemarioController extends Controller
         $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
         $temas = $repo->findBy(array(
             'planificacion' => $planificacion
-        ), array('unidad' => 'ASC'));
+        ), array('posicion' => 'ASC'));
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -61,9 +61,9 @@ class TemarioController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $nroUnidad = $em->getRepository(Temario::class)->getProximoNroUnidad($planificacion);
+        //dump($nroUnidad);exit;
         $tema->setUnidad($nroUnidad);
         $tema->setTitulo('Unidad ' . $nroUnidad);
-        $tema->setPosicion($nroUnidad);
 
         $form = $this->crearFormNuevoTema($tema);
         $form->handleRequest($request);
@@ -232,15 +232,15 @@ class TemarioController extends Controller
      */
     public function actualizarUnidadAction(Request $request, Temario $tema){
 
-        $nueva_unidad = $request->request->get('nueva_unidad');
+        $nueva_posicion = $request->request->get('nueva_posicion');
 
-        if(!ctype_digit($nueva_unidad)){
+        if(!ctype_digit($nueva_posicion)){
             return new JsonResponse(array('Solo se aceptan valores numericos para la nueva unidad.'), Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository(Temario::class)
-            ->actualizarUnidad($tema, $nueva_unidad);
+        $tema->setPosicion($nueva_posicion);
+        $em->flush();
 
         return new JsonResponse(array('Se actualizo la unidad del tema ' . $tema->getId()));
     }

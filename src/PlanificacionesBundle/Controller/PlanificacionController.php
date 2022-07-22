@@ -282,7 +282,8 @@ class PlanificacionController extends Controller {
         $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
         $planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
         $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
-
+        //TODO cargaHorariaTotal
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
         //Equipo Docente
         $docenteResponsable = $planificacion->getDocenteResponsable();
 
@@ -328,7 +329,7 @@ class PlanificacionController extends Controller {
 
         //Bibliografia
         $bibliografia = null;
-        $bibliografia = $planificacion->getBibliografiasPlanificacion()->toArray();
+        $bibliografia = $planificacion->getBibliografias()->toArray();
 
         //$bibliografia = $bibliografiaP->getBibliografia();
         //Actividades

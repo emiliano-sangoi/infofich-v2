@@ -1,16 +1,21 @@
 <div class="notificaciones">
     {% from '::macros.html.twig' import notificacion %}
-    <div>
+    <div class="shadow-sm">
         {% for flash_message in app.session.flashBag.get('success') %}
             {{ notificacion('Mensaje', flash_message, 'success') }}                                                          
         {% endfor %}
     </div>
-    <div>
+    <div class="shadow-sm">
         {% for flash_message in app.session.flashBag.get('error') %}
-            {{ notificacion('Error', flash_message, 'error') }}                 
+            {{ notificacion('Error', flash_message, 'danger') }}
         {% endfor %}
     </div>
-    <div>
+    <div class="shadow-sm">
+        {% for flash_message in app.session.flashBag.get('danger') %}
+            {{ notificacion('Error', flash_message, 'error') }}
+        {% endfor %}
+    </div>
+    <div class="shadow-sm">
         {% for flash_message in app.session.flashBag.get('warning') %}
             {{ notificacion('Advertencia', flash_message, 'warning') }}                 
         {% endfor %}

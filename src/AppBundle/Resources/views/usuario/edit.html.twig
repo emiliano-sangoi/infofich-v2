@@ -18,25 +18,38 @@
                 {% include '::notificaciones.html.twig' %}
             </div>
 
+            <h2 class="font-weight-bold text-primary">
+                {{ usuario.persona.getApeNom() }}
+            </h2>
+            <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
             <div class="">
 
-                {% include 'AppBundle:usuario:form.html.twig' %}
+                {% embed 'AppBundle:usuario:form.html.twig' %}
 
-                {% embed '::botonera.html.twig' %}
+                    {% block form_actions %}
 
-                    {% block left %}
-                        <button id="guardarCambios" class="btn btn-primary">
-                            Guardar cambios
-                        </button>
-                    {% endblock %}
+                        {% embed '::botonera.html.twig' %}
 
-                    {% block right %}
-                        {{ form_start(delete_form) }}
-                        <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este usuario?'/>
-                        {{ form_end(delete_form) }}
+                            {% block left %}
+                                <button id="guardarCambios" class="btn btn-primary">
+                                    <i class="fa fa-save"></i>&nbsp;Guardar cambios
+                                </button>
+                            {% endblock %}
+
+                            {% block right %}
+                                <a href="{{ path('usuarios_show', { 'id': usuario.id }) }}" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            {% endblock %}
+
+                        {% endembed %}
+
                     {% endblock %}
 
                 {% endembed %}
+
+
 
             </div>
         </div>

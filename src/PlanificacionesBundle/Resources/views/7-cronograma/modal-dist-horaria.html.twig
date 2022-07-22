@@ -1,0 +1,83 @@
+<div class="d-none" id="distrubucion-horaria">
+<table class="table table-bordered mb-0">
+    <thead>
+        <tr class="bg-secondary text-white">
+            <th class="py-1 text-center w-25">Actividad</th>
+            <th class="py-1 text-center w-25">Cantidad Hs.</th>
+            <th class="py-1 text-center w-25">Total Hs.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="font-weight-bold bg-light text-center py-1">Teoria</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalTeoria() }}</td>
+            <td rowspan="7" class="text-center align-middle">
+                <span class="font-weight-bold text-primary lead">
+                    {{ planificacion.getTotalCargaHorariaAula() }} Hs.
+                </span>
+
+                {% if cargaHorariaTotal is defined and cargaHorariaTotal is not null %}
+                <p class="mt-2 text-danger font-italic">
+                    (M&aacute;ximo: {{ cargaHorariaTotal }} Hs.)
+                </p>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Coloquio</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalColoquio() }}</td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Clase pr&aacute;ctica</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalFormacionPractica() }}</td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Clase Te&oacute;rico-Pr&aacute;ctica</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalTeoricoPractica() }}</td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Consulta</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalConsulta() }}</td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Evaluaci&oacute;n</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalEvaluacion() }}</td>
+        </tr>
+        <tr>
+            <th class="w-25 font-weight-bold bg-light text-center py-1">Otras actividades</th>
+            <td class="py-1 text-center">{{ planificacion.getTotalOtrasAct() }}</td>
+        </tr>
+        <tr style="border-top: 2px ridge #dee2e6;">
+            <th class="w-25 font-weight-bold bg-light text-center py-1 align-middle">Estudio autónomo</th>
+            <td class="py-1 text-center align-middle">{{ planificacion.getTotalCargaHorariaAutonomo() }}</td>
+            <td class="text-center align-middle lead font-weight-bold text-primary">
+                {{ planificacion.getTotalCargaHorariaAutonomo() }} Hs.
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    $('#btnDistHorariaModal').click(function (e) {
+        e.preventDefault();
+
+        var html = $('#distrubucion-horaria').clone();
+        html.removeClass('d-none');
+
+        var modal = bootbox.alert({
+            title: '<b>Distribución de carga horaria</b>',
+            message: html,
+            size: 'large',
+            backdrop: true
+        });
+
+        modal.find('.modal-body').addClass('p-0');
+
+    });
+});
+
+</script>

@@ -9,7 +9,7 @@
             <div class="mb-3">
                 {% from '::macros.html.twig' import notificacion %}         
                 {% set msg %}
-                    <p class='mb-1'>
+                    <p class='mb-1 text-info'>
                         Esta creando una copia de la actividad: <b>
                             {{ actividadOriginal.fecha|date('d/m/Y') }} - 
                             {{ actividadOriginal.tipoActividadCurricular|upper }}</b>, perteneciente a la <b>Unidad {{ actividadOriginal.temario.unidad }}</b>.
@@ -31,14 +31,14 @@
                 {% block left %}
                     <button id="btnGuardarCambios" type="submit" role="button" class="btn btn-primary d-inline">
                         <i class="fa fa-check"></i>&nbsp;
-                        Guardar cambios
+                        Crear copia
                     </button>        
                 {% endblock %}
 
                 {% block right %}
 
-                    <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
-                        Ir a actividades
+                    <a href="{{ path('planif_act_curriculares_ver', { id : actividad.id }) }}" class="btn btn-secondary">
+                        Cancelar
                     </a>               
                 {% endblock %}
 

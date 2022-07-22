@@ -1,0 +1,35 @@
+<div class="table-responsive">
+    <table class="table table-sm bg-white border border-secondary">
+        <thead class="bg-secondary text-white">
+        <tr>
+            <th class="text-center align-middle">
+                #
+            </th>
+            <th class="">
+                Planificaci&oacute;n
+            </th>
+            <th class="">
+                Acciones
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pa in docenteAdscripto.planificacionesAdscripto %}
+            <tr>
+                <td class="text-center align-middle">
+                    {{ loop.index }}
+                </td>
+                <td class="">
+                    {{ pa.planificacion }}
+                </td>
+                <td class="">
+                    <a href="{{ path('planif_info_basica_editar', { id: pa.planificacion.id }) }}"
+                       class="btn btn-sm btn-outline-secondary" target="_blank">
+                        Ver
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

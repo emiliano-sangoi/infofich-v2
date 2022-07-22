@@ -2,9 +2,9 @@
 
 {% set full_width = false %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}  
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('docentes_adscriptos') }}" class="">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
@@ -26,6 +26,10 @@
             {% include '::notificaciones.html.twig' %}
         </div>
 
+        <h2 class="font-weight-bold text-primary">
+            {{ docenteAdscripto.persona|capitalize }} - Resol. Nro. {{ docenteAdscripto.resolucion }}
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
         {% include 'DocentesBundle:adscriptos:form.html.twig' %}
 
@@ -33,13 +37,20 @@
 
             {% block left %}
                 <button id="guardarCambios" class="btn btn-primary">
-                    Guardar cambios
+                    <i class="fa fa-save"></i>&nbsp;Guardar cambios
                 </button>
+                <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
             {% endblock %}
 
             {% block right %}
                 {{ form_start(delete_form) }}
-                <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar el docente <b>{{ docenteAdscripto.persona }}</b>?'/>
+                <button role="submit" class="btn btn-danger confirmar-borrado"
+                        data-msg='¿Esta seguro que desea borrar el docente <b>{{ docenteAdscripto.persona }}</b>?'>
+                    <i class="fa fa-trash"></i>&nbsp;Borrar
+                </button>
                 {{ form_end(delete_form) }}
             {% endblock %}
 

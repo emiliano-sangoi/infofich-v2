@@ -211,46 +211,45 @@
 
             <div class="col-12 col-md-8 col-lg-9">
                 <div class="tab-content" id="tab-content">
-                    <div>
-                        <div class="container">
-                            <div class="my-3">
-                                {% include '::notificaciones.html.twig' %}
+                    <div class="container-fluid container-lg">
+                        <div class="my-3">
+                            {% include '::notificaciones.html.twig' %}
 
-                                {% if planificacion.enRevision() %}
-                                    <div class="">
-                                        {% from '::macros.html.twig' import notificacion %}
-                                        {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
-                                        {% set msg %}
-                                            <p class='mb-1'>Esta planificación fue enviada a revisión el
-                                                <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b>
-                                                Hs.</p>
-                                            <p>Secretaría académica revisará la planificación e indicará correcciones o
-                                                aprobará la misma.</p>
-                                        {% endset %}
-                                        {{ notificacion('Planificación en revisión', msg, 'warning', '', 'fa-exclamation-circle', 'fa-3x' ) }}
-                                    </div>
-                                {% elseif planificacion.enCorreccion() %}
-                                    <div class="">
-                                        {% from '::macros.html.twig' import notificacion %}
-                                        {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
-                                        {% set msg %}
-                                            <p class='mb-10'>
-                                                Esta planificación require algunas correcciones. Puede ver las mismas
-                                                presionando el botón <b>"Comentarios"</b> ubicado en la parte superior
-                                                derecha.
-                                            </p>
-                                            <p>
-                                                Una vez que realize todas las correcciones sugeridas, presione el botón
-                                                <b>"Enviar a revisión"</b> ubicado en la parte inferior de la sección
-                                                <b>"Revisar borrador"</b>.
-                                            </p>
-                                        {% endset %}
-                                        {{ notificacion('Planificación pendiente de correcciones', msg, 'error', '' ) }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            {#                            <div class="mb-4 mt-4"> #}
-                            {# {% block titulo_principal %}
+                            {% if planificacion.enRevision() %}
+                                <div class="">
+                                    {% from '::macros.html.twig' import notificacion %}
+                                    {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
+                                    {% set msg %}
+                                        <p class='mb-1'>Esta planificación fue enviada a revisión el
+                                            <b>{{ fDesde|date('d/m/Y') }}</b> a las <b>{{ fDesde|date('H:i') }}</b>
+                                            Hs.</p>
+                                        <p>Secretaría académica revisará la planificación e indicará correcciones o
+                                            aprobará la misma.</p>
+                                    {% endset %}
+                                    {{ notificacion('Planificación en revisión', msg, 'warning', '', 'fa-exclamation-circle', 'fa-3x' ) }}
+                                </div>
+                            {% elseif planificacion.enCorreccion() %}
+                                <div class="">
+                                    {% from '::macros.html.twig' import notificacion %}
+                                    {% set fDesde = planificacion.getHistoricoEstadoActual().getFechaDesde() %}
+                                    {% set msg %}
+                                        <p class='mb-10'>
+                                            Esta planificación require algunas correcciones. Puede ver las mismas
+                                            presionando el botón <b>"Comentarios"</b> ubicado en la parte superior
+                                            derecha.
+                                        </p>
+                                        <p>
+                                            Una vez que realize todas las correcciones sugeridas, presione el botón
+                                            <b>"Enviar a revisión"</b> ubicado en la parte inferior de la sección
+                                            <b>"Revisar borrador"</b>.
+                                        </p>
+                                    {% endset %}
+                                    {{ notificacion('Planificación pendiente de correcciones', msg, 'error', '' ) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {#                            <div class="mb-4 mt-4"> #}
+                        {# {% block titulo_principal %}
                                 <div class="">
                                     <span class="h4 mr-2">
                                         {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
@@ -281,18 +280,17 @@
                                     {% endif %}
                                 </div>
                             {% endblock %} #}
-                            {# {% block subtitulo %}
+                        {# {% block subtitulo %}
                                 {% if subtitulo is defined %}
                                     <h4 class="font-weight-bold text-color-gray-600 mt-2">
                                         {{ subtitulo }}
                                     </h4>
                                 {% endif %}
                             {% endblock %} #}
-                            {#                            </div> #}
-                            <div class="py-4">
-                                {% block tab_content %}
-                                {% endblock %}
-                            </div>
+                        {#                            </div> #}
+                        <div class="py-4">
+                            {% block tab_content %}
+                            {% endblock %}
                         </div>
                     </div>
                 </div>

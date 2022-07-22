@@ -6,11 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
+/*
+ * Temario
+ *
+ * @ORM\Table(name="planif_temarios", uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="ak_planif_temarios", columns={"unidad"})
+ * })
+ * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TemarioRepository")
+ *
+ */
+
+
 /**
  * Temario
  *
  * @ORM\Table(name="planif_temarios")
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\TemarioRepository")
+ *
  */
 class Temario {
 
@@ -58,16 +70,16 @@ class Temario {
     private $planificacion;
 
     /**
-     * @ORM\Column(name="posicion", type="integer")
-     */
-    private $posicion;
-
-    /**
      * Un temario tiene muchas actividades.
      * 
      * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="temario", cascade={"persist","remove"})
      */
     private $actividades;
+
+    /**
+     * @ORM\Column(name="posicion", type="integer", nullable=true)
+     */
+    private $posicion;
 
     public function __construct() {
         $this->actividades = new ArrayCollection();
@@ -79,7 +91,7 @@ class Temario {
     }
 
     public function __toString() {
-        return 'Unidad ' . $this->unidad . ' - ' . $this->titulo;
+        return $this->titulo;
     }
 
     /**
@@ -180,28 +192,6 @@ class Temario {
     }
 
     /**
-     * Set posicion
-     *
-     * @param integer $posicion
-     *
-     * @return Temario
-     */
-    public function setPosicion($posicion) {
-        $this->posicion = $posicion;
-
-        return $this;
-    }
-
-    /**
-     * Get posicion
-     *
-     * @return integer
-     */
-    public function getPosicion() {
-        return $this->posicion;
-    }
-
-    /**
      * Add actividade
      *
      * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
@@ -240,6 +230,30 @@ class Temario {
         });
 
         return $actividades;
+    }
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     *
+     * @return Bibliografia
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
     }
 
 }

@@ -50,4 +50,4 @@ services:
         
     planificaciones_service:
         class: PlanificacionesBundle\Service\PlanificacionService        
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","@api_infofich_service"]

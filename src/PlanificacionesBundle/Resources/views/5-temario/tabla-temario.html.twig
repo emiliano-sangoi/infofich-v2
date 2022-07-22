@@ -2,6 +2,7 @@
     <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaTemario">
         <thead>
         <tr class="bg-secondary text-white">
+{#            <th scope="col" class="text-center">#</th>#}
             <th scope="col" class="text-center">Unidad</th>
             <th scope="col">Título</th>
             <th scope="col">Contenido</th>
@@ -11,8 +12,13 @@
         </thead>
         <tbody>
         {% for tema in temas %}
-            <tr>
-                <td class="unidad align-middle text-center" data-id-unidad="{{ tema.id }}">{{ tema.unidad }}</td>
+            <tr data-id-unidad="{{ tema.id }}" data-posicion="{{ tema.posicion }}">
+{#                <td class="index align-middle text-center">#}
+{#                    {{ loop.index }}#}
+{#                </td>#}
+                <td class="align-middle text-center">
+                    {{ tema.unidad }}
+                </td>
                 <td class="w-25 font-weight-bold align-middle">
                     {{ tema.titulo }}
                 </td>

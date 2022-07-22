@@ -16,7 +16,7 @@ use PlanificacionesBundle\Entity\Temario;
 class TemarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    private function getQb(Planificacion $planificacion){
+    public function getQb(Planificacion $planificacion){
         $qb = $this->createQueryBuilder('t');
         $qb->join('t.planificacion', 'p');
         $qb->where($qb->expr()->eq('p.id', ':p_id'));
@@ -29,18 +29,12 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
 
     public function getProximoNroUnidad(Planificacion $planificacion){
 
-        $this->findBy( array(
-            'planificacion' => $planificacion
-        ));
-
-
         $qb = $this->getQb($planificacion);
-        $qb->select('t.unidad');
+        $qb->select("MAX(t.unidad)");
         $qb->setMaxResults(1);
 
         try {
             $res = $qb->getQuery()->getSingleScalarResult();
-
             return $res+1;
         } catch (NoResultException $e) {
         } catch (NonUniqueResultException $e) {
@@ -48,27 +42,6 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return 1;
-    }
-
-    public function actualizarUnidad(Temario $tema, $nueva_unidad){
-        $qb = $this->getQb($tema->getPlanificacion());
-        $qb->select('t');
-
-        $qb->andWhere($qb->expr()->neq('t.id', ':t_id'));
-        $qb->setParameter(':t_id', $tema->getId());
-
-        $n = 1;
-        $it = $qb->getQuery()->iterate();
-        foreach ($it as $row){
-            if($n == $nueva_unidad){
-                $n++;
-            }
-
-            $row[0]->setUnidad($n++);
-        }
-
-        $tema->setUnidad($nueva_unidad);
-        $this->getEntityManager()->flush();
     }
 
     public function borrarTema(Temario $tema){

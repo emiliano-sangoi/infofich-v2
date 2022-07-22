@@ -184,9 +184,8 @@ class UsuarioController extends Controller {
             throw $this->createAccessDeniedException("Acceso denegado");
         }
 
-        $deleteForm = $this->createDeleteForm($usuario);
-        $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-        $form->add('persona', 'AppBundle\Form\PersonaType');
+        $form = $this->createForm(UsuarioType::class, $usuario);
+        $form->add('persona', PersonaType::class, array('label' => false));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -204,13 +203,11 @@ class UsuarioController extends Controller {
                     $usuario->setPassword($encodedPwd);
                 }
 
-                //dump($usuario);exit;
-
                 $em->flush();
 
                 $this->addFlash('success', 'Datos modificados correctamente');
 
-                return $this->redirectToRoute('usuarios_edit', array('id' => $usuario->getId()));
+                return $this->redirectToRoute('usuarios_show', array('id' => $usuario->getId()));
             } catch (UniqueConstraintViolationException $ex) {
                 $msg = 'Ya existe una persona con el tipo y numero de documento ingresado.';
                 $form->get('persona')->get('documento')->addError(new FormError($msg));
@@ -226,7 +223,6 @@ class UsuarioController extends Controller {
         return $this->render('AppBundle:usuario:edit.html.twig', array(
                     'usuario' => $usuario,
                     'form' => $form->createView(),
-                    'delete_form' => $deleteForm->createView(),
                     'page_title' => $usuario->__toString() . ' - Editar',
         ));
     }
@@ -274,11 +270,18 @@ class UsuarioController extends Controller {
      * @return Form The form
      */
     private function createDeleteForm(Usuario $usuario) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('usuarios_delete', array('id' => $usuario->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
+
+        $opt = array(
+            'attr' => array('class' => 'd-inline')
+        );
+
+        $action = $this->generateUrl('usuarios_delete', array('id' => $usuario->getId()));
+
+        $fb = $this->createFormBuilder(null, $opt)
+            ->setAction($action)
+            ->setMethod('DELETE');
+
+        return $fb->getForm();
     }
 
 }

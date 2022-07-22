@@ -2,6 +2,24 @@
 
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #planificacionesbundle_actividadcurricular_dictadoVariasComisiones label{
+            font-weight: normal !important;
+            margin-right: 1rem;
+        }
+
+        #planificacionesbundle_actividadcurricular_dictadoVariasComisiones label.required:after{
+            content: none;
+        }
+
+    </style>
+{% endblock %}
+
+
+
 {% block tab_content %}
 
     {% embed 'PlanificacionesBundle:7-cronograma:form.html.twig' %}
@@ -20,7 +38,7 @@
                         {% endblock %}
 
                         {% block right %}
-                            <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-outline-secondary">
+                            <a href="{{ path('planif_act_curriculares_editar', { id : planificacion.id }) }}" class="btn btn-secondary">
                                 Cancelar
                             </a>               
                         {% endblock %}
@@ -31,4 +49,13 @@
 
         {% endblock %}
     {% endembed %}
-{% endblock %} 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% if planificacion.puedeEditarse() %}
+        {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
+    {% endif %}
+
+{% endblock %}

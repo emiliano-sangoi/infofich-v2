@@ -420,8 +420,7 @@ class RevisarController extends Controller {
     private function addBibliografia(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['bibliografia'] = null;
-        $bibliografia = $planificacion->getBibliografiasPlanificacion();
-        $this->resumen['bibliografia'] = $bibliografia;
+        $this->resumen['bibliografia'] = $planificacion->getBibliografias();
     }
 
     /**

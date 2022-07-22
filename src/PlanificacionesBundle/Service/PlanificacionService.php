@@ -42,10 +42,16 @@ class PlanificacionService {
      * @var boolean 
      */
     private $hayErrores;
+    
+    /**
+     * @var APIInfofichService
+     */
+    private $apiInfofichService;
 
-    public function __construct($entityManager) {
+    public function __construct($entityManager, $apiInfofichService) {
 
         $this->em = $entityManager;
+        $this->apiInfofichService = $apiInfofichService;
         $this->errores = array();
         $this->hayErrores = false;
         $this->repoRoles = $this->em->getRepository('AppBundle:Rol');
@@ -201,6 +207,26 @@ class PlanificacionService {
 
         if ($planificacion->getActividadCurricular()->count() === 0) {
             $errores[] = 'No se ha definido ninguna actividad curricular.';
+            $this->hayErrores = true;
+        }
+
+        foreach ($planificacion->getActividadCurricular() as $act) {
+            $aux = $act->getCargaHorariaAula();
+            if($aux <= 0 || !is_numeric($aux) ){
+                $errores[] = 'Cada actividad curricular debe tener una cantidad de hs. aula mayor a 0.';
+                $this->hayErrores = true;
+                break;
+            }
+        }
+        
+        //Controlamos que la suma de la carga horaria de las act no supere la carga horaria total de la asignatura
+        $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
+
+        $asignatura = $this->apiInfofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+        if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {         
+            $errores[] = 'La carga horaria definida en la planificacion ('.$sumaCargaHoraria.' Hs.) es distinta a la carga horaria total definida en la asignatura ('. $cargaHorariaTotal . ' hs.).';//no se usaa
             $this->hayErrores = true;
         }
 

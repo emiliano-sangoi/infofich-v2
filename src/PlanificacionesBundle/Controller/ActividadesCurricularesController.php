@@ -8,6 +8,7 @@ use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\ActividadCurricularType;
 use PlanificacionesBundle\Form\ActividadesCurricularesType;
+use Proxies\__CG__\PlanificacionesBundle\Entity\Temario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,83 +18,54 @@ class ActividadesCurricularesController extends Controller {
     use PlanificacionTrait;
 
     /**
-     * Metodo que maneja la edicion del formulario.
+     * Muestra el listado de temas
      * 
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
      */
-    public function editAction(Request $request, Planificacion $planificacion) {
+    public function indexAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
-        $form = $this->createForm(ActividadesCurricularesType::class, $planificacion, array(
-            'disabled' => $planificacion->isPublicada()
-        ));
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->actualizarActividadCurricular($planificacion);
-
-            $em = $this->getDoctrine()->getManager();
-            /*
-              $em->flush();
-
-              $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-
-              return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
-             */
-
-            try {
-                $em->flush();
-                $this->addFlash('success', 'Los datos de esta sección fueron guardados correctamente.');
-                //return $this->redirectToRoute('planif_temario_editar', array('id' => $planificacion->getId()));
-            } catch (ForeignKeyConstraintViolationException $ex) {
-                $msg = 'Las actividades curriculares definidos no pueden ser borrados porque estan siendo utilizados en otra sección.';
-                $this->addFlash('error', $msg);
-                //$form->addError(new \Symfony\Component\Form\FormError($msg));
-            }
-            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
-        }
-
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $ruta_index = $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
 
-        return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
-                    'form' => $form->createView(),
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository(Temario::class)->getQb($planificacion);
+        $qb->orderBy('t.unidad', 'ASC');
+
+        //En la variable errores, Validamos si hay errrores en la planifacacion, incluido carga horaria de la asignatura.
+        return $this->render('PlanificacionesBundle:7-cronograma:index.html.twig', array(
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
-                    'planificacion' => $planificacion
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
+                    'planificacion' => $planificacion,
+                    'temario' => $qb->getQuery()->getResult(),
         ));
     }
 
     /**
-     * Funcion auxiliar para remover los items que fueron borrados por el formulario.
-     * 
+     * Permite dar de alta una nueva actividad.
+     *
      * @param Planificacion $planificacion
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response|null
      */
-    private function actualizarActividadCurricular(Planificacion $planificacion) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // ESTO ES NECESARIO PARA QUE ANDE EL DELETE EN LAS COLLECCIONES
-        // VER:
-        // https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-        // obtener los registros de la base de datos:
-        $actCurricularOriginal = $em->getRepository('PlanificacionesBundle:ActividadCurricular')
-                ->findBy(array('planificacion' => $planificacion));
-
-        foreach ($actCurricularOriginal as $actCurricular) {
-            if (false === $planificacion->getActividadCurricular()->contains($actCurricular)) {
-                // remove the Task from the Tag
-                $planificacion->getActividadCurricular()->removeElement($actCurricular);
-                $em->remove($actCurricular);
-            }
-        }
-    }
-
     public function newAction(Planificacion $planificacion, Request $request) {
+
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria() ?: 0;
 
         $ac = new ActividadCurricular();
         $ac->setPlanificacion($planificacion);
@@ -104,23 +76,50 @@ class ActividadesCurricularesController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ac);
-            $em->flush();
-            $this->addFlash('success', 'Nueva actividad creada correctamente.');
+            $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-            return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            //sumar al total la cant de hs de la actividad que se esta creando:
+            $sumaCargaHoraria += $ac->getCargaHorariaAula();
+
+            if ( $sumaCargaHoraria > $cargaHorariaTotal ) {
+                //Hay que controlar que no se pase de la carg horaria total
+                $msg = 'La carga horaria definida en la planificacion (' . $sumaCargaHoraria . ') Hs. es distinta a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
+                $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
+            } else {
+
+                $em->persist($ac);
+                $em->flush();
+                $this->addFlash('success', 'Nueva actividad creada correctamente.');
+
+                return $this->redirectToRoute('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+            }
         }
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $ruta_index = $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
+        $breadcrumbs->addItem('NUEVA');
 
         return $this->render('PlanificacionesBundle:7-cronograma:new.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
     }
 
+    /**
+     * Muestra los datos de una actividad
+     *
+     * @param ActividadCurricular $actividadCurricular
+     * @param Request $request
+     * @return Response|null
+     */
     public function showAction(ActividadCurricular $actividadCurricular, Request $request) {
 
         $planificacion = $actividadCurricular->getPlanificacion();
@@ -131,20 +130,39 @@ class ActividadesCurricularesController extends Controller {
         ));
 
         // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $ruta_index = $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
+        $breadcrumbs->addItem('VER');
 
         $deleteForm = $this->crearDeleteForm($actividadCurricular);
 
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+        
         return $this->render('PlanificacionesBundle:7-cronograma:show.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
                     'actividad' => $actividadCurricular,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'delete_form' => $deleteForm->createView()
         ));
     }
 
-    public function editActividadAction(ActividadCurricular $actividadCurricular, Request $request) {
+    /**
+     * Permite editar los datos de una actividad
+     *
+     * @param ActividadCurricular $actividadCurricular
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response|null
+     */
+    public function editAction(ActividadCurricular $actividadCurricular, Request $request) {
 
         $planificacion = $actividadCurricular->getPlanificacion();
 
@@ -155,7 +173,7 @@ class ActividadesCurricularesController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();            
             $em->flush();
             $this->addFlash('success', 'Actividad modificada correctamente.');
 
@@ -167,20 +185,33 @@ class ActividadesCurricularesController extends Controller {
 
         $deleteForm = $this->crearDeleteForm($actividadCurricular);
 
-        return $this->render('PlanificacionesBundle:7-cronograma:edit-act.html.twig', array(
+        //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
+        return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
                     'actividad' => $actividadCurricular,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'delete_form' => $deleteForm->createView()
         ));
     }
 
+    /**
+     * Permite copiar una actividad.
+     *
+     * @param ActividadCurricular $actividadCurricular
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response|null
+     */
     public function duplicarAction(ActividadCurricular $actividadCurricular, Request $request) {
 
         $planificacion = $actividadCurricular->getPlanificacion();
         $copia = clone $actividadCurricular;
-        
+
         $form = $this->createForm(ActividadCurricularType::class, $copia, array(
             'planificacion' => $planificacion
         ));
@@ -194,20 +225,30 @@ class ActividadesCurricularesController extends Controller {
             $this->addFlash('success', 'Copia creada correctamente.');
 
             return $this->redirectToRoute('planif_act_curriculares_ver', array('id' => $actividadCurricular->getId()));
-        }        
+        }
 
-       // Breadcrumbs
-        $this->setBreadcrumb($planificacion, 'Cronograma de actividades', $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId())));
-
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
+        $breadcrumbs->addItem($planificacion);
+        $ruta_index = $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
+        $breadcrumbs->addItem('DUPLICAR');
+        
+         //Buscamos la asignatura y sus datos con el web service
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+        
         return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
                     'planificacion' => $planificacion,
-                    'actividad' => $copia,                    
-                    'actividadOriginal' => $actividadCurricular,                    
+                    'actividad' => $copia,
+                    'cargaHorariaTotal' => $cargaHorariaTotal,
+                    'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+                    'actividadOriginal' => $actividadCurricular,
         ));
-        
-        
     }
 
     public function borrarAction(Request $request, ActividadCurricular $ac) {

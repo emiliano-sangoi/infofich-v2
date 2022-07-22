@@ -2,6 +2,9 @@
 
 namespace DocentesBundle\Repository;
 
+use DocentesBundle\Entity\DocenteAdscripto;
+use Proxies\__CG__\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
+
 /**
  * DocenteAdscriptoPlanificacionRepository
  *
@@ -10,9 +13,27 @@ namespace DocentesBundle\Repository;
  */
 class DocenteAdscriptoRepository extends \Doctrine\ORM\EntityRepository
 {
-    
-    use DocentesTrait;
-    
+
+    /**
+     * Busca todas las planificaciones en las que figura como adscripto.
+     *
+     * @param DocenteAdscripto $docenteAdscripto
+     * @return array
+     */
+    public function getPlanificacionesDocente(DocenteAdscripto $docenteAdscripto){
+
+        $repo = $this->getEntityManager()->getRepository(PlanificacionDocenteAdscripto::class);
+
+        $qb = $repo->createQueryBuilder('pda');
+        $qb->select('pda');
+        $qb->join('pda.planificacion', 'p');
+        $qb->join('pda.docenteAdscripto', 'da');
+        $qb->where($qb->expr()->eq('da.id', ':da_id'));
+        $qb->setParameter(':da_id', $docenteAdscripto->getId());
+
+        return $qb->getQuery()->getResult();
+
+    }
     
     
 }

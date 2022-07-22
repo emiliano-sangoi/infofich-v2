@@ -73,12 +73,12 @@ doctrine:
 # Si se usa GMAIL para probar se debe habilitar la opción "Allow less secure apps" en https://myaccount.google.com/security#connectedapps
 # Ver mas info en: https://stackoverflow.com/questions/33939393/failed-to-authenticate-on-smtp-server-error-using-gmail
 swiftmailer:
-    transport: "smtp"  # gmail, smtp
-    host:      "smtp.gmail.com"       # smtp.gmail.com
-    username:  "gidis@fich.unl.edu.ar"       # email de gmail
-    password:  ""   # pwd de gmail
-    port:  "465"           # 465
-    encryption: "ssl" # ssl
+    transport: '%mailer_transport%'
+    host:      '%mailer_host%'
+    port: '%mailer_port%'
+    username:  '%mailer_user%'
+    password:  '%mailer_password%'
+    encryption: "%mailer_encryption%" # ssl
 
     # Sobre el SPOOL
     # ------------------------------------------------------------------

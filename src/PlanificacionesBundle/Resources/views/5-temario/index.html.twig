@@ -18,7 +18,7 @@
             {% embed "::botonera-2col.html.twig" %}
                 {% block left %}
                     <a href="{{ path('planif_temario_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
-                        Nuevo tema
+                        <i class="fa fa-plus"></i>&nbsp;Nuevo tema
                     </a>
                 {% endblock %}
             {% endembed %}
@@ -52,7 +52,7 @@
 
             $(document).ready(function () {
 
-                var url = "{{ path('planif_temario_actualizar_unidad', { id: '-ID-' }) }}";
+                var url_tpl = "{{ path('planif_temario_actualizar_unidad', { id: '-ID-' }) }}";
 
                 var fixHelperModified = function (e, tr) {
                     var $originals = tr.children();
@@ -64,25 +64,28 @@
                 };
 
                 var updateIndex = function (e, ui) {
-                    $('td.unidad', ui.item.parent()).each(function (i) {
-                        $(this).html(i + 1);
-                    });
+                    // $('td.index', ui.item.parent()).each(function (i) {
+                    //     $(this).html(i + 1);
+                    // });
 
-                    var idUnidad = ui.item.find('td.unidad').data('id-unidad');
-                    var udNueva = ui.item.find('td.unidad').text();
-                    console.log('Se movio la unidad con id ' + idUnidad + ' a la posicion ' + udNueva);
+                    $("#tablaTemario tbody tr").each(function(i,v){
 
-                    url = url.replace('-ID-', idUnidad);
-                    var data = {
-                        nueva_unidad: udNueva
-                    };
+                        var idUnidad = $(v).data('id-unidad');
 
-                    var jqxhr = $.post(url, data);
+                        var url = url_tpl.replace('-ID-', idUnidad);
+                        var data = {
+                            nueva_posicion: i+1
+                        };
 
-                    jqxhr.done(function (response) {
-                        console.log(response);
-                    }).fail(function (error) {
-                        console.log(error);
+                        var jqxhr = $.post(url, data);
+
+                        jqxhr.done(function (response) {
+                            console.log(response);
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+
+                        console.log('La nueva pos de la unidad: ' + idUnidad + ' es: ' + (i+1));
                     });
 
                 };

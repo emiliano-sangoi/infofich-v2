@@ -8,6 +8,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Entity\Rol;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UsuarioType extends AbstractType {
 
@@ -16,7 +21,7 @@ class UsuarioType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
+        $builder->add('username', TextType::class, array(
             'attr' => array('class' => 'form-control', 'autocomplete' => 'off'),
             'label' => 'Nombre de usuario',
             'label_attr' => array(
@@ -24,7 +29,7 @@ class UsuarioType extends AbstractType {
             )
         ));
 
-        $builder->add('bloqueado', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('bloqueado', ChoiceType::class, array(
             'choices' => array(
                 'Si' => true,
                 'No' => false
@@ -63,26 +68,11 @@ class UsuarioType extends AbstractType {
             $args['constraints'][] = new NotBlank(array('message' => 'El campo contraseña es obligatorio.'));            
         }
         
-        $builder->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', $args);        
-        
-//        $builder->add('password2', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
-//            'mapped' => false,
-//            'label' => 'Repetir contraseña',
-//            'attr' => array('class' => 'form-control'),
-//            'label_attr' => array(
-//                'class' => 'font-weight-bold'
-//            )
-//        ));
+        $builder->add('plainPassword', PasswordType::class, $args);
 
 
-//        $builder
-//                ->add('persona', 'PlanificacionesBundle\Form\PersonaType', array(
-//                
-//                ));
-//        
-
-        $builder->add('roles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-            'class' => 'AppBundle\Entity\Rol',
+        $builder->add('roles', EntityType::class, array(
+            'class' => Rol::class,
             'multiple' => true,
             'expanded' => true,
             'choice_label' => 'titulo',
@@ -98,7 +88,7 @@ class UsuarioType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Usuario',            
+            'data_class' => Usuario::class,
         ));
     }
 
