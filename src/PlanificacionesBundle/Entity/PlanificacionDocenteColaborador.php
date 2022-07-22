@@ -29,16 +29,15 @@ class PlanificacionDocenteColaborador {
      * @ORM\JoinColumn(name="planificacion_id", referencedColumnName="id") 
      */
     private $planificacion;
-    
+        
     /**
      *
      * @var DocentesBundle\Entity\DocenteGrado
      * 
      * @ORM\ManyToOne(targetEntity="DocentesBundle\Entity\DocenteGrado", inversedBy="planificacionesColaborador")
-     * @ORM\JoinColumn(name="docente_grado_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="docente_grado_id", referencedColumnName="id", nullable=false)
      */
     private $docenteGrado;
-    
     
     /**
      *
