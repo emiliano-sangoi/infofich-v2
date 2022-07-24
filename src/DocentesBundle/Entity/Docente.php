@@ -109,29 +109,28 @@ class Docente {
     public function getEmail() {
         return $this->email;
     }
-    
-        /**
-     * Set fechaBaja
+
+    /**
+     * Set fechaInactivo
      *
-     * @param \DateTime $fechaBaja
+     * @param \DateTime $fechaInactivo
      *
      * @return Docente
      */
-    public function setFechaBaja($fechaBaja)
+    public function setFechaInactivo($fechaInactivo)
     {
-        $this->fechaBaja = $fechaBaja;
-
+        $this->fechaInactivo = $fechaInactivo;
         return $this;
     }
 
     /**
-     * Get fechaBaja
+     * Get fechaInactivo
      *
      * @return \DateTime
      */
-    public function getFechaBaja()
+    public function getFechaInactivo()
     {
-        return $this->fechaBaja;
+        return $this->fechaInactivo;
     }
     
       /**

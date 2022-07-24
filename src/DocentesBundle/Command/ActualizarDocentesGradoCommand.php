@@ -46,6 +46,12 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
      * @var DocenteService 
      */
     private $docenteService;
+
+    /**
+     * @var string
+     */
+    private $logDir;
+
     private $sep1;
     private $sep2;
 
@@ -68,13 +74,14 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
         $this->input = $input;
         $this->output = $output;
         $this->em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $this->logDir = $this->getContainer()->getParameter('kernel.root_dir') . '/logs';
         $this->docenteService = $this->getContainer()->get('docentes_grado.docentes');
 
         $this->force = $input->getOption(self::OPT_FORCE);
         $this->print = $input->getOption(self::OPT_PRINT);
 
         if ($this->force) {
-            $this->output->writeln('Force!!!!');
+            $this->output->writeln('Impactando cambios en la base de datos ...');
             $res = $this->docenteService->actualizar();
             if ($res === false) {
                 $this->output->writeln('Ocurrieron errores al actualizar: ');
@@ -88,54 +95,69 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
             }
         } else {
             $this->docenteService->generarReporte();
-            //dump($reporte);exit;
-            //$this->output->writeln('sin force');
         }
 
         $reporte = $this->docenteService->getReporte();
         $this->imprimirReporte($reporte);
+
+
     }
 
     private function imprimirReporte($reporte) {
 
-        $this->output->writeln($this->sep1);
-        $this->output->writeln('RESULTADOS');
-        $this->output->writeln($this->sep1);
-        $this->output->writeln('Nuevos docentes: ' . $reporte['nuevos_cant'] . ' / (Docentes que actualmente no existen en la base de datos)');
-        //$this->output->writeln('Docentes que actualmente no existen en la base de datos.');
+        $log = $this->sep1 . "\n" . 'RESULTADOS' . "\n" . $this->sep1 . "\n";
+        $aux = 'Nuevos docentes: ' . $reporte['nuevos_cant'] . ' / (Docentes que actualmente no existen en la base de datos)';
+        $log .= $aux . "\n";
 
         if ($this->print) {
             $i = 1;
             foreach ($reporte['nuevos'] as $docente) {
-                $this->output->writeln("#$i - " . $docente->__toString());
+                $linea = "#$i - " . $docente->__toString();
+                $log .= $linea. "\n";
                 $i++;
             }
         }
 
+        $log .= $this->sep2 . "\n";
 
-        $this->output->writeln($this->sep2);
+        $aux = 'Actualizados: ' . $reporte['actualizados_cant'] . ' / (Docentes cuyos datos fueron actualizados)';
+        $log .= $aux . "\n";
 
-
-        $this->output->writeln('Actualizados: ' . $reporte['actualizados_cant'] . ' / (Docentes cuyos datos fueron actualizados)');
         if ($this->print) {
             $i = 1;
             foreach ($reporte['actualizados'] as $docente) {
-                $this->output->writeln("#$i - " . $docente->__toString());
+                $linea = "#$i - " . $docente->__toString();
+                $log .= $linea. "\n";
                 $i++;
             }
         }
-        $this->output->writeln($this->sep2);
 
-        $this->output->writeln('Inactivos: ' . $reporte['inactivos_cant'] . ' / (Docentes que serán dados de baja por no venir en el web service.)');
+        $log .= $this->sep2 . "\n";
+
+        $aux = 'Inactivos: ' . $reporte['inactivos_cant'] . ' / (Docentes que serán dados de baja por no venir en el web service.)';
+        $log .= $aux . "\n";
 
         if ($this->print) {
             $i = 1;
             foreach ($reporte['inactivos'] as $docente) {
-                $this->output->writeln("#$i - " . $docente->__toString());
+                $linea = "#$i - " . $docente->__toString();
+                $log .= $linea. "\n";
                 $i++;
             }
         }
-        $this->output->writeln($this->sep2);
+
+        $log .= $this->sep2 . "\n\n";
+
+        $this->output->write($log);
+
+        //Guardar log en un archivo
+        if(!file_exists($this->logDir) || !is_writable($this->logDir)){
+            $this->output->writeln('No se pudo guardar el log porque el directorio ' . $this->logDir . ' no existe o no posee permisos de escritura.');
+        }else{
+            $log_path = $this->logDir . '/' . date('Ymd') . '_log_actualizar_docentes.txt';
+            file_put_contents($log_path, $log);
+            $this->output->writeln('Log guardado en ' . $log_path);
+        }
 
         $this->output->writeln('');
     }
