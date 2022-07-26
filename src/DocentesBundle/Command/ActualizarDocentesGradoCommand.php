@@ -154,7 +154,7 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
         if(!file_exists($this->logDir) || !is_writable($this->logDir)){
             $this->output->writeln('No se pudo guardar el log porque el directorio ' . $this->logDir . ' no existe o no posee permisos de escritura.');
         }else{
-            $log_path = $this->logDir . '/' . date('Ymd') . '_log_actualizar_docentes.txt';
+            $log_path = $this->logDir . '/' . date('Ymd_Hi') . '_log_actualizar_docentes.txt';
             file_put_contents($log_path, $log);
             $this->output->writeln('Log guardado en ' . $log_path);
         }
