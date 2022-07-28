@@ -22,7 +22,6 @@ class DocenteAdscriptoController extends Controller {
      *
      */
     public function indexAction(Request $request) {
-        $this->addFlash('success', 'Docente borrado correctamente.');
         $dql = "SELECT u FROM DocentesBundle:DocenteAdscripto u";
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);

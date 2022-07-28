@@ -10,6 +10,15 @@ namespace DocentesBundle\Repository;
  */
 class DocenteGradoRepository extends \Doctrine\ORM\EntityRepository
 {
-    use DocentesTrait;
+    public function getQueryBuilder(){
+
+        $qb = $this->createQueryBuilder('dg');
+        $qb->join('dg.persona', 'p');
+
+        $qb->orderBy('p.apellidos', 'ASC');
+
+        return $qb;
+
+    }
     
 }

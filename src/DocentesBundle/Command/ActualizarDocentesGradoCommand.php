@@ -2,6 +2,8 @@
 
 namespace DocentesBundle\Command;
 
+use DocentesBundle\Entity\AudDocenteGrado;
+use DocentesBundle\Entity\LogActualizacionDocentesGrado;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -98,8 +100,18 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
         }
 
         $reporte = $this->docenteService->getReporte();
-        $this->imprimirReporte($reporte);
+        $log = $this->imprimirReporte($reporte);
 
+        //Guardar un registro en el log
+        if ($this->force) {
+            $audDG = new LogActualizacionDocentesGrado();
+            $audDG->setCantNuevos($reporte['nuevos_cant']);
+            $audDG->setCantActualizados($reporte['actualizados_cant']);
+            $audDG->setCantDesactivados($reporte['inactivos_cant']);
+            $audDG->setLogTxt($log);
+            $this->em->persist($audDG);
+            $this->em->flush();
+        }
 
     }
 
@@ -160,6 +172,8 @@ class ActualizarDocentesGradoCommand extends ContainerAwareCommand {
         }
 
         $this->output->writeln('');
+
+        return $log;
     }
 
 }

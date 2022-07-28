@@ -2,13 +2,13 @@ docentes_docentes_adscriptos:
     resource: "@DocentesBundle/Resources/config/routing/docentes-adscriptos.yml"
     prefix:   /docentes/adscriptos
 
-docentes_index:
-    path:     /docentes
-    defaults: { _controller: DocentesBundle:Default:index }
+docentes_docentes_grado:
+    resource: "@DocentesBundle/Resources/config/routing/docentes-grado.yml"
+    prefix:   /docentes/grado
 
-docentes_grado:
-    path:     /docentes/grado
-    defaults: { _controller: DocentesBundle:Default:docentesGrado }
+docentes_index:
+    path: /docentes
+    defaults: { _controller: DocentesBundle:Default:index }
 
 #docentes_adscriptos:
 #    path:     /docentes/adscriptos

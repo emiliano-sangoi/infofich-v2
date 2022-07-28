@@ -31,8 +31,8 @@ trait DocenteAdscriptoTrait {
         );
         
         $conf['constraints'][] = new Type(array(
-            'type' => 'numeric',
-            'message' => 'Este campo debe ser numerico'
+            'type' => 'string',
+            'message' => 'Este campo debe ser valor alfanumerico.'
         ));
         
         if($required){

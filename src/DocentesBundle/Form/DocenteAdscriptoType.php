@@ -11,7 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DocenteAdscriptoType extends AbstractType {
 
     use DocenteAdscriptoTrait;
-    //use \AppBundle\Form\PersonaTypeTrait;
     
     /**
      * {@inheritdoc}

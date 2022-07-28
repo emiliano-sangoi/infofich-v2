@@ -2,13 +2,13 @@
 
 {% set full_width = false %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}  
-            {#<a href="{{ path('usuarios_new') }}" class="">
-                <i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
-                Docentes adscriptos
-            </a>#}
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('homepage') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -16,27 +16,28 @@
 
 {% block content %}
 
-    <div class="pb-5">
-        
+    <div class="px-lg-5">
+
         <div class="bg-white p-5">
 
-{#        <p class="lead">Seleccione una opci&oacute;n:</p>#}
+            {#        <p class="lead">Seleccione una opci&oacute;n:</p> #}
 
 
-
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <a href="{{ path('docentes_grado') }}" class="btn btn-outline-primary d-inline-block w-100 p-4">
-                    Docentes de grado
-                </a>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <a href="{{ path('docentes_grado_index') }}"
+                       class="btn btn-outline-primary d-inline-block w-100 p-4">
+                        Docentes de grado
+                    </a>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a href="{{ path('docentes_adscriptos') }}"
+                       class="btn btn-outline-primary  d-inline-block w-100 p-4">
+                        Docentes adscriptos
+                    </a>
+                </div>
             </div>
-            <div class="col-12 col-md-6">
-                <a href="{{ path('docentes_adscriptos') }}" class="btn btn-outline-primary  d-inline-block w-100 p-4">
-                    Docentes adscriptos
-                </a>
-            </div>
+
         </div>
-
-    </div>
     </div>
 {% endblock %}

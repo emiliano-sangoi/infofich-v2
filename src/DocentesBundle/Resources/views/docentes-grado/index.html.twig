@@ -1,0 +1,148 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('docentes_index') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <h2 class="font-weight-bold text-primary">
+            Docentes de grado
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
+        {% from '::macros.html.twig' import notificacion %}
+        <div class="mb-3">
+            {% set notif_txt %}
+                <p class="text-primary mb-0">
+                    Estos datos son obtenidos desde los servicios web provistos por Rectorado y se copian periodicamente
+                    a la base de datos de Infofich.
+                </p>
+                {% if ultLogAct %}
+                    <p class="text-primary">
+                        &Uacute;ltima actualizaci&oacute;n: <b>{{ ultLogAct.getFechaActualizacion()|date('d/m/Y H:i') }} Hs.</b>
+                    </p>
+                {% endif %}
+            {% endset %}
+            {{ notificacion('Fuente de los datos', notif_txt, 'primary') }}
+        </div>
+
+
+        <div class="bg-light">
+            {% if docentes_paginado[0] is defined %}
+
+                <div class="bg-white mb-3 p-3 text-muted shadow">
+                    Se encontraron: <b>{{ docentes_paginado.getTotalItemCount }}</b> docente(s).
+                </div>
+
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed mb-0">
+{#                        <caption class="p-2 p-lg-3">#}
+{#                            <div>#}
+{#                                <span class="font-weight-bold">Fuente de los datos:</span> Servicios web de Rectorado#}
+{#                                UNL#}
+{#                            </div>#}
+{#                        </caption>#}
+                        <thead class="bg-primary text-light">
+                        <tr class="text-white">
+                            <th>
+                                #
+                            </th>
+                            <th {% if docentes_paginado.isSorted('p.apellidos') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(docentes_paginado, 'Apellidos', 'p.apellidos') }}
+                            </th>
+                            <th {% if docentes_paginado.isSorted('p.nombres') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(docentes_paginado, 'Nombres', 'p.nombres') }}
+                            </th>
+                            <th {% if docentes_paginado.isSorted('dg.nroLegajo') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(docentes_paginado, 'Nro. Legajo', 'dg.nroLegajo') }}
+                            </th>
+
+                            <th {% if docentes_paginado.isSorted('p.documento') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(docentes_paginado, 'Nro. documento', 'p.documento') }}
+                            </th>
+                            <th class="text-center">
+                                ¿Activo?
+                            </th>
+                            <th class="text-center">
+                                Acciones
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for docente in docentes_paginado %}
+                            <tr>
+                                <td>
+                                    {{ loop.index }}
+                                </td>
+                                <td>
+                                    {{ docente.persona.apellidos }}
+                                </td>
+                                <td>
+                                    {{ docente.persona.nombres }}
+                                </td>
+                                <td>
+                                    {{ docente.nroLegajo }}
+                                </td>
+                                <td>
+                                    {{ docente.persona.documento }}
+                                </td>
+                                <td class="text-center">
+                                    {% if docente.fechaInactivo %}
+                                        <span class="text-success">Si</span>
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ path('docentes_adscriptos_show', { 'id': docente.id }) }}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                            {#                             -tipoDocumento: "LC"
+                               -numeroDocumento: "2759499"
+                               -cuil: "27-2759499-4"
+                               -apellido: "GIUSTI"
+                               -nombre: "ROSITA OLGA LETICIA"
+                               -email: ""
+                               -cargosAsociados: array:2 [ …2] #}
+
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {{ knp_pagination_render(docentes_paginado) }}
+                </div>
+
+
+
+            {% else %}
+                <div class="bg-light p-4">
+                    No se encontro ning&uacute;n docente.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

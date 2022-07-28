@@ -1,0 +1,11 @@
+docentes_grado_index:
+  path:     /
+  defaults: { _controller: DocentesBundle:DocenteGrado:index }
+
+docentes_docentes_grado_show:
+  path:     /{id}/ver
+  defaults: { _controller: DocentesBundle:DocenteGrado:ver }
+
+#docentes_docentes_grado_:
+#  path:     /docentes/grado
+#  defaults: { _controller: DocentesBundle:Default:docentesGrado }

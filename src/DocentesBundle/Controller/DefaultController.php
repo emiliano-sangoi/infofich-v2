@@ -19,48 +19,9 @@ class DefaultController extends Controller {
 
 
         return $this->render('DocentesBundle:Default:index.html.twig', array(
-                    'page_title' => 'InfoFICH - Docentes',
-                    //s'docentes_paginado' => $docentes_paginado
+            'page_title' => 'InfoFICH - Docentes',
+            //s'docentes_paginado' => $docentes_paginado
         ));
     }
-
-    public function docentesGradoAction(Request $request) {
-
-        // Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Docentes grado", $this->get("router")->generate("docentes_grado"));
-        
-        $queryDocentes = new QueryDocentes();
-        $docentes = $queryDocentes
-                ->setWsEnv(WSHelper::ENV_PROD)
-                ->setCacheEnabled(true)
-                ->setEscalafon(QueryDocentes::ESCALAFON_DOCENTES)
-                ->setEstado('activo')
-                ->getDocentes();
-        
-
-        $paginator = $this->get('knp_paginator');
-        
-        
-        $docentes_paginado = $paginator->paginate(
-                $docentes, /* query NOT result */ 
-                $request->query->getInt('page', 1), /* page number */ 
-                15 /* $this->getParameter('knp_items_por_pagina')/* limit per page */
-        );
-   
-        //dump($docentes_paginado);exit;
-
-
-        //   dump($docentes);exit;
-        //$data = $q->setCacheEnabled(true)->setWsgetDocentes();
-
-
-
-        return $this->render('DocentesBundle:Default:docentes-grado.html.twig', array(
-                    'page_title' => 'InfoFICH - Docentes grado',
-                    'docentes_paginado' => $docentes_paginado
-        ));
-    }    
 
 }

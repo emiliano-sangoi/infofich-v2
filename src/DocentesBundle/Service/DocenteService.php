@@ -6,6 +6,7 @@ use AppBundle\Entity\Persona;
 use AppBundle\Repository\PersonaRepository;
 use AppBundle\Service\APIInfofichService;
 use DateTime;
+use DocentesBundle\Entity\AudDocenteGrado;
 use DocentesBundle\Entity\DocenteGrado;
 use DocentesBundle\Repository\DocenteGradoRepository;
 use Doctrine\ORM\EntityManager;

@@ -26,6 +26,14 @@ a{
     outline: 0;
 }
 
+table thead th a{
+    color: white;
+
+    &:hover{
+        color: darken(white, 5%);
+    }
+}
+
 .ui-overlay-a{
     background-color: $white;
 }

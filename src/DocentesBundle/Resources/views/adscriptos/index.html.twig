@@ -2,6 +2,7 @@
 
 {% set full_width = false %}
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+{% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
 {% block navbar2 %}
     {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
@@ -12,7 +13,7 @@
 
             {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}
 
-            {% if app.user.tieneRol(ROL_SA) %}
+            {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
                 <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
                     Nuevo docente
