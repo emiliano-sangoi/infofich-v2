@@ -10,12 +10,42 @@ namespace DocentesBundle\Repository;
  */
 class DocenteGradoRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getQueryBuilder(){
+    public function getQueryBuilder($documento = null, $nroLegajo = null, $apellidos = null, $nombres = null, $estado = null){
 
         $qb = $this->createQueryBuilder('dg');
         $qb->join('dg.persona', 'p');
 
         $qb->orderBy('p.apellidos', 'ASC');
+
+        if($documento){
+            $qb->andWhere($qb->expr()->like('p.documento', ':documento'));
+            $qb->setParameter(':documento', '%' . $documento . '%');
+        }
+
+        if($nroLegajo){
+            $qb->andWhere($qb->expr()->like('dg.nroLegajo', ':nroLegajo'));
+            $qb->setParameter(':nroLegajo', '%' . $nroLegajo . '%');
+        }
+
+        if($apellidos){
+            $qb->andWhere($qb->expr()->like('p.apellidos', ':apellidos'));
+            $qb->setParameter(':apellidos', '%' . $apellidos . '%');
+        }
+
+        if($nombres){
+            $qb->andWhere($qb->expr()->like('p.nombres', ':nombres'));
+            $qb->setParameter(':nombres', '%' . $nombres . '%');
+        }
+
+        if(is_bool($estado)){
+            if($estado === true){
+                //Filtrar solo activos
+                $qb->andWhere($qb->expr()->isNull('dg.fechaInactivo'));
+            }else{
+                //Filtrar inactivos:
+                $qb->andWhere($qb->expr()->isNotNull('dg.fechaInactivo'));
+            }
+        }
 
         return $qb;
 

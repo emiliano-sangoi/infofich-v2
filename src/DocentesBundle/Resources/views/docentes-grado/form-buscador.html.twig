@@ -1,0 +1,48 @@
+<div class="p-5 bg-light shadow">
+
+    {{ form_start(form_buscador) }}
+
+    <div class="form-row">
+        <div class="col-12 col-md-2">
+            {{ form_label(form_buscador.documento) }}
+            {{ form_widget(form_buscador.documento) }}
+            {{ form_errors(form_buscador.documento) }}
+        </div>
+        <div class="col-12 col-md-2">
+            {{ form_label(form_buscador.nroLegajo) }}
+            {{ form_widget(form_buscador.nroLegajo) }}
+            {{ form_errors(form_buscador.nroLegajo) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ form_label(form_buscador.apellidos) }}
+            {{ form_widget(form_buscador.apellidos) }}
+            {{ form_errors(form_buscador.apellidos) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ form_label(form_buscador.nombres) }}
+            {{ form_widget(form_buscador.nombres) }}
+            {{ form_errors(form_buscador.nombres) }}
+        </div>
+        <div class="col-12 col-md-2">
+            {{ form_label(form_buscador.estado) }}
+            {{ form_widget(form_buscador.estado) }}
+            {{ form_errors(form_buscador.estado) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <button role="submit" class="btn btn-success">
+                <i class="fa fa-search"></i>&nbsp;Buscar
+            </button>
+        </div>
+        <div class="col-xs-12 offset-4 col-sm-4 text-right">
+            <a href="{{ path('docentes_grado_index') }}" class="btn btn-secondary">
+                Limpiar filtros
+            </a>
+        </div>
+    </div>
+
+
+    {{ form_end(form_buscador) }}
+</div>

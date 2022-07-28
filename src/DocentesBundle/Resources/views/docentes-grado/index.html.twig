@@ -36,11 +36,16 @@
                 </p>
                 {% if ultLogAct %}
                     <p class="text-primary">
-                        &Uacute;ltima actualizaci&oacute;n: <b>{{ ultLogAct.getFechaActualizacion()|date('d/m/Y H:i') }} Hs.</b>
+                        &Uacute;ltima actualizaci&oacute;n: <b>{{ ultLogAct.getFechaActualizacion()|date('d/m/Y H:i') }}
+                            Hs.</b>
                     </p>
                 {% endif %}
             {% endset %}
             {{ notificacion('Fuente de los datos', notif_txt, 'primary') }}
+        </div>
+
+        <div class="mb-3">
+            {% include 'DocentesBundle:docentes-grado:form-buscador.html.twig' %}
         </div>
 
 
@@ -53,12 +58,12 @@
 
                 <div class="table-responsive shadow">
                     <table class="table table-condensed mb-0">
-{#                        <caption class="p-2 p-lg-3">#}
-{#                            <div>#}
-{#                                <span class="font-weight-bold">Fuente de los datos:</span> Servicios web de Rectorado#}
-{#                                UNL#}
-{#                            </div>#}
-{#                        </caption>#}
+                        {#                        <caption class="p-2 p-lg-3"> #}
+                        {#                            <div> #}
+                        {#                                <span class="font-weight-bold">Fuente de los datos:</span> Servicios web de Rectorado #}
+                        {#                                UNL #}
+                        {#                            </div> #}
+                        {#                        </caption> #}
                         <thead class="bg-primary text-light">
                         <tr class="text-white">
                             <th>
@@ -88,23 +93,23 @@
                         <tbody>
                         {% for docente in docentes_paginado %}
                             <tr>
-                                <td>
+                                <td class="align-middle">
                                     {{ loop.index }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     {{ docente.persona.apellidos }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     {{ docente.persona.nombres }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     {{ docente.nroLegajo }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     {{ docente.persona.documento }}
                                 </td>
-                                <td class="text-center">
-                                    {% if docente.fechaInactivo %}
+                                <td class="text-center align-middle">
+                                    {% if not docente.fechaInactivo %}
                                         <span class="text-success">Si</span>
                                     {% else %}
                                         No
@@ -135,8 +140,6 @@
                 <div class="navigation mt-3 mb-5 centrate-x">
                     {{ knp_pagination_render(docentes_paginado) }}
                 </div>
-
-
 
             {% else %}
                 <div class="bg-light p-4">
