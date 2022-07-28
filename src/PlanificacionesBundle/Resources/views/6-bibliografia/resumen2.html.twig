@@ -16,7 +16,7 @@
                             </span>
                         </h6>
                         <p>
-                            <i>{{ b.bibliografia.infoCompleta|default(global_sd) }}</i>
+                            <i>{{ b.infoCompleta|default(global_sd) }}</i>                            
                         </p>
 
                         {#			    <strong>Referencia bibliográfica </strong> #}
@@ -52,7 +52,7 @@
 
 
     <div class="mt-4">          
-        <a class="btn btn-outline-primary" href="{{ path('planif_bibliografia_editar', {id : planificacion.id}) }}">
+        <a class="btn btn-outline-primary" href="{{ path('planif_bibliografia_index', {id : planificacion.id}) }}">
             <i class="fa fa-edit"></i>&nbsp;Modificar
         </a>                    
     </div>
