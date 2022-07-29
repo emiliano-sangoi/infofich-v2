@@ -354,6 +354,16 @@ class ActividadCurricular {
     }
 
     /**
+     * Get descripcion convirtiendo los saltos de linea a elementos <br/>
+     *
+     * @return string
+     */
+    public function getDescripcionNl2Br() {
+        $aux = str_replace("\n", '<br/>', $this->descripcion);
+        return $aux;
+    }
+
+    /**
      * Set planificacion
      *
      * @param \PlanificacionesBundle\Entity\Planificacion $planificacion

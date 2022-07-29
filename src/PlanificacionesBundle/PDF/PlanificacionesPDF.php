@@ -320,36 +320,40 @@ class PlanificacionesPDF extends ImprimirPDF {
         $actividades = $this->parametros['actividades'];
         $html .= '<h1>ACTIVIDADES CURRICULARES </h1>';
         if ($actividades[0]) {
-            $html .= '<table cellspacing="0" cellpadding="1">';
+
             foreach ($actividades as $actividad) {
                 $dictado = ($actividad->getDictadoVariasComisiones()) ? 'Sí' : 'No';
                 $fecha = $actividad->getFecha();
-                $html .= '<tr><td><b>Unidad</b> </td>
-                            <td><b>Tipo de Clase</b></td>
-                            <td><b>Fecha</b></td></tr>';
+                $html .= '<table cellspacing="0" cellpadding="3" border="1" ><tbody>';
+                $html .= '<tr><td style="background-color: lightgray;"><b>Unidad:</b> </td>
+                            <td style="background-color: lightgray;"><b>Tipo de clase:</b></td>
+                            <td style="background-color: lightgray;"><b>Fecha:</b></td></tr>';
                 $html .= '<tr><td>' . $actividad->getTemario() . '</td>
                             <td>' . $actividad->getTipoActividadCurricular() . '</td>
                             <td> ' . $fecha->format("d/m/Y") . '</td></tr>';
 
                 $html .= '<tr>
-                            <td><b>Carga Horaria Aula</b></td>
-                            <td><b>Carga Horaria Autonomo</b></td>
-                            <td><b>Dictado en varias comisiones :</b></td>
+                            <td style="background-color: lightgray;"><b>Carga horaria aula:</b></td>
+                            <td style="background-color: lightgray;"><b>Carga horaria autónomo:</b></td>
+                            <td style="background-color: lightgray;"><b>Dictado en varias comisiones:</b></td>
                             </tr>';
                 $html .= '<tr>
-                            <td>' . $actividad->getCargaHorariaAula() . '</td>
-                            <td> ' . $actividad->getCargaHorariaAutonomo() . '</td>
+                            <td>' . $actividad->getCargaHorariaAula() . ' Hs.</td>
+                            <td> ' . $actividad->getCargaHorariaAutonomo() . ' Hs.</td>
                             <td> '. $dictado .'</td>
                             </tr>';
                 $html .=  '<tr>
-                            <td><b>Descripcion</b> </td>
+                            <td colspan="3" style="background-color: lightgray;"><b>Descripción:</b> </td>
                             </tr>
                             <tr>
-                            <td  colspan="3">' . $actividad->getDescripcion() . '</td>
-                            </tr>
-                            <tr><td></td></tr>';
+                            <td  colspan="3">' . $actividad->getDescripcionNl2Br() . '</td>
+                            </tr>';
+                //$html .=  '<p></p>';
+                //$html .=  '<div></div>';
+                $html .= '</tbody></table>';
+                $html .= '<div><br/></div>';
             }
-            $html .= '</table>';
+
         } else {
             $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }

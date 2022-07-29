@@ -7,6 +7,7 @@ use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use FICH\APIInfofich\Query\Query;
+use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
@@ -333,7 +334,11 @@ class PlanificacionController extends Controller {
 
         //$bibliografia = $bibliografiaP->getBibliografia();
         //Actividades
-        $actividades = $planificacion->getActividadCurricular();
+        //$actividades = $planificacion->getActividadCurricular();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(ActividadCurricular::class);
+        $qb = $repo->crearQueryBuilder($planificacion);
+        $actividades = $qb->getQuery()->getResult();
 
         //Viajes Academicos
         $viajesAcademicos = null;
