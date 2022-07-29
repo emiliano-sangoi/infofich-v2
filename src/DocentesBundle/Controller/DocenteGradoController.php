@@ -2,13 +2,12 @@
 
 namespace DocentesBundle\Controller;
 
-use AppBundle\Entity\Persona;
 use DocentesBundle\Entity\DocenteGrado;
 use DocentesBundle\Entity\LogActualizacionDocentesGrado;
 use DocentesBundle\Form\BuscadorDocenteGradoType;
 use DocentesBundle\Form\DocenteGradoType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
+use AppBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 
 class DocenteGradoController extends Controller
@@ -71,28 +70,33 @@ class DocenteGradoController extends Controller
      */
     public function showAction(DocenteGrado $docenteGrado)
     {
+        $em = $this->getDoctrine()->getManager();
+        //$planificaciones = $em->getRepository(DocenteGrado::class)->getPlanificacionesDocente($docenteGrado);
 
-        $deleteForm = $this->createDeleteForm($docenteGrado);
+        $usuario = $em->getRepository(Usuario::class)->findOneBy(array(
+            'persona' => $docenteGrado->getPersona()
+        ));
+
         $form = $this->createForm(DocenteGradoType::class, $docenteGrado, array(
-            'disabled' => true
+            'disabled' => true,
+            'usuario' => $usuario
         ));
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Docentes grado", $this->get("router")->generate("docentes_docentes_grado_index"));
+        $breadcrumbs->addItem("Docentes grado", $this->get("router")->generate("docentes_grado_index"));
         $breadcrumbs->addItem($docenteGrado->__toString());
 
-        $em = $this->getDoctrine()->getManager();
-        //$planificaciones = $em->getRepository(DocenteGrado::class)->getPlanificacionesDocente($docenteGrado);
 
         return $this->render('DocentesBundle:docentes-grado:show.html.twig', array(
             'docenteGrado' => $docenteGrado,
-            'delete_form' => $deleteForm->createView(),
             'form' => $form->createView(),
+            'usuario' => $usuario,
             //'planificaciones' => $planificaciones,
             'page_title' => 'Docentes adscriptos - Ver docente',
         ));
     }
+
 
 }

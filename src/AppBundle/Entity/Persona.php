@@ -106,7 +106,8 @@ class Persona implements \JsonSerializable {
     }
 
     public function __toString() {
-        return $this->apellidos . ', ' . $this->nombres;
+        return ucwords(strtolower($this->apellidos))
+            . ', ' . ucwords(strtolower($this->nombres));
     }
 
     /**

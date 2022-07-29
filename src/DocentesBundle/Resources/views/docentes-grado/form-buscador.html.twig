@@ -31,12 +31,15 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-4">
-            <button role="submit" class="btn btn-success">
-                <i class="fa fa-search"></i>&nbsp;Buscar
-            </button>
+        <div class="col-12 col-md-6">
+                <button role="submit" class="btn btn-success">
+                    <i class="fa fa-search"></i>&nbsp;Filtrar
+                </button>
+                <span class="ml-3 text-success">
+                {{ docentes_paginado.getTotalItemCount }}&nbsp;registro(s) <span class="d-none d-lg-inline">encontrado(s).</span>
+            </span>
         </div>
-        <div class="col-xs-12 offset-4 col-sm-4 text-right">
+        <div class="col-12 col-md-6 text-right text-sm-left">
             <a href="{{ path('docentes_grado_index') }}" class="btn btn-secondary">
                 Limpiar filtros
             </a>

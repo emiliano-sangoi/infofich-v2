@@ -1,0 +1,101 @@
+{{ form_start(form) }}
+
+<div class="bg-light p-5 shadow">
+
+    <div>
+        {{ form_errors(form) }}
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-12 col-md-3">
+            {{ form_label(form.persona.documento) }}
+            {{ form_widget(form.persona.documento) }}
+            {{ form_errors(form.persona.documento) }}
+        </div>
+        <div class="col-12 col-md-5">
+            {{ form_label(form.persona.tipoDocumento) }}
+            {{ form_widget(form.persona.tipoDocumento) }}
+            {{ form_errors(form.persona.tipoDocumento) }}
+        </div>
+        <div class="col-12 col-md-4">
+            {{ form_label(form.persona.genero) }}
+            {{ form_widget(form.persona.genero) }}
+            {{ form_errors(form.persona.genero) }}
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-12 col-md-6">
+            {{ form_label(form.persona.apellidos) }}
+            {{ form_widget(form.persona.apellidos) }}
+            {{ form_errors(form.persona.apellidos) }}
+        </div>
+        <div class="col-12 col-md-6">
+            {{ form_label(form.persona.nombres) }}
+            {{ form_widget(form.persona.nombres) }}
+            {{ form_errors(form.persona.nombres) }}
+        </div>
+
+    </div>
+
+    {% from '::macros.html.twig' import input_datetime_picker %}
+
+    <div class="form-row">
+        <div class="col-12 col-md-6">
+            {{ form_label(form.persona.email) }}
+            {{ form_widget(form.persona.email) }}
+            {{ form_errors(form.persona.email) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ form_label(form.persona.telefono) }}
+            {{ form_widget(form.persona.telefono) }}
+            {{ form_errors(form.persona.telefono) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ input_datetime_picker(form.persona.fechaNacimiento, form.persona.fechaNacimiento.vars.id ~ '_picker', true ) }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12 col-md-3">
+            {{ form_label(form.estado) }}
+            {{ form_widget(form.estado) }}
+            {{ form_errors(form.estado) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ input_datetime_picker(form.fechaInactivo, form.fechaInactivo.vars.id ~ '_picker', true ) }}
+        </div>
+        <div class="col-12 col-md-3">
+            {{ form_label(form.poseeUsuario) }}
+            {{ form_widget(form.poseeUsuario) }}
+            {{ form_errors(form.poseeUsuario) }}
+        </div>
+        <div class="col-12 col-md-3 align-self-end">
+            {% set PERMISO_EDIT_USUARIO = constant('AppBundle\\Seguridad\\Permisos::USUARIO_EDITAR') %}
+            {% if app.user.tienePermiso(PERMISO_EDIT_USUARIO) %}
+                {% if usuario %}
+                    <a href="{{ path('usuarios_edit', { id : usuario.id }) }}" class="btn btn-secondary"
+                       target="_blank">
+                        <i class="fa fa-edit"></i>Editar
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12 col-md-3">
+            {{ input_datetime_picker(form.fechaUltimaActualizacion, form.fechaUltimaActualizacion.vars.id ~ '_picker', true ) }}
+        </div>
+    </div>
+
+
+    {% block tabla_planificaciones %}
+    {% endblock %}
+
+
+</div>
+
+{{ form_end(form) }}

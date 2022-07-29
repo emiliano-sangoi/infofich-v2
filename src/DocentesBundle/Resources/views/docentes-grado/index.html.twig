@@ -51,11 +51,7 @@
 
         <div class="bg-light">
             {% if docentes_paginado[0] is defined %}
-
-                <div class="bg-white mb-3 p-3 text-muted shadow">
-                    Se encontraron: <b>{{ docentes_paginado.getTotalItemCount }}</b> docente(s).
-                </div>
-
+                
                 <div class="table-responsive shadow">
                     <table class="table table-condensed mb-0">
                         {#                        <caption class="p-2 p-lg-3"> #}
@@ -108,17 +104,17 @@
                                 <td class="align-middle">
                                     {{ docente.persona.documento }}
                                 </td>
-                                <td class="text-center align-middle">
+                                <td class="text-center align-middle font-weight-bold">
                                     {% if not docente.fechaInactivo %}
                                         <span class="text-success">Si</span>
                                     {% else %}
-                                        No
+                                        <span class="text-muted">No</span>
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ path('docentes_adscriptos_show', { 'id': docente.id }) }}"
+                                    <a href="{{ path('docentes_docentes_grado_show', { 'id': docente.id }) }}"
                                        class="btn btn-sm btn-outline-secondary">
-                                        Ver
+                                        <i class="fa fa-eye"></i>&nbsp;Ver
                                     </a>
                                 </td>
                             </tr>

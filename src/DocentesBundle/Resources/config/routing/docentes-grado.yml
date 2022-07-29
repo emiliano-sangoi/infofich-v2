@@ -4,8 +4,4 @@ docentes_grado_index:
 
 docentes_docentes_grado_show:
   path:     /{id}/ver
-  defaults: { _controller: DocentesBundle:DocenteGrado:ver }
-
-#docentes_docentes_grado_:
-#  path:     /docentes/grado
-#  defaults: { _controller: DocentesBundle:Default:docentesGrado }
+  defaults: { _controller: DocentesBundle:DocenteGrado:show }

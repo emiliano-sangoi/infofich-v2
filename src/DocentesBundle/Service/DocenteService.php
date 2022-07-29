@@ -149,6 +149,7 @@ class DocenteService {
                 $this->reporte['inactivos'][] = $docenteBD;
                 if (!$dryrun) {
                     $docenteBD->setFechaInactivo(new DateTime());
+                    $docenteBD->setFechaUltimaActualizacion(new DateTime());
                     $this->em->flush();
                 }
                 $ci++;

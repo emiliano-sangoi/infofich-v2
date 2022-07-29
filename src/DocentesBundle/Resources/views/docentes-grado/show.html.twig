@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('docentes_grado_index') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <h2 class="font-weight-bold text-primary">
+            {{ docenteGrado.persona }}
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
+        {% embed 'DocentesBundle:docentes-grado:form.html.twig' %}
+
+{#            {% block tabla_planificaciones %}#}
+{#                <div class="form-row">#}
+{#                    <div class="col-12">#}
+{#                        <label class="font-weight-bold">Planificaciones asociadas</label>#}
+{#                        {% if docenteAdscripto.planificacionesAdscripto[0] is defined %}#}
+{#                            {% include 'DocentesBundle:adscriptos:tabla-planif.html.twig' %}#}
+{#                        {% else %}#}
+{#                            <p class="text-muted mb-0">#}
+{#                                El docente no se encuentra asociado a ninguna planificaci&oacute;n.#}
+{#                            </p>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endblock %}#}
+
+        {% endembed %}
+
+        {% embed '::botonera.html.twig' %}
+
+            {% block left %}
+                <a href="{{ path('docentes_grado_index') }}" class="btn btn-secondary">
+                    Volver al listado
+                </a>
+            {% endblock %}
+
+            {% block right %}
+            {% endblock %}
+
+        {% endembed %}
+
+    </div>
+
+{% endblock %}
