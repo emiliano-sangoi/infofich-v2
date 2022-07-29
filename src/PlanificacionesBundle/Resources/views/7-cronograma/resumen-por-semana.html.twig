@@ -1,0 +1,70 @@
+{# Utilizado en la sección revisar #}
+<div>
+
+    <div class="row">
+        <div class="col-12">
+
+
+            {% if resumen.cronograma2[1] is defined %}
+
+                {% for n, data in resumen.cronograma2 %}
+                    <h5>
+                        <span class="font-weight-bold">Semana {{ n }} </span>- <span
+                                class="text-secondary">{{ data.ini }} - {{ data.fin }}</span>
+                        {#                        {{ data.ini }} - {{ data.fin }} #}
+                        {#                        {{ t.unidad }} - {{ t.titulo }} #}
+                    </h5>
+                    <div class="mb-4">
+                        {% include "PlanificacionesBundle:7-cronograma:tabla-actividades.html.twig" with {
+                            'actividades': data.actividades,
+                            'mostrar_acciones': false
+                        } %}
+                    </div>
+
+                {% endfor %}
+
+                {#                    {% for c in resumen.cronograma %} #}
+
+
+
+                {#                            <p> #}
+                {#                                <strong>Unidad :</strong>  {{ c.temario}} #}
+                {#                                - <strong>Fecha :</strong> {{ c.fecha|date("d/m/Y") }} #}
+                {#                                - <strong>Tipo :</strong>  {{ c.tipoActividadCurricular}} #}
+                {#                            </p> #}
+                {#                            <p> #}
+                {#                                <strong>Carga horaria en aula : </strong> {{ c.cargaHorariaAula}} #}
+                {#                                <strong>Horas de estudio autónomo : </strong> {{ c.cargaHorariaAutonomo}} #}
+                {#                                <strong>Dictado en varias comisiones : </strong> #}
+                {#                                {% if not c.dictadoVariasComisiones %} #}
+                {#                                    No #}
+                {#                                {% else %} #}
+                {#                                    Sí #}
+                {#                                {% endif %} #}
+                {#                                <strong>Descripción :</strong>  {{ c.descripcion|default(global_sd) }} #}
+                {#                            </p> #}
+
+                {#                    {% endfor %} #}
+
+
+            {% else %}
+                <p class="text-muted lead">
+                    No se ha definido ninguna actividad curricular.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <a class="btn btn-primary"
+               href="{{ path('planif_act_curriculares_editar', {id : planificacion.id}) }}">
+                <i class="fa fa-edit"></i>&nbsp;Modificar
+            </a>
+            <button role="button" class="btn btn-outline-primary" id="btnDistHorariaModal">
+                <i class="fa fa-list"></i> Distribución horaria
+            </button>
+        </div>
+    </div>
+</div>

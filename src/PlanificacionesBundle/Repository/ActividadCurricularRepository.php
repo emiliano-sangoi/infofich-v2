@@ -2,6 +2,10 @@
 
 namespace PlanificacionesBundle\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use PlanificacionesBundle\Entity\Planificacion;
+
 /**
  * ActividadCurricularRepository
  *
@@ -10,4 +14,135 @@ namespace PlanificacionesBundle\Repository;
  */
 class ActividadCurricularRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function crearQueryBuilder(Planificacion $planificacion, $fechaIni = null, $fechaFin = null, $tema = null)
+    {
+
+        $qb = $this->createQueryBuilder('a');
+        $qb->join('a.planificacion', 'p');
+
+        $qb->where($qb->expr()->eq('p.id', ':p_id'));
+        $qb->setParameter(':p_id', $planificacion->getId());
+
+        if($fechaIni){
+            $qb->andWhere($qb->expr()->gte('a.fecha', ':fi'));
+            $qb->setParameter(':fi', $fechaIni);
+        }
+
+        if($fechaFin){
+            $qb->andWhere($qb->expr()->lte('a.fecha', ':ff'));
+            $qb->setParameter(':ff', $fechaFin);
+        }
+
+        if($tema){
+            $qb->join('a.temario', 't');
+            $qb->andWhere($qb->expr()->eq('t.id', ':t_id'));
+            $qb->setParameter(':t_id', $tema->getId());
+        }
+
+        $qb->orderBy('a.fecha', 'ASC');
+
+        return $qb;
+    }
+
+    private function datediffInWeeks($date1, $date2)
+    {
+        if ($date1 > $date2) return datediffInWeeks($date2, $date1);
+        $first = DateTime::createFromFormat('m/d/Y', $date1);
+        $second = DateTime::createFromFormat('m/d/Y', $date2);
+        return floor($first->diff($second)->days / 7);
+    }
+
+    public function getActividadesPorTema(Planificacion $planificacion)
+    {
+        $temas = $planificacion->getTemario();
+
+        $result = array();
+        foreach ($temas as $tema){
+            $qb = $this->crearQueryBuilder($planificacion, null, null, $tema);
+            $it = $qb->getQuery()->iterate();
+            foreach ($it as $row){
+                $result[$tema->getId()][] = $row[0];
+            }
+
+        }
+
+        return $result;
+    }
+
+    public function getActividadesPorSemana(Planificacion $planificacion)
+    {
+
+        $aIni = $this->getFechaPrimeraAct($planificacion);
+        $aFin = $this->getFechaUltimaAct($planificacion);
+
+        if (!$aIni || !$aFin) {
+            return array();
+        }
+
+        $i = 1;
+        $result = array();
+
+        $lunes = $this->getLunes($aIni);
+        $domingo = clone $lunes;
+        $domingo->modify('next sunday');
+
+        while ($lunes->getTimestamp() < $aFin->getTimestamp()){
+
+            $qb = $this->crearQueryBuilder($planificacion, $lunes, $domingo);
+
+            $result[$i] = array(
+                'ini' => $lunes->format('d/m/Y'),
+                'fin' => $domingo->format('d/m/Y'),
+                'actividades' => $qb->getQuery()->getResult()
+            );
+
+            $lunes->modify('+7 day');
+            $domingo->modify('+7 day');
+            $i++;
+
+        }
+
+        return $result;
+    }
+
+    /**
+     */
+    private function getFechaPrimeraAct(Planificacion $planificacion)
+    {
+        $qb = $this->crearQueryBuilder($planificacion);
+        $qb->select('MIN(a.fecha)');
+
+        try {
+            $fechaStr = $qb->getQuery()->getSingleScalarResult();
+            return \DateTime::createFromFormat('Y-m-d H:i:s', $fechaStr);
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+
+        return null;
+    }
+
+    private function getFechaUltimaAct(Planificacion $planificacion)
+    {
+        $qb = $this->crearQueryBuilder($planificacion);
+        $qb->select('MAX(a.fecha)');
+
+        try {
+            $fechaStr = $qb->getQuery()->getSingleScalarResult();
+            return \DateTime::createFromFormat('Y-m-d H:i:s', $fechaStr);
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+
+        return null;
+    }
+
+    private function getLunes(\DateTime $fecha)
+    {
+        $fecha->setISODate((int)$fecha->format('o'), (int)$fecha->format('W'), 1);
+        return $fecha;
+    }
+
+
 }

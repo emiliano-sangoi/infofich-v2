@@ -13,6 +13,7 @@ use PlanificacionesBundle\Entity\PlanificacionDocenteColaborador;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use PlanificacionesBundle\Service\PlanificacionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PlanificacionesBundle\Entity\ActividadCurricular;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -215,6 +216,7 @@ class RevisarController extends Controller {
         $this->addTemario($planificacion);
         $this->addBibliografia($planificacion);
         $this->addCronograma($planificacion);
+        $this->addCronogramaSemana($planificacion);
         $this->addDistribucion($planificacion);
         $this->addViaje($planificacion);
     }
@@ -430,9 +432,22 @@ class RevisarController extends Controller {
     private function addCronograma(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['cronograma'] = null;
-        $cronograma = $planificacion->getActividadCurricular();
-        $this->resumen['cronograma'] = $cronograma;
-        //dump($cronograma);
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(ActividadCurricular::class);
+//        $qb = $repo->crearQueryBuilder($planificacion);
+//        $qb->join('a.temario', 't');
+//        $qb->orderBy('t.unidad', 'ASC');
+//        $qb->addOrderBy('a.fecha', 'ASC');
+//dump($repo->getActividadesPorTema($planificacion));exit;
+        $this->resumen['cronograma'] = $repo->getActividadesPorTema($planificacion);
+    }
+
+    private function addCronogramaSemana(Planificacion $planificacion) {
+        $this->resumen['cronograma2'] = null;
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(ActividadCurricular::class);
+
+        $this->resumen['cronograma2'] = $repo->getActividadesPorSemana($planificacion);
     }
 
     /**
