@@ -52,7 +52,9 @@ class APIInfofichService {
             WSHelper::CARRERA_IRH,
             WSHelper::CARRERA_II,
             WSHelper::CARRERA_IAMB,
-            WSHelper::CARRERA_IAGR
+            WSHelper::CARRERA_IAGR,
+            WSHelper::CARRERA_PTOP,
+            WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA
         );
         
         $this->wsCacheEnabled = $apiInfofichCacheEnabled;

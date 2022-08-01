@@ -105,7 +105,7 @@ class Bibliografia
      * @var Planificacion
      *
      * @ORM\ManyToOne(targetEntity="Planificacion", inversedBy="bibliografiasPlanificacion")
-     * @ORM\JoinColumn(name="planificaciones_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="planificaciones_id", referencedColumnName="id")
      */
     private $planificacion;
 

@@ -64,7 +64,7 @@ class HistoricoEstados implements \JsonSerializable
      * @var AppBundle\Entity\Usuario
      * 
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usuario;
     

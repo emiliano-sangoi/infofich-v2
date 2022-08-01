@@ -20,7 +20,9 @@ class AjaxController extends Controller {
                     WSHelper::CARRERA_IRH,
                     WSHelper::CARRERA_II,
                     WSHelper::CARRERA_IAMB,
-                    WSHelper::CARRERA_IAGR
+                    WSHelper::CARRERA_IAGR,
+                    WSHelper::CARRERA_PTOP,
+                    WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA
                 ))) {
             return new JsonResponse(array('msg' => 'Codigo de carrera incorrecto.'), 400); 
         }

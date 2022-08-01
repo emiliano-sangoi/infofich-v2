@@ -125,7 +125,7 @@ function actualizarAsignaturas(event) {
     var carrera = $(select_carreras).val();
     console.log('carrera: ' + carrera);
 
-    if (carrera != '1069' && carrera != '1071' && carrera != '1073' && carrera != '1077') {
+    if (carrera != '1069' && carrera != '1071' && carrera != '1073' && carrera != '1077' && carrera != '1078' && carrera != '1075') {
         console.log('Ninguna carrera elegida');
         select_asignatura.html('');
         return;
