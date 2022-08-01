@@ -323,13 +323,13 @@ class Planificacion implements \JsonSerializable{
             //------------------------------------------------------------------------------------
             // Bibliografía
             $b_planif = new ArrayCollection();
-            foreach ($this->bibliografiasPlanificacion as $item){                                
+            foreach ($this->bibliografias as $item){                                
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
                 $b_planif->add($itemCopia);                
             }
             
-            $this->bibliografiasPlanificacion = $b_planif;
+            $this->bibliografias = $b_planif;
             
             
             //------------------------------------------------------------------------------------
