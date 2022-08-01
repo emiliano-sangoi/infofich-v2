@@ -867,9 +867,9 @@ class Planificacion implements \JsonSerializable{
             case WSHelper::CARRERA_IAMB:
                 return 'IAMB';
             case WSHelper::CARRERA_PTOP:
-                return 'PTOP';
+                return 'PTC';
             case WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA:
-                return 'TECROB';
+                return 'TUAR';
         }
         
         return null;
