@@ -3,7 +3,7 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-
+{#{{ dump(temario) }}#}
     {% if temario[0] is not defined %}
         {% from '::macros.html.twig' import notificacion %}
         {% set msg %}

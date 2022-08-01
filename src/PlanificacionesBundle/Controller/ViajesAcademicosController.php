@@ -34,7 +34,7 @@ class ViajesAcademicosController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem($planificacion);
-        $breadcrumbs->addItem('Viaje');
+        $breadcrumbs->addItem('Viajes académicos');
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:index.html.twig', array(
             'page_title' => $this->getPageTitle($planificacion) . ' - Viaje Academico',
@@ -92,7 +92,8 @@ class ViajesAcademicosController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem($planificacion);
-        $breadcrumbs->addItem('ViajesAcademicos');
+        $current_route = $this->get("router")->generate('planif_viaje_index', array('id' => $planificacion->getId()));
+        $breadcrumbs->addItem('Viajes académicos', $current_route);
         $breadcrumbs->addItem('NUEVO');
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:new.html.twig', array(
@@ -132,7 +133,7 @@ class ViajesAcademicosController extends Controller {
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem($viaje->getPlanificacion());
         $current_route = $this->get("router")->generate('planif_viaje_ver', array('id' => $viaje->getPlanificacion()->getId()));
-        $breadcrumbs->addItem('Viajes academicos', $current_route);
+        $breadcrumbs->addItem('Viajes académicos', $current_route);
         $breadcrumbs->addItem('VER');
 
         $delete_form = $this->crearFormBorrado($viaje);
@@ -187,8 +188,8 @@ class ViajesAcademicosController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Planificaciones", $this->get("router")->generate("planificaciones_homepage"));
         $breadcrumbs->addItem($viaje->getPlanificacion());
-        $current_route = $this->get("router")->generate('planif_viaje_editar', array('id' => $viaje->getPlanificacion()->getId()));
-        //$breadcrumbs->addItem('Unidad ' . $tema->getUnidad(), $current_route);
+        $current_route = $this->get("router")->generate('planif_viaje_index', array('id' => $viaje->getPlanificacion()->getId()));
+        $breadcrumbs->addItem('Viajes académicos', $current_route);
         $breadcrumbs->addItem('EDITAR');
 
         return $this->render('PlanificacionesBundle:9-viajes-acad:edit.html.twig', array(

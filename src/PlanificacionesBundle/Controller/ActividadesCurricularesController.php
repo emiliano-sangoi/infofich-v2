@@ -43,6 +43,7 @@ class ActividadesCurricularesController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository(Temario::class)->getQb($planificacion);
         $qb->orderBy('t.unidad', 'ASC');
+        //dump($em->getRepository(ActividadCurricular::class)->findBy(array('planificacion' => $planificacion)));exit;
 
         //En la variable errores, Validamos si hay errrores en la planifacacion, incluido carga horaria de la asignatura.
         return $this->render('PlanificacionesBundle:7-cronograma:index.html.twig', array(

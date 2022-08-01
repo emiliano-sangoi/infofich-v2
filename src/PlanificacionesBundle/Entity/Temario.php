@@ -191,37 +191,6 @@ class Temario {
         return $this->planificacion;
     }
 
-    /**
-     * Add actividade
-     *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
-     *
-     * @return Temario
-     */
-    public function addActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade) {
-        $this->actividades[] = $actividade;
-
-        return $this;
-    }
-
-    /**
-     * Remove actividade
-     *
-     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
-     */
-    public function removeActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade) {
-        $this->actividades->removeElement($actividade);
-    }
-
-    /**
-     * Get actividades
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getActividades() {
-        return $this->actividades;
-    }
-
     public function getActividadesOrdPorFecha() {
 
         $actividades = $this->actividades->toArray();
@@ -254,6 +223,57 @@ class Temario {
     public function getPosicion()
     {
         return $this->posicion;
+    }
+
+
+    /**
+     * Add actividade
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
+     *
+     * @return Temario
+     */
+    public function addActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
+    {
+        $actividade->setTemario($this);
+
+        $this->actividades[] = $actividade;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividade
+     *
+     * @param \PlanificacionesBundle\Entity\ActividadCurricular $actividade
+     */
+    public function removeActividade(\PlanificacionesBundle\Entity\ActividadCurricular $actividade)
+    {
+        $this->actividades->removeElement($actividade);
+    }
+
+    /**
+     * Get actividades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActividades()
+    {
+        return $this->actividades;
+    }
+
+    /**
+     * Set actividades
+     *
+     * @param ArrayCollection $actividades
+     *
+     * @return Temario
+     */
+    public function setActividades($actividades)
+    {
+        $this->actividades = $actividades;
+
+        return $this;
     }
 
 }

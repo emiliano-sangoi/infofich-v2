@@ -2,19 +2,26 @@
     <table class="table table-sm table-condensed table-hover mb-0 bg-white" id="tablaViajes">
         <thead>
         <tr class="bg-secondary text-white">
+            <th scope="col" class="text-center">#</th>
             <th scope="col">Fecha salida</th>
-            <th scope="col" class="text-center">Descripción</th>
-            <th scope="col">Objetivos</th>
-            <th scope="col">Recorrido</th>
+            <th scope="col">Descripción</th>
+{#            <th scope="col">Objetivos</th>#}
+{#            <th scope="col">Recorrido</th>#}
             <th scope="col" class="text-center">Acciones</th>
         </tr>
         </thead>
         <tbody>
         {% for viaje in viajes %}
             <tr>
-                <td class="unidad align-middle text-center" data-id-unidad="{{ viaje.id }}">{{ viaje.fechaTentativa|date("d/m/Y") }}</td>
-                
-                <td class="align-middle py-2">
+                <td class="align-middle text-center" >
+                    {{ loop.index }}
+                </td>
+
+                <td class="unidad align-middle" data-id-unidad="{{ viaje.id }}">
+                    {{ viaje.fechaTentativa|date("d/m/Y") }}
+                </td>
+
+                <td class="align-middle">
                     <div class="texto-container d-inline">
                         {% if viaje.descripcion|length > 75 %}
                             <div class="txt-breve">
@@ -37,12 +44,12 @@
                         {% endif %}
                     </div>
                 </td>
-                <td class="align-middle">
-                    {{ viaje.objetivos }}
-                </td>
-                <td class=" align-middle">
-                    {{ viaje.recorrido }}
-                </td>
+{#                <td class="align-middle">#}
+{#                    {{ viaje.objetivos }}#}
+{#                </td>#}
+{#                <td class=" align-middle">#}
+{#                    {{ viaje.recorrido }}#}
+{#                </td>#}
                 {#                <td class="align-middle text-center"> #}
                 {#                    {{ tema.actividades|length }} #}
                 {#                </td> #}

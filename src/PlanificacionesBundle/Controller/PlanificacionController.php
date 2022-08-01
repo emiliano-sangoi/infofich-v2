@@ -203,7 +203,7 @@ class PlanificacionController extends Controller {
 
             /* @var $planificacionCopia Planificacion */
             $planificacionCopia = clone $planificacion;
-
+//dump($planificacion, $planificacionCopia);exit;
             $planificacionCopia->setCarrera($data['carrera']);
             $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
             $planificacionCopia->setAnioAcad($data['anioAcad']);

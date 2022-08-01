@@ -312,10 +312,20 @@ class Planificacion implements \JsonSerializable{
             //------------------------------------------------------------------------------------
             // Temario
             $temarios = new ArrayCollection();
-            foreach ($this->temario as $item){
-                $itemCopia = clone $item;
-                $itemCopia->setPlanificacion($this);
-                $temarios->add($itemCopia);                
+            foreach ($this->temario as $tema){
+                $tema2 = clone $tema;
+                $tema2->setPlanificacion($this);
+                $temarios->add($tema2);
+
+                $a_curriculares = new ArrayCollection();
+                foreach ($tema2->getActividades() as $act){
+                    $act2 = clone $act;
+                    $act2->setPlanificacion($this);
+                    $act2->setTemario($tema2);
+                    $a_curriculares->add($act2);
+                }
+                $tema2->setActividades($a_curriculares);
+
             }
             
             $this->temario = $temarios;
@@ -328,20 +338,7 @@ class Planificacion implements \JsonSerializable{
                 $itemCopia->setPlanificacion($this);
                 $b_planif->add($itemCopia);                
             }
-            
             $this->bibliografias = $b_planif;
-            
-            
-            //------------------------------------------------------------------------------------
-            // Actividades curriculares
-            $a_curriculares = new ArrayCollection();
-            foreach ($this->actividadCurricular as $item){                                
-                $itemCopia = clone $item;
-                $itemCopia->setPlanificacion($this);
-                $a_curriculares->add($itemCopia);                
-            }
-            
-            $this->actividadCurricular = $a_curriculares;
             
             //------------------------------------------------------------------------------------
             // Viajes academicos
