@@ -188,7 +188,7 @@ class ActividadCurricularType extends AbstractType
                 'Si' => true,
                 'No' => false,
             ),
-            'data' => false,
+            //'data' => false,
             // *this line is important*
             'choices_as_values' => true,
             'attr' => array(
