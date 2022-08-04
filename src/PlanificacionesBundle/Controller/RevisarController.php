@@ -6,6 +6,7 @@ use AppBundle\Seguridad\Permisos;
 use FICH\APIInfofich\Model\Carrera;
 use FICH\APIInfofich\Model\Materia;
 use PlanificacionesBundle\Entity\Estado;
+use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto;
@@ -411,7 +412,12 @@ class RevisarController extends Controller {
     private function addTemario(Planificacion $planificacion) {
         //ver esto con Emi
         $this->resumen['temario'] = null;
-        $temario = $planificacion->getTemario();
+        $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
+        $temario = $repo->findBy(array(
+            'planificacion' => $planificacion
+        ), array('unidad' => 'ASC'));
+      
+//        $temario = $planificacion->getTemario();
         $this->resumen['temario'] = $temario;
     }
 
