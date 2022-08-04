@@ -9,6 +9,7 @@ use Exception;
 use FICH\APIInfofich\Query\Query;
 use PlanificacionesBundle\Entity\ActividadCurricular;
 use PlanificacionesBundle\Entity\Estado;
+use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Entity\HistoricoEstados;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\BuscadorType;
@@ -326,7 +327,11 @@ class PlanificacionController extends Controller {
         $resultados = $planificacion->getResultados();
 
         //Temario
-        $temario = $planificacion->getTemario();
+        //$temario = $planificacion->getTemario();
+        $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
+        $temario = $repo->findBy(array(
+            'planificacion' => $planificacion
+        ), array('unidad' => 'ASC'));
 
         //Bibliografia
         $bibliografia = null;

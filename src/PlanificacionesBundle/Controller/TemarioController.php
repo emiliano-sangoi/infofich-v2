@@ -23,7 +23,7 @@ class TemarioController extends Controller
     public function indexAction(Request $request, Planificacion $planificacion)
     {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-
+dump('hola');exit;
         $repo = $this->getDoctrine()->getManager()->getRepository(Temario::class);
         $temas = $repo->findBy(array(
             'planificacion' => $planificacion
