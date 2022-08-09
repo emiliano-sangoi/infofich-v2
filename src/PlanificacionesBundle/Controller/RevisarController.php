@@ -369,9 +369,7 @@ class RevisarController extends Controller {
 
             //$this->resumen['modalidadCfi'] = $requisitos->getModalidadCfi();
             if ($requisitos->getModalidadCfi()) {
-                $this->resumen['modalidadCfi'] = 'Sí';
-            } else {
-                $this->resumen['modalidadCfi'] = 'No';
+                $this->resumen['modalidadCfi'] = $requisitos->getModalidadCfi();
             }
 
             $this->resumen['fechaParcialCfi'] = $requisitos->getFechaParcailCfi();

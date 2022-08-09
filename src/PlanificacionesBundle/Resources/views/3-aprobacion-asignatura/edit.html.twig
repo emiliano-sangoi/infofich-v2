@@ -13,7 +13,7 @@
     <script>
 
         $(document).ready(function () {
-
+            onChangePreveIntegrador();
 
         });
 
@@ -26,9 +26,15 @@
             var radioValue = $("input[name='planificacionesbundle_planificacion[preveCfi]']:checked").val();
 
             if (radioValue == 1) {                
-                $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();
+                $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();                
+                //Agregamos la clase required en el campo fecha parcial integrador    
+                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").prop('required',true);
+
+
             } else {                
                 $(".preveCfiDiv").addClass('d-none');
+                
+                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").removeAttr('required',false);
             }
 
         }

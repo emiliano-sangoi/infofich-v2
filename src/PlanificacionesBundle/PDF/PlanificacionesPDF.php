@@ -148,7 +148,8 @@ class PlanificacionesPDF extends ImprimirPDF {
             $prevePromTeo = ($this->parametros['requisitosAprobacion']['prevePromParcialTeo']) ? 'Sí' : 'No';
             $prevePromPra = ($this->parametros['requisitosAprobacion']['prevePromParcialPractica']) ? 'Sí' : 'No';
             $preveCfi = ($this->parametros['requisitosAprobacion']['preveCfi']) ? 'Sí' : 'No';
-            $modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? 'Sí' : 'No';
+            //$modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? 'Sí' : 'No';
+            $modalidadCfi = $this->parametros['requisitosAprobacion']['modalidadCfi'];
             $fechaPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaPrimerParcial']->format("d/m/Y") : 'Sin Definir';
             $fechaSegundoParcial = ($this->parametros['requisitosAprobacion']['fechaSegundoParcial']) ? $this->parametros['requisitosAprobacion']['fechaSegundoParcial']->format("d/m/Y") : 'Sin Definir';
             $fechaRecupPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']->format("d/m/Y") : 'Sin Definir';
