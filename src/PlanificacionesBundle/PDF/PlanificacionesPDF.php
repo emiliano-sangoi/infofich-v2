@@ -226,15 +226,17 @@ class PlanificacionesPDF extends ImprimirPDF {
             <tr><td></td></tr>
             <tr>         
                 <td><b>Modalidad exámen final </b></td>
-                <td><b>Regulares </b></td>        
-                <td><b>Libres</b></td> 
+                <td></td>        
+                <td></td> 
                 <td></td>
             </tr>
             <tr>
-                <td></td>                       
-                <td>' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>
-                <td>' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
-                <td></td>
+                <td><b> Regulares </b></td>                       
+                <td colspan="3">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
+            </tr>
+            <tr>
+                <td> <b> Libres</b></td>                       
+                <td colspan="3">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
             </tr>
             </table>';
         }
