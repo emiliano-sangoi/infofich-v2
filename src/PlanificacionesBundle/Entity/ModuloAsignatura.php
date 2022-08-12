@@ -13,14 +13,9 @@ use \FICH\APIRectorado\Config\WSHelper;
  * ModuloAsignatura
  *
  * @ORM\Table(name="planif_modulos_asignatura", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_modulos_asignatura", columns={"codigo", "codigoGuarani"})
+ *     @ORM\UniqueConstraint(name="ak_modulos_asignatura", columns={"codigo", "codigo_guarani"})
  * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\ModuloAsignaturaRepository")
- * @UniqueEntity(
- *     fields={"codigo", "codigoGuarani"},
- *     errorPath="codigoAsignatura",
- *     message="Esta asignatura ya tiene creada una planificación."
- * )
  */
 class ModuloAsignatura implements JsonSerializable{
 
