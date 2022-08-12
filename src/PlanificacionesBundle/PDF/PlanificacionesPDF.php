@@ -233,17 +233,17 @@ class PlanificacionesPDF extends ImprimirPDF {
             </tr>
             <tr>
                 <td><b> Regulares </b></td>                       
-                <td colspan="3">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
+                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
             </tr>
             <tr>
                 <td> <b> Libres</b></td>                       
-                <td colspan="3">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
+                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
             </tr>
             </table>';
         }
 
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
-        $html .= '<p><b>Objetivos Generales </b> <br>';
+        $html .= '<p align="justify"><b>Objetivos Generales </b> <br>';
         if($this->parametros['objetivosGral']){
             $html .= $this->parametros['objetivosGral'] .'</p>';
         }else{
@@ -264,7 +264,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $resultados = $this->parametros['resultados'];
         if ($resultados[0]) {
             foreach ($resultados as $resultado) {
-                $html .= '<p>' . $resultado . '</p>';
+                $html .= '<p align="justify">' . $resultado . '</p>';
             }
         } else {
             $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
@@ -279,8 +279,8 @@ class PlanificacionesPDF extends ImprimirPDF {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($temario as $tema) {
                 $html .= '<tr>
-                            <td><b>Nro Unidad</b></td>
-                            <td><b>Titulo</b></td>
+                            <td width="15%"><b>Nro Unidad</b></td>
+                            <td width="20%"><b>Titulo</b></td>
                           </tr>';
                 $html .= '<tr>
                           <td>' . $tema->getUnidad() . '</td>';
@@ -288,7 +288,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                         . '</tr>';
                 $html .= '<tr>
                           <td><b>Contenido: </b></td></tr>'
-                        . '<tr><td colspan="2">' . $tema->getContenido() . '</td></tr>';
+                        . '<tr><td width="100%" align="justify">' . $tema->getContenido() . '</td></tr>';
                 $html .= '<tr><td></td></tr>';
             }
             $html .= '</table>';
