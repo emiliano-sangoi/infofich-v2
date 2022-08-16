@@ -27,7 +27,7 @@ class BibliografiaController extends Controller {
         $qb->orderBy('tb.codigo', 'ASC');
         $paginator = $this->get('knp_paginator');
         $bibliografias = $paginator->paginate(
-            $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 15 /* limit per page */
+            $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 30 /* limit per page */
         );
 
         // Breadcrumbs
