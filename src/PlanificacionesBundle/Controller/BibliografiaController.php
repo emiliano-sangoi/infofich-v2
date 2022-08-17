@@ -27,7 +27,7 @@ class BibliografiaController extends Controller {
         $qb->orderBy('tb.codigo', 'ASC');
         $paginator = $this->get('knp_paginator');
         $bibliografias = $paginator->paginate(
-            $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 30 /* limit per page */
+            $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
         );
 
         // Breadcrumbs
@@ -218,7 +218,7 @@ class BibliografiaController extends Controller {
             $em->remove($bibliografia);
             $em->flush();
 
-            $this->addFlash('success', 'El tema fúe borrado correctamente.');
+            $this->addFlash('success', 'Bibliografía borrada correctamente.');
         }
 
         return $this->redirectToRoute('planif_bibliografia_index', array('id' => $bibliografia->getPlanificacion()->getId()));

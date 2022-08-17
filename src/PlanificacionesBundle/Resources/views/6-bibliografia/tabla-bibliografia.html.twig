@@ -24,9 +24,9 @@
                 </td>
                 <td class="align-middle py-2">
                     <div class="texto-container d-inline">
-                        {% if bibliografia.infoCompleta|length > 25 %}
+                        {% if bibliografia.infoCompleta|length > 60 %}
                             <div class="txt-breve">
-                                <span class="text-muted">{{ bibliografia.infoCompleta|slice(0, 25) }}...</span>
+                                <span class="text-muted">{{ bibliografia.infoCompleta|slice(0, 60) }}...</span>
                                 <a href="#" class="ver-mas" style="text-decoration: none;" title="Ver m&aacute;s">
                                     [+]
                                 </a>
@@ -66,4 +66,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="navigation mt-3 mb-5 centrate-x">
+    {{ knp_pagination_render(bibliografias) }}
 </div>
