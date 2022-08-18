@@ -18,7 +18,7 @@
             {% embed "::botonera-2col.html.twig" %}
                 {% block left %}
                     <a href="{{ path('planif_bibliografia_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
-                        Nueva bibliografía
+                        <i class="fa fa-plus"></i>&nbsp;Nueva bibliografía
                     </a>
                 {% endblock %}
             {% endembed %}
@@ -34,7 +34,7 @@
         {{ notificacion(null, msg, 'secondary', '' ) }}
     {% else %}
         <div class="bg-white mb-3 px-3 py-2 text-secondary shadow-sm">
-            Se han encontrado <b>{{ bibliografias.getTotalItemCount() }}</b> registro(s) para esta planificaci&oacute;n.
+            Se encontraron <b>{{ bibliografias.getTotalItemCount() }}</b> registro(s) para esta planificaci&oacute;n.
         </div>
         {% include "PlanificacionesBundle:6-bibliografia:tabla-bibliografia.html.twig" %}
     {% endif %}
