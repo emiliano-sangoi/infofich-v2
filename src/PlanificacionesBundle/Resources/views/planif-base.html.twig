@@ -183,10 +183,10 @@
                     {# Distribucion de carga horaria #}
                     {# Ahora se muestra en popup #}
                     {# % set html_id = 'tab-cronograma' %}
-                    {% set label = 'Distribucion de carga horaria' %}        
-                    {% set modal_title = 'Errores en la distribución de la carga horaria' %}        
-                    {% set class = (page_id == 8 ? 'active' : '') ~ ' ' ~ disabled %}             
-                    {% set path = is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' %}                            
+                    {% set label = 'Distribucion de carga horaria' %}
+                    {% set modal_title = 'Errores en la distribución de la carga horaria' %}
+                    {% set class = (page_id == 8 ? 'active' : '') ~ ' ' ~ disabled %}
+                    {% set path = is_planificacion_definida ? path('planif_dist_carga_horaria_editar', {id : planificacion.id}) : '#' %}
                     {{ nav_link(html_id, path, label, modal_title, errores.dist_horaria|default(null), class, is_planificacion_definida) } #}
 
                     {# Viajes académicos #}
@@ -269,7 +269,7 @@
                                                 {{ planificacion.getAnioAcad() }}
                                             </span>
                                             &nbsp;/&nbsp;
-                                            <span class="text-primary">                                                
+                                            <span class="text-primary">
                                                 {{ planificacion.getEstadoActual() }} <a href="#" class="mostrar-historico">
                                                     <small>
                                                         <i class="fa fa-history"></i>

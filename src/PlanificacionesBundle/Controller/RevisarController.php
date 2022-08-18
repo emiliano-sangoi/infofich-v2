@@ -71,12 +71,12 @@ class RevisarController extends Controller {
                 }
             }
 
-            $params['form_enviar_revision'] = $form->createView();                                               
-            
+            $params['form_enviar_revision'] = $form->createView();
+
         } elseif( $planificacion->enRevision() ) {
-            
+
             $params['form_enviar_correccion'] = $this->crearFormEnviarACorreccion($planificacion)->createView();
-            
+
         } else {
             $this->addFlash('danger', 'Solo puede enviar planificaciones que se encuentren en revisión o corrección');
             //return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
@@ -109,16 +109,16 @@ class RevisarController extends Controller {
 
 
     public function publicarAction(Request $request, Planificacion $planificacion) {
-        
+
         $this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
-        
+
         $form = $this->crearFormPublicarPlanif($planificacion);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            
+
             /* @var $planifService PlanificacionService */
             $planifService = $this->get('planificaciones_service');
-            
+
             if (!$planifService->getHayErrores($planificacion)) {
 
                     /* @var $repoHistorico HistoricoEstadosRepository */
@@ -127,21 +127,21 @@ class RevisarController extends Controller {
                     $usuario = $this->getUser();
                     $repoHistorico->asignarEstado($planificacion, Estado::PUBLICADA, $usuario);
 
-                    $this->addFlash('success', 'La planificación fue publicada correctamente.');                    
+                    $this->addFlash('success', 'La planificación fue publicada correctamente.');
                 } else {
                     $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');
                 }
-            
-            
+
+
         }
-        
-        return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));        
-        
+
+        return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
+
     }
 
     /**
      * Metodo que permite actualizar las correcciones o comentarios de una planificacion
-     * 
+     *
      * @param Planificacion $planificacion
      * @param Request $request
      * @return \PlanificacionesBundle\Controller\JsonResponse
@@ -165,13 +165,13 @@ class RevisarController extends Controller {
         }
 
         $data = json_decode($request->getContent());
-        
-        if (!$data) {            
+
+        if (!$data) {
             return new JsonResponse(array(
                 'mensaje' => 'No se pudo extraer el contenido a actualizar. El formato de los datos debe ser JSON.'
                     ), Response::HTTP_BAD_REQUEST);
         }
-  
+
         $comentarios = filter_var($data->comentarios, FILTER_SANITIZE_STRING);
 
         $histEstadoActual->setComentario($comentarios);
@@ -181,12 +181,12 @@ class RevisarController extends Controller {
         return new JsonResponse(array(
             'data' => $planificacion
                 ), Response::HTTP_OK);
-        
+
     }
 
     /**
      * Funcion auxiliar que setea toda la informacion de la planificacion
-     * 
+     *
      * @param Planificacion $planificacion
      */
     private function setInfoPlanif(Planificacion $planificacion) {
@@ -240,7 +240,8 @@ class RevisarController extends Controller {
         $this->resumen['carrera'] = null;
         $this->resumen['carrera_plan'] = null;
         $this->resumen['anioAcad'] = $planificacion->getAnioAcad();
-        $this->resumen['nombreMateria'] = null;
+        $this->resumen['nombreMateria'] = mb_strtoupper($planificacion->getNombreAsignatura());
+        $this->resumen['nroModulo'] = $planificacion->getNroModulo();
         $this->resumen['contenidosMinimos'] = $planificacion->getContenidosMinimos();
 
 
@@ -258,23 +259,6 @@ class RevisarController extends Controller {
         if ($planificacion->getCarrera() && $carrera instanceof Carrera) {
             $this->resumen['carrera'] = $planificacion->getCarrera() . ' - ' . $carrera->getNombreCarrera();
             $this->resumen['carrera_plan'] = $carrera->getPlanCarrera();
-        }
-
-        //Ejemplo de campos de una materia:
-        /* Materia {#787 ▼
-          #codigoMateria: "00716"
-          #nombreMateria: "INTELIGENCIA ARTIFICIAL"
-          #tipoMateria: "O"
-          #horasSemanales: null
-          #cargaHoraria: null
-          #valorMateria: "60"
-          #promediable: true
-          #obligatoria: false
-          }
-         */
-        $asignatura = $this->infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        if ($asignatura instanceof Materia) {
-            $this->resumen['nombreMateria'] = $asignatura->getNombreMateria();
         }
     }
 
@@ -414,7 +398,7 @@ class RevisarController extends Controller {
         $temario = $repo->findBy(array(
             'planificacion' => $planificacion
         ), array('unidad' => 'ASC'));
-      
+
 //        $temario = $planificacion->getTemario();
         $this->resumen['temario'] = $temario;
     }

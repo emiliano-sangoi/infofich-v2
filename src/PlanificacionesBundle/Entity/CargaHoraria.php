@@ -22,62 +22,62 @@ class CargaHoraria
     private $id;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_resol_prob_ing", type="decimal", precision=6, scale=1)
      */
     private $cantHsResolProbIng;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_ej_rutinarios", type="decimal", precision=6, scale=1)
      */
     private $cantHsEjRutinarios;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_act_proy_disenio", type="decimal", precision=6, scale=1)
      */
     private $cantHsActProyDisenio;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_practica_prof_sup", type="decimal", precision=6, scale=1)
      */
     private $cantHsPracticaProfSup;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_teoria", type="decimal", precision=6, scale=1)
      */
     private $cantHsTeoria;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_consulta", type="decimal", precision=6, scale=1)
      */
     private $cantHsConsulta;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="cant_hs_evaluacion", type="decimal", precision=6, scale=1)
      */
     private $cantHsEvaluacion;
-    
+
     /**
      *
      * @var Planificacion
-     * 
+     *
      * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="cargaHoraria")
      */
     private $planificacion;
-           
+
 
         /**
      * Get id
@@ -88,7 +88,7 @@ class CargaHoraria
     {
         return $this->id;
     }
-   
+
 
     /**
      * Set cantHsResolProbIng

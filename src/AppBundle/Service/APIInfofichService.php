@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FICH\APIInfofich\Query\Carreras\QueryCarreras;
 use FICH\APIInfofich\Query\Docentes\QueryDocentes;
 use FICH\APIRectorado\Config\WSHelper;
+use PlanificacionesBundle\Entity\Materia;
 
 /**
  * Description of APIInfofichService
@@ -22,7 +23,7 @@ class APIInfofichService {
 
     /**
      *
-     * @var EntityManager 
+     * @var EntityManager
      */
     private $em;
 
@@ -31,15 +32,15 @@ class APIInfofichService {
      * @var array
      */
     private $carreras_permitidas;
-    
+
     /**
-     * 
+     *
      * @var boolean
      */
     private $wsCacheEnabled;
-    
+
     /**
-     * 
+     *
      * @var string
      */
     private $wsEnv;
@@ -56,14 +57,14 @@ class APIInfofichService {
             WSHelper::CARRERA_PTOP,
             WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA
         );
-        
+
         $this->wsCacheEnabled = $apiInfofichCacheEnabled;
         $this->wsEnv = $apiInfofichEnv;
     }
 
     /**
      * Devuelve las carreras de especificadas en el arreglo.
-     * 
+     *
      * @param array|null $solo_carreras Codigos de las carreras (WSHelper::CARRERA_*)
      * @return array
      */
@@ -82,27 +83,27 @@ class APIInfofichService {
         }
 
         $resultado = $query->setCarreras($solo_carreras)
-                ->setSoloVigentes(true)                
+                ->setSoloVigentes(true)
                 ->getResultado();
-        
+
         if (is_array($resultado)) {
             //dump($resultado);exit;
             return $resultado;
         }
-        
+
         $this->ultimoError = $query->getError();
         return false;
     }
 
     /**
-     * 
+     *
      * @param string $carrera Codigo de la carrera, por ej. '01', '02', etc.
-     * 
+     *
      * @return FICH\APIInfofich\Model\Carrera|false
      */
     public function getCarrera($carrera) {
         $carreras_fich = $this->getCarreras(array($carrera));
-        
+
         if(!is_array($carreras_fich)){
             return false;
         }
@@ -118,18 +119,18 @@ class APIInfofichService {
 
     /**
      * Devuelve las asignaturas para cierta carrera.
-     * 
+     *
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
      */
-    public function getAsignaturasPorCarrera($carrera, $raw = false) {        
+    public function getAsignaturasPorCarrera($carrera, $raw = false) {
 
         $carreras_fich = $this->getCarreras(array($carrera));
 
         if(!is_array($carreras_fich)){
             return false;
         }
-        
+
         if (count($carreras_fich) > 0) {
 
             $c = array_shift($carreras_fich);
@@ -151,23 +152,62 @@ class APIInfofichService {
                 return false;
             }
 
+            //Agregar los modulos existentes:
+            $modulos = $this->getModulos($carrera);
+            if(!empty($modulos)){
+                $asignaturas = array_merge($asignaturas, $modulos);
+            }
+
             return $asignaturas;
         }
 
         $this->ultimoError = 'No se encontro la carrera ' . $carrera;
         return false;
     }
-    
-    
+
+    private function getModulos($carrera, $codigo_asignatura = null, $nro_modulo = null){
+        $repo = $this->em->getRepository(Materia::class);
+        $qb = $repo->createQueryBuilder('m');
+        $qb->select("m")
+            ->where($qb->expr()->isNotNull("m.nroModulo"))
+            ->andWhere($qb->expr()->eq("m.carrera", ':carrera'));
+
+        if($codigo_asignatura){
+            $qb->andWhere($qb->expr()->eq("m.codigoMateria", ':codigo_materia'));
+            $qb->setParameter(':codigo_materia', $codigo_asignatura);
+        }
+
+        if($nro_modulo){
+            $qb->andWhere($qb->expr()->eq("m.nroModulo", ':nro_modulo'));
+            $qb->setParameter(':nro_modulo', $nro_modulo);
+        }
+
+        $qb->setParameter(':carrera', $carrera);
+
+        $modulos = $qb->getQuery()->getResult();
+
+        return $modulos;
+    }
+
+
     /**
      * Devuelve las asignaturas para cierta carrera.
-     * 
+     *
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
      */
-    public function getAsignatura($carrera, $codigo) {                       
+    public function getAsignatura($carrera, $codigo_asignatura, $nro_modulo = null) {
 
-        $carreras_fich = $this->getCarreras(array($carrera));       
+        if(is_numeric($nro_modulo)){
+            //se esta buscando un modulo
+            $modulo = $this->getModulos($carrera, $codigo_asignatura, $nro_modulo);
+            if(!empty($modulo)){
+                return array_shift($modulo);
+            }
+            return null;
+        }
+
+        $carreras_fich = $this->getCarreras(array($carrera));
 
         if (count($carreras_fich) > 0) {
 
@@ -179,7 +219,7 @@ class APIInfofichService {
                     ->setCarrera($c->getCodigoCarrera())
                     ->setPlan($c->getPlanCarrera())
                     ->setVersion($c->getVersionPlan())
-                    ->soloMaterias(array($codigo))       
+                    ->soloMaterias(array($codigo_asignatura))
                     ->setWsEnv($this->wsEnv)
                     ->setCacheEnabled($this->wsCacheEnabled);
 
@@ -191,7 +231,7 @@ class APIInfofichService {
             }else if(count($asignaturas) > 0){
                 return array_shift($asignaturas);
             }
-            
+
             return null;
         }
 
@@ -205,7 +245,7 @@ class APIInfofichService {
 
     /**
      * Obtiene los docentes activos de la FICH
-     * 
+     *
      * @return array
      */
     public function getDocentesActivos() {
@@ -221,7 +261,7 @@ class APIInfofichService {
             uasort($docentes, function($a, $b){
                 return strcasecmp($a->getApellido(), $b->getApellido());
             });
-        }                    
+        }
         return $docentes;
     }
 

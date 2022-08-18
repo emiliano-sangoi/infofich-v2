@@ -11,10 +11,10 @@ use \FICH\APIRectorado\Config\WSHelper;
 /**
  * Planificacion
  *
- * @ORM\Table(name="planif_planificaciones", uniqueConstraints={@ORM\UniqueConstraint(name="planif_idx", columns={"carrera", "codigo_asignatura", "anio_acad"})})
+ * @ORM\Table(name="planif_planificaciones", uniqueConstraints={@ORM\UniqueConstraint(name="planif_idx", columns={"carrera", "codigo_asignatura", "anio_acad", "nro_modulo"})})
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
  * @UniqueEntity(
- *     fields={"carrera", "codigoAsignatura", "anioAcad"},
+ *     fields={"carrera", "codigoAsignatura", "anioAcad", "nroModulo"},
  *     errorPath="codigoAsignatura",
  *     message="Esta asignatura ya tiene creada una planificación."
  * )
@@ -34,7 +34,7 @@ class Planificacion implements \JsonSerializable{
      * @var int
      *
      * @ORM\Column(name="anio_acad", type="smallint")
-     * 
+     *
      */
     private $anioAcad;
 
@@ -73,7 +73,7 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var Departamento
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Departamento")
      * @ORM\JoinColumn(name="planif_departamentos_id",referencedColumnName="id")
      */
@@ -82,51 +82,66 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var string
-     * 
-     * @ORM\Column(name="carrera", type="string", length=8)     
+     *
+     * @ORM\Column(name="carrera", type="string", length=8)
      */
     private $carrera;
 
     /**
      * Plan al que pertenece la carrera.
-     *      
+     *
      * @var string
-     * 
+     *
      * @ORM\Column(name="plan", type="string", length=6)
      */
     private $plan;
 
     /**
      * Plan al que pertenece la carrera.
-     *      
+     *
      * @var int
-     * 
+     *
      * @ORM\Column(name="version_plan", type="integer")
      */
     private $versionPlan;
 
     /**
      * Codigo guarani de la asignatura
-     * 
+     *
      * @var Asignatura
-     * 
-     * @ORM\Column(name="codigo_asignatura", type="string", length=24)     
+     *
+     * @ORM\Column(name="codigo_asignatura", type="string", length=24)
      */
     private $codigoAsignatura;
 
     /**
      * Nombre de la asignatura
-     * 
-     * @var Asignatura
-     * 
+     *
+     * @var string
+     *
      * @ORM\Column(name="nombre_asignatura", type="string", length=256)
      */
     private $nombreAsignatura;
 
+    /**
+     * @var int
+     *
+     * Indica un orden para las asignaturas que sean modulos.
+     * Por ejemplo:
+     * Para comunicaciòn tecnica I:
+     *      1 - Sistemas de representación
+     *      2 - Comunicación eletrónica
+     * Si la asignatura no es un modulo puede estar como null
+     *
+     *
+     * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
+     */
+    private $nroModulo;
+
 
     /**
      * @var \DocentesBundle\Entity\DocenteGrado
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\DocentesBundle\Entity\DocenteGrado", inversedBy="planificacionesResponsable")
      * @ORM\JoinColumn(name="docente_responsable_id", referencedColumnName="id")
      */
@@ -135,15 +150,15 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="PlanificacionDocenteColaborador", mappedBy="planificacion", cascade={"persist","remove"})
-     */     
+     */
     private $docentesColaboradores;
 
     /**
      *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="PlanificacionDocenteAdscripto", mappedBy="planificacion", cascade={"persist","remove"})
      */
     private $docentesAdscriptos;
@@ -158,8 +173,8 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion", cascade={"persist","remove"})  
-     * 
+     * @ORM\OneToMany(targetEntity="ActividadCurricular", mappedBy="planificacion", cascade={"persist","remove"})
+     *
      */
     private $actividadCurricular;
 
@@ -167,23 +182,23 @@ class Planificacion implements \JsonSerializable{
      *
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Bibliografia", mappedBy="planificacion", cascade={"persist","remove"})
-     * @Assert\Valid 
+     * @Assert\Valid
      */
     private $bibliografias;
 
     /**
      *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="ViajeAcademico", mappedBy="planificacion", cascade={"persist","remove"})
-     * @Assert\Valid 
+     * @Assert\Valid
      */
     private $viajesAcademicos;
 
     /**
      *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="Temario", mappedBy="planificacion", cascade={"persist","remove"})
      * @Assert\Valid
      */
@@ -192,7 +207,7 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="ResultadosAprendizajes", mappedBy="planificacion", cascade={"persist","remove"})
      * @Assert\Valid
      */
@@ -202,7 +217,7 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var CargaHoraria
-     * 
+     *
      * @ORM\OneToOne(targetEntity="CargaHoraria", mappedBy="planificacion")
      */
     private $cargaHoraria;
@@ -210,15 +225,15 @@ class Planificacion implements \JsonSerializable{
     /**
      *
      * @var RequisitosAprobacion
-     * 
+     *
      * @ORM\OneToOne(targetEntity="RequisitosAprobacion", mappedBy="planificacion", cascade={"remove", "persist"})
      */
     private $requisitosAprobacion;
 
     /**
      *
-     * @var \DateTime 
-     * 
+     * @var \DateTime
+     *
      * @ORM\Column(name="ultima_modif", type="datetime")
      */
     private $ultimaModif;
@@ -244,13 +259,13 @@ class Planificacion implements \JsonSerializable{
     public function getId() {
         return $this->id;
     }
-    
+
     public function setId($id) {
         $this->id = $id;
         return $this;
     }
 
-    
+
     public function getTitulo() {
         return mb_strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
@@ -258,38 +273,38 @@ class Planificacion implements \JsonSerializable{
     public function __toString() {
         return $this->getTitulo();
     }
-    
+
     /**
      * https://stackoverflow.com/questions/14158111/deep-clone-doctrine-entity-with-related-entities
      */
     public function __clone() {
         if ($this->id) {
-            
+
             $this->setId(null);
-            
-            
+
+
             //------------------------------------------------------------------------------------
             // Copia de docentes colaboradores
             $dc = new ArrayCollection();
             foreach ($this->docentesColaboradores as $item){
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $dc->add($itemCopia);                
+                $dc->add($itemCopia);
             }
-            
+
             $this->docentesColaboradores = $dc;
-            
+
             //------------------------------------------------------------------------------------
             // Copia de docentes adscriptos
             $d_adsc = new ArrayCollection();
             foreach ($this->docentesAdscriptos as $item){
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $d_adsc->add($itemCopia);                
+                $d_adsc->add($itemCopia);
             }
-            
+
             $this->docentesAdscriptos = $d_adsc;
-            
+
             //------------------------------------------------------------------------------------
             // Requisitos de aprobación
             if($this->requisitosAprobacion) {
@@ -297,18 +312,18 @@ class Planificacion implements \JsonSerializable{
                 $r_aprob->setPlanificacion($this);
                 $this->requisitosAprobacion = $r_aprob;
             }
-            
+
             //------------------------------------------------------------------------------------
             // Resultados de aprendizaje
             $r_apren = new ArrayCollection();
             foreach ($this->resultados as $item){
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $r_apren->add($itemCopia);                
+                $r_apren->add($itemCopia);
             }
-            
+
             $this->resultados = $r_apren;
-            
+
             //------------------------------------------------------------------------------------
             // Temario
             $temarios = new ArrayCollection();
@@ -327,49 +342,49 @@ class Planificacion implements \JsonSerializable{
                 $tema2->setActividades($a_curriculares);
 
             }
-            
+
             $this->temario = $temarios;
-            
+
             //------------------------------------------------------------------------------------
             // Bibliografía
             $b_planif = new ArrayCollection();
-            foreach ($this->bibliografias as $item){                                
+            foreach ($this->bibliografias as $item){
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $b_planif->add($itemCopia);                
+                $b_planif->add($itemCopia);
             }
             $this->bibliografias = $b_planif;
-            
+
             //------------------------------------------------------------------------------------
             // Viajes academicos
             $viajes = new ArrayCollection();
-            foreach ($this->viajesAcademicos as $item){                                
+            foreach ($this->viajesAcademicos as $item){
                 $itemCopia = clone $item;
                 $itemCopia->setPlanificacion($this);
-                $viajes->add($itemCopia);                
+                $viajes->add($itemCopia);
             }
-            
+
             $this->viajesAcademicos = $viajes;
-            
-            
-            
+
+
+
         }
     }
-    
-    
+
+
     /**
-     * Metodo que verifica si la persona pasada como parametro figura como 
+     * Metodo que verifica si la persona pasada como parametro figura como
      * docente en la planificacion
-     * 
+     *
      * @param \AppBundle\Entity\Persona $persona
      * @return type
      */
     public function inEquipoDocente(\AppBundle\Entity\Persona $persona) {
-        
+
         if($this->docenteResponsable && $this->docenteResponsable->getPersona() == $persona){
             return true;
         }
-        
+
         if($this->docentesColaboradores){
             foreach ($this->docentesColaboradores as $dc){
                 if($dc->getDocenteGrado()->getPersona() == $persona){
@@ -378,7 +393,7 @@ class Planificacion implements \JsonSerializable{
             }
         }
         if($this->docentesColaboradores){
-            foreach ($this->docentesAdscriptos as $planifDocAds){            
+            foreach ($this->docentesAdscriptos as $planifDocAds){
                 if($planifDocAds->getDocenteAdscripto()->getPersona() == $persona){
                     return true;
                 }
@@ -389,7 +404,7 @@ class Planificacion implements \JsonSerializable{
 
     /**
      * Devuelve el total de horas de todas las actividades curriculares definidas.
-     * 
+     *
      * @return type
      */
     public function getTotalCargaHorariaAula() {
@@ -456,7 +471,7 @@ class Planificacion implements \JsonSerializable{
         }
         return $sum;
     }
-    
+
     public function getTotalEvaluacion() {
         $sum = 0;
         foreach ($this->actividadCurricular as $a) {
@@ -491,10 +506,10 @@ class Planificacion implements \JsonSerializable{
     public function isPublicada() {
         return $this->isEstado(Estado::PUBLICADA);
     }
-    
+
     /**
      * Funcion auxiliar que permite saber si una planificacion puede ser editada por el docente.
-     * 
+     *
      * @return boolean
      */
     public function puedeEditarse(){
@@ -503,7 +518,7 @@ class Planificacion implements \JsonSerializable{
 
     /**
      * Funcion auxiliar que compara el estado actual de la planificacion con el codigo pasado como argumento.
-     * 
+     *
      * @param int $cod
      * @return boolean
      */
@@ -517,7 +532,7 @@ class Planificacion implements \JsonSerializable{
 
     /**
      * Devuelve el historico que contiene la informacion sobre el estado actual.
-     * 
+     *
      * @return HistoricoEstados|null
      */
     public function getHistoricoEstadoActual() {
@@ -530,11 +545,11 @@ class Planificacion implements \JsonSerializable{
         }
         return $res;
     }
-    
+
     /**
      * Devuelve el dueño de la planificacion o usuario que lo creo.
-     * 
-     * 
+     *
+     *
      * @return \AppBundle\Entity\Usuario|null
      */
     public function getOwner(){
@@ -722,10 +737,10 @@ class Planificacion implements \JsonSerializable{
     public function getHistoricosEstado() {
         return $this->historicosEstado;
     }
-    
+
     /**
      * Set historicosEstado
-     * 
+     *
      * @param ArrayCollection $historicosEstado
      * @return $this
      */
@@ -734,7 +749,7 @@ class Planificacion implements \JsonSerializable{
         return $this;
     }
 
-        
+
     /**
      * Devuelve un arreglo con los historicos de cambios de estados ordenados de forma descendente
      * en función del campo fechaDesde.
@@ -742,12 +757,12 @@ class Planificacion implements \JsonSerializable{
      * @return array
      */
     public function getHistoricosEstadoOrd() {
-        
+
         $tmp = $this->historicosEstado->toArray();
         uasort($tmp, function($v1, $v2){
             return $v2->getFechaDesde()->getTimestamp() > $v1->getFechaDesde()->getTimestamp();
         });
-        
+
         return $tmp;
     }
 
@@ -855,7 +870,7 @@ class Planificacion implements \JsonSerializable{
     public function getCarrera() {
         return $this->carrera;
     }
-    
+
     public function getCarreraAbrev() {
         switch ($this->carrera){
             case WSHelper::CARRERA_II:
@@ -871,11 +886,11 @@ class Planificacion implements \JsonSerializable{
             case WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA:
                 return 'TUAR';
         }
-        
+
         return null;
     }
-    
-    
+
+
 
     /**
      * Set plan
@@ -954,7 +969,7 @@ class Planificacion implements \JsonSerializable{
         return $this->temario;
     }
 
- 
+
 
     /**
      * Remove actividadCurricular
@@ -994,7 +1009,7 @@ class Planificacion implements \JsonSerializable{
      */
     public function getCodigoAsignatura() {
         return $this->codigoAsignatura;
-    }    
+    }
 
     /**
      * Set nombreAsignatura
@@ -1019,6 +1034,16 @@ class Planificacion implements \JsonSerializable{
     }
 
     /**
+     * Get esModulo
+     *
+     * @return boolean
+     */
+    public function isModulo()
+    {
+        return is_null($this->nroModulo);
+    }
+
+    /**
      * Set ultimaModif
      *
      * @param \DateTime $ultimaModif
@@ -1039,6 +1064,31 @@ class Planificacion implements \JsonSerializable{
     public function getUltimaModif() {
         return $this->ultimaModif;
     }
+
+    /**
+     * Set nroModulo
+     *
+     * @param integer $nroModulo
+     *
+     * @return Materia
+     */
+    public function setNroModulo($nroModulo)
+    {
+        $this->nroModulo = $nroModulo;
+
+        return $this;
+    }
+
+    /**
+     * Get nroModulo
+     *
+     * @return integer
+     */
+    public function getNroModulo()
+    {
+        return $this->nroModulo;
+    }
+
 
 
     /**
@@ -1092,7 +1142,7 @@ class Planificacion implements \JsonSerializable{
     public function addDocentesColaboradore(\PlanificacionesBundle\Entity\PlanificacionDocenteColaborador $docentesColaboradore)
     {
         $docentesColaboradore->setPlanificacion($this);
-        
+
         $this->docentesColaboradores[] = $docentesColaboradore;
 
         return $this;
@@ -1117,9 +1167,9 @@ class Planificacion implements \JsonSerializable{
     {
         return $this->docentesColaboradores;
     }
-    
+
     /**
-     * 
+     *
      * @param ArrayCollection $docentesColaboradores
      * @return $this
      */
@@ -1128,7 +1178,7 @@ class Planificacion implements \JsonSerializable{
         return $this;
     }
 
-    
+
     /**
      * Add docentesAdscripto
      *
@@ -1139,7 +1189,7 @@ class Planificacion implements \JsonSerializable{
     public function addDocentesAdscripto(\PlanificacionesBundle\Entity\PlanificacionDocenteAdscripto $docentesAdscripto)
     {
         $docentesAdscripto->setPlanificacion($this);
-        
+
         $this->docentesAdscriptos[] = $docentesAdscripto;
 
         return $this;

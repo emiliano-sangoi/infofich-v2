@@ -88,7 +88,7 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 
@@ -156,9 +156,9 @@ class PlanificacionController extends Controller {
                 //Causar redireccion para evitar "re-submits" del form:
                 return $this->redirectToRoute('planificaciones_homepage');
             } catch (ForeignKeyConstraintViolationException $ex) {
-                
+
             } catch (Exception $ex) {
-                
+
             }
 
             $this->addFlash('warning', 'Ocurrió un error al intentar borrar la planificación.');
@@ -235,7 +235,7 @@ class PlanificacionController extends Controller {
                 $usuario = $this->getUser();
                 $repoHistorico->setEstadoCreada($planificacion, $usuario);
                 $repoHistorico->asignarEstado($planificacionCopia, Estado::PREPARACION, $usuario, 'Creada por copia por el usuario ' . $usuario->getUsername());
-                //---------------------------------------------------------------------------                
+                //---------------------------------------------------------------------------
 
                 $this->addFlash('success', 'Copia creada correctamente.');
 
@@ -265,17 +265,17 @@ class PlanificacionController extends Controller {
 
     /**
      * Exporta la información de la planificacion a un archivo PDF
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      */
     public function imprimirAction(Request $request, Planificacion $planificacion) {
 
-        //Datos que precisa 
+        //Datos que precisa
         $detalleItems = array();
 
-        //nombre de la asignatura:      
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //nombre de la asignatura:
+        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
         $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
         $periodoLectivo = $asignatura->getPeriodoCursada();
         $anioCursada = $asignatura->getAnioCursada();
@@ -299,7 +299,7 @@ class PlanificacionController extends Controller {
             $cod_ape_nom = $docente->getDocenteAdscripto()->__toString();
             $docentesAdscriptos[] = $cod_ape_nom;
         }
-        //$this->resumen['docentes_adscriptos_count'] = $i;   
+        //$this->resumen['docentes_adscriptos_count'] = $i;
         //$docentesAdscriptos = $planificacion->getDocentesAdscriptos();
         //Aprobacion de la asignatura
         $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
@@ -463,7 +463,7 @@ class PlanificacionController extends Controller {
     public function cambiarEstadoAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
-        
+
         //dump($planificacion);exit;
         $form = $this->createForm(CambiarEstadoPlanificacionType::class, null, array(
             'planificacion_original' => $planificacion
@@ -471,7 +471,7 @@ class PlanificacionController extends Controller {
         $form->handleRequest($request);
         //var_dump($form->isSubmitted());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $em = $this->getDoctrine()->getManager();
             //Crear un registro en el historico de estados
             //---------------------------------------------------------------------------
@@ -481,7 +481,7 @@ class PlanificacionController extends Controller {
             $usuario = $this->getUser();
             $repoHistorico->setEstadoCreada($planificacion, $usuario);
             $repoHistorico->asignarEstado($planificacion, Estado::REVISION, $usuario, 'Cambio de estado por SA ' . $usuario->getUsername());
-            //---------------------------------------------------------------------------                
+            //---------------------------------------------------------------------------
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));

@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Exception;
 use FICH\APIRectorado\Config\WSHelper;
 use PlanificacionesBundle\Entity\Departamento;
@@ -25,25 +26,25 @@ class PlanificacionType extends AbstractType {
 
     /**
      *
-     * @var APIInfofichService 
+     * @var APIInfofichService
      */
     private $apiInfofichService;
     private $planes;
 
     /**
-     * 
+     *
      * @var Planificacion
      */
     private $planif;
 
     /**
      *
-     * @var array 
+     * @var array
      */
     private $options;
 
     /**
-     * 
+     *
      * @var integer
      */
     private $codEstadoActual;
@@ -112,7 +113,14 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
         ));
 
-        
+        $builder
+            ->add('nroModulo', IntegerType::class, array(
+                'label' => 'Nro. módulo',
+                'required' => false,
+                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
+            ));
+
+
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
 
@@ -141,31 +149,31 @@ class PlanificacionType extends AbstractType {
 
         $builder->add('departamento', EntityType::class, $config);
     }
-    
+
     private function addContenidosMinimos(FormBuilderInterface $builder) {
-        
+
         $config = array(
             'label' => 'Contenidos mínimos',
             'required' => false,
             'attr' => array(
                 'rows' => 8,
                 'placeholder' => 'Este campo será completado por Secretaría Académica.',
-                'class' => 'form-control disabled',                
+                'class' => 'form-control disabled',
             )
         );
-        
+
         //Deshabilitar el campo cuando la planificación este publicada
         //En revision SA puede editarla
         if (in_array($this->codEstadoActual, [Estado::PUBLICADA])) {
             $config['disabled'] = true;
         }
 
-        $builder->add('contenidosMinimos', TextareaType::class, $config);                
+        $builder->add('contenidosMinimos', TextareaType::class, $config);
     }
 
     /**
      * En esta funcion se setean todos los eventos del formulario
-     * 
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -221,9 +229,9 @@ class PlanificacionType extends AbstractType {
 
     /**
      * Agrega los campos relacionados a la carrera
-     * 
+     *
      * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addCarrera(FormBuilderInterface $builder) {
@@ -252,7 +260,7 @@ class PlanificacionType extends AbstractType {
     }
 
     /**
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addAsignaturas(FormInterface $builder, $cod_carrera = null) {
@@ -278,7 +286,7 @@ class PlanificacionType extends AbstractType {
 
     /**
      * Agrega el campo año academico
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addAniAcad(FormBuilderInterface $builder) {
@@ -296,7 +304,7 @@ class PlanificacionType extends AbstractType {
             $y + 1 => $y + 1
         );
 
-        //si ademas la planif ya tiene un año seteado lo agrego al listado        
+        //si ademas la planif ya tiene un año seteado lo agrego al listado
         if ($this->planif && $this->planif->getAnioAcad()) {
             //En modo edicion solo puede elegir entre el año actual y el siguiente
             $choices[$this->planif->getAnioAcad()] = $this->planif->getAnioAcad();
@@ -361,7 +369,7 @@ class PlanificacionType extends AbstractType {
 
     /**
      * Obtiene las asignaturas de cierta carrera
-     * 
+     *
      * @param type $cod_carrera
      * @return type
      */

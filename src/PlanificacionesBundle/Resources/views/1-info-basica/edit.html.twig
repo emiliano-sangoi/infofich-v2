@@ -5,7 +5,7 @@
 
 
 {% block tab_content %}
-    {% include "PlanificacionesBundle:1-info-basica:form.html.twig" %}  
+    {% include "PlanificacionesBundle:1-info-basica:form.html.twig" %}
 {% endblock %}
 
 
@@ -18,10 +18,11 @@
             select_carreras = $('#planificacionesbundle_planificacion_carrera');
             select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
+            NRO_MODULO = "{{ planificacion.nroModulo }}";
 
             resetInfoAsignatura();
 
-            // combo de carreras:           
+            // combo de carreras:
             select_carreras.change(actualizarAsignaturas);
 
             //combo de asignaturas:
@@ -55,6 +56,11 @@
             $('#planificacionesbundle_planificacion_plan').val("");
             $('#planificacionesbundle_planificacion_caracter').val("");
             $('#planificacionesbundle_planificacion_cargaHoraria').val("");
+            $('#planificacionesbundle_planificacion_nroModulo').val("");
+
+            if(NRO_MODULO === '') {
+                $('#nro_modulo-container').addClass('d-none').fadeOut();
+            }
 
             // TODO: revisar cuando se haga la asociacion asignatura - departamento
             //$("#planificacionesbundle_planificacion_departamento").select2("val", "");
@@ -62,9 +68,9 @@
 
         /**
          * Se encarga de setear la informacion de una asignatura.
-         * 
-         * Recibe un objeto con el formato: 
-         * {    
+         *
+         * Recibe un objeto con el formato:
+         * {
          *      cargaHoraria: null,
          *      codigoMateria: "00330",
          *      horasSemanales: null,
@@ -74,7 +80,7 @@
          *      tipoMateria: "O",
          *      valorMateria: "60"
          * }
-         * 
+         *
          */
         function cargarInfoAsignatura(asignatura) {
             if (typeof asignatura !== 'object') {
@@ -83,7 +89,7 @@
             }
 
             var VACIO = '-';
-            
+
             console.log(asignatura);
 
             $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
@@ -92,6 +98,14 @@
             $('#planificacionesbundle_planificacion_cargaHoraria').val(asignatura.cargaHoraria ? asignatura.cargaHoraria : VACIO);
             $('#planificacionesbundle_planificacion_periodoCursada').val(asignatura.periodoCursada ? asignatura.periodoCursada : VACIO);
             $('#planificacionesbundle_planificacion_anioCursada').val(asignatura.anioCursada ? asignatura.anioCursada : VACIO);
+
+            if(typeof asignatura.nroModulo !== 'undefined'){
+                $('#planificacionesbundle_planificacion_nroModulo').val(asignatura.nroModulo ? asignatura.nroModulo : '');
+                $('#nro_modulo-container').removeClass('d-none').fadeIn();
+            }else{
+                $('#planificacionesbundle_planificacion_nroModulo').val("");
+                $('#nro_modulo-container').addClass('d-none').fadeOut();
+            }
 
             // TODO: revisar cuando se haga la asociacion asignatura - departamento
             //$("#planificacionesbundle_planificacion_departamento").select2("val", "");
@@ -114,4 +128,4 @@
 
 
     </script>
-{% endblock %} 
+{% endblock %}
