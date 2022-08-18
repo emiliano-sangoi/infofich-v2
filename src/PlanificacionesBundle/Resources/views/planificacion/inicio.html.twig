@@ -50,7 +50,8 @@
                                                     {{ p.getTitulo()|upper }}
                                                 </span>
                                                 <span class="right centrate-y">
-                                                    <span class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
+                                                    <span
+                                                        class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
                                                         {{ p.getCarreraAbrev() }}
                                                     </span>
                                                     {% set eActual = p.getEstadoActual() %}
@@ -58,8 +59,9 @@
                                                         {% set class = eActual.getCssClass() %}
 
                                                         {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}"> #}
-                                                        <span class='mr-2 small text-uppercase badge badge-estado badge-{{ class }}'
-                                                              style='cursor:default;'>
+                                                        <span
+                                                            class='mr-2 small text-uppercase badge badge-estado badge-{{ class }}'
+                                                            style='cursor:default;'>
                                                             {{ eActual.nombre }}
                                                         </span>
                                                         <i class="fa fa-1x fa-caret-down"></i>
@@ -91,14 +93,14 @@
                                                 <div class="col-12 col-sm-6">
                                                     <p class="mb-1">
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
-                                                                class='font-weight-bold'>Plan: </span>
+                                                            class='font-weight-bold'>Plan: </span>
                                                         <span class=''>
                                                             {{ p.plan }}
                                                         </span>
                                                     </p>
                                                     <p class="mb-1">
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
-                                                                class='font-weight-bold'>Docente responsable: </span>
+                                                            class='font-weight-bold'>Docente responsable: </span>
                                                         {% if p.getDocenteResponsable() %}
                                                             {{ p.getDocenteResponsable.getPersona().getApeNom() }}
                                                         {% else %}
@@ -107,7 +109,7 @@
                                                     </p>
                                                     <p>
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
-                                                                class='font-weight-bold'>Fecha creaci&oacute;n: </span>
+                                                            class='font-weight-bold'>Fecha creaci&oacute;n: </span>
                                                         <span class=''>
                                                             {{ p.fechaCreacion()|date('d/m/Y H:i') ~ ' Hs.' }}
                                                         </span>
@@ -117,13 +119,13 @@
                                                 <div class="col-12 col-sm-6">
                                                     <p class="mb-1">
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
-                                                                class='font-weight-bold'>Estado actual: </span>
+                                                            class='font-weight-bold'>Estado actual: </span>
                                                         <span class=''>{{ p.getEstadoActual() }}</span>
                                                     </p>
                                                     <p>
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
-                                                                class='font-weight-bold'
-                                                                title="Fecha última modificación">Fecha &uacute;ltima modif.: </span>
+                                                            class='font-weight-bold'
+                                                            title="Fecha última modificación">Fecha &uacute;ltima modif.: </span>
                                                         <span class=''>
                                                             {{ p.getUltimaModif()|date('d/m/Y H:i') ~ ' Hs.' }}
                                                         </span>
@@ -151,7 +153,7 @@
                                                         <i class="fa fa-print"></i>
                                                         Imprimir
                                                     </a>
-                                                    {# El boton Cambiar Estado es para las planificaciones publicadas que 
+                                                    {# El boton Cambiar Estado es para las planificaciones publicadas que
                                                     pueden cambiar al estado en Revision, solo tiene permiso SEC ACADeMICA. #}
                                                     {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 
@@ -228,11 +230,16 @@
 
             {% set formData = app.request.get('buscador') %}
             {% if formData['codigoAsignatura'] is defined %}
-            ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
-            //console.log("asignatura actual: " + ASIGNATURA_ACTUAL);
+                ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
             {% else %}
-            ASIGNATURA_ACTUAL = -1;
-            select_asignatura.val("");
+                ASIGNATURA_ACTUAL = -1;
+                select_asignatura.val("");
+            {% endif %}
+
+            {% if formData['nroModulo'] is defined %}
+                NRO_MODULO_ACTUAL = "{{ formData['nroModulo'] }}";
+            {% else %}
+                NRO_MODULO_ACTUAL = "";
             {% endif %}
 
 
@@ -242,6 +249,14 @@
             //combo de asignaturas:
             select_asignatura.change(function (e) {
                 var option = $(this).children("option:selected");
+                var data_json = option.data('json')
+
+                if (typeof data_json !== 'undefined' && typeof data_json.nroModulo !== 'undefined') {
+                    $('#buscador_nroModulo').val(data_json.nroModulo);
+                    NRO_MODULO_ACTUAL = data_json.nroModulo;
+                }else{
+                    $('#buscador_nroModulo').val(null);
+                }
             });
 
             //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura

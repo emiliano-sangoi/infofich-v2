@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      #tipoCursada: "cuatrimestre"
  *
  * @ORM\Table(name="planif_materias", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_planif_materias", columns={"codigo_materia", "nro_modulo"})
+ *     @ORM\UniqueConstraint(name="ak_planif_materias", columns={"carrera", "plan", "version_plan", "codigo_materia", "nro_modulo"})
  * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\MateriaRepository")
  */
@@ -67,7 +67,7 @@ class Materia implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_materia", type="string", length=12, unique=true)
+     * @ORM\Column(name="codigo_materia", type="string", length=12)
      */
     private $codigoMateria;
 

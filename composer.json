@@ -27,7 +27,8 @@
         "ninsuo/symfony-collection": "^2.1",
         "whiteoctober/breadcrumbs-bundle": "^1.4",
         "tecnickcom/tcpdf": "^6.4",
-        "whiteoctober/tcpdf-bundle": "dev-master"
+        "whiteoctober/tcpdf-bundle": "dev-master",
+        "twig/twig": "1.42.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

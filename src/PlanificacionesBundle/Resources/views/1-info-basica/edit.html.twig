@@ -18,7 +18,7 @@
             select_carreras = $('#planificacionesbundle_planificacion_carrera');
             select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
-            NRO_MODULO = "{{ planificacion.nroModulo }}";
+            NRO_MODULO_ACTUAL = "{{ planificacion.nroModulo }}";
 
             resetInfoAsignatura();
 
@@ -58,7 +58,7 @@
             $('#planificacionesbundle_planificacion_cargaHoraria').val("");
             $('#planificacionesbundle_planificacion_nroModulo').val("");
 
-            if(NRO_MODULO === '') {
+            if(NRO_MODULO_ACTUAL === '') {
                 $('#nro_modulo-container').addClass('d-none').fadeOut();
             }
 

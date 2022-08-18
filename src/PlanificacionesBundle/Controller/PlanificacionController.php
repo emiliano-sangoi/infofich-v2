@@ -65,10 +65,13 @@ class PlanificacionController extends Controller {
         $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
         $anioAcad = $form_filtros->get('anioAcad')->getData();
         $estadoActual = $form_filtros->get('estadoActual')->getData();
+        $nroModulo = $form_filtros->get('nroModulo')->getData();
+
+        //dump($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo);exit;
 
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Planificacion::class);
-        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual);
+        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo);
     }
 
     /**

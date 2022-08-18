@@ -7,6 +7,7 @@ use PlanificacionesBundle\Entity\Estado;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -17,7 +18,7 @@ class BuscadorType extends AbstractType {
 
     /**
      *
-     * @var APIInfofichService 
+     * @var APIInfofichService
      */
     private $apiInfofichService;
 
@@ -26,7 +27,7 @@ class BuscadorType extends AbstractType {
      * @var array
      */
     private $options;
-    
+
     public function __construct(APIInfofichService $apiInfofichService) {
 
         $this->apiInfofichService = $apiInfofichService;
@@ -43,14 +44,15 @@ class BuscadorType extends AbstractType {
         $this->addAsignaturas($builder);
         $this->addEstado($builder);
         $this->addAniAcad($builder);
+        $this->addNroModulo($builder);
 
     }
 
     /**
      * Agrega los campos relacionados a la carrera
-     * 
+     *
      * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addCarrera(FormBuilderInterface $builder) {
@@ -68,13 +70,13 @@ class BuscadorType extends AbstractType {
         }
 
     /**
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addAsignaturas(FormBuilderInterface $builder, $cod_carrera = null) {
 
         $asignaturas = $this->getAsignaturas($cod_carrera);
-        
+
         $config = array(
             'label' => 'Asignatura',
             'choices' => $asignaturas,
@@ -84,8 +86,8 @@ class BuscadorType extends AbstractType {
         );
 
         $builder->add('codigoAsignatura', ChoiceType::class, $config);
-        
-        //Esto permite desactivar el error "Este valor no es valido" que surge cuando 
+
+        //Esto permite desactivar el error "Este valor no es valido" que surge cuando
         //se intenta setear la asignatura en un listado que todavia no se actualizo.x
         $builder->get('codigoAsignatura')->resetViewTransformers();
         // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
@@ -108,7 +110,7 @@ class BuscadorType extends AbstractType {
 
     /**
      * Agrega el campo año academico
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addAniAcad(FormBuilderInterface $builder) {
@@ -121,6 +123,20 @@ class BuscadorType extends AbstractType {
         );
 
         $builder->add('anioAcad', 'AppBundle\Form\DatalistType', $config);
+    }
+
+    /**
+     * Agrega el nro de modulo
+     *
+     * @param FormBuilderInterface $builder
+     */
+    private function addNroModulo(FormBuilderInterface $builder) {
+
+        $config = array(
+
+        );
+
+        $builder->add('nroModulo', HiddenType::class, $config);
     }
 
     /**
@@ -157,7 +173,7 @@ class BuscadorType extends AbstractType {
 
     /**
      * Obtiene las asignaturas de cierta carrera
-     * 
+     *
      * @param type $cod_carrera
      * @return type
      */

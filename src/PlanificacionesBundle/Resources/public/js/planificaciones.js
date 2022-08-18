@@ -49,7 +49,7 @@ function getDocente(legajo, item) {
 
 /**
  * Callback que se ejecuta en equipo docente luego de agregar un docente
- * 
+ *
  * @param {type} collection
  * @param {type} item
  * @returns {undefined}
@@ -80,14 +80,14 @@ function afterAddDocente(collection, item) {
  * @returns {undefined}
  */
 function actualizarAsignaturas(event) {
-    
+
     var disabled = select_asignatura.attr('disabled') == 'disabled';
 
     // desactivar combo de asignaturas:
     select_asignatura.prop("disabled", true);
-    
+
     var cargarAsignaturas = function (response) {
-        
+
         if (response.length > 0) {
             console.log(response);
             select_asignatura.html('');
@@ -109,7 +109,8 @@ function actualizarAsignaturas(event) {
                 opt.attr('data-json', JSON.stringify(val));
                 opt.text(val.nombreMateria);
                 // console.log('Seleccionado: ' + aux, val.codigoMateria );
-                if (typeof ASIGNATURA_ACTUAL !== 'undefined' && ASIGNATURA_ACTUAL == val.codigoMateria) {
+                console.log(val.nroModulo);
+                if (typeof ASIGNATURA_ACTUAL !== 'undefined' && ASIGNATURA_ACTUAL == val.codigoMateria && NRO_MODULO_ACTUAL == val.nroModulo) {
                     opt.attr('selected', true);
                 }
 
@@ -142,13 +143,13 @@ function actualizarAsignaturas(event) {
         success: cargarAsignaturas,
         complete: function (data) {
             //esto se ejecuta cuando se terminan de cargar las asignaturas
-            // y provoca que se cargue la informacion de la materia.                
+            // y provoca que se cargue la informacion de la materia.
             select_asignatura.trigger("change");
 
             if(ASIGNATURA_ACTUAL == -1){
                 select_asignatura.val("");
             }
-            
+
         }
     });
 
