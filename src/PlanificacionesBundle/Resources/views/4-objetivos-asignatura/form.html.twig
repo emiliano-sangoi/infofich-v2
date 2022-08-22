@@ -5,7 +5,7 @@
 
         {{ form_label(form.objetivosGral) }}
         {{ form_widget(form.objetivosGral) }}
-        {{ form_errors(form.objetivosGral) }}   
+        {{ form_errors(form.objetivosGral) }}
     </div>
 </div>
 
@@ -13,16 +13,18 @@
     <div class="col-12 col-md-10">
         {{ form_label(form.objetivosEspecificos) }}
         {{ form_widget(form.objetivosEspecificos) }}
-        {{ form_errors(form.objetivosEspecificos) }}      
+        {{ form_errors(form.objetivosEspecificos) }}
     </div>
 </div>
 
 {% if planificacion.puedeEditarse() %}
     <div class="form-row">
-        <div class="col-12 text-right">
-            <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-check"></i>&nbsp;Guardar cambios
+            </button>
         </div>
-        {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+        {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">
                     <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
                 </div>#}
     </div>

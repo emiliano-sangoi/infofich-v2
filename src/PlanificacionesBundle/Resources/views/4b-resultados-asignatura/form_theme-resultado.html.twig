@@ -1,45 +1,69 @@
 {% block planif_resultado_widget %}
     <div class="mb-5">
-        <div class="form-row">
-            <div class="col-12">
-                {{ form_label(form.resultado) }}            
+        <div class="form-row item">
+            <div class="col-12 col-md-7">
+                {{ form_label(form.resultado) }}
                 {{ form_widget(form.resultado) }}
                 {{ form_errors(form.resultado) }}
-                {#                {{ dump(form) }}#}
+            </div>
+            <div class="col-12 col-md-3 align-self-center">
+                {% if not form.vars.disabled %}
+                    <div class="text-right">
+                        <table class="table table-borderless d-inline align-middle">
+                            <tr>
+                                <td class="py-0">
+                                    <a href="#" class="collection-up small text-secondary">
+                                        <i class="fa fa-arrow-up"></i>
+{#                                        Subir#}
+                                    </a>
+                                    <a href="#" class="collection-down small text-secondary px-1">
+                                        <i class="fa fa-arrow-down"></i>
+{#                                        Bajar#}
+                                    </a>
+                                </td>
+                                <td class="py-0">
+                                    <a href="#" class="collection-add small text-primary" title="Agregar registro">
+                                        <i class="fa fa-plus"></i> Agregar
+                                    </a>
+                                </td>
+                                <td class="py-0">
+                                    <a href="#" class="collection-remove small text-danger" title="Borrar registro">
+                                        <i class="fa fa-trash"></i> Quitar
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
         {{ form_row(form.posicion) }}
 
 
-        <div class="form-row">
-            <div class="form-group col-4 pl-0">
-                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro">
-                    <i class="fa fa-plus"></i> Agregar
-                </a>
+{#        <div class="form-row">#}
+{#            <div class="form-group col-4 pl-0">#}
+{#                                <a href="#" class="collection-add btn btn-sm btn-primary ml-1" title="Agregar registro"> #}
+{#                                    <i class="fa fa-plus"></i> Agregar #}
+{#                                </a> #}
+{#            </div>#}
 
-            </div>
+{#            <div class="col-8 text-right">#}
+{#                <a href="#" class="collection-up btn btn-sm btn-outline-secondary">#}
+{#                    <i class="fa fa-arrow-up"></i>#}
+{#                </a>#}
 
-            <div class="col-8 text-right">
-                <a href="#" class="collection-up btn btn-sm btn-outline-secondary">
-                    <i class="fa fa-arrow-up"></i>
-                </a>
+{#                <a href="#" class="collection-down btn btn-sm btn-outline-secondary ml-1">#}
+{#                    <i class="fa fa-arrow-down"></i>#}
+{#                </a>#}
 
-                <a href="#" class="collection-down btn btn-sm btn-outline-secondary ml-1">
-                    <i class="fa fa-arrow-down"></i>
-                </a>
-
-                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">
-                    <i class="fa fa-trash"></i> Borrar
-                </a>
-
-
-                {#<div class="col-md-1">
-                    <a href="#" class="collection-duplicate btn btn-sm btn-primary">Duplicate</a>
-                </div>#}
-            </div>
-        </div> 
+{#                <a href="#" class="collection-remove btn btn-sm btn-outline-danger ml-1" title="Borrar registro">#}
+{#                    <i class="fa fa-trash"></i> Borrar#}
+{#                </a>#}
+{#                #}
+{#            </div>#}
+{#        </div>#}
 
 
-    </div>         
+    </div>
 {% endblock %}

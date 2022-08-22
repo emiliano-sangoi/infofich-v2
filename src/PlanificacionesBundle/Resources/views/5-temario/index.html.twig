@@ -13,32 +13,39 @@
 
 {% block tab_content %}
 
-    {% if planificacion.puedeEditarse() %}
-        <div class="mb-4">
-            {% embed "::botonera-2col.html.twig" %}
-                {% block left %}
+    <div class="row">
+        <div class="col-12 col-lg-10">
+            {% if planificacion.temario[0] is not defined %}
+                {% from '::macros.html.twig' import notificacion %}
+                {% set msg %}
+                    <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
+                {% endset %}
+                {{ notificacion(null, msg, 'secondary', '' ) }}
+            {% endif %}
+
+            {% if planificacion.puedeEditarse() %}
+                <div class="mb-4">
                     <a href="{{ path('planif_temario_nuevo', { id: planificacion.id }) }}" class="btn btn-success">
                         <i class="fa fa-plus"></i>&nbsp;Nuevo tema
                     </a>
-                {% endblock %}
-            {% endembed %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if planificacion.temario[0] is defined %}
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                <div class="bg-white mb-3 px-3 py-2 text-secondary shadow-sm">
+                    Se han encontrado <b>{{ temas|length }}</b> registro(s) para esta planificaci&oacute;n.
+                </div>
+                {% include "PlanificacionesBundle:5-temario:tabla-temario.html.twig" %}
+
+            </div>
         </div>
     {% endif %}
 
-    {% if planificacion.temario[0] is not defined %}
-        {% from '::macros.html.twig' import notificacion %}
-        {% set msg %}
-            <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
-        {% endset %}
-        {{ notificacion(null, msg, 'secondary', '' ) }}
-    {% else %}
-        <div class="bg-white mb-3 px-3 py-2 text-secondary shadow-sm">
-            Se han encontrado <b>{{ temas|length }}</b> registro(s) para esta planificaci&oacute;n.
-        </div>
-        {% include "PlanificacionesBundle:5-temario:tabla-temario.html.twig" %}
-    {% endif %}
-
-{% endblock %} 
+{% endblock %}
 
 
 {% block javascripts %}
@@ -68,13 +75,13 @@
                     //     $(this).html(i + 1);
                     // });
 
-                    $("#tablaTemario tbody tr").each(function(i,v){
+                    $("#tablaTemario tbody tr").each(function (i, v) {
 
                         var idUnidad = $(v).data('id-unidad');
 
                         var url = url_tpl.replace('-ID-', idUnidad);
                         var data = {
-                            nueva_posicion: i+1
+                            nueva_posicion: i + 1
                         };
 
                         var jqxhr = $.post(url, data);
@@ -85,7 +92,7 @@
                             console.log(error);
                         });
 
-                        console.log('La nueva pos de la unidad: ' + idUnidad + ' es: ' + (i+1));
+                        console.log('La nueva pos de la unidad: ' + idUnidad + ' es: ' + (i + 1));
                     });
 
                 };
@@ -112,4 +119,4 @@
 
 
 
-{% endblock %} 
+{% endblock %}

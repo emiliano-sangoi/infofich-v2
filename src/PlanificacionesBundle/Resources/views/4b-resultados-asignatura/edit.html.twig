@@ -5,39 +5,43 @@
 {% block tab_content %}
 
     {% if planificacion.resultados[0] is not defined %}
-
-        {% from '::macros.html.twig' import notificacion %}         
-        {% set msg %}
-            <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
-        {% endset %}
-        {{ notificacion(null, msg, 'secondary', '' ) }}
-
+        <div class="row">
+            <div class="col-10">
+                {% from '::macros.html.twig' import notificacion %}
+                {% set msg %}
+                    <span class="text-muted">No se ha cargado contenido en esta secci&oacute;n.</span>
+                {% endset %}
+                {{ notificacion(null, msg, 'secondary', '' ) }}
+            </div>
+        </div>
     {% endif %}
 
     {{ form_errors(form) }}
 
-    {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:4b-resultados-asignatura:form_theme-resultado.html.twig'  %}
+    {% form_theme form.resultados 'jquery.collection.html.twig' 'PlanificacionesBundle:4b-resultados-asignatura:form_theme-resultado.html.twig' %}
 
-    {{ form_start(form) }}  
+    {{ form_start(form) }}
 
     {{ form_row(form.resultados) }}
 
     {% if planificacion.puedeEditarse() %}
-        <div class="form-row mt-3">
-            <div class="col-12 text-right">
-                <input type="submit" value="Guardar cambios" class="btn btn-success"/>      
+        <div class="form-row mt-3 {{ planificacion.resultados[0] is defined ? '' : 'd-none' }}" id="btns-container">
+            <div class="col-10 text-right">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-check"></i>&nbsp;Guardar cambios
+                </button>
             </div>
-            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">            
+            {#        <div class="col-xs-12 offset-6 col-sm-2 text-right">
                         <input type="reset" class="btn btn-secondary" value="Limpiar campos"/>
-                    </div>#}
+                    </div> #}
         </div>
     {% endif %}
 
-    {{ form_end(form) }}  
+    {{ form_end(form) }}
 
 
 
-{% endblock %} 
+{% endblock %}
 
 
 {% block javascripts %}
@@ -51,8 +55,15 @@
                 $('.resultado-selector').collection({
                     position_field_selector: '.posicion',
                     add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar Resultado</a>',
-                    after_add: function(){
+                    after_add: function () {
                         $('.notificacion').hide();
+                        $('#btns-container').removeClass('d-none');
+                    },
+                    after_remove: function (colleccion, itemBorrado) {
+                        var cant = colleccion.find('.item').length;
+                        if(cant === 0){
+                           // $('#btns-container').addClass('d-none');
+                        }
                     }
                 });
             });
@@ -61,4 +72,4 @@
 
 
 
-{% endblock %} 
+{% endblock %}

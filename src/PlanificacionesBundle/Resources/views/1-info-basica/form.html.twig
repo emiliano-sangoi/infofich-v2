@@ -80,7 +80,9 @@
     {# Se esta creando la planificacion #}
     <div class="form-row">
         <div class="col-12 col-lg-10">
-            <input type="submit" value="Crear planificación" class="btn btn-success"/>
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-check"></i>&nbsp;Crear planificación
+            </button>
         </div>
     </div>
 
@@ -94,8 +96,10 @@
 
 {% elseif planificacion.puedeEditarse() or (planificacion.enRevision() and app.user.tieneRol(ROL_SA)) or (planificacion.isPublicada() and app.user.tieneRol(ROL_SA))%}
     <div class="form-row">
-        <div class="col-12 col-lg-10 text-right">
-            <input type="submit" value="Guardar cambios" class="btn btn-success"/>
+        <div class="col-12 col-lg-10">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-check"></i>&nbsp;Guardar cambios
+            </button>
         </div>
     </div>
 {% endif %}

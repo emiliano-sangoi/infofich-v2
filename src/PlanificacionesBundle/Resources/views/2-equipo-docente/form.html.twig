@@ -3,18 +3,14 @@
 
 <div class="mb-5">
     <div class="row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 col-lg-2">
             <span class="font-weight-bold">
-                {{ form_label(form.docenteResponsable) }}                    
+                {{ form_label(form.docenteResponsable) }}
             </span>
         </div>
-        <div class="col-12 col-md-9" id="docente_responsable">
-            <div class="row">
-                <div class="col-7">
+        <div class="col-12 col-md-9 col-lg-8" id="docente_responsable">
                     {{ form_widget(form.docenteResponsable) }}
-                    {{ form_errors(form.docenteResponsable) }}            
-                </div>
-            </div>
+                    {{ form_errors(form.docenteResponsable) }}
         </div>
         {#             <hr/>#}
     </div>
@@ -22,12 +18,12 @@
 
 <div class="mb-5">
     <div class="row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 col-lg-2">
             <span class="font-weight-bold">
                 Colaboradores
             </span>
         </div>
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-md-9 col-lg-8">
             {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
             {{ form_row(form.docentesColaboradores) }}
             {#% if planificacion.docentesColaboradores[0] is defined %}
@@ -48,15 +44,15 @@
 
 <div class="mb-5">
     <div class="row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 col-lg-2">
             <span class="font-weight-bold">
                 Adscriptos/as
-                <i class="fa fa-info-circle text-secondary ml-2" aria-hidden="true" data-toggle="tooltip" data-html="true" 
-                   title="Los docentes adscriptos son gestionados por <em><b>Secretaría Académica</b></em>, contactese con dicha área para algún cambio en el listado o alta de un nuevo docente."></i>           
+                <i class="fa fa-info-circle text-secondary ml-2" aria-hidden="true" data-toggle="tooltip" data-html="true"
+                   title="Los docentes adscriptos son gestionados por <em><b>Secretaría Académica</b></em>, contactese con dicha área para algún cambio en el listado o alta de un nuevo docente."></i>
             </span>
 
         </div>
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-md-9 col-lg-8">
             {% form_theme form.docentesAdscriptos 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
             {{ form_row(form.docentesAdscriptos) }}
             {#% if planificacion.docentesAdscriptos[0] is defined %}
@@ -72,12 +68,14 @@
             {% endif %#}
         </div>
     </div>
-</div>        
+</div>
 
 {% if planificacion.puedeEditarse() %}
     <div class="form-row">
-        <div class="col-xs-12 col-sm-12 text-right">
-            <input type="submit" value="Guardar cambios" class="btn btn-success"/>            
+        <div class="col-xs-12 col-sm-12">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-check"></i>&nbsp;Guardar cambios
+            </button>
         </div>
     </div>
 {% endif %}
