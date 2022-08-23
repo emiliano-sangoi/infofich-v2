@@ -213,6 +213,7 @@ class RequisitosAprobacion {
     public function __construct() {
         $this->prevePromParcialTeoria = true;
         $this->prevePromParcialPractica = true;
+        $this->utilizaEvalContinua = false;
     }
 
     public function __toString() {

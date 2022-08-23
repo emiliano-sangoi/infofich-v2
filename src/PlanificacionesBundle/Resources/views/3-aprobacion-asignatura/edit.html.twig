@@ -3,8 +3,8 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}  
-{% endblock %} 
+    {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
+{% endblock %}
 
 
 {% block javascripts %}
@@ -14,6 +14,12 @@
 
         $(document).ready(function () {
             onChangePreveIntegrador();
+
+            $('#planificacionesbundle_planificacion_utilizaEvalContinua input').on('change', function() {
+                var val = $(this);
+                console.log(val.val());
+                //$("form :input").prop("disabled", true);
+            });
 
         });
 
@@ -25,19 +31,19 @@
             //Caso contrario ocultar la Div PrevePromDiv
             var radioValue = $("input[name='planificacionesbundle_planificacion[preveCfi]']:checked").val();
 
-            if (radioValue == 1) {                
-                $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();                
-                //Agregamos la clase required en el campo fecha parcial integrador    
+            if (radioValue == 1) {
+                $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();
+                //Agregamos la clase required en el campo fecha parcial integrador
                 $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").prop('required',true);
 
 
-            } else {                
+            } else {
                 $(".preveCfiDiv").addClass('d-none');
-                
+
                 $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").removeAttr('required',false);
             }
 
         }
     </script>
 
-{% endblock %} 
+{% endblock %}

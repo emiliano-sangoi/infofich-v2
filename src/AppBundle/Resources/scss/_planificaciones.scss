@@ -1,14 +1,10 @@
 
-
-
 #planificaciones{
     background-color: $gris-4;
-
-
 }
 
 #tab-content{
-    
+
     form {
         label{
             font-weight: bold;
@@ -20,20 +16,20 @@
     }
 }
 
-#planificaciones, .tab-pane{
+#planificaciones, #menuLateral .tab-pane{
     min-height: 100vh;
 }
 
 /*#v-pills-tab a.active{
     background-color: white;
     a{
-        color: $primary; 
+        color: $primary;
     }
-       
+
 }*/
 
 
-.tab-pane{
+#menuLateral .tab-pane{
     /*margin: 0;*/
     /*padding: 0;*/
     background-color: $white;

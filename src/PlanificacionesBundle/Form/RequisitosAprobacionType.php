@@ -15,12 +15,17 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RequisitosAprobacionType extends AbstractType {
+class RequisitosAprobacionType extends AbstractType
+{
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+
+        /* @var $entity RequisitosAprobacion */
+        $entity = $builder->getData();
 
         $builder->add('porcentajeAsistencia', DatalistType::class, array(
             'label' => 'Asistencia %',
@@ -70,13 +75,13 @@ class RequisitosAprobacionType extends AbstractType {
         $builder->add('prevePromParcialTeoria', CheckboxType::class, array(
             'label' => 'Teoría',
             'required' => false,
-                //  'attr' => array('class' => 'form-control')
+            //  'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('prevePromParcialPractica', CheckboxType::class, array(
             'label' => 'Práctica',
             'required' => false,
-                //    'attr' => array('class' => 'form-control')
+            //    'attr' => array('class' => 'form-control')
         ));
 
         $builder->add('preveCfi', ChoiceType::class, array(
@@ -117,6 +122,48 @@ class RequisitosAprobacionType extends AbstractType {
             )
         ));
 
+        $builder->add('requisitosRegul', TextareaType::class, array(
+            'label' => 'Requisitos regularización:',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control',
+                'rows' => 6,
+            )
+        ));
+
+        $builder->add('requisitosPromo', TextareaType::class, array(
+            'label' => 'Requisitos promoción:',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control',
+                'rows' => 6,
+            )
+        ));
+
+        if ($entity->getUtilizaEvalContinua()) {
+            $builder->add('descEvalContinua', TextareaType::class, array(
+                'label' => 'Metodología de enseñanza:',
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Descripción de la metodología de enseñanza utilizada',
+                    'class' => 'form-control',
+                    'rows' => 6,
+                )
+            ));
+        }
+
+        $builder->add('utilizaEvalContinua', ChoiceType::class, array(
+            'label' => false,
+            'required' => true,
+            'choices' => array('Sí' => true, 'No' => false),
+            'choices_as_values' => true,
+            'expanded' => true,
+            'multiple' => false,
+            'attr' => array('class' => '',
+                //'onchange' => "onChangePreveIntegrador(event);"
+            )
+        ));
+
         $builder->add('examenFinalModalidadRegulares', TextareaType::class, array(
             'label' => 'Modalidad estudiantes regulares',
             'required' => false,
@@ -135,7 +182,7 @@ class RequisitosAprobacionType extends AbstractType {
         ));
 
 
-        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $requisitosAprobacion = $event->getForm()->getData();
             if ($requisitosAprobacion instanceof RequisitosAprobacion && false === $requisitosAprobacion->preveCfi()) {
                 //en caso de que la asignatura no prevea un CFI se debe poner en null los campos:
@@ -152,16 +199,18 @@ class RequisitosAprobacionType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
-            'data_class' => 'PlanificacionesBundle\Entity\RequisitosAprobacion'
+            'data_class' => RequisitosAprobacion::class
         ));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix()
+    {
         return 'planificacionesbundle_planificacion';
     }
 

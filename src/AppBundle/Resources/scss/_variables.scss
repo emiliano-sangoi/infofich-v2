@@ -4,12 +4,12 @@
 // ======================================================================
 // Colores
 $primary:       #006CB7 !default;
-/*$secondary:     $gray-600 !default;*/
+//$secondary:     #464a4e !default;
 $success:       #009e75 !default;
 /*$ifo:          $cyan !default;*/
 $warning:       #ffc122 !default;
 $danger:        #dd3445 !default;
-/*$light:         $gray-100 !default;*/
+$light:         rgb(248, 249, 250) !default;
 $dark:          #262626 !default;
 /*$primary: #006CB7;
 $azul: #0063ae;
@@ -52,6 +52,15 @@ crearan automaticamentes fondos y colores de texto
  */
 $colors: (
         'white': $white,
+        'gray-100': $gray-100,
+        'gray-200': $gray-200,
+        'gray-300': $gray-300,
+        'gray-400': $gray-400,
+        'gray-500': $gray-500,
+        'gray-600': $gray-600,
+        'gray-700': $gray-700,
+        'gray-800': $gray-800,
+        'gray-900': $gray-900,
 );
 
 @each $name, $color in $colors {

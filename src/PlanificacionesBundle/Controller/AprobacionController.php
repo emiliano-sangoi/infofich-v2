@@ -18,7 +18,7 @@ class AprobacionController extends Controller {
 
     /**
      * Metodo que maneja la edicion del formulario.
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
@@ -33,7 +33,7 @@ class AprobacionController extends Controller {
             $requisitosAprob = new RequisitosAprobacion();
             $requisitosAprob->setPlanificacion($planificacion);
         }
-        
+
         //Deshabilitar el campo cuando la planificación este en revision o publicada
         $config = array();
         $ea = $planificacion->getEstadoActual();
@@ -71,6 +71,24 @@ class AprobacionController extends Controller {
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
+    }
+
+
+    private function crearFormUtilizaEvalCont(RequisitosAprobacion $ra){
+
+        $options = array(
+            'attr' => array(
+                'class' => 'd-inline'
+            ),
+            'data_class' => RequisitosAprobacion::class
+        );
+
+        $fb = $this->createFormBuilder(null, $options);
+
+        return $fb->setAction($this->generateUrl('planif_temario_borrar', array('id' => $ra->getId())))
+            ->setMethod('POST')
+            ->getForm();
+
     }
 
 }

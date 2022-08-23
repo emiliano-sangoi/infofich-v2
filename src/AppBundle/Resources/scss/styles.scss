@@ -11,7 +11,6 @@
 *   - Sangoi, Emiliano <emiliano.sangoi@gmail.com>
 */
 
-
 @import '_variables';
 @import '_botones';
 @import '_breadcrumb';
@@ -131,7 +130,7 @@ $content-info-right-panel-h: 20.25vh;
 #resumen-indice{
     position: fixed;
     right: 3em;
-    bottom: 3em;    
+    bottom: 3em;
     background-color: $gris-4;
 
 
@@ -145,7 +144,7 @@ $content-info-right-panel-h: 20.25vh;
     }
 
     a.nav-link{
-        line-height: 100%;        
+        line-height: 100%;
         color: black;
 
         &:hover{
