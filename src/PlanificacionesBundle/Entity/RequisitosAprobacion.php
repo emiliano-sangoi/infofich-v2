@@ -41,7 +41,7 @@ class RequisitosAprobacion {
      *
      * @ORM\Column(name="preve_cfi", type="boolean")
      * @Assert\NotNull(message="Este campo no puede quedar vacio.")
-     * 
+     *
      */
     private $preveCfi;
 
@@ -51,7 +51,7 @@ class RequisitosAprobacion {
      * @ORM\Column(name="fecha_parcail_cfi", type="datetime", nullable=true)
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
-     * 
+     *
      */
     private $fechaParcailCfi;
 
@@ -170,18 +170,51 @@ class RequisitosAprobacion {
     private $examenFinalModalidadLibres;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="requisitos_regular", type="text", nullable=true)
+     *
+     */
+    private $requisitosRegul;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="requisitos_promo", type="text", nullable=true)
+     *
+     */
+    private $requisitosPromo;
+
+    /**
+     * Descripcion de la metodologia de enseñanza (solo para los que usen evaluación continua")
+     *
+     * @var string
+     *
+     * @ORM\Column(name="desc_eval_continua", type="text", nullable=true)
+     *
+     */
+    private $descEvalContinua;
+
+    /**
      *
      * @var Planificacion
-     * 
+     *
      * @ORM\OneToOne(targetEntity="Planificacion", inversedBy="requisitosAprobacion")
      */
     private $planificacion;
-    
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="utiliza_eval_continua", type="boolean", nullable=true)
+     */
+    private $utilizaEvalContinua;
+
     public function __construct() {
         $this->prevePromParcialTeoria = true;
-        $this->prevePromParcialPractica = true;        
+        $this->prevePromParcialPractica = true;
     }
-    
+
     public function __toString() {
         return 'Requisitos aprobación planificación: ' . $this->planificacion->getId();
     }
@@ -260,10 +293,10 @@ class RequisitosAprobacion {
     public function getPreveCfi() {
         return $this->preveCfi;
     }
-    
+
     /**
      * Get preveCfi
-     * 
+     *
      * @return bool
      */
     public function preveCfi() {
@@ -512,4 +545,100 @@ class RequisitosAprobacion {
         return $this->planificacion;
     }
 
+
+    /**
+     * Set requisitosRegul
+     *
+     * @param string $requisitosRegul
+     *
+     * @return RequisitosAprobacion
+     */
+    public function setRequisitosRegul($requisitosRegul)
+    {
+        $this->requisitosRegul = $requisitosRegul;
+
+        return $this;
+    }
+
+    /**
+     * Get requisitosRegul
+     *
+     * @return string
+     */
+    public function getRequisitosRegul()
+    {
+        return $this->requisitosRegul;
+    }
+
+    /**
+     * Set requisitosPromo
+     *
+     * @param string $requisitosPromo
+     *
+     * @return RequisitosAprobacion
+     */
+    public function setRequisitosPromo($requisitosPromo)
+    {
+        $this->requisitosPromo = $requisitosPromo;
+
+        return $this;
+    }
+
+    /**
+     * Get requisitosPromo
+     *
+     * @return string
+     */
+    public function getRequisitosPromo()
+    {
+        return $this->requisitosPromo;
+    }
+
+    /**
+     * Set descEvalContinua
+     *
+     * @param string $descEvalContinua
+     *
+     * @return RequisitosAprobacion
+     */
+    public function setDescEvalContinua($descEvalContinua)
+    {
+        $this->descEvalContinua = $descEvalContinua;
+
+        return $this;
+    }
+
+    /**
+     * Get descEvalContinua
+     *
+     * @return string
+     */
+    public function getDescEvalContinua()
+    {
+        return $this->descEvalContinua;
+    }
+
+    /**
+     * Set utilizaEvalContinua
+     *
+     * @param boolean $utilizaEvalContinua
+     *
+     * @return RequisitosAprobacion
+     */
+    public function setUtilizaEvalContinua($utilizaEvalContinua)
+    {
+        $this->utilizaEvalContinua = $utilizaEvalContinua;
+
+        return $this;
+    }
+
+    /**
+     * Get utilizaEvalContinua
+     *
+     * @return boolean
+     */
+    public function getUtilizaEvalContinua()
+    {
+        return $this->utilizaEvalContinua;
+    }
 }
