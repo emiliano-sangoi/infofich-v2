@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RequisitosAprobacionType extends AbstractType
 {
@@ -28,7 +29,7 @@ class RequisitosAprobacionType extends AbstractType
         $entity = $builder->getData();
 
         $builder->add('porcentajeAsistencia', DatalistType::class, array(
-            'label' => 'Asistencia %',
+            'label' => false,
             'required' => true,
             'choices' => array(70, 75, 80, 85, 90, 95, 100),
             'attr' => array('class' => 'form-control')
@@ -39,38 +40,46 @@ class RequisitosAprobacionType extends AbstractType
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
             'required' => true,
-            'label' => 'Primer Parcial',
-            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
+            'label' => '1er. parcial',
+            'label_attr' => array('class' => 'requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-
-        $builder->add('fechaSegundoParcial', DateType::class, array(
-            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-            'widget' => 'single_text',
-            'format' => 'dd/MM/yyyy',
-            'required' => true,
-            'label' => 'Segundo Parcial',
-            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
-        ));
-
+        if (!$entity->getUtilizaEvalContinua()) {
+            $builder->add('fechaSegundoParcial', DateType::class, array(
+                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'required' => true,
+                'label' => '2do. parcial',
+                'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.'),
+                'constraints' => array(
+                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
+                )
+            ));
+        }
 
         $builder->add('fechaRecupPrimerParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
             'required' => true,
-            'label' => 'Primer Parcial',
+            'label' => '1er. parcial',
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        $builder->add('fechaRecupSegundoParcial', DateType::class, array(
-            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-            'widget' => 'single_text',
-            'format' => 'dd/MM/yyyy',
-            'required' => false,
-            'label' => 'Segundo Parcial',
-            'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.')
-        ));
+        if (!$entity->getUtilizaEvalContinua()) {
+            $builder->add('fechaRecupSegundoParcial', DateType::class, array(
+                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'required' => false,
+                'label' => '2do. parcial',
+                'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.'),
+                'constraints' => array(
+                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
+                )
+            ));
+        }
 
         $builder->add('prevePromParcialTeoria', CheckboxType::class, array(
             'label' => 'Teoría',
@@ -123,7 +132,7 @@ class RequisitosAprobacionType extends AbstractType
         ));
 
         $builder->add('requisitosRegul', TextareaType::class, array(
-            'label' => 'Requisitos regularización:',
+            'label' => false,
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
@@ -151,18 +160,6 @@ class RequisitosAprobacionType extends AbstractType
                 )
             ));
         }
-
-        $builder->add('utilizaEvalContinua', ChoiceType::class, array(
-            'label' => false,
-            'required' => true,
-            'choices' => array('Sí' => true, 'No' => false),
-            'choices_as_values' => true,
-            'expanded' => true,
-            'multiple' => false,
-            'attr' => array('class' => '',
-                //'onchange' => "onChangePreveIntegrador(event);"
-            )
-        ));
 
         $builder->add('examenFinalModalidadRegulares', TextareaType::class, array(
             'label' => 'Modalidad estudiantes regulares',

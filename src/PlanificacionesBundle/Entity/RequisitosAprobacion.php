@@ -104,8 +104,7 @@ class RequisitosAprobacion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_segundo_parcial", type="datetime")
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
+     * @ORM\Column(name="fecha_segundo_parcial", type="datetime", nullable=true)
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
@@ -132,7 +131,7 @@ class RequisitosAprobacion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_recup_segundo_parcial", type="datetime")
+     * @ORM\Column(name="fecha_recup_segundo_parcial", type="datetime", nullable=true)
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")

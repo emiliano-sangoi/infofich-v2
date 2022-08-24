@@ -1,8 +1,14 @@
 #planificacion_ajax_aprobacion_editar:
 #    path:     /{id}/editar
 #    defaults: { _controller: PlanificacionesBundle:Aprobacion:edit}
-#    
+#
 planif_aprobacion_editar:
    path: /{id}/aprobacion-asignatura/editar
    defaults: { _controller: PlanificacionesBundle:Aprobacion:edit }
    methods: [GET, POST]
+
+planif_aprobacion_actualizar_utiliza_ec:
+  path: /aprobacion-asignatura/{id}/actualizar-utiliza-eval-cont
+  defaults: { _controller: PlanificacionesBundle:Aprobacion:actualizarUtilizaEvalCont }
+  methods: [GET, POST]
+

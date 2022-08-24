@@ -9,6 +9,8 @@ use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Form\RequisitosAprobacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,29 +67,92 @@ class AprobacionController extends Controller {
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
 
+        $form_ec = $this->crearFormUtilizaEvalContinua($planificacion->getRequisitosAprobacion());
+
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
                     'form' => $form->createView(),
+                    'form_ec' => $form_ec->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Aprobación de la asignatura',
                     'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
                     'planificacion' => $planificacion
         ));
     }
 
-
-    private function crearFormUtilizaEvalCont(RequisitosAprobacion $ra){
-
+    private function crearFormUtilizaEvalContinua(RequisitosAprobacion $ra){
         $options = array(
             'attr' => array(
-                'class' => 'd-inline'
+                'class' => ''
             ),
             'data_class' => RequisitosAprobacion::class
         );
 
-        $fb = $this->createFormBuilder(null, $options);
+        $fb = $this->createFormBuilder($ra, $options);
 
-        return $fb->setAction($this->generateUrl('planif_temario_borrar', array('id' => $ra->getId())))
+        $fb->add('utilizaEvalContinua', ChoiceType::class, array(
+            'label' => false,
+            'required' => true,
+            'choices' => array('Sí' => true, 'No' => false),
+            'choices_as_values' => true,
+            'expanded' => true,
+            'multiple' => false,
+            'attr' => array('class' => 'd-inline ml-4 ml-lg-5',
+                //'onchange' => "onChangePreveIntegrador(event);"
+            )
+        ));
+
+        return $fb->setAction($this->generateUrl('planif_aprobacion_actualizar_utiliza_ec', array('id' => $ra->getId())))
             ->setMethod('POST')
             ->getForm();
+    }
+
+    /**
+     * Manejador del formulario que actualiza el metodo de enseñanza.
+     *
+     * @param RequisitosAprobacion $ra
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function actualizarUtilizaEvalContAction(RequisitosAprobacion $ra, Request $request){
+
+        $form = $this->crearFormUtilizaEvalContinua($ra);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+
+                $this->addFlash('success', 'Método de enseñansa actualizado correctamente.');
+            }else{
+                $this->addFlash('danger', 'Hay errores en el formulario.');
+            }
+        }
+
+        //Redireccionar a la misma pagina:
+        return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $ra->getPlanificacion()->getId()));
+    }
+
+    private function ajaxActualizarUtilizaEvalContinua(RequisitosAprobacion $ra, $nuevo_valor){
+
+        $nuevo_valor = (int) $nuevo_valor;
+
+        if(!in_array($nuevo_valor, [0,1], true)){
+            return new JsonResponse(
+                array(
+                    'statusCode' => Response::HTTP_BAD_REQUEST,
+                    'mensaje' => 'El nuevo valor debe ser 0 o 1'
+                ),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $ra->setUtilizaEvalContinua($nuevo_valor === 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+       return new JsonResponse(array(
+           'statusCode' => Response::HTTP_OK,
+           'mensaje' => 'Cambios realizados correctamente.'
+       ), Response::HTTP_OK);
 
     }
 

@@ -3,7 +3,44 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
+
+    <div class="row">
+        <div class="col-12 col-lg-10">
+
+            <div class="alert alert-secondary text-dark shadow-sm mb-3 mb-lg-4 py-3">
+                {{ form_start(form_ec) }}
+                <div class="row">
+                    <div class="col-12 col-lg-8 align-self-center font-weight-bold">
+                        ¿Utiliza evaluación continua?
+                        <sup><i class="fa fa-info-circle text-dark small ml-1 text" aria-hidden="true"
+                                data-toggle="tooltip"
+                                data-html="true"
+                                title="La metodología de evaluación continua es utilizada por algunas asignaturas y solo exige definir un único parcial y su respectivo recuperatorio para la regularización de la asignatura."></i>
+                        </sup>
+                        {{ form_widget(form_ec.utilizaEvalContinua) }}
+                    </div>
+
+                    {% if planificacion.puedeEditarse() %}
+                        <div class="col-12 col-lg-4 text-lg-right">
+                            <button type="submit" class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-check"></i>&nbsp;Guardar cambios
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    {{ form_end(form_ec) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12 col-lg-10">
+            {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -15,7 +52,7 @@
         $(document).ready(function () {
             onChangePreveIntegrador();
 
-            $('#planificacionesbundle_planificacion_utilizaEvalContinua input').on('change', function() {
+            $('#planificacionesbundle_planificacion_utilizaEvalContinua input').on('change', function () {
                 var val = $(this);
                 console.log(val.val());
                 //$("form :input").prop("disabled", true);
@@ -34,13 +71,13 @@
             if (radioValue == 1) {
                 $(".preveCfiDiv").hide().removeClass('d-none').fadeIn();
                 //Agregamos la clase required en el campo fecha parcial integrador
-                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").prop('required',true);
+                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").prop('required', true);
 
 
             } else {
                 $(".preveCfiDiv").addClass('d-none');
 
-                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").removeAttr('required',false);
+                $("input[name='planificacionesbundle_planificacion[fechaParcailCfi]']").removeAttr('required', false);
             }
 
         }

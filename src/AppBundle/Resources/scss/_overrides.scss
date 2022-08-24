@@ -144,26 +144,26 @@ table thead th a{
     color: $primary;
 }
 
-form[name='planificacionesbundle_planificacion']{
-    #planificacionesbundle_planificacion_utilizaEvalContinua {
-        input  {
-            vertical-align: text-bottom;
-        }
 
-        #planificacionesbundle_planificacion_utilizaEvalContinua_1{
-            margin-left: 1rem;
-        }
+#form_utilizaEvalContinua {
+    input  {
+        vertical-align: text-bottom;
+    }
 
-        label{
-            vertical-align: middle;
-            font-weight: normal;
-            margin-bottom: 0 !important;
+    #form_utilizaEvalContinua_1{
+        margin-left: 1rem;
+    }
 
-            &.required:after{
-                content: '';
-            }
+    label{
+        vertical-align: middle;
+        font-weight: normal;
+        margin-bottom: 0 !important;
+
+        &.required:after{
+            content: '';
         }
     }
 }
+
 
 
