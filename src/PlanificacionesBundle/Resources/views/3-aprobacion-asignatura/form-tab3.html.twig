@@ -1,0 +1,36 @@
+<div class="tab-pane fade" id="pills-examen-final" role="tabpanel" aria-labelledby="pills-examen-final-tab">
+
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+            <label class="font-weight-bold text-secondary">
+                Modalidad estudiantes <br>regulares
+            </label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    {{ form_widget(form.examenFinalModalidadRegulares) }}
+                    {{ form_errors(form.examenFinalModalidadRegulares) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+            <label class="font-weight-bold text-secondary">
+                Modalidad estudiantes <br>libres
+            </label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    {{ form_widget(form.examenFinalModalidadLibres) }}
+                    {{ form_errors(form.examenFinalModalidadLibres) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

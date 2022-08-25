@@ -10,37 +10,59 @@
             <div class="alert alert-secondary text-dark shadow-sm mb-3 mb-lg-4 py-3">
                 {{ form_start(form_ec) }}
                 <div class="row">
-                    <div class="col-12 col-lg-8 align-self-center font-weight-bold">
-                        ¿Utiliza evaluación continua?
+                    <div class="col-12 col-md-4 col-lg-3 align-self-center text-right">
+                        <span class="font-weight-bold text-secondary">
+                            ¿Utiliza evaluación continua?
+                        </span>
                         <sup><i class="fa fa-info-circle text-dark small ml-1 text" aria-hidden="true"
                                 data-toggle="tooltip"
                                 data-html="true"
                                 title="La metodología de evaluación continua es utilizada por algunas asignaturas y solo exige definir un único parcial y su respectivo recuperatorio para la regularización de la asignatura."></i>
                         </sup>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-6 align-self-center pl-3 pl-lg-4">
                         {{ form_widget(form_ec.utilizaEvalContinua) }}
                     </div>
 
-                    {% if planificacion.puedeEditarse() %}
-                        <div class="col-12 col-lg-4 text-lg-right">
-                            <button type="submit" class="btn btn-sm btn-outline-success">
+                    <div class="col-12 col-md-4 col-lg-3 align-self-center text-md-right">
+                        {% if planificacion.puedeEditarse() %}
+                            <button type="submit" form="form-eval-continua" class="btn btn-sm btn-outline-success" id="btnSubmitFormEvalCont" data-toggle="tooltip" data-placement="bottom" title="Guardar los cambios para continuar cargando los requisitos.">
                                 <i class="fa fa-check"></i>&nbsp;Guardar cambios
                             </button>
-                        </div>
-                    {% endif %}
-
-                    {{ form_end(form_ec) }}
+                        {% endif %}
+                    </div>
                 </div>
+
+                <div class="row {{ planificacion.requisitosAprobacion.utilizaEvalContinua ? '' : 'd-none' }} mt-3"
+                     id="divDescEvalContinua">
+                    <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+                        <span class="font-weight-bold text-secondary">
+                            Metodología de enseñanza
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+                        {{ form_widget(form_ec.descEvalContinua) }}
+                        {{ form_errors(form_ec.descEvalContinua) }}
+                    </div>
+                </div>
+
+
+                {{ form_end(form_ec) }}
             </div>
         </div>
     </div>
 
 
-
-    <div class="row">
-        <div class="col-12 col-lg-10">
-            {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
+    {% if planificacion.requisitosAprobacion.utilizaEvalContinua is not null %}
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
+            </div>
         </div>
-    </div>
+    {% endif %}
+
+
 {% endblock %}
 
 
@@ -52,10 +74,21 @@
         $(document).ready(function () {
             onChangePreveIntegrador();
 
-            $('#planificacionesbundle_planificacion_utilizaEvalContinua input').on('change', function () {
-                var val = $(this);
-                console.log(val.val());
-                //$("form :input").prop("disabled", true);
+            $('#form-eval-continua input').on('change', function () {
+                var val = $(this).val();
+                console.log(val);
+
+                if (val == 1) {
+                    $('#divDescEvalContinua').removeClass('d-none').fadeIn();
+                } else {
+                    $('#divDescEvalContinua').addClass('d-none').fadeOut();
+                }
+
+                $("#form-req-aprobacion input").prop("disabled", true);
+                $("#form-req-aprobacion").fadeOut();
+                $("#btnSubmitFormEvalCont").removeClass('btn-outline-success').addClass('btn-success');
+                $("#btnSubmitFormEvalCont").tooltip('show');
+
             });
 
         });

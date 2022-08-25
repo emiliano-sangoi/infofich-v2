@@ -1,0 +1,79 @@
+<div class="tab-pane fade" id="pills-req-promo" role="tabpanel" aria-labelledby="pills-req-promo-tab">
+
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-end text-right">
+            <label class="font-weight-bold text-secondary">
+                ¿Prevé promoción?
+            </label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-2">
+                    {{ form_widget(form.prevePromParcialTeoria) }}
+                    {{ form_label(form.prevePromParcialTeoria) }}
+                    {{ form_errors(form.prevePromParcialTeoria) }}
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    {{ form_widget(form.prevePromParcialPractica) }}
+                    {{ form_label(form.prevePromParcialPractica) }}
+                    {{ form_errors(form.prevePromParcialPractica) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+            <label class="font-weight-bold text-secondary">
+                ¿Prevé coloquio final integrador?
+            </label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row mb-3">
+                <div class="col-12">
+                    {{ form_widget(form.preveCfi) }}
+                    {{ form_errors(form.preveCfi) }}
+                </div>
+            </div>
+
+            <div
+                class="row preveCfiDiv {{ (planificacion.requisitosAprobacion is not null and planificacion.requisitosAprobacion.preveCfi) ? '' : 'd-none' }}">
+                <div class="col-12">
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            {% from '::macros.html.twig' import input_datetime_picker %}
+                            {{ input_datetime_picker(form.fechaParcailCfi, 'fecha_cfi_picker', true ) }}
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            {% from '::macros.html.twig' import input_datetime_picker %}
+                            {{ input_datetime_picker(form.fechaRecupCfi, 'fecha_recup_cfi_picker', true ) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form_label(form.modalidadCfi) }}
+                            {{ form_widget(form.modalidadCfi) }}
+                            {{ form_errors(form.modalidadCfi) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+            <label class="font-weight-bold text-secondary">
+                Requisitos promoción
+            </label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    {{ form_widget(form.requisitosPromo) }}
+                    {{ form_errors(form.requisitosPromo) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

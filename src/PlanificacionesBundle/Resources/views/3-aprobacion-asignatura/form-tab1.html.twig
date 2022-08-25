@@ -1,0 +1,66 @@
+<div class="tab-pane fade show active" id="pills-req-regul" role="tabpanel" aria-labelledby="pills-req-regul-tab">
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-end text-right">
+            <label class="font-weight-bold text-secondary">% Asistencia</label>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 pl-3 pl-lg-4">
+            {{ form_widget(form.porcentajeAsistencia) }}
+            {{ form_errors(form.porcentajeAsistencia) }}
+        </div>
+    </div>
+    <!-- Parciales -->
+    <div class="form-row mb-3">
+        <div class="col-12 col-md-4 col-lg-3 align-self-end text-right">
+            <label class="font-weight-bold text-secondary">Parciales</label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    {% from '::macros.html.twig' import input_datetime_picker %}
+                    {{ input_datetime_picker(form.fechaPrimerParcial, 'fecha_1er_parcial_picker', true ) }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {% if form.fechaSegundoParcial is defined %}
+                        {% from '::macros.html.twig' import input_datetime_picker %}
+                        {{ input_datetime_picker(form.fechaSegundoParcial, 'fecha_2do_parcial_picker', true ) }}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Recuperatorios -->
+    <div class="form-row">
+        <div class="col-12 col-md-4 col-lg-3 align-self-end text-right">
+            <label class="font-weight-bold text-secondary">Recuperatorios</label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    {% from '::macros.html.twig' import input_datetime_picker %}
+                    {{ input_datetime_picker(form.fechaRecupPrimerParcial, 'fecha_recu_1er_parcial_picker', true ) }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {% if form.fechaRecupSegundoParcial is defined %}
+                        {% from '::macros.html.twig' import input_datetime_picker %}
+                        {{ input_datetime_picker(form.fechaRecupSegundoParcial, 'fecha_recu_2do_parcial_picker', true ) }}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row pt-2">
+        <div class="col-12 col-md-4 col-lg-3 align-self-start text-right text-wrap">
+            <label class="font-weight-bold text-secondary">Requisitos <br class="d-none d-inline">regularización</label>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+            {{ form_widget(form.requisitosRegul) }}
+            {{ form_errors(form.requisitosRegul) }}
+        </div>
+
+    </div>
+
+</div>
