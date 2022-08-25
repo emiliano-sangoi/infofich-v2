@@ -212,17 +212,10 @@ class PlanificacionesPDF extends ImprimirPDF {
                 <td>' . $fechaRecupCfi . '</td>
             </tr>
             <tr><td></td></tr>
-            <tr>         
-                <td></td>
-                <td><b>Modalidad CFI </b></td>        
-                <td></td> 
-                <td></td>
-            </tr>
+            
             <tr>
-                <td></td>            
-                <td>' . $modalidadCfi . '</td>
-                <td></td>
-                <td></td>
+                <td><b> Modalidad CFI </b></td>                       
+                <td colspan="3" align="justify">' . $modalidadCfi . '</td>        
             </tr>
             <tr><td></td></tr>
             <tr>         
