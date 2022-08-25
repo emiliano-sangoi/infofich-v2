@@ -91,6 +91,22 @@
 
             });
 
+
+            var errorsTab1 = $('#pills-req-regul .field-error').length;
+            if(errorsTab1 > 0){
+                $('#pills-req-regul-tab .icono-hay-errores').removeClass('d-none');
+            }
+
+            var errorsTab2 = $('#pills-req-promo .field-error').length;
+            if(errorsTab2 > 0){
+                $('#pills-req-promo-tab .icono-hay-errores').removeClass('d-none');
+            }
+
+            var errorsTab3 = $('#pills-examen-final .field-error').length;
+            if(errorsTab3 > 0){
+                $('#pills-examen-final-tab .icono-hay-errores').removeClass('d-none');
+            }
+
         });
 
         /*

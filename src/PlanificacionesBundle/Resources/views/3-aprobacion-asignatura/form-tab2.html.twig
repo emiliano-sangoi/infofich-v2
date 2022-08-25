@@ -40,11 +40,11 @@
                 class="row preveCfiDiv {{ (planificacion.requisitosAprobacion is not null and planificacion.requisitosAprobacion.preveCfi) ? '' : 'd-none' }}">
                 <div class="col-12">
                     <div class="row mb-3">
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-5">
                             {% from '::macros.html.twig' import input_datetime_picker %}
                             {{ input_datetime_picker(form.fechaParcailCfi, 'fecha_cfi_picker', true ) }}
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-5">
                             {% from '::macros.html.twig' import input_datetime_picker %}
                             {{ input_datetime_picker(form.fechaRecupCfi, 'fecha_recup_cfi_picker', true ) }}
                         </div>

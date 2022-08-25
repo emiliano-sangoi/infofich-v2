@@ -14,7 +14,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
 class RequisitosAprobacionType extends AbstractType
 {
@@ -53,7 +55,11 @@ class RequisitosAprobacionType extends AbstractType
                 'label' => '2do. parcial',
                 'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.'),
                 'constraints' => array(
-                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
+                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.')),
+                    new GreaterThanOrEqual(array(
+                        'value' => 'today',
+                        'message' => 'La fecha debe ser mayor o igual al día de hoy.'
+                    ))
                 )
             ));
         }

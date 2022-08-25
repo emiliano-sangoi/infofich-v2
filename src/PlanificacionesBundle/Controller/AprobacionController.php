@@ -11,10 +11,6 @@ use PlanificacionesBundle\Form\RequisitosAprobacionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -74,7 +70,7 @@ class AprobacionController extends Controller
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
 
-        $form_ec = $this->crearFormUtilizaEvalContinua($planificacion->getRequisitosAprobacion());
+        $form_ec = $this->crearFormUtilizaEvalContinua($requisitosAprob);
         $form_ec->handleRequest($request);
 
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
@@ -96,10 +92,9 @@ class AprobacionController extends Controller
             'data_class' => RequisitosAprobacion::class
         );
 
-        if($ra->getUtilizaEvalContinua()) {
-            $options['validation_groups'] = array('eval_continua', 'default');
-        }else{
-            $options['validation_groups'] = array('sin_eval_continua', 'default');
+        $ea = $ra->getPlanificacion()->getEstadoActual();
+        if ($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])) {
+            $options['disabled'] = true;
         }
 
         $fb = $this->createFormBuilder($ra, $options);
@@ -124,17 +119,15 @@ class AprobacionController extends Controller
                 'rows' => 5,
             ),
         );
-        $fb->add('descEvalContinua', TextareaType::class, $opt);
 
-//        $fb->get('descEvalContinua')->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-//            $ra = $event->getData();
-//            $form = $event->getForm();
-//dump($ra, $form);exit;
-//
-//
-//            // dump($ra);exit;
-//
-//        });
+        if($ra->getUtilizaEvalContinua()){
+            $opt['constraints'] = array(
+                new NotBlank(array('message' => 'Este campo no puede quedar vacieeeee'))
+            );
+            $opt['required'] = true;
+        }
+
+        $fb->add('descEvalContinua', TextareaType::class, $opt);
 
         return $fb->setAction($this->generateUrl('planif_aprobacion_actualizar_utiliza_ec', array('id' => $ra->getId())))
             ->setMethod('POST')->getForm();
@@ -149,11 +142,12 @@ class AprobacionController extends Controller
      */
     public function actualizarUtilizaEvalContAction(RequisitosAprobacion $ra, Request $request)
     {
+        $planificacion = $ra->getPlanificacion();
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
 
         $form = $this->crearFormUtilizaEvalContinua($ra);
-        
         $form->handleRequest($request);
-        dump($ra, $form->isValid(), (string )$form->getErrors(true));exit;
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($ra->getUtilizaEvalContinua()) {
@@ -166,40 +160,13 @@ class AprobacionController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-
-            $this->addFlash('success', 'Método de enseñansa actualizado correctamente.');
+            $this->addFlash('success', 'Método de enseñanza actualizado correctamente.');
 
             //Redireccionar a la misma pagina:
-            //return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $ra->getPlanificacion()->getId()));
+            return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $ra->getPlanificacion()->getId()));
         }
 
-        //Redireccionar a la misma pagina:
-        return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $ra->getPlanificacion()->getId()));
-    }
-
-    private function ajaxActualizarUtilizaEvalContinua(RequisitosAprobacion $ra, $nuevo_valor)
-    {
-
-        $nuevo_valor = (int)$nuevo_valor;
-
-        if (!in_array($nuevo_valor, [0, 1], true)) {
-            return new JsonResponse(
-                array(
-                    'statusCode' => Response::HTTP_BAD_REQUEST,
-                    'mensaje' => 'El nuevo valor debe ser 0 o 1'
-                ),
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        $ra->setUtilizaEvalContinua($nuevo_valor === 1);
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
-
-        return new JsonResponse(array(
-            'statusCode' => Response::HTTP_OK,
-            'mensaje' => 'Cambios realizados correctamente.'
-        ), Response::HTTP_OK);
+        return $this->editAction($request, $planificacion);
 
     }
 
