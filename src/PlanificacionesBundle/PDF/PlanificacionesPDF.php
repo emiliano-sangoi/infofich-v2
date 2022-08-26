@@ -272,13 +272,9 @@ class PlanificacionesPDF extends ImprimirPDF {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($temario as $tema) {
                 $html .= '<tr>
-                            <td width="15%"><b>Nro Unidad</b></td>
-                            <td width="20%"><b>Titulo</b></td>
+                            <td width="15%"><b>Unidad ' . $tema->getUnidad() . '</b></td>
+                            <td width="85%"><b>Titulo</b> ' . $tema->getTitulo() . '</td>
                           </tr>';
-                $html .= '<tr>
-                          <td>' . $tema->getUnidad() . '</td>';
-                $html .= '<td>' . $tema->getTitulo() . '</td>'
-                        . '</tr>';
                 $html .= '<tr>
                           <td><b>Contenido: </b></td></tr>'
                         . '<tr><td width="100%" align="justify">' . $tema->getContenido() . '</td></tr>';
@@ -293,12 +289,13 @@ class PlanificacionesPDF extends ImprimirPDF {
         $html .= '<h1>BIBLIOGRAFIA </h1>';
         $bibliografia = $this->parametros['bibliografia'];
         if ($bibliografia) {
+            $html .= '<table cellspacing="0" cellpadding="0">';
             foreach ($bibliografia as $biblio) {
-                $html .= '<p><b>Tipo: </b>' . $biblio->getTipoBibliografia() . '</p>';
+                //$html .= '<p><b>Tipo: </b>' . $biblio->getTipoBibliografia() . '</p>';
 
                 $bibliografiaInfo = $biblio->getInfoCompleta();
 
-                $html .= '<p>' . $bibliografiaInfo . '</p>';
+                //$html .= '<p>' . $bibliografiaInfo . '</p>';
 
                 /* $html .= '<p><b>Título: </b> ' . $biblio->getTitulo() . '</p>';
                   $html .= '<p><b>Autores: </b> ' . $biblio->getAutores() . '</p>';
@@ -306,8 +303,16 @@ class PlanificacionesPDF extends ImprimirPDF {
                   $html .= '<p><b>Añio de Edición: </b> ' . $biblio->getAnioEdicion() . '</p>';
                   $html .= '<p><b>Nro de Edicion: </b> ' . $biblio->getNroEdicion() . '</p>';
                   $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>'; */
-            }
-        } else {
+
+                  
+                  $html .= '<tr>
+                <td width="100%"  align="left"> <b>
+                ' . $biblio->getTipoBibliografia() . '</b> - ' .trim($bibliografiaInfo). '
+                </td></tr>';
+            
+            } 
+            $html .= '<div><br/></div>';
+        }else {
             $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
