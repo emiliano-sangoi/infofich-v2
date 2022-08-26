@@ -145,18 +145,19 @@ table thead th a{
 }
 
 
-#form_utilizaEvalContinua {
+#form_utilizaEvalContinua, #planificacionesbundle_planificacion_preveCfi{
+
     input  {
         vertical-align: text-bottom;
     }
 
-    #form_utilizaEvalContinua_1{
+    input:nth-child(3){
         margin-left: 1rem;
     }
 
     label{
         vertical-align: middle;
-        font-weight: normal;
+        font-weight: normal !important;
         margin-bottom: 0 !important;
 
         &.required:after{

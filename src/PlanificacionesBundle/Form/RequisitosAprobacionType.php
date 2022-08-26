@@ -14,7 +14,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
 class RequisitosAprobacionType extends AbstractType
 {
@@ -53,7 +55,11 @@ class RequisitosAprobacionType extends AbstractType
                 'label' => '2do. parcial',
                 'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.'),
                 'constraints' => array(
-                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
+                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.')),
+                    new GreaterThanOrEqual(array(
+                        'value' => 'today',
+                        'message' => 'La fecha debe ser mayor o igual al día de hoy.'
+                    ))
                 )
             ));
         }
@@ -94,7 +100,7 @@ class RequisitosAprobacionType extends AbstractType
         ));
 
         $builder->add('preveCfi', ChoiceType::class, array(
-            'label' => '¿Prevé coloquio final integrador?',
+            'label' => false,
             'required' => true,
             'choices' => array('Sí' => true, 'No' => false),
             'choices_as_values' => true,
@@ -141,7 +147,7 @@ class RequisitosAprobacionType extends AbstractType
         ));
 
         $builder->add('requisitosPromo', TextareaType::class, array(
-            'label' => 'Requisitos promoción:',
+            'label' => false,
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
@@ -149,32 +155,20 @@ class RequisitosAprobacionType extends AbstractType
             )
         ));
 
-        if ($entity->getUtilizaEvalContinua()) {
-            $builder->add('descEvalContinua', TextareaType::class, array(
-                'label' => 'Metodología de enseñanza:',
-                'required' => false,
-                'attr' => array(
-                    'placeholder' => 'Descripción de la metodología de enseñanza utilizada',
-                    'class' => 'form-control',
-                    'rows' => 6,
-                )
-            ));
-        }
-
         $builder->add('examenFinalModalidadRegulares', TextareaType::class, array(
-            'label' => 'Modalidad estudiantes regulares',
+            'label' => false,
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
-                'rows' => 4,
+                'rows' => 6,
             )
         ));
         $builder->add('examenFinalModalidadLibres', TextareaType::class, array(
-            'label' => 'Modalidad estudiantes libres',
+            'label' => false,
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
-                'rows' => 4,
+                'rows' => 6,
             )
         ));
 
@@ -199,7 +193,10 @@ class RequisitosAprobacionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => RequisitosAprobacion::class
+            'data_class' => RequisitosAprobacion::class,
+            'attr' => array(
+                'id' => 'form-req-aprobacion'
+            )
         ));
     }
 

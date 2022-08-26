@@ -26,6 +26,7 @@ class RequisitosAprobacion {
      * @var bool
      *
      * @ORM\Column(name="preve_prom_parcial_teoria", type="boolean")
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
      */
     private $prevePromParcialTeoria;
 
@@ -33,6 +34,7 @@ class RequisitosAprobacion {
      * @var bool
      *
      * @ORM\Column(name="preve_prom_parcial_practica", type="boolean")
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
      */
     private $prevePromParcialPractica;
 
@@ -106,10 +108,9 @@ class RequisitosAprobacion {
      *
      * @ORM\Column(name="fecha_segundo_parcial", type="datetime", nullable=true)
      * @Assert\Date()
-     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
-     *     "this.getFechaSegundoParcial() > this.getFechaPrimerParcial()",
-     *     message="Este campo debe ser mayor a la fecha de primer parcial."
+     *     "this.getFechaRecupSegundoParcial() === null || this.getFechaSegundoParcial() > this.getFechaPrimerParcial()",
+     *     message="Este campo debe ser mayor a la fecha de primer parcial.",
      * )
      */
     private $fechaSegundoParcial;
@@ -123,7 +124,8 @@ class RequisitosAprobacion {
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
      *     "this.getFechaRecupPrimerParcial() >= this.getFechaPrimerParcial()",
-     *     message="Este campo debe ser mayor a la fecha de segundo parcial."
+     *     message="Este campo debe ser mayor a la fecha de segundo parcial.",
+     *
      * )
      */
     private $fechaRecupPrimerParcial;
@@ -132,12 +134,11 @@ class RequisitosAprobacion {
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_recup_segundo_parcial", type="datetime", nullable=true)
-     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      * @Assert\Expression(
-     *     "this.getFechaRecupSegundoParcial() >= this.getFechaRecupPrimerParcial()",
-     *     message="Este campo debe ser igual o mayor a la fecha del recuperatorio del primer parcial."
+     *     "this.getFechaRecupSegundoParcial() === null || this.getFechaRecupSegundoParcial() >= this.getFechaRecupPrimerParcial()",
+     *     message="Este campo debe ser igual o mayor a la fecha del recuperatorio del primer parcial.",
      * )
      */
     private $fechaRecupSegundoParcial;
@@ -172,7 +173,7 @@ class RequisitosAprobacion {
      * @var string
      *
      * @ORM\Column(name="requisitos_regular", type="text", nullable=true)
-     *
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
     private $requisitosRegul;
 
@@ -180,7 +181,7 @@ class RequisitosAprobacion {
      * @var string
      *
      * @ORM\Column(name="requisitos_promo", type="text", nullable=true)
-     *
+     * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      */
     private $requisitosPromo;
 
@@ -190,7 +191,6 @@ class RequisitosAprobacion {
      * @var string
      *
      * @ORM\Column(name="desc_eval_continua", type="text", nullable=true)
-     *
      */
     private $descEvalContinua;
 
@@ -206,6 +206,7 @@ class RequisitosAprobacion {
      * @var bool
      *
      * @ORM\Column(name="utiliza_eval_continua", type="boolean", nullable=true)
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
      */
     private $utilizaEvalContinua;
 
