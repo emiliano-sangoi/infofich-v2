@@ -122,7 +122,7 @@ class AprobacionController extends Controller
 
         if($ra->getUtilizaEvalContinua()){
             $opt['constraints'] = array(
-                new NotBlank(array('message' => 'Este campo no puede quedar vacieeeee'))
+                new NotBlank(array('message' => 'Este campo no puede quedar vacio'))
             );
             $opt['required'] = true;
         }
