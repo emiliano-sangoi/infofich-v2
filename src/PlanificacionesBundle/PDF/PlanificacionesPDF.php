@@ -145,6 +145,10 @@ class PlanificacionesPDF extends ImprimirPDF {
 //Requisitos de Aprobacion    
         $html .= '<h1>APROBACION ASIGNATURA </h1>';
         if ($this->parametros['requisitosAprobacion']) {
+            $utilizaEvalContinua = ($this->parametros['requisitosAprobacion']['utilizaEvalContinua']) ? 'Sí' : 'No';                     
+            $requisitosRegular = ($this->parametros['requisitosAprobacion']['requisitosRegular']) ? $this->parametros['requisitosAprobacion']['requisitosRegular']  : 'Sin Definir' ;
+
+            $requisitosPromo = ($this->parametros['requisitosAprobacion']['requisitosPromo']) ? $this->parametros['requisitosAprobacion']['requisitosPromo']: 'Sin definir';
             $prevePromTeo = ($this->parametros['requisitosAprobacion']['prevePromParcialTeo']) ? 'Sí' : 'No';
             $prevePromPra = ($this->parametros['requisitosAprobacion']['prevePromParcialPractica']) ? 'Sí' : 'No';
             $preveCfi = ($this->parametros['requisitosAprobacion']['preveCfi']) ? 'Sí' : 'No';
@@ -159,6 +163,10 @@ class PlanificacionesPDF extends ImprimirPDF {
 
 
             $html .= '<table cellspacing="0" cellpadding="1">
+            <tr>
+                <td><b>¿Utiliza Evaluación Continua?</b></td>
+                <td colspan="3" align="justify">' . $utilizaEvalContinua . '</td>
+            </tr>
             <tr>
                 <td><b>Aprobacion</b></td>
                 <td><b>Asistencia</b></td>        
@@ -184,6 +192,10 @@ class PlanificacionesPDF extends ImprimirPDF {
                 <td>' . $fechaRecupPrimerParcial . '</td>
                 <td>' . $fechaRecupSegundoParcial . '</td>
             </tr>
+            
+                <tr><td><b>Requisitos regularización</b></td>
+                <td colspan="3" align="justify"> '. $requisitosRegular.'</td></tr>
+            
             <tr><td></td></tr>
             <tr>         
                 <td><b>Promoción</b></td>
@@ -217,6 +229,9 @@ class PlanificacionesPDF extends ImprimirPDF {
                 <td><b> Modalidad CFI </b></td>                       
                 <td colspan="3" align="justify">' . $modalidadCfi . '</td>        
             </tr>
+            <tr><td><b>Requisitos promoción</b></td>
+               <td colspan="3" align="justify"> '. $requisitosPromo.'</td></tr>
+
             <tr><td></td></tr>
             <tr>         
                 <td><b>Modalidad exámen final </b></td>
@@ -268,7 +283,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $temario = $this->parametros['temario'];
 
 
-        if ($temario[0]) {
+        if ($temario) {
             $html .= '<table cellspacing="0" cellpadding="1">';
             foreach ($temario as $tema) {
                 $html .= '<tr>
@@ -320,7 +335,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         //Actividades
         $actividades = $this->parametros['actividades'];
         $html .= '<h1>ACTIVIDADES CURRICULARES </h1>';
-        if ($actividades[0]) {
+        if ($actividades) {
 
             foreach ($actividades as $actividad) {
                 $dictado = ($actividad->getDictadoVariasComisiones()) ? 'Sí' : 'No';
