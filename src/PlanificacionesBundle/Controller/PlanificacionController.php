@@ -377,11 +377,12 @@ class PlanificacionController extends Controller {
         $tabla_cab = array('Código', 'Periodo', 'T.Liq', 'Organismo', 'Revista', 'Remun.', 'Ap.Personal', 'Cont.Patronal', 'Otros Conc.');
         $tabla_det = $detalleItems;
 
+// harcodiado el año esto es peligroso para el siguiente
         $parametros = array(
             'titulo' => 'Planificaciones 2022',
             'anio' => '2022',
-            'id' => 1, // $persona->getId(),
-            'nombreAsignatura' => $nombreAsignatura, //$persona->getApeNom(),
+            'id' => 1, 
+            'nombreAsignatura' => $nombreAsignatura, 
             'nombreCarrera' => $nombreCarrera,
             'departamento' => $planificacion->getDepartamento(),
             'planEstudio' => $planEstudio,
@@ -400,13 +401,6 @@ class PlanificacionController extends Controller {
             'bibliografia' => $bibliografia,
             'actividades' => $actividades,
             'viajesAcademicos' => $viajesAcademicos
-
-                /* 'nombre' => 'romina', // $persona->getNombres(),
-                  'cuil' => 4444,
-                  'tipoDocumento' => 'romina',
-                  'nroDocumento' => 'romina',
-                  //'tabla_cab' => $tabla_cab, */
-                //'tabla_det' => $tabla_det
         );
 
         $em = $this->getDoctrine()->getManager();
