@@ -309,6 +309,7 @@ class PlanificacionController extends Controller {
         $requisitosAprobacion = array();
         if ($aprobacionAsignatura) {
             $requisitosAprobacion['utilizaEvalContinua'] = $aprobacionAsignatura->getUtilizaEvalContinua();            
+            $requisitosAprobacion['descEvalContinua'] = $aprobacionAsignatura->getDescEvalContinua();                         
             $requisitosAprobacion['requisitosRegular'] = $aprobacionAsignatura->getRequisitosRegul();            
             $requisitosAprobacion['requisitosPromo'] = $aprobacionAsignatura->getRequisitosPromo();            
             $requisitosAprobacion['porcentajeAsistencia'] = $aprobacionAsignatura->getPorcentajeAsistencia();

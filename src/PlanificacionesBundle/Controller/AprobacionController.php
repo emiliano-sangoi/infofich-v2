@@ -129,7 +129,7 @@ class AprobacionController extends Controller
 
         $fb->add('descEvalContinua', TextareaType::class, $opt);
 
-        return $fb->setAction($this->generateUrl('planif_aprobacion_actualizar_utiliza_ec', array('id' => $ra->getPlanificacion()->getId())))
+        return $fb->setAction($this->generateUrl('planif_aprobacion_actualizar_utiliza_ec', array('id' => $ra->getId())))
             ->setMethod('POST')->getForm();
     }
 

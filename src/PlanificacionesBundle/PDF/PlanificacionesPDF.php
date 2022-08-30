@@ -146,6 +146,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $html .= '<h1>APROBACION ASIGNATURA </h1>';
         if ($this->parametros['requisitosAprobacion']) {
             $utilizaEvalContinua = ($this->parametros['requisitosAprobacion']['utilizaEvalContinua']) ? 'Sí' : 'No';                     
+            $descEvalContinua =  ($this->parametros['requisitosAprobacion']['descEvalContinua']) ? $this->parametros['requisitosAprobacion']['descEvalContinua']  : 'Sin Definir' ;
             $requisitosRegular = ($this->parametros['requisitosAprobacion']['requisitosRegular']) ? $this->parametros['requisitosAprobacion']['requisitosRegular']  : 'Sin Definir' ;
 
             $requisitosPromo = ($this->parametros['requisitosAprobacion']['requisitosPromo']) ? $this->parametros['requisitosAprobacion']['requisitosPromo']: 'Sin definir';
@@ -163,9 +164,14 @@ class PlanificacionesPDF extends ImprimirPDF {
 
 
             $html .= '<table cellspacing="0" cellpadding="1">
+            
             <tr>
                 <td><b>¿Utiliza Evaluación Continua?</b></td>
                 <td colspan="3" align="justify">' . $utilizaEvalContinua . '</td>
+            </tr>
+            <tr>
+                <td><b>Metodología de enseñanza </b></td>
+                <td colspan="3" align="justify">' . $descEvalContinua . '</td>
             </tr>
             <tr>
                 <td><b>Aprobacion</b></td>
@@ -192,7 +198,7 @@ class PlanificacionesPDF extends ImprimirPDF {
                 <td>' . $fechaRecupPrimerParcial . '</td>
                 <td>' . $fechaRecupSegundoParcial . '</td>
             </tr>
-            
+
                 <tr><td><b>Requisitos regularización</b></td>
                 <td colspan="3" align="justify"> '. $requisitosRegular.'</td></tr>
             
