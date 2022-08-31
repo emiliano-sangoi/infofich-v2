@@ -7,20 +7,28 @@
             <div class="col-12 col-md-3">
                 <label class="font-weight-bold">¿Utiliza evaluación continua?</label>
             </div>
-            <div class="" >                        
-            {{ resumen.utilizaEvalContinua|default(global_sd) }}                      
-            </div> 
-            {% if resumen.utilizaEvalContinua == 'Sí' %}  
-                <div class="col-12 col-md-4">
-                    <label class="font-weight-bold">Metodología de enseñanza</label>
+            <div class="col-12 col-md-8" >           
+                <div class="row">              
+                    <div class="col-12 col-md-4">                        
+                    {{ resumen.utilizaEvalContinua|default(global_sd) }}                      
+                    </div>             
                 </div>
-                <div class="" >                        
-                {{ resumen.descEvalContinua}} 
-                </div>                    
-             
-            {% endif %} 
+                
+                {% if resumen.utilizaEvalContinua == 'Sí' %}  
+                <div class="row">   
+                    <div class="col-12 col-md-10" >    
+                        <label class="font-weight-bold">Metodología de enseñanza</label>
+                    
+                    <div class="" >                        
+                    {{ resumen.descEvalContinua|default(global_sd)}} 
+                    </div>    
+                    </div>                
+                </div> 
+                    {% endif %} 
+            </div>
+
         </div>
-        <div class="row"> 
+        <div class="row mt-5"> 
             <div class="col-12 col-md-3">
                 <label class="font-weight-bold">Aprobaci&oacute;n</label>
             </div>
