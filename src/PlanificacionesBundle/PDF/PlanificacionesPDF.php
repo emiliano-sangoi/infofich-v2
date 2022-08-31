@@ -18,7 +18,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $this->setPrintHeader(true);
 
-        $this->SetMargins(PDF_MARGIN_LEFT, 69, PDF_MARGIN_RIGHT);
+        $this->SetMargins(PDF_MARGIN_LEFT, 43, PDF_MARGIN_RIGHT);
     }
 
     public function Header() {
@@ -31,15 +31,16 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         $est1 = array('width' => 0.1, 'join' => 'round', 'dash' => 0, 'color' => array(0, 0, 0));
         $c1 = array(204, 204, 204); //color gris de relleno definido con 3 valores es interpretado como RGB
+        $c2 = array(0, 108, 187); //color azul 
         // set image scale factor
         $this->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         // Título (Relleno)
-        $this->RoundedRect($x0, 43, 190, 8, 4, $round_corner = '0000', $style = 'F', $est1, $c1);
-
+        $this->RoundedRect($x0, 33, 190, 5, 4, $round_corner = '0000', $style = 'F', $est1, $c2);
 
         // Título (texto)
-        $this->CreateTextBox('PLANIFICACIÓN ' . $this->parametros['anio'], $x0, 45, 180, 0, 10, 'B', 'C');
+        $this->SetTextColor(255,255,255);
+        $this->CreateTextBox('PLANIFICACIÓN ' . $this->parametros['anio'], $x0, 33.5, 180, 0, 10, 'B', 'C');
 
 
         // Dibuja las cabeceras de la tabla
@@ -50,6 +51,13 @@ class PlanificacionesPDF extends ImprimirPDF {
     }
 
     public function render() {
+        // Set font
+// dejavusans is a UTF-8 Unicode font, if you only need to
+// print standard ASCII chars, you can use core fonts like
+// helvetica or times to reduce file size.
+$this->SetFont('dejavusans', '', 12, '', true);
+
+
         $border = 0;
         $this->SetFontSize(9);
 
@@ -143,7 +151,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 </table>';
 
 //Requisitos de Aprobacion    
-        $html .= '<h1>APROBACION ASIGNATURA </h1>';
+        $html .= '<h1>APROBACIÓN ASIGNATURA </h1>';
         if ($this->parametros['requisitosAprobacion']) {
             $utilizaEvalContinua = ($this->parametros['requisitosAprobacion']['utilizaEvalContinua']) ? 'Sí' : 'No';                     
             $descEvalContinua =  ($this->parametros['requisitosAprobacion']['descEvalContinua']) ? $this->parametros['requisitosAprobacion']['descEvalContinua']  : 'Sin Definir' ;
@@ -166,13 +174,12 @@ class PlanificacionesPDF extends ImprimirPDF {
             $html .= '<table cellspacing="0" cellpadding="1">
             
             <tr>
-                <td><b>¿Utiliza Evaluación Continua?</b></td>
-                <td colspan="3" align="justify">' . $utilizaEvalContinua . '</td>
+                <td colspan="2" ><b>¿Utiliza Evaluación Continua?</b></td>
+                <td colspan="1" align="justify">' . $utilizaEvalContinua . '</td>
+                <td colspan="2" ><b>Metodología de enseñanza </b></td>
+                <td colspan="2" align="justify">' . $descEvalContinua . '</td>
             </tr>
-            <tr>
-                <td><b>Metodología de enseñanza </b></td>
-                <td colspan="3" align="justify">' . $descEvalContinua . '</td>
-            </tr>
+
             <tr>
                 <td><b>Aprobacion</b></td>
                 <td><b>Asistencia</b></td>        
@@ -199,59 +206,55 @@ class PlanificacionesPDF extends ImprimirPDF {
                 <td>' . $fechaRecupSegundoParcial . '</td>
             </tr>
 
-                <tr><td><b>Requisitos regularización</b></td>
+                <tr><td colspan="2"><b>Requisitos regularización</b></td>
                 <td colspan="3" align="justify"> '. $requisitosRegular.'</td></tr>
             
             <tr><td></td></tr>
             <tr>         
                 <td><b>Promoción</b></td>
-                <td><b>¿Prevé promoción teoría?</b></td>        
-                <td><b>¿Prevé promoción práctica? </b></td> 
+                <td colspan="3" ><b>¿Prevé promoción teoría?</b> ' . $prevePromTeo . '</td>        
+                <td colspan="3" ><b>¿Prevé promoción práctica? </b> ' . $prevePromPra . '</td> 
                 <td></td>
             </tr>
             <tr>
                 <td></td>            
-                <td>' . $prevePromTeo . '</td>
-                <td>' . $prevePromPra . '</td>
+                <td></td>
+                <td></td>
                 <td></td>
             </tr>
 
             <tr><td></td></tr>
             <tr>         
-                <td><b>Coloquio final integrador (CFI)</b></td>
-                <td><b>¿Prevé CFI?</b></td>        
-                <td><b>Fecha integrador </b></td> 
-                <td><b>Fecha recuperatorio</b></td>
+                <td colspan="6" ><b>Coloquio final integrador (CFI)</b></td>
+
             </tr>
-            <tr>
-                <td></td>            
-                <td>' . $preveCfi . '</td>
-                <td>' . $fechaParcailCfi . '</td>
-                <td>' . $fechaRecupCfi . '</td>
+            <tr>         
+                <td colspan="2" ><b>¿Prevé CFI?</b> ' . $preveCfi . '</td>        
+                <td colspan="2" ><b>Fecha integrador </b>' . $fechaParcailCfi . '</td> 
+                <td colspan="3" ><b>Fecha recuperatorio</b> ' . $fechaRecupCfi . '</td>
             </tr>
+
             <tr><td></td></tr>
             
             <tr>
                 <td><b> Modalidad CFI </b></td>                       
-                <td colspan="3" align="justify">' . $modalidadCfi . '</td>        
+                <td colspan="6" align="justify">' . $modalidadCfi . '</td>        
             </tr>
-            <tr><td><b>Requisitos promoción</b></td>
-               <td colspan="3" align="justify"> '. $requisitosPromo.'</td></tr>
+            <tr><td colspan="2"><b>Requisitos promoción</b></td>
+               <td colspan="6" align="justify"> '. $requisitosPromo.'</td></tr>
 
             <tr><td></td></tr>
             <tr>         
-                <td><b>Modalidad exámen final </b></td>
-                <td></td>        
-                <td></td> 
-                <td></td>
+                <td colspan="6"><b>Modalidad exámen final </b></td>
+
             </tr>
             <tr>
                 <td><b> Regulares </b></td>                       
-                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
+                <td colspan="6" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
             </tr>
             <tr>
                 <td> <b> Libres</b></td>                       
-                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
+                <td colspan="6" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
             </tr>
             </table>';
         }
@@ -264,7 +267,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             $html .= 'No presenta</p>';
         }
                  
-        $html .= '<p><b>Objetivos Específicos</b> <br>';
+        $html .= '<p align="justify"><b>Objetivos Específicos</b> <br>';
         if($this->parametros['objetivosEspe']){
             $html .= $this->parametros['objetivosEspe'] .'</p>';
         }else{
@@ -294,7 +297,7 @@ class PlanificacionesPDF extends ImprimirPDF {
             foreach ($temario as $tema) {
                 $html .= '<tr>
                             <td width="15%"><b>Unidad ' . $tema->getUnidad() . '</b></td>
-                            <td width="85%"><b>Titulo</b> ' . $tema->getTitulo() . '</td>
+                            <td width="85%"><b>Título</b> ' . $tema->getTitulo() . '</td>
                           </tr>';
                 $html .= '<tr>
                           <td><b>Contenido: </b></td></tr>'
@@ -382,7 +385,7 @@ class PlanificacionesPDF extends ImprimirPDF {
 
         //Viajes Academicos
         $viajesAcademicos = $this->parametros['viajesAcademicos'];
-        $html .= '<h1>VIAJES ACADEMICOS </h1>';
+        $html .= '<h1>VIAJES ACADÉMICOS </h1>';
 
         if ($viajesAcademicos[0]) {
             $html .= '<table cellspacing="0" cellpadding="1">';
