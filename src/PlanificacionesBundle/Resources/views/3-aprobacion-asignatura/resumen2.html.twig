@@ -5,6 +5,23 @@
     {% if resumen.ver_requisitos %}
         <div class="row">        
             <div class="col-12 col-md-3">
+                <label class="font-weight-bold">¿Utiliza evaluación continua?</label>
+            </div>
+            <div class="" >                        
+            {{ resumen.utilizaEvalContinua|default(global_sd) }}                      
+            </div> 
+            {% if resumen.utilizaEvalContinua == 'Sí' %}  
+                <div class="col-12 col-md-4">
+                    <label class="font-weight-bold">Metodología de enseñanza</label>
+                </div>
+                <div class="" >                        
+                {{ resumen.descEvalContinua}} 
+                </div>                    
+             
+            {% endif %} 
+        </div>
+        <div class="row"> 
+            <div class="col-12 col-md-3">
                 <label class="font-weight-bold">Aprobaci&oacute;n</label>
             </div>
             <div class="col-12 col-md-8" >    
@@ -65,6 +82,13 @@
                             {% endif %}                         
                         </div>
                     </div> 
+                    <div class="col-12 col-md-6" >    
+                        <label class="font-weight-bold">Requisitos regularización</label>
+                        <div class="" >                              
+                                {{ resumen.requisitosRegul }}
+                     
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -88,7 +112,7 @@
                         </div> 
                     </div>               
                 </div>                        
-            </div>
+            </div>           
         </div>
 
 
@@ -132,6 +156,16 @@
                         </div> 
                     </div> 
                 </div>
+                <div class="row">    
+                    <div class="col-12 col-md-6" >    
+                        <label class="font-weight-bold">Requisitos promoción</label>
+                        <div class="" >                              
+                            {{ resumen.requisitosPromo }}
+                        
+                        </div>
+                    </div> 
+                </div> 
+
             </div>
         </div>
 

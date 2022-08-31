@@ -323,6 +323,11 @@ class RevisarController extends Controller {
         $this->resumen['fechaRecupCfi'] = null;
         $this->resumen['examenFinalModalidadRegulares'] = null;
         $this->resumen['examenFinalModalidadLibres'] = null;
+        $this->resumen['utilizaEvalContinua'] = null;
+        $this->resumen['descEvalCont'] = null;
+        $this->resumen['requisitosRegul'] = null;
+        $this->resumen['requisitosPromo'] = null;
+
 
         if ($requisitos) {
             $this->resumen['porcentajeAsistencia'] = $requisitos->getPorcentajeAsistencia();
@@ -361,6 +366,20 @@ class RevisarController extends Controller {
 
             $this->resumen['examenFinalModalidadRegulares'] = $requisitos->getExamenFinalModalidadRegulares();
             $this->resumen['examenFinalModalidadLibres'] = $requisitos->getExamenFinalModalidadLibres();
+
+
+            if ($requisitos->getUtilizaEvalContinua()) {
+                $this->resumen['utilizaEvalContinua'] = 'Sí';
+                $this->resumen['descEvalContinua'] = $requisitos->getDescEvalContinua();
+            } else {
+                $this->resumen['utilizaEvalContinua'] = 'No';
+            }
+           
+            $this->resumen['requisitosRegul'] = $requisitos->getRequisitosRegul();
+            $this->resumen['requisitosPromo'] = $requisitos->getRequisitosPromo();
+           
+
+            
         }
     }
 
