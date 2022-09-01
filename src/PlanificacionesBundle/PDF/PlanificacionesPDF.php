@@ -105,7 +105,7 @@ $this->SetFont('dejavusans', '', 12, '', true);
 
         $html .= '<p><b>Contenidos Minimos</b></p>';
         if($this->parametros['contenidosMinimos']){
-            $html .=   '<p>' . $this->parametros['contenidosMinimos'] . '</p>';
+            $html .=   '<p align="justify">' . $this->parametros['contenidosMinimos'] . '</p>';
         } else {
             $html .= 'No presenta';
         }
