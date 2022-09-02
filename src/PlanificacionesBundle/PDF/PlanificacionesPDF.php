@@ -9,9 +9,11 @@ use PlanificacionesBundle\Entity\ImprimirPDF;
  *
  * @author rgalarza
  */
-class PlanificacionesPDF extends ImprimirPDF {
+class PlanificacionesPDF extends ImprimirPDF
+{
 
-    public function __construct($parametros) {
+    public function __construct($parametros)
+    {
 
         parent::__construct($parametros);
         $this->parametros = $parametros;
@@ -21,7 +23,8 @@ class PlanificacionesPDF extends ImprimirPDF {
         $this->SetMargins(PDF_MARGIN_LEFT, 43, PDF_MARGIN_RIGHT);
     }
 
-    public function Header() {
+    public function Header()
+    {
 
         parent::Header();
 
@@ -39,7 +42,7 @@ class PlanificacionesPDF extends ImprimirPDF {
         $this->RoundedRect($x0, 33, 190, 5, 4, $round_corner = '0000', $style = 'F', $est1, $c2);
 
         // Título (texto)
-        $this->SetTextColor(255,255,255);
+        $this->SetTextColor(255, 255, 255);
         $this->CreateTextBox('PLANIFICACIÓN ' . $this->parametros['anio'], $x0, 33.5, 180, 0, 10, 'B', 'C');
 
 
@@ -50,12 +53,13 @@ class PlanificacionesPDF extends ImprimirPDF {
           $this->createHeaderTable($header, $widthColumn); */
     }
 
-    public function render() {
+    public function render()
+    {
         // Set font
-// dejavusans is a UTF-8 Unicode font, if you only need to
-// print standard ASCII chars, you can use core fonts like
-// helvetica or times to reduce file size.
-$this->SetFont('dejavusans', '', 12, '', true);
+        // dejavusans is a UTF-8 Unicode font, if you only need to
+        // print standard ASCII chars, you can use core fonts like
+        // helvetica or times to reduce file size.
+        $this->SetFont('dejavusans', '', 12, '', true);
 
 
         $border = 0;
@@ -104,12 +108,12 @@ $this->SetFont('dejavusans', '', 12, '', true);
 </table>';
 
         $html .= '<p><b>Contenidos Minimos</b></p>';
-        if($this->parametros['contenidosMinimos']){
+        if ($this->parametros['contenidosMinimos']) {
             $html .=   '<p>' . $this->parametros['contenidosMinimos'] . '</p>';
         } else {
             $html .= 'No presenta';
         }
-        
+
 
         // Equipo Docente:
         $html .= '<h1>EQUIPO DOCENTE</h1>';
@@ -150,19 +154,20 @@ $this->SetFont('dejavusans', '', 12, '', true);
 
 </table>';
 
-//Requisitos de Aprobacion    
+        //Requisitos de Aprobacion    
         $html .= '<h1>APROBACIÓN ASIGNATURA </h1>';
         if ($this->parametros['requisitosAprobacion']) {
-            $utilizaEvalContinua = ($this->parametros['requisitosAprobacion']['utilizaEvalContinua']) ? 'Sí' : 'No';                     
-            $descEvalContinua =  ($this->parametros['requisitosAprobacion']['descEvalContinua']) ? $this->parametros['requisitosAprobacion']['descEvalContinua']  : 'Sin Definir' ;
-            $requisitosRegular = ($this->parametros['requisitosAprobacion']['requisitosRegular']) ? $this->parametros['requisitosAprobacion']['requisitosRegular']  : 'Sin Definir' ;
+            $utilizaEvalContinua = ($this->parametros['requisitosAprobacion']['utilizaEvalContinua']) ? 'Sí' : 'No';
+            $descEvalContinua =  ($this->parametros['requisitosAprobacion']['descEvalContinua']) ? $this->parametros['requisitosAprobacion']['descEvalContinua']  : 'Sin Definir';
+            $requisitosRegular = ($this->parametros['requisitosAprobacion']['requisitosRegular']) ? $this->parametros['requisitosAprobacion']['requisitosRegular']  : 'Sin Definir';
 
-            $requisitosPromo = ($this->parametros['requisitosAprobacion']['requisitosPromo']) ? $this->parametros['requisitosAprobacion']['requisitosPromo']: 'Sin definir';
+            $requisitosPromo = ($this->parametros['requisitosAprobacion']['requisitosPromo']) ? $this->parametros['requisitosAprobacion']['requisitosPromo'] : 'Sin definir';
             $prevePromTeo = ($this->parametros['requisitosAprobacion']['prevePromParcialTeo']) ? 'Sí' : 'No';
             $prevePromPra = ($this->parametros['requisitosAprobacion']['prevePromParcialPractica']) ? 'Sí' : 'No';
             $preveCfi = ($this->parametros['requisitosAprobacion']['preveCfi']) ? 'Sí' : 'No';
-            //$modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? 'Sí' : 'No';
-            $modalidadCfi = $this->parametros['requisitosAprobacion']['modalidadCfi'];
+            
+            $modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? $this->parametros['requisitosAprobacion']['modalidadCfi']: 'Sin Definir';
+
             $fechaPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaPrimerParcial']->format("d/m/Y") : 'Sin Definir';
             $fechaSegundoParcial = ($this->parametros['requisitosAprobacion']['fechaSegundoParcial']) ? $this->parametros['requisitosAprobacion']['fechaSegundoParcial']->format("d/m/Y") : 'Sin Definir';
             $fechaRecupPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaRecupPrimerParcial']->format("d/m/Y") : 'Sin Definir';
@@ -171,106 +176,119 @@ $this->SetFont('dejavusans', '', 12, '', true);
             $fechaRecupCfi = ($this->parametros['requisitosAprobacion']['fechaRecupCfi']) ? $this->parametros['requisitosAprobacion']['fechaRecupCfi']->format("d/m/Y") : 'Sin Definir';
 
 
-            $html .= '<table cellspacing="0" cellpadding="1">
-            
+            $html .= '<table cellspacing="0" cellpadding="3" border="1" ><tbody>';
+            $html .= '<tr><td style="background-color: lightgray;"><b>¿Utiliza Evaluación Continua?</b> </td>
+                        <td colspan="2" style="background-color: lightgray;"><b>Metodología de enseñanza</b></td>;
+            </tr>
             <tr>
-                <td colspan="2" ><b>¿Utiliza Evaluación Continua?</b></td>
-                <td colspan="1" align="justify">' . $utilizaEvalContinua . '</td>
-                <td colspan="2" ><b>Metodología de enseñanza </b></td>
+               
+                <td align="justify">' . $utilizaEvalContinua . '</td>
+               
                 <td colspan="2" align="justify">' . $descEvalContinua . '</td>
-            </tr>
+            </tr>';
 
-            <tr>
-                <td><b>Aprobacion</b></td>
-                <td><b>Asistencia</b></td>        
-                <td><b>Primer Parcial </b></td> 
-                <td><b>Segundo Parcial </b></td>
-
+            $html .= '
+                <tr>
+                    <td colspan="3" style="background-color: lightgray;"><b>Requisitos Regularización</b></td>
+                </tr>
+                <tr>
+                    <td style="background-color: lightgray;"><b>Asistencia</b></td>        
+                    <td style="background-color: lightgray;"><b>Primer Parcial</b></td> 
+                    <td style="background-color: lightgray;"><b>Segundo Parcial</b></td>
+                </tr>
+                <tr>                    
+                    <td>' . $this->parametros['requisitosAprobacion']['porcentajeAsistencia'] . '%</td>
+                    <td>' . $fechaPrimerParcial . '</td>
+                    <td>' . $fechaSegundoParcial . '</td>            
+                </tr>
+                <tr>
+                <td></td>
+                <td style="background-color: lightgray;"><b>Recuperatorio 1er. parcial</b></td>
+                <td style="background-color: lightgray;"><b>Recuperatorio 2do. parcial</b></td>
             </tr>
-            <tr>
-                <td></td>
-                <td>' . $this->parametros['requisitosAprobacion']['porcentajeAsistencia'] . '%</td>
-                <td>' . $fechaPrimerParcial . '</td>
-                <td>' . $fechaSegundoParcial . '</td>            
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><b>Recuperatorio 1er. parcial</b></td>
-                <td><b>Recuperatorio 2do. parcial</b></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
+            <tr>         
+                <td></td>       
                 <td>' . $fechaRecupPrimerParcial . '</td>
                 <td>' . $fechaRecupSegundoParcial . '</td>
             </tr>
-
-                <tr><td colspan="2"><b>Requisitos regularización</b></td>
-                <td colspan="3" align="justify"> '. $requisitosRegular.'</td></tr>
+            <tr>            
+                <td colspan = "3" style="background-color: lightgray;"><b>Requisitos regularización</b></td>                
+            </tr>
+            <tr>
+                <td colspan="3" align="justify"> ' . $requisitosRegular . '</td>
+            </tr>
+            <tr>         
+                <td colspan="3" style="background-color: lightgray;"><b>Promoción</b></td>
+            </tr>
+            <tr>    
+                <td colspan="1" style="background-color: lightgray;"><b>¿Prevé promoción teoría?</b> </td>        
+                <td colspan="2" style="background-color: lightgray;" ><b>¿Prevé promoción práctica? </b></td> 
+                
+            </tr>
+            <tr>
+                <td colspan="1" >' . $prevePromTeo . '</td>        
+                <td colspan="2"> ' . $prevePromPra . '</td> 
+            </tr>
+            <tr>         
+                <td colspan="3" style="background-color: lightgray;"><b>Coloquio final integrador (CFI)</b></td>
+            </tr>
+            <tr>         
+                <td><b>¿Prevé CFI?</b></td>        
+                <td><b>Fecha integrador </b></td> 
+                <td><b>Fecha recuperatorio</b></td>
+            </tr>
+            <tr>         
+                <td>' . $preveCfi . '</td>        
+                <td>' . $fechaParcailCfi . '</td> 
+                <td>' . $fechaRecupCfi . '</td>
+            </tr>
+            <tr>         
+                <td colspan="3" style="background-color: lightgray;"><b>Modalidad CFI</b></td>
+            </tr>
+            <tr>         
+                <td colspan="3">' . $modalidadCfi . '</td>
+            </tr>
+            <tr>         
+                <td colspan="3" style="background-color: lightgray;"><b>Requisitos promoción</b></td>
+            </tr>
+            <tr>         
+                <td colspan="3">' . $requisitosPromo . '</td>
+            </tr>
+            <tr>         
+                <td colspan="3" style="background-color: lightgray;"><b>Modalidad exámen final</b></td>
+            </tr>
             
-            <tr><td></td></tr>
-            <tr>         
-                <td><b>Promoción</b></td>
-                <td colspan="3" ><b>¿Prevé promoción teoría?</b> ' . $prevePromTeo . '</td>        
-                <td colspan="3" ><b>¿Prevé promoción práctica? </b> ' . $prevePromPra . '</td> 
-                <td></td>
+            <tr>
+                <td colspan="3" style="background-color: lightgray;"><b> Regulares </b></td>                       
             </tr>
             <tr>
-                <td></td>            
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>                              
             </tr>
-
-            <tr><td></td></tr>
-            <tr>         
-                <td colspan="6" ><b>Coloquio final integrador (CFI)</b></td>
-
+            <tr>    
+                <td colspan="3" style="background-color: lightgray;"> <b> Libres</b></td>                 
             </tr>
-            <tr>         
-                <td colspan="2" ><b>¿Prevé CFI?</b> ' . $preveCfi . '</td>        
-                <td colspan="2" ><b>Fecha integrador </b>' . $fechaParcailCfi . '</td> 
-                <td colspan="3" ><b>Fecha recuperatorio</b> ' . $fechaRecupCfi . '</td>
-            </tr>
+            <tr>
+                
+                <td colspan="3" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
+            </tr>';
 
-            <tr><td></td></tr>
+            $html .= '</tbody></table>';
+            $html .= '<div><br/></div>';
             
-            <tr>
-                <td><b> Modalidad CFI </b></td>                       
-                <td colspan="6" align="justify">' . $modalidadCfi . '</td>        
-            </tr>
-            <tr><td colspan="2"><b>Requisitos promoción</b></td>
-               <td colspan="6" align="justify"> '. $requisitosPromo.'</td></tr>
-
-            <tr><td></td></tr>
-            <tr>         
-                <td colspan="6"><b>Modalidad exámen final </b></td>
-
-            </tr>
-            <tr>
-                <td><b> Regulares </b></td>                       
-                <td colspan="6" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalReg'] . '</td>        
-            </tr>
-            <tr>
-                <td> <b> Libres</b></td>                       
-                <td colspan="6" align="justify">' . $this->parametros['requisitosAprobacion']['examenFinalLibre'] . '</td>          
-            </tr>
-            </table>';
         }
 
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
         $html .= '<p align="justify"><b>Objetivos Generales </b> <br>';
-        if($this->parametros['objetivosGral']){
-            $html .= $this->parametros['objetivosGral'] .'</p>';
-        }else{
+        if ($this->parametros['objetivosGral']) {
+            $html .= $this->parametros['objetivosGral'] . '</p>';
+        } else {
             $html .= 'No presenta</p>';
         }
-                 
+
         $html .= '<p align="justify"><b>Objetivos Específicos</b> <br>';
-        if($this->parametros['objetivosEspe']){
-            $html .= $this->parametros['objetivosEspe'] .'</p>';
-        }else{
+        if ($this->parametros['objetivosEspe']) {
+            $html .= $this->parametros['objetivosEspe'] . '</p>';
+        } else {
             $html .= 'No presenta</p>';
         }
 
@@ -301,7 +319,7 @@ $this->SetFont('dejavusans', '', 12, '', true);
                           </tr>';
                 $html .= '<tr>
                           <td><b>Contenido: </b></td></tr>'
-                        . '<tr><td width="100%" align="justify">' . $tema->getContenido() . '</td></tr>';
+                    . '<tr><td width="100%" align="justify">' . $tema->getContenido() . '</td></tr>';
                 $html .= '<tr><td></td></tr>';
             }
             $html .= '</table>';
@@ -328,15 +346,14 @@ $this->SetFont('dejavusans', '', 12, '', true);
                   $html .= '<p><b>Nro de Edicion: </b> ' . $biblio->getNroEdicion() . '</p>';
                   $html .= '<p><b>ISSN-ISBN: </b> ' . $biblio->getIssnIsbn() . '</p>'; */
 
-                  
-                  $html .= '<tr>
+
+                $html .= '<tr>
                 <td width="100%"  align="left"> <b>
-                ' . $biblio->getTipoBibliografia() . '</b> - ' .trim($bibliografiaInfo). '
+                ' . $biblio->getTipoBibliografia() . '</b> - ' . trim($bibliografiaInfo) . '
                 </td></tr>';
-            
-            } 
+            }
             $html .= '<div><br/></div>';
-        }else {
+        } else {
             $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
 
@@ -365,7 +382,7 @@ $this->SetFont('dejavusans', '', 12, '', true);
                 $html .= '<tr>
                             <td>' . $actividad->getCargaHorariaAula() . ' Hs.</td>
                             <td> ' . $actividad->getCargaHorariaAutonomo() . ' Hs.</td>
-                            <td> '. $dictado .'</td>
+                            <td> ' . $dictado . '</td>
                             </tr>';
                 $html .=  '<tr>
                             <td colspan="3" style="background-color: lightgray;"><b>Descripción:</b> </td>
@@ -378,7 +395,6 @@ $this->SetFont('dejavusans', '', 12, '', true);
                 $html .= '</tbody></table>';
                 $html .= '<div><br/></div>';
             }
-
         } else {
             $html .= '<p>No presenta </p>'; //Siempre hay algo en el objeto
         }
@@ -442,5 +458,4 @@ $this->SetFont('dejavusans', '', 12, '', true);
           $this->CreateTextBox('Cantidad de registros informados: 2' , $x0, $y + 7, 180, 0, 9, 'B', 'L', 1);
           //        $this->CreateTextBox(count($this->parametros['tabla_det']), $x0+160, $y + 7, 20, 0, 9, 'B', 'R', 1); */
     }
-
 }
