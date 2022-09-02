@@ -108,8 +108,9 @@ class PlanificacionesPDF extends ImprimirPDF
 </table>';
 
         $html .= '<p><b>Contenidos Minimos</b></p>';
+
         if ($this->parametros['contenidosMinimos']) {
-            $html .=   '<p>' . $this->parametros['contenidosMinimos'] . '</p>';
+            $html .=   '<p align="justify">' . $this->parametros['contenidosMinimos'] . '</p>';
         } else {
             $html .= 'No presenta';
         }
@@ -165,8 +166,8 @@ class PlanificacionesPDF extends ImprimirPDF
             $prevePromTeo = ($this->parametros['requisitosAprobacion']['prevePromParcialTeo']) ? 'Sí' : 'No';
             $prevePromPra = ($this->parametros['requisitosAprobacion']['prevePromParcialPractica']) ? 'Sí' : 'No';
             $preveCfi = ($this->parametros['requisitosAprobacion']['preveCfi']) ? 'Sí' : 'No';
-            
-            $modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? $this->parametros['requisitosAprobacion']['modalidadCfi']: 'Sin Definir';
+
+            $modalidadCfi = ($this->parametros['requisitosAprobacion']['modalidadCfi']) ? $this->parametros['requisitosAprobacion']['modalidadCfi'] : 'Sin Definir';
 
             $fechaPrimerParcial = ($this->parametros['requisitosAprobacion']['fechaPrimerParcial']) ? $this->parametros['requisitosAprobacion']['fechaPrimerParcial']->format("d/m/Y") : 'Sin Definir';
             $fechaSegundoParcial = ($this->parametros['requisitosAprobacion']['fechaSegundoParcial']) ? $this->parametros['requisitosAprobacion']['fechaSegundoParcial']->format("d/m/Y") : 'Sin Definir';
@@ -181,15 +182,13 @@ class PlanificacionesPDF extends ImprimirPDF
                         <td colspan="2" style="background-color: lightgray;"><b>Metodología de enseñanza</b></td>;
             </tr>
             <tr>
-               
                 <td align="justify">' . $utilizaEvalContinua . '</td>
-               
                 <td colspan="2" align="justify">' . $descEvalContinua . '</td>
             </tr>';
 
             $html .= '
                 <tr>
-                    <td colspan="3" style="background-color: lightgray;"><b>Requisitos Regularización</b></td>
+                <td colspan = "3" style="background-color: lightgray;"><b>Requisitos regularización</b></td>                
                 </tr>
                 <tr>
                     <td style="background-color: lightgray;"><b>Asistencia</b></td>        
@@ -274,7 +273,6 @@ class PlanificacionesPDF extends ImprimirPDF
 
             $html .= '</tbody></table>';
             $html .= '<div><br/></div>';
-            
         }
 
         $html .= '<h1>OBJETIVOS ASIGNATURA </h1>';
