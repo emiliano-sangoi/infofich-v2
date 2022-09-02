@@ -179,7 +179,7 @@ class PlanificacionesPDF extends ImprimirPDF
 
             $html .= '<table cellspacing="0" cellpadding="3" border="1" ><tbody>';
             $html .= '<tr><td style="background-color: lightgray;"><b>¿Utiliza Evaluación Continua?</b> </td>
-                        <td colspan="2" style="background-color: lightgray;"><b>Metodología de enseñanza</b></td>;
+                        <td colspan="2" style="background-color: lightgray;"><b>Metodología de enseñanza</b></td>
             </tr>
             <tr>
                 <td align="justify">' . $utilizaEvalContinua . '</td>
