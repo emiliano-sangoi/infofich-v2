@@ -12,3 +12,7 @@ planif_aprobacion_actualizar_utiliza_ec:
   defaults: { _controller: PlanificacionesBundle:Aprobacion:actualizarUtilizaEvalCont }
   methods: [GET, POST]
 
+planif_aprobacion_actualizar_utiliza_ec_edit:
+  path: /aprobacion-asignatura/{id}/actualizar-utiliza-eval-cont/editar
+  defaults: { _controller: PlanificacionesBundle:Aprobacion:editarUtilizaEvalCont }
+  methods: [GET, POST]

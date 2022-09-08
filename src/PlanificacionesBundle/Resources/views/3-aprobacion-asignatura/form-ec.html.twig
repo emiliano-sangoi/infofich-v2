@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+
+    <div class="form-row mb-3">
+        <div class="col-12">
+            {{ form_label(form.utilizaEvalContinua) }}
+            <sup><i class="fa fa-info-circle text-dark small ml-1 text" aria-hidden="true"
+                    data-toggle="tooltip"
+                    data-html="true"
+                    title="La metodología de evaluación continua es utilizada por algunas asignaturas y solo exige definir un único parcial
+                     y su respectivo recuperatorio para la regularización de la asignatura."></i>
+            </sup>
+            {{ form_widget(form.utilizaEvalContinua) }}
+            {{ form_errors(form.utilizaEvalContinua) }}
+        </div>
+    </div>
+
+    <div class="form-row mb-3">
+        <div class="col-12">
+            {{ form_label(form.descEvalContinua) }}
+            {{ form_widget(form.descEvalContinua) }}
+            {{ form_errors(form.descEvalContinua) }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12 col-lg-8">
+            {% if planificacion.puedeEditarse() %}
+                <button type="submit" class="btn btn-sm btn-outline-success">
+                    <i class="fa fa-check"></i>&nbsp;Guardar cambios
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+{{ form_end(form) }}

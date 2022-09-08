@@ -250,47 +250,8 @@
                                 {% endif %}
                             </div>
                         </div>
-                        {#                            <div class="mb-4 mt-4"> #}
-                        {# {% block titulo_principal %}
-                                <div class="">
-                                    <span class="h4 mr-2">
-                                        {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
-                                            <i class="fa fa-edit"></i>
-                                        {% else %}
-                                            <i class="fa fa-plus"></i>
-                                        {% endif %}
-                                    </span>
-                                    <span class="h3 font-weight-bold">
-                                        {{ page_title }}
-                                    </span>
 
-                                    {% if is_planificacion_definida and planificacion.getEstadoActual()  %}
-                                        <span class="lead opacity-50">
-                                            &nbsp;/&nbsp;
-                                            <span class="">
-                                                {{ planificacion.getAnioAcad() }}
-                                            </span>
-                                            &nbsp;/&nbsp;
-                                            <span class="text-primary">
-                                                {{ planificacion.getEstadoActual() }} <a href="#" class="mostrar-historico">
-                                                    <small>
-                                                        <i class="fa fa-history"></i>
-                                                    </small>
-                                                </a>
-                                            </span>
-                                        </span>
-                                    {% endif %}
-                                </div>
-                            {% endblock %} #}
-                        {# {% block subtitulo %}
-                                {% if subtitulo is defined %}
-                                    <h4 class="font-weight-bold text-color-gray-600 mt-2">
-                                        {{ subtitulo }}
-                                    </h4>
-                                {% endif %}
-                            {% endblock %} #}
-                        {#                            </div> #}
-                        <div class="py-4">
+                        <div class="pt-2 pb-4">
                             {% block tab_content %}
                             {% endblock %}
                         </div>

@@ -262,15 +262,15 @@ table thead th a {
   border: #006CB7 solid 1px;
   color: #006CB7; }
 
-.fix-estilo-radio input {
+#form_utilizaEvalContinua input {
   vertical-align: text-bottom; }
-.fix-estilo-radio input:nth-child(3) {
+#form_utilizaEvalContinua #form_utilizaEvalContinua_1 {
   margin-left: 1rem; }
-.fix-estilo-radio label {
+#form_utilizaEvalContinua label {
   vertical-align: middle;
-  font-weight: normal !important;
+  font-weight: normal;
   margin-bottom: 0 !important; }
-  .fix-estilo-radio label.required:after {
+  #form_utilizaEvalContinua label.required:after {
     content: ''; }
 
 /* Estilos para el footer */

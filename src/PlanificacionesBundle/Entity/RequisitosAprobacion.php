@@ -205,8 +205,8 @@ class RequisitosAprobacion {
     /**
      * @var bool
      *
-     * @ORM\Column(name="utiliza_eval_continua", type="boolean", nullable=true)
-     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
+     * @ORM\Column(name="utiliza_eval_continua", type="boolean")
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.", groups={"eval_continua"})
      */
     private $utilizaEvalContinua;
 

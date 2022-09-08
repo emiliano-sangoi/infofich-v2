@@ -30,6 +30,8 @@ class RequisitosAprobacionType extends AbstractType
         /* @var $entity RequisitosAprobacion */
         $entity = $builder->getData();
 
+        $utiliza_ec = $entity->getUtilizaEvalContinua();
+
         $builder->add('porcentajeAsistencia', DatalistType::class, array(
             'label' => false,
             'required' => true,
@@ -46,23 +48,26 @@ class RequisitosAprobacionType extends AbstractType
             'label_attr' => array('class' => 'requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        if (!$entity->getUtilizaEvalContinua()) {
-            $builder->add('fechaSegundoParcial', DateType::class, array(
-                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'required' => true,
-                'label' => '2do. parcial',
-                'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.'),
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.')),
-                    new GreaterThanOrEqual(array(
-                        'value' => 'today',
-                        'message' => 'La fecha debe ser mayor o igual al día de hoy.'
-                    ))
-                )
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // Fecha 2DO. PARCIAL
+        $opt = array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => !$utiliza_ec,
+            'label' => '2do. parcial',
+            'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
+        );
+
+        if (!$utiliza_ec) {
+            $opt['constraints'][] = new NotBlank(array('message' => 'Este campo no puede quedar vacio.'));
+            $opt['constraints'][] = new GreaterThanOrEqual(array(
+                'value' => 'today',
+                'message' => 'La fecha debe ser mayor o igual al día de hoy.'
             ));
         }
+        $builder->add('fechaSegundoParcial', DateType::class, $opt);
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         $builder->add('fechaRecupPrimerParcial', DateType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
@@ -73,19 +78,23 @@ class RequisitosAprobacionType extends AbstractType
             'label_attr' => array('class' => 'font-weight-bold requerido', 'title' => 'Este campo es obligatorio.')
         ));
 
-        if (!$entity->getUtilizaEvalContinua()) {
-            $builder->add('fechaRecupSegundoParcial', DateType::class, array(
-                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'required' => false,
-                'label' => '2do. parcial',
-                'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.'),
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Este campo no puede quedar vacio.'))
-                )
-            ));
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // Fecha recuperatorio 2DO. PARCIAL
+        $opt = array(
+            'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA'),
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'required' => !$utiliza_ec,
+            'label' => '2do. parcial',
+            'label_attr' => array('class' => 'font-weight-bold', 'title' => 'Este campo es obligatorio.'),
+        );
+
+        if (!$utiliza_ec) {
+            $opt['constraints'][] = new NotBlank(array('message' => 'Este campo no puede quedar vacio.'));
         }
+
+        $builder->add('fechaRecupSegundoParcial', DateType::class, $opt);
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         $builder->add('prevePromParcialTeoria', CheckboxType::class, array(
             'label' => 'Teoría',
@@ -160,7 +169,7 @@ class RequisitosAprobacionType extends AbstractType
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
-                'rows' => 6,
+                'rows' => 8,
             )
         ));
         $builder->add('examenFinalModalidadLibres', TextareaType::class, array(
@@ -168,7 +177,7 @@ class RequisitosAprobacionType extends AbstractType
             'required' => false,
             'attr' => array(
                 'class' => 'form-control',
-                'rows' => 6,
+                'rows' => 8,
             )
         ));
 

@@ -10,6 +10,7 @@ namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Entity\Rol;
 use AppBundle\Util\Texto;
+use FICH\APIInfofich\Model\Materia;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\PlanificacionType;
 use Symfony\Component\Form\Form;
@@ -65,12 +66,17 @@ trait PlanificacionTrait {
     }
     
     private function getPageTitle(Planificacion $planificacion){
+
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
-        
-        return mb_strtoupper($page_title);
+        if($asignatura instanceof Materia){
+            $page_title = mb_strtoupper( Texto::ucWordsCustom($asignatura->getNombreMateria()) );
+        }else{
+            $page_title = 'Sin titulo';
+        }
+
+        return $page_title;
     }
     
     /**

@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-12 col-lg-10">
 
-            <div class="alert alert-secondary text-dark shadow-sm mb-3 mb-lg-4 py-3">
+            <div class="alert alert-light text-dark shadow-sm mb-3 mb-lg-4 py-3">
                 {{ form_start(form_ec) }}
                 <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3 align-self-center text-right">
+                    <div class="col-12 col-md-4 align-self-center text-right ">
                         <span class="font-weight-bold text-secondary">
                             ¿Utiliza evaluación continua?
                         </span>
@@ -21,32 +21,38 @@
                         </sup>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-6 align-self-center pl-3 pl-lg-4">
+                    <div class="col-10 col-md-6 align-self-center pl-3 pl-lg-4 fix-estilo-radio">
                         {{ form_widget(form_ec.utilizaEvalContinua) }}
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 align-self-center text-md-right">
-                        {% if planificacion.puedeEditarse() %}
-                            <button type="submit" form="form-eval-continua" class="btn btn-sm btn-outline-success" id="btnSubmitFormEvalCont" data-toggle="tooltip" data-placement="bottom" title="Guardar los cambios para continuar cargando los requisitos.">
-                                <i class="fa fa-check"></i>&nbsp;Guardar cambios
-                            </button>
-                        {% endif %}
+                    <div class="col-2 align-self-center text-right">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-toggle="collapse"
+                                data-target="#divDescEvalContinua"
+                                aria-expanded="false" aria-controls="divDescEvalContinua">
+                            <i class="fa fa-caret-down text-dark" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="row {{ planificacion.requisitosAprobacion.utilizaEvalContinua ? '' : 'd-none' }} mt-3"
-                     id="divDescEvalContinua">
-                    <div class="col-12 col-md-4 col-lg-3 align-self-start text-right">
+                <div class="row mt-3 collapse" id="divDescEvalContinua">
+                    <div class="col-12 col-md-4 align-self-start text-right">
                         <span class="font-weight-bold text-secondary">
                             Metodología de enseñanza
                         </span>
                     </div>
-                    <div class="col-12 col-md-8 col-lg-9 align-self-center pl-3 pl-lg-4">
+                    <div class="col-12 col-md-8 align-self-center pl-3 pl-lg-4">
                         {{ form_widget(form_ec.descEvalContinua) }}
                         {{ form_errors(form_ec.descEvalContinua) }}
                     </div>
+                    {% if planificacion.puedeEditarse() %}
+                        <div class="col-12 text-right mt-3">
+                            <a href="{{ path('planif_aprobacion_actualizar_utiliza_ec_edit', { id : planificacion.requisitosAprobacion.id }) }}"
+                               class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-edit"></i>&nbsp;Modificar
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-
 
                 {{ form_end(form_ec) }}
             </div>
@@ -93,17 +99,17 @@
 
 
             var errorsTab1 = $('#pills-req-regul .field-error').length;
-            if(errorsTab1 > 0){
+            if (errorsTab1 > 0) {
                 $('#pills-req-regul-tab .icono-hay-errores').removeClass('d-none');
             }
 
             var errorsTab2 = $('#pills-req-promo .field-error').length;
-            if(errorsTab2 > 0){
+            if (errorsTab2 > 0) {
                 $('#pills-req-promo-tab .icono-hay-errores').removeClass('d-none');
             }
 
             var errorsTab3 = $('#pills-examen-final .field-error').length;
-            if(errorsTab3 > 0){
+            if (errorsTab3 > 0) {
                 $('#pills-examen-final-tab .icono-hay-errores').removeClass('d-none');
             }
 

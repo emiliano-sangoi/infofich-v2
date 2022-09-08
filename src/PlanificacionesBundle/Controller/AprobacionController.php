@@ -8,9 +8,12 @@ use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\RequisitosAprobacion;
 use PlanificacionesBundle\Form\RequisitosAprobacionType;
+use PlanificacionesBundle\Form\UtilizaEvalContinuaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,6 +22,46 @@ class AprobacionController extends Controller
 {
 
     use PlanificacionTrait;
+
+    public function editarUtilizaEvalContAction(Request $request, RequisitosAprobacion $requisitosAprob)
+    {
+        $planificacion = $requisitosAprob->getPlanificacion();
+
+        $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+
+        $form = $this->createForm(UtilizaEvalContinuaType::class, $requisitosAprob);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if($requisitosAprob->getUtilizaEvalContinua() && empty($requisitosAprob->getDescEvalContinua())){
+                $form->get('descEvalContinua')->addError(new FormError(
+                    'Este campo es obligatorio si utiliza evaluación continua.'
+                ));
+            }else{
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+
+                $this->addFlash('success', 'Metodología de enseñanza actualizada correctamente.');
+
+                //Causar redireccion para evitar "re-submits" del form:
+                return $this->redirectToRoute('planif_aprobacion_editar', array('id' => $planificacion->getId()));
+            }
+
+        }
+
+        // Breadcrumbs
+        $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura',
+            $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
+
+        return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit-ec.html.twig', array(
+            'form' => $form->createView(),
+            'page_title' => $this->getPageTitle($planificacion) . ' - Aprobación de la asignatura',
+            'errores' => $this->get('planificaciones_service')->getErrores($planificacion),
+            'planificacion' => $planificacion
+        ));
+
+    }
 
     /**
      * Metodo que maneja la edicion del formulario.
@@ -70,8 +113,7 @@ class AprobacionController extends Controller
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));
 
-        $form_ec = $this->crearFormUtilizaEvalContinua($requisitosAprob);
-        $form_ec->handleRequest($request);
+        $form_ec = $this->crearFormUtilizaEvalContinua($requisitosAprob, true);
 
         return $this->render('PlanificacionesBundle:3-aprobacion-asignatura:edit.html.twig', array(
             'form' => $form->createView(),
@@ -82,7 +124,7 @@ class AprobacionController extends Controller
         ));
     }
 
-    private function crearFormUtilizaEvalContinua(RequisitosAprobacion $ra)
+    private function crearFormUtilizaEvalContinua(RequisitosAprobacion $ra, $disabled = false)
     {
         $options = array(
             'attr' => array(
@@ -92,10 +134,10 @@ class AprobacionController extends Controller
             'data_class' => RequisitosAprobacion::class
         );
 
-        $ea = $ra->getPlanificacion()->getEstadoActual();
-        if ($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])) {
-            $options['disabled'] = true;
-        }
+//        $ea = $ra->getPlanificacion()->getEstadoActual();
+//        if ($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])) {
+            $options['disabled'] = $disabled;
+//        }
 
         $fb = $this->createFormBuilder($ra, $options);
 
@@ -109,7 +151,6 @@ class AprobacionController extends Controller
             'attr' => array('class' => 'd-inline')
         ));
 
-
         $opt = array(
             'label' => false,
             'required' => false,
@@ -119,13 +160,6 @@ class AprobacionController extends Controller
                 'rows' => 5,
             ),
         );
-
-        if($ra->getUtilizaEvalContinua()){
-            $opt['constraints'] = array(
-                new NotBlank(array('message' => 'Este campo no puede quedar vacio'))
-            );
-            $opt['required'] = true;
-        }
 
         $fb->add('descEvalContinua', TextareaType::class, $opt);
 

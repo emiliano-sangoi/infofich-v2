@@ -1,0 +1,50 @@
+{% set page_id = 3 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+
+    <div class="row">
+        <div class="col-12 col-lg-10">
+
+            {% include "PlanificacionesBundle:3-aprobacion-asignatura:form-ec.html.twig" %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#form-eval-continua input').on('change', function () {
+                var val = $(this).val();
+                console.log(val);
+
+                if (val != 1) {
+                    //Si no se usa EC, se deshabilita el campo
+                    $('#utiliza_eval_continua_descEvalContinua').prop("disabled", true);
+                }else{
+                    //si se utiliza, se habilita y se oculta cualquier error que exista
+                    $('#utiliza_eval_continua_descEvalContinua').prop("disabled", false);
+                }
+
+                $('.field-error').fadeOut();
+                // $("#form-req-aprobacion input").prop("disabled", true);
+                // $("#form-req-aprobacion").fadeOut();
+                // $("#btnSubmitFormEvalCont").removeClass('btn-outline-success').addClass('btn-success');
+                // $("#btnSubmitFormEvalCont").tooltip('show');
+
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
