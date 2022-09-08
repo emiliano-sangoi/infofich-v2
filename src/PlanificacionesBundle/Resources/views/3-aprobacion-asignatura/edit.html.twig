@@ -80,24 +80,6 @@
         $(document).ready(function () {
             onChangePreveIntegrador();
 
-            $('#form-eval-continua input').on('change', function () {
-                var val = $(this).val();
-                console.log(val);
-
-                if (val == 1) {
-                    $('#divDescEvalContinua').removeClass('d-none').fadeIn();
-                } else {
-                    $('#divDescEvalContinua').addClass('d-none').fadeOut();
-                }
-
-                $("#form-req-aprobacion input").prop("disabled", true);
-                $("#form-req-aprobacion").fadeOut();
-                $("#btnSubmitFormEvalCont").removeClass('btn-outline-success').addClass('btn-success');
-                $("#btnSubmitFormEvalCont").tooltip('show');
-
-            });
-
-
             var errorsTab1 = $('#pills-req-regul .field-error').length;
             if (errorsTab1 > 0) {
                 $('#pills-req-regul-tab .icono-hay-errores').removeClass('d-none');
