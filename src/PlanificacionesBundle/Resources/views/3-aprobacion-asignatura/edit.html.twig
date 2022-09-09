@@ -46,7 +46,7 @@
                     </div>
                     {% if planificacion.puedeEditarse() %}
                         <div class="col-12 text-right mt-3">
-                            <a href="{{ path('planif_aprobacion_actualizar_utiliza_ec_edit', { id : planificacion.requisitosAprobacion.id }) }}"
+                            <a href="{{ path('planif_aprobacion_actualizar_utiliza_ec_edit', { id : planificacion.id }) }}"
                                class="btn btn-sm btn-outline-success">
                                 <i class="fa fa-edit"></i>&nbsp;Modificar
                             </a>
@@ -60,13 +60,13 @@
     </div>
 
 
-    {% if planificacion.requisitosAprobacion.utilizaEvalContinua is not null %}
+    {#% if planificacion.requisitosAprobacion.utilizaEvalContinua is not null %#}
         <div class="row">
             <div class="col-12 col-lg-10">
                 {% include "PlanificacionesBundle:3-aprobacion-asignatura:form.html.twig" %}
             </div>
         </div>
-    {% endif %}
+    {#% endif %#}
 
 
 {% endblock %}
