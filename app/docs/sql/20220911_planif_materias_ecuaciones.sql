@@ -16,6 +16,6 @@ ALTER TABLE `planif_materias` ADD `recursantes` INT(11) NULL DEFAULT NULL ;
 
 INSERT INTO `planif_materias` (`id`, `carrera`, `plan`, `version_plan`, `codigo_materia`, `nombre_materia`, 
 `tipo_materia`, `hs_semanales`, `hs_carga_horaria`, `hs_valor_materia`, `promediable`, `obligatoria`, `anio_cursada`, `periodo_cursada`, `tipo_cursada`, `nro_modulo`) VALUES
-(NULL, '1069','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
-(NULL, '1071','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
-(NULL, '1077','082005', 1, 'FCA10009','Estadística','N', '6', '90.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
+(NULL, '1069','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
+(NULL, '1071','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
+(NULL, '1077','082005', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
