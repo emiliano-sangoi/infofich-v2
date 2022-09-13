@@ -157,6 +157,17 @@ class Materia implements \JsonSerializable
      * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
      */
     private $nroModulo;
+    
+    /**
+     * @var int
+     *
+     * Indica si es una asignatura que se dicta para recursantes
+     * Si la asignatura no es para recursantes puede estar como null
+     *
+     *
+     * @ORM\Column(name="recursantes", type="integer", nullable=true)
+     */
+    private $recursantes;
 
 
     /**
@@ -495,6 +506,30 @@ class Materia implements \JsonSerializable
     {
         return $this->carrera;
     }
+    
+     /**
+     * Set recursantes
+     *
+     * @param integer $recursantes
+     *
+     * @return Materia
+     */
+    public function setRecursantes($recursantes)
+    {
+        $this->recursantes = $recursantes;
+
+        return $this;
+    }
+
+    /**
+     * Get recursantes
+     *
+     * @return integer
+     */
+    public function getRecursantes()
+    {
+        return $this->recursantes;
+    }
 
     public function jsonSerialize() {
         return array(
@@ -509,7 +544,8 @@ class Materia implements \JsonSerializable
             'anioCursada' => $this->anioCursada,
             'periodoCursada' => $this->periodoCursada,
             'tipoCursada' => $this->tipoCursada,
-            'nroModulo' => $this->nroModulo
+            'nroModulo' => $this->nroModulo,
+            'recursantes' => $this->recursantes,
         );
     }
 }
