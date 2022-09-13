@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      #tipoCursada: "cuatrimestre"
  *
  * @ORM\Table(name="planif_materias", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_planif_materias", columns={"carrera", "plan", "version_plan", "codigo_materia", "nro_modulo"})
+ *     @ORM\UniqueConstraint(name="ak_planif_materias", columns={"carrera", "plan", "version_plan", "codigo_materia", "nro_modulo", "recursantes"})
  * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\MateriaRepository")
  */
