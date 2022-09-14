@@ -137,6 +137,16 @@ class Planificacion implements \JsonSerializable{
      * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
      */
     private $nroModulo;
+    
+    /**
+     * @var int
+     *
+     * Indica si la asignatura es para dictado para recursantes          
+     *
+     *
+     * @ORM\Column(name="recursantes", type="integer", nullable=true)
+     */
+    private $recursantes;
 
 
     /**
@@ -1090,7 +1100,30 @@ class Planificacion implements \JsonSerializable{
     }
 
 
+ /**
+     * Set recursantes
+     *
+     * @param integer $recursantes
+     *
+     * @return Materia
+     */
+    public function setRecursantes($recursantes)
+    {
+        $this->recursantes = $recursantes;
 
+        return $this;
+    }
+
+    /**
+     * Get recursantes
+     *
+     * @return integer
+     */
+    public function getRecursantes()
+    {
+        return $this->recursantes;
+    }
+    
     /**
      * Set docenteResponsable
      *

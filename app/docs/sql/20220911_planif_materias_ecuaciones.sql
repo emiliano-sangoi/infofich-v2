@@ -8,14 +8,12 @@
 -- PHP Version: 7.2.34-32+0~20220627.74+debian11~1.gbpc7fa3c
 
 
-ALTER TABLE `planif_materias` ADD `recursantes` INT(11) NULL DEFAULT NULL ;
-
 --
 -- Dumping data for table `planif_materias`
 --
 
 INSERT INTO `planif_materias` (`id`, `carrera`, `plan`, `version_plan`, `codigo_materia`, `nombre_materia`, 
-`tipo_materia`, `hs_semanales`, `hs_carga_horaria`, `hs_valor_materia`, `promediable`, `obligatoria`, `anio_cursada`, `periodo_cursada`, `tipo_cursada`, `nro_modulo`) VALUES
-(NULL, '1069','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
-(NULL, '1071','012006', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
-(NULL, '1077','082005', 1, 'FCA10009','Estadística','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', 1);
+`tipo_materia`, `hs_semanales`, `hs_carga_horaria`, `hs_valor_materia`, `promediable`, `obligatoria`, `anio_cursada`, `periodo_cursada`, `tipo_cursada`, `nro_modulo`, `recursantes`) VALUES
+(NULL, '1069','012006', 1, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL),
+(NULL, '1071','012006', 1, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL),
+(NULL, '1077','082005', 1, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL);
