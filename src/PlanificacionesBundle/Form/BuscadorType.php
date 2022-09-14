@@ -45,6 +45,7 @@ class BuscadorType extends AbstractType {
         $this->addEstado($builder);
         $this->addAniAcad($builder);
         $this->addNroModulo($builder);
+        $this->addRecursantes($builder);
 
     }
 
@@ -137,6 +138,20 @@ class BuscadorType extends AbstractType {
         );
 
         $builder->add('nroModulo', HiddenType::class, $config);
+    }
+    
+    /**
+     * Agrega si es recursantes
+     *
+     * @param FormBuilderInterface $builder
+     */
+    private function addRecursantes(FormBuilderInterface $builder) {
+
+        $config = array(
+
+        );
+
+        $builder->add('recursantes', HiddenType::class, $config);
     }
 
     /**

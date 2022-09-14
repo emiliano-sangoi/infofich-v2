@@ -34,7 +34,7 @@ class PlanificacionRepository extends EntityRepository {
      * @param type $anioAcad
      * @return Query|array
      */
-    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $codigoAsignatura = null, $anioAcad = null, $estadoActual = null, $nroModulo = null) {
+    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $codigoAsignatura = null, $anioAcad = null, $estadoActual = null, $nroModulo = null, $recursantes = null) {
 
         $em = $this->getEntityManager();
 
@@ -60,6 +60,13 @@ class PlanificacionRepository extends EntityRepository {
                 $qb->setParameter(':nroModulo', $nroModulo);
             }else{
                 $qb->andWhere($qb->expr()->isNull('p.nroModulo'));
+            }
+            
+            if($recursantes){
+                $qb->andWhere($qb->expr()->eq('p.recursantes', ':recursantes'));
+                $qb->setParameter(':recursantes', recursantes);
+            }else{
+                $qb->andWhere($qb->expr()->isNull('p.recursantes'));
             }
         }
 

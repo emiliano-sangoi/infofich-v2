@@ -66,12 +66,13 @@ class PlanificacionController extends Controller {
         $anioAcad = $form_filtros->get('anioAcad')->getData();
         $estadoActual = $form_filtros->get('estadoActual')->getData();
         $nroModulo = $form_filtros->get('nroModulo')->getData();
+        $recursantes = $form_filtros->get('recursantes')->getData();
 
-        //dump($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo);exit;
+        //dump($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo, $recursantes);exit;
 
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Planificacion::class);
-        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo);
+        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo, $recursantes);
     }
 
     /**
@@ -91,8 +92,8 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
-            
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion->getRecursantes());
+            //dump($planificacion);exit;
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 

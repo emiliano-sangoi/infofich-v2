@@ -104,7 +104,7 @@ class APIInfofichService {
     public function getCarrera($carrera) {
         $carreras_fich = $this->getCarreras(array($carrera));
 
-        if(!is_array($carreras_fich)){
+        if (!is_array($carreras_fich)) {
             return false;
         }
 
@@ -127,7 +127,7 @@ class APIInfofichService {
 
         $carreras_fich = $this->getCarreras(array($carrera));
 
-        if(!is_array($carreras_fich)){
+        if (!is_array($carreras_fich)) {
             return false;
         }
 
@@ -154,8 +154,14 @@ class APIInfofichService {
 
             //Agregar los modulos existentes:
             $modulos = $this->getModulos($carrera);
-            if(!empty($modulos)){
+            if (!empty($modulos)) {
                 $asignaturas = array_merge($asignaturas, $modulos);
+            }
+            
+            //se esta buscando las materias que son para dictado para recursantes
+            $matRecursantes = $this->getMatRecursantes($carrera);
+            if (!empty($matRecursantes)) {
+                $asignaturas = array_merge($asignaturas, $matRecursantes);
             }
 
             return $asignaturas;
@@ -165,30 +171,52 @@ class APIInfofichService {
         return false;
     }
 
-    private function getModulos($carrera, $codigo_asignatura = null, $nro_modulo = null){
+    private function getModulos($carrera, $codigo_asignatura = null, $nro_modulo = null) {
         $repo = $this->em->getRepository(Materia::class);
         $qb = $repo->createQueryBuilder('m');
         $qb->select("m")
-            ->where($qb->expr()->isNotNull("m.nroModulo"))
-            ->andWhere($qb->expr()->eq("m.carrera", ':carrera'));
+                ->where($qb->expr()->isNotNull("m.nroModulo"))
+                ->andWhere($qb->expr()->eq("m.carrera", ':carrera'))
+                ->andWhere($qb->expr()->isNull("m.recursantes"));
 
-        if($codigo_asignatura){
+        if ($codigo_asignatura) {
             $qb->andWhere($qb->expr()->eq("m.codigoMateria", ':codigo_materia'));
             $qb->setParameter(':codigo_materia', $codigo_asignatura);
         }
 
-        if($nro_modulo){
+        if ($nro_modulo) {
             $qb->andWhere($qb->expr()->eq("m.nroModulo", ':nro_modulo'));
             $qb->setParameter(':nro_modulo', $nro_modulo);
         }
 
         $qb->setParameter(':carrera', $carrera);
-
         $modulos = $qb->getQuery()->getResult();
 
         return $modulos;
     }
 
+    private function getMatRecursantes($carrera, $codigo_asignatura = null, $nro_modulo = null, $recursantes = null) {
+        $repo = $this->em->getRepository(Materia::class);
+        $qb = $repo->createQueryBuilder('m');
+        $qb->select("m")
+                ->where($qb->expr()->isNotNull("m.recursantes"))
+                ->andWhere($qb->expr()->eq("m.carrera", ':carrera'));
+
+        if ($codigo_asignatura) {
+            $qb->andWhere($qb->expr()->eq("m.codigoMateria", ':codigo_materia'));
+            $qb->setParameter(':codigo_materia', $codigo_asignatura);
+        }
+
+        if ($nro_modulo) {
+            $qb->andWhere($qb->expr()->eq("m.nroModulo", ':nro_modulo'));
+            $qb->setParameter(':nro_modulo', $nro_modulo);
+        }
+
+        $qb->setParameter(':carrera', $carrera);
+        $matRecursantes = $qb->getQuery()->getResult();
+
+        return $matRecursantes;
+    }
 
     /**
      * Devuelve las asignaturas para cierta carrera.
@@ -198,10 +226,10 @@ class APIInfofichService {
      */
     public function getAsignatura($carrera, $codigo_asignatura, $nro_modulo = null) {
 
-        if(is_numeric($nro_modulo)){
+        if (is_numeric($nro_modulo)) {
             //se esta buscando un modulo
             $modulo = $this->getModulos($carrera, $codigo_asignatura, $nro_modulo);
-            if(!empty($modulo)){
+            if (!empty($modulo)) {
                 return array_shift($modulo);
             }
             return null;
@@ -228,7 +256,7 @@ class APIInfofichService {
             if (!$asignaturas) {
                 $this->ultimoError = $query->getError();
                 return false;
-            }else if(count($asignaturas) > 0){
+            } else if (count($asignaturas) > 0) {
                 return array_shift($asignaturas);
             }
 
@@ -257,13 +285,12 @@ class APIInfofichService {
                 ->setEstado('activo')
                 ->getDocentes();
 
-        if(!empty($docentes)){
-            uasort($docentes, function($a, $b){
+        if (!empty($docentes)) {
+            uasort($docentes, function($a, $b) {
                 return strcasecmp($a->getApellido(), $b->getApellido());
             });
         }
         return $docentes;
     }
-
 
 }
