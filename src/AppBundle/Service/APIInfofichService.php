@@ -224,8 +224,22 @@ class APIInfofichService {
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
      */
-    public function getAsignatura($carrera, $codigo_asignatura, $nro_modulo = null) {
+    public function getAsignatura($carrera, $codigo_asignatura, $nro_modulo = null, $idAsignatura = null) {
 
+        //estoy probando con un id estatico,  hasta que lo pase por parametros
+        $idAsignatura = 43 ;
+        //Agregamos este if, porque si la asignatura tiene id es porque esta cargada en tabla materias        
+        if (is_numeric($idAsignatura)) {
+            //se esta buscando un asginatura que se dicta para recursantes
+            $materiaRecursante = $this->getMatRecursantes($carrera, $codigo_asignatura, $nro_modulo);
+            
+            if (!empty($materiaRecursante)) {
+                return array_shift($materiaRecursante);
+            }
+            return null;
+        }
+        
+        
         if (is_numeric($nro_modulo)) {
             //se esta buscando un modulo
             $modulo = $this->getModulos($carrera, $codigo_asignatura, $nro_modulo);
