@@ -220,6 +220,7 @@ class APIInfofichService {
 
     /**
      * Devuelve las asignaturas para cierta carrera.
+     * Es llamada desde New y edit de InfoBasicaController
      *
      * @param string $carrera Codigo de la carrera a buscar
      * @return array|false
@@ -227,7 +228,7 @@ class APIInfofichService {
     public function getAsignatura($carrera, $codigo_asignatura, $nro_modulo = null, $idAsignatura = null) {
 
         //estoy probando con un id estatico,  hasta que lo pase por parametros
-        $idAsignatura = 43 ;
+        //$idAsignatura = 43 ;
         //Agregamos este if, porque si la asignatura tiene id es porque esta cargada en tabla materias        
         if (is_numeric($idAsignatura)) {
             //se esta buscando un asginatura que se dicta para recursantes

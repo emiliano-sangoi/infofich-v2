@@ -120,6 +120,11 @@ class PlanificacionType extends AbstractType {
                 'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
             ));
 
+        $builder
+            ->add('recursantes', \Symfony\Component\Form\Extension\Core\Type\HiddenType::class, array(                
+                'required' => false,
+                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
+            ));
 
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
