@@ -93,8 +93,8 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:
-            dump($planificacion);exit;           
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion);                        
+            //dump($planificacion);exit;           
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion->getRecursantes());                        
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 

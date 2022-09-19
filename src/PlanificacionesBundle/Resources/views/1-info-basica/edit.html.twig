@@ -19,6 +19,7 @@
             select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
             NRO_MODULO_ACTUAL = "{{ planificacion.nroModulo }}";
+            RECURSANTES = "{{ planificacion.recursantes }}";
 
             resetInfoAsignatura();
 
@@ -92,7 +93,6 @@
             }
 
             var VACIO = '-';
-
             console.log(asignatura);
             
             $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
@@ -109,6 +109,18 @@
                 $('#planificacionesbundle_planificacion_nroModulo').val("");
                 $('#nro_modulo-container').addClass('d-none').fadeOut();
             }
+            //Agregamos el campo de recursantes, para las materias que se dictan para recursantes
+            if (typeof asignatura.recursantes !== 'undefined') {
+                
+                $('#planificacionesbundle_planificacion_recursantes').val(asignatura.recursantes ? asignatura.recursantes : '');
+                //$('#nro_modulo-container').removeClass('d-none').fadeIn();
+            } else {
+                $('#planificacionesbundle_planificacion_recursantes').val("");
+                //$('#nro_modulo-container').addClass('d-none').fadeOut();
+            }
+            
+            
+            
 
             // TODO: revisar cuando se haga la asociacion asignatura - departamento
             //$("#planificacionesbundle_planificacion_departamento").select2("val", "");

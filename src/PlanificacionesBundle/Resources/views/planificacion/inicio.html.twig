@@ -241,6 +241,13 @@
             {% else %}
                 NRO_MODULO_ACTUAL = "";
             {% endif %}
+                
+            //Agregamos para materias que tienen planificaciones para recursantes.
+            {% if formData['recursantes'] is defined %}
+                RECURSANTES = "{{ formData['recursantes'] }}";
+            {% else %}
+               RECURSANTES = "";
+            {% endif %}
 
 
             // combo de carreras:
@@ -256,6 +263,11 @@
                     NRO_MODULO_ACTUAL = data_json.nroModulo;
                 }else{
                     $('#buscador_nroModulo').val(null);
+                }
+                //Agregamos lo de planificacin materia recursantes 
+                if (typeof data_json !== 'undefined' && typeof data_json.recursantes !== 'undefined') {
+                   // $('#buscador_nroModulo').val(data_json.nroModulo);
+                    RECURSANTES = data_json.recursantes;
                 }
             });
 

@@ -233,7 +233,7 @@ class APIInfofichService {
         if (is_numeric($recursantes)) {
             //se esta buscando un asginatura que se dicta para recursantes
             $materiaRecursante = $this->getMatRecursantes($carrera, $codigo_asignatura, $nro_modulo);
-            dump($materiaRecursante);exit;
+            
             if (!empty($materiaRecursante)) {
                 return array_shift($materiaRecursante);
             }
