@@ -28,8 +28,11 @@
             //combo de asignaturas:
             select_asignatura.change(function (e) {
                 var option = $(this).children("option:selected");
-                if(typeof option.attr('data-json') != 'undefined'){
+                if (typeof option.attr('data-json') != 'undefined') {
                     var asignatura = JSON.parse(option.attr('data-json'));
+
+                } else {
+                    console.log('La materia: ' + option.text() + ' no posee el atributo data-json');
                 }
 
                 cargarInfoAsignatura(asignatura);
@@ -58,7 +61,7 @@
             $('#planificacionesbundle_planificacion_cargaHoraria').val("");
             $('#planificacionesbundle_planificacion_nroModulo').val("");
 
-            if(NRO_MODULO_ACTUAL === '') {
+            if (NRO_MODULO_ACTUAL === '') {
                 $('#nro_modulo-container').addClass('d-none').fadeOut();
             }
 
@@ -91,7 +94,7 @@
             var VACIO = '-';
 
             console.log(asignatura);
-alert(asignatura.id);
+            
             $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoMateria);
             $('#planificacionesbundle_planificacion_plan').val(getPlanCarrera());
             $('#planificacionesbundle_planificacion_caracter').val(asignatura.tipoMateria === 'N' ? 'Obligatoria' : 'Optativa');
@@ -99,10 +102,10 @@ alert(asignatura.id);
             $('#planificacionesbundle_planificacion_periodoCursada').val(asignatura.periodoCursada ? asignatura.periodoCursada : VACIO);
             $('#planificacionesbundle_planificacion_anioCursada').val(asignatura.anioCursada ? asignatura.anioCursada : VACIO);
 
-            if(typeof asignatura.nroModulo !== 'undefined'){
+            if (typeof asignatura.nroModulo !== 'undefined') {
                 $('#planificacionesbundle_planificacion_nroModulo').val(asignatura.nroModulo ? asignatura.nroModulo : '');
                 $('#nro_modulo-container').removeClass('d-none').fadeIn();
-            }else{
+            } else {
                 $('#planificacionesbundle_planificacion_nroModulo').val("");
                 $('#nro_modulo-container').addClass('d-none').fadeOut();
             }

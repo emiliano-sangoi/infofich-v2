@@ -83,6 +83,7 @@ class PlanificacionController extends Controller {
      */
     public function newAction(Request $request) {
 
+        //Verifica permisos, de creacion de planificacion
         $this->denyAccessUnlessGranted(Permisos::PLANIF_CREAR, array('data' => null));
 
         $planificacion = new Planificacion();
@@ -92,7 +93,7 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:
-            //dump($planificacion);exit;           
+            dump($planificacion);exit;           
             $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion);                        
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
