@@ -19,7 +19,7 @@
             select_asignatura = $('#planificacionesbundle_planificacion_codigoAsignatura');
             ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
             NRO_MODULO_ACTUAL = "{{ planificacion.nroModulo }}";
-            RECURSANTES = "{{ planificacion.recursantes }}";
+            RECURSANTES = "{{ planificacion.recursantes|default(0) }}";
 
             resetInfoAsignatura();
 
@@ -90,6 +90,7 @@
         function cargarInfoAsignatura(asignatura) {
             if (typeof asignatura !== 'object') {
                 console.log("La asignatura debe ser un objeto con la informacion de la asignatura");
+                console.log(asignatura);
                 return;
             }
 

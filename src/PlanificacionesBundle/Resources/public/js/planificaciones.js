@@ -110,8 +110,11 @@ function actualizarAsignaturas(event) {
                 opt.attr('data-json', JSON.stringify(val));
                 opt.text(val.nombreMateria);
                 //console.log('Seleccionado: ' + aux, val.codigoMateria );
-                console.log(val.nroModulo);
-                if (typeof ASIGNATURA_ACTUAL !== 'undefined' && ASIGNATURA_ACTUAL == val.codigoMateria && NRO_MODULO_ACTUAL == val.nroModulo) {
+
+                if (typeof ASIGNATURA_ACTUAL !== 'undefined'
+                    && ASIGNATURA_ACTUAL == val.codigoMateria
+                    && NRO_MODULO_ACTUAL == (val.nroModulo || '')
+                    && RECURSANTES == val.recursantes) {
                     opt.attr('selected', true);
                 }
 
