@@ -18,7 +18,7 @@ class InfoBasicaController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
         
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+        //dump($planificacion);exit;
         $form = $this->crearForm($planificacion, $planificacion->isPublicada());
 
         $form->handleRequest($request);
@@ -39,6 +39,7 @@ class InfoBasicaController extends Controller {
         }        
 
         // Breadcrumbs
+        //dump($planificacion);exit;
         $this->setBreadcrumb($planificacion, 'Información básica', $this->get("router")->generate('planif_info_basica_editar', array('id' => $planificacion->getId())));        
 
         return $this->render('PlanificacionesBundle:1-info-basica:edit.html.twig', array(

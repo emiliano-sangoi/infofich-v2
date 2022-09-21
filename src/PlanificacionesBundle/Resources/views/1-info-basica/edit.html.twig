@@ -29,6 +29,7 @@
             //combo de asignaturas:
             select_asignatura.change(function (e) {
                 var option = $(this).children("option:selected");
+                //el json sale del metodo jsonSerialize de las entidades
                 if (typeof option.attr('data-json') != 'undefined') {
                     var asignatura = JSON.parse(option.attr('data-json'));
 

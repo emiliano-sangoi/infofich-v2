@@ -78,6 +78,7 @@ function afterAddDocente(collection, item) {
  *
  * @param {type} select
  * @returns {undefined}
+ * Esta funcion es llamada desde edit info basica, duplicar y inicio de planificacion.
  */
 function actualizarAsignaturas(event) {
 
