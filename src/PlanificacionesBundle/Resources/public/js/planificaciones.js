@@ -112,9 +112,7 @@ function actualizarAsignaturas(event) {
                 //console.log('Seleccionado: ' + aux, val.codigoMateria );
 
                 if (typeof ASIGNATURA_ACTUAL !== 'undefined'
-                    && ASIGNATURA_ACTUAL == val.codigoMateria
-                    && NRO_MODULO_ACTUAL == (val.nroModulo || '')
-                    && RECURSANTES == val.recursantes) {
+                    && ASIGNATURA_ACTUAL == val.codigoMateria) {
                     opt.attr('selected', true);
                 }
 

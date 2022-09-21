@@ -14,7 +14,7 @@ use \FICH\APIRectorado\Config\WSHelper;
  * @ORM\Table(name="planif_planificaciones", uniqueConstraints={@ORM\UniqueConstraint(name="planif_idx", columns={"carrera", "codigo_asignatura", "anio_acad", "nro_modulo"})})
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
  * @UniqueEntity(
- *     fields={"carrera", "codigoAsignatura", "anioAcad", "nroModulo"},
+ *     fields={"carrera", "codigoAsignatura", "anioAcad", "nroModulo", "recursantes"},
  *     errorPath="codigoAsignatura",
  *     message="Esta asignatura ya tiene creada una planificación."
  * )
