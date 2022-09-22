@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "alcanceTitulo": "Grado"
  * 
  * @ORM\Table(name="planif_carreras")
- * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\AsignaturaRepository")
+ * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\CarreraRepository")
  */
 class Carrera implements \JsonSerializable {
 
