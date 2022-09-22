@@ -7,27 +7,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Materia
+ * Asignatura
  *
  * Campos devueltos por el web service:
- *      #codigoMateria: "FICHIF021"
- *      #nombreMateria: "COMPUTACIÓN GRÁFICA"
- *      #tipoMateria: "N"
+ *      #codigoAsignatura: "FICHIF021"
+ *      #nombreAsignatura: "COMPUTACIÓN GRÁFICA"
+ *      #tipoAsignatura: "N"
  *      #horasSemanales: "7.00"
  *      #cargaHoraria: "105.00"
- *      #valorMateria: "7.00"
+ *      #valorAsignatura: "7.00"
  *      #promediable: true
  *      #obligatoria: false
  *      #anioCursada: "3"
  *      #periodoCursada: "2do Cuatrimestre"
  *      #tipoCursada: "cuatrimestre"
- *
- * @ORM\Table(name="planif_materias", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_planif_materias", columns={"carrera", "plan", "version_plan", "codigo_materia", "nro_modulo", "recursantes"})
+ * 
+ * @ORM\Table(name="planif_asignaturas", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "plan", "version_plan", "codigo_asignatura", "nro_modulo", "recursantes"})
  * })
- * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\MateriaRepository")
+ * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\AsignaturaRepository")
  */
-class Materia implements \JsonSerializable
+class Asignatura implements \JsonSerializable
 {
     /**
      * @var int
@@ -40,9 +40,9 @@ class Materia implements \JsonSerializable
 
     /**
      *
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="carrera", type="string", length=8)
+     * @ORM\Column(name="carrera_id", type="string", length=8)
      */
     private $carrera;
 
@@ -67,25 +67,25 @@ class Materia implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_materia", type="string", length=12)
+     * @ORM\Column(name="codigo_asignatura", type="string", length=12)
      */
-    private $codigoMateria;
+    private $codigoAsignatura;
 
     /**
-     * Nombre de la materia
+     * Nombre de la asignatura
      *
      * @var string
      *
-     * @ORM\Column(name="nombre_materia", type="string", length=256)
+     * @ORM\Column(name="nombre_asignatura", type="string", length=256)
      */
-    private $nombreMateria;
+    private $nombreAsignatura;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_materia", type="string", length=1)
+     * @ORM\Column(name="tipo_asignatura", type="string", length=1)
      */
-    private $tipoMateria;
+    private $tipoAsignatura;
 
     /**
      * @var float
@@ -104,9 +104,9 @@ class Materia implements \JsonSerializable
     /**
      * @var float
      *
-     * @ORM\Column(name="hs_valor_materia", type="decimal", precision=6, scale=2, nullable=true)
+     * @ORM\Column(name="hs_valor_asignatura", type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $valorMateria;
+    private $valorAsignatura;
 
     /**
      * @var bool
@@ -182,79 +182,79 @@ class Materia implements \JsonSerializable
 
    public function __toString()
    {
-       return $this->nombreMateria;
+       return $this->nombreAsignatura;
    }
 
     /**
-     * Set codigoMateria
+     * Set codigoAsignatura
      *
-     * @param string $codigoMateria
+     * @param string $codigoAsignatura
      *
-     * @return Materia
+     * @return Asignatura
      */
-    public function setCodigoMateria($codigoMateria)
+    public function setCodigoAsignatura($codigoAsignatura)
     {
-        $this->codigoMateria = $codigoMateria;
+        $this->codigoAsignatura = $codigoAsignatura;
 
         return $this;
     }
 
     /**
-     * Get codigoMateria
+     * Get codigoAsignatura
      *
      * @return string
      */
-    public function getCodigoMateria()
+    public function getCodigoAsignatura()
     {
-        return $this->codigoMateria;
+        return $this->codigoAsignatura;
     }
 
     /**
      * Set nombreAsignatura
      *
-     * @param string $nombreMateria
+     * @param string $nombreAsignatura
      *
-     * @return Materia
+     * @return Asignatura
      */
-    public function setNombreMateria($nombreMateria)
+    public function setNombreAsignatura($nombreAsignatura)
     {
-        $this->nombreMateria = $nombreMateria;
+        $this->nombreAsignatura = $nombreAsignatura;
 
         return $this;
     }
 
     /**
-     * Get nombreMateria
+     * Get nombreAsignatura
      *
      * @return string
      */
-    public function getNombreMateria()
+    public function getNombreAsignatura()
     {
-        return $this->nombreMateria;
+        return $this->nombreAsignatura;
     }
 
     /**
-     * Set tipoMateria
+     * Set tipoAsignatura
      *
-     * @param string $tipoMateria
+     * @param string $tipoAsignatura
      *
-     * @return Materia
+     * @return Asignatura
      */
-    public function setTipoMateria($tipoMateria)
+    public function setTipoAsignatura($tipoAsignatura)
     {
-        $this->tipoMateria = $tipoMateria;
+        $this->tipoAsignatura = $tipoAsignatura;
 
         return $this;
     }
 
     /**
-     * Get tipoMateria
+     * Get tipoAsignatura
      *
      * @return string
      */
-    public function getTipoMateria()
+    public function getTipoAsignatura()
     {
-        return $this->tipoMateria;
+        return $this->tipoAsignatura;
     }
 
     /**
@@ -262,7 +262,7 @@ class Materia implements \JsonSerializable
      *
      * @param string $hsSemanales
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setHsSemanales($hsSemanales)
     {
@@ -286,7 +286,7 @@ class Materia implements \JsonSerializable
      *
      * @param string $cargaHoraria
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setCargaHoraria($cargaHoraria)
     {
@@ -306,27 +306,27 @@ class Materia implements \JsonSerializable
     }
 
     /**
-     * Set valorMateria
+     * Set valorAsignatura
      *
-     * @param string $valorMateria
+     * @param string $valorAsignatura
      *
-     * @return Materia
+     * @return Asignatura
      */
-    public function setValorMateria($valorMateria)
+    public function setValorAsignatura($valorAsignatura)
     {
-        $this->valorMateria = $valorMateria;
+        $this->valorAsignatura = $valorAsignatura;
 
         return $this;
     }
 
     /**
-     * Get valorMateria
+     * Get valorAsignatura
      *
      * @return string
      */
-    public function getValorMateria()
+    public function getValorAsignatura()
     {
-        return $this->valorMateria;
+        return $this->valorAsignatura;
     }
 
     /**
@@ -334,7 +334,7 @@ class Materia implements \JsonSerializable
      *
      * @param boolean $promediable
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setPromediable($promediable)
     {
@@ -358,7 +358,7 @@ class Materia implements \JsonSerializable
      *
      * @param boolean $obligatoria
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setObligatoria($obligatoria)
     {
@@ -382,7 +382,7 @@ class Materia implements \JsonSerializable
      *
      * @param integer $anioCursada
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setAnioCursada($anioCursada)
     {
@@ -406,7 +406,7 @@ class Materia implements \JsonSerializable
      *
      * @param string $periodoCursada
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setPeriodoCursada($periodoCursada)
     {
@@ -430,7 +430,7 @@ class Materia implements \JsonSerializable
      *
      * @param string $tipoCursada
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setTipoCursada($tipoCursada)
     {
@@ -464,7 +464,7 @@ class Materia implements \JsonSerializable
      *
      * @param integer $nroModulo
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setNroModulo($nroModulo)
     {
@@ -488,7 +488,7 @@ class Materia implements \JsonSerializable
      *
      * @param string $carrera
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setCarrera($carrera)
     {
@@ -512,7 +512,7 @@ class Materia implements \JsonSerializable
      *
      * @param integer $recursantes
      *
-     * @return Materia
+     * @return Asignatura
      */
     public function setRecursantes($recursantes)
     {
@@ -533,12 +533,12 @@ class Materia implements \JsonSerializable
 
     public function jsonSerialize() {
         return array(
-            'codigoMateria' => $this->codigoMateria,
-            'nombreMateria' => $this->nombreMateria,
-            'tipoMateria' => $this->tipoMateria,
+            'codigoAsignatura' => $this->codigoAsignatura,
+            'nombreAsignatura' => $this->nombreAsignatura,
+            'tipoAsignatura' => $this->tipoAsignatura,
             'horasSemanales' => $this->hsSemanales,
             'cargaHoraria' => $this->cargaHoraria,
-            'valorMateria' => $this->valorMateria,
+            'valorAsignatura' => $this->valorAsignatura,
             'obligatoria' => $this->obligatoria,
             'promediable' => $this->promediable,
             'anioCursada' => $this->anioCursada,

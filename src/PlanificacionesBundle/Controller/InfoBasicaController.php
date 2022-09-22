@@ -22,6 +22,7 @@ class InfoBasicaController extends Controller {
         $form = $this->crearForm($planificacion, $planificacion->isPublicada());
 
         $form->handleRequest($request);
+                
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:      
