@@ -2,7 +2,9 @@
 
 namespace PlanificacionesBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Mixed_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,9 +20,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "tipoTitulo": 1,
  *   "tipoCarrera": "Grado",
  *   "alcanceTitulo": "Grado"
- * 
- * @ORM\Table(name="planif_carreras")
+ *
+ * @ORM\Table(name="planif_carreras", uniqueConstraints={@ORM\UniqueConstraint(name="uk1_planif_carreras", columns={"codigo_carrera", "plan_carrera", "version_plan", "estado"})})
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\CarreraRepository")
+ * @UniqueEntity(
+ *     fields={"codigoCarrera", "planCarrera", "versionPlan", "estado"},
+ *     errorPath="codigoCarrera",
+ *     message="La carrera ya existe en la base de datos."
+ * )
  */
 class Carrera implements \JsonSerializable {
 
@@ -92,9 +99,25 @@ class Carrera implements \JsonSerializable {
     /**
      * @var string
      *
-     * @ORM\Column(name="alcance_titulo", type="string", length=24)
+     * @ORM\Column(name="alcance_titulo", type="string", length=24, nullable=true)
      */
     private $alcanceTitulo;
+
+    /**
+     *
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Asignatura", mappedBy="carrera")
+     */
+    private $asignaturas;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
 
     public function __toString() {
         return $this->nombreCarrera;
@@ -124,7 +147,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->codigoCarrera;
     }
-    
+
     /**
      * Set nombreCarrera
      *
@@ -148,7 +171,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->nombreCarrera;
     }
-    
+
     /**
      * Set planCarrera
      *
@@ -172,7 +195,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->planCarrera;
     }
-    
+
     /**
      * Set versionPlan
      *
@@ -196,7 +219,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->versionPlan;
     }
-    
+
     /**
      * Set estado
      *
@@ -220,7 +243,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->estado;
     }
-    
+
     /**
      * Set tipoTitulo
      *
@@ -244,7 +267,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->tipoTitulo;
     }
-    
+
     /**
      * Set tipoCarrera
      *
@@ -268,7 +291,7 @@ class Carrera implements \JsonSerializable {
     {
         return $this->tipoCarrera;
     }
-    
+
     /**
      * Set alcanceTitulo
      *
@@ -292,8 +315,33 @@ class Carrera implements \JsonSerializable {
     {
         return $this->alcanceTitulo;
     }
-    
-    
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaActualizacion(): \DateTime
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * @param \DateTime $fechaActualizacion
+     * @return Carrera
+     */
+    public function setFechaActualizacion(\DateTime $fechaActualizacion): Carrera
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 
     public function jsonSerialize() {
         return array(
@@ -301,10 +349,10 @@ class Carrera implements \JsonSerializable {
             'nombreCarrera' => $this->nombreCarrera,
             'planCarrera' => $this->planCarrera,
             'versionPlan' => $this->versionPlan,
-            'estado' => $this->estado,    
-            'tipoTitulo' => $this->tipoTitulo,           
-            'tipoCarrera' => $this->tipoCarrera,           
-            'alcanceTitulo' => $this->alcanceTitulo,           
+            'estado' => $this->estado,
+            'tipoTitulo' => $this->tipoTitulo,
+            'tipoCarrera' => $this->tipoCarrera,
+            'alcanceTitulo' => $this->alcanceTitulo,
         );
     }
 

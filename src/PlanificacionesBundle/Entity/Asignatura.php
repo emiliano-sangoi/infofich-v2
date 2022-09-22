@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      #anioCursada: "3"
  *      #periodoCursada: "2do Cuatrimestre"
  *      #tipoCursada: "cuatrimestre"
- * 
+ *
  * @ORM\Table(name="planif_asignaturas", uniqueConstraints={
  *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "plan", "version_plan", "codigo_asignatura", "nro_modulo", "recursantes"})
  * })
@@ -41,9 +41,10 @@ class Asignatura implements \JsonSerializable
     /**
      *
      * @var int
-     *
-     * @ORM\Column(name="carrera_id", type="string", length=8)
-     */
+    *
+    * @ORM\ManyToOne(targetEntity="Carrera", inversedBy="asignaturas")
+    * @ORM\JoinColumn(name="carrera_id", referencedColumnName="id")
+    */
     private $carrera;
 
     /**
@@ -157,7 +158,7 @@ class Asignatura implements \JsonSerializable
      * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
      */
     private $nroModulo;
-    
+
     /**
      * @var int
      *
@@ -506,7 +507,7 @@ class Asignatura implements \JsonSerializable
     {
         return $this->carrera;
     }
-    
+
      /**
      * Set recursantes
      *

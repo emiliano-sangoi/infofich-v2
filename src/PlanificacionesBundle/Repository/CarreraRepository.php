@@ -3,9 +3,9 @@
 namespace PlanificacionesBundle\Repository;
 
 /**
- * MateriaRepository
+ * CarreraRepository
  *
  */
-class MateriaRepository extends \Doctrine\ORM\EntityRepository
+class CarreraRepository extends \Doctrine\ORM\EntityRepository
 {
 }
