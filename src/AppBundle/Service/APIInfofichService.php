@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FICH\APIInfofich\Query\Carreras\QueryCarreras;
 use FICH\APIInfofich\Query\Docentes\QueryDocentes;
 use FICH\APIRectorado\Config\WSHelper;
-use PlanificacionesBundle\Entity\Materia;
+use PlanificacionesBundle\Entity\Asignatura;
 
 /**
  * Description of APIInfofichService
@@ -172,7 +172,7 @@ class APIInfofichService {
     }
 
     private function getModulos($carrera, $codigo_asignatura = null, $nro_modulo = null) {
-        $repo = $this->em->getRepository(Materia::class);
+        $repo = $this->em->getRepository(Asignatura::class);
         $qb = $repo->createQueryBuilder('m');
         $qb->select("m")
                 ->where($qb->expr()->isNotNull("m.nroModulo"))
@@ -180,8 +180,8 @@ class APIInfofichService {
                 ->andWhere($qb->expr()->isNull("m.recursantes"));
 
         if ($codigo_asignatura) {
-            $qb->andWhere($qb->expr()->eq("m.codigoMateria", ':codigo_materia'));
-            $qb->setParameter(':codigo_materia', $codigo_asignatura);
+            $qb->andWhere($qb->expr()->eq("m.codigoAsignatura", ':codigo_asignatura'));
+            $qb->setParameter(':codigo_asignatura', $codigo_asignatura);
         }
 
         if ($nro_modulo) {
@@ -196,15 +196,15 @@ class APIInfofichService {
     }
 
     private function getMatRecursantes($carrera, $codigo_asignatura = null, $nro_modulo = null, $recursantes = null) {
-        $repo = $this->em->getRepository(Materia::class);
+        $repo = $this->em->getRepository(Asignatura::class);
         $qb = $repo->createQueryBuilder('m');
         $qb->select("m")
                 ->where($qb->expr()->isNotNull("m.recursantes"))
                 ->andWhere($qb->expr()->eq("m.carrera", ':carrera'));
 
         if ($codigo_asignatura) {
-            $qb->andWhere($qb->expr()->eq("m.codigoMateria", ':codigo_materia'));
-            $qb->setParameter(':codigo_materia', $codigo_asignatura);
+            $qb->andWhere($qb->expr()->eq("m.codigoAsignatura", ':codigo_asignatura'));
+            $qb->setParameter(':codigo_asignatura', $codigo_asignatura);
         }
 
         if ($nro_modulo) {
@@ -230,7 +230,7 @@ class APIInfofichService {
         //estoy probando con un id estatico,  hasta que lo pase por parametros
         //$idAsignatura = 43 ;
         //Agregamos este if, porque si la asignatura tiene id es porque esta cargada en tabla materias        
-        if (is_numeric($recursantes)) {
+       /* if (is_numeric($recursantes)) {
             //se esta buscando un asginatura que se dicta para recursantes
             $materiaRecursante = $this->getMatRecursantes($carrera, $codigo_asignatura, $nro_modulo);
             
@@ -248,7 +248,7 @@ class APIInfofichService {
                 return array_shift($modulo);
             }
             return null;
-        }
+        }*/
 
         $carreras_fich = $this->getCarreras(array($carrera));
 

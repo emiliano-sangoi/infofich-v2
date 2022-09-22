@@ -212,7 +212,7 @@ class Carrera implements \JsonSerializable {
     }
 
     /**
-     * Get $estado
+     * Get estado
      *
      * @return string
      */
