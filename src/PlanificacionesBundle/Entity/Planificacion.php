@@ -106,6 +106,15 @@ class Planificacion implements \JsonSerializable{
     private $versionPlan;
 
     /**
+     *
+     * @var Asignatura
+     *
+     * @ORM\ManyToOne(targetEntity="Asignatura")
+     * @ORM\JoinColumn(name="asignatura_id", referencedColumnName="id")
+     */
+    private $asignatura;
+
+    /**
      * Codigo guarani de la asignatura
      *
      * @var Asignatura
@@ -137,11 +146,11 @@ class Planificacion implements \JsonSerializable{
      * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
      */
     private $nroModulo;
-    
+
     /**
      * @var int
      *
-     * Indica si la asignatura es para dictado para recursantes          
+     * Indica si la asignatura es para dictado para recursantes
      *
      *
      * @ORM\Column(name="recursantes", type="integer", nullable=true)
@@ -1123,7 +1132,7 @@ class Planificacion implements \JsonSerializable{
     {
         return $this->recursantes;
     }
-    
+
     /**
      * Set docenteResponsable
      *
@@ -1329,5 +1338,29 @@ class Planificacion implements \JsonSerializable{
     public function getBibliografias()
     {
         return $this->bibliografias;
+    }
+
+    /**
+     * Set asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     *
+     * @return Planificacion
+     */
+    public function setAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura = null)
+    {
+        $this->asignatura = $asignatura;
+
+        return $this;
+    }
+
+    /**
+     * Get asignatura
+     *
+     * @return \PlanificacionesBundle\Entity\Asignatura
+     */
+    public function getAsignatura()
+    {
+        return $this->asignatura;
     }
 }

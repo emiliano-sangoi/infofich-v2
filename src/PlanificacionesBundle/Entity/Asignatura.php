@@ -40,7 +40,7 @@ class Asignatura implements \JsonSerializable
 
     /**
      *
-     * @var int
+     * @var Carrera
     *
     * @ORM\ManyToOne(targetEntity="Carrera", inversedBy="asignaturas")
     * @ORM\JoinColumn(name="carrera_id", referencedColumnName="id")
