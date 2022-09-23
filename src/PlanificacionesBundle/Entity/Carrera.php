@@ -123,6 +123,10 @@ class Carrera implements \JsonSerializable {
         return $this->nombreCarrera;
     }
 
+    public function __toString2() {
+        return $this->codigoCarrera . ' - ' . $this->nombreCarrera;
+    }
+
 
     /**
      * Set codigoCarrera
@@ -356,4 +360,47 @@ class Carrera implements \JsonSerializable {
         );
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     *
+     * @return Carrera
+     */
+    public function addAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
+    {
+        $asignatura->setCarrera($this);
+
+        $this->asignaturas[] = $asignatura;
+
+        return $this;
+    }
+
+    /**
+     * Remove asignatura
+     *
+     * @param \PlanificacionesBundle\Entity\Asignatura $asignatura
+     */
+    public function removeAsignatura(\PlanificacionesBundle\Entity\Asignatura $asignatura)
+    {
+        $this->asignaturas->removeElement($asignatura);
+    }
+
+    /**
+     * Get asignaturas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAsignaturas()
+    {
+        return $this->asignaturas;
+    }
 }

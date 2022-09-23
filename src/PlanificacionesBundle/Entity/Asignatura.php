@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      #tipoCursada: "cuatrimestre"
  *
  * @ORM\Table(name="planif_asignaturas", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "plan", "version_plan", "codigo_asignatura", "nro_modulo", "recursantes"})
+ *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "codigo_asignatura", "nro_modulo", "recursantes"})
  * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\AsignaturaRepository")
  */
@@ -46,24 +46,6 @@ class Asignatura implements \JsonSerializable
     * @ORM\JoinColumn(name="carrera_id", referencedColumnName="id")
     */
     private $carrera;
-
-    /**
-     * Plan al que pertenece la carrera.
-     *
-     * @var string
-     *
-     * @ORM\Column(name="plan", type="string", length=6)
-     */
-    private $plan;
-
-    /**
-     * Plan al que pertenece la carrera.
-     *
-     * @var int
-     *
-     * @ORM\Column(name="version_plan", type="integer")
-     */
-    private $versionPlan;
 
     /**
      * @var string
@@ -98,7 +80,7 @@ class Asignatura implements \JsonSerializable
     /**
      * @var float
      *
-     * @ORM\Column(name="hs_carga_horaria", type="decimal", precision=6, scale=2)
+     * @ORM\Column(name="hs_carga_horaria", type="decimal", precision=6, scale=2, nullable=true)
      */
     private $cargaHoraria;
 
@@ -126,21 +108,21 @@ class Asignatura implements \JsonSerializable
     /**
      * @var int
      *
-     * @ORM\Column(name="anio_cursada", type="integer")
+     * @ORM\Column(name="anio_cursada", type="integer", nullable=true)
      */
     private $anioCursada;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="periodo_cursada", type="string", length=24)
+     * @ORM\Column(name="periodo_cursada", type="string", length=24, nullable=true)
      */
     private $periodoCursada;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_cursada", type="string", length=24)
+     * @ORM\Column(name="tipo_cursada", type="string", length=24, nullable=true)
      */
     private $tipoCursada;
 
@@ -169,6 +151,26 @@ class Asignatura implements \JsonSerializable
      * @ORM\Column(name="recursantes", type="integer", nullable=true)
      */
     private $recursantes;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="origen_ws", type="boolean", nullable=true)
+     * @Assert\NotNull(message="Este campo no puede quedar vacio.")
+     */
+    private $origenWs;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    public function __construct()
+    {
+        $this->origenWs = false;
+    }
 
 
     /**
@@ -547,6 +549,55 @@ class Asignatura implements \JsonSerializable
             'tipoCursada' => $this->tipoCursada,
             'nroModulo' => $this->nroModulo,
             'recursantes' => $this->recursantes,
+            'origenWs' => $this->origenWs,
         );
+    }
+
+    /**
+     * Set origenWs
+     *
+     * @param boolean $origenWs
+     *
+     * @return Asignatura
+     */
+    public function setOrigenWs($origenWs)
+    {
+        $this->origenWs = $origenWs;
+
+        return $this;
+    }
+
+    /**
+     * Get origenWs
+     *
+     * @return boolean
+     */
+    public function getOrigenWs()
+    {
+        return $this->origenWs;
+    }
+
+    /**
+     * Set fechaActualizacion
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Asignatura
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
     }
 }
