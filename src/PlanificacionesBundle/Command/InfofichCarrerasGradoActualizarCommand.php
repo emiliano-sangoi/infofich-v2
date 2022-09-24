@@ -74,6 +74,8 @@ class InfofichCarrerasGradoActualizarCommand extends ContainerAwareCommand
             }
         }
 
+
+
        $this->actualizar();
     }
 

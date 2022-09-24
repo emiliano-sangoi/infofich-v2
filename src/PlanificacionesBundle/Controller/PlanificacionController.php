@@ -8,6 +8,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use FICH\APIInfofich\Query\Query;
 use PlanificacionesBundle\Entity\ActividadCurricular;
+use PlanificacionesBundle\Entity\Carrera;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\Temario;
 use PlanificacionesBundle\Entity\HistoricoEstados;
@@ -19,6 +20,7 @@ use PlanificacionesBundle\PDF\PlanificacionesPDF;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use FICH\APIRectorado\Config\WSHelper;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,19 +88,23 @@ class PlanificacionController extends Controller {
         //Verifica permisos, de creacion de planificacion
         $this->denyAccessUnlessGranted(Permisos::PLANIF_CREAR, array('data' => null));
 
+        $em = $this->getDoctrine()->getManager();
+        $carrera_default = $em->getRepository(Carrera::class)
+            ->findOneBy(['estado' => 'V', 'codigoCarrera' => WsHelper::CARRERA_IRH, 'planCarrera' => '022006' ]);
+
         $planificacion = new Planificacion();
-        $form = $this->crearForm($planificacion);
+        $planificacion->setCarrera($carrera_default);
+        $form = $this->crearForm($planificacion, false, $carrera_default);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             //nombre de la asignatura:
-            //dump($planificacion);exit;           
-            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion->getRecursantes());                        
+            //dump($planificacion);exit;
+            $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion->getRecursantes());
             $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
             $planificacion->setNombreAsignatura($nombreAsignatura);
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($planificacion);
             $em->flush();
 
@@ -311,10 +317,10 @@ class PlanificacionController extends Controller {
         $aprobacionAsignatura = $planificacion->getRequisitosAprobacion();
         $requisitosAprobacion = array();
         if ($aprobacionAsignatura) {
-            $requisitosAprobacion['utilizaEvalContinua'] = $aprobacionAsignatura->getUtilizaEvalContinua();            
-            $requisitosAprobacion['descEvalContinua'] = $aprobacionAsignatura->getDescEvalContinua();                         
-            $requisitosAprobacion['requisitosRegular'] = $aprobacionAsignatura->getRequisitosRegul();            
-            $requisitosAprobacion['requisitosPromo'] = $aprobacionAsignatura->getRequisitosPromo();            
+            $requisitosAprobacion['utilizaEvalContinua'] = $aprobacionAsignatura->getUtilizaEvalContinua();
+            $requisitosAprobacion['descEvalContinua'] = $aprobacionAsignatura->getDescEvalContinua();
+            $requisitosAprobacion['requisitosRegular'] = $aprobacionAsignatura->getRequisitosRegul();
+            $requisitosAprobacion['requisitosPromo'] = $aprobacionAsignatura->getRequisitosPromo();
             $requisitosAprobacion['porcentajeAsistencia'] = $aprobacionAsignatura->getPorcentajeAsistencia();
             $requisitosAprobacion['modalidadCfi'] = $aprobacionAsignatura->getModalidadCfi();
             $requisitosAprobacion['fechaPrimerParcial'] = $aprobacionAsignatura->getFechaPrimerParcial();
@@ -384,8 +390,8 @@ class PlanificacionController extends Controller {
         $parametros = array(
             'titulo' => 'Planificaciones 2022',
             'anio' => '2022',
-            'id' => 1, 
-            'nombreAsignatura' => $nombreAsignatura, 
+            'id' => 1,
+            'nombreAsignatura' => $nombreAsignatura,
             'nombreCarrera' => $nombreCarrera,
             'departamento' => $planificacion->getDepartamento(),
             'planEstudio' => $planEstudio,

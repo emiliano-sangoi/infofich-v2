@@ -1,0 +1,3 @@
+asignaturas_get_info:
+  path:     /{id}/info
+  defaults: { _controller: PlanificacionesBundle:Asignaturas:getInfo }

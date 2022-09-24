@@ -1,0 +1,141 @@
+<script>
+
+    $(document).ready(function () {
+
+        var SELECT_CARRERAS = $("{{ select_carreras }}");
+        var SELECT_ASIGNATURA = $("{{ select_asignatura }}");
+        var ASIGNATURA_ACTUAL = "{{ asignatura_actual|default('') }}";
+        var cargar_info_asignatura = "{{ (cargar_info_asignatura|default(false)) ? 1 : 0 }}";
+        var URL_ASIGNATURAS_CARRERA = "{{ path('carreras_get_asignaturas', { 'id' : '--ID--'}) }}";
+        var URL_INFO_ASIGNATURA = "{{ path("asignaturas_get_info", { id: '--ID--'}) }}";
+
+        if(cargar_info_asignatura == 1){
+            $('input.info-asignatura').val("");
+        }
+
+
+        SELECT_CARRERAS.change(actualizarAsignaturas);
+        SELECT_CARRERAS.trigger('change');
+
+        /**
+         * Actualiza el listado de asignaturas al cambiar la carrera elegida.
+         *
+         * @param {type} select
+         * @returns {undefined}
+         * Esta funcion es llamada desde edit info basica, duplicar y inicio de planificacion.
+         */
+        function actualizarAsignaturas(event) {
+
+            //var disabled = select_asignatura.attr('disabled') == 'disabled';
+
+            // desactivar combo de asignaturas:
+            SELECT_ASIGNATURA.prop("disabled", true);
+
+            var cargarAsignaturas = function (response) {
+
+                    SELECT_ASIGNATURA.html('');
+                    SELECT_ASIGNATURA.select2({
+                        'placeholder' : 'Asignaturas de la carrera'
+                    });
+
+                    response.forEach(function (asignatura, index) {
+                        var opt = $(document.createElement('option'));
+                        opt.attr('value', asignatura.id);
+                        opt.text(asignatura.nombreAsignatura);
+
+                        if (ASIGNATURA_ACTUAL == asignatura.id ) {
+                            opt.attr('selected', true);
+                        }
+
+                        SELECT_ASIGNATURA.append(opt);
+                    });
+
+                    if(ASIGNATURA_ACTUAL == ''){
+                        var a = response[0];
+                        var opt = $(document.createElement('option'));
+                        opt.attr('value', a.id);
+                        opt.text(a.nombreAsignatura);
+                        opt.attr('selected', true);
+                        SELECT_ASIGNATURA.append(opt);
+                        ASIGNATURA_ACTUAL = a.id;
+                    }
+
+                    SELECT_ASIGNATURA.change(cargarInfoAsignatura);
+
+                    //activar el select o dejar desactivado:
+                    SELECT_ASIGNATURA.prop("disabled", false);
+                }
+
+
+            //setear la carrera en la url:
+            var url = URL_ASIGNATURAS_CARRERA.replace('--ID--', SELECT_CARRERAS.val());
+            console.log('url asignaturas carrera', url);
+
+            $.ajax({
+                dataType: "json",
+                url: url,
+                data: null,
+                success: cargarAsignaturas,
+                complete: function (data) {
+                    //esto se ejecuta cuando se terminan de cargar las asignaturas
+                    // y provoca que se cargue la informacion de la materia.
+                   // SELECT_ASIGNATURA.trigger("change");
+
+                    SELECT_ASIGNATURA.trigger('change');
+
+                    // if(ASIGNATURA_ACTUAL == -1){
+                    //     SELECT_ASIGNATURA.val("");
+                    // }
+
+                }
+            });
+
+        }
+
+        /**
+         * Se encarga de setear la informacion de una asignatura.
+         *
+         * Recibe un objeto con el formato:
+         * {
+         *      cargaHoraria: null,
+         *      codigoMateria: "00330",
+         *      planCarrera: "022006"
+         *      horasSemanales: null,
+         *      nombreMateria: "SISTEMA DE INFORMACIÓN GEOGRÁFICA",
+         *      obligatoria: true,
+         *      promediable: true,
+         *      tipoMateria: "O",
+         *      valorMateria: "60"
+         * }
+         *
+         */
+        function cargarInfoAsignatura(e) {
+            $('input.info-asignatura').val("");
+
+            var id = SELECT_ASIGNATURA.find('option:selected').attr('data-select2-id');
+
+            if(!id){
+                return;
+            }
+
+            var url = URL_INFO_ASIGNATURA.replace('--ID--', id);
+
+            $.getJSON(url, function(asignatura){
+                $('#planificacionesbundle_planificacion_codigoSiu').val(asignatura.codigoAsignatura);
+                $('#planificacionesbundle_planificacion_plan').val(asignatura.planCarrera);
+                $('#planificacionesbundle_planificacion_caracter').val(asignatura.tipoMateria ? asignatura.tipoMateria : ' - ');
+                $('#planificacionesbundle_planificacion_cargaHoraria').val(asignatura.cargaHoraria ? asignatura.cargaHoraria : ' - ');
+                $('#planificacionesbundle_planificacion_periodoCursada').val(asignatura.periodoCursada ? asignatura.periodoCursada : ' - ');
+                $('#planificacionesbundle_planificacion_anioCursada').val(asignatura.anioCursada ? asignatura.anioCursada : ' - ');
+            });
+        }
+
+
+    });
+
+
+
+
+
+
+</script>

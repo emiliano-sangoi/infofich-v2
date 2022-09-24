@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Mixed_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use FICH\APIRectorado\Config\WSHelper;
 
 /**
  * Carrera
@@ -30,6 +31,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  */
 class Carrera implements \JsonSerializable {
+
+    public static $carrerasPlanificacion = array(
+        WSHelper::CARRERA_IRH,
+        WSHelper::CARRERA_II,
+        WSHelper::CARRERA_IAMB,
+        WSHelper::CARRERA_IAGR,
+        WSHelper::CARRERA_PTOP,
+        WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA
+    );
 
     /**
      * @var int
@@ -118,6 +128,15 @@ class Carrera implements \JsonSerializable {
      */
     private $fechaActualizacion;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="disponible_planif", type="boolean", nullable=true)
+     *
+     */
+    private $disponiblePlanif;
+
+
 
     public function __toString() {
         return $this->nombreCarrera;
@@ -125,6 +144,10 @@ class Carrera implements \JsonSerializable {
 
     public function __toString2() {
         return $this->codigoCarrera . ' - ' . $this->nombreCarrera;
+    }
+
+    public function getCarreraPlan() {
+        return $this->nombreCarrera . ' - Plan: ' . $this->planCarrera;
     }
 
 
@@ -366,6 +389,7 @@ class Carrera implements \JsonSerializable {
     public function __construct()
     {
         $this->asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->disponiblePlanif = true;
     }
 
     /**
@@ -402,5 +426,29 @@ class Carrera implements \JsonSerializable {
     public function getAsignaturas()
     {
         return $this->asignaturas;
+    }
+
+    /**
+     * Set disponiblePlanif
+     *
+     * @param boolean $disponiblePlanif
+     *
+     * @return Carrera
+     */
+    public function setDisponiblePlanif($disponiblePlanif)
+    {
+        $this->disponiblePlanif = $disponiblePlanif;
+
+        return $this;
+    }
+
+    /**
+     * Get disponiblePlanif
+     *
+     * @return boolean
+     */
+    public function getDisponiblePlanif()
+    {
+        return $this->disponiblePlanif;
     }
 }

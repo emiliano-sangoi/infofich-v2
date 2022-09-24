@@ -545,6 +545,7 @@ class Asignatura implements \JsonSerializable
             'obligatoria' => $this->obligatoria,
             'promediable' => $this->promediable,
             'anioCursada' => $this->anioCursada,
+            'planCarrera' => $this->carrera->getPlanCarrera(),
             'periodoCursada' => $this->periodoCursada,
             'tipoCursada' => $this->tipoCursada,
             'nroModulo' => $this->nroModulo,

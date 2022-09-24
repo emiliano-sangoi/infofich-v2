@@ -1,21 +1,21 @@
 #planificaciones_ajax:
 #    resource: "@PlanificacionesBundle/Resources/config/routing/ajax.yml"
-#    prefix: /ajax    
+#    prefix: /ajax
 
 
-    
+
 #planif_equipo_docente_index:
 #   path: /{id}/equipo-docente
 #   defaults: { _controller: PlanificacionesBundle:Docentes:index }
 #   methods: [GET, POST]
-   
+
 #academica_planificaciones_homepage:
 #    path:     /academica
-#    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica } 
-#    
+#    defaults: { _controller: PlanificacionesBundle:Default:indexAcademica }
+#
 #academica_planificaciones_revisar:
 #    path:     /academica/revisar
-#    defaults: { _controller: PlanificacionesBundle:Default:revisarPlanificacion }     
+#    defaults: { _controller: PlanificacionesBundle:Default:revisarPlanificacion }
 
 
 planificaciones:
@@ -29,35 +29,43 @@ planificaciones_info_basica:
 planificaciones_equipo_docente:
     resource: "@PlanificacionesBundle/Resources/config/routing/equipo-docente.yml"
     prefix: /
-    
+
 planificaciones_aprobacion:
     resource: "@PlanificacionesBundle/Resources/config/routing/aprobacion-asignatura.yml"
     prefix: /
-    
+
 planificaciones_objetivos:
     resource: "@PlanificacionesBundle/Resources/config/routing/objetivos-asignatura.yml"
     prefix: /
-    
+
 planificaciones_temario:
     resource: "@PlanificacionesBundle/Resources/config/routing/temario.yml"
     prefix: /
-    
+
 planificaciones_bibliografia:
     resource: "@PlanificacionesBundle/Resources/config/routing/bibliografia.yml"
     prefix: /
 
 planificaciones_resultados:
     resource: "@PlanificacionesBundle/Resources/config/routing/resultados-asignatura.yml"
-    prefix: /    
+    prefix: /
 
 planificaciones_actividades_curriculares:
     resource: "@PlanificacionesBundle/Resources/config/routing/act-curriculares.yml"
     prefix: /
-    
+
 planificaciones_dist_carga_horaria:
     resource: "@PlanificacionesBundle/Resources/config/routing/dist-carga-horaria.yml"
     prefix: /
-    
+
 planificaciones_viajes_acad:
     resource: "@PlanificacionesBundle/Resources/config/routing/viajes-acad.yml"
     prefix: /
+
+planificaciones_carreras:
+  resource: "@PlanificacionesBundle/Resources/config/routing/carreras.yml"
+  prefix: /carreras
+
+planificaciones_asignaturas:
+  resource: "@PlanificacionesBundle/Resources/config/routing/asignaturas.yml"
+  prefix: /asignaturas

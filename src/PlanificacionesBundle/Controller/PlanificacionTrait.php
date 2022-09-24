@@ -20,10 +20,10 @@ use Symfony\Component\Form\Form;
  * @author emi88
  */
 trait PlanificacionTrait {
-    
-    
+
+
     function setBreadcrumb($planificacion, $label_current, $route){
-        
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -31,26 +31,27 @@ trait PlanificacionTrait {
         $breadcrumbs->addItem($planificacion);
         $breadcrumbs->addItem($label_current, $route);
         $breadcrumbs->addItem("EDITAR");
-        
-        
+
+
     }
-    
+
     /**
-     * 
+     *
      * @param Planificacion $planificacion
      * @return Form
      */
-    private function crearForm(Planificacion $planificacion, $disabled = false){
-        
+    private function crearForm(Planificacion $planificacion, $disabled = false, $carrera_default = null){
+
         $api_infofich_service = $this->get('api_infofich_service');
-        
+
         $form_opt = array(
             'api_infofich_service' => $api_infofich_service,
             'disabled' => $disabled,
+            'carrera_default' => $carrera_default
         );
-        
+
         // El campo "Departamento" solo debe habilitarse si el rol del usuario es admin o de secretaria academica.
-        $user = $this->getUser();        
+        $user = $this->getUser();
         $habilitar_dpto = $user->tieneRol(Rol::ROLE_ADMIN) || $user->tieneRol(Rol::ROLE_SEC_ACADEMICA);
         if(!$habilitar_dpto){
             $form_opt['deshabilitados'] = array('departamento');
@@ -61,10 +62,10 @@ trait PlanificacionTrait {
         if(!$habilitar_contenidos_minimos){
             $form_opt['deshabilitados'] = array('contenidos_minimos');
         }
-        
-        return $this->createForm(PlanificacionType::class, $planificacion, $form_opt);                
+
+        return $this->createForm(PlanificacionType::class, $planificacion, $form_opt);
     }
-    
+
     private function getPageTitle(Planificacion $planificacion){
 
         //titulo principal:
@@ -78,10 +79,10 @@ trait PlanificacionTrait {
 
         return $page_title;
     }
-    
+
     /**
      * Crea el formulario para enviar a corrección una planificación
-     * 
+     *
      * @param Planificacion $planificacion
      * @return Form
      */
@@ -92,10 +93,10 @@ trait PlanificacionTrait {
                         ->getForm()
         ;
     }
-    
+
     /**
      * Crea el formulario para enviar a corrección una planificación
-     * 
+     *
      * @param Planificacion $planificacion
      * @return Form
      */
@@ -105,7 +106,7 @@ trait PlanificacionTrait {
                         ->setMethod('POST')
                         ->getForm();
     }
-    
+
     /**
      * Crear un formulario para borrar la planificacion
      *
@@ -120,9 +121,9 @@ trait PlanificacionTrait {
                         ->getForm()
         ;
     }
-    
+
     /**
-     * 
+     *
      * @param Planificacion $planificacion
      * @return type
      */

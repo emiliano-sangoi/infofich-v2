@@ -3,6 +3,10 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
+use PlanificacionesBundle\Entity\Asignatura;
+use PlanificacionesBundle\Entity\Carrera;
+use PlanificacionesBundle\Repository\AsignaturaRepository;
+use PlanificacionesBundle\Repository\CarreraRepository;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Exception;
 use FICH\APIRectorado\Config\WSHelper;
@@ -75,53 +79,53 @@ class PlanificacionType extends AbstractType {
         //Bandera que indica si se esta creando(id es null) o editando la planificacion:
         //$this->creandoPlanificacion = $this->planificacion->getId() === null;
 
-        $this->addCarrera($builder, $options);
+        $this->addCarrera2($builder, $options);
         $this->addAniAcad($builder, $options);
         $this->addCodigoSIU($builder);
 
         $builder->add('plan', TextType::class, array(
             'label' => 'Plan de estudio',
             'disabled' => true,
-            'attr' => array('class' => 'form-control')
+            'attr' => array('class' => 'form-control info-asignatura')
         ));
 
         $builder->add('caracter', TextType::class, array(
             'label' => 'Caracter',
             'mapped' => false,
             'required' => false,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
 
         $builder->add('cargaHoraria', TextType::class, array(
             'label' => 'Carga horaria total',
             'mapped' => false,
             'required' => false,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
 
         $builder->add('periodoCursada', TextType::class, array(
             'label' => 'Periodo',
             'mapped' => false,
             'required' => false,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
 
         $builder->add('anioCursada', TextType::class, array(
             'label' => 'Año cursada',
             'mapped' => false,
             'required' => false,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
 
-        $builder
-            ->add('nroModulo', IntegerType::class, array(
-                'label' => 'Nro. módulo',
-                'required' => false,
-                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
-            ));
+//        $builder
+//            ->add('nroModulo', IntegerType::class, array(
+//                'label' => 'Nro. módulo',
+//                'required' => false,
+//                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
+//            ));
 
         $builder
-            ->add('recursantes', \Symfony\Component\Form\Extension\Core\Type\HiddenType::class, array(                
+            ->add('recursantes', \Symfony\Component\Form\Extension\Core\Type\HiddenType::class, array(
                 'required' => false,
                 'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
             ));
@@ -129,7 +133,8 @@ class PlanificacionType extends AbstractType {
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
 
-        $this->setEventosForm($builder);
+        $this->addAsignaturas2($builder, $options['carrera_default']);
+        //$this->setEventosForm($builder, $options);
     }
 
     private function addDepartamento(FormBuilderInterface $builder) {
@@ -185,36 +190,38 @@ class PlanificacionType extends AbstractType {
     function setEventosForm(FormBuilderInterface $builder) {
 
 
-        $listenerPreSetDataEvent = function (FormEvent $event) {
-            $this->addAsignaturas($event->getForm(), null);
-
-//            // setear el codigo de la carrera si este se encuentra definido
-//            $p = $event->getData();
-//            //dump($p != null && $p->getAsignatura());exit;
-//            if($p != null && $p->getAsignatura()){
-//                $event->getForm()->get('codigoSiu')->setData($p->getAsignatura());
-//            }
-        };
+//        $listenerPreSetDataEvent = function (FormEvent $event) {
+//            dump($event->getData());exit;
+//            $this->addAsignaturas2($event->getForm(), null);
+//
+////            // setear el codigo de la carrera si este se encuentra definido
+////            $p = $event->getData();
+////            //dump($p != null && $p->getAsignatura());exit;
+////            if($p != null && $p->getAsignatura()){
+////                $event->getForm()->get('codigoSiu')->setData($p->getAsignatura());
+////            }
+//        };
 
         $listenerPostSubmitEvent = function (FormEvent $event) {
 
-            $cod_carrera = $event->getForm()->getData();
+            $carrera = $event->getForm()->getData();
+            dump($carrera);exit;
 
             $planif = $event->getForm()->getParent()->getData();
             //Setear los campos plan y versionPlan en funcion de la carrera elegida.
-            if ($cod_carrera) {
-                $carrera = $this->apiInfofichService->getCarrera($cod_carrera);
+            if ($id_carrera) {
+                $carrera = $this->apiInfofichService->getCarrera($id_carrera);
 
                 $planif->setPlan($carrera->getPlanCarrera())
                         ->setVersionPlan($carrera->getVersionPlan());
 
                 //Agregar la asignautura:
-                $this->addAsignaturas($event->getForm()->getParent(), $cod_carrera);
+                $this->addAsignaturas2($event->getForm()->getParent(), $cod_carrera);
             }
         };
 
         //$builder->addEventListener(FormEvents::PRE_SUBMIT, $listenerPreSubmitEvent);
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
+       // $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
         $builder->get('carrera')->addEventListener(FormEvents::POST_SUBMIT, $listenerPostSubmitEvent);
     }
 
@@ -228,7 +235,7 @@ class PlanificacionType extends AbstractType {
             'mapped' => false,
             'required' => false,
             'data' => $codigoSiu,
-            'attr' => array('class' => 'form-control disabled', 'disabled' => 'disabled')
+            'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
     }
 
@@ -264,17 +271,98 @@ class PlanificacionType extends AbstractType {
         $builder->add('carrera', ChoiceType::class, $config);
     }
 
+    private function addCarrera2(FormBuilderInterface $builder) {
+
+        $config = array(
+            'label' => 'Carrera',
+            'class' => Carrera::class,
+            'required' => true,
+            'attr' => array('class' => 'form-control select-carrera js-select2'),
+            'query_builder' => function (CarreraRepository $cr) {
+                $qb = $cr->createQueryBuilder('c');
+                $qb->where($qb->expr()->eq('c.estado', ':estado'))
+                    ->andWhere($qb->expr()->in('c.codigoCarrera', ':carrerasPlanificacion'))
+                    ->orderBy('c.nombreCarrera', 'ASC');
+                $qb->setParameter(':estado', 'V');
+                $qb->setParameter(':carrerasPlanificacion', Carrera::$carrerasPlanificacion);
+                return $qb;
+            },
+            'constraints' => array(
+                new NotBlank(array('message' => "El campo Carrera es obligatorio."))
+            )
+        );
+
+        if (!$builder->getData()->getCarrera()) {
+            $config['data'] = $this->options['carrera_default'];
+        }
+
+        //Deshabilitar el campo cuando la planificación este en r
+        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
+            $config['disabled'] = true;
+        }
+
+        $builder->add('carrera', EntityType::class, $config);
+    }
+
+
+
     /**
      *
      * @param FormBuilderInterface $builder
      */
+    private function addAsignaturas2(FormBuilderInterface $builder, $carrera = null) {
+
+        $config = array(
+            'label' => 'Asignatura',
+            'class' => Asignatura::class,
+            'attr' => array('class' => 'form-control'),
+            'query_builder' => function (AsignaturaRepository $ar) use ($carrera) {
+                $qb = $ar->createQueryBuilder('a')
+                    ->orderBy('a.periodoCursada', 'ASC');
+
+                if($carrera){
+                    $qb->where($qb->expr()->eq('a.carrera', ':carrera'));
+                    $qb->setParameter(':carrera', $carrera);
+                }
+
+                return $qb;
+            },
+            /*'group_by' => function($choiceValue, $key, $value) {
+                switch ($choiceValue->getAnioCursada()){
+                    case 1:
+                        return '1er año';
+                    case 2:
+                        return '2do año';
+                    case 3:
+                        return '3er año';
+                    case 4:
+                        return '4to año';
+                    case 5:
+                        return '5to año';
+                    default:
+                        return 'Optativas y Electivas';
+                }
+            },*/
+            'constraints' => array(
+                new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
+            )
+        );
+
+        //Deshabilitar el campo cuando la planificación este en r
+        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
+            $config['disabled'] = true;
+        }
+
+        $builder->add('asignatura', EntityType::class, $config);
+    }
+
     private function addAsignaturas(FormInterface $builder, $cod_carrera = null) {
 
         $asignaturas = $this->getAsignaturas($cod_carrera);
 
         $config = array(
             'label' => 'Asignatura',
-            'choices' => $asignaturas,
+            'class' => Asignatura::class,
             'attr' => array('class' => 'form-control select-asignatura js-select2'),
             'constraints' => array(
                 new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
@@ -286,7 +374,7 @@ class PlanificacionType extends AbstractType {
             $config['disabled'] = true;
         }
 
-        $builder->add('codigoAsignatura', ChoiceType::class, $config);
+        $builder->add('codigoAsignatura', EntityType::class, $config);
     }
 
     /**
@@ -339,7 +427,7 @@ class PlanificacionType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => Planificacion::class,
-            'carrera_default' => WSHelper::CARRERA_II,
+            'carrera_default' => null,
             'deshabilitados' => array(),
             'api_infofich_service' => null
         ));

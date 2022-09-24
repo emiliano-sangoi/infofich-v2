@@ -1,0 +1,3 @@
+carreras_get_asignaturas:
+    path: /{id}/asignaturas
+    defaults: { _controller: PlanificacionesBundle:Carreras:getAsignaturas }
