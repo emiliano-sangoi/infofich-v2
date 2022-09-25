@@ -68,6 +68,10 @@ trait PlanificacionTrait {
 
     private function getPageTitle(Planificacion $planificacion){
 
+        if($planificacion->getAsignatura()){
+            return $planificacion->getTitulo();
+        }
+
         //titulo principal:
         $api_infofich_service = $this->get('api_infofich_service');
         $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());

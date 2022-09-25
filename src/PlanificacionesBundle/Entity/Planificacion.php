@@ -83,7 +83,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var string
      *
-     * @ORM\Column(name="carrera", type="string", length=8)
+     * @ORM\Column(name="carrera", type="string", length=8, nullable=true)
      */
     private $carrera;
 
@@ -92,7 +92,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var string
      *
-     * @ORM\Column(name="plan", type="string", length=6)
+     * @ORM\Column(name="plan", type="string", length=6, nullable=true)
      */
     private $plan;
 
@@ -101,7 +101,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var int
      *
-     * @ORM\Column(name="version_plan", type="integer")
+     * @ORM\Column(name="version_plan", type="integer", nullable=true)
      */
     private $versionPlan;
 
@@ -119,7 +119,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var Asignatura
      *
-     * @ORM\Column(name="codigo_asignatura", type="string", length=24)
+     * @ORM\Column(name="codigo_asignatura", type="string", length=24, nullable=true)
      */
     private $codigoAsignatura;
 
@@ -128,7 +128,7 @@ class Planificacion implements \JsonSerializable{
      *
      * @var string
      *
-     * @ORM\Column(name="nombre_asignatura", type="string", length=256)
+     * @ORM\Column(name="nombre_asignatura", type="string", length=256, nullable=true)
      */
     private $nombreAsignatura;
 
@@ -286,6 +286,9 @@ class Planificacion implements \JsonSerializable{
 
 
     public function getTitulo() {
+        if($this->asignatura){
+            return mb_strtoupper($this->asignatura->getNombreAsignatura()) . ' ' . $this->anioAcad;
+        }
         return mb_strtoupper($this->nombreAsignatura) . ' ' . $this->anioAcad;
     }
 

@@ -3,12 +3,14 @@
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
 {% block tab_content %}
-    {% include "PlanificacionesBundle:2-equipo-docente:form.html.twig" %}  
-{% endblock %} 
+    {% include "PlanificacionesBundle:2-equipo-docente:form.html.twig" %}
+{% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
+
+    {% include "PlanificacionesBundle:planificacion:script-docentes.html.twig" %}
 
     {% if planificacion.puedeEditarse() %}
         <script>
@@ -39,4 +41,4 @@
     {% endif %}
 
 
-{% endblock %} 
+{% endblock %}

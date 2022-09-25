@@ -12,10 +12,10 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {% include "PlanificacionesBundle::script-carga-asignaturas.html.twig" with {
+    {% include "PlanificacionesBundle:planificacion:script-carga-asignaturas.html.twig" with {
         'select_carreras': '#planificacionesbundle_planificacion_carrera',
         'select_asignatura': '#planificacionesbundle_planificacion_asignatura',
-        'asignatura_actual': planificacion.asignatura,
+        'asignatura_actual': planificacion.asignatura.id is defined ? planificacion.asignatura.id : null,
         'cargar_info_asignatura': true
     } %}
 

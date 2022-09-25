@@ -134,7 +134,7 @@ class PlanificacionType extends AbstractType {
         $this->addDepartamento($builder);
 
         $this->addAsignaturas2($builder, $options['carrera_default']);
-        //$this->setEventosForm($builder, $options);
+        $this->setEventosForm($builder, $options);
     }
 
     private function addDepartamento(FormBuilderInterface $builder) {
@@ -190,38 +190,40 @@ class PlanificacionType extends AbstractType {
     function setEventosForm(FormBuilderInterface $builder) {
 
 
-//        $listenerPreSetDataEvent = function (FormEvent $event) {
-//            dump($event->getData());exit;
-//            $this->addAsignaturas2($event->getForm(), null);
-//
-////            // setear el codigo de la carrera si este se encuentra definido
-////            $p = $event->getData();
-////            //dump($p != null && $p->getAsignatura());exit;
-////            if($p != null && $p->getAsignatura()){
-////                $event->getForm()->get('codigoSiu')->setData($p->getAsignatura());
-////            }
-//        };
+        $listenerPreSetDataEvent = function (FormEvent $event) {
+            //dump($event->getData());exit;
+       //     $p = $event->getData();
+            //dump($p, $event->getForm());exit;
+       //     $this->addAsignaturas2($event->getForm(), $p->getCarrera());
+
+//            // setear el codigo de la carrera si este se encuentra definido
+//            $p = $event->getData();
+//            //dump($p != null && $p->getAsignatura());exit;
+//            if($p != null && $p->getAsignatura()){
+//                $event->getForm()->get('codigoSiu')->setData($p->getAsignatura());
+//            }
+        };
 
         $listenerPostSubmitEvent = function (FormEvent $event) {
 
             $carrera = $event->getForm()->getData();
-            dump($carrera);exit;
+            //dump($carrera);exit;
 
-            $planif = $event->getForm()->getParent()->getData();
+            //$planif = $event->getForm()->getParent()->getData();
             //Setear los campos plan y versionPlan en funcion de la carrera elegida.
-            if ($id_carrera) {
-                $carrera = $this->apiInfofichService->getCarrera($id_carrera);
+            if ($carrera) {
+//                $carrera = $this->apiInfofichService->getCarrera($id_carrera);
 
-                $planif->setPlan($carrera->getPlanCarrera())
-                        ->setVersionPlan($carrera->getVersionPlan());
+//                $planif->setPlan($carrera->getPlanCarrera())
+//                        ->setVersionPlan($carrera->getVersionPlan());
 
                 //Agregar la asignautura:
-                $this->addAsignaturas2($event->getForm()->getParent(), $cod_carrera);
+                $this->addAsignaturas2($event->getForm()->getParent(), $carrera);
             }
         };
 
         //$builder->addEventListener(FormEvents::PRE_SUBMIT, $listenerPreSubmitEvent);
-       // $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, $listenerPreSetDataEvent);
         $builder->get('carrera')->addEventListener(FormEvents::POST_SUBMIT, $listenerPostSubmitEvent);
     }
 
@@ -277,6 +279,7 @@ class PlanificacionType extends AbstractType {
             'label' => 'Carrera',
             'class' => Carrera::class,
             'required' => true,
+            'mapped' => false,
             'attr' => array('class' => 'form-control select-carrera js-select2'),
             'query_builder' => function (CarreraRepository $cr) {
                 $qb = $cr->createQueryBuilder('c');
@@ -310,7 +313,7 @@ class PlanificacionType extends AbstractType {
      *
      * @param FormBuilderInterface $builder
      */
-    private function addAsignaturas2(FormBuilderInterface $builder, $carrera = null) {
+    private function addAsignaturas2($builder, $carrera = null) {
 
         $config = array(
             'label' => 'Asignatura',
@@ -352,6 +355,11 @@ class PlanificacionType extends AbstractType {
         if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
             $config['disabled'] = true;
         }
+
+//        $p = $builder->getData();
+//        if($p->getAsignatura()){
+//            $config['data'] = $p->getAsignatura();
+//        }
 
         $builder->add('asignatura', EntityType::class, $config);
     }

@@ -536,6 +536,8 @@ class Asignatura implements \JsonSerializable
 
     public function jsonSerialize() {
         return array(
+            'id' => $this->id,
+            'text' => $this->nombreAsignatura,
             'codigoAsignatura' => $this->codigoAsignatura,
             'nombreAsignatura' => $this->nombreAsignatura,
             'tipoAsignatura' => $this->tipoAsignatura,

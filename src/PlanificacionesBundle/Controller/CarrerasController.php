@@ -12,9 +12,20 @@ class CarrerasController extends Controller
     public function getAsignaturasAction(Carrera $carrera)
     {
         $em = $this->getDoctrine()->getManager();
-        $asignaturas = $em->getRepository(Asignatura::class)->findBy([
-            'carrera' => $carrera
-        ]);
+        $qb = $em->getRepository(Asignatura::class)->createQueryBuilder('a');
+        $qb->where($qb->expr()->eq('a.carrera', ':carrera'));
+        $qb->setParameter(':carrera', $carrera);
+        $qb->orderBy('a.nombreAsignatura', 'ASC');
+
+        $asignaturas = [];
+        $it = $qb->getQuery()->iterate();
+        foreach ($it as $row){
+            $a = $row[0];
+            $asignaturas[] = [
+                'id' => $a->getId(),
+                'text' => $a->getNombreAsignatura(),
+            ];
+        }
 
         return new JsonResponse($asignaturas);
     }

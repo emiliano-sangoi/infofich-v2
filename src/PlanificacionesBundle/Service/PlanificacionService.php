@@ -21,28 +21,28 @@ class PlanificacionService {
 
     /**
      *
-     * @var EntityManager 
+     * @var EntityManager
      */
     private $em;
 
     /**
      *
-     * @var RolRepository 
+     * @var RolRepository
      */
     private $repoRoles;
 
     /**
      *
-     * @var array 
+     * @var array
      */
     private $errores;
-    
+
     /**
      *
-     * @var boolean 
+     * @var boolean
      */
     private $hayErrores;
-    
+
     /**
      * @var APIInfofichService
      */
@@ -59,10 +59,10 @@ class PlanificacionService {
 
     public function getErrores(Planificacion $planificacion) {
 
-        $this->errores = array();        
-        
+        $this->errores = array();
+
         $this->hayErrores = false;
-        
+
         $this->errores['info_basica'] = $this->validarInfoBasica($planificacion);
         $this->errores['eq_docente'] = $this->validarEqDocente($planificacion);
         $this->errores['aprobacion'] = $this->validarAprobacion($planificacion);
@@ -76,11 +76,11 @@ class PlanificacionService {
 
         return $this->errores;
     }
-    
+
     public function hayErrores(Planificacion $planificacion) {
-        
+
         $this->hayErrores = false;
-        
+
         $funciones = array(
             'validarInfoBasica',
             'validarEqDocente',
@@ -93,14 +93,14 @@ class PlanificacionService {
             'validarDistribucionHoraria',
             //'validarViajesAcademicos',
         );
-        
+
         foreach ($funciones as $f){
             $this->$f($planificacion);
             if ($this->hayErrores){
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -120,7 +120,7 @@ class PlanificacionService {
             $errores[] = 'No ha definido el docente responsable de la asignatura.';
             $this->hayErrores = true;
         }
-        
+
         $dr = $planificacion->getDocenteResponsable();
         $aux = array();$c = 0;
         foreach ($planificacion->getDocentesColaboradores() as $dc){
@@ -132,11 +132,11 @@ class PlanificacionService {
             $c++;
             $aux[$dc->getDocenteGrado()->getId()] = null;
         }
-        
+
         if(count($aux) < $c){
             $errores[] = 'Existen docentes duplicados entre los colaboradores.';
-        }        
-        
+        }
+
 
         return $errores;
     }
@@ -152,7 +152,7 @@ class PlanificacionService {
 
         return $errores;
     }
-    
+
     public function validarObjetivos(Planificacion $planificacion) {
         $errores = array();
 
@@ -160,7 +160,7 @@ class PlanificacionService {
             $errores[] = 'No se han definido los objetivos generales.';
             $this->hayErrores = true;
         }
-        
+
         if (!$planificacion->getObjetivosEspecificos()) {
             $errores[] = 'No han definido los objetivos específicos';
             $this->hayErrores = true;
@@ -168,7 +168,7 @@ class PlanificacionService {
 
         return $errores;
     }
-    
+
     public function validarResultados(Planificacion $planificacion) {
         $errores = array();
 
@@ -179,7 +179,7 @@ class PlanificacionService {
 
         return $errores;
     }
-    
+
     public function validarTemario(Planificacion $planificacion) {
         $errores = array();
 
@@ -190,7 +190,7 @@ class PlanificacionService {
 
         return $errores;
     }
-    
+
     public function validarBibliografia(Planificacion $planificacion) {
         $errores = array();
 
@@ -201,7 +201,7 @@ class PlanificacionService {
 
         return $errores;
     }
-    
+
     public function validarCronograma(Planificacion $planificacion) {
         $errores = array();
 
@@ -218,32 +218,32 @@ class PlanificacionService {
                 break;
             }
         }
-        
+
         //Controlamos que la suma de la carga horaria de las act no supere la carga horaria total de la asignatura
         $sumaCargaHoraria = $planificacion->getTotalCargaHorariaAula();
 
-        $asignatura = $this->apiInfofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $cargaHorariaTotal = $asignatura->getCargaHoraria();
+        //$asignatura = $this->apiInfofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $cargaHorariaTotal = $planificacion->getAsignatura()->getCargaHoraria();
 
-        if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {         
+        if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
             $errores[] = 'La carga horaria definida en la planificacion ('.$sumaCargaHoraria.' Hs.) es distinta a la carga horaria total definida en la asignatura ('. $cargaHorariaTotal . ' hs.).';//no se usaa
             $this->hayErrores = true;
         }
 
         return $errores;
     }
-    
+
     public function validarDistribucionHoraria(Planificacion $planificacion) {
         $errores = array();
-        
+
         // ????
 
         return $errores;
     }
-    
+
     /**
      * Viajes academicos es opcional, no se usa por ahora esta validacion.
-     * 
+     *
      * @param Planificacion $planificacion
      * @return string
      */
