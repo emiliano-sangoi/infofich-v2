@@ -113,7 +113,7 @@ class InfofichAsignaturasGradoActualizarCommand extends ContainerAwareCommand
                 ->setPlan($carrera->getPlanCarrera())
                 ->setVersion($carrera->getVersionPlan())
                 ->setWsEnv(WSHelper::ENV_PROD)
-                ->setCacheEnabled(true);
+                ->setCacheEnabled(false);
 
             $todas_las_asignaturas = $query->getResultado();
 

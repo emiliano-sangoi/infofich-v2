@@ -86,7 +86,7 @@ class InfofichCarrerasGradoActualizarCommand extends ContainerAwareCommand
         $query->setUnidadAcademica(WSHelper::UA_FICH)
             ->setTipoTitulo(WSHelper::TIPO_TITULO_GRADO)
             ->setWsEnv(WSHelper::ENV_PROD)
-            ->setCacheEnabled(true);
+            ->setCacheEnabled(false);
 
         $cn = $cu = 0;
 
