@@ -346,7 +346,7 @@ class Carrera implements \JsonSerializable {
     /**
      * @return \DateTime
      */
-    public function getFechaActualizacion(): \DateTime
+    public function getFechaActualizacion()
     {
         return $this->fechaActualizacion;
     }
@@ -355,7 +355,7 @@ class Carrera implements \JsonSerializable {
      * @param \DateTime $fechaActualizacion
      * @return Carrera
      */
-    public function setFechaActualizacion(\DateTime $fechaActualizacion): Carrera
+    public function setFechaActualizacion(\DateTime $fechaActualizacion)
     {
         $this->fechaActualizacion = $fechaActualizacion;
         return $this;
