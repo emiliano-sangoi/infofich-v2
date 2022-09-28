@@ -20,7 +20,7 @@ UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificacio
 UPDATE `planif_planificaciones` SET `plan` = '012006' WHERE `planif_planificaciones`.`id` = 66;
 UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 75;
 UPDATE `planif_planificaciones` SET `plan` = '082005' WHERE `planif_planificaciones`.`id` = 77;
--- UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 79;
+UPDATE `planif_planificaciones` SET `plan` = '012006' WHERE `planif_planificaciones`.`id` = 79;
 UPDATE `planif_planificaciones` SET `plan` = '032006' WHERE `planif_planificaciones`.`id` = 80;
 UPDATE `planif_planificaciones` SET `plan` = '012006' WHERE `planif_planificaciones`.`id` = 83;
 UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 84;
@@ -33,8 +33,8 @@ UPDATE `planif_planificaciones` SET `plan` = '082005' WHERE `planif_planificacio
 UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 98;
 UPDATE `planif_planificaciones` SET `plan` = '012006' WHERE `planif_planificaciones`.`id` = 103;
 
--- UPDATE `planif_planificaciones` SET `plan` = '082005' WHERE `planif_planificaciones`.`id` = 106;
--- UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 107;
+UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 106;
+UPDATE `planif_planificaciones` SET `plan` = '082005' WHERE `planif_planificaciones`.`id` = 107;
 UPDATE `planif_planificaciones` SET `plan` = '062007' WHERE `planif_planificaciones`.`id` = 109;
 UPDATE `planif_planificaciones` SET `plan` = '012006' WHERE `planif_planificaciones`.`id` = 110;
 UPDATE `planif_planificaciones` SET `plan` = '022006' WHERE `planif_planificaciones`.`id` = 112;
