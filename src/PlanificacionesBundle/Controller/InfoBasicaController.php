@@ -23,19 +23,13 @@ class InfoBasicaController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        //dump($planificacion->getAsignatura()->getCarrera());exit;
         $carrera_default = $planificacion->getAsignatura()->getCarrera();
+        //dump($carrera_default);exit;
         $form = $this->crearForm($planificacion, $planificacion->isPublicada(), $carrera_default);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            //nombre de la asignatura:
-            //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), null,$planificacion->getRecursantes());
-            //$nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
-            //$planificacion->setNombreAsignatura($nombreAsignatura);
-
 
             $em->flush();
 

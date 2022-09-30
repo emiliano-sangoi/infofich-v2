@@ -9,6 +9,11 @@
         var URL_ASIGNATURAS_CARRERA = "{{ path('carreras_get_asignaturas', { 'id' : '--ID--'}) }}";
         var URL_INFO_ASIGNATURA = "{{ path("asignaturas_get_info", { id: '--ID--'}) }}";
 
+        console.log('ASIGNATURA_ACTUAL', ASIGNATURA_ACTUAL);
+        console.log('cargar_info_asignatura', cargar_info_asignatura);
+        console.log('URL_ASIGNATURAS_CARRERA', URL_ASIGNATURAS_CARRERA);
+        console.log('URL_INFO_ASIGNATURA', URL_INFO_ASIGNATURA);
+
         if (cargar_info_asignatura == 1) {
             $('input.info-asignatura').val("");
         }

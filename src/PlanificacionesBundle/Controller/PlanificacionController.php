@@ -93,18 +93,10 @@ class PlanificacionController extends Controller {
             ->findOneBy(['estado' => 'V', 'codigoCarrera' => WsHelper::CARRERA_IRH, 'planCarrera' => '022006' ]);
 
         $planificacion = new Planificacion();
-        //$planificacion->setCarrera($carrera_default);
         $form = $this->crearForm($planificacion, false, $carrera_default);
 
         $form->handleRequest($request);
-        //dump($planificacion);exit;
         if ($form->isSubmitted() && $form->isValid()) {
-//dump($planificacion);exit;
-            //nombre de la asignatura:
-            //dump($planificacion);exit;
-           // $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo(), $planificacion->getRecursantes());
-            //$nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
-            //$planificacion->setNombreAsignatura($nombreAsignatura);
 
             $em->persist($planificacion);
             $em->flush();

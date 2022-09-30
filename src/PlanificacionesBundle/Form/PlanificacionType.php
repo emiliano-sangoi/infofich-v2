@@ -2,12 +2,10 @@
 
 namespace PlanificacionesBundle\Form;
 
-use AppBundle\Service\APIInfofichService;
 use PlanificacionesBundle\Entity\Asignatura;
 use PlanificacionesBundle\Entity\Carrera;
 use PlanificacionesBundle\Repository\AsignaturaRepository;
 use PlanificacionesBundle\Repository\CarreraRepository;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Exception;
 use FICH\APIRectorado\Config\WSHelper;
 use PlanificacionesBundle\Entity\Departamento;
@@ -21,18 +19,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PlanificacionType extends AbstractType {
 
-    /**
-     *
-     * @var APIInfofichService
-     */
-    private $apiInfofichService;
     private $planes;
 
     /**
@@ -70,16 +62,7 @@ class PlanificacionType extends AbstractType {
             $this->codEstadoActual = $ea->getCodigo();
         }
 
-
-        $this->apiInfofichService = $options['api_infofich_service'];
-        if (!$this->apiInfofichService instanceof APIInfofichService) {
-            throw new Exception('El parametro: api_infofich_service debe ser instancia de AppBundle\Service\APIInfofichService');
-        }
-
-        //Bandera que indica si se esta creando(id es null) o editando la planificacion:
-        //$this->creandoPlanificacion = $this->planificacion->getId() === null;
-
-        $this->addCarrera2($builder, $options);
+        $this->addCarrera($builder, $options);
         $this->addAniAcad($builder, $options);
         $this->addCodigoSIU($builder);
 
@@ -117,23 +100,10 @@ class PlanificacionType extends AbstractType {
             'attr' => array('class' => 'form-control disabled info-asignatura', 'disabled' => 'disabled')
         ));
 
-//        $builder
-//            ->add('nroModulo', IntegerType::class, array(
-//                'label' => 'Nro. módulo',
-//                'required' => false,
-//                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
-//            ));
-
-        $builder
-            ->add('recursantes', \Symfony\Component\Form\Extension\Core\Type\HiddenType::class, array(
-                'required' => false,
-                'attr' => array('class' => 'form-control', 'min' => 0, 'readonly' => true)
-            ));
-
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
 
-        $this->addAsignaturas2($builder, $options['carrera_default']);
+        $this->addAsignatura($builder, $options['carrera_default']);
         $this->setEventosForm($builder, $options);
     }
 
@@ -207,18 +177,12 @@ class PlanificacionType extends AbstractType {
         $listenerPostSubmitEvent = function (FormEvent $event) {
 
             $carrera = $event->getForm()->getData();
-            //dump($carrera);exit;
 
             //$planif = $event->getForm()->getParent()->getData();
             //Setear los campos plan y versionPlan en funcion de la carrera elegida.
             if ($carrera) {
-//                $carrera = $this->apiInfofichService->getCarrera($id_carrera);
-
-//                $planif->setPlan($carrera->getPlanCarrera())
-//                        ->setVersionPlan($carrera->getVersionPlan());
-
                 //Agregar la asignautura:
-                $this->addAsignaturas2($event->getForm()->getParent(), $carrera);
+                $this->addAsignatura($event->getForm()->getParent(), $carrera);
             }
         };
 
@@ -241,39 +205,7 @@ class PlanificacionType extends AbstractType {
         ));
     }
 
-    /**
-     * Agrega los campos relacionados a la carrera
-     *
-     * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
-     *
-     * @param FormBuilderInterface $builder
-     */
     private function addCarrera(FormBuilderInterface $builder) {
-        $config = array(
-            'label' => 'Carrera',
-            'choices' => $this->getCarreras(),
-            //'required' => false,
-            'attr' => array('class' => 'form-control select-carrera js-select2',
-                'data-planes-carrera' => json_encode($this->planes)), //esto es para obtener la informacion del plan para el campo "Plan Estudio"
-            'constraints' => array(
-                new NotBlank(array('message' => "El campo Carrera es obligatorio."))
-            )
-        );
-
-        if (!$builder->getData()->getCarrera()) {
-            $config['data'] = $this->options['carrera_default'];
-        }
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
-        }
-
-
-        $builder->add('carrera', ChoiceType::class, $config);
-    }
-
-    private function addCarrera2(FormBuilderInterface $builder) {
 
         $config = array(
             'label' => 'Carrera',
@@ -295,7 +227,10 @@ class PlanificacionType extends AbstractType {
             )
         );
 
-        if (!$builder->getData()->getCarrera()) {
+        $p = $builder->getData();
+        if ($p instanceof Planificacion && $p->getAsignatura() && $p->getAsignatura()->getCarrera()) {
+            $config['data'] = $p->getAsignatura()->getCarrera();
+        }else{
             $config['data'] = $this->options['carrera_default'];
         }
 
@@ -313,7 +248,7 @@ class PlanificacionType extends AbstractType {
      *
      * @param FormBuilderInterface $builder
      */
-    private function addAsignaturas2($builder, $carrera = null) {
+    private function addAsignatura($builder, $carrera = null) {
 
         $config = array(
             'label' => 'Asignatura',
@@ -356,33 +291,13 @@ class PlanificacionType extends AbstractType {
             $config['disabled'] = true;
         }
 
-//        $p = $builder->getData();
-//        if($p->getAsignatura()){
-//            $config['data'] = $p->getAsignatura();
-//        }
-
-        $builder->add('asignatura', EntityType::class, $config);
-    }
-
-    private function addAsignaturas(FormInterface $builder, $cod_carrera = null) {
-
-        $asignaturas = $this->getAsignaturas($cod_carrera);
-
-        $config = array(
-            'label' => 'Asignatura',
-            'class' => Asignatura::class,
-            'attr' => array('class' => 'form-control select-asignatura js-select2'),
-            'constraints' => array(
-                new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
-            )
-        );
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
+        $p = $builder->getData();
+        //dump($p->getAsignatura());exit;
+        if($p->getAsignatura()){
+            $config['data'] = $p->getAsignatura();
         }
 
-        $builder->add('codigoAsignatura', EntityType::class, $config);
+        $builder->add('asignatura', EntityType::class, $config);
     }
 
     /**
@@ -436,8 +351,7 @@ class PlanificacionType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => Planificacion::class,
             'carrera_default' => null,
-            'deshabilitados' => array(),
-            'api_infofich_service' => null
+            'deshabilitados' => array()
         ));
     }
 
@@ -446,49 +360,6 @@ class PlanificacionType extends AbstractType {
      */
     public function getBlockPrefix() {
         return 'planificacionesbundle_planificacion';
-    }
-
-    private function getCarreras() {
-
-        //obtiene las carreras de grado de la fich:
-        $carreras_fich = $this->apiInfofichService->getCarreras();
-
-        //dump($carreras_fich);exit;
-
-        if (!$carreras_fich) {
-            return array();
-        }
-
-        $aux = $this->planes = array();
-        foreach ($carreras_fich as $carrera) {
-            $aux[$carrera->getCodigoCarrera()] = $carrera;
-            $this->planes[$carrera->getCodigoCarrera()] = $carrera->getPlanCarrera();
-        }
-
-        return $aux;
-    }
-
-    /**
-     * Obtiene las asignaturas de cierta carrera
-     *
-     * @param type $cod_carrera
-     * @return type
-     */
-    private function getAsignaturas($cod_carrera) {
-
-        $asignaturas = $this->apiInfofichService
-                ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
-
-        if (!is_array($asignaturas)) {
-            return array();
-        }
-
-        $aux = array();
-        foreach ($asignaturas as $a) {
-            $aux[$a->getCodigoMateria()] = $a;
-        }
-
-        return $aux;
     }
 
 }

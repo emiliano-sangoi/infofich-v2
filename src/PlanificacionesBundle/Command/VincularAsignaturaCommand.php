@@ -68,6 +68,7 @@ class VincularAsignaturaCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
+        $this->input = $input;
         $this->output = $output;
         $this->em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
         $this->repoCarreras = $this->em->getRepository(Carrera::class);
@@ -118,20 +119,27 @@ class VincularAsignaturaCommand extends ContainerAwareCommand
 
             $this->output->writeln('Planificacion: ' . $planif);
             $this->output->writeln('- Datos de la planificacion: ');
+            $this->output->writeln("\t ID: " . $planif->getId());
             $this->output->writeln("\t Carrera: " . $planif->getCarrera());
             $this->output->writeln("\t Plan: " . $planif->getPlan());
             $this->output->writeln("\t Version plan: " . $planif->getVersionPlan());
             $this->output->writeln("\t Año academico: " . $planif->getAnioAcad());
             $this->output->writeln('- Datos de la asignatura a vincular: ');
-            $this->output->writeln("\t Asignatura a vincular: " . ($asignatura ?: ' - '));
-            $this->output->writeln("\t Id asignatura: " . ($asignatura ? $asignatura->getId() : ' - '));
+            $this->output->writeln("\t Nombre: " . ($asignatura ?: ' - '));
+            $this->output->writeln("\t Id: " . ($asignatura ? $asignatura->getId() : ' - '));
             $this->output->writeln("\t Tipo asignatura: " . ($asignatura ? $asignatura->getTipoAsignatura() : ' - '));
             $this->output->writeln("\t Carrera: " . ($carrera ?: ' - '));
             $this->output->writeln("\t Codigo carrera: " . ($carrera ? $carrera->getCodigoCarrera() : ' - '));
             $this->output->writeln("\t Plan carrera: " . ($carrera ? $carrera->getPlanCarrera() : ' - '));
             $this->output->writeln("\t Version plan carrera: " . ($carrera ? $carrera->getVersionPlan() : ' - '));
-            $this->output->writeln('');
 
+            if($this->force === true && $asignatura ){
+                $planif->setAsignatura($asignatura);
+                $this->em->flush();
+                $this->output->writeln('Se vinculo la planificacion ID: ' . $planif->getId() . ' con la asignatura ID: ' . $asignatura->getId());
+            }
+
+            $this->output->writeln('');
 
         }
 

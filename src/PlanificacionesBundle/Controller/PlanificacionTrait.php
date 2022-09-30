@@ -42,10 +42,7 @@ trait PlanificacionTrait {
      */
     private function crearForm(Planificacion $planificacion, $disabled = false, $carrera_default = null){
 
-        $api_infofich_service = $this->get('api_infofich_service');
-
         $form_opt = array(
-            'api_infofich_service' => $api_infofich_service,
             'disabled' => $disabled,
             'carrera_default' => $carrera_default
         );
