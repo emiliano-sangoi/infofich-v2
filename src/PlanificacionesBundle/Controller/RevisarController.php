@@ -41,6 +41,7 @@ class RevisarController extends Controller {
      */
     public function revisarAction(Request $request, Planificacion $planificacion) {
 
+
         /* @var $planifService PlanificacionService */
         $planifService = $this->get('planificaciones_service');
 
@@ -84,8 +85,9 @@ class RevisarController extends Controller {
         }
 
         //titulo principal:
-        $infofichService = $this->get('api_infofich_service');
-        $asignatura = $infofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        // Refactorizamos     
+        $asignatura = $planificacion->getAsignatura();
+
         $params['asignatura'] = $asignatura;
 
         // Breadcrumbs
@@ -241,8 +243,9 @@ class RevisarController extends Controller {
         $this->resumen['carrera'] = null;
         $this->resumen['carrera_plan'] = null;
         $this->resumen['anioAcad'] = $planificacion->getAnioAcad();
-        $this->resumen['nombreMateria'] = mb_strtoupper($planificacion->getNombreAsignatura());
-        $this->resumen['nroModulo'] = $planificacion->getNroModulo();
+        // Refactorizamos
+        $this->resumen['nombreMateria'] = mb_strtoupper($planificacion->getAsignatura()->getNombreAsignatura());
+        //$this->resumen['nroModulo'] = $planificacion->getNroModulo();
         $this->resumen['contenidosMinimos'] = $planificacion->getContenidosMinimos();
 
 
@@ -256,10 +259,13 @@ class RevisarController extends Controller {
           #tipoCarrera: "Grado"
          */
         //obtiene las carreras de grado de la fich:
-        $carrera = $this->infofichService->getCarrera($planificacion->getCarrera());
-        if ($planificacion->getCarrera() && $carrera instanceof Carrera) {
-            $this->resumen['carrera'] = $planificacion->getCarrera() . ' - ' . $carrera->getNombreCarrera();
-            $this->resumen['carrera_plan'] = $carrera->getPlanCarrera();
+        // Refactorizamos
+        $carrera_codigo = $planificacion->getAsignatura()->getCarrera()->getCodigoCarrera();
+        $carrera_nombre = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
+        $carrera_plan  = $planificacion->getAsignatura()->getCarrera()->getPlanCarrera();
+        if ($carrera_codigo) {
+            $this->resumen['carrera'] = $carrera_codigo . ' - ' . $carrera_nombre;
+            $this->resumen['carrera_plan'] = $carrera_plan;
         }
     }
 
