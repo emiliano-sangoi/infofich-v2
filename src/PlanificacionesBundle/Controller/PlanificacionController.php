@@ -281,18 +281,34 @@ class PlanificacionController extends Controller {
         //Datos que precisa
         $detalleItems = array();
 
-        //nombre de la asignatura:
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
-        $nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        // Nombre de la asignatura:
+        // Refactorizado
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
+        $asignatura = $planificacion->getAsignatura();      
+        //$nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        $nombreAsignatura = $planificacion->getAsignatura()->getNombreAsignatura();
         $periodoLectivo = $asignatura->getPeriodoCursada();
         $anioCursada = $asignatura->getAnioCursada();
         $caracter = $asignatura->getTipoCursada();
-        $carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
-        $nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
-        $planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
+        
+        // Refactorizado
+        //$carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());      
+        //$nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
+        $carrera_codigo = $planificacion->getAsignatura()->getCarrera()->getCodigoCarrera();
+        $carrera_nombre = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
+        $carrera_plan  = $planificacion->getAsignatura()->getCarrera()->getPlanCarrera();
+        if ($carrera_codigo) {
+            $nombreCarrera = $carrera_codigo . ' - ' . $carrera_nombre;
+            $planEstudio =  $carrera_plan;
+        }
+
+        // Refactorizado
+        //$planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
         $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
+        
         //TODO cargaHorariaTotal
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
+
         //Equipo Docente
         $docenteResponsable = $planificacion->getDocenteResponsable();
 
