@@ -7,6 +7,8 @@ use AppBundle\Entity\Usuario;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use PlanificacionesBundle\Entity\Asignatura;
+use PlanificacionesBundle\Entity\Carrera;
 use PlanificacionesBundle\Entity\Planificacion;
 
 /**
@@ -29,45 +31,33 @@ class PlanificacionRepository extends EntityRepository {
      *
      *
      * @param Usuario $usuario
-     * @param type $carrera
-     * @param type $codigoAsignatura
+     * @param Carrera|null $carrera
+     * @param Asignatura|null $asignatura
      * @param type $anioAcad
      * @return Query|array
      */
-    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $codigoAsignatura = null, $anioAcad = null, $estadoActual = null, $nroModulo = null, $recursantes = null) {
+    public function getPlanificacionesUsuario(Usuario $usuario, $carrera = null, $asignatura = null, $anioAcad = null, $estadoActual = null) {
 
         $em = $this->getEntityManager();
 
         /* @var $qb QueryBuilder */
         $qb = $em->getRepository(Planificacion::class)->createQueryBuilder('p');
+        $qb->join('p.asignatura', 'a');
+        $qb->join('a.carrera', 'c');
 
         if ($anioAcad) {
             $qb->andWhere($qb->expr()->eq('p.anioAcad', ':anioAcad'));
             $qb->setParameter(':anioAcad', $anioAcad);
         }
 
-        if ($carrera) {
-            $qb->andWhere($qb->expr()->eq('p.carrera', ':carrera'));
-            $qb->setParameter(':carrera', $carrera);
+        if ($asignatura) {
+            $qb->andWhere($qb->expr()->eq('a.id', ':asignatura_id'));
+            $qb->setParameter(':asignatura_id', $asignatura->getId());
         }
 
-        if ($codigoAsignatura) {
-            $qb->andWhere($qb->expr()->eq('p.codigoAsignatura', ':codigoAsignatura'));
-            $qb->setParameter(':codigoAsignatura', $codigoAsignatura);
-
-            if($nroModulo) {
-                $qb->andWhere($qb->expr()->eq('p.nroModulo', ':nroModulo'));
-                $qb->setParameter(':nroModulo', $nroModulo);
-            }else{
-                $qb->andWhere($qb->expr()->isNull('p.nroModulo'));
-            }
-            
-            if($recursantes){
-                $qb->andWhere($qb->expr()->eq('p.recursantes', ':recursantes'));
-                $qb->setParameter(':recursantes', recursantes);
-            }else{
-                $qb->andWhere($qb->expr()->isNull('p.recursantes'));
-            }
+        if ($carrera) {
+            $qb->andWhere($qb->expr()->eq('c.id', ':carrera_id'));
+            $qb->setParameter(':carrera_id', $carrera->getId());
         }
 
         if ($estadoActual) {
@@ -80,9 +70,9 @@ class PlanificacionRepository extends EntityRepository {
 
         $qb->orderBy('p.fechaCreacion', 'DESC');
         $qb->orderBy('p.ultimaModif', 'DESC');
+        $ids = [];
 
         if (!$usuario->tieneRol(Rol::ROLE_ADMIN) && !$usuario->tieneRol(Rol::ROLE_SEC_ACADEMICA)) {
-            $result = array();
             //============================================================================
             //FILTRAR PLANIFICACIONES PROPIAS
             //si no es el admin se deben filtrar las planifificaciones a mostrar.
@@ -90,21 +80,24 @@ class PlanificacionRepository extends EntityRepository {
             //lo tengan como owner u aquellas en las que figure como docente responsable.
 
             $it = $qb->getQuery()->iterate();
-
             foreach ($it as $row) {
 
                 $planif = $row[0];
                 if ($planif->inEquipoDocente($usuario->getPersona()) || $planif->getOwner() == $usuario) {
-                    $result[] = $planif;
+                    $ids[] = $planif->getId();
                 }
             }
-        } else {
-            $result = $qb->getQuery();
+
+            if(!empty($ids)){
+                $qb->andWhere('p.id IN (:ids)');
+                $qb->setParameter(':ids', $ids);
+            }
+
         }
 
-        //dump($result->getResult());exit;
+       // dump($flag, $result);exit;
 
-        return $result;
+        return $qb->getQuery();
     }
 
 }

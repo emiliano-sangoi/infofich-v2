@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use PlanificacionesBundle\Entity\Estado;
 use Symfony\Component\HttpFoundation\Request;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class DocentesController extends Controller {
 
@@ -18,13 +19,13 @@ class DocentesController extends Controller {
 
     /**
      * Metodo encargado de guardar los cambios en equipo docente.
-     * 
+     *
      * IMPORTANTE:
      *  Al guardarse un nuevo docente se revisa si la persona asociada ya existe en la base de datos. Si existe, se reutiliza,
      *  sino se crea una nueva.
      *  Esto se maneja en un evento de Doctrine, ver el metodo prePersist, en PlanificacionesBundle/EventListener/DocenteListener
-     * 
-     * 
+     *
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return type
@@ -32,7 +33,7 @@ class DocentesController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         //Deshabilitar el campo cuando la planificación este en revision o publicada
         $config = array();
         $ea = $planificacion->getEstadoActual();
@@ -40,7 +41,7 @@ class DocentesController extends Controller {
             $config = array('disabled' => true);
         }
 
-        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion, $config);        
+        $form = $this->createForm(PlanificacionDocentesType::class, $planificacion, $config);
 
         $form->handleRequest($request);
         // dump($form->get('docenteResponsable')->getData());exit;
@@ -60,7 +61,7 @@ class DocentesController extends Controller {
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_equipo_docente_editar', array('id' => $planificacion->getId()));
         }
-        
+
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Equipo docente', $this->get("router")->generate('planif_equipo_docente_editar', array('id' => $planificacion->getId())));
 
@@ -75,11 +76,11 @@ class DocentesController extends Controller {
 
     /**
      * Funcion auxiliar para borrar los docentes en una coleccion.
-     * 
+     *
      * Esto se debe hacer de esta forma por que asi lo require las collecciones. Ver:
      *      https://symfony.com/doc/2.8/form/form_collections.html#template-modifications
-     * 
-     * 
+     *
+     *
      * @param Planificacion $planificacion
      */
     private function borrarDocentes(Planificacion $planificacion) {
@@ -114,8 +115,8 @@ class DocentesController extends Controller {
 
     /**
      * Metodo que permite obtener los datos de un docente via Ajax o algun otro cliente
-     * 
-     *      
+     *
+     *
      * @param string $legajo
      * @return JsonResponse
      */

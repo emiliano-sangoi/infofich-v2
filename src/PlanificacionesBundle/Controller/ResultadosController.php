@@ -3,7 +3,7 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
-use AppBundle\Util\Texto;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Form\ResultadosAprendizajeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * 
+ *
  */
 class ResultadosController extends Controller {
 
@@ -19,7 +19,7 @@ class ResultadosController extends Controller {
 
     /**
      * Metodo que maneja la modificacion de los campos "resultados de aprendizajes de la planificación".
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response

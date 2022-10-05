@@ -18,6 +18,7 @@ use PlanificacionesBundle\Entity\ActividadCurricular;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 /**
  * Acciones relacionadas a la revision de una planificacion
@@ -374,12 +375,12 @@ class RevisarController extends Controller {
             } else {
                 $this->resumen['utilizaEvalContinua'] = 'No';
             }
-           
+
             $this->resumen['requisitosRegul'] = $requisitos->getRequisitosRegul();
             $this->resumen['requisitosPromo'] = $requisitos->getRequisitosPromo();
-           
 
-            
+
+
         }
     }
 

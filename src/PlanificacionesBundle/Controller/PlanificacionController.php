@@ -18,6 +18,7 @@ use PlanificacionesBundle\Form\DuplicarPlanificacionType;
 use PlanificacionesBundle\Form\CambiarEstadoPlanificacionType;
 use PlanificacionesBundle\PDF\PlanificacionesPDF;
 use PlanificacionesBundle\Repository\HistoricoEstadosRepository;
+use PlanificacionesBundle\Repository\PlanificacionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use FICH\APIRectorado\Config\WSHelper;
@@ -25,6 +26,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class PlanificacionController extends Controller {
 
@@ -38,6 +40,7 @@ class PlanificacionController extends Controller {
         $form_filtros->handleRequest($request);
 
         $paginator = $this->get('knp_paginator');
+
         $paginado = $paginator->paginate(
                 $this->getPlanificacionesUsuario($form_filtros), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
         );
@@ -64,17 +67,16 @@ class PlanificacionController extends Controller {
 
         $usuario = $this->getUser();
         $carrera = $form_filtros->get('carrera')->getData();
-        $codigoAsignatura = $form_filtros->get('codigoAsignatura')->getData();
+        $asignatura = $form_filtros->get('asignatura')->getData();
         $anioAcad = $form_filtros->get('anioAcad')->getData();
         $estadoActual = $form_filtros->get('estadoActual')->getData();
-        $nroModulo = $form_filtros->get('nroModulo')->getData();
-        $recursantes = $form_filtros->get('recursantes')->getData();
 
         //dump($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo, $recursantes);exit;
 
         $em = $this->getDoctrine()->getManager();
+        /* @var $repo PlanificacionRepository */
         $repo = $em->getRepository(Planificacion::class);
-        return $repo->getPlanificacionesUsuario($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo, $recursantes);
+        return $repo->getPlanificacionesUsuario($usuario, $carrera, $asignatura, $anioAcad, $estadoActual);
     }
 
     /**
