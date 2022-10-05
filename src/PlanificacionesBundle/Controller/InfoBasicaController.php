@@ -12,6 +12,7 @@ use PlanificacionesBundle\Entity\Estado;
 use FICH\APIRectorado\Config\WSHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class InfoBasicaController extends Controller {
 

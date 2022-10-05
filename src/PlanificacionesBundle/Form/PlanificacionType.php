@@ -11,6 +11,7 @@ use FICH\APIRectorado\Config\WSHelper;
 use PlanificacionesBundle\Entity\Departamento;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Traits\PlanificacionFormTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -35,12 +36,6 @@ class PlanificacionType extends AbstractType {
 
     /**
      *
-     * @var array
-     */
-    private $options;
-
-    /**
-     *
      * @var integer
      */
     private $codEstadoActual;
@@ -49,12 +44,13 @@ class PlanificacionType extends AbstractType {
         $this->planes = array();
     }
 
+    use PlanificacionFormTrait;
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $this->options = $options;
         $this->planif = $builder->getData();
 
         $ea = $this->planif->getEstadoActual();
@@ -102,7 +98,6 @@ class PlanificacionType extends AbstractType {
 
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
-
         $this->addAsignatura($builder, $options['carrera_default']);
         $this->setEventosForm($builder, $options);
     }
@@ -205,100 +200,6 @@ class PlanificacionType extends AbstractType {
         ));
     }
 
-    private function addCarrera(FormBuilderInterface $builder) {
-
-        $config = array(
-            'label' => 'Carrera',
-            'class' => Carrera::class,
-            'required' => true,
-            'mapped' => false,
-            'attr' => array('class' => 'form-control select-carrera js-select2'),
-            'query_builder' => function (CarreraRepository $cr) {
-                $qb = $cr->createQueryBuilder('c');
-                $qb->where($qb->expr()->eq('c.estado', ':estado'))
-                    ->andWhere($qb->expr()->in('c.codigoCarrera', ':carrerasPlanificacion'))
-                    ->orderBy('c.nombreCarrera', 'ASC');
-                $qb->setParameter(':estado', 'V');
-                $qb->setParameter(':carrerasPlanificacion', Carrera::$carrerasPlanificacion);
-                return $qb;
-            },
-            'constraints' => array(
-                new NotBlank(array('message' => "El campo Carrera es obligatorio."))
-            )
-        );
-
-        $p = $builder->getData();
-        if ($p instanceof Planificacion && $p->getAsignatura() && $p->getAsignatura()->getCarrera()) {
-            $config['data'] = $p->getAsignatura()->getCarrera();
-        }else{
-            $config['data'] = $this->options['carrera_default'];
-        }
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
-        }
-
-        $builder->add('carrera', EntityType::class, $config);
-    }
-
-
-
-    /**
-     *
-     * @param FormBuilderInterface $builder
-     */
-    private function addAsignatura($builder, $carrera = null) {
-
-        $config = array(
-            'label' => 'Asignatura',
-            'class' => Asignatura::class,
-            'attr' => array('class' => 'form-control'),
-            'query_builder' => function (AsignaturaRepository $ar) use ($carrera) {
-                $qb = $ar->createQueryBuilder('a')
-                    ->orderBy('a.periodoCursada', 'ASC');
-
-                if($carrera){
-                    $qb->where($qb->expr()->eq('a.carrera', ':carrera'));
-                    $qb->setParameter(':carrera', $carrera);
-                }
-
-                return $qb;
-            },
-            /*'group_by' => function($choiceValue, $key, $value) {
-                switch ($choiceValue->getAnioCursada()){
-                    case 1:
-                        return '1er año';
-                    case 2:
-                        return '2do año';
-                    case 3:
-                        return '3er año';
-                    case 4:
-                        return '4to año';
-                    case 5:
-                        return '5to año';
-                    default:
-                        return 'Optativas y Electivas';
-                }
-            },*/
-            'constraints' => array(
-                new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
-            )
-        );
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if (in_array($this->codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
-        }
-
-        $p = $builder->getData();
-        //dump($p->getAsignatura());exit;
-        if($p->getAsignatura()){
-            $config['data'] = $p->getAsignatura();
-        }
-
-        $builder->add('asignatura', EntityType::class, $config);
-    }
 
     /**
      * Agrega el campo año academico

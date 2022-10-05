@@ -12,14 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use PlanificacionesBundle\Entity\ViajeAcademico;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use PlanificacionesBundle\Entity\Estado;
-
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class ViajesAcademicosController extends Controller {
 
     use PlanificacionTrait;
-    
-    
-    
+
     public function indexAction(Request $request, Planificacion $planificacion)
     {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
@@ -44,8 +42,8 @@ class ViajesAcademicosController extends Controller {
         ));
 
     }
-    
-    
+
+
     public function newAction(Request $request, Planificacion $planificacion)
     {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
@@ -146,7 +144,7 @@ class ViajesAcademicosController extends Controller {
             'page_title' => $this->getPageTitle($viaje->getPlanificacion()) . ' - Viaje Academico'
         ));
     }
-    
+
     private function crearFormBorrado(ViajeAcademico $viaje){
 
         $options = array(
@@ -162,7 +160,7 @@ class ViajesAcademicosController extends Controller {
     }
     /**
      * Metodo que maneja la edicion del formulario.
-     * 
+     *
      * @param Request $request
      * @param ViajeAcademico $viaje
      * @return Response
@@ -234,7 +232,7 @@ class ViajesAcademicosController extends Controller {
 
     /**
      * Funcion auxiliar para remover los items que fueron borrados por el formulario.
-     * 
+     *
      * @param Planificacion $planificacion
      */
     /*private function actualizarViajes(Planificacion $planificacion) {

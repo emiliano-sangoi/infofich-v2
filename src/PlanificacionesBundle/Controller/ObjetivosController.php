@@ -9,9 +9,10 @@ use PlanificacionesBundle\Form\ObjetivosType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 /**
- * 
+ *
  */
 class ObjetivosController extends Controller {
 
@@ -19,7 +20,7 @@ class ObjetivosController extends Controller {
 
     /**
      * Metodo que maneja la modificacion de los campos "objetivos generales y especificos de la planificación".
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
@@ -27,7 +28,7 @@ class ObjetivosController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         //Deshabilitar el campo cuando la planificación este en revision o publicada
         $config = array();
         $ea = $planificacion->getEstadoActual();

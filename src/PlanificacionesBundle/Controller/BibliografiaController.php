@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class BibliografiaController extends Controller {
 
@@ -44,8 +45,8 @@ class BibliografiaController extends Controller {
                     'planificacion' => $planificacion
         ));
     }
-    
-    
+
+
     public function newAction(Request $request, Planificacion $planificacion)
     {
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
@@ -99,7 +100,7 @@ class BibliografiaController extends Controller {
         ));
 
     }
-    
+
     private function crearFormBibliografia(Bibliografia $bibliografia)
     {
 
@@ -115,7 +116,7 @@ class BibliografiaController extends Controller {
 
         return $form;
     }
-    
+
 
     public function verAction(Request $request, Bibliografia $bibliografia)
     {
@@ -148,9 +149,9 @@ class BibliografiaController extends Controller {
         ));
     }
 
-    
-    
-    
+
+
+
     /**
      * Metodo que maneja la edicion de una bibliografia
      *

@@ -11,12 +11,11 @@ use PlanificacionesBundle\Form\RequisitosAprobacionType;
 use PlanificacionesBundle\Form\UtilizaEvalContinuaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class AprobacionController extends Controller
 {

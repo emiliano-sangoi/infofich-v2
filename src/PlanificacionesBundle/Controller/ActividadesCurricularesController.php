@@ -12,6 +12,7 @@ use Proxies\__CG__\PlanificacionesBundle\Entity\Temario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class ActividadesCurricularesController extends Controller {
 
@@ -19,7 +20,7 @@ class ActividadesCurricularesController extends Controller {
 
     /**
      * Muestra el listado de temas
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
@@ -144,7 +145,7 @@ class ActividadesCurricularesController extends Controller {
         //Buscamos la asignatura y sus datos con el web service
         $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
-        
+
         return $this->render('PlanificacionesBundle:7-cronograma:show.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
@@ -174,7 +175,7 @@ class ActividadesCurricularesController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();            
+            $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'Actividad modificada correctamente.');
 
@@ -236,11 +237,11 @@ class ActividadesCurricularesController extends Controller {
         $ruta_index = $this->get("router")->generate('planif_act_curriculares_editar', array('id' => $planificacion->getId()));
         $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
         $breadcrumbs->addItem('DUPLICAR');
-        
+
          //Buscamos la asignatura y sus datos con el web service
         $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
-        
+
         return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
                     'form' => $form->createView(),
                     'page_title' => $this->getPageTitle($planificacion) . ' - Cronograma de actividades',
@@ -270,9 +271,9 @@ class ActividadesCurricularesController extends Controller {
 
     /**
      * Crea un formulario para borrar una actividad curricular.
-     * 
+     *
      * @param ActividadCurricular $actividadCurricular
-     * 
+     *
      * @return Form The form
      */
     private function crearDeleteForm(ActividadCurricular $actividadCurricular) {

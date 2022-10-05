@@ -8,6 +8,7 @@ use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class CargaHorariaController extends Controller {
 
@@ -15,7 +16,7 @@ class CargaHorariaController extends Controller {
 
     /**
      * Metodo que maneja la edicion del formulario.
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response

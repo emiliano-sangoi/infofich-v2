@@ -3,7 +3,6 @@
 namespace PlanificacionesBundle\Controller;
 
 use AppBundle\Seguridad\Permisos;
-use AppBundle\Util\Texto;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use PlanificacionesBundle\Entity\Planificacion;
 use PlanificacionesBundle\Entity\Estado;
@@ -12,6 +11,7 @@ use PlanificacionesBundle\Form\ResultadosAprendizajeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PlanificacionesBundle\Traits\PlanificacionTrait;
 
 class ResultadosAprendizajeController extends Controller {
 
@@ -19,7 +19,7 @@ class ResultadosAprendizajeController extends Controller {
 
     /**
      * Metodo que maneja la edicion del formulario.
-     * 
+     *
      * @param Request $request
      * @param Planificacion $planificacion
      * @return Response
@@ -27,19 +27,19 @@ class ResultadosAprendizajeController extends Controller {
     public function editAction(Request $request, Planificacion $planificacion) {
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
-        
+
         //Deshabilitar el campo cuando la planificación este en revision o publicada
         $config = array();
         $ea = $planificacion->getEstadoActual();
         if($ea && in_array($ea->getCodigo(), [Estado::REVISION, Estado::PUBLICADA])){
             $config = array('disabled' => true);
         }
-        
+
         //dump($planificacion->getResultados()->toArray());exit;
 
         $form = $this->createForm(ResultadosAprendizajeType::class, $planificacion, $config);
-        //dump($planificacion, $request);exit;  
-        
+        //dump($planificacion, $request);exit;
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -74,7 +74,7 @@ class ResultadosAprendizajeController extends Controller {
 
     /**
      * Funcion auxiliar para remover los items que fueron borrados por el formulario.
-     * 
+     *
      * @param Planificacion $planificacion
      */
     private function actualizarResultados(Planificacion $planificacion) {

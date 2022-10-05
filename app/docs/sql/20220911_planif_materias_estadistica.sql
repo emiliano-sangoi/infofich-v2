@@ -14,6 +14,6 @@
 
 INSERT INTO `planif_asignaturas` 
 (`id`, `carrera_id`, `codigo_asignatura`, `nombre_asignatura`, `tipo_asignatura`, `hs_semanales`, `hs_carga_horaria`, `hs_valor_asignatura`, `promediable`, `obligatoria`, `anio_cursada`, `periodo_cursada`, `tipo_cursada`, `nro_modulo`, `recursantes`,`origen_ws`,`fecha_actualizacion`) VALUES
-(NULL, 3, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, false, NOW()),
-(NULL, 9, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, false, NOW()),
-(NULL, 21, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, false, NOW());
+(NULL, 3, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, true, NOW()),
+(NULL, 9, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, true, NOW()),
+(NULL, 21, 'FCA10009','ESTADÍSTICA','N', '6', '90.00', '6', 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL, NULL, true, NOW());

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace PlanificacionesBundle\Controller;
+namespace PlanificacionesBundle\Traits;
 
 use AppBundle\Entity\Rol;
 use AppBundle\Util\Texto;
