@@ -295,7 +295,7 @@ class PlanificacionController extends Controller {
         //$carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());      
         //$nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
         $carrera_codigo = $planificacion->getAsignatura()->getCarrera()->getCodigoCarrera();
-        $carrera_nombre = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
+        $nombreCarrera = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
         $planEstudio  = $planificacion->getAsignatura()->getCarrera()->getPlanCarrera();
 
         // Refactorizado
