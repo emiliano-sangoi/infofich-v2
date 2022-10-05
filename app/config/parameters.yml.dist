@@ -30,7 +30,7 @@ parameters:
     knp_items_por_pagina: 10
 
     # Determina si se va a usar la libreria con la cache o sin ella
-    api_infofich_cache_enabled: false
+    api_infofich_cache_enabled: true
     api_infofich_env: prod
 
     gidis_email: gidis@fich.unl.edu.ar
