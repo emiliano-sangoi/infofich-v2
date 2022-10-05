@@ -296,11 +296,7 @@ class PlanificacionController extends Controller {
         //$nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
         $carrera_codigo = $planificacion->getAsignatura()->getCarrera()->getCodigoCarrera();
         $carrera_nombre = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
-        $carrera_plan  = $planificacion->getAsignatura()->getCarrera()->getPlanCarrera();
-        if ($carrera_codigo) {
-            $nombreCarrera = $carrera_codigo . ' - ' . $carrera_nombre;
-            $planEstudio =  $carrera_plan;
-        }
+        $planEstudio  = $planificacion->getAsignatura()->getCarrera()->getPlanCarrera();
 
         // Refactorizado
         //$planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
