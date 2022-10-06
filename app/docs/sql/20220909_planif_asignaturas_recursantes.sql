@@ -56,7 +56,7 @@ INSERT INTO `planif_asignaturas`
 
 -- Para Ingeniería en Recursos Hídricos: Matemática Básica (Recursantes)  y Química General e Inorgánica (Recursantes) 
 (NULL, 8, 'FICHIRH01', 'MATEMÁTICA BÁSICA (RECURSANTES)', 'N', NULL, '90.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL,1, false, NOW()),
-(NULL, 8, 'FHUCBIO03', 'QUÍMICA GENERAL E INORGÁNICA (RECURSANTES)', 'N', NULL, '105.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL,1, false, NOW()),
+(NULL, 8, 'FHUCBIO03', 'QUÍMICA GENERAL E INORGÁNICA (RECURSANTES)', 'N', NULL, '105.00', NULL, 1, 1, 1, '2do Cuatrimestre', 'cuatrimestre', NULL,1, false, NOW());
 
 
 
