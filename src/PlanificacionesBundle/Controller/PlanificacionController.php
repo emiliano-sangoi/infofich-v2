@@ -284,15 +284,15 @@ class PlanificacionController extends Controller {
         // Nombre de la asignatura:
         // Refactorizado
         //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura(), $planificacion->getNroModulo());
-        $asignatura = $planificacion->getAsignatura();      
+        $asignatura = $planificacion->getAsignatura();
         //$nombreAsignatura = Texto::ucWordsCustom($asignatura->getNombreMateria());
         $nombreAsignatura = $planificacion->getAsignatura()->getNombreAsignatura();
         $periodoLectivo = $asignatura->getPeriodoCursada();
         $anioCursada = $asignatura->getAnioCursada();
         $caracter = $asignatura->getTipoCursada();
-        
+
         // Refactorizado
-        //$carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());      
+        //$carrera = $this->get('api_infofich_service')->getCarrera($planificacion->getCarrera());
         //$nombreCarrera = TexTo::ucWordsCustom($carrera->getNombreCarrera());
         $carrera_codigo = $planificacion->getAsignatura()->getCarrera()->getCodigoCarrera();
         $nombreCarrera = $planificacion->getAsignatura()->getCarrera()->getNombreCarrera();
@@ -301,7 +301,7 @@ class PlanificacionController extends Controller {
         // Refactorizado
         //$planEstudio = TexTo::ucWordsCustom($carrera->getPlanCarrera());
         $contenidosMinimos = TexTo::ucWordsCustom($planificacion->getContenidosMinimos());
-        
+
         //TODO cargaHorariaTotal
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 

@@ -208,71 +208,79 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>
+{#    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>#}
+
+    {% include "PlanificacionesBundle:planificacion:script-carga-asignaturas.html.twig" with {
+        'select_carreras': '#buscador_carrera',
+        'select_asignatura': '#buscador_asignatura',
+        'asignatura_actual': form.asignatura.vars.data is not null ? form.asignatura.vars.data.id : '',
+        'carrera_required': 0,
+        'cargar_info_asignatura': 0
+    } %}
 
     <script>
 
         $(document).ready(function () {
 
-            select_carreras = $('#buscador_carrera');
-            select_asignatura = $('#buscador_codigoAsignatura');
+            // select_carreras = $('#buscador_carrera');
+            // select_asignatura = $('#buscador_asignatura');
 
-            select_carreras.select2({
-                placeholder: 'Todas las carreras',
-                allowClear: true
-            });
+            // select_carreras.select2({
+            //     placeholder: 'Todas las carreras',
+            //     allowClear: true
+            // });
+            //
+            // select_asignatura.select2({
+            //     'placeholder': 'Todas las asignaturas de la carrera',
+            //     allowClear: true
+            // });
 
-            select_asignatura.select2({
-                'placeholder': 'Todas las asignaturas de la carrera',
-                allowClear: true
-            });
 
+{#            {% set formData = app.request.get('buscador') %}#}
+{#            {% if formData['codigoAsignatura'] is defined %}#}
+{#                ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";#}
+{#            {% else %}#}
+{#                ASIGNATURA_ACTUAL = -1;#}
+{#                select_asignatura.val("");#}
+{#            {% endif %}#}
 
-            {% set formData = app.request.get('buscador') %}
-            {% if formData['codigoAsignatura'] is defined %}
-                ASIGNATURA_ACTUAL = "{{ formData['codigoAsignatura'] }}";
-            {% else %}
-                ASIGNATURA_ACTUAL = -1;
-                select_asignatura.val("");
-            {% endif %}
-
-            {% if formData['nroModulo'] is defined %}
-                NRO_MODULO_ACTUAL = "{{ formData['nroModulo'] }}";
-            {% else %}
-                NRO_MODULO_ACTUAL = "";
-            {% endif %}
+{#            {% if formData['nroModulo'] is defined %}#}
+{#                NRO_MODULO_ACTUAL = "{{ formData['nroModulo'] }}";#}
+{#            {% else %}#}
+{#                NRO_MODULO_ACTUAL = "";#}
+{#            {% endif %}#}
 
             //Agregamos para materias que tienen planificaciones para recursantes.
-            {% if formData['recursantes'] is defined %}
-                RECURSANTES = "{{ formData['recursantes'] }}";
-            {% else %}
-               RECURSANTES = "";
-            {% endif %}
+{#            {% if formData['recursantes'] is defined %}#}
+{#                RECURSANTES = "{{ formData['recursantes'] }}";#}
+{#            {% else %}#}
+{#               RECURSANTES = "";#}
+{#            {% endif %}#}
 
 
             // combo de carreras:
-            select_carreras.change(actualizarAsignaturas);
-
-            //combo de asignaturas:
-            select_asignatura.change(function (e) {
-                var option = $(this).children("option:selected");
-                var data_json = option.data('json')
-
-                if (typeof data_json !== 'undefined' && typeof data_json.nroModulo !== 'undefined') {
-                    $('#buscador_nroModulo').val(data_json.nroModulo);
-                    NRO_MODULO_ACTUAL = data_json.nroModulo;
-                }else{
-                    $('#buscador_nroModulo').val(null);
-                }
-                //Agregamos lo de planificacin materia recursantes
-                if (typeof data_json !== 'undefined' && typeof data_json.recursantes !== 'undefined') {
-                   // $('#buscador_nroModulo').val(data_json.nroModulo);
-                    RECURSANTES = data_json.recursantes;
-                }
-            });
+            // select_carreras.change(actualizarAsignaturas);
+            //
+            // //combo de asignaturas:
+            // select_asignatura.change(function (e) {
+            //     var option = $(this).children("option:selected");
+            //     var data_json = option.data('json')
+            //
+            //     if (typeof data_json !== 'undefined' && typeof data_json.nroModulo !== 'undefined') {
+            //         $('#buscador_nroModulo').val(data_json.nroModulo);
+            //         NRO_MODULO_ACTUAL = data_json.nroModulo;
+            //     }else{
+            //         $('#buscador_nroModulo').val(null);
+            //     }
+            //     //Agregamos lo de planificacin materia recursantes
+            //     if (typeof data_json !== 'undefined' && typeof data_json.recursantes !== 'undefined') {
+            //        // $('#buscador_nroModulo').val(data_json.nroModulo);
+            //         RECURSANTES = data_json.recursantes;
+            //     }
+            // });
 
             //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-            select_carreras.trigger('change');
+            // select_carreras.trigger('change');
 
 
             {# $('.modal-historico').click(function(e){

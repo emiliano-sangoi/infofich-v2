@@ -21,9 +21,11 @@ trait PlanificacionFormTrait
         $config = array(
             'label' => 'Carrera',
             'class' => Carrera::class,
-            'required' => true,
-            'mapped' => false,
-            'attr' => array('class' => 'form-control select-carrera js-select2'),
+            'required' => $options['required'] ?? true,
+            'mapped' => $options['mapped'] ?? true,
+            'data' => $options['data'] ?? null,
+            'disabled' => $options['disabled'] ?? false,
+            'attr' => $options['attr'] ?? array('class' => 'form-control select-carrera js-select2'),
             'query_builder' => function (CarreraRepository $cr) {
                 $qb = $cr->createQueryBuilder('c');
                 $qb->where($qb->expr()->eq('c.estado', ':estado'))
@@ -38,21 +40,6 @@ trait PlanificacionFormTrait
             )
         );
 
-        $p = $builder->getData();
-        $codEstadoActual = ($p instanceof Planificacion && $p->getEstadoActual()) ? $p->getEstadoActual()->getCodigo() : null;
-
-
-        if ($p && $p->getAsignatura() && $p->getAsignatura()->getCarrera()) {
-            $config['data'] = $p->getAsignatura()->getCarrera();
-        }else{
-            $config['data'] = $options['carrera_default'];
-        }
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if ($p && $codEstadoActual && in_array($codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
-        }
-
         $builder->add($field, EntityType::class, $config);
     }
 
@@ -61,13 +48,16 @@ trait PlanificacionFormTrait
      *
      * @param FormBuilderInterface $builder
      */
-    private function addAsignatura($builder, $carrera = null, $field_name = 'asignatura') {
+    private function addAsignatura($builder, array $options, $field_name = 'asignatura') {
 
         $config = array(
             'label' => 'Asignatura',
             'class' => Asignatura::class,
-            'attr' => array('class' => 'form-control'),
-//'data' => [],
+            'required' => $options['required'] ?? true,
+            'mapped' => $options['mapped'] ?? true,
+            'data' => $options['data'] ?? null,
+            'disabled' => $options['disabled'] ?? false,
+            'attr' => $options['attr'] ?? array('class' => 'form-control'),
 //            'query_builder' => function (AsignaturaRepository $ar) use ($carrera) {
 //                $qb = $ar->createQueryBuilder('a')
 //                    ->orderBy('a.periodoCursada', 'ASC');
@@ -99,18 +89,6 @@ trait PlanificacionFormTrait
                 new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
             )
         );
-
-        $p = $builder->getData();
-        $codEstadoActual = ($p instanceof Planificacion && $p->getEstadoActual()) ? $p->getEstadoActual()->getCodigo() : null;
-
-        //Deshabilitar el campo cuando la planificación este en r
-        if ($p && $codEstadoActual && in_array($codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
-            $config['disabled'] = true;
-        }
-
-        if($p && $p->getAsignatura()){
-            $config['data'] = $p->getAsignatura();
-        }
 
         $builder->add($field_name, EntityType::class, $config);
     }

@@ -1,0 +1,26 @@
+Tutorial para la actualizacion de la base de datos luego de los cambios realizados en asignaturas y carreras.
+========================================================================================================================
+
+1. Primero se debe deshabilitar el sitio o poner en mantenimiento.
+
+
+2. Backups
+Luego se debe realizar una backup de la base de datos:
+
+Tambien se realizo una backup de toda la carpeta con el codigo fuente:
+
+3. Actualizar codigo fuente:
+Luego se debe actualizar el codigo fuente del proyecto:
+$ cd /path/to/infofich2
+$ git pull origin master
+
+4. Actualizar vendor
+Borrar la carpeta vendor y descomprimirla nuevamente vendor.zip:
+$ rm -rf vendor
+$ unzip vendor.zip
+
+5. Actualizar estructura de la base de datos:
+$ php app/console doctrine:schema:update --dump-sql --update
+
+6. Ejecutar comandos para cargar carreras y asignaturas:
+

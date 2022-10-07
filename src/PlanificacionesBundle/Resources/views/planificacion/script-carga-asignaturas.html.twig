@@ -4,17 +4,39 @@
 
         var SELECT_CARRERAS = $("{{ select_carreras }}");
         var SELECT_ASIGNATURA = $("{{ select_asignatura }}");
-        var ASIGNATURA_ACTUAL = "{{ asignatura_actual|default('') }}";
-        var cargar_info_asignatura = "{{ (cargar_info_asignatura|default(false)) ? 1 : 0 }}";
+        var ASIGNATURA_ACTUAL = "{{ asignatura_actual }}";
+        var cargar_info_asignatura = "{{ cargar_info_asignatura }}";
+        var carrera_required = "{{ carrera_required }}";
         var URL_ASIGNATURAS_CARRERA = "{{ path('carreras_get_asignaturas', { 'id' : '--ID--'}) }}";
         var URL_INFO_ASIGNATURA = "{{ path("asignaturas_get_info", { id: '--ID--'}) }}";
 
+        SELECT_CARRERAS.select2({
+            placeholder: 'Todas las carreras',
+            allowClear: carrera_required == '1' ? false : true
+        });
+
+        SELECT_ASIGNATURA.select2({
+            'placeholder': 'Todas las asignaturas de la carrera',
+            allowClear: true,
+            disabled: true,
+        });
+
+        //Evento que se selecciona cuando se borra la carrera seleccionada:
+        SELECT_CARRERAS.on("select2:unselecting", function(e) {
+            //Desactivar select de asignaturas:
+            SELECT_ASIGNATURA.prop("disabled", true);
+
+            //Borrar asignaturas seleccionadas:
+            SELECT_ASIGNATURA.html("");
+        });
+
         console.log('ASIGNATURA_ACTUAL', ASIGNATURA_ACTUAL);
-        console.log('cargar_info_asignatura', cargar_info_asignatura);
+        console.log('cargar_info_asignatura', cargar_info_asignatura, typeof cargar_info_asignatura);
+        console.log('carrera_required', carrera_required, typeof carrera_required);
         console.log('URL_ASIGNATURAS_CARRERA', URL_ASIGNATURAS_CARRERA);
         console.log('URL_INFO_ASIGNATURA', URL_INFO_ASIGNATURA);
 
-        if (cargar_info_asignatura == 1) {
+        if (cargar_info_asignatura == '1') {
             $('input.info-asignatura').val("");
         }
 
@@ -32,7 +54,10 @@
          */
         function actualizarAsignaturas(event) {
 
-            //var disabled = select_asignatura.attr('disabled') == 'disabled';
+            if(SELECT_CARRERAS.val() == ''){
+                console.log('No se eligio ninguna carrera.');
+                return;
+            }
 
             // desactivar combo de asignaturas:
             SELECT_ASIGNATURA.prop("disabled", true);

@@ -2,8 +2,6 @@
 
 {% extends "PlanificacionesBundle::planif-base.html.twig" %}
 
-
-
 {% block tab_content %}
     {% include "PlanificacionesBundle:1-info-basica:form.html.twig" %}
 {% endblock %}
@@ -16,60 +14,8 @@
         'select_carreras': '#planificacionesbundle_planificacion_carrera',
         'select_asignatura': '#planificacionesbundle_planificacion_asignatura',
         'asignatura_actual': planificacion.asignatura.id is defined ? planificacion.asignatura.id : null,
-        'cargar_info_asignatura': true
+        'carrera_required': 1,
+        'cargar_info_asignatura': 0
     } %}
 
-    <script>
-
-        $(document).ready(function () {
-
-            {#select_carreras = $();#}
-            {#select_asignatura = $('');#}
-            {#ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";#}
-            {#NRO_MODULO_ACTUAL = "{{ planificacion.nroModulo }}";#}
-            {#RECURSANTES = "{{ planificacion.recursantes|default(0) }}";#}
-
-
-
-
-
-            // combo de carreras:
-            //Si tocamos el combo de carreras se dispara esta llamada a la funcion actualizarAsignatura
-            //que esta en planificaciones.js
-            // select_carreras.change(actualizarAsignaturas);
-            //
-            // //combo de asignaturas:
-            // select_asignatura.change(function (e) {
-            //     var option = $(this).children("option:selected");
-            //     //el json sale del metodo jsonSerialize de las entidades
-            //     if (typeof option.attr('data-json') != 'undefined') {
-            //         var asignatura = JSON.parse(option.attr('data-json'));
-            //
-            //     } else {
-            //         console.log('La materia: ' + option.text() + ' no posee el atributo data-json');
-            //     }
-            //
-            //     cargarInfoAsignatura(asignatura);
-            // });
-            //
-            // //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-            // select_carreras.trigger('change');
-            //
-            // $('#planificacionesbundle_planificacion_departamento').select2({
-            //     placeholder: "Este campo será completado por Secretaría Académica.",
-            //     allowClear: true
-            // });
-
-        });
-
-
-
-
-
-
-
-
-
-
-    </script>
 {% endblock %}

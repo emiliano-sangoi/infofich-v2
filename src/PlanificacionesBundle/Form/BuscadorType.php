@@ -3,100 +3,61 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Form\DatalistType;
-use AppBundle\Service\APIInfofichService;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Traits\PlanificacionFormTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BuscadorType extends AbstractType {
 
-//    /**
-//     *
-//     * @var APIInfofichService
-//     */
-//    private $apiInfofichService;
-
-    /**
-     *
-     * @var array
-     */
-    private $options;
-
     use PlanificacionFormTrait;
-
-//    public function __construct(APIInfofichService $apiInfofichService) {
-//
-//        $this->apiInfofichService = $apiInfofichService;
-//    }
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $this->options = $options;
-
-        $this->addCarrera($builder, $options);
-        $this->addAsignatura($builder, $options);
+        $this->agregarCarrera($builder, $options);
+        $this->agregarAsignatura($builder);
         $this->addEstado($builder);
         $this->addAniAcad($builder);
-       // $this->addNroModulo($builder);
-       // $this->addRecursantes($builder);
 
     }
 
-    /*
-     * Agrega los campos relacionados a la carrera
-     *
-     * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
-     *
-     * @param FormBuilderInterface $builder
-     */
-//    private function addCarrera(FormBuilderInterface $builder) {
-//
-//        $config = array(
-//            'label' => 'Carrera',
-//            'choices' => $this->getCarreras(),
-//            'required' => false,
-//            'placeholder' => 'Todas las carreras',
-//            'attr' => array('class' => 'form-control select-carrera')
-//        );
-//
-//
-//        $builder->add('carrera', ChoiceType::class, $config);
-//        }
+    private function agregarCarrera(FormBuilderInterface $builder)
+    {
 
-    /*
-     *
-     * @param FormBuilderInterface $builder
-     */
-//    private function addAsignaturas(FormBuilderInterface $builder, $cod_carrera = null) {
-//
-//        $asignaturas = $this->getAsignaturas($cod_carrera);
-//
-//        $config = array(
-//            'label' => 'Asignatura',
-//            'choices' => $asignaturas,
-//            'required' => false,
-//            'placeholder' => 'Todas las asignaturas de la carrera',
-//            'attr' => array('class' => 'form-control select-asignatura')
-//        );
-//
-//        $builder->add('codigoAsignatura', ChoiceType::class, $config);
-//
-//        //Esto permite desactivar el error "Este valor no es valido" que surge cuando
-//        //se intenta setear la asignatura en un listado que todavia no se actualizo.x
-//        $builder->get('codigoAsignatura')->resetViewTransformers();
-//        // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
-//    }
+        $data = $builder->getData();
+
+        $field_opt = [
+            'mapped' => false,
+            'required' => false,
+            'disabled' => false,
+        ];
+
+        $field_opt['data'] = $data['carrera'] ?? null;
+
+        $this->addCarrera($builder, $field_opt);
+    }
+
+    private function agregarAsignatura(FormBuilderInterface $builder)
+    {
+        $data = $builder->getData();
+
+        $field_opt = [
+            'mapped' => false,
+            'required' => false,
+            'disabled' => false,
+        ];
+
+        $field_opt['data'] = $data['asignatura'] ?? null;
+
+        $this->addAsignatura($builder, $field_opt);
+
+    }
+
 
     private function addEstado(FormBuilderInterface $builder) {
 
@@ -130,34 +91,6 @@ class BuscadorType extends AbstractType {
         $builder->add('anioAcad', DatalistType::class, $config);
     }
 
-//    /**
-//     * Agrega el nro de modulo
-//     *
-//     * @param FormBuilderInterface $builder
-//     */
-//    private function addNroModulo(FormBuilderInterface $builder) {
-//
-//        $config = array(
-//
-//        );
-//
-//        $builder->add('nroModulo', HiddenType::class, $config);
-//    }
-//
-//    /**
-//     * Agrega si es recursantes
-//     *
-//     * @param FormBuilderInterface $builder
-//     */
-//    private function addRecursantes(FormBuilderInterface $builder) {
-//
-//        $config = array(
-//
-//        );
-//
-//        $builder->add('recursantes', HiddenType::class, $config);
-//    }
-
     /**
      * {@inheritdoc}
      */
@@ -170,47 +103,5 @@ class BuscadorType extends AbstractType {
         ));
     }
 
-//    private function getCarreras() {
-//
-//        //obtiene las carreras de grado de la fich:
-//        $carreras_fich = $this->apiInfofichService->getCarreras();
-//
-//        //dump($carreras_fich);exit;
-//
-//        if (!$carreras_fich) {
-//            return array();
-//        }
-//
-//        $aux = $this->planes = array();
-//        foreach ($carreras_fich as $carrera) {
-//            $aux[$carrera->getCodigoCarrera()] = $carrera;
-//            $this->planes[$carrera->getCodigoCarrera()] = $carrera->getPlanCarrera();
-//        }
-//
-//        return $aux;
-//    }
-
-    /**
-     * Obtiene las asignaturas de cierta carrera
-     *
-     * @param type $cod_carrera
-     * @return type
-     */
-//    private function getAsignaturas($cod_carrera) {
-//
-//        $asignaturas = $this->apiInfofichService
-//                ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
-//
-//        if (!is_array($asignaturas)) {
-//            return array();
-//        }
-//
-//        $aux = array();
-//        foreach ($asignaturas as $a) {
-//            $aux[$a->getCodigoMateria()] = $a;
-//        }
-//
-//        return $aux;
-//    }
 
 }

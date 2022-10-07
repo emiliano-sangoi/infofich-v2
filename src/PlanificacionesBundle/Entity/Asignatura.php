@@ -153,6 +153,17 @@ class Asignatura implements \JsonSerializable
     private $recursantes;
 
     /**
+     * @var boolean
+     *
+     * Indica si es una asignatura que se dicta para recursantes
+     * Si la asignatura no es para recursantes puede estar como null
+     *
+     *
+     * @ORM\Column(name="es_recursada", type="boolean", nullable=true)
+     */
+    private $esRecursada;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="origen_ws", type="boolean", nullable=true)
@@ -510,30 +521,6 @@ class Asignatura implements \JsonSerializable
         return $this->carrera;
     }
 
-     /**
-     * Set recursantes
-     *
-     * @param integer $recursantes
-     *
-     * @return Asignatura
-     */
-    public function setRecursantes($recursantes)
-    {
-        $this->recursantes = $recursantes;
-
-        return $this;
-    }
-
-    /**
-     * Get recursantes
-     *
-     * @return integer
-     */
-    public function getRecursantes()
-    {
-        return $this->recursantes;
-    }
-
     public function jsonSerialize() {
         return array(
             'id' => $this->id,
@@ -552,6 +539,7 @@ class Asignatura implements \JsonSerializable
             'tipoCursada' => $this->tipoCursada,
             'nroModulo' => $this->nroModulo,
             'recursantes' => $this->recursantes,
+            'esRecursada' => $this->esRecursada,
             'origenWs' => $this->origenWs,
         );
     }
@@ -603,4 +591,24 @@ class Asignatura implements \JsonSerializable
     {
         return $this->fechaActualizacion;
     }
+
+    /**
+     * @return bool
+     */
+    public function esRecursada(): bool
+    {
+        return $this->esRecursada;
+    }
+
+    /**
+     * @param bool $esRecursada
+     * @return Asignatura
+     */
+    public function setEsRecursada(bool $esRecursada): Asignatura
+    {
+        $this->esRecursada = $esRecursada;
+        return $this;
+    }
+
+
 }

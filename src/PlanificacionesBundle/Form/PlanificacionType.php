@@ -24,7 +24,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class PlanificacionType extends AbstractType {
+class PlanificacionType extends AbstractType
+{
 
     private $planes;
 
@@ -40,7 +41,8 @@ class PlanificacionType extends AbstractType {
      */
     private $codEstadoActual;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->planes = array();
     }
 
@@ -49,7 +51,8 @@ class PlanificacionType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
 
         $this->planif = $builder->getData();
 
@@ -58,7 +61,8 @@ class PlanificacionType extends AbstractType {
             $this->codEstadoActual = $ea->getCodigo();
         }
 
-        $this->addCarrera($builder, $options);
+        $this->agregarCarrera($builder, $options);
+        $this->agregarAsignatura($builder);
         $this->addAniAcad($builder, $options);
         $this->addCodigoSIU($builder);
 
@@ -98,11 +102,62 @@ class PlanificacionType extends AbstractType {
 
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
-        $this->addAsignatura($builder, $options['carrera_default']);
         $this->setEventosForm($builder, $options);
     }
 
-    private function addDepartamento(FormBuilderInterface $builder) {
+    private function agregarCarrera(FormBuilderInterface $builder, array $options)
+    {
+
+        $codEstadoActual = ($this->planif instanceof Planificacion && $this->planif->getEstadoActual()) ? $this->planif->getEstadoActual()->getCodigo() : null;
+
+        $field_opt = [
+            'mapped' => false,
+            'required' => true,
+            'disabled' => false,
+        ];
+
+        if ($this->planif && $this->planif->getAsignatura() && $this->planif->getAsignatura()->getCarrera()) {
+            $field_opt['data'] = $this->planif->getAsignatura()->getCarrera();
+        } else {
+            $field_opt['data'] = $options['carrera_default'];
+        }
+
+
+        //Deshabilitar el campo cuando la planificación este en r
+        if ($this->planif && $codEstadoActual && in_array($codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
+            $field_opt['disabled'] = true;
+        }
+
+
+        $this->addCarrera($builder, $field_opt);
+    }
+
+    private function agregarAsignatura($builder)
+    {
+        $p = $builder->getData();
+        $codEstadoActual = ($p instanceof Planificacion && $p->getEstadoActual()) ? $p->getEstadoActual()->getCodigo() : null;
+
+        $field_opt = [
+            'mapped' => true,
+            'required' => true,
+            'disabled' => false,
+        ];
+
+        //Deshabilitar el campo cuando la planificación este en r
+        if ($p && $codEstadoActual && in_array($codEstadoActual, [Estado::REVISION, Estado::PUBLICADA])) {
+            $field_opt['disabled'] = true;
+        }
+
+        if($p && $p->getAsignatura()){
+            $field_opt['data'] = $p->getAsignatura();
+        }
+
+        $this->addAsignatura($builder, $field_opt);
+
+    }
+
+    private function addDepartamento(FormBuilderInterface $builder)
+    {
 
         $config = array(
             'label' => 'Departamento',
@@ -125,7 +180,8 @@ class PlanificacionType extends AbstractType {
         $builder->add('departamento', EntityType::class, $config);
     }
 
-    private function addContenidosMinimos(FormBuilderInterface $builder) {
+    private function addContenidosMinimos(FormBuilderInterface $builder)
+    {
 
         $config = array(
             'label' => 'Contenidos mínimos',
@@ -152,14 +208,15 @@ class PlanificacionType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    function setEventosForm(FormBuilderInterface $builder) {
+    function setEventosForm(FormBuilderInterface $builder)
+    {
 
 
         $listenerPreSetDataEvent = function (FormEvent $event) {
             //dump($event->getData());exit;
-       //     $p = $event->getData();
+            //     $p = $event->getData();
             //dump($p, $event->getForm());exit;
-       //     $this->addAsignaturas2($event->getForm(), $p->getCarrera());
+            //     $this->addAsignaturas2($event->getForm(), $p->getCarrera());
 
 //            // setear el codigo de la carrera si este se encuentra definido
 //            $p = $event->getData();
@@ -177,7 +234,7 @@ class PlanificacionType extends AbstractType {
             //Setear los campos plan y versionPlan en funcion de la carrera elegida.
             if ($carrera) {
                 //Agregar la asignautura:
-                $this->addAsignatura($event->getForm()->getParent(), $carrera);
+                $this->agregarAsignatura($event->getForm()->getParent());
             }
         };
 
@@ -186,7 +243,8 @@ class PlanificacionType extends AbstractType {
         $builder->get('carrera')->addEventListener(FormEvents::POST_SUBMIT, $listenerPostSubmitEvent);
     }
 
-    private function addCodigoSIU(FormBuilderInterface $builder) {
+    private function addCodigoSIU(FormBuilderInterface $builder)
+    {
 
         $p = $builder->getData();
         $codigoSiu = $p instanceof Planificacion ? $p->getCodigoAsignatura() : null;
@@ -206,7 +264,8 @@ class PlanificacionType extends AbstractType {
      *
      * @param FormBuilderInterface $builder
      */
-    private function addAniAcad(FormBuilderInterface $builder) {
+    private function addAniAcad(FormBuilderInterface $builder)
+    {
 
         $config = array(
             'label' => 'Año académico',
@@ -233,7 +292,7 @@ class PlanificacionType extends AbstractType {
             new Choice(array(
                 'choices' => $choices,
                 'message' => 'Las opciones posibles son ' . implode(' y ', $choices)
-                    ))
+            ))
         );
 
         //Deshabilitar el campo cuando la planificación este en r
@@ -248,7 +307,8 @@ class PlanificacionType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => Planificacion::class,
             'carrera_default' => null,
@@ -259,7 +319,8 @@ class PlanificacionType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix()
+    {
         return 'planificacionesbundle_planificacion';
     }
 
