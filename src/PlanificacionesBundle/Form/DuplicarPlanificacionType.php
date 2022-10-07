@@ -3,7 +3,10 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Service\APIInfofichService;
+use Doctrine\ORM\EntityManager;
+use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Entity\Planificacion;
+use PlanificacionesBundle\Traits\PlanificacionFormTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,91 +19,130 @@ use Symfony\Component\Validator\Constraints\Choice;
  * @author emi88
  */
 class DuplicarPlanificacionType extends AbstractType {
-    
+
+
+    use PlanificacionFormTrait;
+
     /**
      *
-     * @var APIInfofichService 
+     * @var EntityManager
      */
-    private $apiInfofichService;
+    private $em;
 
     /**
      *
      * @var array
      */
     private $options;
-    
+
     /**
-     * 
+     *
      * @var Planificacion
      */
     private $planificacion;
-    
-    public function __construct(APIInfofichService $apiInfofichService) {
 
-        $this->apiInfofichService = $apiInfofichService;
+    public function __construct(EntityManager $entityManager) {
+        $this->em = $entityManager;
     }
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+
         $this->options = $options;
         $this->planificacion = $options['planificacion_original'];
 
-        $this->addCarrera($builder);
-        $this->addAsignaturas($builder);
+        $this->agregarCarrera($builder);
+        $this->agregarAsignatura($builder);
         $this->addAniAcad($builder);
+        $this->addEstado($builder, [
+            'data' => $this->em->getRepository(Estado::class)->findOneByCodigo(Estado::PREPARACION),
+            'disabled' => true,
+            'label' => 'Nuevo estado'
+        ]);
     }
 
-    /**
-     * Agrega los campos relacionados a la carrera
-     * 
-     * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
-     * 
-     * @param FormBuilderInterface $builder
-     */
-    private function addCarrera(FormBuilderInterface $builder) {
+    private function agregarCarrera(FormBuilderInterface $builder)
+    {
 
-        $config = array(
-            'label' => 'Carrera',
-            'choices' => $this->getCarreras(),
-            'data' => $this->planificacion->getCarrera(),
+        $data = $builder->getData();
+
+        $field_opt = [
+            'mapped' => true,
             'required' => true,
-            'attr' => array('class' => 'form-control select-carrera'),
-            'label_attr' => array('class' => 'font-weight-bold')
-        );
+            'disabled' => false,
+        ];
 
-        $builder->add('carrera', ChoiceType::class, $config);
+        $field_opt['data'] = $this->planificacion->getAsignatura() ? $this->planificacion->getAsignatura()->getCarrera() : null;
+
+        $this->addCarrera($builder, $field_opt);
     }
-    
-    /**
-     * 
-     * @param FormBuilderInterface $builder
-     */
-    private function addAsignaturas(FormBuilderInterface $builder, $cod_carrera = null) {
 
-        $asignaturas = $this->getAsignaturas($cod_carrera);
-        
-        $config = array(
-            'label' => 'Asignatura',
-            'choices' => $asignaturas,
-            'required' => false,
-            'attr' => array('class' => 'form-control select-asignatura'),
-            'label_attr' => array('class' => 'font-weight-bold')
-        );
+    private function agregarAsignatura(FormBuilderInterface $builder)
+    {
+        $data = $builder->getData();
 
-        $builder->add('codigoAsignatura', ChoiceType::class, $config);
-        
-        //Esto permite desactivar el error "Este valor no es valido" que surge cuando 
-        //se intenta setear la asignatura en un listado que todavia no se actualizo.x
-        $builder->get('codigoAsignatura')->resetViewTransformers();
-        // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
+        $field_opt = [
+            'mapped' => true,
+            'required' => true,
+            'disabled' => false,
+        ];
+
+        $field_opt['data'] = $this->planificacion->getAsignatura() ?? null;
+
+        $this->addAsignatura($builder, $field_opt);
+
     }
+
+//    /**
+//     * Agrega los campos relacionados a la carrera
+//     *
+//     * Carrera, plan y version del plan son necesarios para obtener las asignaturas de la carrera.
+//     *
+//     * @param FormBuilderInterface $builder
+//     */
+//    private function addCarrera(FormBuilderInterface $builder) {
+//
+//        $config = array(
+//            'label' => 'Carrera',
+//            'choices' => $this->getCarreras(),
+//            'data' => $this->planificacion->getCarrera(),
+//            'required' => true,
+//            'attr' => array('class' => 'form-control select-carrera'),
+//            'label_attr' => array('class' => 'font-weight-bold')
+//        );
+//
+//        $builder->add('carrera', ChoiceType::class, $config);
+//    }
+//
+//    /**
+//     *
+//     * @param FormBuilderInterface $builder
+//     */
+//    private function addAsignaturas(FormBuilderInterface $builder, $cod_carrera = null) {
+//
+//        $asignaturas = $this->getAsignaturas($cod_carrera);
+//
+//        $config = array(
+//            'label' => 'Asignatura',
+//            'choices' => $asignaturas,
+//            'required' => false,
+//            'attr' => array('class' => 'form-control select-asignatura'),
+//            'label_attr' => array('class' => 'font-weight-bold')
+//        );
+//
+//        $builder->add('codigoAsignatura', ChoiceType::class, $config);
+//
+//        //Esto permite desactivar el error "Este valor no es valido" que surge cuando
+//        //se intenta setear la asignatura en un listado que todavia no se actualizo.x
+//        $builder->get('codigoAsignatura')->resetViewTransformers();
+//        // https://stackoverflow.com/questions/27706719/disable-backend-validation-for-choice-field-in-symfony-2-type
+//    }
 
     /**
      * Agrega el campo año academico
-     * 
+     *
      * @param FormBuilderInterface $builder
      */
     private function addAniAcad(FormBuilderInterface $builder) {
@@ -108,6 +150,7 @@ class DuplicarPlanificacionType extends AbstractType {
         $config = array(
             'label' => 'Año académico: ',
             'label_attr' => array('class' => 'font-weight-bold'),
+            'data' => $this->planificacion->getAnioAcad() + 1,
             'attr' => array('class' => 'form-control js-select2'),
         );
 
@@ -137,48 +180,48 @@ class DuplicarPlanificacionType extends AbstractType {
         $builder->add('anioAcad', ChoiceType::class, $config);
     }
 
-    private function getCarreras() {
+//    private function getCarreras() {
+//
+//        //obtiene las carreras de grado de la fich:
+//        $carreras_fich = $this->apiInfofichService->getCarreras();
+//
+//        //dump($carreras_fich);exit;
+//
+//        if (!$carreras_fich) {
+//            return array();
+//        }
+//
+//        $aux = $this->planes = array();
+//        foreach ($carreras_fich as $carrera) {
+//            $aux[$carrera->getCodigoCarrera()] = $carrera;
+//            $this->planes[$carrera->getCodigoCarrera()] = $carrera->getPlanCarrera();
+//        }
+//
+//        return $aux;
+//    }
 
-        //obtiene las carreras de grado de la fich:
-        $carreras_fich = $this->apiInfofichService->getCarreras();
-
-        //dump($carreras_fich);exit;
-
-        if (!$carreras_fich) {
-            return array();
-        }
-
-        $aux = $this->planes = array();
-        foreach ($carreras_fich as $carrera) {
-            $aux[$carrera->getCodigoCarrera()] = $carrera;
-            $this->planes[$carrera->getCodigoCarrera()] = $carrera->getPlanCarrera();
-        }
-
-        return $aux;
-    }
-    
     /**
      * Obtiene las asignaturas de cierta carrera
-     * 
+     *
      * @param type $cod_carrera
      * @return type
      */
-    private function getAsignaturas($cod_carrera) {
-
-        $asignaturas = $this->apiInfofichService
-                ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
-
-        if (!is_array($asignaturas)) {
-            return array();
-        }
-
-        $aux = array();
-        foreach ($asignaturas as $a) {
-            $aux[$a->getCodigoMateria()] = $a;
-        }
-
-        return $aux;
-    }
+//    private function getAsignaturas($cod_carrera) {
+//
+//        $asignaturas = $this->apiInfofichService
+//                ->getAsignaturasPorCarrera($cod_carrera ?: $this->options['carrera_default']);
+//
+//        if (!is_array($asignaturas)) {
+//            return array();
+//        }
+//
+//        $aux = array();
+//        foreach ($asignaturas as $a) {
+//            $aux[$a->getCodigoMateria()] = $a;
+//        }
+//
+//        return $aux;
+//    }
 
     /**
      * {@inheritdoc}

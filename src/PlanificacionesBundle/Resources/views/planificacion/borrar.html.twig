@@ -1,54 +1,47 @@
 {% extends '::base.html.twig' %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
             <a href="{{ path('planificaciones_homepage') }}" class="">
                 <i class="fa fa-arrow-left"></i>
                 Ir a planificaciones
-            </a>     
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block content %}
     <div class="">
-        
+
         <div class="">
             {% include '::notificaciones.html.twig' %}
         </div>
 
         <div class="p-5 bg-light shadow">
             <h3 class='font-weight-bold text-danger'>
-                Borrar planificación                                                       
+                Borrar planificación
             </h3>
             <p class="lead">
-                Esta a punto de borrar la planificación de la asignatura 
-                <span class="font-weight-bold text-uppercase">
-                    {{ planificacion.nombreAsignatura }} (Año {{ planificacion.anioAcad }})</span>
-                de la carrera
-                <span class="font-weight-bold text-uppercase">
-                    {{ nom_carrera(planificacion.carrera) ~ ' - Plan ' ~ planificacion.plan }} 
-                </span>
-                .
-            </p> 
-            <p class="lead">
-                ¿Esta seguro que desea borrar esta planificación?. 
-                <span class="text-danger text-uppercase font-weight-bold">
-                    Este cambio no puede deshacerse.
-                </span>
+                Esta a punto de borrar la siguiente planificación:
+            </p>
+            <div class="table-responsive mt-3">
+                {% include 'PlanificacionesBundle:planificacion:tabla-info-planif.html.twig' %}
+            </div>
+            <p class="lead text-danger font-weight-bold">
+                Este cambio no puede deshacerse, ¿Esta seguro que desea borrar esta planificación?.
             </p>
 
             <div class="mt-5">
                 {% embed '::botonera.html.twig' %}
 
                     {% block left %}
-                        <a href="{{ path('planificaciones_homepage') }}" class="btn btn-outline-primary">
+                        <a href="{{ path('planificaciones_homepage') }}" class="btn btn-outline-success">
                             Cancelar
                         </a>
-                        <a href="{{ path('planificaciones_revisar', {id : planificacion.id }) }}" class="btn btn-outline-secondary" title="Ver más datos de esta planificación">
-                            M&aacute;s datos
-                        </a>
+{#                        <a href="{{ path('planificaciones_revisar', {id : planificacion.id }) }}" class="btn btn-outline-secondary" title="Ver más datos de esta planificación">#}
+{#                            M&aacute;s datos#}
+{#                        </a>#}
                     {% endblock %}
 
                     {% block right %}
@@ -57,7 +50,7 @@
                             <i class="fa fa-trash"></i>&nbsp;
                             Confirmar borrado
                         </button>
-                        {{ form_end(form) }}                        
+                        {{ form_end(form) }}
                     {% endblock %}
 
                 {% endembed %}

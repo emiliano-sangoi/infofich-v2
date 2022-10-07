@@ -3,6 +3,7 @@
 namespace PlanificacionesBundle\Form;
 
 use AppBundle\Form\DatalistType;
+use Doctrine\ORM\EntityManager;
 use PlanificacionesBundle\Entity\Estado;
 use PlanificacionesBundle\Traits\PlanificacionFormTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,13 +16,25 @@ class BuscadorType extends AbstractType {
     use PlanificacionFormTrait;
 
     /**
+     *
+     * @var EntityManager
+     */
+    private $em;
+
+    public function __construct(EntityManager $entityManager) {
+        $this->em = $entityManager;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->agregarCarrera($builder, $options);
         $this->agregarAsignatura($builder);
-        $this->addEstado($builder);
+        $this->addEstado($builder, [
+            'required' => false,
+        ]);
         $this->addAniAcad($builder);
 
     }
@@ -58,22 +71,6 @@ class BuscadorType extends AbstractType {
 
     }
 
-
-    private function addEstado(FormBuilderInterface $builder) {
-
-        $config = array(
-            'label' => 'Estado actual',
-            'class' => Estado::class,
-            'required' => false,
-            'placeholder' => 'Todos',
-            'attr' => array('class' => 'form-control select-carrera')
-        );
-
-
-        $builder->add('estadoActual', EntityType::class, $config);
-
-    }
-
     /**
      * Agrega el campo año academico
      *
@@ -85,7 +82,7 @@ class BuscadorType extends AbstractType {
             'label' => 'Año académico',
             'required' => false,
             'choices' => range(2020, date('Y') + 2),
-            'attr' => array('class' => 'form-control')
+            'attr' => array('class' => 'form-control', 'placeholder' => 'Todos los años')
         );
 
         $builder->add('anioAcad', DatalistType::class, $config);

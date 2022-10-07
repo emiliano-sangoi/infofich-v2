@@ -5,7 +5,7 @@
                 Asignatura:
             </td>
             <td class="bg-white text-primary font-weight-bolder">
-                {{ planificacion.nombreAsignatura|upper }}
+                {{ planificacion.asignatura|upper }}
             </td>
         </tr>
         <tr>
@@ -13,7 +13,7 @@
                 Carrera - Plan:
             </td>
             <td class="bg-white">
-                {{ nom_carrera(planificacion.carrera)|upper ~ ' (PLAN ' ~ planificacion.plan ~ ')' }}
+                {{ planificacion.asignatura.carrera.getCarreraPlan() }}
             </td>
         </tr>
         <tr>
@@ -37,18 +37,18 @@
                 Estado actual:
             </td>
             <td class="bg-white">
-                {% set eActual = planificacion.getEstadoActual() %} 
+                {% set eActual = planificacion.getEstadoActual() %}
                 {% if eActual %}
-                    {% set class = eActual.getCssClass() %}                                                        
+                    {% set class = eActual.getCssClass() %}
 
                     {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
                     <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
                         {{ eActual.nombre }}
-                    </span>                                                        
-                {% endif %}                
+                    </span>
+                {% endif %}
             </td>
         </tr>
-        
+
         {#Si nos pasan como parametro estado Nuevo - es porque nos llaman desde el boton cambiar estado #}
         {% if bandera is defined and bandera == 'cambiarEstado' %}
         <tr>

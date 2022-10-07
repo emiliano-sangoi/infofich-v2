@@ -8,7 +8,6 @@ use PlanificacionesBundle\Repository\AsignaturaRepository;
 use PlanificacionesBundle\Repository\CarreraRepository;
 use FICH\APIRectorado\Config\WSHelper;
 use PlanificacionesBundle\Entity\Estado;
-use PlanificacionesBundle\Entity\Planificacion;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,13 +18,15 @@ trait PlanificacionFormTrait
     private function addCarrera(FormBuilderInterface $builder, array $options, $field = 'carrera') {
 
         $config = array(
-            'label' => 'Carrera',
+            'label' => $options['label'] ?? 'Carrera',
+            'label_attr' => ['class' => 'font-weight-bold'],
             'class' => Carrera::class,
             'required' => $options['required'] ?? true,
             'mapped' => $options['mapped'] ?? true,
             'data' => $options['data'] ?? null,
             'disabled' => $options['disabled'] ?? false,
-            'attr' => $options['attr'] ?? array('class' => 'form-control select-carrera js-select2'),
+            'attr' => $options['attr'] ?? array('class' => 'form-control select-carrera'),
+            'choice_label' => 'carreraPlan',
             'query_builder' => function (CarreraRepository $cr) {
                 $qb = $cr->createQueryBuilder('c');
                 $qb->where($qb->expr()->eq('c.estado', ':estado'))
@@ -34,11 +35,14 @@ trait PlanificacionFormTrait
                 $qb->setParameter(':estado', 'V');
                 $qb->setParameter(':carrerasPlanificacion', Carrera::$carrerasPlanificacion);
                 return $qb;
-            },
-            'constraints' => array(
-                new NotBlank(array('message' => "El campo Carrera es obligatorio."))
-            )
+            }
         );
+
+        if($config['required']){
+            $config['constraints'] = array(
+                new NotBlank(array('message' => 'Este campo es obligatorio.'))
+            );
+        }
 
         $builder->add($field, EntityType::class, $config);
     }
@@ -51,7 +55,8 @@ trait PlanificacionFormTrait
     private function addAsignatura($builder, array $options, $field_name = 'asignatura') {
 
         $config = array(
-            'label' => 'Asignatura',
+            'label' => $options['label'] ?? 'Asignatura',
+            'label_attr' => ['class' => 'font-weight-bold'],
             'class' => Asignatura::class,
             'required' => $options['required'] ?? true,
             'mapped' => $options['mapped'] ?? true,
@@ -69,28 +74,33 @@ trait PlanificacionFormTrait
 //
 //                return $qb;
 //            },
-            /*'group_by' => function($choiceValue, $key, $value) {
-                switch ($choiceValue->getAnioCursada()){
-                    case 1:
-                        return '1er año';
-                    case 2:
-                        return '2do año';
-                    case 3:
-                        return '3er año';
-                    case 4:
-                        return '4to año';
-                    case 5:
-                        return '5to año';
-                    default:
-                        return 'Optativas y Electivas';
-                }
-            },*/
-            'constraints' => array(
-                new NotBlank(array('message' => 'El campo Asignatura es obligatorio.'))
-            )
         );
 
+        if($config['required']){
+            $config['constraints'] = array(
+                new NotBlank(array('message' => 'Este campo es obligatorio.'))
+            );
+        }
+
         $builder->add($field_name, EntityType::class, $config);
+    }
+
+    private function addEstado(FormBuilderInterface $builder, array $field_opt, $field_name = 'estadoActual') {
+
+        $config = array(
+            'label' => $field_opt['label'] ?? 'Estado actual',
+            'label_attr' => ['class' => 'font-weight-bold'],
+            'class' => Estado::class,
+            'required' => $field_opt['required'] ?? false,
+            'disabled' => $field_opt['disabled'] ?? false,
+            'data' => $field_opt['data'] ?? null,
+            'placeholder' => $field_opt['placeholder'] ?? 'Todos',
+            'attr' => array('class' => 'form-control')
+        );
+
+
+        $builder->add($field_name, EntityType::class, $config);
+
     }
 
 }

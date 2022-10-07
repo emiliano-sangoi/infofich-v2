@@ -7,6 +7,7 @@
         var ASIGNATURA_ACTUAL = "{{ asignatura_actual }}";
         var cargar_info_asignatura = "{{ cargar_info_asignatura }}";
         var carrera_required = "{{ carrera_required }}";
+        var asignatura_required = "{{ asignatura_required }}";
         var URL_ASIGNATURAS_CARRERA = "{{ path('carreras_get_asignaturas', { 'id' : '--ID--'}) }}";
         var URL_INFO_ASIGNATURA = "{{ path("asignaturas_get_info", { id: '--ID--'}) }}";
 
@@ -17,8 +18,8 @@
 
         SELECT_ASIGNATURA.select2({
             'placeholder': 'Todas las asignaturas de la carrera',
-            allowClear: true,
             disabled: true,
+            allowClear: asignatura_required == '1' ? false : true
         });
 
         //Evento que se selecciona cuando se borra la carrera seleccionada:
@@ -33,6 +34,7 @@
         console.log('ASIGNATURA_ACTUAL', ASIGNATURA_ACTUAL);
         console.log('cargar_info_asignatura', cargar_info_asignatura, typeof cargar_info_asignatura);
         console.log('carrera_required', carrera_required, typeof carrera_required);
+        console.log('asignatura_required', asignatura_required, typeof asignatura_required);
         console.log('URL_ASIGNATURAS_CARRERA', URL_ASIGNATURAS_CARRERA);
         console.log('URL_INFO_ASIGNATURA', URL_INFO_ASIGNATURA);
 
@@ -67,8 +69,9 @@
                 SELECT_ASIGNATURA.html('');
 
                 SELECT_ASIGNATURA.select2({
-                    'placeholder': 'Asignaturas de la carrera',
-                    'data': data
+                    'data': data,
+                    'placeholder': 'Todas las asignaturas de la carrera',
+                    allowClear: asignatura_required == '1' ? false : true
                     // ajax: {
                     //     url: function (params) {
                     //         var url = URL_ASIGNATURAS_CARRERA.replace('--ID--', SELECT_CARRERAS.val());
@@ -84,7 +87,7 @@
 
                 SELECT_ASIGNATURA.change(cargarInfoAsignatura);
 
-                if (ASIGNATURA_ACTUAL == '') {
+                if (asignatura_required == '1' && ASIGNATURA_ACTUAL == '') {
                     ASIGNATURA_ACTUAL = data[0].id;
                 }
 

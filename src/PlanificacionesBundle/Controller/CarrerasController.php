@@ -14,7 +14,13 @@ class CarrerasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository(Asignatura::class)->createQueryBuilder('a');
         $qb->where($qb->expr()->eq('a.carrera', ':carrera'));
+        $qb->andWhere($qb->expr()->notIn('a.nombreAsignatura', ':nombres_excluidos'));
         $qb->setParameter(':carrera', $carrera);
+        $qb->setParameter(':nombres_excluidos', [
+            'COMUNICACIÓN TÉCNICA',
+            'COMUNICACIÓN TÉCNICA I',
+            'COMUNICACIÓN TÉCNICA II'
+        ]);
         $qb->orderBy('a.nombreAsignatura', 'ASC');
 
         $asignaturas = [];

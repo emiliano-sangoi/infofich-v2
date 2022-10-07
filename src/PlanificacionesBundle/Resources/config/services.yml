@@ -6,7 +6,7 @@ services:
 ##        arguments: ['@api_infofich_service']
 #        tags:
 #            - { name: doctrine.event_listener, event: prePersist }
-    
+
 #    planificaciones.planificacion.listener:
 #        class: PlanificacionesBundle\EventListener\PlanificacionListener
 ##        arguments: ['@api_infofich_service']
@@ -14,32 +14,32 @@ services:
 #        tags:
 #            - { name: doctrine.event_listener, event: prePersist }
 #            - { name: doctrine.event_listener, event: preUpdate }
-            
+
 #    planificaciones.planificacion.listener:
 #        class: PlanificacionesBundle\EventListener\PlanificacionListener
 #        arguments: ['@api_infofich_service']
 #        tags:
 #            - { name: doctrine.event_listener, event: prePersist }
 #            - { name: doctrine.event_listener, event: preUpdate }
-    
+
     planificaciones.form.bibliografia_planificacion.type:
         class: PlanificacionesBundle\Form\BibliografiaPlanificacionType
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: form.type }
-            
+
     planificaciones.form.buscador.type:
         class: PlanificacionesBundle\Form\BuscadorType
-        arguments: ['@api_infofich_service']
+        arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: form.type }
-            
+
     planificaciones.form.duplicar.type:
         class: PlanificacionesBundle\Form\DuplicarPlanificacionType
-        arguments: ['@api_infofich_service']
+        arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: form.type }
-            
+
     planificaciones.planificacion_voter:
         class:  PlanificacionesBundle\Security\PlanificacionVoter
         arguments: ['@doctrine.orm.entity_manager']
@@ -47,7 +47,7 @@ services:
             - { name: security.voter }
         # small performance boost
         public: false
-        
+
     planificaciones_service:
-        class: PlanificacionesBundle\Service\PlanificacionService        
+        class: PlanificacionesBundle\Service\PlanificacionService
         arguments: ["@doctrine.orm.entity_manager","@api_infofich_service"]

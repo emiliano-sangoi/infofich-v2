@@ -1,12 +1,12 @@
 {% extends '::base.html.twig' %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
             <a href="{{ path('planificaciones_homepage') }}" class="">
                 <i class="fa fa-arrow-left"></i>
                 Ir a planificaciones
-            </a>     
+            </a>
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -20,7 +20,7 @@
 
         <div class="p-5 bg-light shadow">
             <h3 class='font-weight-bold text-primary'>
-                Duplicar planificación                                                       
+                Duplicar planificación
             </h3>
             <div class="mt-5">
                 <h4 class="font-weight-bold">
@@ -37,11 +37,11 @@
 
                 <h4 class="font-weight-bold mt-3 mt-lg-4">
                     Nueva planificación
-                </h4>    
+                </h4>
                 <p class="">
                     A continuación seleccione el año académico de la nueva planificación:
                 </p>
-                <div class="mt-3"> 
+                <div class="mt-3">
                     {{ form_start(form) }}
 
 
@@ -50,23 +50,31 @@
                         <div>
                             {{ form_errors(form) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col-12">
+
+                        <div class="form-row mb-3 mb-lg-4">
+                            <div class="col-12 col-lg-9">
                                 {{ form_label(form.carrera) }}
                                 {{ form_widget(form.carrera) }}
-                                {{ form_errors(form.carrera) }}      
+                                {{ form_errors(form.carrera) }}
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-12 col-md-9 select-asignaturas-container">
-                                {{ form_label(form.codigoAsignatura) }}
-                                {{ form_widget(form.codigoAsignatura) }}
-                                {{ form_errors(form.codigoAsignatura) }}      
-                            </div>
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-lg-3 mt-3 mt-lg-0">
                                 {{ form_label(form.anioAcad) }}
                                 {{ form_widget(form.anioAcad) }}
                                 {{ form_errors(form.anioAcad) }}
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="col-12 col-md-9">
+                                {{ form_label(form.asignatura) }}
+                                {{ form_widget(form.asignatura) }}
+                                {{ form_errors(form.asignatura) }}
+                            </div>
+                            <div class="col-12 col-md-3">
+                                {{ form_label(form.estadoActual) }}
+                                {{ form_widget(form.estadoActual) }}
+                                {{ form_errors(form.estadoActual) }}
                             </div>
                         </div>
                     </div>
@@ -78,13 +86,13 @@
                                 <button type="submit" role="button" class="btn btn-success">
                                     <i class="fa fa-check"></i>&nbsp;
                                     Crear copia
-                                </button> 
+                                </button>
                             {% endblock %}
 
                             {% block right %}
                                 <a href="{{ path('planificaciones_homepage') }}" class="btn btn-outline-primary">
                                     Cancelar
-                                </a>                       
+                                </a>
                             {% endblock %}
 
                         {% endembed %}
@@ -104,7 +112,16 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>
+{#    <script src="{{ asset('bundles/planificaciones/js/planificaciones.js') }}"></script>#}
+
+    {% include "PlanificacionesBundle:planificacion:script-carga-asignaturas.html.twig" with {
+        'select_carreras': '#duplicar_planificacion_carrera',
+        'select_asignatura': '#duplicar_planificacion_asignatura',
+        'asignatura_actual': planificacion.asignatura.id is defined ? planificacion.asignatura.id : null,
+        'carrera_required': form.carrera.vars.required ? 1 : 0,
+        'asignatura_required': form.asignatura.vars.required ? 1 : 0,
+        'cargar_info_asignatura': 0
+    } %}
 
     <script>
 
@@ -113,14 +130,14 @@
 
             $(document).ready(function () {
 
-                select_carreras = $('#duplicar_planificacion_carrera');
-                select_asignatura = $('#duplicar_planificacion_codigoAsignatura');
-                ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";
+                {#select_carreras = $('#duplicar_planificacion_carrera');#}
+                {#select_asignatura = $('#duplicar_planificacion_codigoAsignatura');#}
+                {#ASIGNATURA_ACTUAL = "{{ planificacion.codigoAsignatura }}";#}
 
                 //resetInfoAsignatura();
 
-                // combo de carreras:           
-                select_carreras.change(actualizarAsignaturas);
+                // combo de carreras:
+                // select_carreras.change(actualizarAsignaturas);
 
         {#           //combo de asignaturas:
                    select_asignatura.change(function (e) {
@@ -131,7 +148,7 @@
                    });#}
 
                 //disparar el evento en las carreras lo que permite que se cargan las asignaturas y luego la infor de la asignatura
-                select_carreras.trigger('change');
+                // select_carreras.trigger('change');
 
 
             });

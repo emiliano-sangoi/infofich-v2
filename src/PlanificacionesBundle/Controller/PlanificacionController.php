@@ -208,12 +208,12 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
-
+//dump($data);exit;
             /* @var $planificacionCopia Planificacion */
             $planificacionCopia = clone $planificacion;
-//dump($planificacion, $planificacionCopia);exit;
-            $planificacionCopia->setCarrera($data['carrera']);
-            $planificacionCopia->setCodigoAsignatura($data['codigoAsignatura']);
+
+            //$planificacionCopia->setCarrera($data['carrera']);
+            $planificacionCopia->setAsignatura($data['asignatura']);
             $planificacionCopia->setAnioAcad($data['anioAcad']);
             $planificacionCopia->setHistoricosEstado(new \Doctrine\Common\Collections\ArrayCollection());
 
@@ -222,7 +222,7 @@ class PlanificacionController extends Controller {
             $repoPlanif = $em->getRepository(Planificacion::class);
             $result = $repoPlanif->findOneBy(array(
                 'carrera' => $data['carrera'],
-                'codigoAsignatura' => $data['codigoAsignatura'],
+                'asignatura' => $data['asignatura'],
                 'anioAcad' => $data['anioAcad'],
             ));
 

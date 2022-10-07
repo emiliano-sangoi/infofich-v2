@@ -894,7 +894,7 @@ class Planificacion implements \JsonSerializable{
     }
 
     public function getCarreraAbrev() {
-        switch ($this->carrera){
+        switch ($this->asignatura->getCarrera()->getCodigoCarrera()){
             case WSHelper::CARRERA_II:
                 return 'II';
             case WSHelper::CARRERA_IRH:
