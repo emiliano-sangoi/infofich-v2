@@ -199,7 +199,9 @@
         function cargarInfoAsignatura(e) {
             $('input.info-asignatura').val("");
 
-            var id = SELECT_ASIGNATURA.find('option:selected').attr('data-select2-id');
+            // var id = SELECT_ASIGNATURA.find('option:selected').attr('data-select2-id');
+            var id = SELECT_ASIGNATURA.val();
+            console.log('Buscando informacion de la asignatura con id: ' + id);
 
             if (!id) {
                 return;
