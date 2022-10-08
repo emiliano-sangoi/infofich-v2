@@ -6,15 +6,17 @@ Existe una pagina creada en la carpeta web/ llamada maintenance.html, solo se de
 .htaccess_maintenance localizado en la misma carpeta.
 
 Backup de htaccess default:
-$ cp .htaccess .htaccess_bkp
+$ mv web/.htaccess web/.htaccess_bkp
 
 Habilitar htacces de mantenimiento
-$ mv .htaccess_maintenance .htaccess
-
+$ mv web/.htaccess_maintenance web/.htaccess
 
 2. Backups
 Luego se debe realizar una backup de la base de datos por consola o desde phpMyAdmin.
-Tambien se realizo un backup de toda la carpeta con el codigo fuente.
+$ mysqldump -u root -p db_infofich2 > /home/esangoi/20221008_db_infofich.sql
+
+Tambien se realizo un backup de toda la carpeta con el codigo fuente:
+$ zip -r /home/esangoi/infofich2_prev_act.zip /var/www/sitios/symfony-infofich/
 
 3. Actualizar codigo fuente:
 Luego se debe actualizar el codigo fuente del proyecto:
@@ -54,9 +56,12 @@ infofich2/app/docs/202210-Correccion_de_bd/sql/3_planif_asignaturas_recursantes.
 infofich2/app/docs/202210-Correccion_de_bd/sql/4_planif_asignaturas_modulos.sql
 
 10. Ejecutar comandos de limpieza:
-$ php app/console cache:clear
-$ php app/console assets:install --symlink
+$ php app/console cache:clear --env=prod
+$ php app/console assets:install --symlink  --env=prod
 
-10. Corregir permisos:
+11. Sacar al sitio de mantenimiento:
+
+$ mv web/.htaccess web/.htaccess_maintenance
+$ mv web/.htaccess_bkp web/.htaccess
 
 

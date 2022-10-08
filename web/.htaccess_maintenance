@@ -1,0 +1,11 @@
+# https://gist.github.com/wataruoguchi/649963c3ee18640e0105
+
+# REEMPLAZAR 10.50.0.12 POR LA IP DEL SERVIDOR (ejecutar hostname -I desde consola para saberla)
+
+ ErrorDocument 503 /maintenance.html
+ <IfModule mod_rewrite.c>
+	 RewriteEngine On
+	 RewriteCond %{REQUEST_URI} !=/maintenance.html
+	 RewriteCond %{REMOTE_ADDR} !=10.50.0.12
+	 RewriteRule ^.*$ - [R=503,L]
+ </IfModule>
