@@ -1,0 +1,62 @@
+Tutorial para la actualizacion de la base de datos luego de los cambios realizados en asignaturas y carreras.
+========================================================================================================================
+
+1. Primero se debe deshabilitar el sitio o poner en mantenimiento.
+Existe una pagina creada en la carpeta web/ llamada maintenance.html, solo se debe activar el htaccess con nombre
+.htaccess_maintenance localizado en la misma carpeta.
+
+Backup de htaccess default:
+$ cp .htaccess .htaccess_bkp
+
+Habilitar htacces de mantenimiento
+$ mv .htaccess_maintenance .htaccess
+
+
+2. Backups
+Luego se debe realizar una backup de la base de datos por consola o desde phpMyAdmin.
+Tambien se realizo un backup de toda la carpeta con el codigo fuente.
+
+3. Actualizar codigo fuente:
+Luego se debe actualizar el codigo fuente del proyecto:
+$ cd /path/to/infofich2
+$ git pull origin master
+
+4. Actualizar vendor
+Borrar la carpeta vendor y descomprimirla nuevamente vendor.zip:
+$ rm -rf vendor
+$ unzip vendor.zip
+
+5. Actualizar estructura de la base de datos:
+$ php app/console doctrine:schema:update --dump-sql --force
+
+6. Ejecutar comandos para cargar carreras y asignaturas:
+$ php app/console infofich:carreras-grado:actualizar --force
+$ php app/console infofich:asignaturas-grado:actualizar --force
+
+7. Corregir planificaciones con errores:
+Se deben ejecutar el contenido de los siguientes scripts en la base de datos desde consola o PhpMyAdmin:
+infofich2/app/docs/202210-Correccion_de_bd/sql/1_planif_planificaciones_update.sql
+infofich2/app/docs/202210-Correccion_de_bd/sql/2_planif_asignatura_estadistica.sql
+
+8. Ejecutar comando para vincular planificaciones con asignaturas:
+$ php app/console infofich:planificaciones:vincular-asignatura --force
+
+Verificar que no exista ninguna planificación sin una asignatura vinculada:
+
+...
+...
+Planificaciones sin asignatura en tabla planif_asignaturas:
+
+
+9. Insertar materias de recursado y modulos:
+Se deben ejecutar el contenido de los siguientes scripts en la base de datos desde consola o PhpMyAdmin:
+infofich2/app/docs/202210-Correccion_de_bd/sql/3_planif_asignaturas_recursantes.sql
+infofich2/app/docs/202210-Correccion_de_bd/sql/4_planif_asignaturas_modulos.sql
+
+10. Ejecutar comandos de limpieza:
+$ php app/console cache:clear
+$ php app/console assets:install --symlink
+
+10. Corregir permisos:
+
+
