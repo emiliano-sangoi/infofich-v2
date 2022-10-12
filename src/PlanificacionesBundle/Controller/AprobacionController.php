@@ -105,9 +105,10 @@ class AprobacionController extends Controller
         }
 
         //titulo principal:
-        $api_infofich_service = $this->get('api_infofich_service');
-        $asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
-        $page_title = Texto::ucWordsCustom($asignatura->getNombreMateria());
+        //$api_infofich_service = $this->get('api_infofich_service');
+        //$asignatura = $api_infofich_service->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
+        $page_title = Texto::ucWordsCustom($asignatura->getNombreAsignatura());
 
         // Breadcrumbs
         $this->setBreadcrumb($planificacion, 'Aprobación de la asignatura', $this->get("router")->generate('planif_aprobacion_editar', array('id' => $planificacion->getId())));

@@ -28,7 +28,6 @@ class ActividadCurricular {
      * @ORM\Column(name="fecha", type="datetime")
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
-     * @Assert\GreaterThanOrEqual("today" , message="La fecha de la act debe ser mayor o igual al día de hoy.")
      * 
      */
     private $fecha;

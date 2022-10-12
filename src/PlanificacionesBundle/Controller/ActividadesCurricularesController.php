@@ -38,7 +38,8 @@ class ActividadesCurricularesController extends Controller {
         $breadcrumbs->addItem('Cronograma de actividades', $ruta_index);
 
         //Buscamos la asignatura y sus datos con el web service
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 
         $em = $this->getDoctrine()->getManager();
