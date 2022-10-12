@@ -67,7 +67,8 @@ class ActividadesCurricularesController extends Controller {
     public function newAction(Planificacion $planificacion, Request $request) {
 
         //Buscamos la asignatura y sus datos con el web service
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
         $cargaHorariaTotal = $asignatura->getCargaHoraria() ?: 0;
 
         $ac = new ActividadCurricular();
@@ -144,7 +145,8 @@ class ActividadesCurricularesController extends Controller {
         $deleteForm = $this->crearDeleteForm($actividadCurricular);
 
         //Buscamos la asignatura y sus datos con el web service
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 
         return $this->render('PlanificacionesBundle:7-cronograma:show.html.twig', array(
@@ -189,7 +191,8 @@ class ActividadesCurricularesController extends Controller {
         $deleteForm = $this->crearDeleteForm($actividadCurricular);
 
         //Buscamos la asignatura y sus datos con el web service
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 
         return $this->render('PlanificacionesBundle:7-cronograma:edit.html.twig', array(
@@ -240,7 +243,8 @@ class ActividadesCurricularesController extends Controller {
         $breadcrumbs->addItem('DUPLICAR');
 
          //Buscamos la asignatura y sus datos con el web service
-        $asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        //$asignatura = $this->get('api_infofich_service')->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
+        $asignatura = $planificacion->getAsignatura();
         $cargaHorariaTotal = $asignatura->getCargaHoraria();
 
         return $this->render('PlanificacionesBundle:7-cronograma:duplicar.html.twig', array(
