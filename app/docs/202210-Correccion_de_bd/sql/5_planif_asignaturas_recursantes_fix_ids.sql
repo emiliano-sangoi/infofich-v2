@@ -26,3 +26,6 @@ VALUES
  1, 1, 1, '2do Cuatrimestre',
  'cuatrimestre', NULL, 1, false, NOW());
 
+delete from planif_asignaturas
+where carrera_id = 11 and
+        id in (795, 856, 845, 855, 829, 858, 807, 962, 821, 812, 811, 810, 846, 834, 841, 826, 796, 847, 824, 825, 806, 808, 929, 859, 853, 863, 822, 816,848, 849,813, 850, 836, 887, 891, 814, 823, 854, 862 );
