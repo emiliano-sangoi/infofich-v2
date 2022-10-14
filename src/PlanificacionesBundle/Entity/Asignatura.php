@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      #tipoCursada: "cuatrimestre"
  *
  * @ORM\Table(name="planif_asignaturas", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "codigo_asignatura", "nro_modulo", "recursantes"})
+ *     @ORM\UniqueConstraint(name="ak_planif_asignaturas", columns={"carrera_id", "codigo_asignatura", "nro_modulo", "es_recursada"})
  * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\AsignaturaRepository")
  */
@@ -142,24 +142,13 @@ class Asignatura implements \JsonSerializable
     private $nroModulo;
 
     /**
-     * @var int
-     *
-     * Indica si es una asignatura que se dicta para recursantes
-     * Si la asignatura no es para recursantes puede estar como null
-     *
-     *
-     * @ORM\Column(name="recursantes", type="integer", nullable=true)
-     */
-    private $recursantes;
-
-    /**
      * @var boolean
      *
      * Indica si es una asignatura que se dicta para recursantes
      * Si la asignatura no es para recursantes puede estar como null
      *
      *
-     * @ORM\Column(name="es_recursada", type="boolean", nullable=true)
+     * @ORM\Column(name="es_recursada", type="boolean")
      */
     private $esRecursada;
 
@@ -538,7 +527,6 @@ class Asignatura implements \JsonSerializable
             'periodoCursada' => $this->periodoCursada,
             'tipoCursada' => $this->tipoCursada,
             'nroModulo' => $this->nroModulo,
-            'recursantes' => $this->recursantes,
             'esRecursada' => $this->esRecursada,
             'origenWs' => $this->origenWs,
         );

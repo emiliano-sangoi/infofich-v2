@@ -11,11 +11,15 @@ use \FICH\APIRectorado\Config\WSHelper;
 /**
  * Planificacion
  *
- * @ORM\Table(name="planif_planificaciones", uniqueConstraints={@ORM\UniqueConstraint(name="planif_idx", columns={"carrera", "codigo_asignatura", "anio_acad", "nro_modulo"})})
+ * @ORM\Table(name="planif_planificaciones", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="planif_idx", columns={
+ *       "asignatura_id", "anio_acad"
+ *     })
+ * })
  * @ORM\Entity(repositoryClass="PlanificacionesBundle\Repository\PlanificacionRepository")
  * @UniqueEntity(
- *     fields={"carrera", "codigoAsignatura", "anioAcad", "nroModulo", "recursantes"},
- *     errorPath="codigoAsignatura",
+ *     fields={"asignatura", "anioAcad"},
+ *     errorPath="asignatura",
  *     message="Esta asignatura ya tiene creada una planificación."
  * )
  */
@@ -146,16 +150,6 @@ class Planificacion implements \JsonSerializable{
      * @ORM\Column(name="nro_modulo", type="integer", nullable=true)
      */
     private $nroModulo;
-
-    /**
-     * @var int
-     *
-     * Indica si la asignatura es para dictado para recursantes
-     *
-     *
-     * @ORM\Column(name="recursantes", type="integer", nullable=true)
-     */
-    private $recursantes;
 
 
     /**
@@ -1111,30 +1105,6 @@ class Planificacion implements \JsonSerializable{
         return $this->nroModulo;
     }
 
-
- /**
-     * Set recursantes
-     *
-     * @param integer $recursantes
-     *
-     * @return Materia
-     */
-    public function setRecursantes($recursantes)
-    {
-        $this->recursantes = $recursantes;
-
-        return $this;
-    }
-
-    /**
-     * Get recursantes
-     *
-     * @return integer
-     */
-    public function getRecursantes()
-    {
-        return $this->recursantes;
-    }
 
     /**
      * Set docenteResponsable

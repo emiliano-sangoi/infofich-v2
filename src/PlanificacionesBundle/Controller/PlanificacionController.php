@@ -71,7 +71,6 @@ class PlanificacionController extends Controller {
         $anioAcad = $form_filtros->get('anioAcad')->getData();
         $estadoActual = $form_filtros->get('estadoActual')->getData();
 
-        //dump($usuario, $carrera, $codigoAsignatura, $anioAcad, $estadoActual, $nroModulo, $recursantes);exit;
 
         $em = $this->getDoctrine()->getManager();
         /* @var $repo PlanificacionRepository */
