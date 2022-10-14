@@ -12,3 +12,4 @@ update planif_asignaturas set carrera_id = 21 where carrera_id = 17;
 
 -- IRH -> Se cambia el ID 8 (plan 022004) por ID 9 (plan 2006):
 update planif_asignaturas set carrera_id = 9 where carrera_id = 8;
+
