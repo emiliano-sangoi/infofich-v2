@@ -59,10 +59,15 @@ class ActividadCurricularRepository extends \Doctrine\ORM\EntityRepository
 
         $result = array();
         foreach ($temas as $tema){
+
+            $id = $tema->getId();
+            $result[$id] = array();
+
             $qb = $this->crearQueryBuilder($planificacion, null, null, $tema);
+
             $it = $qb->getQuery()->iterate();
             foreach ($it as $row){
-                $result[$tema->getId()][] = $row[0];
+                $result[$id][] = $row[0];
             }
 
         }

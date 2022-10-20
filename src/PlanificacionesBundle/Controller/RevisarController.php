@@ -85,7 +85,7 @@ class RevisarController extends Controller {
         }
 
         //titulo principal:
-        // Refactorizamos     
+        // Refactorizamos
         $asignatura = $planificacion->getAsignatura();
 
         $params['asignatura'] = $asignatura;
@@ -444,17 +444,10 @@ class RevisarController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addCronograma(Planificacion $planificacion) {
-        //ver esto con Emi
         $this->resumen['cronograma'] = null;
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(ActividadCurricular::class);
-//        $qb = $repo->crearQueryBuilder($planificacion);
-//        $qb->join('a.temario', 't');
-//        $qb->orderBy('t.unidad', 'ASC');
-//        $qb->addOrderBy('a.fecha', 'ASC');
-//dump($repo->getActividadesPorTema($planificacion));exit;
         $this->resumen['cronograma'] = $repo->getActividadesPorTema($planificacion);
-        //dump($this->resumen['cronograma']);exit;
     }
 
     private function addCronogramaSemana(Planificacion $planificacion) {
