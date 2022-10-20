@@ -3,7 +3,7 @@ update planif_asignaturas set es_recursada = 0 where es_recursada IS NULL;
 
 -- Correcciones en asignaturas recursantes:
 -- Ing Inf. -> Se cambia el ID 10 (ing inf plan 1999) por ID 11 (ing inf plan 2006):
-update planif_asignaturas set carrera_id = 11 where carrera_id = 10 and nombre_asignatura LIKE '%RECURSANTES%'
+update planif_asignaturas set carrera_id = 11 where carrera_id = 10 and nombre_asignatura LIKE '%RECURSANTES%';
 
 -- ID DE ANALISTA EN INFORMATICA ERA PARA ING AGRIMENSURA
 update planif_asignaturas set carrera_id = 21 where carrera_id = 17 and nombre_asignatura LIKE '%RECURSANTES%';

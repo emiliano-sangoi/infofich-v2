@@ -1,0 +1,50 @@
+{% set page_id = 10 %}
+
+{% extends "PlanificacionesBundle::planif-base.html.twig" %}
+
+{% block tab_content %}
+
+    {% include 'PlanificacionesBundle:1-info-basica:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %} 
+    {% include 'PlanificacionesBundle:3-aprobacion-asignatura:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:4-objetivos-asignatura:resumen.html.twig' %}
+    {% if resumen.ver_resultados %}
+        {% include 'PlanificacionesBundle:4b-resultados-asignatura:resumen.html.twig' %}
+    {% endif %} 
+    {% include 'PlanificacionesBundle:5-temario:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:6-bibliografia:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:7-cronograma:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:8-dist-carga-horaria:resumen.html.twig' %}
+    {% include 'PlanificacionesBundle:9-viajes-acad:resumen.html.twig' %}   
+
+        
+    <div class="" id="resumen-indice">
+        <h5 class="text-muted">Secciones:</h5> {#&Iacute;ndice#}
+        <a class="nav-link js-scroll-trigger" href="#resumen-info-basica">Informaci&oacute;n b&aacute;sica</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-equipo-docente">Equipo docente</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-aprobacion-asignatura">Requisitos</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-objetivos-asignatura">Objetivos Asignatura</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-resultados-asignatura">Resultados de Aprendizaje</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-temario">Temario</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-bibliografia">Bibliograf&iacute;a</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-cronograma">Cronograma</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-distribuicion">Distribuici&oacute;n</a>
+        <a class="nav-link js-scroll-trigger" href="#resumen-viajes">Viajes Acad&eacute;micos</a>
+    </div>
+
+{% endblock %} 
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+
+{% endblock %} 

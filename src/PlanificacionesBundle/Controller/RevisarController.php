@@ -107,7 +107,7 @@ class RevisarController extends Controller {
 
         //dump($planificacion->getDocenteResponsable()->getDocente()->getPersona()->getApellidos());exit;
         // replace this example code with whatever you need
-        return $this->render('PlanificacionesBundle:planificacion:revisar2.html.twig', $params);
+        return $this->render('PlanificacionesBundle:planificacion:revisar.html.twig', $params);
     }
 
 
@@ -454,6 +454,7 @@ class RevisarController extends Controller {
 //        $qb->addOrderBy('a.fecha', 'ASC');
 //dump($repo->getActividadesPorTema($planificacion));exit;
         $this->resumen['cronograma'] = $repo->getActividadesPorTema($planificacion);
+        //dump($this->resumen['cronograma']);exit;
     }
 
     private function addCronogramaSemana(Planificacion $planificacion) {
