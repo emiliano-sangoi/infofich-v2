@@ -1,33 +1,41 @@
 {# Utilizado en la sección revisar #}
 <div>
-    <div class="mb-4">        
-        <h4 class="font-weight-bold" id="resumen-temario">Temario</h4>                    
-    </div>
 
     <div class="row">        
         <div class="col-sm-10">
-             {#<label class="font-weight-bold">Temario</label>#}
-            {% if resumen.temario is null %}
-                    <div class="text-danger">{{ global_sd }}</div>
-                {% else %}
+            {#<label class="font-weight-bold">Temario</label>#}           
+            {% if resumen.temario[0] is not defined %}
+                <p class="text-danger">
+                    Sin definir.
+                </p>
+            {% else %}
                 <ul>
                     {% for r in resumen.temario %}
-                    <li>
-                        <p>                      
-                            <strong>Unidad </strong>{{ r.unidad }} <strong>{{ r.titulo }}. </strong> {{ r.contenido|default(global_sd)}}  
-                        </p>
-                    </li>
+                        <li>
+                            <label class="font-weight-bold text-uppercase">                      
+                                Unidad {{ r.unidad }}
+                            </label>
+                            <br/>
+                            <label class="font-weight-bold">Título:</label>
+                            <span>{{ r.titulo }}</span>
+                            <br/>
+                            <label class="font-weight-bold">
+                                Contenido:
+                            </label>
+                            <p>
+                                {{ r.contenido|nl2br}}
+                            </p>
+                        </li>
                     {% endfor %}
                 </ul>
-                {% endif %}              
+            {% endif %}              
         </div>       
-    </div>
-    
-    <div class="row mt-4">  
-        <div class="col-sm-10 text-right">
-            <a class="btn btn-outline-primary" href="{{ path('planif_temario_editar', {id : planificacion.id}) }}">Modificar</a>
-            <hr class="mb-5 mt-4"/>
-        </div>
+    </div>    
+
+    <div class="mt-4">          
+        <a class="btn btn-outline-primary" href="{{ path('planif_temario_index', {id : planificacion.id}) }}">
+            <i class="fa fa-edit"></i>&nbsp;Modificar
+        </a>                    
     </div>
 
 </div>

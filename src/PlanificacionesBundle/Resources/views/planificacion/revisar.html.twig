@@ -4,47 +4,251 @@
 
 {% block tab_content %}
 
-    {% include 'PlanificacionesBundle:1-info-basica:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %} 
-    {% include 'PlanificacionesBundle:3-aprobacion-asignatura:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:4-objetivos-asignatura:resumen.html.twig' %}
-    {% if resumen.ver_resultados %}
-        {% include 'PlanificacionesBundle:4b-resultados-asignatura:resumen.html.twig' %}
-    {% endif %} 
-    {% include 'PlanificacionesBundle:5-temario:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:6-bibliografia:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:7-cronograma:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:8-dist-carga-horaria:resumen.html.twig' %}
-    {% include 'PlanificacionesBundle:9-viajes-acad:resumen.html.twig' %}   
+    <div id="accordion" class="acordion">
 
-        
-    <div class="" id="resumen-indice">
-        <h5 class="text-muted">Secciones:</h5> {#&Iacute;ndice#}
-        <a class="nav-link js-scroll-trigger" href="#resumen-info-basica">Informaci&oacute;n b&aacute;sica</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-equipo-docente">Equipo docente</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-aprobacion-asignatura">Requisitos</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-objetivos-asignatura">Objetivos Asignatura</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-resultados-asignatura">Resultados de Aprendizaje</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-temario">Temario</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-bibliografia">Bibliograf&iacute;a</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-cronograma">Cronograma</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-distribuicion">Distribuici&oacute;n</a>
-        <a class="nav-link js-scroll-trigger" href="#resumen-viajes">Viajes Acad&eacute;micos</a>
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="card-link text-white" data-toggle="collapse" href="#collapseInfo">
+                    Informaci&oacute;n b&aacute;sica&nbsp;
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseInfo" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:1-info-basica:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="card-link text-white" data-toggle="collapse" href="#collapseEqDoc">
+                    Equipo docente&nbsp;
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseEqDoc" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:2-equipo-docente:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseAprobAsig">
+                    Aprobaci&oacute;n de la asignatura
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseAprobAsig" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:3-aprobacion-asignatura:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseObjAsig">
+                    Objetivos de la asignatura
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseObjAsig" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:4-objetivos-asignatura:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        {% if resumen.ver_resultados %}
+            <div class="card mb-1">
+                <div class="card-header card-header-azul pl-3 py-2">
+                    <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseResultAprend">
+                        Resultados de Aprendizaje
+                        <i class="fa fa-1x fa-caret-down align-middle"></i>
+                    </a>
+                </div>
+                <div id="collapseResultAprend" class="collapse" data-parent="#accordion">
+                    <div class="card-body border border-primary">
+                        {% include 'PlanificacionesBundle:4b-resultados-asignatura:resumen.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseTemario">
+                    Temario
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseTemario" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:5-temario:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseBibliografia">
+                    Bibliografia
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseBibliografia" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:6-bibliografia:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-1">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseCronograma">
+                    Cronograma de actividades
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseCronograma" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:7-cronograma:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        {% set ROL_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+        {% if app.user.tieneRol(ROL_ADMIN) %}
+            <div class="card mb-1">
+                <div class="card-header card-header-azul pl-3 py-2">
+                    <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseCronograma2">
+                        Cronograma de actividades (Por semana)
+                        <i class="fa fa-1x fa-caret-down align-middle"></i>
+                    </a>
+                </div>
+                <div id="collapseCronograma2" class="collapse" data-parent="#accordion">
+                    <div class="card-body border border-primary">
+                        {% include 'PlanificacionesBundle:7-cronograma:resumen-por-semana.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {#        <div class="card mb-1"> #}
+        {#            <div class="card-header card-header-azul pl-3 py-2"> #}
+        {#                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseDistHoraria"> #}
+        {#                    Distribuición de Carga Horaria #}
+        {#                    <i class="fa fa-1x fa-caret-down align-middle"></i> #}
+        {#                </a> #}
+        {#            </div> #}
+        {#            <div id="collapseDistHoraria" class="collapse" data-parent="#accordion"> #}
+        {#                <div class="card-body border border-primary"> #}
+        {#                    {% include 'PlanificacionesBundle:8-dist-carga-horaria:resumen.html.twig' %} #}
+        {#                </div> #}
+        {#            </div> #}
+        {#        </div> #}
+
+        <div class="card">
+            <div class="card-header card-header-azul pl-3 py-2">
+                <a class="collapsed card-link text-white" data-toggle="collapse" href="#collapseViajes">
+                    Viajes Académicos
+                    <i class="fa fa-1x fa-caret-down align-middle"></i>
+                </a>
+            </div>
+            <div id="collapseViajes" class="collapse" data-parent="#accordion">
+                <div class="card-body border border-primary">
+                    {% include 'PlanificacionesBundle:9-viajes-acad:resumen.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
-{% endblock %} 
+    {#    <div class="mt-4">
+    {{ dump(errores) }}
+        </div> #}
+
+    <div class="mt-4">
+        {#        {{ dump(planificacion.enPreparacion(), planificacion.enCorreccion()) }} #}
+        {% if planificacion.enPreparacion() or planificacion.enCorreccion() %}
+            {#            {% if puede_enviar_a_revision %} #}
+            {{ form_start(form_enviar_revision) }}
+            <button role="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-check"></i>&nbsp;Enviar a revisi&oacute;n
+            </button>
+            {{ form_end(form_enviar_revision) }}
+            {#            {% endif %} #}
+        {% endif %}
+
+        {% if planificacion.enRevision() %}
+
+            {% set attr = { data: planificacion } %}
+
+            {% embed '::botonera.html.twig' %}
+
+                {% block left %}
+                    {% set cod_perm = constant('AppBundle\\Seguridad\\Permisos::PLANIF_PUBLICAR') %}
+                    {% if is_granted(cod_perm, attr) %}
+                        {{ form_start(form_publicar) }}
+                        <button role="submit" class="btn btn-lg btn-success">
+                            <i class="fa fa-check"></i>&nbsp;Aprobar planificación
+                        </button>
+                        {{ form_end(form_publicar) }}
+                    {% endif %}
+                {% endblock %}
+
+                {% block right %}
+                    {% if form_enviar_correccion is defined %}
+                        {% if is_granted(constant('AppBundle\\Seguridad\\Permisos::PLANIF_ENVIAR_CORRECCION'), attr) %}
+                            {{ form_start(form_enviar_correccion) }}
+                            <button role="submit" class="btn btn-lg btn-outline-danger">
+                                <i class="fa fa-times"></i>&nbsp;Enviar a corrección
+                            </button>
+                            {{ form_end(form_enviar_correccion) }}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+
+            {% endembed %}
+
+            {#            {% tiene_perm_publicar = app.user.tienePermiso() %} #}
+
+        {% endif %}
+    </div>
+
+
+{% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
 
+    {% if planificacion.puedeEditarse() %}
+        {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
+    {% endif %}
+
     <script>
 
         $(document).ready(function () {
 
+            $('.ver-contenido').click(function(){
+
+                var html = $(this).data('contenido');
+
+                bootbox.alert({
+                    title: "<b>Ver contenido</b>",
+                    message: "<div class='text-italic text-muted'>" + html + "</div>",
+                    size: 'large',
+                    backdrop: true
+                });
+
+            });
 
         });
     </script>
 
-
-{% endblock %} 
+{% endblock %}

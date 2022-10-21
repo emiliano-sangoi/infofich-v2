@@ -85,7 +85,7 @@ class RevisarController extends Controller {
         }
 
         //titulo principal:
-        // Refactorizamos     
+        // Refactorizamos
         $asignatura = $planificacion->getAsignatura();
 
         $params['asignatura'] = $asignatura;
@@ -107,7 +107,7 @@ class RevisarController extends Controller {
 
         //dump($planificacion->getDocenteResponsable()->getDocente()->getPersona()->getApellidos());exit;
         // replace this example code with whatever you need
-        return $this->render('PlanificacionesBundle:planificacion:revisar2.html.twig', $params);
+        return $this->render('PlanificacionesBundle:planificacion:revisar.html.twig', $params);
     }
 
 
@@ -444,15 +444,9 @@ class RevisarController extends Controller {
      * @param Planificacion $planificacion
      */
     private function addCronograma(Planificacion $planificacion) {
-        //ver esto con Emi
         $this->resumen['cronograma'] = null;
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(ActividadCurricular::class);
-//        $qb = $repo->crearQueryBuilder($planificacion);
-//        $qb->join('a.temario', 't');
-//        $qb->orderBy('t.unidad', 'ASC');
-//        $qb->addOrderBy('a.fecha', 'ASC');
-//dump($repo->getActividadesPorTema($planificacion));exit;
         $this->resumen['cronograma'] = $repo->getActividadesPorTema($planificacion);
     }
 

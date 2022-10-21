@@ -1,147 +1,237 @@
 {# Utilizado en la sección revisar #}
 <div>
-    <div class="mb-4">        
-        <h4 class="font-weight-bold" id="resumen-aprobacion-asignatura">Aprobaci&oacute;n de la asignatura</h4>                    
-    </div>
-{# Solo mostrar si han cargado algo#}
-{% if resumen.ver_requisitos %}
-    <div class="row">        
-        <div class="col-sm-3">
-            <label class="font-weight-bold">Aprobaci&oacute;n</label>
+
+    {# Solo mostrar si han cargado algo#}
+    {% if resumen.ver_requisitos %}
+
+        <div>
+            <table class="table">
+                <tr>
+                    <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle" style="border-right: 2px solid #868e96 ;">
+                        ¿Utiliza evaluación continua?
+                    </td>
+                    <td colspan="3">
+                        {{ resumen.utilizaEvalContinua|default(global_sd) }}
+                    </td>
+                </tr>
+                {% if resumen.utilizaEvalContinua == 'Sí' %}
+                    <tr>
+                        <td class="font-weight-bold bg-light w-25  text-right">
+                            Metodología enseñanza:
+                        </td>
+                        <td colspan="3">
+                            {{ resumen.descEvalContinua|default(global_sd)}}
+                        </td>
+                    </tr>
+                {% endif %}
+{#                ===============================================================================================================#}
+{#                REQUISITOS DE REGULARIZACIÓN #}
+{#                ===============================================================================================================#}
+                <tr style="border-top: 2px solid #868e96;">
+                    <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle" rowspan="4" style="border-right: 2px solid #868e96 ;">
+                        Requisitos de regularización
+                    </td>
+                    <td colspan="3">
+                        <label class="font-weight-bold">Asistencia</label>
+                        <div class="" >
+                            {{ resumen.porcentajeAsistencia|number_format}} {{ '%'|raw }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold">Primer parcial</label>
+                        <div class="" >
+                            {% if resumen.fechaPrimerParcial is null %}
+                                <span class="text-muted">Sin definir.</span>
+                            {% else %}
+                                {{ resumen.fechaPrimerParcial|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold">Segundo parcial</label>
+                        <div class="" >
+                            {% if resumen.fechaSegundoParcial is null %}
+                                <span class="text-muted">Sin definir.</span>
+                            {% else %}
+                                {{ resumen.fechaSegundoParcial|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold">Recup. 1er. parcial</label>
+                        <div class="" >
+                            {% if resumen.fechaRecupPrimerParcial is null %}
+                                <span class="text-muted">Sin definir.</span>
+                            {% else %}
+                                {{ resumen.fechaRecupPrimerParcial|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold">Recup. 2do. parcial</label>
+                        <div class="" >
+                            {% if resumen.fechaRecupSegundoParcial is null %}
+                                <span class="text-muted">Sin definir.</span>
+                            {% else %}
+                                {{ resumen.fechaRecupSegundoParcial|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="3">
+                        <span class="font-weight-bold">Requisitos de regularización</span>
+                        {% if resumen.requisitosRegul %}
+                            {{ resumen.requisitosRegul|nl2br }}
+                        {% else %}
+                            <div class="text-muted">
+                                {{ global_sd }}
+                            </div>
+                        {% endif%}
+                    </td>
+                </tr>
+                {#                ===============================================================================================================#}
+                {#                REQUISITOS DE PROMOCION #}
+                {#                ===============================================================================================================#}
+                <tr style="border-top: 2px solid #868e96 ;">
+                    <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle" rowspan="5" style="border-right: 2px solid #868e96 ;">
+                        Requisitos de promoción
+                    </td>
+                    <td>
+                        <label class="font-weight-bold">¿Prevé promoción teor&iacute;a?</label>
+                        <div class="" >
+                            {{ resumen.prevePromParcialTeoria|default(global_sd) }}
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold">¿Prevé promoción pr&aacute;ctica?</label>
+                        <div class="" >
+                            {{ resumen.prevePromParcialPractica|default(global_sd) }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label class="font-weight-bold">
+                            Requisitos promoción
+                        </label>
+                        <div class="" >
+                            {% if resumen.requisitosPromo %}
+                                {{ resumen.requisitosPromo|nl2br }}
+                            {% else %}
+                                <div class="text-muted">
+                                    {{ global_sd }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr style="border-top: 2px solid #cccccc">
+                    <td rowspan="3" class="font-weight-bold align-middle text-center bg-light" style="border-right: 2px solid #cccccc">
+                        Coloquio final<br/> integrador (CFI)
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold">
+                            ¿Prevé <span title='Coloquio final integrador' class="font-weight-bold">CFI</span>?
+                        </label>
+                        <div class="" >
+                            {{ resumen.preveCfi|default(global_sd) }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold">Fecha parcial integrador</label>
+                        <div class="" >
+                            {% if resumen.fechaParcialCfi is null %}
+                                <div class="text-muted">
+                                    {{ global_sd }}
+                                </div>
+                            {% else %}
+                                {{ resumen.fechaParcialCfi|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        <label class="font-weight-bold">Fecha recuperatorio</label>
+                        <div class="" >
+                            {% if resumen.fechaRecupCfi is null %}
+                                <div class="text-muted">
+                                    {{ global_sd }}
+                                </div>
+                            {% else %}
+                                {{ resumen.fechaRecupCfi|date("d/m/Y") }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="2">
+                        <label class="font-weight-bold">
+                            Modalidad
+                        </label>
+                        <div>
+                        {% if resumen.modalidadCfi %}
+                            {{ resumen.modalidadCfi }}
+                        {% else %}
+                            <span class="text-muted">
+                                {{ global_sd }}
+                            </span>
+                        {% endif%}
+                        </div>
+                    </td>
+                </tr>
+                {#                ===============================================================================================================#}
+                {#                EXAMEN FINAL #}
+                {#                ===============================================================================================================#}
+                <tr style="border-top: 2px solid #868e96;">
+                    <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle" rowspan="2" style="border-right: 2px solid #868e96 ;">
+                        Exámen final
+                    </td>
+                    <td colspan="3">
+                        <label class="font-weight-bold">
+                            Modalidad estudiantes regulares
+                        </label>
+                        <div class="" >
+                            {% if resumen.examenFinalModalidadRegulares %}
+                                {{ resumen.examenFinalModalidadRegulares|nl2br }}
+                            {% else %}
+                                <div class="text-muted">
+                                    {{ global_sd }}
+                                </div>
+                            {% endif%}
+                        </div>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 2px solid #868e96;">
+                    <td colspan="3">
+                        <label class="font-weight-bold">
+                            Modalidad estudiantes libres
+                        </label>
+                        <div class="" >
+                            {% if resumen.examenFinalModalidadLibres %}
+                                {{ resumen.examenFinalModalidadLibres|nl2br }}
+                            {% else %}
+                                <div class="text-muted">
+                                    {{ global_sd }}
+                                </div>
+                            {% endif%}
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="col-sm-8" >    
-            <div class="row">        
-                <div class="col-sm-3">
-                    <label class="font-weight-bold">Asistencia</label>
-                    <div class="" >                       
-                        {{ resumen.porcentajeAsistencia|number_format}} {{ '%'|raw }} 
-
-                    </div> 
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-sm-4" >    
-                
-                    <label class="font-weight-bold">Primer parcial</label>
-                    <div class="" >                        
-                       {{ resumen.fechaPrimerParcial|date("d/m/Y") }}
-                    </div> 
-
-                </div> 
-                <div class="col-sm-4" >    
-                    <label class="font-weight-bold">Segundo parcial</label>
-                    <div class="" >                        
-                        {{ resumen.fechaSegundoParcial|date("d/m/Y") }}
-                    </div> 
-                </div> 
-            </div>
-            <div class="row mt-4">
-                <div class="col-sm-4" >    
-                    <label class="font-weight-bold">Recuperatorio 1er. parcial</label>
-                    <div class="" >                        
-                        {{ resumen.fechaRecupPrimerParcial|date("d/m/Y") }}
-                    </div> 
-
-                </div> 
-                <div class="col-sm-4" >    
-                    <label class="font-weight-bold">Recuperatorio 2do. parcial</label>
-                    <div class="" >                        
-                        {{ resumen.fechaRecupSegundoParcial|date("d/m/Y") }}
-                    </div> 
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-5">        
-        <div class="col-sm-3">
-            <label class="font-weight-bold">Promoci&oacute;n</label>
-        </div>
-        <div class="col-sm-8" >    
-            <div class="row">        
-                <div class="col-sm-8">
-                    <label class="font-weight-bold">¿Prevé promoción?</label>
-                    <div class="" >                        
-                        {{ resumen.prevePromParcialTeoria|default(global_sd) }} -  {{ resumen.prevePromParcialPractica|default(global_sd) }}
-                    </div> 
-                </div>               
-            </div>                        
-        </div>
-    </div>
+    {% endif %}
 
 
-    <div class="row mt-5">        
-        <div class="col-sm-3">
-            <label class="font-weight-bold">Coloquio final<br/> integrador (CFI)</label>
-        </div>
-        <div class="col-sm-8" >    
-            <div class="row">        
-                <div class="col-sm-3" >    
-                    <label class="font-weight-bold">¿Prevé <span title='Coloquio final integrador'>CFI</span>?</label>
-                    <div class="" >                        
-                        {{ resumen.preveCfi|default(global_sd) }}
-                    </div> 
-                </div> 
-                <div class="col-sm-3" >    
-                    <label class="font-weight-bold">Fecha integrador</label>
-                    <div class="" >                        
-                        {{ resumen.fechaParcialCfi|date("d/m/Y") }}
-                    </div> 
-                </div> 
-                <div class="col-sm-3" >    
-                    <label class="font-weight-bold">Fecha recuperatorio</label>
-                    <div class="" >                        
-                        {{ resumen.fechaRecupCfi|date("d/m/Y") }}
-                    </div> 
-
-                </div> 
-            </div>
-            <div class="row mt-4">
-                <div class="col-sm-9" >    
-                    <label class="font-weight-bold">Modalidad CFI</label>
-                    <div class="" >
-                    {{ resumen.modalidadCfi|default(global_sd) }}                        
-                    </div> 
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-sm-3">
-            <label class="font-weight-bold">Examen Final</label>
-        </div>
-        <div class="col-sm-8" >    
-            <div class="row">   
-                <div class="col-sm-9" >    
-                    <label class="font-weight-bold">Modalidad Regulares</label>
-                    <div class="" >
-                    {{ resumen.examenFinalModalidadRegulares|default(global_sd) }}                        
-                    </div> 
-                </div> 
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-sm-9" >    
-                    <label class="font-weight-bold">Modalidad Libre</label>
-                    <div class="" >
-                    {{ resumen.examenFinalModalidadLibres|default(global_sd) }}                        
-                    </div> 
-                </div> 
-            </div> 
-        </div>
-    </div>
-{% endif %}
-
-
-
-
-    <div class="row mt-4">  
-        <div class="col-sm-10 text-right">
-
-            <a class="btn btn-outline-primary" href="{{ path('planif_aprobacion_editar', {id : planificacion.id}) }}">Modificar</a>
-            <hr class="mb-5 mt-4"/>
-        </div>
+    <div class="mt-4">
+        <a class="btn btn-outline-primary" href="{{ path('planif_aprobacion_editar', {id : planificacion.id}) }}">
+            <i class="fa fa-edit"></i>&nbsp;Modificar
+        </a>
     </div>
 
 

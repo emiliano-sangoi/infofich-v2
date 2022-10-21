@@ -1,0 +1,41 @@
+{# Utilizado en la sección revisar #}
+<div>
+    <div class="mb-4">        
+        <h4 class="font-weight-bold" id="resumen-viajes">Viajes Académicos</h4>                    
+    </div>
+
+    <div class="row">        
+        <div class="col-sm-10">
+            {% if resumen.viajes is null %}
+                    <div class="text-danger">{{ global_sd }}</div>
+                {% else %}
+                    <ul>
+                    {% for viaje in resumen.viajes %}
+                        <li>
+                        <p> 
+                            <strong>Descripción </strong> {{ viaje.descripcion|default(global_sd) }} -                       
+                            <strong>Objetivos </strong>{{ viaje.objetivos|default(global_sd) }} - 
+                            <strong>Recorrido </strong>{{ viaje.recorrido|default(global_sd) }} -
+                            <strong>Cantidad de Estudiantes </strong>{{ viaje.cantEstudiantes|default(global_sd) }} -
+                            <strong>Cantidad de Docentes </strong>{{ viaje.cantDocentes|default(global_sd) }} -
+                            <strong>Fecha de salida </strong>{{ viaje.fechaTentativa|date("d/m/Y") }} -
+                            <strong>Fecha de regreso </strong>{{ viaje.fechaTentativaRegreso|date("d/m/Y") }} -
+                            <strong>Movilidad </strong>{{ viaje.vehiculo.nombre|default(global_sd) }} -
+                            <strong>Asignaturas vinculadas </strong>{{ viaje.asignaturas|default(global_sd) }} 
+                        </p>
+                        </li>
+                    {% endfor %}
+                    </ul> 
+                {% endif %}              
+        </div>       
+    </div>
+
+
+    <div class="row mt-4">  
+        <div class="col-sm-10 text-right">
+            <a class="btn btn-outline-primary" href="{{ path('planif_viajes_acad_editar', {id : planificacion.id}) }}">Modificar</a>
+            <hr class="mb-5 mt-4"/>
+        </div>
+    </div>
+
+</div>
