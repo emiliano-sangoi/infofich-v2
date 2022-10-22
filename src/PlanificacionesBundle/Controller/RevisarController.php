@@ -69,7 +69,7 @@ class RevisarController extends Controller {
                     $this->addFlash('success', 'Planificación enviada a revisión.');
                     return $this->redirectToRoute('planificaciones_revisar', array('id' => $planificacion->getId()));
                 } else {
-                    $this->addFlash('error', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');
+                    $this->addFlash('danger', 'La planificación posee errores. Intente nuevamente luego de corregirlos.');
                 }
             }
 
@@ -197,7 +197,7 @@ class RevisarController extends Controller {
         $this->resumen = array();
         $this->infofichService = $this->get('api_infofich_service');
 
-        $this->addInfoBasica($planificacion);
+        //$this->addInfoBasica($planificacion);
         $this->addDocentes($planificacion);
         // validación datos cargados
         $requisitos = $planificacion->getRequisitosAprobacion();

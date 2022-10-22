@@ -1,63 +1,84 @@
 {# Utilizado en la sección revisar #}
 <div>
 
-    <div class="row">
-        <div class="col-12 col-lg-4">
-            <label class="font-weight-bold">Asignatura</label>
-            <div class="{{ resumen.nombreMateria ? 'text-primary font-weight-bold' : 'text-danger' }}">
-                {{ resumen.nombreMateria|default(global_sd) }}
-            </div>
-        </div>
-        <div class="col-12 col-lg-4">
-            <label class="font-weight-bold">Carrera</label>
-            <div class="{{ resumen.carrera ? '' : 'text-danger' }}">
-                {{ resumen.carrera|default(global_sd) }}
-            </div>
-        </div>
-        <div class="col-12 col-lg-2">
-            <label class="font-weight-bold">
-                Año academico
-            </label>
-            <div class="">
-                {{ resumen.anioAcad|default(global_sd) }}
-            </div>
-        </div>
+    <div>
+        <table class="table mb-0">
+            <tr style="border-top: 2px solid #868e96;">
+                <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle"
+                    style="border-right: 2px solid #868e96 ;">
+                    Asignatura y año
+                </td>
+                <td colspan="2">
+                    <label class="font-weight-bold">Asignatura</label>
+                    <div>
+                        {% if planificacion.asignatura %}
+                            <span class="font-weight-bold text-success lead">{{ planificacion.asignatura }}</span>
+                        {% else %}
+                            <span class="text-muted">Sin definir.</span>
+                        {% endif %}
+                    </div>
+                </td>
+                <td colspan="1">
+                    <label class="font-weight-bold">
+                        Año académico
+                    </label>
+                    <div>
+                        {% if planificacion.anioAcad %}
+                            <span class="font-weight-bold text-success lead">{{ planificacion.anioAcad }}</span>
+                        {% else %}
+                            <span class="text-muted">Sin definir.</span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-top: 2px solid #868e96;">
+                <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle"
+                    style="border-right: 2px solid #868e96 ;">
+                    Carrera
+                </td>
+                <td colspan="2">
+                    <label class="font-weight-bold">Nombre</label>
+                    <div class="">
+                        {% if planificacion.asignatura.carrera is defined %}
+                            <span class="text-color-gray-700">{{ planificacion.asignatura.carrera|upper }}</span>
+                        {% else %}
+                            <span class="text-muted">Sin definir</span>
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <label class="font-weight-bold">Plan</label>
+                    <div class="">
+                        {% if planificacion.asignatura.carrera is defined %}
+                            <span class="text-color-gray-700">{{ planificacion.asignatura.carrera.planCarrera }}</span>
+                        {% else %}
+                            <span class="text-muted">Sin definir</span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-top: 2px solid #868e96; border-bottom: 2px solid #868e96;">
+                <td class="font-weight-bold bg-gray-200 w-25 text-center align-middle"
+                    style="border-right: 2px solid #868e96 ;">
+                    Contenidos mínimos
+                </td>
+                <td colspan="3">
+                    {% if planificacion.contenidosMinimos %}
+                        <span class="text-color-gray-700">{{ planificacion.contenidosMinimos }}</span>
+                    {% else %}
+                        <span class="text-muted">Sin definir</span>
+                    {% endif %}
+                </td>
+        </table>
     </div>
 
-
-    <div class="row mt-4">
-
-        <div class="col-12 col-lg-4">
-            <label class="font-weight-bold">Plan de estudios</label>
-            <div class="{{ resumen.carrera_plan ? '' : 'text-danger' }}">
-                {{ resumen.carrera_plan|default(global_sd) }}
-            </div>
+    {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+    {% if planificacion.puedeEditarse() or (planificacion.enRevision() and app.user.tieneRol(ROL_SA)) or (planificacion.isPublicada() and app.user.tieneRol(ROL_SA)) %}
+        <div class="mt-4">
+            <a class="btn btn-outline-primary" href="{{ path('planif_info_basica_editar', {id : planificacion.id}) }}">
+                <i class="fa fa-edit"></i>&nbsp;Modificar
+            </a>
         </div>
-        <div class="col-12 col-lg-4">
-            <label class="font-weight-bold">Contenidos m&iacute;nimos</label>
-            <div class="{{ resumen.contenidosMinimos ? '' : 'text-danger' }}">
-                {{ resumen.contenidosMinimos|default(global_sd) }}
-            </div>
-        </div>
-        {% if planificacion.nroModulo %}
-            <div class="col-12 col-lg-2">
-                <label class="font-weight-bold">
-                    Nro. m&oacute;dulo
-                </label>
-                <div>
-                    {{ resumen.nroModulo }}
-                </div>
-            </div>
-        {% endif %}
-    </div>
+    {% endif %}
 
-    <div class="row mt-4">
-        <div class="col-sm-10 text-right">
-
-
-        </div>
-    </div>
-
-
-    {# {{ dump(planificacion) }} #}
 </div>
