@@ -254,7 +254,7 @@ class PlanificacionesPDF extends ImprimirPDF
                 <td colspan="3">' . $requisitosPromo . '</td>
             </tr>
             <tr>         
-                <td colspan="3" style="background-color: lightgray;"><b>Modalidad exámen final</b></td>
+                <td colspan="3" style="background-color: lightgray;"><b>Modalidad examen final</b></td>
             </tr>
             
             <tr>

@@ -112,7 +112,7 @@ class PlanificacionController extends Controller {
             $repoHistorico->asignarEstado($planificacion, Estado::PREPARACION, $usuario);
             //---------------------------------------------------------------------------
 
-            $this->addFlash('success', 'La planificacion fué creada correctamente.');
+            $this->addFlash('success', 'La planificacion fue creada correctamente.');
 
             //Causar redireccion para evitar "re-submits" del form:
             return $this->redirectToRoute('planif_info_basica_editar', array('id' => $planificacion->getId()));
@@ -157,7 +157,7 @@ class PlanificacionController extends Controller {
                 //Impactar cambios:
                 $em->flush();
 
-                $this->addFlash('success', 'La planificacion fué borrada correctamente.');
+                $this->addFlash('success', 'La planificacion fue borrada correctamente.');
 
                 //Causar redireccion para evitar "re-submits" del form:
                 return $this->redirectToRoute('planificaciones_homepage');
