@@ -82,7 +82,7 @@ class RequisitosAprobacion {
     /**
      * @var string
      *
-     * @ORM\Column(name="porcentaje_asistencia", type="integer")
+     * @ORM\Column(name="porcentaje_asistencia", type="integer", nullable=true)
      * @Assert\Range(
      *      min = "70",
      *      max = "100",
@@ -96,7 +96,7 @@ class RequisitosAprobacion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_primer_parcial", type="datetime")
+     * @ORM\Column(name="fecha_primer_parcial", type="datetime", nullable=true)
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
@@ -118,7 +118,7 @@ class RequisitosAprobacion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_recup_primer_parcial", type="datetime")
+     * @ORM\Column(name="fecha_recup_primer_parcial", type="datetime", nullable=true)
      * @Assert\NotBlank(message="Este campo no puede quedar vacio.")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
@@ -214,6 +214,7 @@ class RequisitosAprobacion {
         $this->prevePromParcialTeoria = true;
         $this->prevePromParcialPractica = true;
         $this->utilizaEvalContinua = false;
+        $this->preveCfi = false;
     }
 
     public function __toString() {

@@ -24,9 +24,14 @@ class AprobacionController extends Controller
 
     public function editarUtilizaEvalContAction(Request $request, Planificacion $planificacion)
     {
-        $requisitosAprob = $planificacion->getRequisitosAprobacion();
 
         $this->denyAccessUnlessGranted(Permisos::PLANIF_EDITAR, array('data' => $planificacion));
+
+        $requisitosAprob = $planificacion->getRequisitosAprobacion();
+        if(!$requisitosAprob){
+            $requisitosAprob = new RequisitosAprobacion();
+            $planificacion->setRequisitosAprobacion($requisitosAprob);
+        }
 
         $form = $this->createForm(UtilizaEvalContinuaType::class, $requisitosAprob);
         $form->handleRequest($request);
@@ -40,7 +45,6 @@ class AprobacionController extends Controller
             }else{
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-
                 $this->addFlash('success', 'Metodología de enseñanza actualizada correctamente.');
 
                 //Causar redireccion para evitar "re-submits" del form:

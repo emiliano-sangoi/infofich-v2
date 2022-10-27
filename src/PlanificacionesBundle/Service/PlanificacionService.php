@@ -48,10 +48,16 @@ class PlanificacionService {
      */
     private $apiInfofichService;
 
-    public function __construct($entityManager, $apiInfofichService) {
+    /**
+     * @var Symfony\Component\Validator\Validator\ValidatorInterfac
+     */
+    private $validator;
+
+    public function __construct($entityManager, $apiInfofichService, $validator) {
 
         $this->em = $entityManager;
         $this->apiInfofichService = $apiInfofichService;
+        $this->validator = $validator;
         $this->errores = array();
         $this->hayErrores = false;
         $this->repoRoles = $this->em->getRepository('AppBundle:Rol');
@@ -144,8 +150,18 @@ class PlanificacionService {
     public function validarAprobacion(Planificacion $planificacion) {
         $errores = array();
 
-        if (!$planificacion->getRequisitosAprobacion()) {
+        $rAprob = $planificacion->getRequisitosAprobacion();
+
+        if (!$rAprob) {
             $errores[] = 'No han definido los requisitos de aprobación (asistencia, fecha de parciales, etcétera).';
+            $this->hayErrores = true;
+            return $errores;
+        }
+
+        $errors = $this->validator->validate($rAprob);
+
+        if(!empty($errors)){
+            $errores[] = 'Restan definir campos obligatorios en la sección o alguno de ellos posee un formato incorrecto.';
             $this->hayErrores = true;
             return $errores;
         }

@@ -262,6 +262,7 @@ class Planificacion implements \JsonSerializable{
         $this->resultados = new ArrayCollection;
         $this->fechaCreacion = new \DateTime;
         $this->ultimaModif = new \DateTime;
+
     }
 
     /**
