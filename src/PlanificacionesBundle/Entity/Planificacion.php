@@ -84,14 +84,6 @@ class Planificacion implements \JsonSerializable{
     private $departamento;
 
     /**
-     *
-     * @var string
-     *
-     * @ORM\Column(name="carrera", type="string", length=8, nullable=true)
-     */
-    private $carrera;
-
-    /**
      * Plan al que pertenece la carrera.
      *
      * @var string
@@ -866,28 +858,7 @@ class Planificacion implements \JsonSerializable{
         return $this->requisitosAprobacion;
     }
 
-    /**
-     * Set carrera
-     *
-     * @param string $carrera
-     *
-     * @return Planificacion
-     */
-    public function setCarrera($carrera) {
-        $this->carrera = $carrera;
-
-        return $this;
-    }
-
-    /**
-     * Get carrera
-     *
-     * @return string
-     */
-    public function getCarrera() {
-        return $this->carrera;
-    }
-
+    
     public function getCarreraAbrev() {
         switch ($this->asignatura->getCarrera()->getCodigoCarrera()){
             case WSHelper::CARRERA_II:
@@ -1272,7 +1243,6 @@ class Planificacion implements \JsonSerializable{
             'anioAcad' => $this->anioAcad,
             'plan' => $this->plan,
             'codigoAsignatura' => $this->codigoAsignatura,
-            'carrera' => $this->carrera,
             'historicoEstadoActual' => $this->getHistoricoEstadoActual(),
         );
     }
