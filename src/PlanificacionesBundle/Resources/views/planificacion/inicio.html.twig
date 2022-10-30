@@ -84,7 +84,9 @@
                                                         {{ p.getTitulo()|upper }}
                                                     </h5>
                                                     <h6 class="font-weight-bold text-uppercase text-secondary">
-                                                        {{ nom_carrera(p.carrera) }}
+                                                        {# Refactorizacion { nom_carrera(p.carrera) }#}
+                                                        {{ p.getAsignatura.getCarrera().getNombreCarrera()}}
+                                                        
                                                     </h6>
                                                 </div>
                                             </div>
