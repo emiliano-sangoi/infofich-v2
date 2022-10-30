@@ -84,24 +84,6 @@ class Planificacion implements \JsonSerializable{
     private $departamento;
 
     /**
-     * Plan al que pertenece la carrera.
-     *
-     * @var string
-     *
-     * @ORM\Column(name="plan", type="string", length=6, nullable=true)
-     */
-    private $plan;
-
-    /**
-     * Plan al que pertenece la carrera.
-     *
-     * @var int
-     *
-     * @ORM\Column(name="version_plan", type="integer", nullable=true)
-     */
-    private $versionPlan;
-
-    /**
      *
      * @var Asignatura
      *
@@ -878,51 +860,6 @@ class Planificacion implements \JsonSerializable{
         return null;
     }
 
-
-
-    /**
-     * Set plan
-     *
-     * @param string $plan
-     *
-     * @return Planificacion
-     */
-    public function setPlan($plan) {
-        $this->plan = $plan;
-
-        return $this;
-    }
-
-    /**
-     * Get plan
-     *
-     * @return string
-     */
-    public function getPlan() {
-        return $this->plan;
-    }
-
-    /**
-     * Set versionPlan
-     *
-     * @param integer $versionPlan
-     *
-     * @return Planificacion
-     */
-    public function setVersionPlan($versionPlan) {
-        $this->versionPlan = $versionPlan;
-
-        return $this;
-    }
-
-    /**
-     * Get versionPlan
-     *
-     * @return integer
-     */
-    public function getVersionPlan() {
-        return $this->versionPlan;
-    }
 
     /**
      * Add temario
