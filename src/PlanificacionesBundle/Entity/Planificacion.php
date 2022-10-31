@@ -1178,7 +1178,6 @@ class Planificacion implements \JsonSerializable{
         return array(
             'id' => $this->id,
             'anioAcad' => $this->anioAcad,
-            'plan' => $this->plan,
             'codigoAsignatura' => $this->codigoAsignatura,
             'historicoEstadoActual' => $this->getHistoricoEstadoActual(),
         );
