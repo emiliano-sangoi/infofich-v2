@@ -6,6 +6,7 @@ use AppBundle\Repository\RolRepository;
 use Doctrine\ORM\EntityManager;
 use PlanificacionesBundle\Entity\Planificacion;
 
+
 /**
  * Description of PlanificacionService
  *
@@ -158,9 +159,10 @@ class PlanificacionService {
             return $errores;
         }
 
+        /* @var $errors Symfony\Component\Validator\ConstraintViolationList */
         $errors = $this->validator->validate($rAprob);
 
-        if(!empty($errors)){
+        if($errors->count() > 0){
             $errores[] = 'Restan definir campos obligatorios en la sección o alguno de ellos posee un formato incorrecto.';
             $this->hayErrores = true;
             return $errores;
