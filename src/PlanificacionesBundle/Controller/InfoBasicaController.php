@@ -24,7 +24,11 @@ class InfoBasicaController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        $carrera_default = $planificacion->getAsignatura()->getCarrera();
+        $carrera_id = $planificacion->getAsignatura()->getCarrera();
+        
+        $carrera_default = $em->getRepository(Carrera::class)
+            ->findOneBy(['id' => $carrera_id  ]);
+
         //dump($carrera_default);exit;
         $form = $this->crearForm($planificacion, $planificacion->isPublicada(), $carrera_default);
 
