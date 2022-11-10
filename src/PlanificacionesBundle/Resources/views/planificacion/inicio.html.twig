@@ -85,8 +85,8 @@
                                                     </h5>
                                                     <h6 class="font-weight-bold text-uppercase text-secondary">
                                                         {# Refactorizacion { nom_carrera(p.carrera) }#}
-                                                         {{p.asignatura.carrera|upper}}
-                                                        {{ p.getAsignatura.getCarrera().getNombreCarrera()}}
+                                                        {{p.asignatura.carrera|upper}}
+                                                        {#{ p.getAsignatura.getCarrera().getNombreCarrera()}#}
                                                         
                                                     </h6>
                                                 </div>
@@ -98,7 +98,8 @@
                                                         <i class="fa fa-caret-right text-success"></i>&nbsp;<span
                                                             class='font-weight-bold'>Plan: </span>
                                                         <span class=''>
-                                                            {{ p.plan }}
+                                                            {# Refactorizacion{ p.plan }#}
+                                                            {{ p.asignatura.carrera.planCarrera }}
                                                         </span>
                                                     </p>
                                                     <p class="mb-1">
