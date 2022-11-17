@@ -1,0 +1,3 @@
+vehiculos_index:
+    path:     /vehiculos
+    defaults: { _controller: VehiculosBundle:Default:index }

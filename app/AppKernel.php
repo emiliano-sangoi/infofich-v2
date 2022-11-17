@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             // https://github.com/whiteoctober/BreadcrumbsBundle
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new DocentesBundle\DocentesBundle(),
+            new VehiculosBundle\VehiculosBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

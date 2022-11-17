@@ -66,12 +66,12 @@
                 {% endembed %}   
 
                 
-                {#  DOCENTES ================================================================================================ #}
+                {#  VEHICULOS ================================================================================================ #}
                 {% 
                     set attrs = {
                         'title' : 'Vehículos',
                         'descripcion' : 'Alta, bajas, modificaciones y busquedas de vehículos de la FICH.',
-                        'button_href' : ''
+                        'button_href' : path('vehiculos_index')
                     }
                 %}
                 {% embed 'AppBundle::modulo.html.twig' with attrs %}

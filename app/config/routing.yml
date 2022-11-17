@@ -1,3 +1,7 @@
+vehiculos:
+    resource: "@VehiculosBundle/Resources/config/routing.yml"
+    prefix:   /
+
 docentes_grado:
     resource: "@DocentesBundle/Resources/config/routing.yml"
     prefix:   /
