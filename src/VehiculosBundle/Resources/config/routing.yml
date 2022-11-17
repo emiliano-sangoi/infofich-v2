@@ -1,3 +1,10 @@
 vehiculos_index:
     path:     /vehiculos
     defaults: { _controller: VehiculosBundle:Default:index }
+
+vehiculos_listado:
+    path:     /vehiculos/listado
+    defaults: { _controller: VehiculosBundle:Default:listado }
+    
+    
+    

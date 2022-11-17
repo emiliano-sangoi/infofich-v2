@@ -1,0 +1,164 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+{% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+{% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('vehiculos_index') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+
+            {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}
+
+            {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
+                <a href="{#{ path('vehiculos_new') }#}" class="ml-3">
+                    <i class="fa fa-plus"></i>
+                    Nuevo docente
+                </a>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="px-lg-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        <h2 class="font-weight-bold text-primary">
+            Vehiculos de la FICH 
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
+        <div class="bg-light">
+            {#% if docentes[0] is defined %#}
+
+                <div class="bg-white mb-3 p-3 text-muted shadow">
+                    Se encontraron: <b>{#{ docentes.getTotalItemCount }#}</b> vehículo(s).
+                </div>
+
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed table-hover mb-0 bg-white">
+                        <thead class="bg-secondary text-white">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>                               
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>  
+                            <tr>
+                                <td>
+                                    AUTOMOVIL
+                                </td>
+                                <td>
+                                    Es un golcito PATENTE 
+                                </td>
+                                <td>
+                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    COLECTIVO
+                                </td>
+                                <td>
+                                    Es el cole linea 2
+                                </td>
+                                <td>
+                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    EMBARCACIÓN AZIMUT
+                                </td>
+                                <td>
+                                    Embarcación 
+                                </td>
+                                <td>
+                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Ver
+                                    </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {#% for docenteAdscripto in docentes %}
+                                <tr>
+                                    <td>
+                                        {{ docenteAdscripto.persona.apellidos }}
+                                    </td>
+                                    <td>
+                                        {{ docenteAdscripto.persona.nombres }}
+                                    </td>
+                                    <td>
+                                        {{ docenteAdscripto.persona.getTipoYNroDocumento() }}
+                                    </td>
+                                    <td>
+                                        {{ docenteAdscripto.resolucion }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Ver
+                                        </a>
+                                        {% if app.user.tieneRol(ROL_SA) %}
+                                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}"
+                                               class="btn btn-sm btn-outline-secondary">
+                                                Editar
+                                            </a>
+                                        {% endif %}
+                                        {#  <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a> #}
+                            {# </td>
+                         </tr>
+                     {% endfor % #}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {#{ knp_pagination_render(docentes) }#}
+                </div>
+
+
+
+            {#% else %}
+                <div class="bg-light p-4">
+                    No se encontro ning&uacute;n docente adscripto.
+                </div>
+            {% endif %#}
+        </div>
+    </div>
+
+
+{% endblock %}
