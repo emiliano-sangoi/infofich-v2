@@ -44,7 +44,6 @@ class Vehiculo
      */
     private $descripcion;
 
-
     /**
      * Get id
      *
