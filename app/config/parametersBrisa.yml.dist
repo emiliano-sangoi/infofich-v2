@@ -1,0 +1,44 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+    # You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_port: 465
+    mailer_encryption: ssl
+
+     #dev_mailer_transport: "smtp"  # gmail, smtp
+     #dev_mailer_host: "smtp.gmail.com"       # smtp.gmail.com
+     #dev_mailer_user: "gidis@fich.unl.edu.ar"       # email de gmail
+     #dev_mailer_password: ""   # pwd de gmail
+     #dev_mailer_port: "465"           # 465
+     #dev_mailer_encryption: "ssl" # ssl
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    knp_items_por_pagina: 10
+
+    # Determina si se va a usar la libreria con la cache o sin ella
+    api_infofich_cache_enabled: true
+    api_infofich_env: prod
+
+    gidis_email: gidis@fich.unl.edu.ar
+
+    # Desde esta conexion se exportaran los usuarios:
+    db_infofich_viejo:
+        host:
+        puerto: null
+        nombre:
+        usuario: 
+        password:

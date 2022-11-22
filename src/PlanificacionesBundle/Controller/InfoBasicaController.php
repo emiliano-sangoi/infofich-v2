@@ -30,6 +30,8 @@ class InfoBasicaController extends Controller {
             ->findOneBy(['id' => $carrera_id  ]);
 
         //dump($carrera_default);exit;
+        //dump($planificacion);exit;
+        //dump($planificacion->isPublicada());exit;
         $form = $this->crearForm($planificacion, $planificacion->isPublicada(), $carrera_default);
 
         $form->handleRequest($request);

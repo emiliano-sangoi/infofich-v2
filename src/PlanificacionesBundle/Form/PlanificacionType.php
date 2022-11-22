@@ -68,6 +68,8 @@ class PlanificacionType extends AbstractType
 
         $builder->add('plan', TextType::class, array(
             'label' => 'Plan de estudio',
+            // VER
+            'mapped' => false,
             'disabled' => true,
             'attr' => array('class' => 'form-control info-asignatura')
         ));
@@ -103,6 +105,7 @@ class PlanificacionType extends AbstractType
         $this->addContenidosMinimos($builder);
         $this->addDepartamento($builder);
         $this->setEventosForm($builder, $options);
+        // consulta : es necesario hacer un addPlan ?
     }
 
     private function agregarCarrera(FormBuilderInterface $builder, array $options)
