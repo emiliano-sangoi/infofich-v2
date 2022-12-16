@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reserva
  *
  * @ORM\Entity
- * @ORM\Table(name="Reserva")
+ * @ORM\Table(name="vehiculo_reserva")
  * 
  */
 
@@ -57,7 +57,7 @@ class Reserva
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Estado", type="boolean", nullable=false)
+     * @ORM\Column(name="estado", type="boolean", nullable=false)
      */
     private $estado;
 
