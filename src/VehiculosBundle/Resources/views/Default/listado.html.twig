@@ -11,12 +11,14 @@
                 Volver
             </a>
 
-            {# si el usuario tiene rol Sec Academica, puede agregar docentes adsciptos #}
+            {# si el usuario tiene rol Sec de Infraestructura (secretario o colaborador), puede agregar Vehículos #}
 
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
                 <a href="{#{ path('vehiculos_new') }#}" class="ml-3">
                     <i class="fa fa-plus"></i>
-                    Nuevo vehículo
+
+                    Nuevo Vehículo
+
                 </a>
             {% endif %}
         {% endblock %}
@@ -33,7 +35,7 @@
         </div>
 
         <h2 class="font-weight-bold text-primary">
-            Vehiculos de la FICH 
+            Vehículos de la FICH 
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
         
