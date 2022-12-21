@@ -73,11 +73,11 @@
                                            
                                 <td>-</td>                               
                                <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{{ path('vehiculos_show', { 'id': 1 }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('vehiculos_edit', { 'id': 1}) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}

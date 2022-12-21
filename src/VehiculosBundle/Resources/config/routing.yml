@@ -4,11 +4,26 @@ vehiculos_index:
 
 vehiculos_listado:
     path:     /vehiculos/listado
-    defaults: { _controller: VehiculosBundle:Default:listado }
+    defaults: { _controller: VehiculosBundle:Vehiculo:listado }
 vehiculos_new:
     path:     /vehiculos/new
-    defaults: { _controller: "VehiculosBundle:Default:new" }
+    defaults: { _controller: "VehiculosBundle:Vehiculo:new" }
     methods:  [GET, POST]
+vehiculos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VehiculosBundle:Vehiculo:edit" }
+    methods:  [GET, POST]
+vehiculos_show:
+    path:     /{id}/show
+    defaults: { _controller: "VehiculosBundle:Vehiculo:show" }
+    methods:  [GET, POST]    
+vehiculos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VehiculosBundle:Vehiculo:delete" }
+    methods:  DELETE
     
     
+tipo_vehiculos_listado:
+    path:     /tipo_vehiculos/listado
+    defaults: { _controller: VehiculosBundle:TipoVehiculo:listado }
     
