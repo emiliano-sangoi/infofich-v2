@@ -16,7 +16,7 @@
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
                 <a href="{#{ path('vehiculos_new') }#}" class="ml-3">
                     <i class="fa fa-plus"></i>
-                    Nuevo docente
+                    Nuevo vehículo
                 </a>
             {% endif %}
         {% endblock %}
@@ -26,7 +26,7 @@
 
 {% block content %}
 
-    <div class="px-lg-5">
+   <div class="pb-5">
 
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
@@ -36,6 +36,8 @@
             Vehiculos de la FICH 
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+        
+        {% from '::macros.html.twig' import notificacion %}
 
         <div class="bg-light">
             {#% if docentes[0] is defined %#}
@@ -46,70 +48,171 @@
 
                 <div class="table-responsive shadow">
                     <table class="table table-condensed table-hover mb-0 bg-white">
-                        <thead class="bg-secondary text-white">
+                        <thead class="bg-primary text-light">
                             <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>                               
+				<th>#</th>
+                                <th>Tipo</th>
+                                <th>Marca</th>                               
+                                <th>Modelo/Nombre</th>                               
+                                                               
+                                <th>Asociado</th>                               
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>  
                             <tr>
-                                <td>
-                                    AUTOMOVIL
+				 <td class="align-middle">
+                                  1
                                 </td>
-                                <td>
-                                    Es un golcito PATENTE 
-                                </td>
-                                <td>
-                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
-                                       class="btn btn-sm btn-outline-secondary">
-                                        Ver
-                                    </a>
+                                <td>Camioneta</td>
+                                <td>Ford</td>                               
+                                <td>Ranger XLT 3.0 TDI DC 4x2</td>                               
+                                                        
+                                           
+                                <td>-</td>                               
+                               <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            Editar
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    COLECTIVO
-                                </td>
-                                <td>
-                                    Es el cole linea 2
-                                </td>
-                                <td>
-                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
-                                       class="btn btn-sm btn-outline-secondary">
-                                        Ver
-                                    </a>
+				 <td class="align-middle">
+                                   2
+                                </td>                               
+				<td>Camioneta</td>
+                                <td>Volswagen</td>                               
+                                <td>Amarok</td>                               
+                                                 
+                                                 
+                                <td>-</td>                               
+                                
+                               <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            Editar
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    EMBARCACIÓN AZIMUT
+                            <tr>                               	
+ <td class="align-middle">
+                                   3
                                 </td>
-                                <td>
-                                    Embarcación 
-                                </td>
-                                <td>
-                                    <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
-                                       class="btn btn-sm btn-outline-secondary">
-                                        Ver
-                                    </a>
+                               <td>Embarcación</td>
+                                <td>Virgin Marine</td>                               
+                                <td>Modelo 628 Trakker / Azimut</td>                               
+                                                   
+                                                     
+                                <td>1</td>                               
+                                
+                               <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            Editar
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                              		 		 	
+
+                            <tr>                               	
+ <td class="align-middle">
+                                    4
+                                </td>
+                               <td>Embarcación</td>
+                                <td>Astillero Rio-Tec Marca RT 460 serie LX A</td>                               
+                                <td>FICH I</td>                               
+                                              
+                                                     
+                                <td>2</td>                               
+                                
+                            <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+		 
+                            <tr>          
+ <td class="align-middle">
+                                    5
+                                </td>                     	
+                               <td>Embarcación</td>
+                                <td>Astillero Seamax</td>                               
+                                <td>FICH II</td>                               
+                                      
+                                                 
+                                <td>3</td>                               
+                                
+                              <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>          
+				<td class="align-middle"> 6
+                                   
+                                </td>   
+                   	
+                               <td>Trailer</td>
+                                <td>-</td>                               
+                                <td>Trailer T1</td>                               
+                                 
+                                                           
+                                <td>2</td>                               
+                                
+				<td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>        
+ <td class="align-middle">
+                                  7
+                                </td>                       	
+                               <td>Trailer</td>
+                                <td>-</td>                               
+                                <td>Trailer T2</td>                               
+                              
+                                                          
+                                <td>1</td>                               
+                                
+                                <td>
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-eye"></i>&nbsp;Ver
+                                        </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
                                 </td>
