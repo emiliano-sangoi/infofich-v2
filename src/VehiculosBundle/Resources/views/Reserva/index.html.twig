@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('homepage') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="px-lg-5">
+
+        <div class="bg-white p-5">
+
+            {#        <p class="lead">Seleccione una opci&oacute;n:</p> #}
+
+
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <a href="{{ path('vehiculos_listado') }}"
+                       class="btn btn-outline-primary d-inline-block w-100 p-4">
+                        LISTADO DE VEHÍCULOS
+                    </a>
+                </div>
+                <div class="col-12 col-md-4">
+                    <a href="{{ path('tipo_vehiculos_listado') }}"
+                       class="btn btn-outline-primary  d-inline-block w-100 p-4">
+                        TIPO DE VEHÍCULOS
+                    </a>
+                </div>
+                <div class="col-12 col-md-4">
+                    <a href="{{ path('docentes_adscriptos') }}"
+                       class="btn btn-outline-primary  d-inline-block w-100 p-4">
+                        RESERVAR VEHÍCULO
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

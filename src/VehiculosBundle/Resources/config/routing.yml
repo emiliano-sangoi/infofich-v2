@@ -27,3 +27,23 @@ tipo_vehiculos_listado:
     path:     /tipo_vehiculos/listado
     defaults: { _controller: VehiculosBundle:TipoVehiculo:listado }
     
+    
+reservas_listado:
+    path:     /reservas/listado
+    defaults: { _controller: VehiculosBundle:Reserva:listado }
+reservas_new:
+    path:     /reservas/new
+    defaults: { _controller: "VehiculosBundle:Reserva:new" }
+    methods:  [GET, POST]
+reservas_edit:
+    path:     /reservas/{id}/edit
+    defaults: { _controller: "VehiculosBundle:Reserva:edit" }
+    methods:  reservas[GET, POST]
+reservas_show:
+    path:     /reservas/{id}/show
+    defaults: { _controller: "VehiculosBundle:Reserva:show" }
+    methods:  [GET, POST]    
+reservas_delete:
+    path:     /reservas/{id}/delete
+    defaults: { _controller: "VehiculosBundle:Reserva:delete" }
+    methods:  DELETE
