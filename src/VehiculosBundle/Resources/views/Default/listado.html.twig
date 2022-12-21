@@ -14,7 +14,7 @@
             {# si el usuario tiene rol Sec de Infraestructura (secretario o colaborador), puede agregar Vehículos #}
 
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
-                <a href="{#{ path('vehiculos_new') }#}" class="ml-3">
+                <a href="{{ path('vehiculos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
 
                     Nuevo Vehículo

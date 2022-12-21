@@ -5,6 +5,10 @@ vehiculos_index:
 vehiculos_listado:
     path:     /vehiculos/listado
     defaults: { _controller: VehiculosBundle:Default:listado }
+vehiculos_new:
+    path:     /vehiculos/new
+    defaults: { _controller: "VehiculosBundle:Default:new" }
+    methods:  [GET, POST]
     
     
     
