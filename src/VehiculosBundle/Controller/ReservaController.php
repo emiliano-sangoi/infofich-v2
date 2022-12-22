@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use VehiculosBundle\Entity\Vehiculo;
 
 
-class VehiculoController extends Controller {
+class ReservaController extends Controller {
 
    
 
