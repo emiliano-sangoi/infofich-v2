@@ -43,14 +43,14 @@ class Reserva
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
+     * @ORM\Column(name="fecha_inicio", type="datetime", nullable=false)
      */
     private $fechaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_fin", type="date", nullable=false)
+     * @ORM\Column(name="fecha_fin", type="datetime", nullable=false)
      */
     private $fechaFin;
 

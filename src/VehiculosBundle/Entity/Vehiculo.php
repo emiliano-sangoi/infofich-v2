@@ -52,7 +52,7 @@ class Vehiculo
     private $marca;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=50)
      */
     private $modelo;
 

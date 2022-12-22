@@ -14,10 +14,10 @@
             {# si el usuario tiene rol Sec de Infraestructura (secretario o colaborador), puede agregar Vehículos #}
 
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
-                <a href="{{ path('reserva_new') }}" class="ml-3">
+                <a href="{{ path('reservas_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
 
-                    Nuevo Vehículo
+                    Nueva Reserva
 
                 </a>
             {% endif %}
@@ -28,7 +28,7 @@
 
 {% block content %}
 
-   <div class="pb-5">
+    <div class="pb-5">
 
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
@@ -38,54 +38,97 @@
             Reserva de Vehículos de la FICH 
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
-        
+
         {% from '::macros.html.twig' import notificacion %}
 
         <div class="bg-light">
             {#% if docentes[0] is defined %#}
 
-                <div class="table-responsive shadow">
-                    <table class="table table-condensed table-hover mb-0 bg-white">
-                        <thead class="bg-primary text-light">
-                            <tr>
-				<th>#</th>
-                                <th>Tipo</th>
-                                <th>Marca</th>                               
-                                <th>Modelo/Nombre</th>                               
-                                                               
-                                <th>Asociado</th>                               
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>  
-                            <tr>
-				 <td class="align-middle">
-                                  1
-                                </td>
-                                <td>Camioneta</td>
-                                <td>Ford</td>                               
-                                <td>Ranger XLT 3.0 TDI DC 4x2</td>                               
-                                                        
-                                           
-                                <td>-</td>                               
-                               <td>
-                                      <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
-                                            <i class="fa fa-eye"></i>&nbsp;Ver
-                                        </a>
-                                    {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('reservas_edit', { 'id': 1}) }}">
-                                            <i class="fa fa-edit"></i>&nbsp;Editar
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                           
-                        </tbody>
-                    </table>
-                </div>
-                <div class="navigation mt-3 mb-5 centrate-x">
-                    {#{ knp_pagination_render(docentes) }#}
-                </div>
+            <div class="table-responsive shadow">
+                <table class="table table-condensed table-hover mb-0 bg-white">
+                    <thead class="bg-primary text-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Docente</th>
+                            <th>Vehiculo</th>                               
+                            <th>Fecha Inicio</th>                                                                                          
+                            <th>Fecha Fin</th>                               
+                            <th>Estado</th>                               
+                            <th>Cantidad Personas 	</th>                               
+                            <th>Elementos Extras 	</th>                               
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>  
+                        <tr>
+                            <td class="align-middle">2</td>
+                            <td>Abrile Mariana Guadalupe </td>
+                            <td>Virgin Marine - Azimut</td>
+                            <td>06/12/2022 07:00</td>                               
+                            <td>06/12/2022 13:00</td>
+                            <td>-</td>                               
+                            <td>-</td> 
+                            <td>5 Bidones móviles de combustible - Prolongación para generador - Soporte ADCP </td> 
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
+                                    <i class="fa fa-eye"></i>&nbsp;Ver
+                                </a>
+                                {% if app.user.tieneRol(ROL_SA) %}
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('reservas_edit', { 'id': 1}) }}">
+                                        <i class="fa fa-edit"></i>&nbsp;Editar
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">1</td>
+                            <td>Albornoz Enrique Marcelo </td>
+                            <td>Ford - Ranger XLT 3.0 TDI DC 4x2</td>
+                            <td>16/12/2022 07:00</td>                               
+                            <td>16/12/2022 19:00</td>
+                            <td>-</td>                               
+                            <td>-</td> 
+                            <td>5 Bidones móviles de combustible</td> 
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
+                                    <i class="fa fa-eye"></i>&nbsp;Ver
+                                </a>
+                                {% if app.user.tieneRol(ROL_SA) %}
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('reservas_edit', { 'id': 1}) }}">
+                                        <i class="fa fa-edit"></i>&nbsp;Editar
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-middle">2</td>
+                            <td>Abrile Mariana Guadalupe </td>
+                            <td>Ford - Ranger XLT 3.0 TDI DC 4x2</td>
+                            <td>29/12/2022 07:00</td>                               
+                            <td>29/12/2022 19:00</td>
+                            <td>-</td>                               
+                            <td>-</td> 
+                            <td>5 Bidones móviles de combustible - Prolongación para generador  </td> 
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
+                                    <i class="fa fa-eye"></i>&nbsp;Ver
+                                </a>
+                                {% if app.user.tieneRol(ROL_SA) %}
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('reservas_edit', { 'id': 1}) }}">
+                                        <i class="fa fa-edit"></i>&nbsp;Editar
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="navigation mt-3 mb-5 centrate-x">
+                {#{ knp_pagination_render(docentes) }#}
+            </div>
 
 
 
