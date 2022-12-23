@@ -10,72 +10,71 @@
 
 
     <div class="form-row">
-        <div class="col-5">
-            <label class="font-weight-bold required" >Tipo </label>
-            <select class="form-control"><option value="1">Camioneta</option>
-                <option value="2">Embarcación</option>
-                <option value="3">Trailer</option>
-                <option value="4">Motor</option>
+        <div class="col-6">
+            <label class="font-weight-bold required" >Docente </label>
+            <select class="form-control"><option value="1">Abrile Mariana Guadalupe </option>              
+            </select>
+
+
+        </div>
+        <div class="col-6">
+            <label class="font-weight-bold required" >Vehiculo </label>
+            <select class="form-control"><option value="1">Virgin Marine - Azimut </option>              
             </select>
 
         </div>
     </div>
     <div class="form-row">
+
         <div class="col-6">
-            <label class="font-weight-bold required" >Marca </label>
-            <input type="text" required="required" class="form-control" />
+            <label class="font-weight-bold required" >Fecha Inicio 	 </label>
+
+            <div class="input-group date tempusdominus-datepicker" id="docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-target-input="nearest">
+                <input type="text" id="docentesbundle_docenteadscripto_persona_fechaNacimiento" name="docentesbundle_docenteadscripto[persona][fechaNacimiento]" class="form-control datetimepicker-input" placeholder="dd/mm/AAAA" autocomplete="off" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker">
+                <div class="input-group-append" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+
         </div>
+
         <div class="col-6">
-            <label class="font-weight-bold required" >Modelo </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
+            <label class="font-weight-bold required" >Fecha Fin 	 </label>
 
-    </div>
+            <div class="input-group date tempusdominus-datepicker" id="docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-target-input="nearest">
+                <input type="text" id="docentesbundle_docenteadscripto_persona_fechaNacimiento" name="docentesbundle_docenteadscripto[persona][fechaNacimiento]" class="form-control datetimepicker-input" placeholder="dd/mm/AAAA" autocomplete="off" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker">
+                <div class="input-group-append" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
 
-
-    <div class="form-row">
-        <div class="col-6">
-            <label class="font-weight-bold required" >Patente </label>
-            <input type="text" required="required" class="form-control" />
         </div>
-        <div class="col-6">
-            <label class="font-weight-bold required" >Descripción </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-4">
-            <label class="font-weight-bold required" >Color </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-        <div class="col-4">
-            <label class="font-weight-bold required" >Capacidad </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-        <div class="col-4">
-            <label class="font-weight-bold required" >Combustible </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-
     </div>
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Chasis/Casco </label>
+            <label class="font-weight-bold required" >Estado </label>
             <input type="text" required="required" class="form-control" />
         </div>
         <div class="col-6">
-            <label class="font-weight-bold required" >Asociado </label>
-            <select class="form-control"><option value="1">Ford - Ranger XLT 3.0 TDI DC 4x2</option>
-                <option value="2">Volswagen - Amarok </option></select>
-        </div> 
-    </div> 
+            <label class="font-weight-bold required" >Cantidad Personas </label>
+            <input type="number" required="required" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-6">
+            <label class="font-weight-bold required" >Elementos Extras </label>
+             <select class="form-control"><option value="1">5 Bidones móviles de combustible</option>              
+            </select>
+        </div>     
+    </div>
+
+</div>
 
 
 
-    {% block tabla_planificaciones %}
-    {% endblock %}
+{% block tabla_planificaciones %}
+{% endblock %}
 
 
 </div>
