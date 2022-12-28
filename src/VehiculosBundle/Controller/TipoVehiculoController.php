@@ -4,6 +4,7 @@ namespace VehiculosBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use VehiculosBundle\Entity\TipoVehiculo;
 
 
 class TipoVehiculoController extends Controller {
@@ -23,6 +24,14 @@ class TipoVehiculoController extends Controller {
     }
 
     public function listadoAction() {
+        //Chequear los permisos para acceder a este listado
+
+        //Buscar los tipos de vehículos
+        $em = $this->getDoctrine()->getManager();
+
+        $repo = $em->getRepository(TipoVehiculo::class);
+        $tipos = $repo->findBy(array(), 
+                        array('nombre' => 'ASC'));
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -32,6 +41,7 @@ class TipoVehiculoController extends Controller {
 
         return $this->render('VehiculosBundle:TipoVehiculo:listado.html.twig', array(
                     'page_title' => 'InfoFICH - Tipo de Vehículos',
+                    'tiposVehiculos' => $tipos,
                         //s'docentes_paginado' => $docentes_paginado
         ));
     }

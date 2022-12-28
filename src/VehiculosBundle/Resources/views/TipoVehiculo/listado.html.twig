@@ -42,7 +42,7 @@
         {% from '::macros.html.twig' import notificacion %}
 
         <div class="bg-light">
-            {#% if docentes[0] is defined %#}
+            {% if tiposVehiculos[0] is defined %}
 
             <div class="table-responsive shadow">
                 <table class="table table-condensed table-hover mb-0 bg-white">
@@ -134,11 +134,11 @@
 
 
 
-            {#% else %}
+            {% else %}
                 <div class="bg-light p-4">
-                    No se encontro ning&uacute;n docente adscripto.
+                    No se encontró ning&uacute;n tipo de vehículo cargado.
                 </div>
-            {% endif %#}
+            {% endif %}
         </div>
     </div>
 
