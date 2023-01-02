@@ -81,7 +81,7 @@ class TipoVehiculoController extends Controller {
         return $this->render('VehiculosBundle:Default:new.html.twig', array(
                     //'docenteAdscripto' => $docenteAdscripto,
                    // 'form' => $form->createView(),
-                    'page_title' => 'Vehiculos - Nuevo',
+                    'page_title' => 'Tipo de Vehiculos - Nuevo',
         ));
     }
 
