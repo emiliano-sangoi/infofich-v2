@@ -1,83 +1,27 @@
-{#{ form_start(form) }#}
+{{ form_start(form) }}
 
 <div class="bg-light p-5 shadow">
 
     {# {{ dump(form) }} #}
     <div>
-        {#{ form_errors(form) }#}
-    </div>
-
-
-
-    <div class="form-row">
-        <div class="col-5">
-            <label class="font-weight-bold required" >Tipo </label>
-            <select class="form-control"><option value="1">Camioneta</option>
-                <option value="2">Embarcación</option>
-                <option value="3">Trailer</option>
-                <option value="4">Motor</option>
-            </select>
-
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-6">
-            <label class="font-weight-bold required" >Marca </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-        <div class="col-6">
-            <label class="font-weight-bold required" >Modelo </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
+        {{ form_errors(form) }}
     </div>
 
 
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Patente </label>
-            <input type="text" required="required" class="form-control" />
+       
+            {{ form_label(form.nombre) }}
+            {{ form_widget(form.nombre) }}
+            {{ form_errors(form.nombre) }}
+  
         </div>
         <div class="col-6">
-            <label class="font-weight-bold required" >Descripción </label>
-            <input type="text" required="required" class="form-control" />
+            {{ form_label(form.descripcion) }}
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
         </div>
     </div>
-    <div class="form-row">
-        <div class="col-4">
-            <label class="font-weight-bold required" >Color </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-        <div class="col-4">
-            <label class="font-weight-bold required" >Capacidad </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-        <div class="col-4">
-            <label class="font-weight-bold required" >Combustible </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-
-    </div>
-    <div class="form-row">
-        <div class="col-6">
-            <label class="font-weight-bold required" >Chasis/Casco </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-        <div class="col-6">
-            <label class="font-weight-bold required" >Asociado </label>
-            <select class="form-control"><option value="1">Ford - Ranger XLT 3.0 TDI DC 4x2</option>
-                <option value="2">Volswagen - Amarok </option></select>
-        </div> 
-    </div> 
-
-
-
-    {% block tabla_planificaciones %}
-    {% endblock %}
-
-
 </div>
 
-{#{ form_end(form) }#}
+{{ form_end(form) }}

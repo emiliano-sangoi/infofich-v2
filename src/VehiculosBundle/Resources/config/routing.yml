@@ -25,7 +25,19 @@ vehiculos_delete:
     
 tipo_vehiculos_listado:
     path:     /tipo_vehiculos/listado
-    defaults: { _controller: VehiculosBundle:TipoVehiculo:listado }
+    defaults: { _controller: "VehiculosBundle:TipoVehiculo:listado" }
+tipo_vehiculos_new:
+    path:     /tipo_vehiculos/nuevo
+    defaults: { _controller: "VehiculosBundle:TipoVehiculo:new" }
+tipo_vehiculos_edit:
+    path:     /tipo_vehiculos/{id}/edit
+    defaults: { _controller: "VehiculosBundle:TipoVehiculo:edit" }
+    methods:  [GET, POST]
+tipo_vehiculos_delete:
+    path:     /tipo_vehiculos/{id}/delete
+    defaults: { _controller: "VehiculosBundle:TipoVehiculo:delete" }
+    methods:  DELETE
+
     
     
 reservas_listado:

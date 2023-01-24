@@ -5,14 +5,10 @@
 {% block navbar2 %}     
     {% embed 'navbar2.html.twig' %}         
         {% block navbar2_actions %}  
-            <a href="{{ path('vehiculos_listado') }}" class="">
+            <a href="{{ path('tipo_vehiculos_listado') }}" class="">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
-            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
-                 <i class="fa fa-plus"></i>
-                 Nuevo docente
-             </a>  #}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -24,25 +20,9 @@
 
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
-        </div>
+        </div>      
 
-        {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
-        
-                    {% block form_actions %}
-        
-                        {% embed "::botonera.html.twig" %}
-        
-                            {% block left %}
-                                <input type="submit" value="Crear" class="btn btn-primary" />
-                            {% endblock %}
-        
-                        {% endembed %}
-        
-                    {% endblock %}
-        
-                {% endembed %}#}
-
-        {% include 'VehiculosBundle:Default:form.html.twig' %}
+        {% include 'VehiculosBundle:TipoVehiculo:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
 
@@ -58,20 +38,16 @@
 
 {% endblock %}
 
-
-{#% block javascripts %}
+{% block javascripts %}
     {{ parent() }}
-
-    {% include 'DocentesBundle:adscriptos:ajax-buscar-persona.html.twig' %}
-
 
     <script>
         $(document).ready(function () {
             $('#btnCrear').click(function (e) {
                 e.preventDefault();
-                $("form[name='docentesbundle_docenteadscripto']").submit();
+                $("form[name='vehiculosbundle_tipovehiculo']").submit();
             });
         });
     </script>
 
-{% endblock %#}
+{% endblock %}
