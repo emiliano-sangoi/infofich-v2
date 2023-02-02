@@ -17,6 +17,19 @@
   
         </div>        
     </div>
+    <div class="form-row">
+        <div class="col-6">
+             {{ form_label(form.marca) }}
+            {{ form_widget(form.marca) }}
+            {{ form_errors(form.marca) }}
+        </div>
+        <div class="col-6">
+               {{ form_label(form.modelo) }}
+            {{ form_widget(form.modelo) }}
+            {{ form_errors(form.modelo) }}
+        </div>
+
+    </div>
 </div>
 
 {{ form_end(form) }}
