@@ -13,15 +13,23 @@ class VehiculoController extends Controller {
 
     public function listadoAction() {
 
+        //Chequear los permisos para acceder a este listado
+
+        //Buscar los vehículos
+        $em = $this->getDoctrine()->getManager();
+
+        $repo = $em->getRepository(Vehiculo::class);
+        $vehiculos = $repo->findBy(array(), 
+                        array('descripcion' => 'ASC'));
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Vehículos", $this->get("router")->generate("vehiculos_index"));
 
-
         return $this->render('VehiculosBundle:Vehiculo:listado.html.twig', array(
                     'page_title' => 'InfoFICH - Vehículos',
-                        //s'docentes_paginado' => $docentes_paginado
+                    'vehiculos' => $vehiculos,
         ));
     }
 

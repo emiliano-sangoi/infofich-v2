@@ -42,13 +42,13 @@
         {% from '::macros.html.twig' import notificacion %}
 
         <div class="bg-light">
-            {#% if docentes[0] is defined %#}
+            {% if vehiculos[0] is defined %}
 
                 <div class="table-responsive shadow">
                     <table class="table table-condensed table-hover mb-0 bg-white">
                         <thead class="bg-primary text-light">
                             <tr>
-				<th>#</th>
+				                <th>#</th>
                                 <th>Tipo</th>
                                 <th>Marca</th>                               
                                 <th>Modelo/Nombre</th>                               
@@ -58,7 +58,52 @@
                             </tr>
                         </thead>
                         <tbody>  
-                            <tr>
+                        {% for vehiculo in vehiculos %}
+                                <tr>
+                                    <td class="align-middle">
+                                        {{ loop.index }}                                    
+                                    </td>
+                                    <td>
+                                        {{ vehiculo.tipoVehiculo.nombre }}
+                                    </td>
+                                    <td>
+                                        {{ vehiculo.marca }}
+                                    </td>
+                                    <td>
+                                        {{ vehiculo.modelo }} -     {{ vehiculo.marca }}
+                                    </td>
+                                    <td>
+                                        {{ vehiculo.asociado }} 
+                                    </td>
+                                    <td>
+                                        <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Ver
+                                        </a>
+                                        {% if app.user.tieneRol(ROL_SA) %}
+                                            <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
+                                               class="btn btn-sm btn-outline-secondary">
+                                                Editar
+                                            </a>
+                                        {% endif %}                                      
+                                    </td>
+                                </tr>
+                     {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {#{ knp_pagination_render(docentes) }#}
+                </div>
+
+
+
+            {% else %}
+                <div class="bg-light p-4">
+                    No se encontro ning&uacute;n vehiculo cargado.
+                </div>
+            {% endif %}
+             {#<tr>
 				 <td class="align-middle">
                                   1
                                 </td>
@@ -91,11 +136,11 @@
                                 <td>-</td>                               
                                 
                                <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
@@ -113,11 +158,11 @@
                                 <td>1</td>                               
                                 
                                <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
@@ -137,11 +182,11 @@
                                 <td>2</td>                               
                                 
                             <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
@@ -160,11 +205,11 @@
                                 <td>3</td>                               
                                 
                               <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
@@ -183,11 +228,11 @@
                                 <td>2</td>                               
                                 
 				<td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
@@ -205,59 +250,17 @@
                                 <td>1</td>                               
                                 
                                 <td>
-                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }#}">
+                                      <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
                                         </a>
                                     {% if app.user.tieneRol(ROL_SA) %}
-                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }#}">
+                                        <a class="btn btn-sm btn-outline-secondary" href="{#{ path('usuarios_edit', { 'id': usuario.id }) }}">
                                             <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
                                     {% endif %}
                                 </td>
-                            </tr>
-                            {#% for docenteAdscripto in docentes %}
-                                <tr>
-                                    <td>
-                                        {{ docenteAdscripto.persona.apellidos }}
-                                    </td>
-                                    <td>
-                                        {{ docenteAdscripto.persona.nombres }}
-                                    </td>
-                                    <td>
-                                        {{ docenteAdscripto.persona.getTipoYNroDocumento() }}
-                                    </td>
-                                    <td>
-                                        {{ docenteAdscripto.resolucion }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }}"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            Ver
-                                        </a>
-                                        {% if app.user.tieneRol(ROL_SA) %}
-                                            <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}"
-                                               class="btn btn-sm btn-outline-secondary">
-                                                Editar
-                                            </a>
-                                        {% endif %}
-                                        {#  <a href="{{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }}">edit</a> #}
-                            {# </td>
-                         </tr>
-                     {% endfor % #}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="navigation mt-3 mb-5 centrate-x">
-                    {#{ knp_pagination_render(docentes) }#}
-                </div>
-
-
-
-            {#% else %}
-                <div class="bg-light p-4">
-                    No se encontro ning&uacute;n docente adscripto.
-                </div>
-            {% endif %#}
+                            </tr> #}
+                            
         </div>
     </div>
 

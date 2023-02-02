@@ -72,6 +72,21 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+            {% else %}
+                <div class="bg-light p-4">
+                    No se encontró ning&uacute;n tipo de vehículo cargado.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
 {#<!-- parte harcodeada
                          <tr>
                             <td class="align-middle">
@@ -132,17 +147,4 @@
             </div>
             <div class="navigation mt-3 mb-5 centrate-x">
                 {#{ knp_pagination_render(docentes) }#}
-            </div>
-
-
-
-            {% else %}
-                <div class="bg-light p-4">
-                    No se encontró ning&uacute;n tipo de vehículo cargado.
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
-
 {% endblock %}
