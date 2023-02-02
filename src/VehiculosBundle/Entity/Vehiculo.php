@@ -70,9 +70,14 @@ class Vehiculo
     private $capacidad;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $color;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $chasisCasco;
     
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -328,6 +333,30 @@ class Vehiculo
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get chasisCasco
+     *
+     * @return string
+     */
+    public function getChasisCasco()
+    {
+        return $this->chasisCasco;
+    }
+
+    /**
+     * Set chasisCasco
+     *
+     * @param string $chasisCasco
+     *
+     * @return Vehiculo
+     */
+    public function setChasisCasco($chasisCasco)
+    {
+        $this->chasisCasco = $chasisCasco;
 
         return $this;
     }
