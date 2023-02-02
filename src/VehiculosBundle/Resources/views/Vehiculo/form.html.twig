@@ -1,12 +1,27 @@
-{#{ form_start(form) }#}
+{{ form_start(form) }}
 
 <div class="bg-light p-5 shadow">
 
     {# {{ dump(form) }} #}
     <div>
-        {#{ form_errors(form) }#}
+        {{ form_errors(form) }}
     </div>
 
+
+    <div class="form-row">
+        <div class="col-6">
+       
+            {{ form_label(form.tipo) }}
+            {{ form_widget(form.tipo) }}
+            {{ form_errors(form.tipo) }}
+  
+        </div>        
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+{#
 
 
     <div class="form-row">

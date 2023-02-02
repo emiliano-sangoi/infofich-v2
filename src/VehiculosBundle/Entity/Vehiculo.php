@@ -96,29 +96,29 @@ class Vehiculo
         return $this->id;
     }
 
+
     /**
      * Set tipo
      *
-     * @param string $tipo
+     * @param \VehiculosBundle\Entity\TipoVehiculo $tipo
      *
      * @return Vehiculo
      */
-    public function setTipo($tipo)
-    {
+    public function setTipo(\VehiculosBundle\Entity\TipoVehiculo $tipo = null) {
         $this->tipo = $tipo;
 
         return $this;
     }
 
     /**
-     * Get tipo
+     * Get vehiculo
      *
-     * @return string
+     * @return \VehiculosBundle\Entity\TipoVehiculo
      */
-    public function getTipo()
-    {
+    public function getTipo() {
         return $this->tipo;
     }
+   
 
     /**
      * Set patente

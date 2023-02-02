@@ -5,6 +5,7 @@ namespace VehiculosBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use VehiculosBundle\Entity\Vehiculo;
+use VehiculosBundle\Form\VehiculoType;
 
 
 class VehiculoController extends Controller {
@@ -35,29 +36,23 @@ class VehiculoController extends Controller {
 
     public function newAction(Request $request) {
 
-//TODO DESCOMENTAR Y COMPLETAR CUANDO TENGAMOS LA BD
-        //$docenteAdscripto = new DocenteAdscripto();
-        //$form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto);
-        //    $form->handleRequest($request);
+        $vehiculo = new Vehiculo;
+        $form = $this->createForm(VehiculoType::class, $vehiculo);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
 
-        /*  if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($tipoVehiculo);
+            $em->flush();
 
-          $em = $this->getDoctrine()->getManager();
+            $this->addFlash('success', 'El Vehiculo fue creado correctamente');
 
-          if ($docenteAdscripto->getPersona()->getId()) {
-          $persona = $em->merge($docenteAdscripto->getPersona());
-          $docenteAdscripto->setPersona($persona);
-          }
-
-          $em->persist($docenteAdscripto);
-          $em->flush();
-
-          $this->addFlash('success', 'Docente adscripto creado correctamente');
-
-          return $this->redirectToRoute('docentes_adscriptos');
+            return $this->redirectToRoute('vehiculos_listado');
 
           //return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
-          } */
+        } 
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -66,8 +61,8 @@ class VehiculoController extends Controller {
         $breadcrumbs->addItem("Nuevo");
 
         return $this->render('VehiculosBundle:Vehiculo:new.html.twig', array(
-                    //'docenteAdscripto' => $docenteAdscripto,
-                   // 'form' => $form->createView(),
+                    //'vehiculos' => $vehiculos,
+                    'form' => $form->createView(),
                     'page_title' => 'Vehiculos - Nuevo',
         ));
     }
