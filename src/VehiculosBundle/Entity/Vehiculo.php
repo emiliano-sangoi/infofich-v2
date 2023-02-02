@@ -22,7 +22,11 @@ class Vehiculo
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *
+     * @var Tipo
+     *
+     * @ORM\ManyToOne(targetEntity="TipoVehiculo")
+     * @ORM\JoinColumn(name="tipo_id", referencedColumnName="id", nullable=true)
      */
     private $tipo;
 
@@ -37,7 +41,11 @@ class Vehiculo
     private $descripcion;
 
     /**
-     * @ORM\Column(type="integer")
+     *
+     * @var vehiculo
+     *
+     * @ORM\ManyToOne(targetEntity="Vehiculo")
+     * @ORM\JoinColumn(name="asociado_id", referencedColumnName="id", nullable=true)
      */
     private $asociado;
 
@@ -60,6 +68,11 @@ class Vehiculo
      * @ORM\Column(type="integer")
      */
     private $capacidad;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $color;
     
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -292,5 +305,30 @@ class Vehiculo
     public function getActivo()
     {
         return $this->activo;
+    }
+
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Vehiculo
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
     }
 }
