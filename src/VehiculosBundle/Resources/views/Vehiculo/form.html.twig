@@ -59,51 +59,24 @@
             {{ form_widget(form.combustible) }}
             {{ form_errors(form.combustible) }}
         </div>
-
-
     </div>
-</div>
-
-{{ form_end(form) }}
-
-{#
-
-
-    <div class="form-row">
-        <div class="col-4">
-            <label class="font-weight-bold required" >Color </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-        <div class="col-4">
-            <label class="font-weight-bold required" >Capacidad </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-        <div class="col-4">
-            <label class="font-weight-bold required" >Combustible </label>
-            <input type="text" required="required" class="form-control" />
-        </div>
-
-
-    </div>
+    
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Chasis/Casco </label>
-            <input type="text" required="required" class="form-control" />
+            {{ form_label(form.chasisCasco) }}
+            {{ form_widget(form.chasisCasco) }}
+            {{ form_errors(form.chasisCasco) }}            
         </div>
         <div class="col-6">
-            <label class="font-weight-bold required" >Asociado </label>
-            <select class="form-control"><option value="1">Ford - Ranger XLT 3.0 TDI DC 4x2</option>
-                <option value="2">Volswagen - Amarok </option></select>
+            {{ form_label(form.asociado) }}
+            {{ form_widget(form.asociado) }}
+            {{ form_errors(form.asociado) }}  
+           
         </div> 
     </div> 
 
 
-
-    {% block tabla_planificaciones %}
-    {% endblock %}
-
-
 </div>
 
-{#{ form_end(form) }#}
+{{ form_end(form) }}
+
