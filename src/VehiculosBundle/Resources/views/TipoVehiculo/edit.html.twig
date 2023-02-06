@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+
+{% set full_width = false %}
+
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
+            <a href="{{ path('tipo_vehiculos_listado') }}" class="">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
+                Volver
+            </a>
+            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                 <i class="fa fa-plus"></i>
+                 Nuevo docente
+             </a>  #}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="pb-5">
+
+        <div class="my-3">
+            {% include '::notificaciones.html.twig' %}
+        </div>
+
+        {% include 'VehiculosBundle:TipoVehiculo:form.html.twig' %}
+
+        {% embed '::botonera.html.twig' %}
+
+            {% block left %}
+                <button id="guardarCambios" class="btn btn-primary">
+                    <i class="fa fa-save"></i>&nbsp;Guardar cambios
+                </button>
+                <a href="{{ path('tipo_vehiculos_listado') }}"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+            {% endblock %}
+
+            {% block right %}
+                {{ form_start(delete_form) }}
+                <button role="submit" class="btn btn-danger confirmar-borrado"
+                        data-msg='¿Esta seguro que desea borrar el docente <b>{{ tipoVehiculo.nombre }}</b>?'>
+                    <i class="fa fa-trash"></i>&nbsp;Borrar
+                </button>
+                {{ form_end(delete_form) }}
+            {% endblock %}
+
+        {% endembed %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('#guardarCambios').click(function (e) {
+                e.preventDefault();
+                $("form[name='vehiculosbundle_tipovehiculo']").submit();
+            });
+        });
+    </script>
+
+
+{% endblock %}
