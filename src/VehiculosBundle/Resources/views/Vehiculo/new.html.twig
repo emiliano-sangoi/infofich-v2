@@ -59,19 +59,16 @@
 {% endblock %}
 
 
-{#% block javascripts %}
+{% block javascripts %}
     {{ parent() }}
 
-    {% include 'DocentesBundle:adscriptos:ajax-buscar-persona.html.twig' %}
-
-
-    <script>
+        <script>
         $(document).ready(function () {
             $('#btnCrear').click(function (e) {
                 e.preventDefault();
-                $("form[name='docentesbundle_docenteadscripto']").submit();
+                $("form[name='vehiculosbundle_vehiculo']").submit();
             });
         });
     </script>
 
-{% endblock %#}
+{% endblock %}
