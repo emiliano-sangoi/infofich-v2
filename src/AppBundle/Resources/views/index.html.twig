@@ -67,19 +67,20 @@
 
                 
                 {#  VEHICULOS ================================================================================================ #}
-                {% 
-                    set attrs = {
-                        'title' : 'Vehículos',
-                        'descripcion' : 'Alta, bajas, modificaciones y busquedas de vehículos de la FICH.',
-                        'button_href' : path('vehiculos_index')
-                    }
-                %}
-                {% embed 'AppBundle::modulo.html.twig' with attrs %}
-                    {% block icono %}
-                         <i class="fa fa-car fa-5x"></i>
-                    {% endblock %}
-                {% endembed %}   
-
+                 {% if perm_rol_listar %}
+                    {% 
+                        set attrs = {
+                            'title' : 'Vehículos',
+                            'descripcion' : 'Alta, bajas, modificaciones y busquedas de vehículos de la FICH.',
+                            'button_href' : path('vehiculos_index')
+                        }
+                    %}
+                    {% embed 'AppBundle::modulo.html.twig' with attrs %}
+                        {% block icono %}
+                            <i class="fa fa-car fa-5x"></i>
+                        {% endblock %}
+                    {% endembed %}   
+                {% endif %}
                 {#  USUARIOS  ======================================================================================== #}
                 {% if perm_usuario_listar %}
                     {% 
