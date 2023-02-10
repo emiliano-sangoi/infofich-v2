@@ -134,8 +134,6 @@ class TipoVehiculoController extends Controller {
             $em->remove($tipoVehiculo);
             $em->flush();
             $this->addFlash('success', 'Tipo de vehículo borrado correctamente.');
-            
-
         }
 
         return $this->redirectToRoute('tipo_vehiculos_listado');
