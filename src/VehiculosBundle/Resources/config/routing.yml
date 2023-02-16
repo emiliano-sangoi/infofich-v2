@@ -37,6 +37,11 @@ tipo_vehiculos_delete:
     path:     /tipo_vehiculos/{id}/delete
     defaults: { _controller: "VehiculosBundle:TipoVehiculo:delete" }
     methods:  DELETE
+tipo_delete:
+    path:     /tipo_vehiculos/delete/{id}
+    defaults: { _controller: "VehiculosBundle:TipoVehiculo:deleteTipo" }
+    methods:  [GET, POST]
+
 
     
     

@@ -38,7 +38,6 @@ class TipoVehiculoController extends Controller {
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Vehículos", $this->get("router")->generate("vehiculos_index"));
 
-
         return $this->render('VehiculosBundle:TipoVehiculo:listado.html.twig', array(
                     'page_title' => 'InfoFICH - Tipo de Vehículos',
                     'tiposVehiculos' => $tipos,
@@ -152,6 +151,18 @@ class TipoVehiculoController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
+    }
+
+    public function deleteTipoAction(TipoVehiculo $tipoVehiculo){
+        if (!$tipoVehiculo) {
+            throw $this->createNotFoundException('No hay un tipo de vehículo seleccionado.');
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($tipoVehiculo);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('tipo_vehiculos_listado'));
     }
 
 }

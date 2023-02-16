@@ -69,10 +69,18 @@
                                                         <i class="fa fa-edit"></i>
                                                         Ver/Editar
                                     </a>
+
+                                    <a href="{{ path('tipo_delete', { 'id': tipoVehiculo.id }) }}" class="btn btn-sm btn-outline-danger" 
+                                    data-confirm='¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'>
+                                                            <i class="fa fa-trash"></i>
+                                                            Eliminar
+                                                        </a>
+                                    
                                     <button role="submit" class="btn btn-danger confirmar-borrado"
                                         data-msg='¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'>
                                         <i class="fa fa-trash"></i>&nbsp;Borrar
                                     </button>
+                                    
                                 {#% endif %#}
                             </td>
                         </tr>
