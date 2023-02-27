@@ -393,9 +393,10 @@ class PlanificacionController extends Controller {
         $tabla_det = $detalleItems;
 
 // harcodiado el año esto es peligroso para el siguiente
+        $anioActual = $planificacion->getAnioAcad();
         $parametros = array(
-            'titulo' => 'Planificaciones 2022',
-            'anio' => '2022',
+            'titulo' => 'Planificaciones' . $anioActual,
+            'anio' => $anioActual,
             'id' => 1,
             'nombreAsignatura' => $nombreAsignatura,
             'nombreCarrera' => $nombreCarrera,
