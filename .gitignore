@@ -25,3 +25,4 @@ node_modules
 .vscode
 app/config/parameters_prod.yml
 src/AppBundle/Resources/scss/.sass-cache/
+db_infofich2.sql*

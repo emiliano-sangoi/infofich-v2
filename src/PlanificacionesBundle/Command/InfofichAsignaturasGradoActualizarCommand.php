@@ -117,6 +117,14 @@ class InfofichAsignaturasGradoActualizarCommand extends ContainerAwareCommand
 
             $todas_las_asignaturas = $query->getResultado();
 
+            if($todas_las_asignaturas === false){
+                $this->output->writeln('Error al obtener las materias de la carrera: ' . $carrera->getCodigoCarrera() . ' - ' . $carrera->getNombreCarrera());
+                $this->output->writeln($query->getError());
+                $this->output->writeln('Script finalizado con errores.');
+                exit;
+            }
+
+
             /* @var $asignaturaWs Materia */
             foreach ($todas_las_asignaturas as $asignaturaWs) {
 

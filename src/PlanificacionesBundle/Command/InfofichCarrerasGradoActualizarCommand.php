@@ -94,10 +94,17 @@ class InfofichCarrerasGradoActualizarCommand extends ContainerAwareCommand
 
         /* @var $carreraWs CarreraWS */
         foreach ($todas_las_carreras as $carreraWs){
+
             $cod = $carreraWs->getCodigoCarrera();
 
+            $this->output->writeln('==================================================================================');
             $this->output->writeln('Carrera: ' . $cod);
             $this->output->writeln('Nombre: ' . $carreraWs->getNombreCarrera());
+            $this->output->writeln('Codigo: ' . $carreraWs->getCodigoCarrera());
+            $this->output->writeln('Plan: ' . $carreraWs->getPlanCarrera());
+            $this->output->writeln('Nombre plan: ' . $carreraWs->getNombrePlan());
+            $this->output->writeln('Version: ' . $carreraWs->getVersionPlan());
+            $this->output->writeln('Estado: ' . $carreraWs->getEstado());
 
             /* @var $carrera Carrera */
             $carrera = $this->repoCarreras->findOneBy([
@@ -119,6 +126,7 @@ class InfofichCarrerasGradoActualizarCommand extends ContainerAwareCommand
 
             $carrera->setNombreCarrera($carreraWs->getNombreCarrera());
             $carrera->setPlanCarrera($carreraWs->getPlanCarrera());
+            $carrera->setNombrePlan($carreraWs->getNombrePlan());
             $carrera->setVersionPlan($carreraWs->getVersionPlan());
             $carrera->setEstado($carreraWs->getEstado());
             $carrera->setTipoTitulo($carreraWs->getTipoTitulo());
@@ -141,8 +149,7 @@ class InfofichCarrerasGradoActualizarCommand extends ContainerAwareCommand
                 $this->em->flush();
             }
 
-            $this->output->writeln('');
-            $this->output->writeln('------------------------------------------------------------------------------');
+            //$this->output->writeln('');
         }
 
 

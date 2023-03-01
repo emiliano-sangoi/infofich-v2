@@ -170,6 +170,7 @@ class Asignatura implements \JsonSerializable
     public function __construct()
     {
         $this->origenWs = false;
+        $this->esRecursada = false;
     }
 
 
