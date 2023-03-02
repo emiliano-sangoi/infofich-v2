@@ -50,10 +50,12 @@
                                                     {{ p.getTitulo()|upper }}
                                                 </span>
                                                 <span class="right centrate-y">
-                                                    <span
+                                                    {% if p.asignatura.carrera is defined %}
+                                                    <span title="{{ p.asignatura.carrera.getNombreCarrera() }}"
                                                         class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
-                                                        {{ p.getCarreraAbrev() }}
+                                                        {{  p.asignatura.carrera.getNombreCarreraAbrev() }}
                                                     </span>
+                                                    {% endif %}
                                                     {% set eActual = p.getEstadoActual() %}
                                                     {% if eActual %}
                                                         {% set class = eActual.getCssClass() %}

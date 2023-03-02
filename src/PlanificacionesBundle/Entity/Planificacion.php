@@ -888,25 +888,6 @@ class Planificacion implements \JsonSerializable{
         return $this->carrera;
     }
 
-    public function getCarreraAbrev() {
-        switch ($this->asignatura->getCarrera()->getCodigoCarrera()){
-            case WSHelper::CARRERA_II:
-                return 'II';
-            case WSHelper::CARRERA_IRH:
-                return 'IRH';
-            case WSHelper::CARRERA_IAGR:
-                return 'IAGR';
-            case WSHelper::CARRERA_IAMB:
-                return 'IAMB';
-            case WSHelper::CARRERA_PTOP:
-                return 'PTC';
-            case WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA:
-                return 'TUAR';
-        }
-
-        return null;
-    }
-
 
 
     /**

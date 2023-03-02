@@ -70,6 +70,15 @@ class Carrera implements \JsonSerializable {
     private $nombreCarrera;
 
     /**
+     * Nombre de la carrera
+     *
+     * @var string
+     *
+     * @ORM\Column(name="nombre_carrera_abrev", type="string", length=24, nullable=true)
+     */
+    private $nombreCarreraAbrev;
+
+    /**
      * Plan al que pertenece la carrera.
      *
      * @var string
@@ -509,4 +518,24 @@ class Carrera implements \JsonSerializable {
     {
         return $this->disponiblePlanif;
     }
+
+    /**
+     * @return string
+     */
+    public function getNombreCarreraAbrev(): string
+    {
+        return $this->nombreCarreraAbrev;
+    }
+
+    /**
+     * @param string $nombreCarreraAbrev
+     * @return Carrera
+     */
+    public function setNombreCarreraAbrev(string $nombreCarreraAbrev): Carrera
+    {
+        $this->nombreCarreraAbrev = $nombreCarreraAbrev;
+        return $this;
+    }
+
+
 }
