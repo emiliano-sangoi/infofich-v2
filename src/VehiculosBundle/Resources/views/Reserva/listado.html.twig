@@ -60,7 +60,46 @@
                         </tr>
                     </thead>
                     <tbody>  
-                        <tr>
+                    {% for reserva in reservas %}
+                                <tr>
+                                    <td class="align-middle">
+                                        {{ loop.index }}                                    
+                                    </td>
+                                    <td>
+                                        {{ reserva.docente.nombre }}
+                                    </td>
+                                    <td>
+                                        {{ reserva.vehiculo }}
+                                    </td>
+                                    <td>
+                                        {{ reserva.fechaInicio }}
+                                    </td>
+                                    <td>
+                                        {{ reserva.fechaFin }} 
+                                    </td>
+                                    <td>
+                                        {{ reserva.estado }} 
+                                    </td>
+                                    <td>
+                                        {{ reserva.CantidadPersonas }} 
+                                    </td>
+                                    <td>
+                                        {{ reserva.ElementosExtras }} 
+                                    </td>
+                                    <td>
+                                        <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Ver
+                                        </a>
+                                        {% if app.user.tieneRol(ROL_SA) %}
+                                            <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
+                                               class="btn btn-sm btn-outline-secondary">
+                                                Editar
+                                            </a>
+                                        {% endif %}                                      
+                                    </td>
+                                </tr>
+                    {#    <tr>
                             <td class="align-middle">1</td>
                             <td>Azario Alejandro Gabriel </td>
                             <td>Virgin Marine - Azimut</td>
@@ -122,7 +161,7 @@
                             </td>
                         </tr>
 
-
+                    #}  {% endfor %}
                     </tbody>
                 </table>
             </div>
