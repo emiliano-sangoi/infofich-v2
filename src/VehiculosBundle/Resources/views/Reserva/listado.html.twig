@@ -66,25 +66,25 @@
                                         {{ loop.index }}                                    
                                     </td>
                                     <td>
-                                        {{ reserva.docente.nombre }}
+                                        {{ reserva.docente }}
                                     </td>
                                     <td>
                                         {{ reserva.vehiculo }}
                                     </td>
                                     <td>
-                                        {{ reserva.fechaInicio }}
+                                        {{ reserva.fechaInicio|date('d/m/Y H:i') }}
                                     </td>
                                     <td>
-                                        {{ reserva.fechaFin }} 
+                                        {{ reserva.fechaFin|date('d/m/Y H:i') }} 
                                     </td>
                                     <td>
                                         {{ reserva.estado }} 
                                     </td>
                                     <td>
-                                        {{ reserva.CantidadPersonas }} 
+                                        {{ reserva.cantidadPersonas }} 
                                     </td>
                                     <td>
-                                        {{ reserva.ElementosExtras }} 
+                                        {{ reserva.elementosExtras }} 
                                     </td>
                                     <td>
                                         <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"

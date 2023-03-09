@@ -1,71 +1,61 @@
-{#{ form_start(form) }#}
+{{ form_start(form) }}
 
 <div class="bg-light p-5 shadow">
 
     {# {{ dump(form) }} #}
     <div>
-        {#{ form_errors(form) }#}
+        {{ form_errors(form) }}
     </div>
 
 
 
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Docente </label>
-            <select class="form-control"><option value="1">Abrile Mariana Guadalupe </option>              
-            </select>
-
+            {{ form_label(form.docente) }}
+            {{ form_widget(form.docente) }}
+            {{ form_errors(form.docente) }}
 
         </div>
         <div class="col-6">
-            <label class="font-weight-bold required" >Vehiculo </label>
-            <select class="form-control"><option value="1">Virgin Marine - Azimut </option>              
-            </select>
+            {{ form_label(form.vehiculo) }}
+            {{ form_widget(form.vehiculo) }}
+            {{ form_errors(form.vehiculo) }}
 
         </div>
     </div>
     <div class="form-row">
 
-        <div class="col-6">
-            <label class="font-weight-bold required" >Fecha Inicio 	 </label>
-
-            <div class="input-group date tempusdominus-datepicker" id="docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-target-input="nearest">
-                <input type="text" id="docentesbundle_docenteadscripto_persona_fechaNacimiento" name="docentesbundle_docenteadscripto[persona][fechaNacimiento]" class="form-control datetimepicker-input" placeholder="dd/mm/AAAA" autocomplete="off" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker">
-                <div class="input-group-append" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
+        <div class="col-6">            
+            {% from '::macros.html.twig' import input_datetime_picker %}
+            {{ input_datetime_picker(form.fechaInicio, form.fechaInicio.vars.id ~ '_picker', true ) }}    
+               
 
         </div>
 
         <div class="col-6">
-            <label class="font-weight-bold required" >Fecha Fin 	 </label>
-
-            <div class="input-group date tempusdominus-datepicker" id="docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-target-input="nearest">
-                <input type="text" id="docentesbundle_docenteadscripto_persona_fechaNacimiento" name="docentesbundle_docenteadscripto[persona][fechaNacimiento]" class="form-control datetimepicker-input" placeholder="dd/mm/AAAA" autocomplete="off" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker">
-                <div class="input-group-append" data-target="#docentesbundle_docenteadscripto_persona_fechaNacimiento_picker" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
+            {% from '::macros.html.twig' import input_datetime_picker %}
+            {{ input_datetime_picker(form.fechaFin, form.fechaFin.vars.id ~ '_picker', true ) }}            
 
         </div>
     </div>
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Estado </label>
-            <input type="text" required="required" class="form-control" />
+            {{ form_label(form.estado) }}
+            {{ form_widget(form.estado) }}
+            {{ form_errors(form.estado) }}
         </div>
         <div class="col-6">
-            <label class="font-weight-bold required" >Cantidad Personas </label>
-            <input type="number" required="required" class="form-control">
+            {{ form_label(form.cantidadPersonas) }}
+            {{ form_widget(form.cantidadPersonas) }}
+            {{ form_errors(form.cantidadPersonas) }}
         </div>
     </div>
 
     <div class="form-row">
         <div class="col-6">
-            <label class="font-weight-bold required" >Elementos Extras </label>
-             <select class="form-control"><option value="1">5 Bidones móviles de combustible</option>              
-            </select>
+           {{ form_label(form.elementosExtras) }}
+           {{ form_widget(form.elementosExtras) }}
+           {{ form_errors(form.elementosExtras) }}
         </div>     
     </div>
 
@@ -79,4 +69,4 @@
 
 </div>
 
-{#{ form_end(form) }#}
+{{ form_end(form) }}

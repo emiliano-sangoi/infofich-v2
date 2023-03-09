@@ -4,7 +4,8 @@ namespace VehiculosBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use VehiculosBundle\Entity\Vehiculo;
+use VehiculosBundle\Entity\Reserva;
+use VehiculosBundle\Form\ReservaType;
 
 
 class ReservaController extends Controller {
@@ -13,6 +14,17 @@ class ReservaController extends Controller {
 
     public function listadoAction() {
 
+        
+        //Chequear los permisos para acceder a este listado
+
+        //Buscar los vehículos
+        $em = $this->getDoctrine()->getManager();
+
+        $repo = $em->getRepository(Reserva::class);
+        $reservas = $repo->findBy(array(), 
+                        array('fechaInicio' => 'ASC'));
+
+        
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -21,35 +33,29 @@ class ReservaController extends Controller {
 
         return $this->render('VehiculosBundle:Reserva:listado.html.twig', array(
                     'page_title' => 'InfoFICH - Reserva Vehículos',
-                        //s'docentes_paginado' => $docentes_paginado
+                    'reservas' => $reservas,                        
         ));
     }
     
      public function newAction(Request $request) {
 
         //TODO DESCOMENTAR Y COMPLETAR CUANDO TENGAMOS LA BD
-        //$docenteAdscripto = new DocenteAdscripto();
-        //$form = $this->createForm(DocenteAdscriptoType::class, $docenteAdscripto);
-        //    $form->handleRequest($request);
+        $reserva = new Reserva();
+        $form = $this->createForm(ReservaType::class, $reserva);
+        $form->handleRequest($request);
 
-        /*  if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-          $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reserva);
+            $em->flush();
 
-          if ($docenteAdscripto->getPersona()->getId()) {
-          $persona = $em->merge($docenteAdscripto->getPersona());
-          $docenteAdscripto->setPersona($persona);
-          }
+            $this->addFlash('success', 'Reserva creada correctamente');
 
-          $em->persist($docenteAdscripto);
-          $em->flush();
-
-          $this->addFlash('success', 'Docente adscripto creado correctamente');
-
-          return $this->redirectToRoute('docentes_adscriptos');
+            return $this->redirectToRoute('reservas_listado');
 
           //return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
-          } */
+        } 
 
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -58,8 +64,8 @@ class ReservaController extends Controller {
         $breadcrumbs->addItem("Nuevo");
 
         return $this->render('VehiculosBundle:Reserva:new.html.twig', array(
-                    //'docenteAdscripto' => $docenteAdscripto,
-                   // 'form' => $form->createView(),
+                    'reserva' => $reserva,
+                    'form' => $form->createView(),
                     'page_title' => 'Reserva - Nueva',
         ));
     }

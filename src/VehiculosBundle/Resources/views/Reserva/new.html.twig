@@ -26,22 +26,6 @@
             {% include '::notificaciones.html.twig' %}
         </div>
 
-        {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
-        
-                    {% block form_actions %}
-        
-                        {% embed "::botonera.html.twig" %}
-        
-                            {% block left %}
-                                <input type="submit" value="Crear" class="btn btn-primary" />
-                            {% endblock %}
-        
-                        {% endembed %}
-        
-                    {% endblock %}
-        
-                {% endembed %}#}
-
         {% include 'VehiculosBundle:Reserva:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
@@ -59,19 +43,16 @@
 {% endblock %}
 
 
-{#% block javascripts %}
+{% block javascripts %}
     {{ parent() }}
-
-    {% include 'DocentesBundle:adscriptos:ajax-buscar-persona.html.twig' %}
-
 
     <script>
         $(document).ready(function () {
             $('#btnCrear').click(function (e) {
                 e.preventDefault();
-                $("form[name='docentesbundle_docenteadscripto']").submit();
+                $("form[name='vehiculosbundle_reservas']").submit();
             });
         });
     </script>
 
-{% endblock %#}
+{% endblock %}
