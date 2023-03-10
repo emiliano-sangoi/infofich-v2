@@ -51,11 +51,13 @@ class TemarioRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
 
         $qb = $this->getQb($tema->getPlanificacion());
-        $qb->select('t');
+        $qb->select('t')
+           ->orderBy('t.unidad', 'ASC');
 
         $n = 1;
         $it = $qb->getQuery()->iterate();
-        foreach ($it as $row){
+      
+        foreach ($it as $row){            
             $row[0]->setUnidad($n++);
         }
 
