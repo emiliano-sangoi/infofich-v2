@@ -85,9 +85,9 @@ class ActividadesCurricularesController extends Controller {
             //sumar al total la cant de hs de la actividad que se esta creando:
             $sumaCargaHoraria += $ac->getCargaHorariaAula();
 
-            if ( $sumaCargaHoraria > $cargaHorariaTotal ) {
+            if ( number_format($sumaCargaHoraria, 2) > $cargaHorariaTotal ) {
                 //Hay que controlar que no se pase de la carg horaria total
-                $msg = 'La carga horaria definida en la planificacion (' . $sumaCargaHoraria . ') Hs. es distinta a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
+                $msg = 'La carga horaria definida en la planificacion (' . number_format($sumaCargaHoraria, 2) . ' Hs.)  debe ser igual a la carga horaria total definida en la asignatura (' . $cargaHorariaTotal . ' Hs.).';
                 $form->get('cargaHorariaAula')->addError(new \Symfony\Component\Form\FormError($msg));
             } else {
 

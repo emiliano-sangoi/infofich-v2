@@ -18,7 +18,7 @@
                 {% from '::macros.html.twig' import notificacion %}
                 {% set msg %}
                     <p class='mb-1 text-danger'>La carga horaria definida en la planificacion
-                        ({{ planificacion.getTotalCargaHorariaAula() }} Hs.) es distinta a la carga horaria total
+                        ({{ planificacion.getTotalCargaHorariaAula() }} Hs.) debe ser igual a la carga horaria total
                         definida en la asignatura ({{ cargaHorariaTotal }} hs.).</p>
                 {% endset %}
                 {{ notificacion('Mensaje', msg, 'danger', '' ) }}
