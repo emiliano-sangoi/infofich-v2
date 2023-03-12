@@ -133,9 +133,9 @@ class TipoVehiculoController extends Controller {
             $em->remove($tipoVehiculo);
             $em->flush();
             $this->addFlash('success', 'Tipo de vehículo borrado correctamente.');
+            
         }
-
-        return $this->redirectToRoute('tipo_vehiculos_listado');
+        return $this->redirectToRoute('tipo_vehiculos_listado');     
     }
 
     /**
@@ -162,7 +162,9 @@ class TipoVehiculoController extends Controller {
         $em->remove($tipoVehiculo);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('tipo_vehiculos_listado'));
+        //return $this->redirect($this->generateUrl('tipo_vehiculos_listado'));
+        $this->addFlash('success', 'Tipo de vehículo borrado correctamente.');
+            return $this->redirectToRoute('tipo_vehiculos_listado');
     }
 
 }
