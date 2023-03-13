@@ -207,7 +207,7 @@ class PlanificacionController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
-//dump($data);exit;
+
             /* @var $planificacionCopia Planificacion */
             $planificacionCopia = clone $planificacion;
 
@@ -252,7 +252,7 @@ class PlanificacionController extends Controller {
             $msg = 'Ya existe una planificación creada para la carrera, asignatura y año académico elegido.';
             $form->addError(new FormError($msg));
         }
-//dump($form);exit;
+
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -393,9 +393,10 @@ class PlanificacionController extends Controller {
         $tabla_det = $detalleItems;
 
 // harcodiado el año esto es peligroso para el siguiente
+        $anioActual = $planificacion->getAnioAcad();
         $parametros = array(
-            'titulo' => 'Planificaciones 2022',
-            'anio' => '2022',
+            'titulo' => 'Planificaciones' . $anioActual,
+            'anio' => $anioActual,
             'id' => 1,
             'nombreAsignatura' => $nombreAsignatura,
             'nombreCarrera' => $nombreCarrera,

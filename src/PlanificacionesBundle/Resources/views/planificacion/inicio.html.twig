@@ -46,14 +46,16 @@
                                                     data-target="#{{ id }}" aria-expanded="false"
                                                     aria-controls="{{ id }}" style="text-decoration: none;">
 
+                                                {% if p.asignatura.carrera is defined %}
+                                                    <span title="{{ p.asignatura.carrera.getNombreCarrera() }}"
+                                                          class="badge border border-white badge-carrera mr-2 d-none d-md-inline-block w-15" style="opacity: .85;">
+                                                        {{  p.asignatura.carrera.getNombreCarreraAbrev() }}
+                                                    </span>
+                                                {% endif %}
                                                 <span class="text-white font-weight-bold">
                                                     {{ p.getTitulo()|upper }}
                                                 </span>
                                                 <span class="right centrate-y">
-                                                    <span
-                                                        class="badge bg-azul border border-white badge-carrera mr-2 d-none d-md-inline">
-                                                        {{ p.getCarreraAbrev() }}
-                                                    </span>
                                                     {% set eActual = p.getEstadoActual() %}
                                                     {% if eActual %}
                                                         {% set class = eActual.getCssClass() %}

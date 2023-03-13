@@ -38,7 +38,9 @@ class Carrera implements \JsonSerializable {
         WSHelper::CARRERA_IAMB,
         WSHelper::CARRERA_IAGR,
         WSHelper::CARRERA_PTOP,
-        WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA
+        WSHelper::CARRERA_TEC_UNIV_AUT_ROBOTICA,
+        WSHelper::CARRERA_ING_INT_ART,
+        WSHelper::CARRERA_LIC_CIENCIA_DATOS,
     );
 
     /**
@@ -68,6 +70,15 @@ class Carrera implements \JsonSerializable {
     private $nombreCarrera;
 
     /**
+     * Nombre de la carrera
+     *
+     * @var string
+     *
+     * @ORM\Column(name="nombre_carrera_abrev", type="string", length=24, nullable=true)
+     */
+    private $nombreCarreraAbrev;
+
+    /**
      * Plan al que pertenece la carrera.
      *
      * @var string
@@ -75,6 +86,44 @@ class Carrera implements \JsonSerializable {
      * @ORM\Column(name="plan_carrera", type="string", length=6)
      */
     private $planCarrera;
+
+    /**
+     * Plan al que pertenece la carrera.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="nombre_plan", type="string", length=6, nullable=true)
+     */
+    private $nombrePlan;
+
+    /**
+     * Plan al que pertenece la carrera.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="plan_carrera_ant", type="string", length=6, nullable=true)
+     */
+    private $planCarreraAnt;
+
+    /**
+     * @return string
+     */
+    public function getNombrePlan()
+    {
+        return $this->nombrePlan;
+    }
+
+    /**
+     * @param string $nombrePlan
+     * @return Carrera
+     */
+    public function setNombrePlan($nombrePlan)
+    {
+        $this->nombrePlan = $nombrePlan;
+        return $this;
+    }
+
+
 
     /**
      * Plan al que pertenece la carrera.
@@ -369,6 +418,24 @@ class Carrera implements \JsonSerializable {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
+    public function getPlanCarreraAnt()
+    {
+        return $this->planCarreraAnt;
+    }
+
+    /**
+     * @param string $planCarreraAnt
+     * @return Carrera
+     */
+    public function setPlanCarreraAnt($planCarreraAnt)
+    {
+        $this->planCarreraAnt = $planCarreraAnt;
+        return $this;
+    }
+
 
     public function jsonSerialize() {
         return array(
@@ -451,4 +518,24 @@ class Carrera implements \JsonSerializable {
     {
         return $this->disponiblePlanif;
     }
+
+    /**
+     * @return string
+     */
+    public function getNombreCarreraAbrev(): string
+    {
+        return $this->nombreCarreraAbrev;
+    }
+
+    /**
+     * @param string $nombreCarreraAbrev
+     * @return Carrera
+     */
+    public function setNombreCarreraAbrev(string $nombreCarreraAbrev): Carrera
+    {
+        $this->nombreCarreraAbrev = $nombreCarreraAbrev;
+        return $this;
+    }
+
+
 }

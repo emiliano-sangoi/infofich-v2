@@ -9,7 +9,7 @@
         },
         "files": ["app/AppKernel.php"]
     },
-    "require": {    
+    "require": {
         "php": "<=7.2.34",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
@@ -73,11 +73,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-rectorado"
+            "url": "ssh://extyvt@wfich1.unl.edu.ar/var/repos-git/api-rectorado"
         },
         {
             "type": "vcs",
-            "url": "ssh://extyvt@fich.unl.edu.ar/var/repos-git/api-infofich"
+            "url": "ssh://extyvt@wfich1.unl.edu.ar/var/repos-git/api-infofich"
         }
     ]
 }

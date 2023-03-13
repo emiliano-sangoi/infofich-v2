@@ -18,7 +18,7 @@
 
                 {% if cargaHorariaTotal is defined and cargaHorariaTotal is not null %}
                 <p class="mt-2 text-danger font-italic">
-                    (M&aacute;ximo: {{ cargaHorariaTotal }} Hs.)
+                    (Carga Horaria Total: {{ cargaHorariaTotal }} Hs.)
                 </p>
                 {% endif %}
             </td>
@@ -64,6 +64,8 @@
 
     $('#btnDistHorariaModal').click(function (e) {
         e.preventDefault();
+
+        console.log('holaa');
 
         var html = $('#distrubucion-horaria').clone();
         html.removeClass('d-none');

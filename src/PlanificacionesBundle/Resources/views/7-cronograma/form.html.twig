@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-12 col-md-3">
                     {% set tooltip_msg %}
-                        La suma de la carga horaria en aula de todas las actividades no debe superar la carga horaria total de la asignatura ({{ cargaHorariaTotal ? cargaHorariaTotal ~ ' Hs.' : 'Sin definir' }})
+                        La suma de la carga horaria en aula de todas las actividades debe se igual a la carga horaria total de la asignatura ({{ cargaHorariaTotal ? cargaHorariaTotal ~ ' Hs.' : 'Sin definir' }})
                     {% endset %}
 
                     {{ form_label(form.cargaHorariaAula) }}

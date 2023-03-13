@@ -30,7 +30,7 @@
                     <button id="btnGuardarCambios" type="submit" role="button" class="btn btn-primary d-inline">
                         <i class="fa fa-check"></i>&nbsp;
                         Guardar cambios
-                    </button>        
+                    </button>
                     <a href="{{ path('planif_act_curriculares_duplicar_act', { id : actividad.id }) }}" class="btn btn-outline-primary">
                         <i class="fa fa-copy"></i>&nbsp;
                         Duplicar
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-{% endblock %} 
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -67,8 +67,8 @@
 
     </script>
 
-    {% if planificacion.puedeEditarse() %}
+{#    {% if planificacion.puedeEditarse() %}#}
         {% include 'PlanificacionesBundle:7-cronograma:modal-dist-horaria.html.twig' %}
-    {% endif %}
+{#    {% endif %}#}
 
-{% endblock %} 
+{% endblock %}

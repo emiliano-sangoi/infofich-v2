@@ -242,9 +242,9 @@ class PlanificacionService {
 
         //$asignatura = $this->apiInfofichService->getAsignatura($planificacion->getCarrera(), $planificacion->getCodigoAsignatura());
         $cargaHorariaTotal = $planificacion->getAsignatura()->getCargaHoraria();
-
-        if (($sumaCargaHoraria != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
-            $errores[] = 'La carga horaria definida en la planificacion ('.$sumaCargaHoraria.' Hs.) es distinta a la carga horaria total definida en la asignatura ('. $cargaHorariaTotal . ' hs.).';//no se usaa
+     
+        if ((number_format($sumaCargaHoraria, 2) != $cargaHorariaTotal) && ($cargaHorariaTotal > 0)) {
+            $errores[] = 'La carga horaria definida en la planificacion ('.$sumaCargaHoraria.' Hs.) debe ser igual a la carga horaria total definida en la asignatura ('. $cargaHorariaTotal . ' hs.).';//no se usaa
             $this->hayErrores = true;
         }
 
