@@ -2,26 +2,40 @@
 
 <div class="bg-light p-5 shadow">
 
-    {# {{ dump(form) }} #}
     <div>
         {{ form_errors(form) }}
     </div>
 
-
     <div class="form-row">
-        <div class="col-6">
-       
+        <div class="col-12 col-md-6">
             {{ form_label(form.nombre) }}
             {{ form_widget(form.nombre) }}
             {{ form_errors(form.nombre) }}
-  
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-3">
+            {{ form_label(form.habilitado) }}
+            {{ form_widget(form.habilitado) }}
+            {{ form_errors(form.habilitado) }}
+        </div>
+        {% if form.fechaBaja is defined %}
+            <div class="col-12 col-md-3">
+                {% from '::macros.html.twig' import input_datetime_picker %}
+                {{ input_datetime_picker(form.fechaBaja, 'fecha_baja_picker', true ) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-row mb-0">
+        <div class="col-12">
             {{ form_label(form.descripcion) }}
             {{ form_widget(form.descripcion) }}
             {{ form_errors(form.descripcion) }}
         </div>
     </div>
+
 </div>
+
+{% block form_actions %}
+
+{% endblock %}
 
 {{ form_end(form) }}

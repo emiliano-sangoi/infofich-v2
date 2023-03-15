@@ -2,9 +2,9 @@
 
 {% set full_width = false %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}  
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('tipo_vehiculos_listado') }}" class="">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
@@ -20,16 +20,22 @@
 
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
-        </div>      
+        </div>
 
         {% include 'VehiculosBundle:TipoVehiculo:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
 
             {% block left %}
-                <button id="btnCrear" class="btn btn-primary">
-                    Crear
+                <button role="submit" class="btn btn-primary" form="{{ form.vars.attr.id }}">
+                    <i class="fa fa-check"></i>&nbsp;Crear
                 </button>
+            {% endblock %}
+            {% block right %}
+                <a href="{{ path('tipo_vehiculos_listado') }}"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
             {% endblock %}
 
         {% endembed %}
@@ -43,10 +49,6 @@
 
     <script>
         $(document).ready(function () {
-            $('#btnCrear').click(function (e) {
-                e.preventDefault();
-                $("form[name='vehiculosbundle_tipovehiculo']").submit();
-            });
         });
     </script>
 

@@ -31,7 +31,7 @@
         {% embed '::botonera.html.twig' %}
 
             {% block left %}
-                <button id="guardarCambios" class="btn btn-primary">
+                <button role="submit" class="btn btn-primary" form="{{ form.vars.attr.id }}">
                     <i class="fa fa-save"></i>&nbsp;Guardar cambios
                 </button>
                 <a href="{{ path('tipo_vehiculos_listado') }}"
@@ -39,11 +39,10 @@
                     Cancelar
                 </a>
             {% endblock %}
-
             {% block right %}
                 {{ form_start(delete_form) }}
-                <button role="submit" class="btn btn-danger confirmar-borrado"
-                        data-msg='¿Esta seguro que desea borrar el docente <b>{{ tipoVehiculo.nombre }}</b>?'>
+                <button role="submit" class="btn btn-danger confirmar-borrado" form="{{ delete_form.vars.id }}"
+                        data-msg='¿Esta seguro que desea borrar el tipo <b>{{ tipoVehiculo.nombre }}</b>?'>
                     <i class="fa fa-trash"></i>&nbsp;Borrar
                 </button>
                 {{ form_end(delete_form) }}
@@ -60,10 +59,10 @@
 
     <script>
         $(document).ready(function () {
-            $('#guardarCambios').click(function (e) {
-                e.preventDefault();
-                $("form[name='vehiculosbundle_tipovehiculo']").submit();
-            });
+            // $('#guardarCambios').click(function (e) {
+            //     e.preventDefault();
+            //     $("form[name='vehiculosbundle_tipovehiculo']").submit();
+            // });
         });
     </script>
 

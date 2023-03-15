@@ -17,7 +17,7 @@
                 <a href="{{ path('tipo_vehiculos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
 
-                    Nuevo Tipo de Vehículo
+                    Nuevo tipo
 
                 </a>
             {% endif %}
@@ -35,78 +35,108 @@
         </div>
 
         <h2 class="font-weight-bold text-primary">
-            Tipos de Vehículos de la FICH 
+            Tipos de vehículos de la FICH
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
         {% from '::macros.html.twig' import notificacion %}
 
+        <div class="bg-white mb-3 p-3 text-muted shadow-sm">
+            Se encontraron: <b>{{ tiposVehiculos.getTotalItemCount }}</b> tipo(s)
+        </div>
+
         <div class="bg-light">
             {% if tiposVehiculos[0] is defined %}
 
-            <div class="table-responsive shadow">
-                <table class="table table-condensed table-hover mb-0 bg-white">
-                    <thead class="bg-primary text-light">
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed table-hover mb-0 bg-white">
+                        <thead class="bg-primary text-light">
                         <tr>
                             <th>#</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th> 
-                            <th>Acciones</th>
+                            <th>
+                                {{ knp_pagination_sortable(tiposVehiculos, 'Nombre', 'tv.nombre') }}
+                            </th>
+                            <th class="w-50">
+                                {{ knp_pagination_sortable(tiposVehiculos, 'Descripción', 'tv.descripcion') }}
+                            </th>
+                            <th class="text-center">
+                                {{ knp_pagination_sortable(tiposVehiculos, 'Habilitado', 'tv.habilitado') }}
+                            </th>
+                            <th>
+                                Acciones
+                            </th>
                         </tr>
-                    </thead>
-                    <tbody> 
-                    {% for tipoVehiculo in tiposVehiculos %} 
-                        <tr>
-                            <td class="align-middle">
-                                {{ loop.index }}
-                            </td>
-                            <td>{{ tipoVehiculo.nombre }}</td>
-                            <td>{{ tipoVehiculo.descripcion }}</td>                         
-                            <td>                               
-                                {#% if app.user.tieneRol(ROL_SA) %#}
+                        </thead>
+                        <tbody>
+                        {% for tipoVehiculo in tiposVehiculos %}
+                            <tr>
+                                <td class="align-middle">
+                                    {{ loop.index }}
+                                </td>
+                                <td class="align-middle">
+                                    {{ tipoVehiculo.nombre }}
+                                </td>
+                                <td class="align-middle">
+                                    {{ tipoVehiculo.descripcion }}
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="font-weight-bold">
+                                    {%if tipoVehiculo.habilitado %}
+                                        <span class="text-success">Si</span>
+                                    {% else %}
+                                        <span class="text-danger">No</span>
+                                    {% endif %}
+                                    </span>
+                                </td>
+                                <td class="align-middle">
+                                    {# % if app.user.tieneRol(ROL_SA) % #}
+                                    <a href="{{ path('tipo_vehiculos_show', { 'id': tipoVehiculo.id }) }}"
+                                       class="btn btn-sm btn-primary">
+                                        <i class="fa fa-eye"></i>
+                                        Ver
+                                    </a>
                                     <a href="{{ path('tipo_vehiculos_edit', { 'id': tipoVehiculo.id }) }}"
-                                                       class="btn btn-sm btn-primary">
-                                                        <i class="fa fa-edit"></i>
-                                                        Ver/Editar
+                                       class="btn btn-sm btn-outline-secondary">
+                                        <i class="fa fa-edit"></i>
+                                        Editar
                                     </a>
 
-                                    <a href="{{ path('tipo_delete', { 'id': tipoVehiculo.id }) }}" class="btn btn-sm btn-outline-danger"
-                                    onclick="return confirm('¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'')">
-                                                            <i class="fa fa-trash"></i>
-                                                            Eliminar
-                                    </a>
-                                    
-                                    <button role="submit" class="btn btn-danger confirmar-borrado"
-                                        data-msg='¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'>
-                                        <i class="fa fa-trash"></i>&nbsp;Borrar
-                                    </button>
-                                    
-                                {#% endif %#}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+{#                                    <a href="{{ path('tipo_delete', { 'id': tipoVehiculo.id }) }}"#}
+{#                                       class="btn btn-sm btn-outline-danger"#}
+{#                                       onclick="return confirm('¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'')">#}
+{#                                        <i class="fa fa-trash"></i>#}
+{#                                        Eliminar#}
+{#                                    </a>#}
 
-            </div>
+{#                                    <button role="submit" class="btn btn-danger confirmar-borrado"#}
+{#                                            data-msg='¿Esta seguro que desea borrar el vehículo <b>{{ tipoVehiculo.nombre }}</b>?'>#}
+{#                                        <i class="fa fa-trash"></i>&nbsp;Borrar#}
+{#                                    </button>#}
 
+                                    {# % endif % #}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-
-            {% else %}
-                <div class="bg-light p-4">
-                    No se encontró ning&uacute;n tipo de vehículo cargado.
                 </div>
+
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {{ knp_pagination_render(tiposVehiculos) }}
+                </div>
+
             {% endif %}
         </div>
     </div>
 
-{#<!-- parte harcodeada
+    {# <!-- parte harcodeada
                          <tr>
                             <td class="align-middle">
                                 2
                             </td>
                             <td>Embarcación	</td>
-                            <td>xxxx</td>                         
+                            <td>xxxx</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('usuarios_show', { 'id': usuario.id }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -118,13 +148,13 @@
                                 {% endif %}
                             </td>
                         </tr>
-                        
+
                          <tr>
                             <td class="align-middle">
                                 3
                             </td>
                             <td>Trailer</td>
-                            <td>xxxx</td>                         
+                            <td>xxxx</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('usuarios_show', { 'id': usuario.id }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -141,7 +171,7 @@
                                 4
                             </td>
                             <td>Motor</td>
-                            <td>xxxx</td>                         
+                            <td>xxxx</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('usuarios_show', { 'id': usuario.id }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -159,5 +189,5 @@
                 </table>
             </div>
             <div class="navigation mt-3 mb-5 centrate-x">
-                {#{ knp_pagination_render(docentes) }#}
+                {#{ knp_pagination_render(docentes) } #}
 {% endblock %}

@@ -5,15 +5,16 @@ namespace VehiculosBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="vehiculo_tipo")
- * 
+ *
  */
 class TipoVehiculo
-{   
-    
+{
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,16 +23,31 @@ class TipoVehiculo
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max = 255, maxMessage = "La descripción no puede superar los {{ limit }} caracteres.")
      */
     private $descripcion;
 
-    
+    /**
+     * Indica cuando el usuario fue dado de baja (baja logica).
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
+     */
+    protected $fechaBaja;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="habilitado", type="boolean", nullable=true)
+     */
+    protected $habilitado;
 
     /**
      * Get id
@@ -91,8 +107,50 @@ class TipoVehiculo
         return $this->descripcion;
     }
 
-        
-    public function __toString() {
+    /**
+     * @return DateTime
+     */
+    public function getFechaBaja()
+    {
+        return $this->fechaBaja;
+    }
+
+    /**
+     * @param DateTime $fechaBaja
+     * @return TipoVehiculo
+     */
+    public function setFechaBaja(DateTime $fechaBaja): TipoVehiculo
+    {
+        $this->fechaBaja = $fechaBaja;
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isHabilitado()
+    {
+        return $this->habilitado;
+    }
+
+    /**
+     * @param bool $habilitado
+     * @return TipoVehiculo
+     */
+    public function setHabilitado(bool $habilitado): TipoVehiculo
+    {
+        $this->habilitado = $habilitado;
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->habilitado = true;
+    }
+
+    public function __toString()
+    {
         return $this->nombre;
     }
 }

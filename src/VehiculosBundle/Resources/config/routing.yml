@@ -16,13 +16,13 @@ vehiculos_edit:
 vehiculos_show:
     path:     /{id}/show
     defaults: { _controller: "VehiculosBundle:Vehiculo:show" }
-    methods:  [GET, POST]    
+    methods:  [GET, POST]
 vehiculos_delete:
     path:     /{id}/delete
     defaults: { _controller: "VehiculosBundle:Vehiculo:delete" }
     methods:  DELETE
-    
-    
+
+
 tipo_vehiculos_listado:
     path:     /tipo_vehiculos/listado
     defaults: { _controller: "VehiculosBundle:TipoVehiculo:listado" }
@@ -33,16 +33,20 @@ tipo_vehiculos_edit:
     path:     /tipo_vehiculos/{id}/edit
     defaults: { _controller: "VehiculosBundle:TipoVehiculo:edit" }
     methods:  [GET, POST]
+tipo_vehiculos_show:
+  path:     /tipo_vehiculos/{id}/show
+  defaults: { _controller: "VehiculosBundle:TipoVehiculo:show" }
+  methods:  [GET]
 tipo_vehiculos_delete:
     path:     /tipo_vehiculos/{id}/delete
     defaults: { _controller: "VehiculosBundle:TipoVehiculo:delete" }
     methods:  DELETE
-tipo_delete:
-    path:     /tipo_vehiculos/delete/{id}
-    defaults: { _controller: "VehiculosBundle:TipoVehiculo:deleteTipo" }
-    methods:  [GET, POST]
-   
-    
+#tipo_delete:
+#    path:     /tipo_vehiculos/delete/{id}
+#    defaults: { _controller: "VehiculosBundle:TipoVehiculo:deleteTipo" }
+#    methods:  [GET, POST]
+
+
 reservas_listado:
     path:     /reservas/listado
     defaults: { _controller: VehiculosBundle:Reserva:listado }
@@ -57,7 +61,7 @@ reservas_edit:
 reservas_show:
     path:     /reservas/{id}/show
     defaults: { _controller: "VehiculosBundle:Reserva:show" }
-    methods:  [GET, POST]    
+    methods:  [GET, POST]
 reservas_delete:
     path:     /reservas/{id}/delete
     defaults: { _controller: "VehiculosBundle:Reserva:delete" }
