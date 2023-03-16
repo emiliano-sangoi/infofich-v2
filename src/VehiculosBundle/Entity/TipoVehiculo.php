@@ -34,7 +34,7 @@ class TipoVehiculo
     private $descripcion;
 
     /**
-     * Indica cuando el usuario fue dado de baja (baja logica).
+     * Indica cuando el tipo de vehiculo fue dado de baja (baja logica).
      *
      * @var DateTime
      *
@@ -119,7 +119,7 @@ class TipoVehiculo
      * @param DateTime $fechaBaja
      * @return TipoVehiculo
      */
-    public function setFechaBaja(DateTime $fechaBaja): TipoVehiculo
+    public function setFechaBaja($fechaBaja)
     {
         $this->fechaBaja = $fechaBaja;
         return $this;
@@ -138,7 +138,7 @@ class TipoVehiculo
      * @param bool $habilitado
      * @return TipoVehiculo
      */
-    public function setHabilitado(bool $habilitado): TipoVehiculo
+    public function setHabilitado(bool $habilitado)
     {
         $this->habilitado = $habilitado;
         return $this;

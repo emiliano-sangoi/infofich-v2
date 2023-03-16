@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use VehiculosBundle\Entity\TipoVehiculo;
 use VehiculosBundle\Entity\Vehiculo;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class VehiculoType extends AbstractType {
@@ -115,6 +116,30 @@ class VehiculoType extends AbstractType {
             'attr' => array(
                 'class' => 'form-control js-select2')
         ));
+
+        $vehiculo = $builder->getData();
+        if($vehiculo instanceof Vehiculo and $vehiculo->getFechaBaja() != null) {
+            $builder->add('fechaBaja', DateTimeType::class, array(
+                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy H:m',
+                'required' => true,
+                'label' => 'Fecha baja',
+                'label_attr' => array('class' => 'font-weight-bold')
+            ));
+        }
+
+        $builder->add('habilitado', ChoiceType::class, array(
+            'choices' => array(
+                'Si' => true,
+                'No' => false
+            ),
+            'label_attr' => array('class' => 'font-weight-bold'),
+            'required' => true,
+            'choices_as_values' => true,
+            'attr' => array('class' => 'form-control'),
+        ));
+
 
     }
 

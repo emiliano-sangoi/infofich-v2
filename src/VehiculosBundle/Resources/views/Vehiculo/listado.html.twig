@@ -40,6 +40,10 @@
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
         
         {% from '::macros.html.twig' import notificacion %}
+        
+        <div class="bg-white mb-3 p-3 text-muted shadow-sm">
+            Se encontraron: <b>{{ vehiculos.getTotalItemCount }}</b> vehículo(s)
+        </div>
 
         <div class="bg-light">
             {% if vehiculos[0] is defined %}
@@ -48,13 +52,25 @@
                     <table class="table table-condensed table-hover mb-0 bg-white">
                         <thead class="bg-primary text-light">
                             <tr>
-				                <th>#</th>
-                                <th>Tipo</th>
-                                <th>Marca</th>                               
-                                <th>Modelo/Nombre</th>                               
-                                                               
-                                <th>Asociado</th>                               
-                                <th>Acciones</th>
+                                <th>#</th>
+                                <th>
+                                    {{ knp_pagination_sortable(vehiculos, 'Tipo', 'v.tipo') }}
+                                </th>
+                                <th class="w-20">
+                                    {{ knp_pagination_sortable(vehiculos, 'Marca', 'v.marca') }}
+                                </th>
+                                <th class="w-20">
+                                    {{ knp_pagination_sortable(vehiculos, 'Modelo', 'v.modelo') }}
+                                </th>
+                                <th class="w-20">
+                                    {{ knp_pagination_sortable(vehiculos, 'Asociado', 'v.asociado') }}
+                                </th>
+                                <th class="text-center">
+                                    {{ knp_pagination_sortable(vehiculos, 'Habilitado', 'v.habilitado') }}
+                                </th>
+                                <th>
+                                    Acciones
+                                </th>
                             </tr>
                         </thead>
                         <tbody>  
@@ -63,47 +79,48 @@
                                     <td class="align-middle">
                                         {{ loop.index }}                                    
                                     </td>
-                                    <td>
-                                        {{ vehiculo.tipo.nombre }}
-                                        {# ver cual es#}
-                                        {#{ vehiculo.tipoVehiculo.nombre }#}
+                                    <td class="align-middle">
+                                        {{ vehiculo.tipo }}                                       
                                     </td>
-                                    <td>
+                                    <td class="align-middle">
                                         {{ vehiculo.marca }}
                                     </td>
-                                    <td>
-                                        {{ vehiculo.modelo }} -     {{ vehiculo.marca }}
+                                    <td class="align-middle">
+                                        {{ vehiculo.modelo }} 
                                     </td>
-                                    <td>
+                                    <td class="align-middle">
                                         {{ vehiculo.asociado }} 
                                     </td>
-                                    <td>
-                                        <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
-                                           class="btn btn-sm btn-outline-secondary">
+                                    <td class="align-middle text-center">
+                                        <span class="font-weight-bold">
+                                        {%if vehiculo.habilitado %}
+                                            <span class="text-success">Si</span>
+                                        {% else %}
+                                            <span class="text-danger">No</span>
+                                        {% endif %}
+                                        </span>
+                                    </td>
+                                    <td class="align-middle">
+                                        {# % if app.user.tieneRol(ROL_SA) % #}
+                                        <a href="{{ path('vehiculos_show', { 'id': vehiculo.id }) }}"
+                                        class="btn btn-sm btn-primary">
+                                            <i class="fa fa-eye"></i>
                                             Ver
                                         </a>
-                                        {% if app.user.tieneRol(ROL_SA) %}
-                                            <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
-                                               class="btn btn-sm btn-outline-secondary">
-                                                Editar
-                                            </a>
-                                        {% endif %}                                      
+                                        <a href="{{ path('vehiculos_edit', { 'id': vehiculo.id }) }}"
+                                        class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa fa-edit"></i>
+                                            Editar
+                                        </a>                                  
                                     </td>
                                 </tr>
-                     {% endfor %}
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
                 <div class="navigation mt-3 mb-5 centrate-x">
-                    {#{ knp_pagination_render(docentes) }#}
-                </div>
-
-
-
-            {% else %}
-                <div class="bg-light p-4">
-                    No se encontro ning&uacute;n vehiculo cargado.
-                </div>
+                    {{ knp_pagination_render(vehiculos) }}
+              </div>
             {% endif %}
              {#<tr>
 				 <td class="align-middle">

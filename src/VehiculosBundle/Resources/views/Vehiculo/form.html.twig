@@ -16,6 +16,20 @@
             {{ form_errors(form.tipo) }}
   
         </div>        
+
+        <div class="col-12 col-md-3">
+            {{ form_label(form.habilitado) }}
+            {{ form_widget(form.habilitado) }}
+            {{ form_errors(form.habilitado) }}
+        </div>
+        {% if form.fechaBaja is defined %}
+            <div class="col-12 col-md-3">
+                {% from '::macros.html.twig' import input_datetime_picker %}
+                {{ input_datetime_picker(form.fechaBaja, 'fecha_baja_picker', true ) }}
+            </div>
+        {% endif %}
+
+        
     </div>
     <div class="form-row">
         <div class="col-6">

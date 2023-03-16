@@ -24,7 +24,7 @@ class Vehiculo
 
     /**
      *
-     * @var Tipo
+     * @var tipo
      *
      * @ORM\ManyToOne(targetEntity="TipoVehiculo")
      * @ORM\JoinColumn(name="tipo_id", referencedColumnName="id", nullable=true)
@@ -81,10 +81,20 @@ class Vehiculo
     private $chasisCasco;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * Indica cuando el vehiculo fue dado de baja (baja logica).
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
      */
-    private $activo;
+    protected $fechaBaja;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="habilitado", type="boolean", nullable=true)
+     */
+    protected $habilitado;
 
 
     /**
@@ -289,31 +299,7 @@ class Vehiculo
         return $this->capacidad;
     }
 
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     *
-     * @return Vehiculo
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-
+  
     /**
      * Get color
      *
@@ -360,6 +346,48 @@ class Vehiculo
         $this->chasisCasco = $chasisCasco;
 
         return $this;
+    }
+
+     /**
+     * @return DateTime
+     */
+    public function getFechaBaja()
+    {
+        return $this->fechaBaja;
+    }
+
+    /**
+     * @param DateTime $fechaBaja
+     * @return Vehiculo
+     */
+    public function setFechaBaja($fechaBaja)
+    {
+        $this->fechaBaja = $fechaBaja;
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isHabilitado()
+    {
+        return $this->habilitado;
+    }
+
+    /**
+     * @param bool $habilitado
+     * @return Vehiculo
+     */
+    public function setHabilitado(bool $habilitado)
+    {
+        $this->habilitado = $habilitado;
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->habilitado = true;
     }
 
     public function __toString() {

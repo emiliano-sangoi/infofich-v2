@@ -9,6 +9,10 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
+            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                 <i class="fa fa-plus"></i>
+                 Nuevo docente
+             </a>  #}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -22,27 +26,23 @@
             {% include '::notificaciones.html.twig' %}
         </div>
 
-
         {% include 'VehiculosBundle:Vehiculo:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
 
             {% block left %}
-                <a href="{{ path('vehiculos_edit', { 'id': vehiculo.id }) }}"
-                   class="btn btn-primary">
-                    <i class="fa fa-edit"></i>
-                    Editar
-                </a>
+                <button role="submit" class="btn btn-primary" form="{{ form.vars.attr.id }}">
+                    <i class="fa fa-save"></i>&nbsp;Guardar cambios
+                </button>
                 <a href="{{ path('vehiculos_listado') }}"
                    class="btn btn-secondary">
-                    Ir al listado
+                    Cancelar
                 </a>
             {% endblock %}
-
             {% block right %}
                 {{ form_start(delete_form) }}
-                <button role="submit" class="btn btn-danger confirmar-borrado"
-                        data-msg='¿Esta seguro que desea borrar el vehiculo <b>{{ vehiculo.descripcion }}</b>?'>
+                <button role="submit" class="btn btn-danger confirmar-borrado" form="{{ delete_form.vars.id }}"
+                        data-msg='¿Esta seguro que desea borrar el tipo <b>{{ vehiculo.descripcion }}</b>?'>
                     <i class="fa fa-trash"></i>&nbsp;Borrar
                 </button>
                 {{ form_end(delete_form) }}
@@ -59,7 +59,10 @@
 
     <script>
         $(document).ready(function () {
-
+            // $('#guardarCambios').click(function (e) {
+            //     e.preventDefault();
+            //     $("form[name='vehiculosbundle_tipovehiculo']").submit();
+            // });
         });
     </script>
 
