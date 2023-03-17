@@ -2,9 +2,9 @@
 
 {% set full_width = false %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}  
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('vehiculos_listado') }}" class="">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
@@ -27,19 +27,19 @@
         </div>
 
         {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
-        
+
                     {% block form_actions %}
-        
+
                         {% embed "::botonera.html.twig" %}
-        
+
                             {% block left %}
                                 <input type="submit" value="Crear" class="btn btn-primary" />
                             {% endblock %}
-        
+
                         {% endembed %}
-        
+
                     {% endblock %}
-        
+
                 {% endembed %}#}
 
         {% include 'VehiculosBundle:Vehiculo:form.html.twig' %}
@@ -50,6 +50,12 @@
                 <button id="btnCrear" class="btn btn-primary">
                     Crear
                 </button>
+            {% endblock %}
+            {% block right %}
+                <a href="{{ path('vehiculos_listado') }}"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
             {% endblock %}
 
         {% endembed %}

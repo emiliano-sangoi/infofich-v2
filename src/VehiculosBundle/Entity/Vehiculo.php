@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="vehiculo_vehiculo")
- *
+ * @ORM\Entity(repositoryClass="VehiculosBundle\Repository\VehiculoRepository")
  */
 class Vehiculo
 {
@@ -299,7 +299,7 @@ class Vehiculo
         return $this->capacidad;
     }
 
-  
+
     /**
      * Get color
      *

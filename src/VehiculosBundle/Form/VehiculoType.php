@@ -10,6 +10,8 @@ use VehiculosBundle\Entity\TipoVehiculo;
 use VehiculosBundle\Entity\Vehiculo;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use VehiculosBundle\Repository\TipoVehiculoRepository;
+use Doctrine\ORM\QueryBuilder;
 
 
 class VehiculoType extends AbstractType {
@@ -20,14 +22,7 @@ class VehiculoType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
 
-        $builder
-                ->add('tipo', EntityType::class, array(
-                    'label' => 'Tipo vehículo',
-                    'label_attr' => array('class' => 'font-weight-bold'),
-                    'class' => TipoVehiculo::class,
-                    'attr' => array(
-                        'class' => 'form-control js-select2')
-                ));
+        $this->addTipoVehiculo($builder, $options);
 
         $builder->add('marca', TextType::class, array(
             'label' => 'Marca',
@@ -143,20 +138,50 @@ class VehiculoType extends AbstractType {
 
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => Vehiculo::class
-        ));
+    private function addTipoVehiculo(FormBuilderInterface $builder, array $options){
+
+        $config = array(
+            'label' => 'Tipo vehículo',
+            'label_attr' => array('class' => 'font-weight-bold'),
+            'class' => TipoVehiculo::class,
+            'attr' => array(
+                'class' => 'form-control js-select2')
+        );
+
+        $vehiculo = $builder->getData();
+        if($vehiculo instanceof Vehiculo and $vehiculo->getId() == null){
+            //creando nuevo registro:
+
+            // En este caso solo debe traer los tipos habilitados y que no fueron dados de baja:
+            $config['query_builder'] = function (TipoVehiculoRepository $tvr) {
+                /* @var $qb QueryBuilder */
+                $qb = $tvr->createQueryBuilder('tv');
+                $qb
+                    ->where($qb->expr()->eq('tv.habilitado', true))
+                    ->andWhere($qb->expr()->isNull('tv.fechaBaja'))
+                    ->orderBy('tv.nombre', 'ASC');
+
+                return $qb;
+            };
+
+        }
+
+        $builder->add('tipo', EntityType::class, $config);
+
+
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
-        return 'vehiculosbundle_vehiculo';
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults(array(
+            'data_class' => Vehiculo::class,
+            'attr' => array(
+                'id' => 'id_vehiculo_form'
+            )
+        ));
     }
+
 
 }

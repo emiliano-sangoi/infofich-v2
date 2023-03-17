@@ -42,7 +42,7 @@
             {% block right %}
                 {{ form_start(delete_form) }}
                 <button role="submit" class="btn btn-danger confirmar-borrado" form="{{ delete_form.vars.id }}"
-                        data-msg='¿Esta seguro que desea borrar el tipo <b>{{ vehiculo.descripcion }}</b>?'>
+                        data-msg='¿Esta seguro que desea borrar el vehículo <b>{{ vehiculo }}</b>?'>
                     <i class="fa fa-trash"></i>&nbsp;Borrar
                 </button>
                 {{ form_end(delete_form) }}

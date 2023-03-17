@@ -10,11 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ORM\Table(name="vehiculo_reserva")
- * 
+ * @ORM\Entity(repositoryClass="VehiculosBundle\Repository\ReservaRepository")
  */
 
 class Reserva
-{ 
+{
      /**
      * @var int
      *
