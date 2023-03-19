@@ -9,10 +9,6 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
-            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
-                 <i class="fa fa-plus"></i>
-                 Nuevo docente
-             </a>  #}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -25,30 +21,13 @@
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
         </div>
-
-        {#        {% embed 'DocentesBundle:adscriptos:form.html.twig' %}
-
-                    {% block form_actions %}
-
-                        {% embed "::botonera.html.twig" %}
-
-                            {% block left %}
-                                <input type="submit" value="Crear" class="btn btn-primary" />
-                            {% endblock %}
-
-                        {% endembed %}
-
-                    {% endblock %}
-
-                {% endembed %}#}
-
         {% include 'VehiculosBundle:Vehiculo:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
 
             {% block left %}
-                <button id="btnCrear" class="btn btn-primary">
-                    Crear
+                <button role="submit" class="btn btn-primary" form="{{ form.vars.attr.id }}">
+                    <i class="fa fa-check"></i>&nbsp;Crear
                 </button>
             {% endblock %}
             {% block right %}

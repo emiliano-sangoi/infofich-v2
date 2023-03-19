@@ -47,7 +47,7 @@ class VehiculoController extends Controller {
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            
+           
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($vehiculo);
@@ -56,8 +56,6 @@ class VehiculoController extends Controller {
             $this->addFlash('success', 'El Vehiculo fue creado correctamente');
 
             return $this->redirectToRoute('vehiculos_listado');
-
-          //return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
         } 
 
         // Breadcrumbs
@@ -67,7 +65,7 @@ class VehiculoController extends Controller {
         $breadcrumbs->addItem("Nuevo");
 
         return $this->render('VehiculosBundle:Vehiculo:new.html.twig', array(
-                    //'vehiculos' => $vehiculos,
+                    'vehiculo' => $vehiculo,
                     'form' => $form->createView(),
                     'page_title' => 'Vehiculos - Nuevo',
         ));
