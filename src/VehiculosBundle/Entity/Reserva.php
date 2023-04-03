@@ -88,7 +88,7 @@ class Reserva
     {
         return $this->id;
     }
-
+    
     /**
      * Set fechaInicio
      *

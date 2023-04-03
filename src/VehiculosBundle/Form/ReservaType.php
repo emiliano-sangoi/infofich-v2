@@ -11,6 +11,8 @@ use VehiculosBundle\Entity\Reserva;
 use DocentesBundle\Entity\DocenteGrado;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 
 
@@ -56,8 +58,9 @@ class ReservaType extends AbstractType {
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy H:m',
-            'required' => false,
+            'required' => true,
             'label' => 'Fecha Inicio',
+            'label_attr' => array('class' => 'font-weight-bold'),
         ));
 
       
@@ -69,6 +72,8 @@ class ReservaType extends AbstractType {
             'required' => true,
             'label' => 'Fecha Fin',
         ));
+
+
 
         $builder->add('estado', TextType::class, array(
             'label' => 'Estado',

@@ -9,10 +9,7 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
-            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
-                 <i class="fa fa-plus"></i>
-                 Nuevo docente
-             </a>  #}
+
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -52,7 +49,23 @@
                 e.preventDefault();
                 $("form[name='vehiculosbundle_reservas']").submit();
             });
+
+            $('.reserva-selector').collection({
+                    position_field_selector: '.posicion',
+                    add: '<a href="#" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Agregar viaje</a>',
+
+                    after_add: function (collection, item) {
+
+                        item.find('.js-select2').select2({});
+
+                        item.find('.tempusdominus-datetimepicker').datetimepicker({
+                            locale: 'es',
+                            format: 'DD/MM/YYYY HH:mm'
+                        });
+                    }
+                });
         });
     </script>
 
 {% endblock %}
+

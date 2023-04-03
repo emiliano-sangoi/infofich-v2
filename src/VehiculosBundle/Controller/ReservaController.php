@@ -54,7 +54,6 @@ class ReservaController extends Controller {
 
             return $this->redirectToRoute('reservas_listado');
 
-          //return $this->redirectToRoute('docentes_adscriptos_show', array('id' => $docenteAdscripto->getId()));
         } 
 
         // Breadcrumbs

@@ -28,15 +28,13 @@
         <div class="col-6">            
             {% from '::macros.html.twig' import input_datetime_picker %}
             {{ input_datetime_picker(form.fechaInicio, form.fechaInicio.vars.id ~ '_picker', true ) }}    
-               
-
         </div>
 
         <div class="col-6">
             {% from '::macros.html.twig' import input_datetime_picker %}
             {{ input_datetime_picker(form.fechaFin, form.fechaFin.vars.id ~ '_picker', true ) }}            
-
         </div>
+        
     </div>
     <div class="form-row">
         <div class="col-6">
