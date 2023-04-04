@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * 
+ *
  * Usuario
  *
  * @ORM\Table(name="app_usuarios")
@@ -20,8 +20,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * )
  */
 class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \JsonSerializable{
-    
-    const PLAIN_PWD_MIN_LENGTH = 8;    
+
+    const PLAIN_PWD_MIN_LENGTH = 8;
     const PLAIN_PWD_MAX_LENGTH = 24;
     const USERNAME_MIN_LENGTH = 6;
     const USERNAME_MAX_LENGTH = 24;
@@ -38,7 +38,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     /**
      *
      * @var Persona
-     * 
+     *
      * @ORM\OneToOne(targetEntity="Persona", cascade={"persist"})
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
      */
@@ -47,13 +47,13 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     /**
      *
      * @var DateTime
-     * 
+     *
      * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     protected $fechaCreacion;
 
     /**
-     * 
+     *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Assert\NotBlank(message="El nombre de usuario no puede quedar vacio.")
      * @Assert\Length(
@@ -62,29 +62,29 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
      *      minMessage = "El nombre de usuario debe tener al menos {{ limit }} caracteres.",
      *      maxMessage = "La contraseña puede tener a lo sumo {{ limit }} caracteres."
      * )
-     * 
+     *
      * @var string
      */
     protected $username;
-    
+
     /**
-     * 
+     *
      * @ORM\Column(name="salt", type="string", length=255, nullable=true)
-     * 
+     *
      * @var string
      */
     protected $salt;
 
     /**
      * @var boolean
-     * 
+     *
      * @ORM\Column(name="bloqueado", type="boolean")
      */
     protected $bloqueado;
 
     /**
      * Hash de la contraseña
-     * 
+     *
      * @ORM\Column(name="password", type="string", length=255)
      *
      * @var string
@@ -99,21 +99,21 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     /**
      *
      * @var ArrayCollection
-     * 
-     * @ORM\ManyToMany(targetEntity="Rol") 
+     *
+     * @ORM\ManyToMany(targetEntity="Rol")
      * @ORM\JoinTable(name="app_usuario_roles",
      *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="rol_id", referencedColumnName="id")}
      *      )
      */
     protected $roles;
-    
-    
+
+
     /**
      * Indica cuando el usuario fue dado de baja (baja logica).
-     * 
+     *
      * @var DateTime
-     * 
+     *
      * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
      */
     protected $fechaBaja;
@@ -136,12 +136,12 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
 
 
     public function __construct() {
-        
+
         $this->roles = new ArrayCollection();
         $this->fechaCreacion = new DateTime();
         $this->bloqueado = false;
     }
-        
+
 
 
     /**
@@ -152,23 +152,23 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     public function getRoles() {
         return $this->roles->toArray();
     }
-    
+
     /**
      * Devuelve los permisos que posee el usuario a partir de los roles que tiene asignado
-     * 
+     *
      * @return array Codigos de los permisos que posee el usuario.
      */
     public function getPermisos(){
         $permisos = array();
         foreach ($this->roles as $rol){
-            $permisos = array_merge($permisos, $rol->getCodigosPermisos());            
+            $permisos = array_merge($permisos, $rol->getCodigosPermisos());
         }
         return $permisos;
     }
-    
+
     /**
      * Funcion que verifica si cierto usuario tiene o no el permiso pasado como argumento.
-     * 
+     *
      * @param int $cod_permiso
      * @return boolean true si lo tiene o false en caso contrario
      */
@@ -184,21 +184,21 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
         }
         return $res;
     }
-    
+
     /**
      * Chequea si el usuario tiene asignado el rol pasado como parametro.
-     * 
+     *
      * @param type $rol
      * @return type
      */
-    public function tieneRol($rol){                
-        return in_array($rol, $this->getRolesAsStr());                
+    public function tieneRol($rol){
+        return in_array($rol, $this->getRolesAsStr());
     }
-       
+
 
     /**
      * Devuelve los roles como un arreglo de strings
-     * 
+     *
      * @return array
      */
     public function getRolesAsStr() {
@@ -206,7 +206,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
         foreach ($this->roles as $rol){
             $roles_str[] = $rol->getNombre();
         }
-        return $roles_str;        
+        return $roles_str;
     }
 
     /**
@@ -386,19 +386,23 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     {
         $this->roles->removeElement($role);
     }
-    
+
     public function __toString() {
         return $this->username;
     }
 
+    public function getUsernameApeNom() {
+        return $this->username . ' - ' . $this->persona->getApeNom();
+    }
+
     public function eraseCredentials() {
-        
+
     }
 
     public function getSalt() {
         return $this->salt;
     }
-       
+
 
 
     /**
@@ -442,7 +446,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface, \J
     public function jsonSerialize() {
         return array(
             'id' => $this->id,
-            'username' => $this->username,            
+            'username' => $this->username,
         );
     }
 

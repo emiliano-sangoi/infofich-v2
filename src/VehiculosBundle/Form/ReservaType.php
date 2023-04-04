@@ -2,7 +2,9 @@
 
 namespace VehiculosBundle\Form;
 
+use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,12 +19,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class ReservaType extends AbstractType {
-    
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+
 
         $builder
             ->add('docente', EntityType::class, array(
@@ -31,7 +33,7 @@ class ReservaType extends AbstractType {
                 'required' => true,
                 //'property' => 'descripcion',
                 'attr' => array(
-                    'class' => 'form-control js-select2-docentes',                    
+                    'class' => 'form-control js-select2',
                 ),
                 'label_attr' => array(
                     'class' => 'font-weight-bold',
@@ -45,7 +47,7 @@ class ReservaType extends AbstractType {
             'required' => true,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
-                'class' => 'form-control js-select2',                    
+                'class' => 'form-control js-select2',
             ),
             'label_attr' => array(
                 'class' => 'font-weight-bold',
@@ -63,7 +65,7 @@ class ReservaType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold'),
         ));
 
-      
+
         $builder
         ->add('fechaFin', DateTimeType::class, array(
             'attr' => array('class' => 'form-control',  'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
@@ -71,40 +73,70 @@ class ReservaType extends AbstractType {
             'format' => 'dd/MM/yyyy H:m',
             'required' => true,
             'label' => 'Fecha Fin',
+            'label_attr' => array('class' => 'font-weight-bold'),
         ));
 
+        $builder
+            ->add('fechaAlta', DateTimeType::class, array(
+                'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy H:m',
+                'required' => false,
+                'disabled' => true,
+                'label' => 'Fecha alta',
+                'label_attr' => array('class' => 'font-weight-bold'),
+            ));
+
+        $builder
+            ->add('usuarioAlta', EntityType::class, array(
+                'label' => 'Usuario alta',
+                'class' => Usuario::class,
+                'choice_label' => 'usernameApeNom',
+                'required' => false,
+                'disabled' => true,
+                'attr' => array(
+                    'class' => 'form-control js-select2',
+                ),
+                'label_attr' => array(
+                    'class' => 'font-weight-bold',
+                )
+            ));
 
 
         $builder->add('estado', TextType::class, array(
             'label' => 'Estado',
+            'label_attr' => array('class' => 'font-weight-bold'),
             //'disabled' => true,
             'required' => true,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
-                'class' => 'form-control'                
+                'class' => 'form-control'
             )
         ));
 
         $builder->add('cantidadPersonas', TextType::class, array(
-            'label' => 'Cantidad de Personas',
+            'label' => 'Cant. de personas',
+            'label_attr' => array('class' => 'font-weight-bold'),
             //'disabled' => true,
             'required' => true,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
-                'class' => 'form-control'                
+                'class' => 'form-control'
             )
         ));
 
-        $builder->add('elementosExtras', TextType::class, array(
-            'label' => 'Elementos Extras',
+        $builder->add('elementosExtras', TextareaType::class, array(
+            'label' => 'Elementos extras',
+            'label_attr' => array('class' => 'font-weight-bold'),
             //'disabled' => true,
             'required' => true,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
-                'class' => 'form-control'                
+                'class' => 'form-control',
+                'rows' => 4
             )
         ));
-  
+
 
     }
 
@@ -113,7 +145,10 @@ class ReservaType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => Reserva::class
+            'data_class' => Reserva::class,
+            'attr' => array(
+                'id' => 'id_reserva_form'
+            )
         ));
     }
 

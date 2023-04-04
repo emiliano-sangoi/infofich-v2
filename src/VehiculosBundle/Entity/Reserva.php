@@ -4,6 +4,7 @@ namespace VehiculosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Usuario;
 
 /**
  * Reserva
@@ -76,8 +77,40 @@ class Reserva
      */
     private $elementosExtras;
 
+    /**
+     * Indica cuando la reserva fue creada.
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(name="fecha_alta", type="datetime", nullable=true)
+     */
+    protected $fechaAlta;
 
+    /**
+     *
+     * @var AppBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_alta_id", referencedColumnName="id")
+     */
+    private $usuarioAlta;
 
+    /**
+    * Indica cuando la reserva fue dada de baja (baja logica).
+    *
+    * @var DateTime
+     *
+     * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
+     */
+    protected $fechaBaja;
+
+    public function __construct()
+    {
+    }
+
+    public function __toString(){
+        return 'Reserva vehículo ' . mb_strtoupper($this->vehiculo);
+    }
 
     /**
      * Get id
@@ -88,7 +121,7 @@ class Reserva
     {
         return $this->id;
     }
-    
+
     /**
      * Set fechaInicio
      *
@@ -256,4 +289,61 @@ class Reserva
     {
         return $this->vehiculo;
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getFechaBaja(): DateTime
+    {
+        return $this->fechaBaja;
+    }
+
+    /**
+     * @param DateTime $fechaBaja
+     * @return Reserva
+     */
+    public function setFechaBaja(\DateTime $fechaBaja): Reserva
+    {
+        $this->fechaBaja = $fechaBaja;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getFechaAlta()
+    {
+        return $this->fechaAlta;
+    }
+
+    /**
+     * @param DateTime $fechaAlta
+     * @return Reserva
+     */
+    public function setFechaAlta($fechaAlta)
+    {
+        $this->fechaAlta = $fechaAlta;
+        return $this;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioAlta()
+    {
+        return $this->usuarioAlta;
+    }
+
+    /**
+     * @param Usuario $usuarioAlta
+     * @return Reserva
+     */
+    public function setUsuarioAlta(Usuario $usuarioAlta): Reserva
+    {
+        $this->usuarioAlta = $usuarioAlta;
+        return $this;
+    }
+
+
+
 }

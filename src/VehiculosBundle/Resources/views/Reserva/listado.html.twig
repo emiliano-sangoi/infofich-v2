@@ -15,10 +15,7 @@
 
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
                 <a href="{{ path('reservas_new') }}" class="ml-3">
-                    <i class="fa fa-plus"></i>
-
-                    Nueva Reserva
-
+                    <i class="fa fa-plus"></i>&nbsp;Nueva reserva
                 </a>
             {% endif %}
         {% endblock %}
@@ -35,79 +32,93 @@
         </div>
 
         <h2 class="font-weight-bold text-primary">
-            Reserva de Vehículos de la FICH 
+            Reservas
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
         {% from '::macros.html.twig' import notificacion %}
 
-        <div class="bg-light">
-            {#% if docentes[0] is defined %#}
+        <div class="bg-white mb-3 p-3 text-muted shadow-sm">
+            Se encontraron: <b>{{ reservas.getTotalItemCount }}</b> reserva(s).
+        </div>
 
-            <div class="table-responsive shadow">
-                <table class="table table-condensed table-hover mb-0 bg-white">
-                    <thead class="bg-primary text-light">
+        <div class="bg-light">
+            {% if reservas[0] is defined %}
+
+                <div class="table-responsive shadow">
+                    <table class="table table-condensed table-hover mb-0 bg-white">
+                        <thead class="bg-primary text-light">
                         <tr>
                             <th>#</th>
                             <th>Docente</th>
-                            <th>Vehiculo</th>                               
-                            <th>Fecha Inicio</th>                                                                                          
-                            <th>Fecha Fin</th>                               
-                            <th>Estado</th>                               
-                            <th>Cantidad Personas 	</th>                               
-                            <th>Elementos Extras 	</th>                               
+                            <th>
+                                {{ knp_pagination_sortable(reservas, 'Vehículo', 'r.vehiculo') }}
+                            </th>
+                            <th>
+                                {{ knp_pagination_sortable(reservas, 'Fecha Ini.', 'r.fechaIni') }}
+                            </th>
+                            <th>
+                                {{ knp_pagination_sortable(reservas, 'Fecha fin', 'r.fechaFin') }}
+                            </th>
+                            <th class="text-center">
+                                {{ knp_pagination_sortable(reservas, 'Estado', 'r.estado') }}
+                            </th>
+{#                            <th>#}
+{#                                {{ knp_pagination_sortable(reservas, 'Cant. personas', 'r.cantidadPersonas') }}#}
+{#                            </th>#}
+                            {#                            <th>Elementos Extras 	</th> #}
                             <th>Acciones</th>
                         </tr>
-                    </thead>
-                    <tbody>  
-                    {% for reserva in reservas %}
-                                <tr>
-                                    <td class="align-middle">
-                                        {{ loop.index }}                                    
-                                    </td>
-                                    <td>
-                                        {{ reserva.docente }}
-                                    </td>
-                                    <td>
-                                        {{ reserva.vehiculo }}
-                                    </td>
-                                    <td>
-                                        {{ reserva.fechaInicio|date('d/m/Y H:i') }}
-                                    </td>
-                                    <td>
-                                        {{ reserva.fechaFin|date('d/m/Y H:i') }} 
-                                    </td>
-                                    <td>
-                                        {{ reserva.estado }} 
-                                    </td>
-                                    <td>
-                                        {{ reserva.cantidadPersonas }} 
-                                    </td>
-                                    <td>
-                                        {{ reserva.elementosExtras }} 
-                                    </td>
-                                    <td>
-                                        <a href="{#{ path('docentes_adscriptos_show', { 'id': docenteAdscripto.id }) }#}"
+                        </thead>
+                        <tbody>
+                        {% for reserva in reservas %}
+                            <tr>
+                                <td class="align-middle">
+                                    {{ loop.index }}
+                                </td>
+                                <td>
+                                    {{ reserva.docente }}
+                                </td>
+                                <td>
+                                    {{ reserva.vehiculo }}
+                                </td>
+                                <td>
+                                    {{ reserva.fechaInicio|date('d/m/Y H:i') }}
+                                </td>
+                                <td>
+                                    {{ reserva.fechaFin|date('d/m/Y H:i') }}
+                                </td>
+                                <td class="text-center">
+                                    {{ reserva.estado }}
+                                </td>
+{#                                <td>#}
+{#                                    {{ reserva.cantidadPersonas }}#}
+{#                                </td>#}
+                                {#                                    <td> #}
+                                {#                                        {{ reserva.elementosExtras }} #}
+                                {#                                    </td> #}
+                                <td>
+                                    <a href="{{ path('reservas_show', { 'id': reserva.id }) }}"
+                                       class="btn btn-sm btn-primary">
+                                        <i class="fa fa-eye"></i>&nbsp;Ver
+                                    </a>
+                                    {% if app.user.tieneRol(ROL_SA) %}
+                                        <a href="{{ path('reservas_edit', { 'id': reserva.id }) }}"
                                            class="btn btn-sm btn-outline-secondary">
-                                            Ver
+                                            <i class="fa fa-edit"></i>&nbsp;Editar
                                         </a>
-                                        {% if app.user.tieneRol(ROL_SA) %}
-                                            <a href="{#{ path('docentes_adscriptos_edit', { 'id': docenteAdscripto.id }) }#}"
-                                               class="btn btn-sm btn-outline-secondary">
-                                                Editar
-                                            </a>
-                                        {% endif %}                                      
-                                    </td>
-                                </tr>
-                    {#    <tr>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {#    <tr>
                             <td class="align-middle">1</td>
                             <td>Azario Alejandro Gabriel </td>
                             <td>Virgin Marine - Azimut</td>
-                            <td>06/12/2022 07:00</td>                               
+                            <td>06/12/2022 07:00</td>
                             <td>06/12/2022 13:00</td>
-                            <td>-</td>                               
-                            <td>-</td> 
-                            <td>5 Bidones móviles de combustible - Prolongación para generador - Soporte ADCP </td> 
+                            <td>-</td>
+                            <td>-</td>
+                            <td>5 Bidones móviles de combustible - Prolongación para generador - Soporte ADCP </td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -123,11 +134,11 @@
                             <td class="align-middle">2</td>
                             <td>Albornoz Enrique Marcelo </td>
                             <td>Ford - Ranger XLT 3.0 TDI DC 4x2</td>
-                            <td>16/12/2022 07:00</td>                               
+                            <td>16/12/2022 07:00</td>
                             <td>16/12/2022 19:00</td>
-                            <td>-</td>                               
-                            <td>-</td> 
-                            <td>5 Bidones móviles de combustible</td> 
+                            <td>-</td>
+                            <td>-</td>
+                            <td>5 Bidones móviles de combustible</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -144,11 +155,11 @@
                             <td class="align-middle">3</td>
                             <td>Abrile Mariana Guadalupe </td>
                             <td>Ford - Ranger XLT 3.0 TDI DC 4x2</td>
-                            <td>29/12/2022 07:00</td>                               
+                            <td>29/12/2022 07:00</td>
                             <td>29/12/2022 19:00</td>
-                            <td>-</td>                               
-                            <td>-</td> 
-                            <td>5 Bidones móviles de combustible - Prolongación para generador  </td> 
+                            <td>-</td>
+                            <td>-</td>
+                            <td>5 Bidones móviles de combustible - Prolongación para generador  </td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ path('reservas_show', { 'id': 1 }) }}">
                                     <i class="fa fa-eye"></i>&nbsp;Ver
@@ -160,22 +171,17 @@
                                 {% endif %}
                             </td>
                         </tr>
-
-                    #}  {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="navigation mt-3 mb-5 centrate-x">
-                {#{ knp_pagination_render(docentes) }#}
-            </div>
-
-
-
-            {#% else %}
-                <div class="bg-light p-4">
-                    No se encontro ning&uacute;n docente adscripto.
+                            #}  {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-            {% endif %#}
+
+                <div class="navigation mt-3 mb-5 centrate-x">
+                    {{ knp_pagination_render(reservas) }}
+                </div>
+
+
+            {% endif %}
         </div>
     </div>
 

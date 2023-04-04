@@ -9,7 +9,10 @@
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;
                 Volver
             </a>
-
+            {# <a href="{{ path('docentes_adscriptos_new') }}" class="ml-3">
+                 <i class="fa fa-plus"></i>
+                 Nuevo docente
+             </a>  #}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -23,20 +26,31 @@
             {% include '::notificaciones.html.twig' %}
         </div>
 
+        <h2 class="font-weight-bold text-primary">
+            {{ reserva }}
+        </h2>
+        <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
+
         {% include 'VehiculosBundle:Reserva:form.html.twig' %}
 
         {% embed '::botonera.html.twig' %}
 
             {% block left %}
                 <button role="submit" class="btn btn-primary" form="{{ form.vars.attr.id }}">
-                    <i class="fa fa-check"></i>&nbsp;Crear
+                    <i class="fa fa-save"></i>&nbsp;Guardar cambios
                 </button>
-            {% endblock %}
-            {% block right %}
                 <a href="{{ path('reservas_listado') }}"
                    class="btn btn-secondary">
                     Cancelar
                 </a>
+            {% endblock %}
+            {% block right %}
+                {{ form_start(delete_form) }}
+                <button role="submit" class="btn btn-danger confirmar-borrado" form="{{ delete_form.vars.id }}"
+                        data-msg='¿Esta seguro que desea borrar la reserva <b>{{ reserva }}</b>?'>
+                    <i class="fa fa-trash"></i>&nbsp;Borrar
+                </button>
+                {{ form_end(delete_form) }}
             {% endblock %}
 
         {% endembed %}
@@ -45,15 +59,17 @@
 
 {% endblock %}
 
-
 {% block javascripts %}
     {{ parent() }}
 
     <script>
         $(document).ready(function () {
-
+            // $('#guardarCambios').click(function (e) {
+            //     e.preventDefault();
+            //     $("form[name='vehiculosbundle_tipovehiculo']").submit();
+            // });
         });
     </script>
 
-{% endblock %}
 
+{% endblock %}
