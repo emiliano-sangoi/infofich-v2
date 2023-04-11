@@ -391,6 +391,6 @@ class Vehiculo
     }
 
     public function __toString() {
-        return $this->descripcion;
+        return $this->marca . " - " . $this->modelo;
     }
 }

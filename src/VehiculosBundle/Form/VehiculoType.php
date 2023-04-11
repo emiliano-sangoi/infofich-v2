@@ -109,7 +109,10 @@ class VehiculoType extends AbstractType {
             'label_attr' => array('class' => 'font-weight-bold'),
             'class' => Vehiculo::class,
             'attr' => array(
-                'class' => 'form-control js-select2')
+                'class' => 'form-control js-select2'),
+            'placeholder' => 'Seleccionar Asociado',
+            'empty_data'  => null,
+            'required' => false
         ));
 
         $vehiculo = $builder->getData();
