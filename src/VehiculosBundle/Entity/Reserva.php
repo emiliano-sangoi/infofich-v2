@@ -77,6 +77,15 @@ class Reserva
      */
     private $elementosExtras;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motivo", type="text", nullable=true)
+     * @Assert\Valid
+     */
+    private $motivo;
+
     /**
      * Indica cuando la reserva fue creada.
      *
@@ -241,6 +250,33 @@ class Reserva
     {
         return $this->elementosExtras;
     }
+
+
+    /**
+     * Set motivo
+     *
+     * @param string $motivo
+     *
+     * @return Reserva
+     */
+    public function setMotivo($motivo)
+    {
+        $this->motivo = $motivo;
+
+        return $this;
+    }
+
+    /**
+     * Get motivo
+     *
+     * @return string
+     */
+    public function getMotivo()
+    {
+        return $this->motivo;
+    }
+
+
 
     /**
      * Set docente

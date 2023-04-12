@@ -72,7 +72,7 @@ class ReservaType extends AbstractType {
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy H:m',
             'required' => true,
-            'label' => 'Fecha Fin',
+            'label' => 'Fecha Devolución',
             'label_attr' => array('class' => 'font-weight-bold'),
         ));
 
@@ -83,7 +83,7 @@ class ReservaType extends AbstractType {
                 'format' => 'dd/MM/yyyy H:m',
                 'required' => false,
                 'disabled' => true,
-                'label' => 'Fecha alta',
+                'label' => 'Fecha Inicio',
                 'label_attr' => array('class' => 'font-weight-bold'),
             ));
 
@@ -134,6 +134,18 @@ class ReservaType extends AbstractType {
             'attr' => array(
                 'class' => 'form-control',
                 'rows' => 4
+            )
+        ));
+
+        $builder->add('motivo', TextareaType::class, array(
+            'label' => 'Motivo',
+            'label_attr' => array('class' => 'font-weight-bold'),
+            //'disabled' => true,
+            'required' => true,
+            //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
+            'attr' => array(
+                'class' => 'form-control',
+                'rows' => 2
             )
         ));
 
