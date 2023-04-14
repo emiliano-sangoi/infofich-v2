@@ -103,7 +103,7 @@ class ReservaType extends AbstractType {
             ));
 
 
-        $builder->add('estado', TextType::class, array(
+        /*$builder->add('estado', TextType::class, array(
             'label' => 'Estado',
             'label_attr' => array('class' => 'font-weight-bold'),
             //'disabled' => true,
@@ -112,7 +112,7 @@ class ReservaType extends AbstractType {
             'attr' => array(
                 'class' => 'form-control'
             )
-        ));
+        ));*/
 
         $builder->add('cantidadPersonas', TextType::class, array(
             'label' => 'Cant. de personas',

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Estado de la reserva
- *
+ * @ORM\Entity
  * @ORM\Table(name="vehiculo_reserva_estado")")
  * @ORM\Entity(repositoryClass="VehiculosBundle\Repository\EstadoRepository")
  */
@@ -111,7 +111,7 @@ class EstadoReserva implements \JsonSerializable{
      *
      * @param string $nombre
      *
-     * @return Estado
+     * @return EstadoReserva
      */
     public function setNombre($nombre) {
         $this->nombre = $nombre;
@@ -133,7 +133,7 @@ class EstadoReserva implements \JsonSerializable{
      *
      * @param string $descripcion
      *
-     * @return Estado
+     * @return EstadoReserva
      */
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
@@ -156,7 +156,7 @@ class EstadoReserva implements \JsonSerializable{
      *
      * @param integer $codigo
      *
-     * @return Estado
+     * @return EstadoReserva
      */
     public function setCodigo($codigo)
     {

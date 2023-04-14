@@ -61,7 +61,7 @@
                                 {{ knp_pagination_sortable(reservas, 'Fecha fin', 'r.fechaFin') }}
                             </th>
                             <th class="text-center">
-                                {{ knp_pagination_sortable(reservas, 'Estado', 'r.estado') }}
+                                {#{ knp_pagination_sortable(reservas, 'Estado', 'r.estado') }#}
                             </th>
 {#                            <th>#}
 {#                                {{ knp_pagination_sortable(reservas, 'Cant. personas', 'r.cantidadPersonas') }}#}
@@ -89,7 +89,7 @@
                                     {{ reserva.fechaFin|date('d/m/Y H:i') }}
                                 </td>
                                 <td class="text-center">
-                                    {{ reserva.estado }}
+                                    {#{ reserva.estado }#}
                                 </td>
 {#                                <td>#}
 {#                                    {{ reserva.cantidadPersonas }}#}

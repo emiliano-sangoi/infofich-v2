@@ -4,11 +4,12 @@ namespace VehiculosBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use VehiculosBundle\Entity\Reserva;
-use VehiculosBundle\Entity\TipoVehiculo;
-use VehiculosBundle\Entity\Vehiculo;
+use VehiculosBundle\Entity\EstadoReserva;
+use VehiculosBundle\Entity\HistoricoEstadosReserva;
+use VehiculosBundle\Repository\HistoricoEstadosReservaRepository;
+use VehiculosBundle\Entity\Reserva;;
 use VehiculosBundle\Form\ReservaType;
-use VehiculosBundle\Form\TipoVehiculoType;
+
 
 
 class ReservaController extends Controller {
@@ -59,6 +60,15 @@ class ReservaController extends Controller {
             $reserva->setFechaAlta(new \DateTime());
             $em->persist($reserva);
             $em->flush();
+
+            //asignar estado: nueva
+            //---------------------------------------------------------------------------
+            /* @var $repoHistorico HistoricoEstadosRepository */
+            $repoHistorico = $em->getRepository(HistoricoEstadosReserva::class);            
+
+            $usuario = $this->getUser();
+            //$repoHistorico->setEstadoCreada($reserva, $usuario);
+            $repoHistorico->setEstadoNueva($reserva, $usuario);
 
             $this->addFlash('success', 'Reserva creada correctamente');
 

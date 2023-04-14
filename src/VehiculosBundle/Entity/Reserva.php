@@ -60,7 +60,7 @@ class Reserva
      *
      * @ORM\Column(name="estado", type="boolean", nullable=false)
      */
-    private $estado;
+   // private $estado;
 
     /**
      * @var integer
@@ -179,30 +179,7 @@ class Reserva
         return $this->fechaFin;
     }
 
-    /**
-     * Set estado
-     *
-     * @param boolean $estado
-     *
-     * @return Reserva
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return boolean
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
-
+    
     /**
      * Set cantidadPersonas
      *
