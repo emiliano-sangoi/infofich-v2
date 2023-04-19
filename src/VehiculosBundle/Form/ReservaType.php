@@ -83,7 +83,7 @@ class ReservaType extends AbstractType {
                 'format' => 'dd/MM/yyyy H:m',
                 'required' => false,
                 'disabled' => true,
-                'label' => 'Fecha Inicio',
+                'label' => 'Fecha de Alta',
                 'label_attr' => array('class' => 'font-weight-bold'),
             ));
 
