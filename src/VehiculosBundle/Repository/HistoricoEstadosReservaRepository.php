@@ -2,9 +2,11 @@
 
 namespace VehiculosBundle\Repository;
 use AppBundle\Entity\Usuario;
+use DateTime;
 use VehiculosBundle\Entity\EstadoReserva;
 use VehiculosBundle\Entity\HistoricoEstadosReserva;
 use VehiculosBundle\Entity\Reserva;
+use Symfony\Component\Serializer\Exception\Exception;
 
 /**
  * HistoricoEstadosReservaRepository
@@ -20,8 +22,8 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
         $estado = $em->getRepository(EstadoReserva::class)->findOneBy(array(
             'codigo' => EstadoReserva::NUEVA
         ));
-        //die($estado);
-        if (!$estado instanceof Estado) {
+
+        if (!$estado instanceof EstadoReserva) {
             return false;
         }
 
