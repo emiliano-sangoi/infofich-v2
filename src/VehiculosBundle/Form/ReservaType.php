@@ -4,6 +4,7 @@ namespace VehiculosBundle\Form;
 
 use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -148,6 +149,25 @@ class ReservaType extends AbstractType {
                 'rows' => 2
             )
         ));
+
+        $builder->add('tipoProyecto', ChoiceType::class, [
+            'choices'  => [
+                'SAT' => 'SAT',
+                'PI' => 'PI',
+                'I' => 'I',
+                'Sec. Academica' => 'SA',
+                'Sec. Extensión' => 'SE',
+                'Sec. Ciencia y Técnica' => 'CyT',
+                'Otros' => 'otros',
+            ],  
+            'attr' => array(
+                'class' => 'form-control js-select2',
+            ),
+            'label_attr' => array(
+                'class' => 'font-weight-bold',
+            ),
+            'label' => 'Tipo de Proyecto'
+        ]);
 
 
     }
