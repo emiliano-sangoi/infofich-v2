@@ -121,6 +121,15 @@ class Reserva
      */
     protected $fechaBaja;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_proyecto", type="text", nullable=true)
+     * @Assert\Valid
+     */
+    private $tipoProyecto;
+    
+
     public function __construct()
     {
         $this->historicosEstadosReserva = new ArrayCollection;
@@ -263,6 +272,30 @@ class Reserva
     }
 
 
+
+    /**
+     * Set tipoProyecto
+     *
+     * @param string $motivo
+     *
+     * @return Reserva
+     */
+    public function setTipoProyecto($tipoProyecto)
+    {
+        $this->tipoProyecto = $tipoProyecto;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoProyecto
+     *
+     * @return string
+     */
+    public function getTipoProyecto()
+    {
+        return $this->tipoProyecto;
+    }
 
     /**
      * Set docente
