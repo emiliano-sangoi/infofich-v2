@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use VehiculosBundle\Entity\Vehiculo;
 use VehiculosBundle\Entity\Reserva;
+use VehiculosBundle\Entity\EstadoReserva;
+use VehiculosBundle\Entity\HistoricoEstadosReserva;
 use DocentesBundle\Entity\DocenteGrado;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -21,9 +23,23 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class ReservaType extends AbstractType {
 
     /**
+     *
+     * @var Reserva
+     */
+    private $reserva;
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+
+        $this->reserva = $builder->getData();
+        
+        //$er = $this->reserva->get
+
+        /*if ($ea instanceof Estado) {
+            $this->codEstadoActual = $ea->getCodigo();
+        }*/
 
 
         $builder
@@ -102,8 +118,8 @@ class ReservaType extends AbstractType {
                 )
             ));
 
-
-        /*$builder->add('estado', TextType::class, array(
+/*
+        $builder->add('estadoReserva', TextType::class, array(
             'label' => 'Estado',
             'label_attr' => array('class' => 'font-weight-bold'),
             //'disabled' => true,

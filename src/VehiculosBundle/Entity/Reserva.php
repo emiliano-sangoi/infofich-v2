@@ -5,6 +5,7 @@ namespace VehiculosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\Usuario;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Reserva
@@ -61,6 +62,13 @@ class Reserva
      * @ORM\Column(name="estado", type="boolean", nullable=false)
      */
    // private $estado;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="HistoricoEstadosReserva", mappedBy="reserva")
+     */
+    private $historicosEstadosReserva;
 
     /**
      * @var integer
@@ -115,6 +123,7 @@ class Reserva
 
     public function __construct()
     {
+        $this->historicosEstadosReserva = new ArrayCollection;
     }
 
     public function __toString(){
@@ -355,6 +364,18 @@ class Reserva
     {
         $this->usuarioAlta = $usuarioAlta;
         return $this;
+    }
+
+    /**
+     * Devuelve un texto indicando el estado actual
+     */
+    public function getEstadoActual() {
+        $hea = $this->getHistoricoEstadoActual();
+        if ($hea) {
+            return $hea->getEstado();
+        }
+
+        return null;
     }
 
 
