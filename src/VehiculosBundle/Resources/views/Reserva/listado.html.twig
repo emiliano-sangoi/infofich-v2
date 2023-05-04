@@ -3,6 +3,9 @@
 {% set full_width = false %}
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 {% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+
+
+
 {% block navbar2 %}
     {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
@@ -61,7 +64,7 @@
                                 {{ knp_pagination_sortable(reservas, 'Fecha fin', 'r.fechaFin') }}
                             </th>
                             <th class="text-center">
-                                {#{ knp_pagination_sortable(reservas, 'Estado', 'r.estado') }#}
+                                {{ knp_pagination_sortable(reservas, 'Estado', 'r.estado') }}
                             </th>
 {#                            <th>#}
 {#                                {{ knp_pagination_sortable(reservas, 'Cant. personas', 'r.cantidadPersonas') }}#}
@@ -72,6 +75,7 @@
                         </thead>
                         <tbody>
                         {% for reserva in reservas %}
+                          
                             <tr>
                                 <td class="align-middle">
                                     {{ loop.index }}
@@ -88,9 +92,19 @@
                                 <td>
                                     {{ reserva.fechaFin|date('d/m/Y H:i') }}
                                 </td>
-                                <td class="text-center">
-                                    {#{ reserva.estado }#}
+                                <td class="bg-white">
+                                    {% set eActual = reserva.getEstadoActual() %}
+                                    {% if eActual %}
+                                        {% set class = eActual.getCssClass() %}
+
+                                        {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
+                                        <span class='mr-2 text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                                            {{ eActual.nombre }}
+                                        </span>
+                                    {% endif %}
                                 </td>
+                               
+
 {#                                <td>#}
 {#                                    {{ reserva.cantidadPersonas }}#}
 {#                                </td>#}

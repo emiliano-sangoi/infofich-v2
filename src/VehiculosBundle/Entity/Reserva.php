@@ -399,6 +399,52 @@ class Reserva
         return $this;
     }
 
+
+    /**
+     * Set estado
+     *
+     * @param \VehiculosBundle\Entity\EstadoReserva $estadoReserva
+     *
+     * @return HistoricoEstadosReserva
+     */
+    public function setEstado(\VehiculosBundle\Entity\EstadoReserva $estadoReserva = null)
+    {
+        $this->estadoReserva = $estadoReserva;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return \VehiculosBundle\Entity\EstadoReserva
+     */
+    public function getEstado()
+    {
+        return $this->estadoReserva;
+    }
+
+
+
+
+     /**
+     * Devuelve el historico que contiene la informacion sobre el estado actual.
+     *
+     * @return HistoricoEstadosReserva|null
+     */
+    public function getHistoricoEstadoActual() {
+        $res = null;
+        foreach ($this->historicosEstadosReserva as $historico) {            
+            if ($historico->getFechaHasta() == null) {
+                $res = $historico;
+                break;
+            }
+        }        
+        
+        return $res;
+    }
+    
+    
     /**
      * Devuelve un texto indicando el estado actual
      */

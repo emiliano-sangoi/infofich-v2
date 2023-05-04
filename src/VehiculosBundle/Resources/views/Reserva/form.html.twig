@@ -1,9 +1,16 @@
+{% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+{% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+
+
+{% block content %}    
+
+
 {{ form_start(form) }}
 
 <div class="bg-light p-5 shadow">
 
     <div class="form-row">
-        <div class="col-6">
+           <div class="col-6">
             {{ form_label(form.docente) }}
             {{ form_widget(form.docente) }}
             {{ form_errors(form.docente) }}
@@ -26,7 +33,7 @@
             {{ input_datetime_picker(form.fechaFin, form.fechaFin.vars.id ~ '_picker', false ) }}
         </div>
 
-        {#<div class="col-12 col-md-3">
+       {# <div class="col-12 col-md-3">
             {{ form_label(form.estado) }}
             {{ form_widget(form.estado) }}
             {{ form_errors(form.estado) }}
@@ -58,18 +65,21 @@
             {{ form_errors(form.motivo) }}
         </div>
     </div>
-    <div class="form-row">
-        <div class="col-12 col-md-4">
-            {% from '::macros.html.twig' import input_datetime_picker %}
-            {{ input_datetime_picker(form.fechaAlta, form.fechaAlta.vars.id ~ '_picker', false ) }}
-        </div>
-        <div class="col-12 col-md-8">
-            {{ form_label(form.usuarioAlta) }}
-            {{ form_widget(form.usuarioAlta) }}
-            {{ form_errors(form.usuarioAlta) }}
-        </div>
-    </div>
+    {% if app.user.tieneRol(ROLE_ADMIN) %}
 
+        <div class="form-row">
+            <div class="col-12 col-md-4">
+                {% from '::macros.html.twig' import input_datetime_picker %}
+                {{ input_datetime_picker(form.fechaAlta, form.fechaAlta.vars.id ~ '_picker', false ) }}
+            </div>
+            <div class="col-12 col-md-8">
+                {{ form_label(form.usuarioAlta) }}
+                {{ form_widget(form.usuarioAlta) }}
+                {{ form_errors(form.usuarioAlta) }}
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 {{ form_end(form) }}
+{% endblock %} 

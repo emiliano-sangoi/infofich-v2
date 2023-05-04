@@ -32,7 +32,7 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
 
         $fecha = new \DateTime;
         $h->setFechaDesde($fecha);
-        $h->setFechaHasta($fecha);
+        $h->setFechaHasta(NULL);//hasta que pase de estado
 
         $h->setReserva($reserva);
         $h->setUsuario($usuario);
