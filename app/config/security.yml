@@ -37,6 +37,7 @@ security:
 
     role_hierarchy:
         # Todos los roles deben extender de ROLE_USUARIO
+        ROLE_SEC_INFRAESTRUCTURA : ROLE_USUARIO
         ROLE_SEC_ACADEMICA: ROLE_USUARIO
         ROLE_DOCENTE_GRADO: ROLE_USUARIO
         ROLE_ADMIN: ROLE_USUARIO

@@ -21,6 +21,7 @@ class Rol implements RoleInterface, JsonSerializable {
     const ROLE_USUARIO = 'ROLE_USUARIO';
     const ROLE_SEC_ACADEMICA = 'ROLE_SEC_ACADEMICA';
     const ROLE_DOCENTE_GRADO = 'ROLE_DOCENTE_GRADO';
+    const ROLE_SEC_INFRAESTRUCTURA = 'ROLE_SEC_INFRAESTRUCTURA';
 
     /**
      * @var int
