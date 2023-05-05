@@ -65,7 +65,7 @@
             {{ form_errors(form.motivo) }}
         </div>
     </div>
-    {% if app.user.tieneRol(ROLE_ADMIN) %}
+    {#% if app.user.tieneRol(ROLE_ADMIN) %#}
 
         <div class="form-row">
             <div class="col-12 col-md-4">
@@ -78,7 +78,7 @@
                 {{ form_errors(form.usuarioAlta) }}
             </div>
         </div>
-    {% endif %}
+    {#% endif %#}
 </div>
 
 {{ form_end(form) }}

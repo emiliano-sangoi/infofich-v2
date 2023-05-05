@@ -1,6 +1,8 @@
 {% extends '::base.html.twig' %}
+
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 {% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+{% set ROL_SI = constant('AppBundle\\Entity\\Rol::ROLE_SEC_INFRAESTRUCTURA') %}
 
 {% set full_width = false %}
 
@@ -34,7 +36,7 @@
 
         {% embed '::botonera.html.twig' %}
 
-        {% if app.user.tieneRol(ROLE_ADMIN) %}
+        {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI)%}
 
             {% block left %}
                    
@@ -48,9 +50,7 @@
                         <button role="submit" class="btn btn-lg btn-success">
                             <i class="fa fa-check"></i>&nbsp;ACEPTAR
                         </button>
-                        {#{ form_end(form_publicar) }#}
-
-                       
+                        {#{ form_end(form_publicar) }#}                       
 
                 {% endblock %}
 
