@@ -54,7 +54,7 @@ class HistoricoEstadosReserva implements \JsonSerializable
      *
      * @var Reserva
      * 
-     * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="historicosEstado")
+     * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="historicosEstadosReserva")
      * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id") 
      */
     private $reserva;

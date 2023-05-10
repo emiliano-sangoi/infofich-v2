@@ -425,8 +425,6 @@ class Reserva
     }
 
 
-
-
      /**
      * Devuelve el historico que contiene la informacion sobre el estado actual.
      *

@@ -72,6 +72,7 @@ class ReservaType extends AbstractType {
         ));
 
 
+
         $builder
         ->add('fechaInicio', DateTimeType::class, array(
             'attr' => array('class' => 'form-control', 'placeholder' => 'dd/mm/AAAA hh:mm', 'autocomplete' => 'off'),
@@ -119,10 +120,11 @@ class ReservaType extends AbstractType {
                 )
             ));
 
-/*
-        $builder->add('estadoReserva', TextType::class, array(
+
+        /*$builder->add('historicosEstadosReserva', EntityType::class, array(
             'label' => 'Estado',
             'label_attr' => array('class' => 'font-weight-bold'),
+            'class' => HistoricoEstadosReserva::class,
             //'disabled' => true,
             'required' => true,
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',

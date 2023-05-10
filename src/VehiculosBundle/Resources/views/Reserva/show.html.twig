@@ -41,23 +41,28 @@
             {% block left %}
                    
                         {#{ form_start(form_publicar) }#}
-                        <button role="submit" class="btn btn-lg btn-info">
-                            <i class="fa fa-check"></i>&nbsp;AVALAR
+                        <button role="submit" class="btn  btn-info">
+                            <i class="fa fa-check"></i>&nbsp;Avalar
                         </button>
                         {#{ form_end(form_publicar) }#}
 
                         {#{ form_start(form_publicar) }#}
-                        <button role="submit" class="btn btn-lg btn-success">
-                            <i class="fa fa-check"></i>&nbsp;ACEPTAR
+                        <button role="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i>&nbsp;Aceptar
                         </button>
+                        <a href="{{ path('reservas_listado') }}"
+                            class="btn btn-secondary">
+                            Cancelar
+                        </a>
                         {#{ form_end(form_publicar) }#}                       
 
                 {% endblock %}
 
                 {% block right %}
-                     <button role="submit" class="btn btn-lg btn-danger">
-                            <i class="fa fa-ban"></i>&nbsp;RECHAZAR
+                     <button role="submit" class="btn btn-danger">
+                            <i class="fa fa-ban"></i>&nbsp;Rechazar
                       </button>
+
                 {% endblock %}
 
             {% endif %}

@@ -27,7 +27,7 @@ class ReservaController extends Controller {
         $repo = $em->getRepository(Reserva::class);
         $qb = $repo->createQueryBuilder('r');
         $qb->where($qb->expr()->isNull('r.fechaBaja'));
-        $qb->addOrderBy('r.id', 'DESC');
+        $qb->addOrderBy('r.fechaInicio', 'DESC');
         $paginator = $this->get('knp_paginator');
         $reservas = $paginator->paginate(
             $qb->getQuery(), /* query NOT result */ $request->query->getInt('page', 1), /* page number */ 10 /* limit per page */
@@ -90,7 +90,7 @@ class ReservaController extends Controller {
     }
 
     public function showAction(Reserva $reserva, Request $request) {
-
+        //dump($reserva);exit;
         $form = $this->createForm(ReservaType::class, $reserva, [
             'disabled' => true
         ]);
@@ -104,7 +104,7 @@ class ReservaController extends Controller {
         $breadcrumbs->addItem('Ver');
 
         $deleteForm = $this->createDeleteForm($reserva);
-
+        
         return $this->render('VehiculosBundle:Reserva:show.html.twig', array(
             'reserva' => $reserva,
             'form' => $form->createView(),

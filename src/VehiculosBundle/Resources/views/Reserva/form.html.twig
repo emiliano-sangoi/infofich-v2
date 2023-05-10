@@ -10,7 +10,7 @@
 <div class="bg-light p-5 shadow">
 
     <div class="form-row">
-           <div class="col-6">
+        <div class="col-6">
             {{ form_label(form.docente) }}
             {{ form_widget(form.docente) }}
             {{ form_errors(form.docente) }}
@@ -21,6 +21,14 @@
             {{ form_errors(form.vehiculo) }}
         </div>
     </div>
+
+   {# <div class="form-row">
+       <div class="col-6">
+            {{ form_label(form.vehiculo.asociado) }}
+            {{ form_widget(form.vehiculo.asociado) }}
+            {{ form_errors(form.vehiculo.asociado) }}
+        </div>
+    </div> #}
     <div class="form-row">
 
         <div class="col-12 col-md-3">
@@ -34,9 +42,9 @@
         </div>
 
        {# <div class="col-12 col-md-3">
-            {{ form_label(form.estado) }}
-            {{ form_widget(form.estado) }}
-            {{ form_errors(form.estado) }}
+            {{ form_label(form.historicosEstadosReserva) }}
+            {{ form_widget(form.historicosEstadosReserva) }}
+            {{ form_errors(form.historicosEstadosReserva) }}
         </div>#}
 
         <div class="col-12 col-md-3">

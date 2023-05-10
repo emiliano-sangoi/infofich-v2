@@ -154,7 +154,7 @@ class VehiculoController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $vehiculo = $em->getRepository(Vehiculo::class)->findOneByTipo($tipoVehiculo);
+            $vehiculo = $em->getRepository(Vehiculo::class)->findOneByTipo($vehiculo);
             if($vehiculo){
                 //baja logica
                 $vehiculo->setFechaBaja(new \DateTime());
