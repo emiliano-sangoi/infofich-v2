@@ -400,31 +400,6 @@ class Reserva
     }
 
 
-    /**
-     * Set estado
-     *
-     * @param \VehiculosBundle\Entity\EstadoReserva $estadoReserva
-     *
-     * @return HistoricoEstadosReserva
-     */
-    public function setEstado(\VehiculosBundle\Entity\EstadoReserva $estadoReserva = null)
-    {
-        $this->estadoReserva = $estadoReserva;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return \VehiculosBundle\Entity\EstadoReserva
-     */
-    public function getEstado()
-    {
-        return $this->estadoReserva;
-    }
-
-
      /**
      * Devuelve el historico que contiene la informacion sobre el estado actual.
      *

@@ -30,19 +30,22 @@ class ReservaType extends AbstractType {
     private $reserva;
 
     /**
+     *
+     * @var integer
+     */
+    private $codEstadoActual;
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->reserva = $builder->getData();
         
-        //$er = $this->reserva->get
+        $ea = $this->reserva->getEstadoActual();
+        
 
-        /*if ($ea instanceof Estado) {
-            $this->codEstadoActual = $ea->getCodigo();
-        }*/
-
-
+       // dump( $this->codEstadoActual);exit;
         $builder
             ->add('docente', EntityType::class, array(
                 'label' => 'Docente',
@@ -119,19 +122,24 @@ class ReservaType extends AbstractType {
                     'class' => 'font-weight-bold',
                 )
             ));
-
-
-        /*$builder->add('historicosEstadosReserva', EntityType::class, array(
-            'label' => 'Estado',
-            'label_attr' => array('class' => 'font-weight-bold'),
-            'class' => HistoricoEstadosReserva::class,
-            //'disabled' => true,
-            'required' => true,
-            //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
-            'attr' => array(
-                'class' => 'form-control'
-            )
-        ));*/
+        
+        //Si la Reserva ya esta creada, le agregamos el estado, si presionamos nueva reserva devuelve null y no agrega el campo
+        
+        /*if ($ea instanceof EstadoReserva) {
+                $this->codEstadoActual = $ea->__toString();
+        
+            $builder->add('codEstadoActual', TextType::class, array(
+                'label' => 'Estado',
+                'label_attr' => array('class' => 'font-weight-bold'),
+                'data' => $this->codEstadoActual,
+                'mapped' => false,
+                'required' => true,
+                //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
+                'attr' => array(
+                    'class' => 'form-control'
+                )
+            ));
+        }*/
 
         $builder->add('cantidadPersonas', TextType::class, array(
             'label' => 'Cant. de personas',

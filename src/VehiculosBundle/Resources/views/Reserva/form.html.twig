@@ -30,7 +30,6 @@
         </div>
     </div> #}
     <div class="form-row">
-
         <div class="col-12 col-md-3">
             {% from '::macros.html.twig' import input_datetime_picker %}
             {{ input_datetime_picker(form.fechaInicio, form.fechaInicio.vars.id ~ '_picker', false ) }}
@@ -41,11 +40,7 @@
             {{ input_datetime_picker(form.fechaFin, form.fechaFin.vars.id ~ '_picker', false ) }}
         </div>
 
-       {# <div class="col-12 col-md-3">
-            {{ form_label(form.historicosEstadosReserva) }}
-            {{ form_widget(form.historicosEstadosReserva) }}
-            {{ form_errors(form.historicosEstadosReserva) }}
-        </div>#}
+
 
         <div class="col-12 col-md-3">
             {{ form_label(form.cantidadPersonas) }}

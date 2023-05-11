@@ -1,3 +1,4 @@
+{# -basado en cambiar estado de planificacion- #}
 {% extends '::base.html.twig' %}
 
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
@@ -25,13 +26,13 @@
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
         </div>
-
+       {{ form_start(form) }}
         <h2 class="font-weight-bold text-primary">
             {{ reserva }}
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
-        {% include 'VehiculosBundle:Reserva:form.html.twig' %}
+        {% include 'VehiculosBundle:Reserva:cambiar-estado.html.twig' %}
 
 
         {% embed '::botonera.html.twig' %}
@@ -68,7 +69,7 @@
             {% endif %}
 
         {% endembed %}
-
+    {{ form_end(form) }}
     </div>
 
 {% endblock %}

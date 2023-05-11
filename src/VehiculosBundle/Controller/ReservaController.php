@@ -9,6 +9,7 @@ use VehiculosBundle\Entity\HistoricoEstadosReserva;
 use VehiculosBundle\Repository\HistoricoEstadosReservaRepository;
 use VehiculosBundle\Entity\Reserva;;
 use VehiculosBundle\Form\ReservaType;
+use VehiculosBundle\Form\CambiarEstadoReservaType;
 
 
 
@@ -90,8 +91,53 @@ class ReservaController extends Controller {
     }
 
     public function showAction(Reserva $reserva, Request $request) {
+        
+        //$this->denyAccessUnlessGranted(Permisos::PLANIF_PUBLICAR, array('data' => $planificacion));
+
+        //dump($planificacion);exit;
+        $form = $this->createForm(CambiarEstadoReservaType::class, null, array(
+            'reserva_original' => $reserva
+        ));
+        
+        $form->handleRequest($request);
+        //var_dump($form->isSubmitted());exit;
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            //Crear un registro en el historico de estados
+            //---------------------------------------------------------------------------
+            /* @var $repoHistorico HistoricoEstadosRepository */
+            $repoHistorico = $em->getRepository(HistoricoEstados::class);
+
+            $usuario = $this->getUser();
+            $repoHistorico->setEstadoCreada($reserva, $usuario);
+            //$repoHistorico->asignarEstado($reserva, Estado::REVISION, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
+            //---------------------------------------------------------------------------
+            $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
+
+            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $reserva->getId()));
+        }
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Vehículos", $this->get("router")->generate("vehiculos_index"));
+        $breadcrumbs->addItem("Reservas", $this->get("router")->generate("reservas_listado"));
+        $breadcrumbs->addItem($reserva);
+        //$breadcrumbs->addItem("CAMBIAR ESTADO");
+
+        return $this->render('VehiculosBundle:Reserva:show.html.twig', array(
+                    'page_title' => 'Reserva - Ver',
+                    'reserva' => $reserva,
+                    'form' => $form->createView(),
+                    // 'paginado' => $paginado,
+                  //  'puede_borrar' => $this->isGranted(Permisos::PLANIF_PUBLICAR, array('data' => $reserva))
+        ));
+        
+        
+        
         //dump($reserva);exit;
-        $form = $this->createForm(ReservaType::class, $reserva, [
+       /* $form = $this->createForm(ReservaType::class, $reserva, [
             'disabled' => true
         ]);
 
@@ -110,7 +156,7 @@ class ReservaController extends Controller {
             'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
             'page_title' => 'Reserva - Ver',
-        ));
+        ));*/
     }
 
     /**
