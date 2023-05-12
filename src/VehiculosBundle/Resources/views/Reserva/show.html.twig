@@ -26,7 +26,7 @@
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
         </div>
-       {{ form_start(form) }}
+     
         <h2 class="font-weight-bold text-primary">
             {{ reserva }}
         </h2>
@@ -41,13 +41,13 @@
 
             {% block left %}
                    
-                        {#{ form_start(form_publicar) }#}
+                        {#{ form_start(form_avalar) }#}
                         <button role="submit" class="btn  btn-info">
                             <i class="fa fa-check"></i>&nbsp;Avalar
                         </button>
-                        {#{ form_end(form_publicar) }#}
+                        {#{ form_end(form_avalar) }#}
 
-                        {#{ form_start(form_publicar) }#}
+                        {#{ form_start(form_aceptar) }#}
                         <button role="submit" class="btn btn-success">
                             <i class="fa fa-check"></i>&nbsp;Aceptar
                         </button>
@@ -55,21 +55,23 @@
                             class="btn btn-secondary">
                             Cancelar
                         </a>
-                        {#{ form_end(form_publicar) }#}                       
+                        {#{ form_end(form_aceptar) }#}                       
 
                 {% endblock %}
 
                 {% block right %}
+                    {#{ form_start(form_rechazar) }#}
                      <button role="submit" class="btn btn-danger">
                             <i class="fa fa-ban"></i>&nbsp;Rechazar
                       </button>
+                    {#{ form_end(form_rechazar) }#} 
 
                 {% endblock %}
 
             {% endif %}
 
         {% endembed %}
-    {{ form_end(form) }}
+    
     </div>
 
 {% endblock %}

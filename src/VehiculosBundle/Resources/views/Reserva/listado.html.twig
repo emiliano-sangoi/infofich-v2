@@ -3,6 +3,7 @@
 {% set full_width = false %}
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 {% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+{% set ROL_SI = constant('AppBundle\\Entity\\Rol::ROLE_SEC_INFRAESTRUCTURA') %}
 
 
 
@@ -113,14 +114,14 @@
                                 {#                                    </td> #}
                                 <td>
                                     <a href="{{ path('reservas_show', { 'id': reserva.id }) }}"
-                                       class="btn btn-sm btn-primary">
-                                        <i class="fa fa-eye"></i>&nbsp;Ver
+                                       class="btn btn-sm btn-primary d-inline-block">
+                                        <i class="fa fa-eye"></i>
                                     </a>
-                                    {% if app.user.tieneRol(ROL_SA) %}
-                                        <a href="{{ path('reservas_edit', { 'id': reserva.id }) }}"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            <i class="fa fa-edit"></i>&nbsp;Editar
-                                        </a>
+                                    {% if app.user.tieneRol(ROL_SI) %}
+                                    <a href="{{ path('reservas_edit', { 'id': reserva.id }) }}"
+                                           class="btn btn-sm btn-outline-secondary d-inline-block">
+                                            <i class="fa fa-edit"></i>
+                                    </a>
                                     {% endif %}
                                 </td>
                             </tr>

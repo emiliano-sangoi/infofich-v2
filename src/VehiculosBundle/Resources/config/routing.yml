@@ -61,7 +61,7 @@ reservas_edit:
 reservas_show:
     path:     /reservas/{id}/show
     defaults: { _controller: "VehiculosBundle:Reserva:show" }
-    methods:  [GET]
+    methods:  [GET, POST]
 reservas_delete:
     path:     /reservas/{id}/delete
     defaults: { _controller: "VehiculosBundle:Reserva:delete" }
