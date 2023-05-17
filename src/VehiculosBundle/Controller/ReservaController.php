@@ -102,7 +102,7 @@ class ReservaController extends Controller {
         $form->handleRequest($request);
         //var_dump($form->isSubmitted());exit;
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());exit;
+            
             $em = $this->getDoctrine()->getManager();
             //Crear un registro en el historico de estados
             //---------------------------------------------------------------------------
@@ -110,8 +110,8 @@ class ReservaController extends Controller {
             $repoHistorico = $em->getRepository(HistoricoEstadosReserva::class);
 
             $usuario = $this->getUser();
-            $repoHistorico->setEstadoCreada($reserva, $usuario);
-            //$repoHistorico->asignarEstado($reserva, Estado::REVISION, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
+            //$repoHistorico->setEstadoCreada($reserva, $usuario); ya esta creada en este caso.
+            $repoHistorico->asignarEstado($reserva, EstadoReserva::ACEPTADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
             //---------------------------------------------------------------------------
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 

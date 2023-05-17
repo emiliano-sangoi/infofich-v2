@@ -46,18 +46,18 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
         /**
      * Se encarga de especificar un estado a una planificacion existente.
      * 
-     * @param Planificacion $planificacion
+     * @param Reserva $reserva
      * @param integer $cod_estado
      * @param Usuario $usuario
      * @param string|null $comentario
      * @return boolean
      * @throws Exception
      */
-   /* public function asignarEstado(Planificacion $planificacion, $cod_estado, Usuario $usuario, $comentario = null) {
+    public function asignarEstado(Reserva $reserva, $cod_estado, Usuario $usuario, $comentario = null) {
 
         $em = $this->getEntityManager();
 
-        $repoEstados = $em->getRepository(Estado::class);
+        $repoEstados = $em->getRepository(EstadoReserva::class);
         $estado = $repoEstados->findOneBy(array(
             'codigo' => $cod_estado
         ));
@@ -72,7 +72,7 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
         try {
 
             //buscar estado actual:
-            $hea = $planificacion->getHistoricoEstadoActual();
+            $hea = $reserva->getHistoricoEstadoActual();
 
             //si es distinto de creado se setea la fecha hasta y se guarda el cambio
             if ($hea && $hea->getEstado() && $hea->getEstado()->getCodigo() !== Estado::CREADA) {
@@ -81,14 +81,14 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
             }
 
             //nuevo estado:
-            $hn = new HistoricoEstados();
-            $hn->setPlanificacion($planificacion);
+            $hn = new HistoricoEstadosReserva();
+            $hn->setReserva($reserva);
             $hn->setEstado($estado);
             $hn->setUsuario($usuario);
             $hn->setComentario($comentario);
             
             //modificar fecha de actualizacion:
-            $planificacion->setUltimaModif(new \DateTime());
+            $reserva->setUltimaModif(new \DateTime());
 
             //guardar nuevo registro
             $em->persist($hn);
@@ -103,5 +103,5 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return $res;
-    }*/
+    }
 }

@@ -41,13 +41,13 @@
 
             {% block left %}
                    
-                        {#{ form_start(form_avalar) }#}
+                        {#{ form_start(form_avalar) }}
                         <button role="submit" class="btn  btn-info">
                             <i class="fa fa-check"></i>&nbsp;Avalar
                         </button>
                         {#{ form_end(form_avalar) }#}
 
-                        {#{ form_start(form_aceptar) }#}
+                        {{ form_start(form) }}
                         <button role="submit" class="btn btn-success">
                             <i class="fa fa-check"></i>&nbsp;Aceptar
                         </button>
@@ -55,7 +55,7 @@
                             class="btn btn-secondary">
                             Cancelar
                         </a>
-                        {#{ form_end(form_aceptar) }#}                       
+                        {{ form_end(form) }}                       
 
                 {% endblock %}
 

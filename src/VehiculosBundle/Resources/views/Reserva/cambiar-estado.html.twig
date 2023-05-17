@@ -1,0 +1,117 @@
+
+<table class="table table-bordered shadow">
+    <tbody>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Docente:
+            </td>
+            <td class="bg-white text-primary font-weight-bolder">
+                {{ reserva.docente }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Vehiculo:
+            </td>
+            <td class="bg-white">
+                {{ reserva.vehiculo }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Asociado:
+            </td>
+            <td class="bg-white">
+                {{ reserva.vehiculo.getAsociado() }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Estado actual:
+            </td>
+            <td class="bg-white">
+                {% set eActual = reserva.getEstadoActual() %}
+                {% if eActual %}
+                    {% set class = eActual.getCssClass() %}
+
+                
+                    <span class='mr-2 small text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                        {{ eActual.nombre }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Fecha Inicio:
+            </td>
+            <td class="bg-white">
+                {{ reserva.fechaInicio|date('d/m/Y H:i')  }}
+            </td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Fecha Fin:
+            </td>
+            <td class="bg-white">
+                {{ reserva.fechaFin|date('d/m/Y H:i')  }}
+            </td>
+        </tr>
+         <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Cantidad de Personas:
+            </td>
+            <td class="bg-white">
+                {{ reserva.cantidadPersonas }}
+            </td>
+        </tr>
+                 <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Tipo Proyecto:
+            </td>
+            <td class="bg-white">
+                {{ reserva.tipoProyecto }}
+            </td>
+        </tr>
+                 <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Elementos Extras:
+            </td>
+            <td class="bg-white">
+                {{ reserva.elementosExtras }}
+            </td>
+        </tr>
+
+                 <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Motivo:
+            </td>
+            <td class="bg-white">
+                {{ reserva.motivo }}
+            </td>
+        </tr>
+        {#Si nos pasan como parametro estado Nuevo - es porque nos llaman desde el boton cambiar estado #}
+        {#% if bandera is defined and bandera == 'cambiarEstado' %}
+        <tr>
+            <td class="font-weight-bold bg-secondary text-white text-right">
+                Nuevo Estado:
+            </td>
+            <td class="bg-white">
+                <span class='mr-2 small text-uppercase badge badge-warning' style='cursor:default;'>
+                     EN REVISIÓN
+                </span>
+            </td>
+        </tr>
+        {% endif %}
+
+
+        {#        <tr>
+                    <td class="font-weight-bold bg-secondary text-white text-right">
+                        Dueño
+                    </td>
+                    <td class="bg-white">
+                        {{ planificacion.getOwner()|default('-') }}
+                    </td>
+                </tr>#}
+    </tbody>
+</table>
