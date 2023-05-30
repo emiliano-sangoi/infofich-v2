@@ -46,6 +46,8 @@ class Reserva
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_inicio", type="datetime", nullable=false)
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
      */
     private $fechaInicio;
 
@@ -53,6 +55,11 @@ class Reserva
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_fin", type="datetime", nullable=false)
+     * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today" , message="La fecha debe ser mayor o igual al día de hoy.")
+     * @Assert\Expression(
+     *     "this.getFechaFin() >= this.getFechaInicio()",
+     *     message="Este campo debe ser igual o mayor a la fecha de inicio de la reserva.")
      */
     private $fechaFin;
 
