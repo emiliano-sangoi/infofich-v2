@@ -21,7 +21,7 @@ class TipoActividadCurricular {
     const RESOLUC_PROB = 7;
     const CONSULTA = 8;
     const EVALUACIONES = 9;
-    const EMPLEO = 10;
+    const LABORATORIO = 10;
     const OTRAS_ACT = 11;
     
     private static $nombres_tipos = array(
@@ -36,6 +36,7 @@ class TipoActividadCurricular {
         self::EVALUACIONES => 'Evaluaciones',        //modif 4/11
       //  self::EMPLEO => 'Empleo de plataformas virtuales de aprendizaje',
         self::OTRAS_ACT => 'Otras actividades',
+        self::LABORATORIO => 'Laboratorio', //agregado el 30/5/2023
     );
     
     public static function getTipos(){
@@ -94,6 +95,13 @@ class TipoActividadCurricular {
     public static function isOtrasActividades($cod_tipo){
         return in_array($cod_tipo, array(
             self::OTRAS_ACT,
+            // TODO: Definir codigos 
+        ));
+    }
+
+    public static function isLaboratorio($cod_tipo){
+        return in_array($cod_tipo, array(
+            self::LABORATORIO,
             // TODO: Definir codigos 
         ));
     }
