@@ -115,7 +115,7 @@ class ReservaController extends Controller {
             //---------------------------------------------------------------------------
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
-            return $this->redirectToRoute('planif_info_basica_editar', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reservas_show', array('id' => $reserva->getId()));
         }
 
         // Breadcrumbs

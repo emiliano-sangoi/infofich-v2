@@ -3,6 +3,8 @@
 {% set full_width = false %}
 {% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
 {% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+{% set ROL_SI = constant('AppBundle\\Entity\\Rol::ROLE_SEC_INFRAESTRUCTURA') %}
+
 {% block navbar2 %}
     {% embed 'navbar2.html.twig' %}
         {% block navbar2_actions %}
@@ -13,7 +15,7 @@
 
             {# si el usuario tiene rol Sec de Infraestructura (secretario o colaborador), puede agregar Vehículos #}
 
-            {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) %}
+            {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <a href="{{ path('vehiculos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
 

@@ -61,8 +61,8 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
         $estado = $repoEstados->findOneBy(array(
             'codigo' => $cod_estado
         ));
-
-        if (!$estado instanceof Estado) {
+        
+        if (!$estado instanceof EstadoReserva) {
             return false;
         }
 
@@ -74,8 +74,9 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
             //buscar estado actual:
             $hea = $reserva->getHistoricoEstadoActual();
 
-            //si es distinto de creado se setea la fecha hasta y se guarda el cambio
-            if ($hea && $hea->getEstado() && $hea->getEstado()->getCodigo() !== Estado::CREADA) {
+            //si es distinto de nueva se setea la fecha hasta y se guarda el cambio
+            //die($hea->getEstado());
+            if ($hea && $hea->getEstado() && $hea->getEstado() !== EstadoReserva::NUEVA) {                
                 $hea->setFechaHasta(new DateTime());
                 $em->flush();
             }
@@ -88,7 +89,7 @@ class HistoricoEstadosReservaRepository extends \Doctrine\ORM\EntityRepository
             $hn->setComentario($comentario);
             
             //modificar fecha de actualizacion:
-            $reserva->setUltimaModif(new \DateTime());
+            //$reserva->setUltimaModif(new \DateTime());
 
             //guardar nuevo registro
             $em->persist($hn);
