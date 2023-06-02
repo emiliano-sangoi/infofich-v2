@@ -111,7 +111,7 @@ class ReservaController extends Controller {
 
             $usuario = $this->getUser();
             //$repoHistorico->setEstadoCreada($reserva, $usuario); ya esta creada en este caso.
-            $repoHistorico->asignarEstado($reserva, EstadoReserva::ACEPTADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
+            $repoHistorico->asignarEstado($reserva, EstadoReserva::AVALADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
             //---------------------------------------------------------------------------
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 

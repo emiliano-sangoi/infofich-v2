@@ -406,6 +406,36 @@ class Reserva
         return $this;
     }
 
+    public function esNueva() {
+        return $this->isEstado(EstadoReserva::NUEVA);
+    }
+
+   /* public function enRevision() {
+        return $this->isEstado(Estado::REVISION);
+    }
+
+    public function enCorreccion() {
+        return $this->isEstado(Estado::CORRECCION);
+    }
+
+    public function isPublicada() {
+        return $this->isEstado(Estado::PUBLICADA);
+    }*/
+
+
+    /**
+     * Funcion auxiliar que compara el estado actual de la planificacion con el codigo pasado como argumento.
+     *
+     * @param int $cod
+     * @return boolean
+     */
+    private function isEstado($cod) {
+        $hea = $this->getHistoricoEstadoActual();
+        if ($hea instanceof HistoricoEstadosReserva) {
+            return $this->getEstadoActual()->getCodigo() == $cod;
+        }
+        return false;
+    }
 
      /**
      * Devuelve el historico que contiene la informacion sobre el estado actual.

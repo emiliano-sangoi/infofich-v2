@@ -47,28 +47,31 @@
                         </button>
                         {#{ form_end(form_avalar) }#}
 
+                        {# Si la reserva tiene estado nueva se puede avalar o rechazar #}
                         {{ form_start(form) }}
-                        <button role="submit" class="btn btn-success">
-                            <i class="fa fa-check"></i>&nbsp;Aceptar
-                        </button>
-                        <a href="{{ path('reservas_listado') }}"
-                            class="btn btn-secondary">
-                            Cancelar
-                        </a>
-                        {{ form_end(form) }}                       
+                            {% if reserva.esNueva()  %}
+                        
+                                <button role="submit" class="btn btn-success">
+                                    <i class="fa fa-check"></i>&nbsp;Avalar
+                                </button>   
+                            {% endif %}
+                            <a href="{{ path('reservas_listado') }}"
+                                class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                                     
 
-                {% endblock %}
+            {% endblock %}
 
-                {% block right %}
-                    {#{ form_start(form_rechazar) }#}
+            {% block right %}
+                
                      <button role="submit" class="btn btn-danger">
                             <i class="fa fa-ban"></i>&nbsp;Rechazar
                       </button>
-                    {#{ form_end(form_rechazar) }#} 
+                {{ form_end(form) }}          
+            {% endblock %}
 
-                {% endblock %}
-
-            {% endif %}
+        {% endif %}
 
         {% endembed %}
     
