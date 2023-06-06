@@ -64,10 +64,11 @@
             {% endblock %}
 
             {% block right %}
-                
-                     <button role="submit" class="btn btn-danger">
+                 {% if reserva.esNueva()  %}
+                        <button role="submit" class="btn btn-danger">
                             <i class="fa fa-ban"></i>&nbsp;Rechazar
-                      </button>
+                        </button>
+                    {% endif %}
                 {{ form_end(form) }}          
             {% endblock %}
 

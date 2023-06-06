@@ -110,9 +110,15 @@ class ReservaController extends Controller {
             $repoHistorico = $em->getRepository(HistoricoEstadosReserva::class);
 
             $usuario = $this->getUser();
-            //$repoHistorico->setEstadoCreada($reserva, $usuario); ya esta creada en este caso.
-            $repoHistorico->asignarEstado($reserva, EstadoReserva::AVALADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
-            //---------------------------------------------------------------------------
+
+            //Si presionan el boton submit con name cambiar_estado_reserva....
+            if ($request->request->get('cambiar_estado_reserva')) {
+                $repoHistorico->asignarEstado($reserva, EstadoReserva::RECHAZADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
+            }else{
+                //$repoHistorico->setEstadoCreada($reserva, $usuario); ya esta creada en este caso.
+                $repoHistorico->asignarEstado($reserva, EstadoReserva::ACEPTADA, $usuario, 'Cambio de estado por SI ' . $usuario->getUsername());
+                //---------------------------------------------------------------------------
+            }
             $this->addFlash('success', 'Se generó el cambio de estado correctamente.');
 
             return $this->redirectToRoute('reservas_show', array('id' => $reserva->getId()));
