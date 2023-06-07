@@ -49,7 +49,6 @@ class ReservaController extends Controller {
 
      public function newAction(Request $request) {
 
-        //TODO DESCOMENTAR Y COMPLETAR CUANDO TENGAMOS LA BD
         $reserva = new Reserva();
         $reserva->setUsuarioAlta($this->getUser());
         $form = $this->createForm(ReservaType::class, $reserva);
@@ -58,21 +57,40 @@ class ReservaController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $reserva->setFechaAlta(new \DateTime());
-            $em->persist($reserva);
-            $em->flush();
+            //Consulta si el vehiculo esta reservado para la fecha que eligio
+            $fechaInicioReserva = $reserva->getFechaInicio();
 
-            //asignar estado: nueva
-            //---------------------------------------------------------------------------
-            /* @var $repoHistorico HistoricoEstadosRepository */
-            $repoHistorico = $em->getRepository(HistoricoEstadosReserva::class);            
+            $repository = $em->getRepository(Reserva::class);            
+            $qb = $repository->createQueryBuilder('r');
+        
+            $qb->where($qb->expr()->eq('r.fechaInicio', ':fechaInicio'))
+               ->setParameter('fechaInicio', $fechaInicioReserva);
+            
+            $resultados = $qb->getQuery()->getResult();
 
-            $usuario = $this->getUser();
-            //$repoHistorico->setEstadoCreada($reserva, $usuario);
-            $repoHistorico->setEstadoNueva($reserva, $usuario);
+            if (!empty($resultados)) {                
+                $this->addFlash('warning', 'El vehiculo no se encuentra disponible en esa fecha.');
+                return $this->redirectToRoute('reservas_new');
 
-            $this->addFlash('success', 'Reserva creada correctamente');
+            }else{
+                $reserva->setFechaAlta(new \DateTime());
+                $em->persist($reserva);
+                $em->flush();
+    
+                //asignar estado: nueva
+                //---------------------------------------------------------------------------
+                /* @var $repoHistorico HistoricoEstadosRepository */
+                $repoHistorico = $em->getRepository(HistoricoEstadosReserva::class);            
+    
+                $usuario = $this->getUser();
+                //$repoHistorico->setEstadoCreada($reserva, $usuario);
+                $repoHistorico->setEstadoNueva($reserva, $usuario);
+              
+    
+                $this->addFlash('success', 'Reserva creada correctamente');
+            }
 
+           
             return $this->redirectToRoute('reservas_listado');
 
         }

@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% set ROL_SA = constant('AppBundle\\Entity\\Rol::ROLE_SEC_ACADEMICA') %}
+{% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
+{% set ROL_SI = constant('AppBundle\\Entity\\Rol::ROLE_SEC_INFRAESTRUCTURA') %}
+
 {% set full_width = false %}
 
 {% block navbar2 %}
@@ -24,6 +28,7 @@
 
 
             <div class="row">
+              {% if app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <div class="col-12 col-md-4">
                     <a href="{{ path('vehiculos_listado') }}"
                        class="btn btn-outline-primary d-inline-block w-100 p-4">
@@ -36,6 +41,7 @@
                         TIPO DE VEHÍCULOS
                     </a>
                 </div>
+                {% endif %}
                 <div class="col-12 col-md-4">
                     <a href="{{ path('reservas_listado') }}"
                        class="btn btn-outline-primary  d-inline-block w-100 p-4">

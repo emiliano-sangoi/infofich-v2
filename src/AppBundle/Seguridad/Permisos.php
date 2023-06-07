@@ -40,4 +40,8 @@ class Permisos {
     const PERMISO_EDITAR = 18;
     const PERMISO_BORRAR = 19;
     const PERMISO_VER = 20;
+
+    //Vehiculos
+
+    const VEHICULO_LISTAR = 21;
 }

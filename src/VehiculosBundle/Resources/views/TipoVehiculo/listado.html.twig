@@ -15,7 +15,7 @@
 
             {# si el usuario tiene rol Sec de Infraestructura (secretario o colaborador), puede agregar Vehículos #}
 
-            {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
+            {% if app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <a href="{{ path('tipo_vehiculos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
 
@@ -97,11 +97,13 @@
                                         <i class="fa fa-eye"></i>
                                         Ver
                                     </a>
+                                    {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI)%}
                                     <a href="{{ path('tipo_vehiculos_edit', { 'id': tipoVehiculo.id }) }}"
                                        class="btn btn-sm btn-outline-secondary">
                                         <i class="fa fa-edit"></i>
                                         Editar
                                     </a>
+                                     {% endif %}
 
 {#                                    <a href="{{ path('tipo_delete', { 'id': tipoVehiculo.id }) }}"#}
 {#                                       class="btn btn-sm btn-outline-danger"#}

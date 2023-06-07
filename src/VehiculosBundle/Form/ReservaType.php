@@ -68,11 +68,13 @@ class ReservaType extends AbstractType {
             //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
             'attr' => array(
                 'class' => 'form-control js-select2',
-                //"multiple" => "true",
+                 //"multiple" => "true",                
+                //'expanded' => true,
                 //"empty" => 'Empty',                
             ),
             'label_attr' => array(
                 'class' => 'font-weight-bold',
+               
             )
         ));
 

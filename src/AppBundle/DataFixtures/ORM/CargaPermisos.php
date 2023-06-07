@@ -162,6 +162,11 @@ class CargaPermisos extends AbstractFixture implements FixtureInterface, Ordered
         );
 
         // Agregar aca todos los permisos existentes ...
+
+        $this->permisos[Permisos::VEHICULO_LISTAR ] = array(
+            'titulo' => 'Permite listar los vehiculos y tipo de vehiculos.',
+            'desc' => 'Dependeniendo del ROL, se listaran los vehiculos.',
+        );
     }
     
     
