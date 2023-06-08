@@ -37,8 +37,8 @@
 
         {% embed '::botonera.html.twig' %}
 
-        {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI)%}
-
+        {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI) %}
+  
             {% block left %}
                    
                         {#{ form_start(form_avalar) }}
@@ -49,7 +49,7 @@
 
                         {# Si la reserva tiene estado nueva se puede avalar o rechazar #}
                         {{ form_start(form) }}
-                            {% if reserva.esNueva()  %}
+                            {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) )%}
                         
                                 <button role="submit" class="btn btn-success">
                                     <i class="fa fa-check"></i>&nbsp;Avalar
@@ -57,14 +57,14 @@
                             {% endif %}
                             <a href="{{ path('reservas_listado') }}"
                                 class="btn btn-secondary">
-                                Cancelar
+                                Volver
                             </a>
                                      
 
             {% endblock %}
 
             {% block right %}
-                 {% if reserva.esNueva()  %}
+                 {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI)) %}
                         <button role="submit" class="btn btn-danger">
                             <i class="fa fa-ban"></i>&nbsp;Rechazar
                         </button>

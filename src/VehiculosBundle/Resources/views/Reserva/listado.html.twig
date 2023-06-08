@@ -117,7 +117,7 @@
                                        class="btn btn-sm btn-primary d-inline-block">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    {% if app.user.tieneRol(ROL_SI) %}
+                                    {% if app.user.tieneRol(ROL_SI) or reserva.esNueva() %}
                                     <a href="{{ path('reservas_edit', { 'id': reserva.id }) }}"
                                            class="btn btn-sm btn-outline-secondary d-inline-block">
                                             <i class="fa fa-edit"></i>
