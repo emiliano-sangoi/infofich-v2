@@ -25,7 +25,7 @@ class ReservaVehiculos {
      *
      * @var Reserva
      * 
-     * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="vehiculo")
+     * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="vehiculos")
      * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id") 
      */
     private $reserva;

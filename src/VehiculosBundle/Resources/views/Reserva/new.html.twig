@@ -53,6 +53,20 @@
         $(document).ready(function () {
 
         });
+         /**
+     * Callback que se ejecuta en reseva docente luego de agregar un vehiculo
+     *
+     * @param {type} collection
+     * @param {type} item
+     * @returns {undefined}
+     */
+    function afterAddVehiculo(collection, item) {
+        var target = item.find('.js-select2-vehiculos');
+        target.select2({
+            placeholder: 'Seleccione un vehiculo'
+        });
+
+    }
     </script>
 
 {% endblock %}

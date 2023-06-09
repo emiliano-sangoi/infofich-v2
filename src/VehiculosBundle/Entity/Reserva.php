@@ -35,12 +35,12 @@ class Reserva
     private $docente;
 
     /**
-     * @var \VehiculosBundle\Entity\Vehiculo
      *
-     * @ORM\ManyToOne(targetEntity="\VehiculosBundle\Entity\Vehiculo", inversedBy="vehiculo")
-     * @ORM\JoinColumn(name="vehiculo_id", referencedColumnName="id")
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="ReservaVehiculos", mappedBy="reserva", cascade={"persist","remove"})
      */
-    private $vehiculo;
+    private $vehiculos;
 
     /**
      * @var \DateTime
@@ -139,6 +139,7 @@ class Reserva
 
     public function __construct()
     {
+        $this->vehiculos = new ArrayCollection;
         $this->historicosEstadosReserva = new ArrayCollection;
     }
 
@@ -329,28 +330,51 @@ class Reserva
     }
 
     /**
-     * Set vehiculo
+     * Add vehiculos
      *
-     * @param \VehiculosBundle\Entity\Vehiculo $vehiculo
+     * @param Vehiculo $vehiculos
      *
      * @return Reserva
      */
-    public function setVehiculo(\VehiculosBundle\Entity\Vehiculo $vehiculo = null)
+    public function addVehiculos(Vehiculo $vehiculos)
     {
-        $this->vehiculo = $vehiculo;
+        $vehiculos->setPlanificacion($this);
+
+        $this->vehiculos[] = $vehiculos;
 
         return $this;
     }
 
     /**
-     * Get vehiculo
+     * Remove vehiculos
      *
-     * @return \VehiculosBundle\Entity\Vehiculo
+     * @param Vehiculo $vehiculos
      */
-    public function getVehiculo()
+    public function removeVehiculos(Vehiculo $vehiculos)
     {
-        return $this->vehiculo;
+        $this->vehiculos->removeElement($vehiculos);
     }
+
+    /**
+     * Get vehiculos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVehiculos()
+    {
+        return $this->vehiculos;
+    }
+
+    /**
+     *
+     * @param ArrayCollection $vehiculos
+     * @return $this
+     */
+    public function setVehiculos(ArrayCollection $vehiculos) {
+        $this->vehiculos = $vehiculos;
+        return $this;
+    }
+
 
     /**
      * @return DateTime

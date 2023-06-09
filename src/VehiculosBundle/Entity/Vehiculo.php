@@ -98,6 +98,14 @@ class Vehiculo
 
 
     /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="ReservaVehiculos", mappedBy="vehiculo")
+     */
+    private $reservaVehiculos;
+    
+ 
+    /**
      * Get id
      *
      * @return integer
@@ -388,9 +396,35 @@ class Vehiculo
     public function __construct()
     {
         $this->habilitado = true;
+        $this->reservaVehiculos = new ArrayCollection();
     }
 
     public function __toString() {
         return $this->marca . " - " . $this->modelo;
+    }
+
+     /**
+     * Set planificacion
+     *
+     * @param \PlanificacionesBundle\Entity\Planificacion $planificacion
+     *
+     * @return ActividadCurricular
+     */
+    public function setPlanificacion(\PlanificacionesBundle\Entity\Planificacion $planificacion) {
+        $this->planificacion = $planificacion;
+
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Get planificacion
+     *
+     * @return \PlanificacionesBundle\Entity\Planificacion
+     */
+    public function getPlanificacion() {
+        return $this->planificacion;
     }
 }

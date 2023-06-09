@@ -17,6 +17,7 @@ use DocentesBundle\Entity\DocenteGrado;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 
@@ -60,22 +61,28 @@ class ReservaType extends AbstractType {
                 )
         ));
 
-        $builder->add('vehiculo', EntityType::class, array(
-            'label' => 'Vehiculo',
-            'class' => Vehiculo::class,
-            //'disabled' => true,
-            'required' => true,
-            //'invalid_message' => 'Ingrese el número de Unidad correspondiente al tema.',
-            'attr' => array(
-                'class' => 'form-control js-select2',
-                 //"multiple" => "true",                
-                //'expanded' => true,
-                //"empty" => 'Empty',                
-            ),
-            'label_attr' => array(
-                'class' => 'font-weight-bold',
-               
-            )
+        $builder
+                ->add('vehiculos', CollectionType::class, array(
+                    // each entry in the array will be an "email" field
+                    'entry_type' => ReservaVehiculosType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    // para que se pueda persistir en cascada:
+                    'by_reference' => false,
+                    // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
+                    'attr' => array(
+                        'class' => 'docentes-colaboradores-selector',
+                    ),
+                    'entry_options' => array(
+                        'label' => false,
+                        'label_format' => 'form.persona.%id%',
+//                        'attr' => array('class' => 'bg-primary')
+                    ),
+                    'label' => false,
+                    'label_attr' => array(
+                        'class' => 'font-weight-bold',
+                    ),
         ));
 
 
