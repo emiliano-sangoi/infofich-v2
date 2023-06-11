@@ -30,22 +30,25 @@
             <div class="row">
               {% if app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <div class="col-12 col-md-4">
-                    <a href="{{ path('vehiculos_listado') }}"
-                       class="btn btn-outline-primary d-inline-block w-100 p-4">
-                        LISTADO DE VEHÍCULOS
-                    </a>
-                </div>
-                <div class="col-12 col-md-4">
                     <a href="{{ path('tipo_vehiculos_listado') }}"
                        class="btn btn-outline-primary  d-inline-block w-100 p-4">
                         TIPO DE VEHÍCULOS
+                        <img class="img-fluid w-25" alt="tipo_vehiculo" src="{{ asset('bundles/app/images/tipo_vehiculo.png') }}"/>
+                    </a>
+                </div>
+                <div class="col-12 col-md-4">
+                    <a href="{{ path('vehiculos_listado') }}"
+                       class="btn btn-outline-primary d-inline-block w-100 p-4">
+                        LISTADO DE VEHÍCULOS
+                        <img class="img-fluid w-25" alt="listado_vehiculo" src="{{ asset('bundles/app/images/listado_vehiculo.png') }}"/>
                     </a>
                 </div>
                 {% endif %}
                 <div class="col-12 col-md-4">
                     <a href="{{ path('reservas_listado') }}"
                        class="btn btn-outline-primary  d-inline-block w-100 p-4">
-                        RESERVAS
+                        RESERVA DE VEHÍCULOS   
+                        <img class="img-fluid w-25" alt="reserva" src="{{ asset('bundles/app/images/reserva.png') }}"/>
                     </a>
                 </div>
             </div>
