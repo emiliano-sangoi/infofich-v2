@@ -204,7 +204,7 @@ class ReservaController extends Controller {
 
             return $this->redirectToRoute('reservas_show', array('id' => $reserva->getId()));
         }
-
+   
         // Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
@@ -214,7 +214,7 @@ class ReservaController extends Controller {
         $breadcrumbs->addItem('Editar');
 
         $deleteForm = $this->createDeleteForm($reserva);
-
+    
         return $this->render('VehiculosBundle:Reserva:edit.html.twig', array(
             'reserva' => $reserva,
             'form' => $editForm->createView(),

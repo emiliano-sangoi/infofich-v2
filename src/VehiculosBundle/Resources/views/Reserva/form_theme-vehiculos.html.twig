@@ -1,7 +1,9 @@
 {# ReservaVehiculosType::getBlockPrefix() + '_widget' #}
 {% block vehiculosbundle_reservas_vehiculos_widget %}
     <div class="row mb-3">
-    
+    <div class="col-7">    
+        {{ form_widget(form) }}
+    </div>
     {#% if not form.vars.disabled %#}
         <div class="col-5 text-right">
             <table class="table table-borderless d-inline align-middle">
