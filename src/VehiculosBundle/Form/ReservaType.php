@@ -72,11 +72,11 @@ class ReservaType extends AbstractType {
                     'by_reference' => false,
                     // ver: https://symfony.com/doc/2.8/form/form_collections.html#allowing-new-tags-with-the-prototype
                     'attr' => array(
-                        'class' => 'docentes-colaboradores-selector',
+                      'class' => 'vehiculos-selector',
                     ),
                     'entry_options' => array(
                         'label' => false,
-                        'label_format' => 'form.persona.%id%',
+                        'label_format' => 'form.vehiculo.%id%',
 //                        'attr' => array('class' => 'bg-primary')
                     ),
                     'label' => false,

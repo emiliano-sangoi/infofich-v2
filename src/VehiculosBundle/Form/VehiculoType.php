@@ -186,5 +186,12 @@ class VehiculoType extends AbstractType {
         ));
     }
 
+        /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return 'vehiculos_vehiculo';
+    }
+
 
 }

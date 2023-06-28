@@ -20,41 +20,24 @@
 
 
 <div class="mb-5">
-    <div class="row">
-        <div class="col-12 col-md-3 col-lg-2">
-            <span class="font-weight-bold">
-                Vehiculos
-            </span>
-        </div>
-        <div class="col-12 col-md-9 col-lg-8">
-            {% form_theme form.vehiculos 'jquery.collection.html.twig' 'VehiculosBundle:Reserva:form_theme-vehiculos.html.twig'  %}
-            {{ form_row(form.vehiculos) }}
-            {#% if planificacion.docentesColaboradores[0] is defined %}
-                {% form_theme form.docentesColaboradores 'jquery.collection.html.twig' 'PlanificacionesBundle:2-equipo-docente:form_theme-equipo-docente.html.twig'  %}
-                {{ form_row(form.docentesColaboradores) }}
-            {% else %}
-                <p class="text-muted">
-                    No se ha definido ning&uacute;n docente colaborador.
-                </p>
-            {% endif %#}
+
+
+        <div class="row">
+                <div class="col-12 col-md-3 col-lg-2">
+                    <span class="font-weight-bold">
+                        Vehiculos
+                    </span>
+                </div>
+                <div class="col-12 col-md-9 col-lg-8">
+                    {% form_theme form.vehiculos 'jquery.collection.html.twig' 'VehiculosBundle:Reserva:form_theme-vehiculos.html.twig'  %}
+                    {{ form_row(form.vehiculos) }}               
+
+                </div>
+            </div>
 
         </div>
-    </div>
-</div>
 
 
-
-    {#% block planif_vehiculo_widget %}
-        {% include 'VehiculosBundle:Reserva:vehiculos-widget.html.twig' %}
-    {% endblock %}
-
-   {# <div class="form-row">
-       <div class="col-6">
-            {{ form_label(form.vehiculo.asociado) }}
-            {{ form_widget(form.vehiculo.asociado) }}
-            {{ form_errors(form.vehiculo.asociado) }}
-        </div>
-    </div> #}
     <div class="form-row">
         <div class="col-12 col-md-3">
             {% from '::macros.html.twig' import input_datetime_picker %}

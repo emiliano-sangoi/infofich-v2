@@ -49,12 +49,29 @@
 {% block javascripts %}
     {{ parent() }}
 
+
+
+    {# JQUERY COLLECTION #}
+
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+ 
     <script>
         $(document).ready(function () {
+             
+                // 
+                // =====================================================================================
+                $('.vehiculos-selector').collection({
+                    position_field_selector: '.orden',
+                    after_add: afterAddVehiculo,
+                    add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar vehiculo</a>',
+                    allow_duplicate: false
+                });
+
 
         });
-         /**
-     * Callback que se ejecuta en reseva docente luego de agregar un vehiculo
+
+     /**
+     * Callback que se ejecuta en reserva luego de agregar un vehiculo
      *
      * @param {type} collection
      * @param {type} item
