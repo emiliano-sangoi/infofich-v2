@@ -144,7 +144,7 @@ class Reserva
     }
 
     public function __toString(){
-        return 'Reserva vehículo ' . mb_strtoupper($this->vehiculo);
+        return 'Reserva vehículos ';
     }
 
     /**

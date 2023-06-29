@@ -14,7 +14,9 @@
                 Vehiculo:
             </td>
             <td class="bg-white">
-                {{ reserva.vehiculo }}
+                {#{ reserva.vehiculos }#}
+                {% form_theme reserva.vehiculos 'jquery.collection.html.twig' 'VehiculosBundle:Reserva:form_theme-vehiculos.html.twig'  %}
+                {#{ form_row(form.vehiculos) }#}    
             </td>
         </tr>
         <tr>
