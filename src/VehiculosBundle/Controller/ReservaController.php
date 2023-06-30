@@ -7,12 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use VehiculosBundle\Entity\EstadoReserva;
 use VehiculosBundle\Entity\HistoricoEstadosReserva;
-use VehiculosBundle\Repository\HistoricoEstadosReservaRepository;
 use VehiculosBundle\Entity\Reserva;
-
 use VehiculosBundle\Form\ReservaType;
-use VehiculosBundle\Form\CambiarEstadoReservaType;
-
 
 class ReservaController extends Controller
 {

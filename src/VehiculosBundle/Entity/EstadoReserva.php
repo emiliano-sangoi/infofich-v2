@@ -16,7 +16,6 @@ class EstadoReserva implements \JsonSerializable{
     const ACEPTADA = 2;
     const RECHAZADA = 3;
     const CANCELADA = 4;
-    const AVALADA = 5;
 
     /**
      * @var int
@@ -69,9 +68,7 @@ class EstadoReserva implements \JsonSerializable{
             case self::CANCELADA:
                 return 'warning';
             case self::RECHAZADA:
-                return 'danger';
-            case self::AVALADA:
-                return 'success';
+                return 'danger';            
             case self::ACEPTADA:
                 return 'success';
         }
@@ -88,7 +85,6 @@ class EstadoReserva implements \JsonSerializable{
     public static function isValido($cod) {
         return in_array($cod, array(
             self::NUEVA,
-            self::AVALADA,
             self::ACEPTADA,
             self::CANCELADA,
             self::RECHAZADA
@@ -101,8 +97,6 @@ class EstadoReserva implements \JsonSerializable{
                 return 'Nueva';
             case self::ACEPTADA:
                 return 'Aceptada';
-            case self::AVALADA:
-                return 'Avalada';
             case self::CANCELADA:
                 return 'Cancelada';
             case self::RECHAZADA:

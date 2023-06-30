@@ -54,7 +54,7 @@
                 {% block left %}
 
                     {# Si la reserva tiene estado nueva se puede avalar o rechazar #}
-                    {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) ) %}
+                    {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) or app.user.tieneRol(ROL_SA)) %}
                         {{ form_start(form_avalar_reserva) }}
                         <button role="submit" class="btn btn-success pedir-confirmacion"
                                 data-titulo="Avalar reserva"
@@ -81,10 +81,14 @@
                     {#                        </button> #}
                     {#                    {% endif %} #}
                     {#                {{ form_end(form) }} #}
+                    
+                    {% if reserva.esNueva() or ((app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) )) %}
                     <a href="{{ path('reservas_edit', { id: reserva.id }) }}"
                        class="btn btn-secondary">
                         <i class="fa fa-edit"></i>&nbsp;Editar
                     </a>
+                    {% endif %}
+
                     <a href="{{ path('reservas_listado') }}"
                        class="btn btn-secondary">
                         Ir al listado
