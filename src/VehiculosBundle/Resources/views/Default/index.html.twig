@@ -27,7 +27,7 @@
             {#        <p class="lead">Seleccione una opci&oacute;n:</p> #}
 
 
-            <div class="row">
+            {#<div class="row">
               {% if app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <div class="col-12 col-md-4">
                     <a href="{{ path('tipo_vehiculos_listado') }}"
@@ -51,7 +51,7 @@
                         <img class="img-fluid w-25" alt="reserva" src="{{ asset('bundles/app/images/reserva.png') }}"/>
                     </a>
                 </div>
-            </div>
+            </div>#}
 
             <div class="card-columns mt-3 mt-lg-4 mb-3 modulos">
                 {#  VEHICULOS  ======================================================================================== #}
@@ -82,6 +82,8 @@
                             <img class="img-fluid w-50" alt="tipo_vehiculo" src="{{ asset('bundles/app/images/listado_vehiculo.png') }}"/>
                         {% endblock %}
                     {% endembed %}
+
+                {% endif %}
                     {#  RESERVA =========================== #}
                     {%
                     set attrs = {
@@ -95,7 +97,6 @@
                             <img class="img-fluid w-50" alt="tipo_vehiculo" src="{{ asset('bundles/app/images/reserva.png') }}"/>
                         {% endblock %}
                     {% endembed %}
-                {% endif %}
             </div>
 
         </div>
