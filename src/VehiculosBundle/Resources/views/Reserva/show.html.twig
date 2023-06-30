@@ -18,6 +18,8 @@
     {% endembed %}
 {% endblock %}
 
+{% set hea = reserva.getHistoricoEstadoActual() %}
+{% set ea = hea ? hea.getEstado() : null %}
 
 {% block content %}
 
@@ -26,56 +28,121 @@
         <div class="my-3">
             {% include '::notificaciones.html.twig' %}
         </div>
-     
-        <h2 class="font-weight-bold text-primary">
-            {{ reserva }}
-        </h2>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-weight-bold text-primary">
+                Ver {{ reserva|lower }}
+            </h2>
+            {%if ea %}
+                <div>
+                    <span class="badge badge-pill badge-{{ ea.getColorEstado() }} rounded py-2 px-3" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ hea }}">
+                        {{ ea.nombre }}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
 
-        {% include 'VehiculosBundle:Reserva:cambiar-estado.html.twig' %}
+        {% include 'VehiculosBundle:Reserva:form.html.twig' %}
 
 
         {% embed '::botonera.html.twig' %}
 
-        {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI) %}
-  
-            {% block left %}
-                   
-                        {#{ form_start(form_avalar) }}
-                        <button role="submit" class="btn  btn-info">
+            {% if app.user.tieneRol(ROLE_ADMIN) or  app.user.tieneRol(ROL_SI) %}
+
+                {% block left %}
+
+                    {# Si la reserva tiene estado nueva se puede avalar o rechazar #}
+                    {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) ) %}
+                        {{ form_start(form_avalar_reserva) }}
+                        <button role="submit" class="btn btn-success pedir-confirmacion"
+                                data-titulo="Avalar reserva"
+                                data-msg='¿Esta seguro que desea cambiar el estado de la reserva a <b>aceptada</b>?'>
                             <i class="fa fa-check"></i>&nbsp;Avalar
                         </button>
-                        {#{ form_end(form_avalar) }#}
+                        {{ form_end(form_avalar_reserva) }}
 
-                        {# Si la reserva tiene estado nueva se puede avalar o rechazar #}
-                        {{ form_start(form) }}
-                            {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) )%}
-                        
-                                <button role="submit" class="btn btn-success">
-                                    <i class="fa fa-check"></i>&nbsp;Avalar
-                                </button>   
-                            {% endif %}
-                            <a href="{{ path('reservas_listado') }}"
-                                class="btn btn-secondary">
-                                Cancelar
-                            </a>
-                                     
-
-            {% endblock %}
-
-            {% block right %}
-                 {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI)) %}
-                        <button role="submit" class="btn btn-danger">
+                        {{ form_start(form_rechazar_reserva) }}
+                        <button role="submit" class="btn btn-danger pedir-confirmacion"
+                                data-titulo="Rechazar reserva"
+                                data-msg='¿Esta seguro que desea cambiar el estado de la reserva a <b>rechazada</b>?'>
                             <i class="fa fa-ban"></i>&nbsp;Rechazar
                         </button>
+                        {{ form_end(form_rechazar_reserva) }}
                     {% endif %}
-                {{ form_end(form) }}          
-            {% endblock %}
 
-        {% endif %}
+                {% endblock %}
+
+                {% block right %}
+                    {#                 {% if reserva.esNueva() and (app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI)) %} #}
+                    {#                        <button role="submit" class="btn btn-danger"> #}
+                    {#                            <i class="fa fa-ban"></i>&nbsp;Rechazar #}
+                    {#                        </button> #}
+                    {#                    {% endif %} #}
+                    {#                {{ form_end(form) }} #}
+                    <a href="{{ path('reservas_edit', { id: reserva.id }) }}"
+                       class="btn btn-secondary">
+                        <i class="fa fa-edit"></i>&nbsp;Editar
+                    </a>
+                    <a href="{{ path('reservas_listado') }}"
+                       class="btn btn-secondary">
+                        Ir al listado
+                    </a>
+                    {{ form_start(delete_form) }}
+                    <button role="submit" class="btn btn-danger pedir-confirmacion"
+                            data-msg='¿Esta seguro que desea borrar la reserva <b>{{ reserva }}</b>?'>
+                        <i class="fa fa-trash"></i>&nbsp;Borrar
+                    </button>
+                    {{ form_end(delete_form) }}
+                {% endblock %}
+
+            {% endif %}
 
         {% endembed %}
-    
+
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+
+
+    {# JQUERY COLLECTION #}
+
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('.vehiculos-selector').collection({
+                position_field_selector: '.orden',
+                allow_add: false,
+                after_add: afterAddVehiculo,
+                add: '<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Agregar vehiculo</a>',
+                allow_duplicate: false
+            });
+
+
+        });
+
+        /**
+         * Callback que se ejecuta en reserva luego de agregar un vehiculo
+         *
+         * @param {type} collection
+         * @param {type} item
+         * @returns {undefined}
+         */
+        // function afterAddVehiculo(collection, item) {
+        //     var target = item.find('.js-select2-vehiculos');
+        //     target.select2({
+        //         placeholder: 'Seleccione un vehiculo'
+        //     });
+        //
+        // }
+    </script>
 
 {% endblock %}

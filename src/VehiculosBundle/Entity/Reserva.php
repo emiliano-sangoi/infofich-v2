@@ -69,7 +69,7 @@ class Reserva
      * @ORM\Column(name="estado", type="boolean", nullable=false)
      */
    // private $estado;
-    
+
     /**
      *
      * @var ArrayCollection
@@ -135,7 +135,7 @@ class Reserva
      * @Assert\Valid
      */
     private $tipoProyecto;
-    
+
 
     public function __construct()
     {
@@ -144,7 +144,11 @@ class Reserva
     }
 
     public function __toString(){
-        return 'Reserva vehículos ';
+        return 'Reserva #' . $this->id;
+    }
+
+    public function getListadoVehiculos(){
+        return implode(', ', $this->vehiculos->toArray());
     }
 
     /**
@@ -205,7 +209,7 @@ class Reserva
         return $this->fechaFin;
     }
 
-    
+
     /**
      * Set cantidadPersonas
      *
@@ -330,32 +334,6 @@ class Reserva
     }
 
     /**
-     * Add vehiculos
-     *
-     * @param Vehiculo $vehiculos
-     *
-     * @return Reserva
-     */
-    public function addVehiculos(Vehiculo $vehiculos)
-    {
-        $vehiculos->setPlanificacion($this);
-
-        $this->vehiculos[] = $vehiculos;
-
-        return $this;
-    }
-
-    /**
-     * Remove vehiculos
-     *
-     * @param Vehiculo $vehiculos
-     */
-    public function removeVehiculos(Vehiculo $vehiculos)
-    {
-        $this->vehiculos->removeElement($vehiculos);
-    }
-
-    /**
      * Get vehiculos
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -468,17 +446,17 @@ class Reserva
      */
     public function getHistoricoEstadoActual() {
         $res = null;
-        foreach ($this->historicosEstadosReserva as $historico) {            
+        foreach ($this->historicosEstadosReserva as $historico) {
             if ($historico->getFechaHasta() == null) {
                 $res = $historico;
                 break;
             }
-        }        
-        
+        }
+
         return $res;
     }
-    
-    
+
+
     /**
      * Devuelve un texto indicando el estado actual
      */
@@ -492,5 +470,65 @@ class Reserva
     }
 
 
+    /**
+     * Add vehiculo
+     *
+     * @param \VehiculosBundle\Entity\ReservaVehiculos $vehiculo
+     *
+     * @return Reserva
+     */
+    public function addVehiculo(\VehiculosBundle\Entity\ReservaVehiculos $vehiculo)
+    {
+        $vehiculo->setReserva($this);
 
+        $this->vehiculos[] = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehiculo
+     *
+     * @param \VehiculosBundle\Entity\ReservaVehiculos $vehiculo
+     */
+    public function removeVehiculo(\VehiculosBundle\Entity\ReservaVehiculos $vehiculo)
+    {
+        $this->vehiculos->removeElement($vehiculo);
+    }
+
+    /**
+     * Add historicosEstadosReserva
+     *
+     * @param \VehiculosBundle\Entity\HistoricoEstadosReserva $historicosEstadosReserva
+     *
+     * @return Reserva
+     */
+    public function addHistoricosEstadosReserva(\VehiculosBundle\Entity\HistoricoEstadosReserva $historicosEstadosReserva)
+    {
+        $historicosEstadosReserva->setReserva($this);
+
+        $this->historicosEstadosReserva[] = $historicosEstadosReserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove historicosEstadosReserva
+     *
+     * @param \VehiculosBundle\Entity\HistoricoEstadosReserva $historicosEstadosReserva
+     */
+    public function removeHistoricosEstadosReserva(\VehiculosBundle\Entity\HistoricoEstadosReserva $historicosEstadosReserva)
+    {
+        $this->historicosEstadosReserva->removeElement($historicosEstadosReserva);
+    }
+
+    /**
+     * Get historicosEstadosReserva
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHistoricosEstadosReserva()
+    {
+        return $this->historicosEstadosReserva;
+    }
 }

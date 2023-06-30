@@ -26,7 +26,7 @@ class EstadoReserva implements \JsonSerializable{
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @var smallint
      *
@@ -56,16 +56,16 @@ class EstadoReserva implements \JsonSerializable{
     public function getId() {
         return $this->id;
     }
-    
+
     public function __toString() {
         return $this->nombre;
     }
 
-    
-    public function getCssClass() {
+
+    public function getColorEstado() {
         switch ($this->codigo){
             case self::NUEVA:
-                return 'light';
+                return 'info';
             case self::CANCELADA:
                 return 'warning';
             case self::RECHAZADA:
@@ -75,13 +75,13 @@ class EstadoReserva implements \JsonSerializable{
             case self::ACEPTADA:
                 return 'success';
         }
-        
-        return '';
+
+        return 'light';
     }
-    
+
     /**
      * Verifica si el estado pasado como parametro es valido.
-     * 
+     *
      * @param type $cod
      * @return type
      */

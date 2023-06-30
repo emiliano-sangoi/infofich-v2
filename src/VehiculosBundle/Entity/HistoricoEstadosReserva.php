@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HistoricoEstadosReserva
  *
  * @ORM\Table(name="vehiculo_historico_estados_reserva", uniqueConstraints={
- *        @ORM\UniqueConstraint(name="ak_historico_estados", 
+ *        @ORM\UniqueConstraint(name="ak_historico_estados",
  *            columns={"reserva_id", "reserva_estado_id", "fecha_desde"})
  *    })
  * @ORM\Entity(repositoryClass="VehiculosBundle\Repository\HistoricoEstadosReservaRepository")
@@ -39,49 +39,55 @@ class HistoricoEstadosReserva implements \JsonSerializable
      * @ORM\Column(name="fecha_hasta", type="datetime", nullable=true)
      */
     private $fechaHasta;
-    
+
     /**
      *
      * @var EstadoReserva
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="EstadoReserva")
-     * @ORM\JoinColumn(name="reserva_estado_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="reserva_estado_id", referencedColumnName="id")
      */
     private $estado;
-    
-    
+
+
     /**
      *
      * @var Reserva
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="historicosEstadosReserva")
-     * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id")
      */
     private $reserva;
-    
-    
+
+
     /**
-     * 
+     *
      * @var AppBundle\Entity\Usuario
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usuario;
-    
+
     /**
-     * 
+     *
      * @var string
-     *      
+     *
      * @ORM\Column(name="comentario", type="string", nullable=true)
      */
     private $comentario;
-    
-    
+
+
     public function __construct() {
         $this->fechaDesde = new \DateTime();
     }
 
+    public function __toString()
+    {
+        return 'El estado ' . $this->estado->getNombre()
+            . ' fue aplicado el dia ' . $this->getFechaDesde()->format('d/m/Y')
+            . ' a las ' . $this->getFechaDesde()->format('H:i') . ' Hs por el usuario ' . $this->getUsuario()->getUsername();
+    }
 
     /**
      * Get id
@@ -212,7 +218,7 @@ class HistoricoEstadosReserva implements \JsonSerializable
     {
         return $this->usuario;
     }
-    
+
     public function getComentario() {
         return $this->comentario;
     }

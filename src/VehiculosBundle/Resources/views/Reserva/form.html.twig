@@ -2,7 +2,7 @@
 {% set ROLE_ADMIN = constant('AppBundle\\Entity\\Rol::ROLE_ADMIN') %}
 
 
-{% block content %}    
+{% block content %}
 
 
 {{ form_start(form) }}
@@ -10,32 +10,33 @@
 <div class="bg-light p-5 shadow">
 
     <div class="form-row">
-        <div class="col-6">
+        <div class="col-12 col-md-8 col-lg-6">
             {{ form_label(form.docente) }}
             {{ form_widget(form.docente) }}
             {{ form_errors(form.docente) }}
-        </div>        
+        </div>
     </div>
 
 
+    <div class="form-row">
+        <div class="col-12">
+                {{ form_label(form.vehiculos) }}
 
-<div class="mb-5">
+                {% form_theme form.vehiculos 'jquery.collection.html.twig' 'VehiculosBundle:Reserva:form-fields.html.twig'  %}
+                {{ form_widget(form.vehiculos) }}
 
-
-        <div class="row">
-                <div class="col-12 col-md-3 col-lg-2">
-                    <span class="font-weight-bold">
-                        Vehiculos
-                    </span>
-                </div>
-                <div class="col-12 col-md-9 col-lg-8">
-                    {% form_theme form.vehiculos 'jquery.collection.html.twig' 'VehiculosBundle:Reserva:form_theme-vehiculos.html.twig'  %}
-                    {{ form_row(form.vehiculos) }}               
-
-                </div>
+                {% if form.vehiculos|length > 0%}
+                    {% for form_vehiculo in form.vehiculos %}
+                        {{ form_row(form_vehiculo) }}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted mb-0">
+                        No existen vehiculos asociados a esta reserva.
+                    </p>
+                {% endif %}
             </div>
-
         </div>
+
 
 
     <div class="form-row">
@@ -61,7 +62,7 @@
             {{ form_widget(form.tipoProyecto) }}
             {{ form_errors(form.tipoProyecto) }}
         </div>
-        
+
     </div>
     <div class="form-row">
         <div class="col-12">
@@ -94,4 +95,4 @@
 </div>
 
 {{ form_end(form) }}
-{% endblock %} 
+{% endblock %}

@@ -56,10 +56,10 @@
                             <th>#</th>
                             <th>Docente</th>
                             <th>
-                                {{ knp_pagination_sortable(reservas, 'Vehículo', 'r.vehiculo') }}
+                                {{ knp_pagination_sortable(reservas, 'Vehículos', 'r.vehiculo') }}
                             </th>
                             <th>
-                                {{ knp_pagination_sortable(reservas, 'Fecha Ini.', 'r.fechaIni') }}
+                                {{ knp_pagination_sortable(reservas, 'Fecha Ini.', 'r.fechaInicio') }}
                             </th>
                             <th>
                                 {{ knp_pagination_sortable(reservas, 'Fecha fin', 'r.fechaFin') }}
@@ -76,7 +76,7 @@
                         </thead>
                         <tbody>
                         {% for reserva in reservas %}
-                          
+
                             <tr>
                                 <td class="align-middle">
                                     {{ loop.index }}
@@ -84,8 +84,11 @@
                                 <td>
                                     {{ reserva.docente }}
                                 </td>
-                                <td>
-                                    {#{ reserva.vehiculo }#}
+                                <td class="text-center align-middle font-weight-bold">
+                                    <span data-toggle="tooltip"
+                                          data-placement="bottom" title="{{ reserva.getListadoVehiculos()|upper }}">
+                                        {{ reserva.vehiculos|length }}
+                                    </span>
                                 </td>
                                 <td>
                                     {{ reserva.fechaInicio|date('d/m/Y H:i') }}
@@ -93,25 +96,18 @@
                                 <td>
                                     {{ reserva.fechaFin|date('d/m/Y H:i') }}
                                 </td>
-                                <td class="bg-white">
+                                <td class="bg-white text-center align-middleg">
                                     {% set eActual = reserva.getEstadoActual() %}
                                     {% if eActual %}
-                                        {% set class = eActual.getCssClass() %}
+                                        {% set class = eActual.getColorEstado() %}
 
                                         {#   <a href="#" class="mr-2 modal-historico small text-uppercase badge badge-{{ class }}">#}
-                                        <span class='mr-2 text-uppercase badge badge-{{ class }}' style='cursor:default;'>
+                                        <span class='mr-2 text-uppercase badge badge-pill badge-{{ class }} rounded px-2'>
                                             {{ eActual.nombre }}
                                         </span>
                                     {% endif %}
                                 </td>
-                               
 
-{#                                <td>#}
-{#                                    {{ reserva.cantidadPersonas }}#}
-{#                                </td>#}
-                                {#                                    <td> #}
-                                {#                                        {{ reserva.elementosExtras }} #}
-                                {#                                    </td> #}
                                 <td>
                                     <a href="{{ path('reservas_show', { 'id': reserva.id }) }}"
                                        class="btn btn-sm btn-primary d-inline-block">

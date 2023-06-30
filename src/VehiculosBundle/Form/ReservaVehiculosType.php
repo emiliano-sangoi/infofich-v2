@@ -13,9 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 class ReservaVehiculosType extends AbstractType {
+
     public function buildForm(FormBuilderInterface $builder, array $options){
-        
-    
+
+
         $builder->add('vehiculo', EntityType::class, array(
             'class' => Vehiculo::class,
             'label' => false,
@@ -36,7 +37,7 @@ class ReservaVehiculosType extends AbstractType {
             )
         ));
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -52,8 +53,8 @@ class ReservaVehiculosType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
-        return 'vehiculosbundle_reservas_vehiculos';
-    }
+//    public function getBlockPrefix() {
+//        return 'vehiculosbundle_reservas_vehiculos';
+//    }
 
 }

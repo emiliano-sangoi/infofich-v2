@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="VehiculosBundle\Repository\ReservaVehiculosRepository")
  */
 class ReservaVehiculos {
-    
+
     /**
      * @var int
      *
@@ -19,30 +19,30 @@ class ReservaVehiculos {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;     
+    private $id;
 
     /**
      *
      * @var Reserva
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="vehiculos")
-     * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="reserva_id", referencedColumnName="id", nullable=false)
      */
     private $reserva;
-        
+
     /**
      *
      * @var Vehiculo
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Vehiculo", inversedBy="reservaVehiculos")
      * @ORM\JoinColumn(name="vehiculo_id", referencedColumnName="id", nullable=false)
      */
     private $vehiculo;
-    
+
     /**
      *
-     * @var integer 
-     * 
+     * @var integer
+     *
      * @ORM\Column(name="orden", type="smallint")
      */
     private $orden;
@@ -50,11 +50,11 @@ class ReservaVehiculos {
 
     public function __construct() {
     }
-    
+
     public function __toString() {
         return $this->vehiculo->getMarca();
     }
-    
+
         /**
      * Get id
      *

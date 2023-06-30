@@ -46,7 +46,7 @@
             {% endblock %}
             {% block right %}
                 {{ form_start(delete_form) }}
-                <button role="submit" class="btn btn-danger confirmar-borrado" form="{{ delete_form.vars.id }}"
+                <button role="submit" class="btn btn-danger pedir-confirmacion" form="{{ delete_form.vars.id }}"
                         data-msg='¿Esta seguro que desea borrar la reserva <b>{{ reserva }}</b>?'>
                     <i class="fa fa-trash"></i>&nbsp;Borrar
                 </button>

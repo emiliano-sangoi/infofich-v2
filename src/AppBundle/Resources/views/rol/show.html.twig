@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}     
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('rol_index') }}">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
             </a>
@@ -22,46 +22,46 @@
 
             <div class="bg-light p-5">
 
-                <div class="row mb-4">        
+                <div class="row mb-4">
 
                     <div class="col-sm-4">
                         <label class="font-weight-bold">Nombre</label>
-                        <div class="" >                        
+                        <div class="" >
                             {{ rol.nombre }}
-                        </div> 
+                        </div>
                     </div>
 
                     <div class="col-sm-8">
                         <label class="font-weight-bold">T&iacute;tulo</label>
-                        <div class="" >                                                    
-                            {{ rol.titulo }}                       
-                        </div> 
-                    </div> 
+                        <div class="" >
+                            {{ rol.titulo }}
+                        </div>
+                    </div>
 
                 </div>
 
                 <div class="row mb-4">
                     <div class="col-sm-12">
                         <label class="font-weight-bold">Descripci&oacute;n</label>
-                        <div class="" >                                                    
-                            {{ rol.descripcion|default('-') }}       
-                        </div> 
-                    </div> 
+                        <div class="" >
+                            {{ rol.descripcion|default('-') }}
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row">        
+                <div class="row">
                     <div class="col-sm-12">
-                        <label class="font-weight-bold">Permisos</label>                        
+                        <label class="font-weight-bold">Permisos</label>
                         <div class="" >
-                            {% embed 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : rol.permisos, 'tabla_sm': true } %}                                                       
+                            {% embed 'AppBundle:permiso:tabla-permisos.html.twig' with { 'permisos' : rol.permisos, 'tabla_sm': true } %}
 
                                 {% block navigation %}
                                 {% endblock %}
 
                             {% endembed %}
-                        </div> 
-                    </div>                    
-                </div>          
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -71,11 +71,11 @@
             {% embed '::botonera.html.twig' %}
 
                 {% block left %}
-                    <a class="btn btn-primary" href="{{ path('rol_edit', { 'id': rol.id }) }}">Editar</a>                    
-                {% endblock %}                            
+                    <a class="btn btn-primary" href="{{ path('rol_edit', { 'id': rol.id }) }}">Editar</a>
+                {% endblock %}
                 {% block right %}
                     {{ form_start(delete_form) }}
-                    <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este rol?'>
+                    <input type="submit" value="Borrar" class="btn btn-outline-danger pedir-confirmacion" data-msg='¿Esta seguro que desea borrar este rol?'>
                     {{ form_end(delete_form) }}
                 {% endblock %}
 

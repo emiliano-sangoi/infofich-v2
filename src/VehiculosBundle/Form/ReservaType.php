@@ -42,9 +42,9 @@ class ReservaType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $this->reserva = $builder->getData();
-        
+
         $ea = $this->reserva->getEstadoActual();
-        
+
 
        // dump( $this->codEstadoActual);exit;
         $builder
@@ -79,7 +79,7 @@ class ReservaType extends AbstractType {
                         'label_format' => 'form.vehiculo.%id%',
 //                        'attr' => array('class' => 'bg-primary')
                     ),
-                    'label' => false,
+                    'label' => 'Vehículos',
                     'label_attr' => array(
                         'class' => 'font-weight-bold',
                     ),
@@ -133,12 +133,12 @@ class ReservaType extends AbstractType {
                     'class' => 'font-weight-bold',
                 )
             ));
-        
+
         //Si la Reserva ya esta creada, le agregamos el estado, si presionamos nueva reserva devuelve null y no agrega el campo
-        
+
         /*if ($ea instanceof EstadoReserva) {
                 $this->codEstadoActual = $ea->__toString();
-        
+
             $builder->add('codEstadoActual', TextType::class, array(
                 'label' => 'Estado',
                 'label_attr' => array('class' => 'font-weight-bold'),
@@ -196,7 +196,7 @@ class ReservaType extends AbstractType {
                 'Sec. Extensión' => 'SE',
                 'Sec. Ciencia y Técnica' => 'CyT',
                 'Otros' => 'otros',
-            ],  
+            ],
             'attr' => array(
                 'class' => 'form-control js-select2',
             ),
@@ -224,8 +224,8 @@ class ReservaType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
-        return 'vehiculosbundle_reservas';
-    }
+//    public function getBlockPrefix() {
+//        return 'vehiculosbundle_reservas';
+//    }
 
 }

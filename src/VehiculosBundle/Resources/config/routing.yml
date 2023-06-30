@@ -62,6 +62,14 @@ reservas_show:
     path:     /reservas/{id}/show
     defaults: { _controller: "VehiculosBundle:Reserva:show" }
     methods:  [GET, POST]
+reservas_avalar_reserva:
+  path:     /reservas/{id}/avalar-reserva
+  defaults: { _controller: "VehiculosBundle:Reserva:avalar" }
+  methods:  [POST]
+reservas_rechazar_reserva:
+  path:     /reservas/{id}/rechazar-reserva
+  defaults: { _controller: "VehiculosBundle:Reserva:rechazar" }
+  methods:  [POST]
 reservas_delete:
     path:     /reservas/{id}/delete
     defaults: { _controller: "VehiculosBundle:Reserva:delete" }

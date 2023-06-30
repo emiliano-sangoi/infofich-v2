@@ -21,7 +21,7 @@
 
         {% block stylesheets  %}
             {# Bootstrap 4 #}
-            {# Se customiza y se inclute en styles.css #}            
+            {# Se customiza y se inclute en styles.css #}
 
             {#Estilo personalizado#}
             <link href="{{ asset('bundles/app/css/styles.css') }}" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
             {# Tema para bootstrap 4
             https://github.com/ttskch/select2-bootstrap4-theme
             #}
-            <link href="{{ asset('node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css') }}" rel="stylesheet"/>            
+            <link href="{{ asset('node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css') }}" rel="stylesheet"/>
 
             {#Font awesome#}
             <link href="{{ asset('node_modules/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
@@ -72,13 +72,13 @@
 
         {% block navbar %}
             {% if app.user %}
-                {% include 'navbar.html.twig' %} 
+                {% include 'navbar.html.twig' %}
             {% endif %}
-        {% endblock %}   
+        {% endblock %}
 
-        {% block navbar2 %}            
-            {% include 'navbar2.html.twig' %}            
-        {% endblock %}          
+        {% block navbar2 %}
+            {% include 'navbar2.html.twig' %}
+        {% endblock %}
 
 
         <div class="{{ full_width ? 'container-fluid p-0' : 'container-fluid container-lg px-2 px-lg-5 pb-5 pt-3' }}">
@@ -240,10 +240,10 @@
                 javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
                 return false;
                 /*event.preventDefault();
-                 
+
                  var e = $(this);
                  console.log(e.data('url'));
-                 
+
                  FB.ui({
                  method: 'share',
                  href: e.data('url'),
@@ -297,9 +297,14 @@
             });
 
 
-            $('.confirmar-borrado').click(function (event) {
+            $('.pedir-confirmacion').click(function (event) {
                 event.preventDefault();
                 var element = $(event.target);
+
+                var titulo = element.data('titulo');
+                if (typeof titulo === 'undefined') {
+                    titulo = 'Borrar registro';
+                }
 
                 var msg = element.data('msg');
                 if (typeof msg === 'undefined') {
@@ -308,15 +313,15 @@
 
                 bootbox.confirm({
                     message: msg,
-                    title: 'Borrar registro',
+                    title: titulo,
                     buttons: {
                         confirm: {
                             label: 'Si',
-                            className: 'btn-primary'
+                            className: 'btn-danger'
                         },
                         cancel: {
                             label: 'No',
-                            className: 'btn-danger'
+                            className: 'btn-secondary'
                         }
                     },
                     callback: function (result) {

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block navbar2 %}     
-    {% embed 'navbar2.html.twig' %}         
-        {% block navbar2_actions %}     
+{% block navbar2 %}
+    {% embed 'navbar2.html.twig' %}
+        {% block navbar2_actions %}
             <a href="{{ path('rol_index') }}">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Volver al listado
             </a>
@@ -12,7 +12,7 @@
 
 {% block content %}
     <div class="">
-        <div class="px-lg-5">   
+        <div class="px-lg-5">
 
             <div class="my-3">
                 {% include '::notificaciones.html.twig' %}
@@ -28,10 +28,10 @@
                             Guardar cambios
                         </button>
                     {% endblock %}
-                    
+
                     {% block right %}
                         {{ form_start(delete_form) }}
-                        <input type="submit" value="Borrar" class="btn btn-outline-danger confirmar-borrado" data-msg='¿Esta seguro que desea borrar este rol?'/>
+                        <input type="submit" value="Borrar" class="btn btn-outline-danger pedir-confirmacion" data-msg='¿Esta seguro que desea borrar este rol?'/>
                         {{ form_end(delete_form) }}
                     {% endblock %}
 
