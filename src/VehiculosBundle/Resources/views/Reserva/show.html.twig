@@ -93,12 +93,15 @@
                        class="btn btn-secondary">
                         Ir al listado
                     </a>
+                    {% if reserva.esNueva() or ((app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) )) %}
                     {{ form_start(delete_form) }}
                     <button role="submit" class="btn btn-danger pedir-confirmacion"
                             data-msg='¿Esta seguro que desea borrar la reserva <b>{{ reserva }}</b>?'>
                         <i class="fa fa-trash"></i>&nbsp;Borrar
                     </button>
                     {{ form_end(delete_form) }}
+                    {% endif %}
+
                 {% endblock %}
 
             {% endif %}
