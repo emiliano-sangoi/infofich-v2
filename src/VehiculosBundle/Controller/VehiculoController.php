@@ -2,8 +2,12 @@
 
 namespace VehiculosBundle\Controller;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
+use VehiculosBundle\Entity\Reserva;
 use VehiculosBundle\Entity\Vehiculo;
 use VehiculosBundle\Form\VehiculoType;
 
@@ -149,21 +153,32 @@ class VehiculoController extends Controller {
      */
     public function deleteAction(Request $request, Vehiculo $vehiculo) {
         $form = $this->createDeleteForm($vehiculo);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $vehiculo = $em->getRepository(Vehiculo::class)->findOneByTipo($vehiculo);
-            if($vehiculo){
-                //baja logica
-                $vehiculo->setFechaBaja(new \DateTime());
+           
+            $em = $this->getDoctrine()->getManager();
+
+            //$planificaciones = $em->getRepository(DocenteAdscripto::class)->getPlanificacionesDocente($docenteAdscripto);
+            $reservas = $em->getRepository(Vehiculo::class)->getReservasVehiculo($vehiculo);
+
+            $c = count($reservas);
+
+            if($c>0){
+                $this->addFlash('error', 'No se pudo borrar el vehiculo porque esta siendo utilizado en ' . $c . ' planificacion(es).');
+                return $this->redirectToRoute('vehiculos_show', array('id' => $vehiculo->getId()));
             }else{
                 $em->remove($vehiculo);
+                $em->flush();
+                $this->addFlash('success', 'El vehiculo fue dado de baja correctamente.');
             }
+     
 
-            $em->flush();
-            $this->addFlash('success', 'Vehículo borrado correctamente.');
+          //      $this->addFlash('warning', 'El vehículo fue dado de baja correctamente (baja lógica).');
+                   
 
         }
         return $this->redirectToRoute('vehiculos_listado');

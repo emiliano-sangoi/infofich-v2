@@ -10,15 +10,15 @@ vehiculos_new:
     defaults: { _controller: "VehiculosBundle:Vehiculo:new" }
     methods:  [GET, POST]
 vehiculos_edit:
-    path:     /{id}/edit
+    path:     /vehiculos/{id}/edit
     defaults: { _controller: "VehiculosBundle:Vehiculo:edit" }
     methods:  [GET, POST]
 vehiculos_show:
-    path:     /{id}/show
+    path:     /vehiculos/{id}/show
     defaults: { _controller: "VehiculosBundle:Vehiculo:show" }
     methods:  [GET, POST]
 vehiculos_delete:
-    path:     /{id}/delete
+    path:     /vehiculos/{id}/delete
     defaults: { _controller: "VehiculosBundle:Vehiculo:delete" }
     methods:  DELETE
 
