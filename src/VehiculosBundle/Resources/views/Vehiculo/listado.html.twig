@@ -18,9 +18,7 @@
             {% if app.user.tieneRol(ROL_SA) or app.user.tieneRol(ROLE_ADMIN) or app.user.tieneRol(ROL_SI) %}
                 <a href="{{ path('vehiculos_new') }}" class="ml-3">
                     <i class="fa fa-plus"></i>
-
                     Nuevo Vehículo
-
                 </a>
             {% endif %}
         {% endblock %}
@@ -37,12 +35,12 @@
         </div>
 
         <h2 class="font-weight-bold text-primary">
-            Vehículos de la FICH 
+            Vehículos de la FICH
         </h2>
         <hr class="mt-0 border-primary mb-2 mb-lg-3" style="border-width: 2px;"/>
-        
+
         {% from '::macros.html.twig' import notificacion %}
-        
+
         <div class="bg-white mb-3 p-3 text-muted shadow-sm">
             Se encontraron: <b>{{ vehiculos.getTotalItemCount }}</b> vehículo(s)
         </div>
@@ -58,40 +56,40 @@
                                 <th>
                                     {{ knp_pagination_sortable(vehiculos, 'Tipo', 'v.tipo') }}
                                 </th>
-                                <th class="w-20">
+                                <th class="">
                                     {{ knp_pagination_sortable(vehiculos, 'Marca', 'v.marca') }}
                                 </th>
-                                <th class="w-20">
+                                <th class="">
                                     {{ knp_pagination_sortable(vehiculos, 'Modelo', 'v.modelo') }}
                                 </th>
-                                <th class="w-20">
+                                <th class="">
                                     {{ knp_pagination_sortable(vehiculos, 'Asociado', 'v.asociado') }}
                                 </th>
-                                <th class="text-center">
+                                <th class="text-center" style="width: 18%">
                                     {{ knp_pagination_sortable(vehiculos, 'Habilitado', 'v.habilitado') }}
                                 </th>
-                                <th>
+                                <th class="" style="width: 12%">
                                     Acciones
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>  
+                        <tbody>
                         {% for vehiculo in vehiculos %}
                                 <tr>
                                     <td class="align-middle">
-                                        {{ loop.index }}                                    
+                                        {{ loop.index }}
                                     </td>
                                     <td class="align-middle">
-                                        {{ vehiculo.tipo }}                                       
+                                        {{ vehiculo.tipo }}
                                     </td>
                                     <td class="align-middle">
                                         {{ vehiculo.marca }}
                                     </td>
                                     <td class="align-middle">
-                                        {{ vehiculo.modelo }} 
+                                        {{ vehiculo.modelo }}
                                     </td>
                                     <td class="align-middle">
-                                        {{ vehiculo.asociado }} 
+                                        {{ vehiculo.asociado }}
                                     </td>
                                     <td class="align-middle text-center">
                                         <span class="font-weight-bold">
@@ -105,15 +103,13 @@
                                     <td class="align-middle">
                                         {# % if app.user.tieneRol(ROL_SA) % #}
                                         <a href="{{ path('vehiculos_show', { 'id': vehiculo.id }) }}"
-                                        class="btn btn-sm btn-primary w-100">
+                                        class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye"></i>
-                                            Ver
                                         </a>
                                         <a href="{{ path('vehiculos_edit', { 'id': vehiculo.id }) }}"
-                                        class="btn btn-sm btn-outline-secondary w-100">
+                                        class="btn btn-sm btn-outline-secondary">
                                             <i class="fa fa-edit"></i>
-                                            Editar
-                                        </a>                                  
+                                        </a>
                                     </td>
                                 </tr>
                         {% endfor %}
@@ -129,11 +125,11 @@
                                   1
                                 </td>
                                 <td>Camioneta</td>
-                                <td>Ford</td>                               
-                                <td>Ranger XLT 3.0 TDI DC 4x2</td>                               
-                                                        
-                                           
-                                <td>-</td>                               
+                                <td>Ford</td>
+                                <td>Ranger XLT 3.0 TDI DC 4x2</td>
+
+
+                                <td>-</td>
                                <td>
                                       <a class="btn btn-sm btn-primary" href="{{ path('vehiculos_show', { 'id': 1 }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -148,14 +144,14 @@
                             <tr>
 				 <td class="align-middle">
                                    2
-                                </td>                               
+                                </td>
 				<td>Camioneta</td>
-                                <td>Volswagen</td>                               
-                                <td>Amarok</td>                               
-                                                 
-                                                 
-                                <td>-</td>                               
-                                
+                                <td>Volswagen</td>
+                                <td>Amarok</td>
+
+
+                                <td>-</td>
+
                                <td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -167,17 +163,17 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            <tr>                               	
+                            <tr>
  <td class="align-middle">
                                    3
                                 </td>
                                <td>Embarcación</td>
-                                <td>Virgin Marine</td>                               
-                                <td>Modelo 628 Trakker / Azimut</td>                               
-                                                   
-                                                     
-                                <td>1</td>                               
-                                
+                                <td>Virgin Marine</td>
+                                <td>Modelo 628 Trakker / Azimut</td>
+
+
+                                <td>1</td>
+
                                <td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -189,19 +185,19 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                              		 		 	
 
-                            <tr>                               	
+
+                            <tr>
  <td class="align-middle">
                                     4
                                 </td>
                                <td>Embarcación</td>
-                                <td>Astillero Rio-Tec Marca RT 460 serie LX A</td>                               
-                                <td>FICH I</td>                               
-                                              
-                                                     
-                                <td>2</td>                               
-                                
+                                <td>Astillero Rio-Tec Marca RT 460 serie LX A</td>
+                                <td>FICH I</td>
+
+
+                                <td>2</td>
+
                             <td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -213,18 +209,18 @@
                                     {% endif %}
                                 </td>
                             </tr>
-		 
-                            <tr>          
+
+                            <tr>
  <td class="align-middle">
                                     5
-                                </td>                     	
+                                </td>
                                <td>Embarcación</td>
-                                <td>Astillero Seamax</td>                               
-                                <td>FICH II</td>                               
-                                      
-                                                 
-                                <td>3</td>                               
-                                
+                                <td>Astillero Seamax</td>
+                                <td>FICH II</td>
+
+
+                                <td>3</td>
+
                               <td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -236,18 +232,18 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            <tr>          
+                            <tr>
 				<td class="align-middle"> 6
-                                   
-                                </td>   
-                   	
+
+                                </td>
+
                                <td>Trailer</td>
-                                <td>-</td>                               
-                                <td>Trailer T1</td>                               
-                                 
-                                                           
-                                <td>2</td>                               
-                                
+                                <td>-</td>
+                                <td>Trailer T1</td>
+
+
+                                <td>2</td>
+
 				<td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -259,17 +255,17 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            <tr>        
+                            <tr>
  <td class="align-middle">
                                   7
-                                </td>                       	
+                                </td>
                                <td>Trailer</td>
-                                <td>-</td>                               
-                                <td>Trailer T2</td>                               
-                              
-                                                          
-                                <td>1</td>                               
-                                
+                                <td>-</td>
+                                <td>Trailer T2</td>
+
+
+                                <td>1</td>
+
                                 <td>
                                       <a class="btn btn-sm btn-primary" href="{#{ path('usuarios_show', { 'id': usuario.id }) }}">
                                             <i class="fa fa-eye"></i>&nbsp;Ver
@@ -281,7 +277,7 @@
                                     {% endif %}
                                 </td>
                             </tr> #}
-                            
+
         </div>
     </div>
 
