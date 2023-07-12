@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use VehiculosBundle\Entity\Reserva;
 use VehiculosBundle\Entity\Vehiculo;
 use VehiculosBundle\Form\VehiculoType;
-
+use VehiculosBundle\Repository\VehiculoRepository;
 
 class VehiculoController extends Controller {
 
@@ -57,7 +57,7 @@ class VehiculoController extends Controller {
             $em->persist($vehiculo);
             $em->flush();
 
-            $this->addFlash('success', 'El Vehiculo fue creado correctamente');
+            $this->addFlash('success', 'El Vehículo fue creado correctamente');
 
             return $this->redirectToRoute('vehiculos_listado');
         } 
@@ -71,7 +71,7 @@ class VehiculoController extends Controller {
         return $this->render('VehiculosBundle:Vehiculo:new.html.twig', array(
                     'vehiculo' => $vehiculo,
                     'form' => $form->createView(),
-                    'page_title' => 'Vehiculos - Nuevo',
+                    'page_title' => 'Vehículos - Nuevo',
         ));
     }
 
@@ -94,7 +94,7 @@ class VehiculoController extends Controller {
             $em->persist($vehiculo);
             $em->flush();
 
-            $this->addFlash('success', ' Vehiculo modificado correctamente.');
+            $this->addFlash('success', ' Vehículo modificado correctamente.');
             return $this->redirectToRoute('vehiculos_show', array('id' => $vehiculo->getId()));
         }
 
@@ -159,23 +159,23 @@ class VehiculoController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-           
-            $em = $this->getDoctrine()->getManager();
-
             //$planificaciones = $em->getRepository(DocenteAdscripto::class)->getPlanificacionesDocente($docenteAdscripto);
+            
             $reservas = $em->getRepository(Vehiculo::class)->getReservasVehiculo($vehiculo);
-
+            
             $c = count($reservas);
 
             if($c>0){
-                $this->addFlash('error', 'No se pudo borrar el vehiculo porque esta siendo utilizado en ' . $c . ' planificacion(es).');
-                return $this->redirectToRoute('vehiculos_show', array('id' => $vehiculo->getId()));
+                 //baja logica
+                $vehiculo->setFechaBaja(new \DateTime());
+                $em->flush();
+                $this->addFlash('Aviso', 'El vehículo esta siendo utilizado en ' . $c . ' reserva(s). Se realizó una baja lógica');
+                //return $this->redirectToRoute('vehiculos_show', array('id' => $vehiculo->getId()));
             }else{
                 $em->remove($vehiculo);
                 $em->flush();
-                $this->addFlash('success', 'El vehiculo fue dado de baja correctamente.');
-            }
-     
+                $this->addFlash('success', 'El vehículo fue dado de baja correctamente.');
+            }     
 
           //      $this->addFlash('warning', 'El vehículo fue dado de baja correctamente (baja lógica).');
                    

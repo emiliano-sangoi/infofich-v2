@@ -2,6 +2,7 @@
 
 namespace VehiculosBundle\Controller;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use VehiculosBundle\Entity\TipoVehiculo;
@@ -61,14 +62,20 @@ class TipoVehiculoController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
+            try{
+                $em = $this->getDoctrine()->getManager();          
 
-            $em->persist($tipoVehiculo);
-            $em->flush();
+                $em->persist($tipoVehiculo);
+                $em->flush();
 
-            $this->addFlash('success', 'El tipo fue creado correctamente');
+                $this->addFlash('success', 'El tipo fue creado correctamente');
 
-            return $this->redirectToRoute('tipo_vehiculos_show', array('id' => $tipoVehiculo->getId()));
+                return $this->redirectToRoute('tipo_vehiculos_show', array('id' => $tipoVehiculo->getId()));
+
+            } catch (UniqueConstraintViolationException $ex) {
+                $this->addFlash('error', 'Ocurrió un error al intentar crear un nuevo Tipo de Vehículo. Nombre de Tipo de Vehículo duplicado.');
+            }
+            
 
         }
         // Breadcrumbs
@@ -165,6 +172,7 @@ class TipoVehiculoController extends Controller {
             if($vehiculo){
                 //baja logica
                 $tipoVehiculo->setFechaBaja(new \DateTime());
+                
             }else{
                 $em->remove($tipoVehiculo);
             }

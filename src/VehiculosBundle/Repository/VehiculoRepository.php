@@ -17,17 +17,17 @@ class VehiculoRepository extends \Doctrine\ORM\EntityRepository
      * @param Vehiculo $vehiculo
      * @return array
      */
-    public function getReservasVehiculo(Vehiculo $vehiculo){
-
+    public function getReservasVehiculo(\VehiculosBundle\Entity\Vehiculo $vehiculo){
+        //llego aca
         $repo = $this->getEntityManager()->getRepository(ReservaVehiculos::class);
-
+        //llego aca
         $qb = $repo->createQueryBuilder('rv');
         $qb->select('rv');
         $qb->join('rv.reserva', 'r');
         $qb->join('rv.vehiculo', 'v');
         $qb->where($qb->expr()->eq('v.id', ':v_id'));
         $qb->setParameter(':v_id', $vehiculo->getId());
-
+        
         return $qb->getQuery()->getResult();
 
     }
