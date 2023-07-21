@@ -53,18 +53,37 @@ class ReservaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            //Si 
+            // la fecha de inicio es <= fecha de Fin anterior. y 
+            // la fecha de inicio es >= fecha Inicio anterior.
+
+
+            //SELECT * from vehiculo_reserva WHERE DATE(fecha_fin) >= '2023-09-26' AND DATE(fecha_inicio) <= '2023-09-26' 
+            //SELECT r FROM VehiculosBundle\Entity\Reserva r WHERE 'DATE(r.fecha_fin)' >= :fechaInicioReserva AND 'DATE(r.fecha_inicio)' <= :fechaInicioReserva
             $em = $this->getDoctrine()->getManager();
             //Consulta si el vehiculo esta reservado para la fecha que eligio
-            $fechaInicioReserva = $reserva->getFechaInicio();
-
+            $fechaInicioReserva = $reserva->getFechaInicio();            
             $repository = $em->getRepository(Reserva::class);
+              
+            //Con qb 
             $qb = $repository->createQueryBuilder('r');
+            //gte crea una expresión que verifica si el valor de r.fecha_fin es mayor o igual al valor vinculado :fechaInicioReserva.
+            // lte Crear una expresión de menor o igual comparando las fechas
+            // Crear una expresión para extraer solo la parte de la fecha de r.fecha_fin
+            $fechaFinExpression = $qb->expr()->literal('DATE(r.fecha_fin)');
+            $fechaInicioExpression = $qb->expr()->literal('DATE(r.fecha_inicio)');
 
-            $qb->where($qb->expr()->eq('r.fechaInicio', ':fechaInicio'))
-                ->setParameter('fechaInicio', $fechaInicioReserva);
+            //24/08/2023 fechaFinExpression es mayor o igual fechaInicioReserva que 23/08/2023 y
+            //23/08/2023 fechaInicioReserva es menor o igual fechaInicioReserva que 23/08/2023 
+   
+            $qb->where($qb->expr()->gte($fechaFinExpression, ':fechaInicioReserva'))
+            ->andWhere($qb->expr()->lte($fechaInicioExpression, ':fechaInicioReserva'))
+            ->setParameter('fechaInicioReserva', $fechaInicioReserva->format('Y-m-d'));
 
             $resultados = $qb->getQuery()->getResult();
-
+            $querySQL = $qb->getDQL();
+            //SELECT * FROM vehiculo_reserva r WHERE DATE(r.fecha_fin) >= '2023-07-26' AND DATE(r.fecha_inicio) <= '2023-07-26' 
+            //var_dump($querySQL);exit;
             if (!empty($resultados)) {
                 $this->addFlash('warning', 'El vehiculo no se encuentra disponible en esa fecha.');
                 return $this->redirectToRoute('reservas_new');
