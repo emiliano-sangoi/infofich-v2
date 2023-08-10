@@ -28,7 +28,11 @@
                 {{ input_datetime_picker(form.fechaBaja, 'fecha_baja_picker', true ) }}
             </div>
         {% endif %}
-
+        <div class="col-12 col-md-3">
+            {{ form_label(form.visible) }}
+            {{ form_widget(form.visible) }}
+            {{ form_errors(form.visible) }}
+        </div>
         
     </div>
     <div class="form-row">

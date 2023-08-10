@@ -138,6 +138,17 @@ class VehiculoType extends AbstractType {
             'attr' => array('class' => 'form-control'),
         ));
 
+        $builder->add('visible', ChoiceType::class, array(
+            'choices' => array(
+                'Si' => true,
+                'No' => false
+            ),
+            'label_attr' => array('class' => 'font-weight-bold'),
+            'required' => true,
+            'choices_as_values' => true,
+            'attr' => array('class' => 'form-control'),
+        ));
+
 
     }
 

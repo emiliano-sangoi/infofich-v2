@@ -96,6 +96,13 @@ class Vehiculo
      */
     protected $habilitado;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
+     */
+    protected $visible;
+
 
     /**
      * @var ArrayCollection
@@ -393,9 +400,29 @@ class Vehiculo
         return $this;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param bool $visible
+     * @return Vehiculo
+     */
+    public function setVisible(bool $visible)
+    {
+        $this->visible = $visible;
+        return $this;
+    }
+
     public function __construct()
     {
         $this->habilitado = true;
+        $this->visible = true;
         $this->reservaVehiculos = new ArrayCollection();
     }
 

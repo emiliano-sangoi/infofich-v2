@@ -68,6 +68,9 @@
                                 <th class="text-center" style="width: 18%">
                                     {{ knp_pagination_sortable(vehiculos, 'Habilitado', 'v.habilitado') }}
                                 </th>
+                                <th class="text-center" style="width: 18%">
+                                    {{ knp_pagination_sortable(vehiculos, 'Visible', 'v.visible') }}
+                                </th>
                                 <th class="" style="width: 12%">
                                     Acciones
                                 </th>
@@ -94,6 +97,15 @@
                                     <td class="align-middle text-center">
                                         <span class="font-weight-bold">
                                         {%if vehiculo.habilitado %}
+                                            <span class="text-success">Si</span>
+                                        {% else %}
+                                            <span class="text-danger">No</span>
+                                        {% endif %}
+                                        </span>
+                                    </td>
+                                      <td class="align-middle text-center">
+                                        <span class="font-weight-bold">
+                                        {%if vehiculo.visible %}
                                             <span class="text-success">Si</span>
                                         {% else %}
                                             <span class="text-danger">No</span>
