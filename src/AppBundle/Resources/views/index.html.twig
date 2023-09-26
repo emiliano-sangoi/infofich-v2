@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-
 {% set full_width = false %}
 
 {% block navbar2 %}
@@ -67,8 +66,10 @@
 
                 
                 {#  VEHICULOS ================================================================================================ #}
-                {#% if perm_usuario_listar %#}
-
+                {#% if perm_vehiculos_listar %#}
+                {# TODO agregar el permiso por ahora solo este if para mostrar el modulo a Seba #}
+                {% if  app.user.tieneRol(constant('AppBundle\\Entity\\Rol::ROLE_SEC_INFRAESTRUCTURA')) %}
+                
                     {% 
                         set attrs = {
                             'title' : 'Vehículos',
@@ -81,7 +82,7 @@
                             <i class="fa fa-car fa-5x"></i>
                         {% endblock %}
                     {% endembed %}   
-                {#% endif %#}
+                {% endif %}
 
                 {#  VEHICULOS ================================================================================================ #}
 {#                 {% if perm_rol_listar %}#}
